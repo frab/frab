@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  event_id: 1
+  person_id: 1
+  event_role: MyString
+  role_state: MyString
+  comment: MyString
+
+two:
+  event_id: 1
+  person_id: 1
+  event_role: MyString
+  role_state: MyString
+  comment: MyString

@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  acronym: MyString
+  title: MyString
+  timeslot_duration: 1
+  default_timeslots: 1
+  max_timeslots: 1
+  first_day: 2011-01-25
+  last_day: 2011-01-25
+
+two:
+  acronym: MyString
+  title: MyString
+  timeslot_duration: 1
+  default_timeslots: 1
+  max_timeslots: 1
+  first_day: 2011-01-25
+  last_day: 2011-01-25
