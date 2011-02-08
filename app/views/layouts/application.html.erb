@@ -9,7 +9,13 @@
 <body>
   <div id="container">
     <div id="header">
-      <h1><a href="/">Web App</a></h1>
+      <h1>
+        <% if @conference %>
+          <%= link_to @conference.title, root_path %>
+        <% else %>
+          <%= link_to "Welcome to nab", root_path %>
+        <% end %>
+      </h1>
       <div id="user-navigation">
         <ul class="wat-cf">
           <li><a href="#"><%= t("web-app-theme.profile", :default => "Profile") %></a></li>
