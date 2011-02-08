@@ -1,4 +1,7 @@
 class ConferencesController < ApplicationController
+
+  before_filter :authenticate_user!
+  
   # GET /conferences
   # GET /conferences.xml
   def index
@@ -25,6 +28,7 @@ class ConferencesController < ApplicationController
   # GET /conferences/new.xml
   def new
     @conference = Conference.new
+    @first = true if Conference.count == 0
 
     respond_to do |format|
       format.html # new.html.erb

@@ -1,5 +1,7 @@
+<% if @first %>
+<h1>Create your first conference</h1>
+<% else %>
 <h1>New conference</h1>
+<% end %>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', conferences_path %>
+<%= render "form" %>

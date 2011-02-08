@@ -12,8 +12,8 @@ Feature: Initial setup with no conference
   Scenario: Create the first conference
     Given I am a new, authenticated user
     When I go to the home page
-      And I fill in "acronym" with "froscon3000"
-      And I fill in "title" with "FrOSCon"
-      And I press "Save Conference"
+      And I fill in "Acronym" with "froscon3000"
+      And I fill in "Title" with "FrOSCon"
+      And I press "Create Conference"
     Then I should see "Conference created successfully"
 
