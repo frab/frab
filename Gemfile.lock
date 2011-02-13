@@ -64,6 +64,10 @@ GEM
     fastthread (1.0.7)
     ffi (0.6.3)
       rake (>= 0.8.7)
+    formtastic (1.2.3)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      i18n (~> 0.4)
     gem_plugin (0.2.3)
     gherkin (2.3.2)
       json (~> 1.4.6)
@@ -140,6 +144,7 @@ DEPENDENCIES
   capybara
   cucumber-rails
   devise
+  formtastic
   gravatar-ultimate
   jquery-rails
   mongrel

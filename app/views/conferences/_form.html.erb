@@ -1,4 +1,4 @@
-<%= form_for(@conference) do |f| %>
+<%= semantic_form_for(@conference) do |f| %>
   <% if @conference.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@conference.errors.count, "error") %> prohibited this conference from being saved:</h2>
@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.inputs :acronym, :title, :first_day, :last_day %>
+  <%= f.buttons %>
+
 <% end %>
