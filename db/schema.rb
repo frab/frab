@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20110128112912) do
   create_table "events", :force => true do |t|
     t.integer  "conference_id",                              :null => false
     t.string   "title",                                      :null => false
-    t.string   "subtitle",                                   :null => false
+    t.string   "subtitle"
     t.string   "event_type",        :default => "talk"
     t.integer  "time_slots"
     t.string   "state",             :default => "undecided", :null => false

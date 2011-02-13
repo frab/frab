@@ -95,6 +95,7 @@ GEM
     paperclip (2.3.8)
       activerecord
       activesupport
+    pg (0.8.0)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -149,6 +150,7 @@ DEPENDENCIES
   jquery-rails
   mongrel
   paperclip
+  pg
   rails (= 3.0.3)
   sqlite3-ruby
   web-app-theme

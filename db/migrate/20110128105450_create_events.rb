@@ -3,7 +3,7 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.integer :conference_id, :null => false
       t.string :title, :null => false
-      t.string :subtitle, :null => false
+      t.string :subtitle
       t.string :event_type, :default => "talk"
       t.integer :time_slots
       t.string :state, :null => false, :default => "undecided"

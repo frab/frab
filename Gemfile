@@ -45,4 +45,5 @@ end
 
 group :development do
   gem 'mongrel'
+  gem 'pg'
 end
