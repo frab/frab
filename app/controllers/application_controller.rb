@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_conference
-    if params[:conference_id]
-      @conference = Conference.find(params[:conference_id])
+    if params[:conference_acronym]
+      @conference = Conference.find_by_acronym(params[:conference_acronym])
     elsif Conference.count > 0
       @conference = Conference.last
     end

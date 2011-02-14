@@ -18,7 +18,14 @@
       </h1>
       <div id="user-navigation">
         <ul class="wat-cf">
-          <li><a href="#"><%= t("web-app-theme.profile", :default => "Profile") %></a></li>
+          <li>
+            <%= link_to_function t("switch_conference", :default => "Switch Conference"), "$('#conf-switch').toggle();" %>
+            <div id="conf-switch" style="position:absolute; background: #262626; z-index: 10; display:none;">
+              <% Conference.all.each do |conference| %>
+                <%= link_to conference.acronym, root_path(:conference_acronym => conference.acronym) %> <br />
+              <% end %>
+            </div>
+          </li>
           <li><a href="#"><%= t("web-app-theme.settings", :default => "Settings") %></a></li>
           <li><a href="/logout" class="logout"><%= t("web-app-theme.logout", :default => "Logout") %></a></li>
         </ul>
