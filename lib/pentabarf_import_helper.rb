@@ -1,4 +1,6 @@
 class PentabarfImportHelper
+    
+  FILE_TYPES = { "image/jpeg" => "jpg", "image/png" => "png", "image/gif" => "gif" }
 
   class Pentabarf < ActiveRecord::Base
     self.establish_connection(:pentabarf)
@@ -36,6 +38,8 @@ class PentabarfImportHelper
     @people_mapping = Hash.new
     people.each do |person|
       abstract, description = @barf.select_values("SELECT abstract, description FROM conference_person WHERE person_id = #{person["person_id"]} ORDER BY conference_person_id DESC")
+      image = @barf.select_one("SELECT * FROM person_image WHERE person_id = #{person["person_id"]}")
+      image_file = image_to_file(image, "person_id")
       new_person = Person.create!(
         :first_name => person["first_name"] ? person["first_name"] : "unknown",
         :last_name => person["last_name"] ? person["last_name"] : "unknown",
@@ -43,8 +47,10 @@ class PentabarfImportHelper
         :email => person["email"] ? person["email"] : "unknown",
         :gender => person["gender"] ? "male" : "female",
         :abstract => abstract,
-        :description => description
+        :description => description,
+        :avatar => image_file
       )
+      remove_image(image_file)
       @people_mapping[person["person_id"]] = new_person.id
     end
   end
@@ -53,6 +59,8 @@ class PentabarfImportHelper
     events = @barf.select_all("SELECT * FROM event")
     @event_mapping = Hash.new
     events.each do |event|
+      image = @barf.select_one("SELECT * FROM event_image WHERE event_id = #{event["event_id"]}")
+      image_file = image_to_file(image, "event_id")
       new_event = Event.create!(
         :conference_id => @conference_mapping[event["conference_id"]],
         :title => event["title"],
@@ -68,8 +76,10 @@ class PentabarfImportHelper
         :start_time => event["start_time"],
         :abstract => event["abstract"],
         :description => event["description"],
-        :public => event["public"]
+        :public => event["public"],
+        :logo => image_file
       )
+      remove_image(image_file)
       @event_mapping[event["event_id"]] = new_event.id
     end
   end
@@ -87,4 +97,24 @@ class PentabarfImportHelper
     end
   end
 
+  private
+
+  def image_to_file(image, id_column)
+    if image
+      file_name = "tmp/#{image[id_column]}.#{FILE_TYPES[image["mime_type"]]}"
+      file = File.new(file_name, "w")
+      file.write(image["image"])
+      file.close
+      file = File.open(file_name, "r")
+      return file
+    end
+    return nil
+  end
+
+  def remove_image(file)
+    if file
+      file.close
+      File.unlink(file.path)
+    end
+  end
 end

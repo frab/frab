@@ -15,7 +15,7 @@
 
       <% @people.each do |person| %>
         <tr>
-          <td></td>
+          <td><%= image_tag person.avatar.url(:small) %></td>
           <td><%= person.first_name %></td>
           <td><%= person.last_name %></td>
           <td><%= person.public_name %></td>

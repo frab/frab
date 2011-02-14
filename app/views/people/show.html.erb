@@ -47,3 +47,9 @@
     <% end %>
   <% end %>
 <% end %>
+
+<% content_for :sidebar do %>
+  <%= block do %>
+    <%= image_tag @person.avatar.url(:large) %>
+  <% end %>
+<% end %>
