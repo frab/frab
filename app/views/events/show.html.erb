@@ -1,0 +1,64 @@
+<%= block do %>
+  <%= content do %>
+    <%= inner do %>
+      <p>
+        <b>Title:</b>
+        <%= @event.title %>
+      </p>
+
+      <p>
+        <b>Subtitle:</b>
+        <%= @event.subtitle %>
+      </p>
+
+      <p>
+        <b>Event type:</b>
+        <%= @event.event_type %>
+      </p>
+
+      <p>
+        <b>Time slots:</b>
+        <%= @event.time_slots %>
+      </p>
+
+      <p>
+        <b>State:</b>
+        <%= @event.state %>
+      </p>
+
+      <p>
+        <b>Progress:</b>
+        <%= @event.progress %>
+      </p>
+
+      <p>
+        <b>Language:</b>
+        <%= @event.language %>
+      </p>
+
+      <p>
+        <b>Start time:</b>
+        <%= @event.start_time %>
+      </p>
+
+      <p>
+        <b>Abstract:</b>
+        <%= @event.abstract %>
+      </p>
+
+      <p>
+        <b>Description:</b>
+        <%= @event.description %>
+      </p>
+
+      <p>
+        <b>Public:</b>
+        <%= @event.public %>
+      </p>
+
+
+      <%= link_to 'Edit', edit_event_path(@event) %> |
+      <%= link_to 'Back', events_path %>
+    <% end %>
+  <% end %>
+<% end %>

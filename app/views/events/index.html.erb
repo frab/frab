@@ -1,0 +1,44 @@
+<%= block do %>
+  <%= content do %>
+    <h2>Listing events</h2>
+
+    <%= inner do %>
+
+      <table class="table">
+        <tr>
+          <th class="first"></th>
+          <th>Title</th>
+          <th>Subtitle</th>
+          <th>Event type</th>
+          <th>State</th>
+          <th>Progress</th>
+          <th class="last"></th>
+        </tr>
+
+      <% @events.each do |event| %>
+        <tr>
+          <td></td>
+          <td><%= event.title %></td>
+          <td><%= event.subtitle %></td>
+          <td><%= event.event_type %></td>
+          <td><%= event.state %></td>
+          <td><%= event.progress %></td>
+          <td class="last">
+            <%= link_to 'Show', event %> |
+            <%= link_to 'Edit', edit_event_path(event) %> |
+            <%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+
+      <%= actions_bar do %>
+        <%= will_paginate @events %>
+      <% end %>
+
+      <br />
+
+      <%= link_to 'New Event', new_event_path %>
+    <% end %>
+  <% end %>
+<% end %>
