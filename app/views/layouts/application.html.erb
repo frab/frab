@@ -10,7 +10,7 @@
   <div id="container">
     <div id="header">
       <h1>
-        <% if params[:conference_id] %>
+        <% if params[:conference_acronym] %>
           <%= link_to @conference.title, root_path %>
         <% else %>
           <%= link_to "Welcome to nab", root_path %>
