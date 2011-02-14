@@ -1,4 +1,7 @@
 class PeopleController < ApplicationController
+
+  before_filter :authenticate_user!
+  
   # GET /people
   # GET /people.xml
   def index
