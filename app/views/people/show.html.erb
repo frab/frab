@@ -1,45 +1,49 @@
-<p id="notice"><%= notice %></p>
+<%= block do %>
+  <%= content do %>
+    <%= inner do %>
+      <p>
+        <b>First name:</b>
+        <%= @person.first_name %>
+      </p>
 
-<p>
-  <b>First name:</b>
-  <%= @person.first_name %>
-</p>
+      <p>
+        <b>Last name:</b>
+        <%= @person.last_name %>
+      </p>
 
-<p>
-  <b>Last name:</b>
-  <%= @person.last_name %>
-</p>
+      <p>
+        <b>Public name:</b>
+        <%= @person.public_name %>
+      </p>
 
-<p>
-  <b>Public name:</b>
-  <%= @person.public_name %>
-</p>
+      <p>
+        <b>Email:</b>
+        <%= @person.email %>
+      </p>
 
-<p>
-  <b>Email:</b>
-  <%= @person.email %>
-</p>
+      <p>
+        <b>Email public:</b>
+        <%= @person.email_public %>
+      </p>
 
-<p>
-  <b>Email public:</b>
-  <%= @person.email_public %>
-</p>
+      <p>
+        <b>Gender:</b>
+        <%= @person.gender %>
+      </p>
 
-<p>
-  <b>Gender:</b>
-  <%= @person.gender %>
-</p>
+      <p>
+        <b>Abstract:</b>
+        <%= @person.abstract %>
+      </p>
 
-<p>
-  <b>Abstract:</b>
-  <%= @person.abstract %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @person.description %>
-</p>
+      <p>
+        <b>Description:</b>
+        <%= @person.description %>
+      </p>
 
 
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+      <%= link_to 'Edit', edit_person_path(@person) %> |
+      <%= link_to 'Back', people_path %>
+    <% end %>
+  <% end %>
+<% end %>

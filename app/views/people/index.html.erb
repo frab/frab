@@ -1,37 +1,40 @@
-<h1>Listing people</h1>
+<%= block do %>
+  <%= content do %>
+    <h2>Listing people</h2>
 
-<table>
-  <tr>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Public name</th>
-    <th>Email</th>
-    <th>Email public</th>
-    <th>Gender</th>
-    <th>Abstract</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <%= inner do %>
+      <table class="table">
+        <tr>
+          <th class="first"></th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Public name</th>
+          <th>Email</th>
+          <th class="last"></th>
+        </tr>
 
-<% @people.each do |person| %>
-  <tr>
-    <td><%= person.first_name %></td>
-    <td><%= person.last_name %></td>
-    <td><%= person.public_name %></td>
-    <td><%= person.email %></td>
-    <td><%= person.email_public %></td>
-    <td><%= person.gender %></td>
-    <td><%= person.abstract %></td>
-    <td><%= person.description %></td>
-    <td><%= link_to 'Show', person %></td>
-    <td><%= link_to 'Edit', edit_person_path(person) %></td>
-    <td><%= link_to 'Destroy', person, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+      <% @people.each do |person| %>
+        <tr>
+          <td></td>
+          <td><%= person.first_name %></td>
+          <td><%= person.last_name %></td>
+          <td><%= person.public_name %></td>
+          <td><%= person.email %></td>
+          <td class="last">
+            <%= link_to 'Show', person %> |
+            <%= link_to 'Edit', edit_person_path(person) %> |
+            <%= link_to 'Destroy', person, :confirm => 'Are you sure?', :method => :delete %>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+      <%= actions_bar do %>
+        <%= will_paginate @people %>
+      <% end %>
+
+      <br />
+
+      <%= link_to 'New Person', new_person_path %>
+    <% end %>
+  <% end %>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Person', new_person_path %>

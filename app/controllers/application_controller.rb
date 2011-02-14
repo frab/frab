@@ -6,7 +6,15 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_conference
-    @conference = Conference.find(params[:conference_id]) if params[:conference_id]
+    if params[:conference_id]
+      @conference = Conference.find(params[:conference_id])
+    elsif Conference.count > 0
+      @conference = Conference.last
+    end
+  end
+
+  def default_url_options
+    {:conference_acronym => @conference.acronym} if @conference
   end
 
 end
