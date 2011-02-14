@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     elsif Conference.count > 0
       @conference = Conference.last
     end
+    Time.zone = @conference.timezone if @conference
   end
 
   def default_url_options
