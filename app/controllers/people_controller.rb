@@ -5,7 +5,11 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.xml
   def index
-    @people = Person.paginate :page => params[:page]
+    if params[:term]
+      @people = Person.with_query(params[:term]).paginate :page => params[:page]
+    else
+      @people = Person.paginate :page => params[:page]
+    end
 
     respond_to do |format|
       format.html # index.html.erb

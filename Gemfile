@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,6 +14,7 @@ gem 'paperclip'
 gem 'gravatar-ultimate'
 gem 'formtastic'
 gem 'jquery-rails'
+gem 'acts_as_indexed'
 
 # Use unicorn as the web server
 # gem 'unicorn'

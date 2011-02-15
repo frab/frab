@@ -3,6 +3,8 @@
     <h2>Listing people</h2>
 
     <%= inner do %>
+      <%= render :partial => 'shared/simple_search', :locals => {:path => people_path} %>
+      
       <table class="table">
         <tr>
           <th class="first"></th>

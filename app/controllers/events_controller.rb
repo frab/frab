@@ -5,7 +5,11 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    @events = @conference.events.paginate :page => params[:page]
+    if params[:term]
+      @events = @conference.events.with_query(params[:term]).paginate :page => params[:page]
+    else
+      @events = @conference.events.paginate :page => params[:page]
+    end
 
     respond_to do |format|
       format.html # index.html.erb

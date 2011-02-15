@@ -13,4 +13,6 @@ class Person < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 
+  acts_as_indexed :fields => [:first_name, :last_name, :public_name, :email, :abstract, :description]
+
 end

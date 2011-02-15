@@ -9,4 +9,7 @@ class Event < ActiveRecord::Base
     :default_url => "/images/event_:style.png"
 
   validates_attachment_content_type :logo, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
+
+  acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description]
+
 end

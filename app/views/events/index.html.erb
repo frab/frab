@@ -3,6 +3,7 @@
     <h2>Listing events</h2>
 
     <%= inner do %>
+      <%= render :partial => 'shared/simple_search', :locals => {:path => events_path} %>
 
       <table class="table">
         <tr>
