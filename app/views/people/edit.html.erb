@@ -1,6 +1,12 @@
-<h1>Editing person</h1>
+<%= block do %>
+  <%= content do %>
+    <h2>Editing person</h2>
 
-<%= render 'form' %>
+    <%= inner do %>
+      <%= render 'form' %>
 
-<%= link_to 'Show', @person %> |
-<%= link_to 'Back', people_path %>
+      <%= link_to 'Show', @person %> |
+      <%= link_to 'Back', people_path %>
+    <% end %>
+  <% end %>
+<% end %>

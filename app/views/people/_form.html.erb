@@ -1,49 +1,38 @@
-<%= form_for(@person) do |f| %>
-  <% if @person.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+<%= semantic_form_for(@person) do |f| %>
 
-      <ul>
-      <% @person.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <%= f.inputs :name => "Basic" do %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :public_name %>
+    <%= f.input :gender, :collection => Person::GENDERS %>
+  <% end %>
+
+  <%= f.inputs :name => "Contact Data" do %>
+    <%= f.input :email %>
+    <%= f.input :email_public %>
+    
+    <div id="phone_numbers">
+      <%= f.semantic_fields_for :phone_numbers do |phone| %>
+        <%= render :partial => 'phone_number_fields', :locals => {:f => phone} %>
       <% end %>
-      </ul>
+      <%= link_to_add_association "add phone number", f, :phone_numbers %>
+    </div>
+
+    <div id="im_accounts">
+      <%= f.semantic_fields_for :im_accounts do |account| %>
+        <%= render :partial => 'im_account_fields', :locals => {:f => account} %>
+      <% end %>
+      <%= link_to_add_association "add IM account", f, :im_accounts %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :public_name %><br />
-    <%= f.text_field :public_name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :email_public %><br />
-    <%= f.check_box :email_public %>
-  </div>
-  <div class="field">
-    <%= f.label :gender %><br />
-    <%= f.text_field :gender %>
-  </div>
-  <div class="field">
-    <%= f.label :abstract %><br />
-    <%= f.text_area :abstract %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.inputs :name => "Bio" do %>
+    <%= f.input :abstract, :input_html => {:rows => 4} %>
+    <%= f.input :description %>
+  <% end %>
+  
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+
 <% end %>

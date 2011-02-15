@@ -15,6 +15,7 @@ gem 'gravatar-ultimate'
 gem 'formtastic'
 gem 'jquery-rails'
 gem 'acts_as_indexed'
+gem 'cocoon'
 
 # Use unicorn as the web server
 # gem 'unicorn'
