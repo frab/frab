@@ -1,0 +1,15 @@
+.image {
+  display: table-cell;
+  border: 1px solid #262626;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.image.small {
+  width: 35px;
+  height: 35px;
+}
+
+.image img {
+  vertical-align: middle;
+}

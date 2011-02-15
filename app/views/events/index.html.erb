@@ -17,7 +17,7 @@
 
       <% @events.each do |event| %>
         <tr>
-          <td><%= image_tag event.logo.url(:small) %></td>
+          <td><%= image_box event.logo, :small %></td>
           <td><%= event.title %></td>
           <td><%= event.subtitle %></td>
           <td><%= event.event_type %></td>

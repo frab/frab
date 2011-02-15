@@ -7,7 +7,9 @@ class Person < ActiveRecord::Base
 
   belongs_to :user
 
-  has_attached_file :avatar, :styles => {:tiny => "16x16>", :small => "32x32>", :large => "128x128>"}, :whiny => true
+  has_attached_file :avatar, 
+    :styles => {:tiny => "16x16>", :small => "32x32>", :large => "128x128>"},
+    :default_url => "/images/person_:style.png"
 
   validates_attachment_content_type :avatar, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 
