@@ -43,7 +43,6 @@ GEM
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
     celerity (0.8.5)
-    cgi_multipart_eof_fix (2.5.0)
     childprocess (0.1.4)
       ffi (~> 0.6.3)
     cocoon (1.0.0)
@@ -56,21 +55,18 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     culerity (0.2.12)
-    daemons (1.1.0)
     devise (1.1.5)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 1.0.2)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    fastthread (1.0.7)
     ffi (0.6.3)
       rake (>= 0.8.7)
     formtastic (1.2.3)
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
-    gem_plugin (0.2.3)
     gherkin (2.3.2)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
@@ -88,11 +84,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mongrel (1.1.5)
-      cgi_multipart_eof_fix (>= 2.4)
-      daemons (>= 1.0.3)
-      fastthread (>= 1.0.1)
-      gem_plugin (>= 0.2.3)
     nokogiri (1.4.4)
     paperclip (2.3.8)
       activerecord
@@ -152,7 +143,6 @@ DEPENDENCIES
   formtastic
   gravatar-ultimate
   jquery-rails
-  mongrel
   paperclip
   pg
   rails (= 3.0.4)
