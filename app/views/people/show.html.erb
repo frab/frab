@@ -1,6 +1,7 @@
 <%= block do %>
   <%= content do %>
     <%= inner do %>
+      <h3>Basic information</h3>
       <p>
         <b>First name:</b>
         <%= @person.first_name %>
@@ -17,30 +18,52 @@
       </p>
 
       <p>
-        <b>Email:</b>
-        <%= @person.email %>
-      </p>
-
-      <p>
-        <b>Email public:</b>
-        <%= @person.email_public %>
-      </p>
-
-      <p>
         <b>Gender:</b>
         <%= @person.gender %>
       </p>
 
+      <h3>Contact information</h3>
+      <p>
+        <b>Email:</b>
+        <%= mail_to @person.email %> (<%= @person.email_public ? "public" : "non-public" %>)
+      </p>
+
+      <% @person.phone_numbers.each do |phone_number| %>
+      <p>
+        <b>Phone number (<%= phone_number.phone_type %>):</b>
+        <%= phone_number.phone_number %>
+      </p>
+      <% end %>
+
+      <% @person.im_accounts.each do |im_account| %>
+      <p>
+        <b><%= im_account.im_type %>:</b>
+        <%= im_account.im_address %>
+      </p>
+      <% end %>
+      
+      <h3>Bio</h3>
       <p>
         <b>Abstract:</b>
-        <%= @person.abstract %>
+        <%= simple_format @person.abstract %>
       </p>
 
       <p>
         <b>Description:</b>
-        <%= @person.description %>
+        <%= simple_format @person.description %>
       </p>
 
+      <% unless @current_events.empty? %>
+      <h3>Events in current conference</h3>
+
+      <%= render "events/events_table", :events => @current_events %>
+      <% end %>
+
+      <% unless @other_events.empty? %>
+      <h3>Events in other conferences</h3>
+
+      <%= render "events/events_table", :events => @other_events %>
+      <% end %>
 
       <%= link_to 'Edit', edit_person_path(@person) %> |
       <%= link_to 'Back', people_path %>
