@@ -12,7 +12,7 @@ class PentabarfImportHelper
 
   def import_conferences
     conferences = @barf.select_all("SELECT * FROM conference")
-    @conference_mapping = Hash.new
+    conference_mapping = create_mappings(:conferences) 
     conferences.each do |conference|
       first_day = @barf.select_value("SELECT conference_day FROM conference_day WHERE conference_id = #{conference["conference_id"]} ORDER BY conference_day ASC LIMIT 1")
       last_day = @barf.select_value("SELECT conference_day FROM conference_day WHERE conference_id = #{conference["conference_id"]} ORDER BY conference_day DESC LIMIT 1")
@@ -29,13 +29,14 @@ class PentabarfImportHelper
         :first_day => first_day,
         :last_day => last_day
       )
-      @conference_mapping[conference["conference_id"]] = new_conference.id
+      conference_mapping[conference["conference_id"]] = new_conference.id
     end
+    save_mappings(:conferences)
   end
 
   def import_people
     people = @barf.select_all("SELECT * FROM person")
-    @people_mapping = Hash.new
+    people_mapping = create_mappings(:people) 
     people.each do |person|
       abstract, description = @barf.select_values("SELECT abstract, description FROM conference_person WHERE person_id = #{person["person_id"]} ORDER BY conference_person_id DESC")
       image = @barf.select_one("SELECT * FROM person_image WHERE person_id = #{person["person_id"]}")
@@ -51,18 +52,19 @@ class PentabarfImportHelper
         :avatar => image_file
       )
       remove_image(image_file)
-      @people_mapping[person["person_id"]] = new_person.id
+      people_mapping[person["person_id"]] = new_person.id
     end
+    save_mappings(:people)
   end
 
   def import_events
     events = @barf.select_all("SELECT * FROM event")
-    @event_mapping = Hash.new
+    event_mapping = create_mappings(:events) 
     events.each do |event|
       image = @barf.select_one("SELECT * FROM event_image WHERE event_id = #{event["event_id"]}")
       image_file = image_to_file(image, "event_id")
       new_event = Event.create!(
-        :conference_id => @conference_mapping[event["conference_id"]],
+        :conference_id => mappings(:conferences)[event["conference_id"]],
         :title => event["title"],
         :subtitle => event["subtitle"],
         :event_type => event["event_type"],
@@ -80,16 +82,17 @@ class PentabarfImportHelper
         :logo => image_file
       )
       remove_image(image_file)
-      @event_mapping[event["event_id"]] = new_event.id
+      event_mapping[event["event_id"]] = new_event.id
     end
+    save_mappings(:events)
   end
 
   def import_event_people
     event_people = @barf.select_all("SELECT * FROM event_person")
     event_people.each do |event_person|
       EventPerson.create!(
-        :event_id => @event_mapping[event_person["event_id"]],
-        :person_id => @people_mapping[event_person["person_id"]],
+        :event_id => mappings(:events)[event_person["event_id"]],
+        :person_id => mappings(:people)[event_person["person_id"]],
         :event_role => event_person["event_role"],
         :role_state => event_person["event_role_state"],
         :comment => event_person["remark"]
@@ -114,5 +117,30 @@ class PentabarfImportHelper
       file.close
       File.unlink(file.path)
     end
+  end
+  
+  def mappings(name)
+    @mappings = Hash.new unless @mappings
+    if !@mappings[name] and File.exist?(mappings_file(name))
+      @mappings[name] = YAML.load_file(mappings_file(name))
+    elsif !@mappings[name]
+      raise "No mappings to load. Please run a full import."
+    end
+    return @mappings[name] if @mappings[name]
+  end
+
+  def create_mappings(name)
+    @mappings = Hash.new unless @mappings
+    @mappings[name] = Hash.new
+  end
+
+  def save_mappings(name)
+    if @mappings and @mappings[name]
+      File.open(mappings_file(name), "w") {|f| YAML.dump(@mappings[name], f)}
+    end
+  end
+
+  def mappings_file(name)
+    File.join(RAILS_ROOT, "tmp", "#{name}_mappings.yml")
   end
 end
