@@ -6,8 +6,13 @@
 }
 
 .image.small {
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
+}
+
+.image.large {
+  width: 132px;
+  height: 132px;
 }
 
 .image img {

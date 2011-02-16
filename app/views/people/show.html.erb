@@ -50,6 +50,30 @@
 
 <% content_for :sidebar do %>
   <%= block do %>
-    <%= image_tag @person.avatar.url(:large) %>
+    <h3><%= @person.full_name %></h3>
+    <%= content do %>
+      <p>
+        <%= image_box @person.avatar, :large %>
+        <p>
+          <b>First name:</b>
+          <%= @person.first_name %>
+        </p>
+
+        <p>
+          <b>Last name:</b>
+          <%= @person.last_name %>
+        </p>
+
+        <p>
+          <b>Public name:</b>
+          <%= @person.public_name %>
+        </p>
+
+        <p>
+          <b>Email:</b>
+          <%= mail_to @person.email %>
+        </p>
+      </p>
+    <% end %>
   <% end %>
 <% end %>

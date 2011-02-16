@@ -30,4 +30,7 @@ class Person < ActiveRecord::Base
 
   validates_inclusion_of :gender, :in => GENDERS, :allow_nil => true
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
