@@ -7,6 +7,7 @@ namespace :pentabarf do
     import_helper.import_conferences
     import_helper.import_people
     import_helper.import_events
+    import_helper.import_event_people
   end
 
 end

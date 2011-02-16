@@ -41,10 +41,10 @@ class PentabarfImportHelper
       image = @barf.select_one("SELECT * FROM person_image WHERE person_id = #{person["person_id"]}")
       image_file = image_to_file(image, "person_id")
       new_person = Person.create!(
-        :first_name => person["first_name"] ? person["first_name"] : "unknown",
-        :last_name => person["last_name"] ? person["last_name"] : "unknown",
+        :first_name => person["first_name"].blank? ? "unknown" : person["first_name"],
+        :last_name => person["last_name"].blank? ? "unknown" : person["last_name"],
         :public_name => person["public_name"],
-        :email => person["email"] ? person["email"] : "unknown",
+        :email => person["email"].blank? ? "unknown" : person["email"],
         :gender => person["gender"] ? "male" : "female",
         :abstract => abstract,
         :description => description,
@@ -89,7 +89,7 @@ class PentabarfImportHelper
     event_people.each do |event_person|
       EventPerson.create!(
         :event_id => @event_mapping[event_person["event_id"]],
-        :person_id => @event_mapping[event_person["person_id"]],
+        :person_id => @people_mapping[event_person["person_id"]],
         :event_role => event_person["event_role"],
         :role_state => event_person["event_role_state"],
         :comment => event_person["remark"]
@@ -102,9 +102,7 @@ class PentabarfImportHelper
   def image_to_file(image, id_column)
     if image
       file_name = "tmp/#{image[id_column]}.#{FILE_TYPES[image["mime_type"]]}"
-      file = File.new(file_name, "w")
-      file.write(image["image"])
-      file.close
+      File.open(file_name, "w:ASCII-8BIT") {|f| f.write(image["image"]) }
       file = File.open(file_name, "r")
       return file
     end
