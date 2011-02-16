@@ -55,6 +55,22 @@ class PentabarfImportHelper
       people_mapping[person["person_id"]] = new_person.id
     end
     save_mappings(:people)
+    phone_numbers = @barf.select_all("SELECT * FROM person_phone")
+    phone_numbers.each do |phone_number|
+      PhoneNumber.create!(
+        :person_id => people_mapping[phone_number["person_id"]],
+        :phone_type => phone_number["phone_type"],
+        :phone_number => phone_number["phone_number"]
+      )
+    end
+    im_accounts = @barf.select_all("SELECT * FROM person_im")
+    im_accounts.each do |im_account|
+      ImAccount.create!(
+        :person_id => people_mapping[im_account["person_id"]],
+        :im_type => im_account["im_type"],
+        :im_address => im_account["im_address"]
+      )
+    end
   end
 
   def import_events
