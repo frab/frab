@@ -1,6 +1,14 @@
-<h1>Editing event</h1>
+<%= block do %>
+  <%= content do %>
+    <h2>Editing event</h2>
 
-<%= render 'form' %>
+    <%= inner do %>
 
-<%= link_to 'Show', @event %> |
-<%= link_to 'Back', events_path %>
+      <%= render 'form' %>
+
+      <%= link_to 'Show', @event %> |
+      <%= link_to 'Back', events_path %>
+
+    <% end %>
+  <% end %>
+<% end %>

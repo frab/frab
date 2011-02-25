@@ -1,61 +1,37 @@
-<%= form_for(@event) do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<%= semantic_form_for(@event) do |f| %>
 
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+  <%= f.inputs :name => "Basic information" do %>
+    <%= f.input :title %>
+    <%= f.input :subtitle %>
+    <%= f.input :event_type, :collection => Event::TYPES %>
+    <%= f.input :time_slots, :as => :select, :collection => timeslots %>
+    <%= f.input :language, :collection => t(:languages) %>
+    <%= f.input :public, :hint => "Is this event visible in the public schedule?" %>
+    <%= f.input :logo %>
+  <% end %>
+  
+  <%= f.inputs :name => "State and progress" do %>
+    <%= f.input :state, :collection => Event::STATES.keys %>
+    <%= f.input :progress, :collection => Event::STATES[@event.state.to_sym] %>
+  <% end %>
+  
+  <%= f.inputs :name => "Time and place" do %>
+    <%= f.input :start_time, :as => :select, :collection => start_times %>
+  <% end %>
+  
+  <%= f.inputs :name => "Detailed description" do %>
+    <%= f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event." %>
+    <%= f.input :description, :hint => "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website." %>
+
+    <%= f.inputs :name => "Links" do %>
+      <div id="links">
+        <%= f.semantic_fields_for :links do |link| %>
+          <%= render :partial => 'link_fields', :locals => {:f => link} %>
+        <% end %>
+        <%= link_to_add_association "add link", f, :links %>
+      </div>
+    <% end %> 
+  
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :subtitle %><br />
-    <%= f.text_field :subtitle %>
-  </div>
-  <div class="field">
-    <%= f.label :event_type %><br />
-    <%= f.text_field :event_type %>
-  </div>
-  <div class="field">
-    <%= f.label :time_slots %><br />
-    <%= f.text_field :time_slots %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :progress %><br />
-    <%= f.text_field :progress %>
-  </div>
-  <div class="field">
-    <%= f.label :language %><br />
-    <%= f.text_field :language %>
-  </div>
-  <div class="field">
-    <%= f.label :start_time %><br />
-    <%= f.datetime_select :start_time %>
-  </div>
-  <div class="field">
-    <%= f.label :abstract %><br />
-    <%= f.text_area :abstract %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :public %><br />
-    <%= f.check_box :public %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

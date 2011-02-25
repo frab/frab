@@ -1,5 +1,11 @@
-<h1>New event</h1>
+<%= block do %>
+  <%= content do %>
+    <h2>New event</h2>
 
-<%= render 'form' %>
+    <%= inner do %>
+      <%= render 'form' %>
 
-<%= link_to 'Back', events_path %>
+      <%= link_to 'Back', events_path %>
+    <% end %>
+  <% end %>
+<% end %>
