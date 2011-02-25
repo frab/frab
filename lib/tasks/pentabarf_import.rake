@@ -28,6 +28,11 @@ namespace :pentabarf do
       @import_helper.import_event_people
     end
 
+    desc "Import links"
+    task :links => :setup do
+      @import_helper.import_links
+    end
+
     desc "Import data from pentabarf"
     task :all => [:setup, :conferences, :people, :events, :event_people]
   end

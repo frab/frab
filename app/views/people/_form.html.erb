@@ -34,6 +34,15 @@
   <%= f.inputs :name => "Bio" do %>
     <%= f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes you." %>
     <%= f.input :description, :hint => "A longer description of yourself. Use this to give additional details that did not fit in the abstract." %>
+    
+    <%= f.inputs :name => "Links" do %>
+      <div id="links">
+        <%= f.semantic_fields_for :links do |link| %>
+          <%= render :partial => 'shared/links', :locals => {:f => link} %>
+        <% end %>
+        <%= link_to_add_association "add link", f, :links %>
+      </div>
+    <% end %>
   <% end %>
   
   <%= f.buttons do %>

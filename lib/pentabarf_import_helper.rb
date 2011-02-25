@@ -73,6 +73,18 @@ class PentabarfImportHelper
     end
   end
 
+  def import_links
+    mappings(:people).each do |orig_id, new_id|
+      links = @barf.select_all("SELECT l.title, l.url FROM conference_person as p LEFT OUTER JOIN conference_person_link as l ON p.conference_person_id = l.conference_person_id WHERE p.person_id = #{orig_id}")
+      links.each do |link|
+        if link["title"] and link["url"]
+          person = Person.find(new_id)
+          Link.create(:title => link["title"], :url => link["url"], :linkable => person)
+        end
+      end
+    end
+  end
+
   def import_events
     events = @barf.select_all("SELECT * FROM event")
     event_mapping = create_mappings(:events) 

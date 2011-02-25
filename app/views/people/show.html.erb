@@ -53,6 +53,14 @@
         <%= simple_format @person.description %>
       </p>
 
+
+      <p>
+        <b>Links:</b> <br />
+        <% @person.links.each do |link| %>
+          <%= link_to link.title, link.url %> <br />
+        <% end %>
+      </p>
+
       <% unless @current_events.empty? %>
       <h3>Events in current conference</h3>
 
