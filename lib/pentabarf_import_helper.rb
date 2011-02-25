@@ -83,6 +83,15 @@ class PentabarfImportHelper
         end
       end
     end
+    mappings(:events).each do |orig_id, new_id|
+      links = @barf.select_all("SELECT title, url FROM event_link WHERE event_id = #{orig_id}")
+      links.each do |link|
+        if link["title"] and link["url"]
+          event = Event.find(new_id)
+          Link.create(:title => link["title"], :url => link["url"], :linkable => event)
+        end
+      end
+    end
   end
 
   def import_events
