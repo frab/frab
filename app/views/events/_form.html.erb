@@ -18,6 +18,7 @@
   
   <%= f.inputs :name => "Time and place" do %>
     <%= f.input :start_time, :as => :select, :collection => start_times %>
+    <%= f.input :room, :collection => @conference.rooms %>
   <% end %>
   
   <%= f.inputs :name => "Detailed description" do %>

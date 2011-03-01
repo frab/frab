@@ -18,6 +18,11 @@ namespace :pentabarf do
       @import_helper.import_tracks
     end
 
+    desc "Import rooms"
+    task :rooms => :setup do
+      @import_helper.import_rooms
+    end
+
     desc "Import people"
     task :people => :setup do
       @import_helper.import_people

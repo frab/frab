@@ -47,6 +47,21 @@ class PentabarfImportHelper
     save_mappings(:tracks)
   end
 
+  def import_rooms
+    room_mapping = create_mappings(:rooms)
+    rooms = @barf.select_all("SELECT * FROM conference_room")
+    rooms.each do |room|
+      new_room = Room.create!(
+        :name => room["conference_room"],
+        :size => room["size"],
+        :public => room["public"],
+        :conference_id => mappings(:conferences)[room["conference_id"]]
+      )
+      room_mapping[room["conference_room_id"]] = new_room.id
+    end
+    save_mappings(:rooms)
+  end
+
   def import_people
     people = @barf.select_all("SELECT * FROM person")
     people_mapping = create_mappings(:people) 
@@ -127,6 +142,7 @@ class PentabarfImportHelper
         :language => event["language"],
         #TODO
         :start_time => event["start_time"],
+        :room_id => mappings(:rooms)[event["conference_room_id"]],
         :abstract => event["abstract"],
         :description => event["description"],
         :public => event["public"],
