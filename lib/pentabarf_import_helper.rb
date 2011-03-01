@@ -34,6 +34,19 @@ class PentabarfImportHelper
     save_mappings(:conferences)
   end
 
+  def import_tracks
+    track_mapping = create_mappings(:tracks)
+    tracks = @barf.select_all("SELECT * FROM conference_track")
+    tracks.each do |track|
+      new_track = Track.create!(
+        :name => track["conference_track"],
+        :conference_id => mappings(:conferences)[track["conference_id"]]
+      )
+      track_mapping[track["conference_track_id"]] = new_track.id
+    end
+    save_mappings(:tracks)
+  end
+
   def import_people
     people = @barf.select_all("SELECT * FROM person")
     people_mapping = create_mappings(:people) 
@@ -102,6 +115,7 @@ class PentabarfImportHelper
       image_file = image_to_file(image, "event_id")
       new_event = Event.create!(
         :conference_id => mappings(:conferences)[event["conference_id"]],
+        :track_id => mappings(:tracks)[event["conference_track_id"]],
         :title => event["title"],
         :subtitle => event["subtitle"],
         :event_type => event["event_type"],

@@ -13,6 +13,8 @@ class Event < ActiveRecord::Base
   has_many :links, :as => :linkable
 
   belongs_to :conference
+  belongs_to :track
+  belongs_to :room
 
   has_attached_file :logo, 
     :styles => {:tiny => "16x16>", :small => "32x32>", :large => "128x128>"},
@@ -24,7 +26,7 @@ class Event < ActiveRecord::Base
 
   validates_attachment_content_type :logo, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 
-  validates_presence_of :title, :event_type, :time_slots
+  validates_presence_of :title, :time_slots
 
   acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description]
 

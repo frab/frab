@@ -13,6 +13,11 @@ namespace :pentabarf do
       @import_helper.import_conferences
     end
 
+    desc "Import tracks"
+    task :tracks => :setup do
+      @import_helper.import_tracks
+    end
+
     desc "Import people"
     task :people => :setup do
       @import_helper.import_people

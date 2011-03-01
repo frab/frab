@@ -4,6 +4,7 @@
     <%= f.input :title %>
     <%= f.input :subtitle %>
     <%= f.input :event_type, :collection => Event::TYPES %>
+    <%= f.input :track, :collection => @conference.tracks %>
     <%= f.input :time_slots, :as => :select, :collection => timeslots %>
     <%= f.input :language, :collection => t(:languages) %>
     <%= f.input :public, :hint => "Is this event visible in the public schedule?" %>
