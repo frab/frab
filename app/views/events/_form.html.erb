@@ -35,3 +35,21 @@
   <% end %>
 
 <% end %>
+<%= javascript_tag do %>
+  var event_state_progresses = {
+  <% Event::STATES.each do |state, progresses| -%>
+    <%= state %>: ['<%= progresses.join("', '") -%>'],
+  <% end -%>
+  };
+
+  jQuery(function($) {
+    $("select#event_state").change(function() {
+      var state = $("select#event_state :selected").val();
+      var progress = $("select#event_progress");
+      progress.html("");
+      $.each(event_state_progresses[state], function(i, e) {
+        progress.append("<option>" + e + "</option>");
+      });
+    });
+  });
+<% end %>
