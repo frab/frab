@@ -13,11 +13,15 @@ Nab::Application.routes.draw do
     resources :events
 
     namespace :cfp do
+
       devise_for :users
 
       resource :person
 
       resources :events
+
+      root :to => "welcome#index"
+
     end
   end
 

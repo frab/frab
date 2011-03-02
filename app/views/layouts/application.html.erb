@@ -40,7 +40,7 @@
           <li><%= link_to t("events", :default => "Events"), events_path %></li>
           <li>
             <% if @conference.call_for_papers %>
-              <%= link_to t("call for papers", :default => "Call for Papers"), @conference.call_for_papers %>
+              <%= link_to t("call for papers", :default => "Call for Papers"), call_for_papers_path %>
             <% else %>
               <%= link_to t("call for papers", :default => "Launch Call for Papers"), new_call_for_papers_path %>
             <% end %>
