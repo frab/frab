@@ -48,7 +48,7 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to(@conference, :notice => 'Conference was successfully created.') }
+        format.html { redirect_to(root_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully created.') }
         format.xml  { render :xml => @conference, :status => :created, :location => @conference }
       else
         format.html { render :action => "new" }

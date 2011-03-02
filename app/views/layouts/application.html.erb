@@ -26,7 +26,7 @@
                 <%= link_to conference.acronym, root_path(:conference_acronym => conference.acronym) %> <br />
               <% end %>
               <hr />
-              <%= link_to "Create new conference", new_conference_path %>
+              <%= link_to "Create new conference", new_conference_path(:conference_acronym => nil) %>
             </div>
           </li>
           <li><a href="#"><%= t("web-app-theme.settings", :default => "Settings") %></a></li>
@@ -35,9 +35,18 @@
       </div>
       <div id="main-navigation">
         <ul class="wat-cf">
+        <% if params[:conference_acronym] %>
           <li><%= link_to t("people", :default => "People"), people_path %></li>
           <li><%= link_to t("events", :default => "Events"), events_path %></li>
+          <li>
+            <% if @conference.call_for_papers %>
+              <%= link_to t("call for papers", :default => "Call for Papers"), @conference.call_for_papers %>
+            <% else %>
+              <%= link_to t("call for papers", :default => "Launch Call for Papers"), new_call_for_papers_path %>
+            <% end %>
+          </li>
           <li><%= link_to t("conference_settings", :default => "Conference Settings"), edit_conference_path(@conference) %></li>
+        <% end %>
         </ul>
       </div>
     </div>    

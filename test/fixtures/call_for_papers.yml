@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  start_date: 2011-03-02
+  end_date: 2011-03-02
+  hard_deadline: 2011-03-02
+  welcome_text: MyText
+  conference_id: 1
+
+two:
+  start_date: 2011-03-02
+  end_date: 2011-03-02
+  hard_deadline: 2011-03-02
+  welcome_text: MyText
+  conference_id: 1

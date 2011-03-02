@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110128112912) do
+ActiveRecord::Schema.define(:version => 20110302155320) do
+
+  create_table "call_for_papers", :force => true do |t|
+    t.date     "start_date",    :null => false
+    t.date     "end_date",      :null => false
+    t.date     "hard_deadline"
+    t.text     "welcome_text"
+    t.integer  "conference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "conferences", :force => true do |t|
     t.string   "acronym",                                 :null => false

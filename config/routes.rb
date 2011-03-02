@@ -6,6 +6,8 @@ Nab::Application.routes.draw do
   scope :path => "/:conference_acronym" do
     resource :conference
 
+    resource :call_for_papers
+
     resources :people
 
     resources :events
