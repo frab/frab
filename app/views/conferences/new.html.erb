@@ -1,7 +1,14 @@
-<% if @first %>
-<h1>Create your first conference</h1>
-<% else %>
-<h1>New conference</h1>
-<% end %>
+<%= block do %>
+  <%= content do %>
+    <% if @first %>
+    <h2>Create your first conference</h2>
+    <% else %>
+    <h2>New conference</h2>
+    <% end %>
+    <%= inner do %>
+      <%= render "form" %>
+    <% end %>
 
-<%= render "form" %>
+  <% end %>
+
+<% end %>

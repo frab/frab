@@ -4,9 +4,7 @@ module EventsHelper
     slots = Array.new
     @conference.max_timeslots.times do |i|
       duration_in_minutes = i * @conference.timeslot_duration
-      minutes = sprintf("%02d", duration_in_minutes % 60)
-      hours = sprintf("%02d", duration_in_minutes / 60)
-      slots << ["#{hours}:#{minutes}", i]
+      slots << [duration_to_time(duration_in_minutes), i]
     end
     slots
   end

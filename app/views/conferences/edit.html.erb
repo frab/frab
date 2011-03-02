@@ -1,6 +1,14 @@
-<h1>Editing conference</h1>
+<%= block do %>
+  <%= content do %>
+    <h2>Editing conference</h2>
 
-<%= render 'form' %>
+    <%= inner do %>
+      <%= render 'form' %>
 
-<%= link_to 'Show', @conference %> |
-<%= link_to 'Back', conferences_path %>
+      <%= link_to 'Show', @conference %> |
+      <%= link_to 'Back', conferences_path %>
+    <% end %>
+
+  <% end %>
+
+<% end %>

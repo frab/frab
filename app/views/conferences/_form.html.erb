@@ -1,17 +1,41 @@
 <%= semantic_form_for(@conference) do |f| %>
-  <% if @conference.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@conference.errors.count, "error") %> prohibited this conference from being saved:</h2>
 
-      <ul>
-      <% @conference.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <%= f.inputs "Basic information" do %>
+    <%= f.input :title %>
+    <%= f.input :acronym %>
+  <% end %>
+
+  <%= f.inputs "Schedule configuration" do %>
+    <%= f.input :timezone %>
+    <%= f.input :first_day %>
+    <%= f.input :last_day %>
+    <%= f.input :timeslot_duration, :as => :select, :collection => timeslot_durations %>
+    <%= f.input :default_timeslots, :as => :select, :collection => 1..20 %>
+    <%= f.input :max_timeslots, :as => :select, :collection => 1..100 %>
+  <% end %>
+
+  <%= f.inputs "Rooms" do %>
+    <div id="rooms">
+      <%= f.semantic_fields_for :rooms do |rooms_form| %>
+        <%= render "room_fields", :f => rooms_form %>
       <% end %>
-      </ul>
+      <%= link_to_add_association "add room", f, :rooms %>
     </div>
   <% end %>
 
-  <%= f.inputs :acronym, :title, :first_day, :last_day %>
+  <%= f.inputs "Tracks" do %>
+    <div id="tracks">
+      <%= f.semantic_fields_for :tracks do |tracks_form| %>
+        <%= render "track_fields", :f => tracks_form %>
+      <% end %>
+      <%= link_to_add_association "add track", f, :tracks %>
+    </div>
+  <% end %>
+
+  <%= f.inputs "Feedback system" do %>
+    <%= f.input :feedback_enabled %>
+  <% end %>
+
   <%= f.buttons %>
 
 <% end %>

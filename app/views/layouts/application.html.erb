@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Web App</title>
+  <title><%= @conference.title %> - Management</title>
   <%= stylesheet_link_tag "nab", "web-app-theme/base", "web-app-theme/themes/blue/style", "web-app-theme/override", "formtastic", "formtastic_changes", :cache => true %>
   <%= javascript_include_tag :defaults, :cache => true %>
   <%= javascript_include_tag "cocoon", :cache => true %>
@@ -25,6 +25,8 @@
               <% Conference.all.each do |conference| %>
                 <%= link_to conference.acronym, root_path(:conference_acronym => conference.acronym) %> <br />
               <% end %>
+              <hr />
+              <%= link_to "Create new conference", new_conference_path %>
             </div>
           </li>
           <li><a href="#"><%= t("web-app-theme.settings", :default => "Settings") %></a></li>
@@ -35,6 +37,7 @@
         <ul class="wat-cf">
           <li><%= link_to t("people", :default => "People"), people_path %></li>
           <li><%= link_to t("events", :default => "Events"), events_path %></li>
+          <li><%= link_to t("conference_settings", :default => "Conference Settings"), edit_conference_path(@conference) %></li>
         </ul>
       </div>
     </div>    
