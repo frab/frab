@@ -1,0 +1,2 @@
+module Cfp::WelcomeHelper
+end
