@@ -1,0 +1,48 @@
+<%= semantic_form_for([:cfp, @event]) do |f| %>
+
+  <%= f.inputs :name => "Basic information" do %>
+    <%= f.input :title %>
+    <%= f.input :subtitle %>
+    <%= f.input :event_type, :collection => Event::TYPES %>
+    <%= f.input :track, :collection => @conference.tracks %>
+    <%= f.input :time_slots, :as => :select, :collection => timeslots %>
+    <%= f.input :language, :collection => t(:languages) %>
+    <%= f.input :logo %>
+  <% end %>
+  
+  <%= f.inputs :name => "Detailed description" do %>
+    <%= f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event." %>
+    <%= f.input :description, :hint => "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website." %>
+
+    <%= f.inputs :name => "Links" do %>
+      <div id="links">
+        <%= f.semantic_fields_for :links do |link| %>
+          <%= render :partial => 'link_fields', :locals => {:f => link} %>
+        <% end %>
+        <%= link_to_add_association "add link", f, :links %>
+      </div>
+    <% end %> 
+  
+  <% end %>
+
+  <%= f.buttons %>
+
+<% end %>
+<%= javascript_tag do %>
+  var event_state_progresses = {
+  <% Event::STATES.each do |state, progresses| -%>
+    <%= state %>: ['<%= progresses.join("', '") -%>'],
+  <% end -%>
+  };
+
+  jQuery(function($) {
+    $("select#event_state").change(function() {
+      var state = $("select#event_state :selected").val();
+      var progress = $("select#event_progress");
+      progress.html("");
+      $.each(event_state_progresses[state], function(i, e) {
+        progress.append("<option>" + e + "</option>");
+      });
+    });
+  });
+<% end %>

@@ -20,9 +20,9 @@ class Event < ActiveRecord::Base
     :styles => {:tiny => "16x16>", :small => "32x32>", :large => "128x128>"},
     :default_url => "/images/event_:style.png"
 
-  accepts_nested_attributes_for :event_attachments
-  accepts_nested_attributes_for :event_people
-  accepts_nested_attributes_for :links
+  accepts_nested_attributes_for :event_attachments, :reject_if => :all_blank
+  accepts_nested_attributes_for :event_people, :reject_if => :all_blank
+  accepts_nested_attributes_for :links, :allow_destroy => true, :reject_if => :all_blank
 
   validates_attachment_content_type :logo, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 

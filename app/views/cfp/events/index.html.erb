@@ -1,0 +1,21 @@
+<h1>Listing cfp_events</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cfp_events.each do |cfp_event| %>
+  <tr>
+    <td><%= link_to 'Show', cfp_event %></td>
+    <td><%= link_to 'Edit', edit_cfp_event_path(cfp_event) %></td>
+    <td><%= link_to 'Destroy', cfp_event, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event', new_cfp_event_path %>

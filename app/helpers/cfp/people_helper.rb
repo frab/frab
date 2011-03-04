@@ -1,0 +1,2 @@
+module Cfp::PeopleHelper
+end

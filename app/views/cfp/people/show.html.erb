@@ -1,0 +1,38 @@
+<%= block do %>
+  <%= content do %>
+
+    <h2>Welcome</h2>
+
+    <%= inner do %>
+
+      <p>Thank you for your interest in participating in <%= @conference.title %></p>
+
+      <p><%= link_to "Submit a new event", new_cfp_event_path %></p>
+
+      <p>Events you already submitted:</p>
+
+      <table class="table">
+        <thead>
+          <th>Title</th>
+          <th>State</th>
+          <th>Actions</th>
+        </thead>
+        <tbody>
+          <% @person.events_in(@conference).each do |event| %>
+            <tr>
+              <td><%= event.title %></td>
+              <td><%= event.state %></td>
+              <td>
+                <%= link_to "Edit", edit_cfp_event_path(event) %>
+                <%= link_to "Withdraw", "/", :confirm => "Really withdraw this event from the Call for Papers?" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    <% end %>
+
+  <% end %>
+
+<% end %>

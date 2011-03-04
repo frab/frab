@@ -1,0 +1,2 @@
+module Cfp::ConfirmationsHelper
+end

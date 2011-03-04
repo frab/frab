@@ -1,0 +1,52 @@
+<%= semantic_form_for(@person, :url => cfp_person_path) do |f| %>
+
+  <%= f.inputs :name => "Basic" do %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :public_name, :hint => "This is the name that will be shown in the public program." %>
+    <%= f.input :gender, :collection => Person::GENDERS %>
+    <%= f.input :avatar, :hint => "Upload a new picture." %>
+  <% end %>
+
+  <%= f.inputs :name => "Contact Data" do %>
+    <%= f.input :email, :hint => "Please enter the email address that we should use as our main means of contacting you." %>
+    <%= f.input :email_public, :hint => "If you like, this email address can be published in our public program." %>
+
+    <%= f.inputs :name => "Phone numbers" do %>
+      <div id="phone_numbers">
+        <%= f.semantic_fields_for :phone_numbers do |phone| %>
+          <%= render :partial => 'phone_number_fields', :locals => {:f => phone} %>
+        <% end %>
+        <%= link_to_add_association "add phone number", f, :phone_numbers %>
+      </div>
+    <% end %>
+
+    <%= f.inputs :name => "Instant messaging accounts" do %>
+      <div id="im_accounts">
+        <%= f.semantic_fields_for :im_accounts do |account| %>
+          <%= render :partial => 'im_account_fields', :locals => {:f => account} %>
+        <% end %>
+        <%= link_to_add_association "add IM account", f, :im_accounts %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= f.inputs :name => "Bio" do %>
+    <%= f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes you." %>
+    <%= f.input :description, :hint => "A longer description of yourself. Use this to give additional details that did not fit in the abstract." %>
+    
+    <%= f.inputs :name => "Links" do %>
+      <div id="links">
+        <%= f.semantic_fields_for :links do |link| %>
+          <%= render :partial => 'link_fields', :locals => {:f => link} %>
+        <% end %>
+        <%= link_to_add_association "add link", f, :links %>
+      </div>
+    <% end %>
+  <% end %>
+  
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+
+<% end %>

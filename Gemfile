@@ -15,7 +15,7 @@ gem 'gravatar-ultimate'
 gem 'formtastic'
 gem 'jquery-rails'
 gem 'acts_as_indexed'
-gem 'cocoon'
+gem 'cocoon', '1.0.1', :path => "../cocoon"
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -43,6 +43,7 @@ group :development, :test do
   gem 'web-app-theme'
   gem 'cucumber-rails'
   gem 'capybara'
+  gem 'ruby-debug'
 end
 
 group :development do

@@ -1,0 +1,7 @@
+<div class="nested-fields">
+  <%= f.inputs do %>
+    <%= f.input :phone_type, :as => :select, :collection => PhoneNumber::TYPES %>
+    <%= f.input :phone_number %>
+    <%= link_to_remove_association "remove phone number", f %>
+  <% end %>
+</div>

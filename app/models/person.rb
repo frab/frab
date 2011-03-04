@@ -35,4 +35,9 @@ class Person < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def events_in(conference)
+    self.events.where(:conference_id => conference.id)
+  end
+
 end

@@ -1,0 +1,7 @@
+<div class="nested-fields">
+  <%= f.inputs do %>
+    <%= f.input :im_type, :collection => ImAccount::TYPES %>
+    <%= f.input :im_address %>
+    <%= link_to_remove_association "remove IM account", f %>
+  <% end %>
+</div>
