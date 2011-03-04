@@ -8,15 +8,9 @@ class Person < ActiveRecord::Base
   has_many :events, :through => :event_people
   has_many :links, :as => :linkable
 
-  # ugly workaround. using formtastic and cocoon, _delete flag seems
-  # to be inserted even for new records, so :reject_if => :all_blank
-  # does not work. Need to investigate further.
-  BLANK_OR_DELETE_PROC = Proc.new { |a| a.all?{|k,v| v.blank? || k == "_destroy"} }
-  #accepts_nested_attributes_for :phone_numbers, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :phone_numbers, :reject_if => BLANK_OR_DELETE_PROC, :allow_destroy => true
-  #accepts_nested_attributes_for :im_accounts, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :im_accounts, :reject_if => BLANK_OR_DELETE_PROC, :allow_destroy => true
-  accepts_nested_attributes_for :links, :reject_if => BLANK_OR_DELETE_PROC, :allow_destroy => true
+  accepts_nested_attributes_for :phone_numbers, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :im_accounts, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :links, :reject_if => :all_blank, :allow_destroy => true
 
   belongs_to :user
 
