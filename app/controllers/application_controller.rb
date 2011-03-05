@@ -18,4 +18,27 @@ class ApplicationController < ActionController::Base
     {:conference_acronym => @conference.acronym} if @conference
   end
 
+  def require_admin
+    require_role("admin", new_user_session_path)
+  end
+
+  def require_submitter
+    require_role("submitter", new_cfp_user_session_path)
+  end
+
+  def require_role(role, redirect_path)
+    user = current_user || current_cfp_user
+    unless user and user.role == role 
+      sign_out_all_scopes
+      redirect_to redirect_path 
+    end
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    if resource_or_scope.is_a?(User) && resource_or_scope.role == "submitter"
+      cfp_root_path
+    else
+      super
+    end
+  end
 end

@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :require_admin
   
   # GET /events
   # GET /events.xml

@@ -3,7 +3,8 @@ class Cfp::EventsController < ApplicationController
   layout "cfp"
 
   before_filter :authenticate_cfp_user!
-  
+  before_filter :require_submitter
+
   # GET /cfp/events
   # GET /cfp/events.xml
   def index

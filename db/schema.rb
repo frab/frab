@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302155320) do
+ActiveRecord::Schema.define(:version => 20110304160010) do
 
   create_table "call_for_papers", :force => true do |t|
     t.date     "start_date",    :null => false
@@ -140,9 +140,9 @@ ActiveRecord::Schema.define(:version => 20110302155320) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "email",                               :default => "",          :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",          :null => false
+    t.string   "password_salt",                       :default => "",          :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20110302155320) do
     t.datetime "confirmation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role",                                :default => "submitter"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

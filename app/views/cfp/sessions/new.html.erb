@@ -2,6 +2,7 @@
   <h2><%= @conference.title %> - Call for Papers</h2>
 
   <%= content do %>
+    <%= render "shared/flash", :flash => flash %>
     <% if @conference.call_for_papers.welcome_text %>
       <p><%= @conference.call_for_papers.welcome_text %></p>
     <% else %>

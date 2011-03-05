@@ -51,13 +51,7 @@
       </div>
     </div>    
     <div id="wrapper" class="wat-cf">
-      <div class="flash">
-        <% flash.each do |type, message| -%>
-          <div class="message <%= type %>">
-            <p><%= message %></p>
-          </div>
-        <% end -%>
-      </div>
+      <%= render 'shared/flash', :flash => flash %>
       <div id="main">
         <%= yield %>
         <div id="footer">

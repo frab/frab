@@ -1,7 +1,8 @@
 class ConferencesController < ApplicationController
 
   before_filter :authenticate_user!
-  
+  before_filter :require_admin
+
   # GET /conferences
   # GET /conferences.xml
   def index
