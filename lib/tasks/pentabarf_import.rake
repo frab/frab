@@ -28,6 +28,11 @@ namespace :pentabarf do
       @import_helper.import_people
     end
 
+    desc "Import accounts"
+    task :accounts => :setup do
+      @import_helper.import_accounts
+    end
+
     desc "Import events"
     task :events => :setup do
       @import_helper.import_events

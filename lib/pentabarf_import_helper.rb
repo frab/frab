@@ -101,6 +101,50 @@ class PentabarfImportHelper
     end
   end
 
+  def import_accounts
+    emails = Hash.new
+    accounts = @barf.select_all("SELECT a.*, r.admin FROM auth.account AS a LEFT OUTER JOIN (SELECT DISTINCT account_id, '1' AS admin FROM auth.account_role WHERE role <> 'submitter') AS r ON a.account_id = r.account_id")
+    accounts.each do |account|
+      # do not import if no person is associated
+      next if account["person_id"].blank?
+      # nab uses email as login, so no user can be created without email
+      next if account["email"].blank?
+      # Stupid edge case, where devise validation fails.
+      account["email"].sub!(/@localhost$/, "@example.com")
+      # skip if email is still not valid
+      unless account["email"] =~ Devise.email_regexp
+        puts "invalid email #{account["email"]} - pentabarf person_id #{account["person_id"]}"
+        next
+      end
+      # check for duplicates
+      if emails[account["email"]]
+        counter = 1
+        email = account["email"]
+        while emails[email]
+          email = account["email"].sub("@", "#{counter}@")
+          counter += 1
+        end
+        puts "Duplicate email address #{account["email"]} will be imported as #{email} - pentabarf person_id #{account["person_id"]}"
+        account["email"] = email
+      end
+      emails[account["email"]] = true
+      password = (account["login_name"].hash + rand(9999999)).to_s
+      User.transaction do
+        user = User.new(
+          :email => account["email"],
+          :password => password,
+          :password_confirmation => password
+        )
+        user.confirmed_at = Time.now
+        user.role = account["admin"] ? "admin" : "submitter"
+        user.pentabarf_salt = account["salt"]
+        user.pentabarf_password = account["password"]
+        user.save!
+        Person.find(mappings(:people)[account["person_id"]]).update_attributes!(:user_id => user.id)
+      end
+    end
+  end
+
   def import_links
     mappings(:people).each do |orig_id, new_id|
       links = @barf.select_all("SELECT l.title, l.url FROM conference_person as p LEFT OUTER JOIN conference_person_link as l ON p.conference_person_id = l.conference_person_id WHERE p.person_id = #{orig_id}")

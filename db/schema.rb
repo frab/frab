@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110304160010) do
+ActiveRecord::Schema.define(:version => 20110310112726) do
 
   create_table "call_for_papers", :force => true do |t|
     t.date     "start_date",    :null => false
@@ -157,6 +157,8 @@ ActiveRecord::Schema.define(:version => 20110304160010) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role",                                :default => "submitter"
+    t.string   "pentabarf_salt"
+    t.string   "pentabarf_password"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
