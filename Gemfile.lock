@@ -1,8 +1,3 @@
-PATH
-  remote: ../cocoon
-  specs:
-    cocoon (1.0.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -50,6 +45,7 @@ GEM
     celerity (0.8.5)
     childprocess (0.1.4)
       ffi (~> 0.6.3)
+    cocoon (1.0.2)
     columnize (0.3.1)
     cucumber (0.10.0)
       builder (>= 2.1.2)
@@ -148,7 +144,7 @@ DEPENDENCIES
   acts_as_commentable
   acts_as_indexed
   capybara
-  cocoon (= 1.0.1)!
+  cocoon (~> 1.0.2)
   cucumber-rails
   devise
   formtastic
