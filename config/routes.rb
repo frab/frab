@@ -10,7 +10,11 @@ Nab::Application.routes.draw do
 
     resources :people
 
-    resources :events
+    resources :events do
+      member do
+        get :edit_persons
+      end
+    end
 
     namespace :cfp do
 

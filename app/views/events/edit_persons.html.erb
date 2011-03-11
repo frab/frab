@@ -1,0 +1,28 @@
+<%= block do %>
+  <%= content do %>
+    <h2>Editing Persons for "<%= @event.title %>" </h2>
+
+    <%= inner do %>
+
+      <%= semantic_form_for(@event) do |f| %>
+
+          <%= f.inputs do %>
+            <div id="event_people">
+              <%= f.semantic_fields_for :event_people do |event_person| %>
+                <%= render :partial => 'event_person_fields', :locals => {:f => event_person} %>
+              <% end %>
+              <div class="links">
+                <%= link_to_add_association "add person", f, :event_people %>
+              </div>
+            </div>
+          <% end %> 
+
+          <%= f.buttons %>
+
+      <% end %>
+
+      <%= link_to 'Back', @event %> |
+
+    <% end %>
+  <% end %>
+<% end %>

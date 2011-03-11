@@ -1,0 +1,8 @@
+<div class="nested-fields">
+  <%= f.inputs do %>
+    <%= f.input :person %>
+    <%= f.input :event_role, :as => :select, :collection => EventPerson::ROLES %>
+    <%= f.input :role_state, :as => :select, :collection => EventPerson::STATES %>
+    <%= link_to_remove_association "remove person", f %>
+  <% end %>
+</div>

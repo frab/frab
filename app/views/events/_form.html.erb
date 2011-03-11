@@ -30,7 +30,9 @@
         <%= f.semantic_fields_for :links do |link| %>
           <%= render :partial => 'link_fields', :locals => {:f => link} %>
         <% end %>
-        <%= link_to_add_association "add link", f, :links %>
+        <div class="links">
+          <%= link_to_add_association "add link", f, :links %>
+        </div>
       </div>
     <% end %> 
 

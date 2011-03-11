@@ -45,6 +45,10 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  def edit_persons
+    @event = Event.find(params[:id])
+  end
+
   # POST /events
   # POST /events.xml
   def create

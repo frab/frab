@@ -1,11 +1,7 @@
 <%= block do %>
   <%= content do %>
+    <h2>Event: <%= @event.title %></h2>
     <%= inner do %>
-      <p>
-        <b>Title:</b>
-        <%= @event.title %>
-      </p>
-
       <p>
         <b>Subtitle:</b>
         <%= @event.subtitle %>
@@ -59,6 +55,25 @@
 
       <%= link_to 'Edit', edit_event_path(@event) %> |
       <%= link_to 'Back', events_path %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= block do %>
+    <h3>People involved in this event</h3>
+    <%= content do %>
+      <table class="table">
+        <% @event.event_people.each do |event_person| %>
+          <tr>
+            <td><%= image_box event_person.person.avatar, :small %></td>
+            <td><%= link_to event_person.person.full_name, event_person.person %></td>
+            <td><%= event_person.event_role %></td>
+            <td><%= event_person.role_state %></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= link_to "Edit", edit_persons_event_path(@event) %>
     <% end %>
   <% end %>
 <% end %>
