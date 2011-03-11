@@ -16,7 +16,7 @@
         </tr>
 
       <% @people.each do |person| %>
-        <tr>
+        <tr class="<%= cycle("odd", "even") %>">
           <td><%= image_box person.avatar, :small %></td>
           <td><%= person.first_name %></td>
           <td><%= person.last_name %></td>
