@@ -94,6 +94,10 @@ hr {
   margin-right: 4px;
 }
 
+#main-navigation ul li:hover {
+  background: #1860A8;
+}
+
 #main-navigation ul li a {
   padding: 10px 10px 10px 10px;
   font-size: 14px;
