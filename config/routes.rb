@@ -8,7 +8,9 @@ Nab::Application.routes.draw do
 
     resource :call_for_papers
 
-    resources :people
+    resources :people do
+      resource :user
+    end
 
     resources :events do
       member do
