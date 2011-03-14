@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
       @conference = Conference.find_by_acronym(params[:conference_acronym])
     elsif Conference.count > 0
       @conference = Conference.last
+      params[:conference_acronym] = @conference.acronym
     end
     Time.zone = @conference.timezone if @conference
   end
