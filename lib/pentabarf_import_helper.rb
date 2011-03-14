@@ -107,7 +107,7 @@ class PentabarfImportHelper
     accounts.each do |account|
       # do not import if no person is associated
       next if account["person_id"].blank?
-      # nab uses email as login, so no user can be created without email
+      # frab uses email as login, so no user can be created without email
       next if account["email"].blank?
       # Stupid edge case, where devise validation fails.
       account["email"].sub!(/@localhost$/, "@example.com")

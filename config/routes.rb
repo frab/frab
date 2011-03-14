@@ -1,4 +1,4 @@
-Nab::Application.routes.draw do
+Frab::Application.routes.draw do
   devise_for :users
 
   resources :conferences
