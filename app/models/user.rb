@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  ROLES = ["submitter", "admin"]
+
   has_one :person
   
   # Include default devise modules. Others available are:

@@ -107,4 +107,20 @@
       </p>
     <% end %>
   <% end %>
+
+  <%= block do %>
+    <h3>Account</h3>
+    <%= content do %>
+      <% if @person.user %>
+        <%= button_to "Edit", edit_person_user_path(@person), :method => :get %>
+      <% else %>
+        <p>
+          This person does not have a user account attached.
+          If you want this person to be able to log in, please
+          create an account.
+        </p>
+        <%= button_to "Create", new_person_user_path(@person), :method => :get %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>

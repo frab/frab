@@ -50,6 +50,10 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = @person.user 
+    [:password, :password_confirmation].each do |password_key|
+      params[:user].delete(password_key) if params[:user][password_key].blank?
+    end
+    @user.role = params[:user][:role]
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
