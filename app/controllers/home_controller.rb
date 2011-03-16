@@ -5,7 +5,8 @@ class HomeController < ApplicationController
 
   def index
     if Conference.count == 0
-      redirect_to new_conference_path
+      redirect_to new_conference_path and return
     end
+    @audits = Audit.order("created_at DESC").limit(5)
   end
 end

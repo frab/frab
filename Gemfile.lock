@@ -28,6 +28,8 @@ GEM
       activemodel (= 3.0.5)
       activesupport (= 3.0.5)
     activesupport (3.0.5)
+    acts_as_audited (2.0.0.rc7)
+      rails (>= 3.0.3)
     acts_as_commentable (3.0.1)
     acts_as_indexed (0.7.0)
     arel (2.0.9)
@@ -141,6 +143,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_audited (= 2.0.0.rc7)
   acts_as_commentable
   acts_as_indexed
   capybara

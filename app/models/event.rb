@@ -30,4 +30,6 @@ class Event < ActiveRecord::Base
 
   acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description]
 
+  acts_as_audited 
+
 end

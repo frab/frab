@@ -4,6 +4,9 @@ Frab::Application.routes.draw do
   resources :conferences
 
   scope :path => "/:conference_acronym" do
+    
+    match "/recent_changes" => "recent_changes#index", :as => "recent_changes"
+
     resource :conference
 
     resource :call_for_papers

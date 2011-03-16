@@ -1,0 +1,2 @@
+module RecentChangesHelper
+end

@@ -1,0 +1,20 @@
+<table class="table">
+  <% @audits.each do |audit| %>
+    <tr>
+      <td><%= audit.created_at.to_s(:long) %></td>
+      <td>
+        <%= image_box audit.user.person.avatar, :small %>
+      </td>
+      <td>
+        <%= link_to audit.user.person.full_name, audit.user.person %> 
+      </td>
+      <td>
+        <%= audit.action -%>d
+      </td>
+      <td>
+        <%= link_to audit.auditable.to_s, audit.auditable %>
+      </td>
+      <td><%= link_to "Details", "" %></td>
+    </tr>
+  <% end %>
+</table>
