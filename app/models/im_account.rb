@@ -4,4 +4,6 @@ class ImAccount < ActiveRecord::Base
 
   belongs_to :person
 
+  acts_as_audited :associated_with => :person
+
 end

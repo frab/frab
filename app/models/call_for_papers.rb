@@ -4,4 +4,6 @@ class CallForPapers < ActiveRecord::Base
 
   validates_presence_of :start_date, :end_date
 
+  acts_as_audited
+
 end

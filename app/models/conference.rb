@@ -11,4 +11,6 @@ class Conference < ActiveRecord::Base
   validates_presence_of :title, :acronym
   validates_uniqueness_of :acronym
 
+  acts_as_audited
+
 end
