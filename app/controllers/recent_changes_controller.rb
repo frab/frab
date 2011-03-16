@@ -10,4 +10,8 @@ class RecentChangesController < ApplicationController
     )
   end
 
+  def show
+    @audit = Audit.find(params[:id])
+  end
+
 end

@@ -1,6 +1,6 @@
 <table class="table">
   <% @audits.each do |audit| %>
-    <tr>
+    <tr class="<%= cycle("odd", "even") -%>">
       <td><%= audit.created_at.to_s(:long) %></td>
       <td>
         <%= image_box audit.user.person.avatar, :small %>
@@ -12,9 +12,31 @@
         <%= audit.action -%>d
       </td>
       <td>
-        <%= link_to audit.auditable.to_s, audit.auditable %>
+        <% if audit.association %>
+          <%= audit.auditable.to_s %>
+          on 
+          <%= link_to audit.association.to_s, audit.association %>
+        <% else %>
+          <%= link_to audit.auditable.to_s, audit.auditable %>
+        <% end %>
       </td>
-      <td><%= link_to "Details", "" %></td>
+      <td><%= link_to_function "Details", "$('#recent_change_#{audit.id}').toggle();" %></td>
+    </tr>
+    <tr id="recent_change_<%= audit.id -%>" style="display: none;">
+      <td colspan="5">
+        <ul>
+          <% audit.audited_changes.each do |attribute, change| %>
+            <li>
+              <em><%= attribute %></em>
+              <% if change.is_a? Array %>
+                changed from <em>"<%= change[0] %>"</em> to <em>"<%= change[1] %>"</em>.
+              <% else %>
+                set to <em>"<%= change %>"</em>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </td>
     </tr>
   <% end %>
 </table>

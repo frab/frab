@@ -4,4 +4,5 @@ class Link < ActiveRecord::Base
 
   validates_presence_of :title, :url
 
+  acts_as_audited :associated_with => :linkable
 end
