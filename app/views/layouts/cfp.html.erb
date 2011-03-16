@@ -13,9 +13,9 @@
       <h1><a href="/"><%= @conference.title %> - Call for Papers</a></h1>
       <div id="user-navigation">
         <ul class="wat-cf">
-          <!--
-          <li><a href="/logout" class="logout"><%= t("web-app-theme.logout", :default => "Logout") %></a></li>
-          -->
+          <% if current_cfp_user %>
+            <li><%= link_to t("web-app-theme.logout", :default => "Logout"), destroy_cfp_user_session_path %></li>
+          <% end %>
         </ul>
       </div>
       <div id="main-navigation">

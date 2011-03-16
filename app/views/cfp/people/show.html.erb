@@ -7,32 +7,68 @@
 
       <p>Thank you for your interest in participating in <%= @conference.title %></p>
 
-      <p><%= link_to "Submit a new event", new_cfp_event_path %></p>
+      <% if cfp_hard_deadline_over? %>
+      <% elsif @person.events_in(@conference).size > 0 %>
 
-      <p>Events you already submitted:</p>
+        <p>We really appreciate your input so far. Feel free to submit another event:</p>
 
-      <table class="table">
-        <thead>
-          <th>Title</th>
-          <th>State</th>
-          <th>Actions</th>
-        </thead>
-        <tbody>
-          <% @person.events_in(@conference).each do |event| %>
-            <tr>
-              <td><%= event.title %></td>
-              <td><%= event.state %></td>
-              <td>
-                <%= link_to "Edit", edit_cfp_event_path(event) %>
-                <%= link_to "Withdraw", "/", :confirm => "Really withdraw this event from the Call for Papers?" %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+        <%= button_to "Submit another event", new_cfp_event_path, :method => :get %>
+
+      <% else %>
+
+        <p>Please take the time to submit your proposal:</p>
+
+        <%= button_to "Submit a new event", new_cfp_event_path, :method => :get %>
+
+      <% end %>
+
+      <% if @person.events_in(@conference).size > 0 %>
+
+        <p>Events you already submitted:</p>
+
+        <table class="table">
+          <thead>
+            <th>Title</th>
+            <th>State</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <% @person.events_in(@conference).each do |event| %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= event.state %></td>
+                <td>
+                  <%= link_to "Edit", edit_cfp_event_path(event) %>
+                  <%= link_to "Withdraw", "/", :confirm => "Really withdraw this event from the Call for Papers?" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      <% end %>
 
     <% end %>
 
+  <% end %>
+
+<% end %>
+
+<% content_for :sidebar do %>
+
+  <%= block do %>
+    <h3>Information</h3>
+    <%= content do %>
+      <p>Unsure what to submit? Read all about the Call for Papers at: <%= link_to "http://", "" %></p>
+      <p>Please make sure to submit your proposal until <b><%= @conference.call_for_papers.end_date %></b></p>
+    <% end %>
+  <% end %>
+
+  <%= block do %>
+    <h3>Contact</h3>
+    <%= content do %>
+      <p>If anything goes wrong with your submission or if you have any question, please do not hesitate to contact us at <%= mail_to "feedback@froscon.org" %></p>
+    <% end %>
   <% end %>
 
 <% end %>
