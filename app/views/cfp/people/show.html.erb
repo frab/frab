@@ -59,15 +59,19 @@
   <%= block do %>
     <h3>Information</h3>
     <%= content do %>
-      <p>Unsure what to submit? Read all about the Call for Papers at: <%= link_to "http://", "" %></p>
+      <% unless @conference.call_for_papers.info_url.blank? %>
+        <p>Unsure what to submit? Read all about the Call for Papers at: <%= link_to @conference.call_for_papers.info_url, @conference.call_for_papers.info_url %></p>
+      <% end %>
       <p>Please make sure to submit your proposal until <b><%= @conference.call_for_papers.end_date %></b></p>
     <% end %>
   <% end %>
 
-  <%= block do %>
-    <h3>Contact</h3>
-    <%= content do %>
-      <p>If anything goes wrong with your submission or if you have any question, please do not hesitate to contact us at <%= mail_to "feedback@froscon.org" %></p>
+  <% unless @conference.call_for_papers.contact_email.blank? %>
+    <%= block do %>
+      <h3>Contact</h3>
+      <%= content do %>
+        <p>If anything goes wrong with your submission or if you have any question, please do not hesitate to contact us at <%= mail_to @conference.call_for_papers.contact_email %></p>
+      <% end %>
     <% end %>
   <% end %>
 

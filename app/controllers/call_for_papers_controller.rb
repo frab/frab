@@ -23,9 +23,16 @@ class CallForPapersController < ApplicationController
   end
 
   def edit
+    @call_for_papers = @conference.call_for_papers 
   end
 
   def update
+    @call_for_papers = @conference.call_for_papers
+    if @call_for_papers.update_attributes(params[:call_for_papers])
+      redirect_to call_for_papers_path, :notice => "Changes saved successfully"
+    else
+      render :action => "edit"
+    end
   end
 
 end
