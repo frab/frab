@@ -30,7 +30,7 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events/new
   # GET /cfp/events/new.xml
   def new
-    @event = Event.new
+    @event = Event.new(:time_slots => @conference.default_timeslots)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,7 +48,8 @@ class Cfp::EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.conference = @conference
-    @event.event_people << EventPerson.new(:person => current_cfp_user.person)
+    @event.event_people << EventPerson.new(:person => current_cfp_user.person, :event_role => "submitter")
+    @event.event_people << EventPerson.new(:person => current_cfp_user.person, :event_role => "speaker")
 
     respond_to do |format|
       if @event.save
