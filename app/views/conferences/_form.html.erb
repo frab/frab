@@ -19,7 +19,7 @@
       <%= f.semantic_fields_for :rooms do |rooms_form| %>
         <%= render "room_fields", :f => rooms_form %>
       <% end %>
-      <%= link_to_add_association "add room", f, :rooms %>
+      <%= add_association_link "add room", f, :rooms %>
     </div>
   <% end %>
 
@@ -28,7 +28,7 @@
       <%= f.semantic_fields_for :tracks do |tracks_form| %>
         <%= render "track_fields", :f => tracks_form %>
       <% end %>
-      <%= link_to_add_association "add track", f, :tracks %>
+      <%= add_association_link "add track", f, :tracks %>
     </div>
   <% end %>
 

@@ -53,7 +53,7 @@ hr {
 }
 
 #main .content { 
-  border: 1px solid #959392;
+  border: 1px solid #c5c3c2;
 }
 
 #sidebar .block {
@@ -187,15 +187,14 @@ padding: 8px 12px;
 
 
 .table th {
-  background: #103C68;
-  color: #FFF;
+  color: #000;
 }
 
-.table tr th { padding: 5px; }
-
-.table td {
-  border-bottom:1px solid #F0F0EE;
+.table td,
+.table th {
+  border-bottom:1px solid #c3c2c5;
 }
+
 .table tr.odd {background: #F9F9F9}
 .table tr.even {background: #EEEEEE;}
 
@@ -207,7 +206,7 @@ padding: 8px 12px;
   border: 1px solid #262626;
 }
 
-.form input.button {
+.form button {
   background: #EEE;
   color: #262626;
   padding: 2px 5px;
@@ -288,7 +287,7 @@ ul.list li .item .avatar {
 #main, 
 .secondary-navigation, #main .block, #sidebar .block, 
 #sidebar h3, ul.list li, #footer .block, 
-.form input.button, #box .block, #box .block h2 {
+.form button, #box .block, #box .block h2 {
   -moz-border-radius-topleft: 4px;
   -webkit-border-top-left-radius: 4px;
   -moz-border-radius-topright: 4px;
@@ -322,10 +321,3 @@ ul.list li .item .avatar {
 }
 
 /* shadows and gradients */
-
-.block {
-  -moz-box-shadow: 4px 4px 0px #bbbbbb; 
-  -webkit-box-shadow: 4px 4px 0px #bbbbbb; 
-  box-shadow: 4px 4px 0px #bbbbbb;
-}
-

@@ -12,7 +12,7 @@
                 <%= render :partial => 'event_person_fields', :locals => {:f => event_person} %>
               <% end %>
               <div class="links">
-                <%= link_to_add_association "add person", f, :event_people %>
+                <%= add_association_link "add person", f, :event_people %>
               </div>
             </div>
           <% end %> 

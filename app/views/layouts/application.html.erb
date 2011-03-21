@@ -12,7 +12,7 @@
     <div id="header">
       <h1>
         <% if params[:conference_acronym] %>
-          <%= link_to @conference.title, root_path %>
+          <%= link_to "#{@conference.title} (#{@conference.acronym})", root_path %>
         <% else %>
           <%= link_to "Welcome to frab", root_path %>
         <% end %>

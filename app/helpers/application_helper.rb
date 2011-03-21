@@ -12,4 +12,16 @@ module ApplicationHelper
     "#{hours}:#{minutes}"
   end
 
+  def icon(name)
+    image_tag "icons/#{name}.png"
+  end
+
+  def add_association_link(text, form_builder, div_class)
+    link_to_add_association icon(:add) + " " + text, form_builder, div_class, :class => "button"
+  end
+
+  def remove_association_link(text, form_builder)
+    link_to_remove_association icon(:delete) + " " + text, form_builder, :class => "button"
+  end
+
 end

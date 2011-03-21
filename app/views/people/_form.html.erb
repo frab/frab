@@ -18,7 +18,7 @@
           <%= render :partial => 'phone_number_fields', :locals => {:f => phone} %>
         <% end %>
         <div class="links">
-          <%= link_to_add_association "add phone number", f, :phone_numbers %>
+          <%= add_association_link "add phone number", f, :phone_numbers %>
         </div>
       </div>
     <% end %>
@@ -29,7 +29,7 @@
           <%= render :partial => 'im_account_fields', :locals => {:f => account} %>
         <% end %>
         <div class="links">
-          <%= link_to_add_association "add IM account", f, :im_accounts %>
+          <%= add_association_link "add IM account", f, :im_accounts %>
         </div>
       </div>
     <% end %>
@@ -45,14 +45,14 @@
           <%= render :partial => 'link_fields', :locals => {:f => link} %>
         <% end %>
         <div class="links">
-          <%= link_to_add_association "add link", f, :links %>
+          <%= add_association_link "add link", f, :links %>
         </div>
       </div>
     <% end %>
   <% end %>
   
   <%= f.buttons do %>
-    <%= f.commit_button %>
+    <%= f.commit_button :button_html => {:class => "button"} %>
   <% end %>
 
 <% end %>
