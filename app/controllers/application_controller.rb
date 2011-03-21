@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     {:conference_acronym => @conference.acronym} if @conference
   end
 
+  def current_user
+    super || current_cfp_user
+  end
+
   def require_admin
     require_role("admin", new_user_session_path)
   end
