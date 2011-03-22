@@ -78,4 +78,10 @@ class Cfp::EventsController < ApplicationController
     end
   end
 
+  def withdraw
+    @event = current_cfp_user.person.events.find(params[:id], :readonly => false)
+    @event.withdraw!
+    redirect_to(cfp_person_path, :notice => "Your submission has been withdrawn.")
+  end
+
 end

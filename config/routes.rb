@@ -27,7 +27,11 @@ Frab::Application.routes.draw do
 
       resource :person
 
-      resources :events
+      resources :events do
+        member do
+          put :withdraw
+        end
+      end
 
       root :to => "welcome#index"
 

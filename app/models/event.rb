@@ -32,4 +32,15 @@ class Event < ActiveRecord::Base
 
   acts_as_audited 
 
+  def withdraw!
+    new_progress = nil
+    case self.state
+    when "undecided"
+      new_progress = "withdrawn"
+    when "accepted"
+      new_progress = "canceled"
+    end
+    self.update_attributes!(:progress => new_progress) if new_progress
+  end
+
 end

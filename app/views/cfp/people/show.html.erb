@@ -39,7 +39,7 @@
                 <td><%= event.state %></td>
                 <td>
                   <%= link_to "Edit", edit_cfp_event_path(event) %>
-                  <%= link_to "Withdraw", "/", :confirm => "Really withdraw this event from the Call for Papers?" %>
+                  <%= link_to "Withdraw", withdraw_cfp_event_path(event), :method => :put, :confirm => "Really withdraw this event from the Call for Papers?" %>
                 </td>
               </tr>
             <% end %>
