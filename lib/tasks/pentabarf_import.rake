@@ -33,6 +33,11 @@ namespace :pentabarf do
       @import_helper.import_accounts
     end
 
+    desc "Import languages"
+    task :languages => :setup do
+      @import_helper.import_languages
+    end
+
     desc "Import events"
     task :events => :setup do
       @import_helper.import_events
@@ -49,6 +54,6 @@ namespace :pentabarf do
     end
 
     desc "Import data from pentabarf"
-    task :all => [:setup, :conferences, :people, :events, :event_people]
+    task :all => [:setup, :conferences, :tracks, :rooms, :people, :accounts, :languages, :events, :event_people, :links]
   end
 end

@@ -11,6 +11,7 @@ class PentabarfImportHelper
   end
 
   def import_conferences
+    Conference.disable_auditing
     conferences = @barf.select_all("SELECT * FROM conference")
     conference_mapping = create_mappings(:conferences) 
     conferences.each do |conference|
@@ -22,7 +23,7 @@ class PentabarfImportHelper
         #TODO might need mapping to something rails understands
         :timezone => conference["timezone"],
         #TODO
-        :timeslot_duration => conference["timeslot_duration"],
+        :timeslot_duration => interval_to_minutes(conference["timeslot_duration"]),
         :default_timeslots => conference["default_timeslots"],
         :max_timeslots => conference["max_timeslot_duration"],
         :feedback_enabled => conference["f_feedback_enabled"],
@@ -35,6 +36,7 @@ class PentabarfImportHelper
   end
 
   def import_tracks
+    Track.disable_auditing
     track_mapping = create_mappings(:tracks)
     tracks = @barf.select_all("SELECT * FROM conference_track")
     tracks.each do |track|
@@ -48,6 +50,7 @@ class PentabarfImportHelper
   end
 
   def import_rooms
+    Room.disable_auditing
     room_mapping = create_mappings(:rooms)
     rooms = @barf.select_all("SELECT * FROM conference_room")
     rooms.each do |room|
@@ -63,6 +66,9 @@ class PentabarfImportHelper
   end
 
   def import_people
+    Person.disable_auditing
+    ImAccount.disable_auditing
+    PhoneNumber.disable_auditing
     people = @barf.select_all("SELECT * FROM person")
     people_mapping = create_mappings(:people) 
     people.each do |person|
@@ -145,7 +151,21 @@ class PentabarfImportHelper
     end
   end
 
+  def import_languages
+    languages = @barf.select_all("SELECT * FROM conference_language")
+    languages.each do |language|
+      conference = Conference.find(mappings(:conferences)[language["conference_id"]])
+      Language.create(:code => language["language"], :attachable => conference)
+    end
+    languages = @barf.select_all("SELECT * FROM person_language")
+    languages.each do |language|
+      person = Person.find(mappings(:people)[language["person_id"]])
+      Language.create(:code => language["language"], :attachable => person)
+    end
+  end
+
   def import_links
+    Link.disable_auditing
     mappings(:people).each do |orig_id, new_id|
       links = @barf.select_all("SELECT l.title, l.url FROM conference_person as p LEFT OUTER JOIN conference_person_link as l ON p.conference_person_id = l.conference_person_id WHERE p.person_id = #{orig_id}")
       links.each do |link|
@@ -167,25 +187,27 @@ class PentabarfImportHelper
   end
 
   def import_events
-    events = @barf.select_all("SELECT * FROM event")
+    Event.disable_auditing
+    events = @barf.select_all("SELECT e.*, c.conference_day FROM event AS e LEFT OUTER JOIN conference_day AS c ON e.conference_day_id = c.conference_day_id")
     event_mapping = create_mappings(:events) 
     events.each do |event|
       image = @barf.select_one("SELECT * FROM event_image WHERE event_id = #{event["event_id"]}")
       image_file = image_to_file(image, "event_id")
+      conference = Conference.find(mappings(:conferences)[event["conference_id"]])
       new_event = Event.create!(
-        :conference_id => mappings(:conferences)[event["conference_id"]],
+        :conference_id => conference.id,
         :track_id => mappings(:tracks)[event["conference_track_id"]],
         :title => event["title"],
         :subtitle => event["subtitle"],
         :event_type => event["event_type"],
         #TODO
-        :time_slots => event["duration"],
+        :time_slots => interval_to_minutes(event["duration"]) / conference.timeslot_duration,
         :state => event["event_state"],
         :progress => event["event_state_progress"],
         #TODO 
         :language => event["language"],
         #TODO
-        :start_time => event["start_time"],
+        :start_time => start_time(event["conference_day"], event["start_time"]),
         :room_id => mappings(:rooms)[event["conference_room_id"]],
         :abstract => event["abstract"],
         :description => event["description"],
@@ -212,6 +234,17 @@ class PentabarfImportHelper
   end
 
   private
+
+  def interval_to_minutes(interval)
+    return nil unless interval
+    hours, minutes, seconds = interval.split(":")
+    hours.to_i * 60 + minutes.to_i
+  end
+
+  def start_time(day, interval)
+    return nil unless day and interval
+    Time.parse(day + " " + interval)
+  end
 
   def image_to_file(image, id_column)
     if image
