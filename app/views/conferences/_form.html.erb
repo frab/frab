@@ -14,23 +14,12 @@
     <%= f.input :max_timeslots, :as => :select, :collection => 1..100 %>
   <% end %>
 
-  <%= f.inputs "Rooms" do %>
-    <div id="rooms">
-      <%= f.semantic_fields_for :rooms do |rooms_form| %>
-        <%= render "room_fields", :f => rooms_form %>
-      <% end %>
-      <%= add_association_link "add room", f, :rooms %>
-    </div>
-  <% end %>
+  <%= dynamic_association :languages, "Languages", f %>
 
-  <%= f.inputs "Tracks" do %>
-    <div id="tracks">
-      <%= f.semantic_fields_for :tracks do |tracks_form| %>
-        <%= render "track_fields", :f => tracks_form %>
-      <% end %>
-      <%= add_association_link "add track", f, :tracks %>
-    </div>
-  <% end %>
+  <%= dynamic_association :tracks, "Tracks", f %>
+
+  <%= dynamic_association :rooms, "Rooms", f %>
+
 
   <%= f.inputs "Feedback system" do %>
     <%= f.input :feedback_enabled %>

@@ -14,14 +14,7 @@
     <%= f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event." %>
     <%= f.input :description, :hint => "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website." %>
 
-    <%= f.inputs :name => "Links" do %>
-      <div id="links">
-        <%= f.semantic_fields_for :links do |link| %>
-          <%= render :partial => 'link_fields', :locals => {:f => link} %>
-        <% end %>
-        <%= add_association_link "add link", f, :links %>
-      </div>
-    <% end %> 
+    <%= dynamic_association :links, "Links", f %>
   
   <% end %>
 

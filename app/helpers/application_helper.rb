@@ -24,4 +24,7 @@ module ApplicationHelper
     link_to_remove_association icon(:delete) + " " + text, form_builder, :class => "button"
   end
 
+  def dynamic_association(association_name, title, form_builder)
+    render "shared/dynamic_association", :association_name => association_name, :title => title, :f => form_builder
+  end
 end
