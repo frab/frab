@@ -35,7 +35,7 @@ class Person < ActiveRecord::Base
   end
 
   def events_in(conference)
-    self.events.where(:conference_id => conference.id)
+    self.events.where(:conference_id => conference.id).group("events.id").all
   end
 
 end
