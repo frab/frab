@@ -32,6 +32,17 @@ class Event < ActiveRecord::Base
 
   acts_as_audited 
 
+  def self.submission_data(conference)
+    result = Hash.new
+    events = conference.events.order(:created_at)
+    events.each do |event|
+      date = event.created_at.to_date.to_time.to_i * 1000
+      result[date] = 0 unless result[date]
+      result[date] += 1
+    end
+    result.to_a.sort
+  end
+
   def withdraw!
     new_progress = nil
     case self.state

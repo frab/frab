@@ -4,6 +4,10 @@
 
     <%= inner do %>
 
+      <h3>Submissions by date</h3>
+
+      <div id="submission_graph" style="width: 800px; height: 300px;"></div>
+
     <% end %>
 
   <% end %>
@@ -15,5 +19,13 @@
   <%= actions_block do %>
     <%= action_button "application_edit", "Edit", edit_call_for_papers_path %>
   <% end %>
+
+<% end %>
+
+<%= javascript_tag do %>
+
+  var data = <%= Event.submission_data(@conference).inspect %>;
+
+  $.plot($("#submission_graph"), [data], { xaxis: { mode: "time" } });
 
 <% end %>
