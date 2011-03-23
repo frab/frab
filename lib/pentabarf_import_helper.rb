@@ -221,6 +221,7 @@ class PentabarfImportHelper
   end
 
   def import_event_attachments
+    EventAttachment.disable_auditing
     event_attachments = @barf.select_all("SELECT * FROM event_attachment")
     event_attachments.each do |event_attachment|
       attachment_file = attachment_to_file(event_attachment)
