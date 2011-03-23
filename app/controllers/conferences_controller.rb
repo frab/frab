@@ -1,5 +1,7 @@
 class ConferencesController < ApplicationController
 
+  skip_before_filter :load_conference, :only => :new
+
   before_filter :authenticate_user!
   before_filter :require_admin
 
@@ -10,7 +12,6 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @conferences }
     end
   end
 
@@ -21,19 +22,18 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @conference }
     end
   end
 
   # GET /conferences/new
   # GET /conferences/new.xml
   def new
+    params.delete(:conference_acronym)
     @conference = Conference.new
     @first = true if Conference.count == 0
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @conference }
     end
   end
 
@@ -50,10 +50,8 @@ class ConferencesController < ApplicationController
     respond_to do |format|
       if @conference.save
         format.html { redirect_to(root_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully created.') }
-        format.xml  { render :xml => @conference, :status => :created, :location => @conference }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @conference.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -66,10 +64,8 @@ class ConferencesController < ApplicationController
     respond_to do |format|
       if @conference.update_attributes(params[:conference])
         format.html { redirect_to(@conference, :notice => 'Conference was successfully updated.') }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @conference.errors, :status => :unprocessable_entity }
       end
     end
   end

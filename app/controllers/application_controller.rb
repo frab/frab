@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
-    {:conference_acronym => @conference.acronym} if @conference
+    if @conference
+      {:conference_acronym => @conference.acronym}
+    else
+      {}
+    end
   end
 
   def current_user
