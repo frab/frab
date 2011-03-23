@@ -15,4 +15,11 @@ module WebAppThemeHelper
   def actions_bar(&block)
     content_tag(:div, {:class => "actions-bar"}, &block)
   end
+
+  def actions_block(&block)
+    block do
+      content_tag(:h3, "Actions") + content(&block)
+    end
+  end
+
 end

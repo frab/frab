@@ -12,13 +12,13 @@
 
         <p>We really appreciate your input so far. Feel free to submit another event:</p>
 
-        <%= button_to "Submit another event", new_cfp_event_path, :method => :get %>
+        <%= action_button "add", "Submit another event", new_cfp_event_path %>
 
       <% else %>
 
         <p>Please take the time to submit your proposal:</p>
 
-        <%= button_to "Submit a new event", new_cfp_event_path, :method => :get %>
+        <%= action_button "add", "Submit a new event", new_cfp_event_path %>
 
       <% end %>
 

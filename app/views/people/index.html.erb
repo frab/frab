@@ -34,9 +34,14 @@
         <%= will_paginate @people %>
       <% end %>
 
-      <br />
-
-      <%= link_to 'New Person', new_person_path %>
     <% end %>
   <% end %>
+<% end %>
+
+<% content_for :sidebar do %>
+
+  <%= actions_block do %>
+    <%= action_button "add", "Add person", new_person_path %>
+  <% end %>
+
 <% end %>

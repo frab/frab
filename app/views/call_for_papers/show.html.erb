@@ -9,3 +9,11 @@
   <% end %>
 
 <% end %>
+
+<% content_for :sidebar do %>
+
+  <%= actions_block do %>
+    <%= action_button "application_edit", "Edit", edit_call_for_papers_path %>
+  <% end %>
+
+<% end %>

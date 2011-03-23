@@ -11,9 +11,14 @@
         <%= will_paginate @events %>
       <% end %>
 
-      <br />
-
-      <%= link_to 'New Event', new_event_path %>
     <% end %>
   <% end %>
+<% end %>
+
+<% content_for :sidebar do %>
+
+  <%= actions_block do %>
+    <%= action_button "add", "Add event", new_event_path %>
+  <% end %>
+
 <% end %>

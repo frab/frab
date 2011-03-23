@@ -18,3 +18,8 @@
 .image img {
   vertical-align: middle;
 }
+
+#sidebar a.button {
+  float: none;
+  margin: 10px;
+}

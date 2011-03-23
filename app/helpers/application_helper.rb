@@ -16,6 +16,11 @@ module ApplicationHelper
     image_tag "icons/#{name}.png"
   end
 
+  def action_button(icon_name, link_name, path, options = {})
+    options[:class] = "button"
+    link_to icon(icon_name) + " " + link_name, path, options
+  end
+
   def add_association_link(text, form_builder, div_class)
     link_to_add_association icon(:add) + " " + text, form_builder, div_class, :class => "button"
   end

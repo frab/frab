@@ -73,13 +73,16 @@
       <%= render "events/events_table", :events => @other_events %>
       <% end %>
 
-      <%= link_to 'Edit', edit_person_path(@person) %> |
-      <%= link_to 'Back', people_path %>
     <% end %>
   <% end %>
 <% end %>
 
 <% content_for :sidebar do %>
+
+  <%= actions_block do %>
+    <%= action_button "application_edit", "Edit person", edit_person_path(@person) %>
+  <% end %>
+
   <%= block do %>
     <h3><%= @person.full_name %></h3>
     <%= content do %>
@@ -112,14 +115,14 @@
     <h3>Account</h3>
     <%= content do %>
       <% if @person.user %>
-        <%= button_to "Edit", edit_person_user_path(@person), :method => :get %>
+        <%= action_button "application_edit", "Edit", edit_person_user_path(@person) %>
       <% else %>
         <p>
           This person does not have a user account attached.
           If you want this person to be able to log in, please
           create an account.
         </p>
-        <%= button_to "Create", new_person_user_path(@person), :method => :get %>
+        <%= action_button "add", "Create", new_person_user_path(@person) %>
       <% end %>
     <% end %>
   <% end %>
