@@ -1,4 +1,4 @@
-<%= semantic_form_for(@event) do |f| %>
+<%= semantic_form_for(@event, :html => {:multipart => true}) do |f| %>
 
   <%= f.inputs :name => "Basic information" do %>
     <%= f.input :title %>
@@ -26,6 +26,8 @@
     <%= f.input :description, :hint => "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website." %>
 
     <%= dynamic_association :links, "Links", f %>
+
+    <%= dynamic_association :event_attachments, "Uploaded files", f %>
 
     <%= f.buttons %>
   

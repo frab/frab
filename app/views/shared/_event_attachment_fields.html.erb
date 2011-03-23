@@ -1,0 +1,13 @@
+<div class="nested-fields">
+  <%= f.inputs do %>
+    <% if f.object.new_record? %>
+      <%= f.input :title %>
+      <%= f.input :attachment %>
+    <% else %>
+      <li>
+        <%= link_to f.object.attachment_file_name, f.object.attachment.url %>
+      </li>
+    <% end %>
+    <%= remove_association_link "remove file", f %>
+  <% end %>
+</div>

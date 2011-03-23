@@ -7,10 +7,10 @@ class Event < ActiveRecord::Base
     :rejected => [:done]
   }
 
-  has_many :event_attachments
   has_many :event_people
   has_many :people, :through => :event_people
   has_many :links, :as => :linkable
+  has_many :event_attachments
 
   belongs_to :conference
   belongs_to :track
@@ -20,9 +20,9 @@ class Event < ActiveRecord::Base
     :styles => {:tiny => "16x16>", :small => "32x32>", :large => "128x128>"},
     :default_url => "/images/event_:style.png"
 
-  accepts_nested_attributes_for :event_attachments, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :event_people, :allow_destroy => true, :reject_if => Proc.new {|attr| attr[:person_id].blank?} 
   accepts_nested_attributes_for :links, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :event_attachments, :allow_destroy => true, :reject_if => :all_blank
 
   validates_attachment_content_type :logo, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 
