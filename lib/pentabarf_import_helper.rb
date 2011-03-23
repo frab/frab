@@ -85,7 +85,7 @@ class PentabarfImportHelper
         :description => description,
         :avatar => image_file
       )
-      remove_image(image_file)
+      remove_file(image_file)
       people_mapping[person["person_id"]] = new_person.id
     end
     save_mappings(:people)
@@ -214,10 +214,24 @@ class PentabarfImportHelper
         :public => event["public"],
         :logo => image_file
       )
-      remove_image(image_file)
+      remove_file(image_file)
       event_mapping[event["event_id"]] = new_event.id
     end
     save_mappings(:events)
+  end
+
+  def import_event_attachments
+    event_attachments = @barf.select_all("SELECT * FROM event_attachment")
+    event_attachments.each do |event_attachment|
+      attachment_file = attachment_to_file(event_attachment)
+      title = event_attachment["title"] || event_attachment["attachment_type"]
+      EventAttachment.create!(
+        :title => title,
+        :event_id => mappings(:events)[event_attachment["event_id"]],
+        :attachment => attachment_file
+      )
+      remove_file(attachment_file)
+    end
   end
 
   def import_event_people
@@ -256,7 +270,17 @@ class PentabarfImportHelper
     return nil
   end
 
-  def remove_image(file)
+  def attachment_to_file(attachment)
+    if attachment
+      file_name = "tmp/#{attachment["filename"]}"
+      File.open(file_name, "w:ASCII-8BIT") {|f| f.write(attachment["data"]) }
+      file = File.open(file_name, "r")
+      return file
+    end
+    return nil
+  end
+
+  def remove_file(file)
     if file
       file.close
       File.unlink(file.path)
