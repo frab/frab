@@ -1,18 +1,22 @@
-<h2>Sign up</h2>
+<%= block do %>
+  <h2><%= @conference.title %> Sign up</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <%= content do %>
+    <%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+      <%= f.inputs do %>
+        <%= f.input :email %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+      <% end %>
 
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+      <%= f.buttons do %>
+        <%= f.commit_button "Sign up", :button_html => {:class => "button", :icon => "tick"} %>
+      <% end %>
+    <% end %>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+    <%= render :partial => "devise/shared/links" %>
 
-  <p><%= f.submit "Sign up" %></p>
+  <% end %>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>

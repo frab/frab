@@ -46,7 +46,8 @@ form.formtastic fieldset.buttons {
 
 form.formtastic input,
 form.formtastic textarea,
-form.formtastic select {
+form.formtastic select,
+input, textarea, select {
   background: #fff;
   margin-top: 10px;
   border: 1px solid #c2c5c3;
@@ -55,13 +56,15 @@ form.formtastic select {
   -moz-border-radius: 3px 3px 3px 3px;
 }
 
-form.formtastic select {
+form.formtastic select,
+select {
   padding: 0px;
 }
 
 form.formtastic input:focus,
 form.formtastic textarea:focus,
-form.formtastic select:focus {
+form.formtastic select:focus,
+input:focus, textarea:focus, select:focus {
   border: 1px solid #828583;
   background: #f2f2f2;
 }

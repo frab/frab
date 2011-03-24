@@ -1,16 +1,21 @@
-<h2>Change your password</h2>
+<%= block do %>
+  <h2>Change your password</h2>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+  <%= content do %>
+    <%= semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= f.hidden_field :reset_password_token %>
 
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+      <%= f.inputs do %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+      <% end %>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+      <%= f.buttons do %>
+        <%= f.commit_button "Change my password", :button_html => {:class => "button", :icon => "tick"} %>
+      <% end %>
+    <% end %>
 
-  <p><%= f.submit "Change my password" %></p>
+    <%= render :partial => "devise/shared/links" %>
+
+  <% end %>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>
