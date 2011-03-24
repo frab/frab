@@ -6,7 +6,7 @@ a:link, a:visited, a:hover, a:active { color: #0a2542; }
 
 h1, h2, h3 { color: #103C68; font-weight: bold; }
 
-h3 { font-size: 22px; }
+h3 { font-size: 18px; }
 
 a { -moz-outline: none; }
 
@@ -63,7 +63,7 @@ hr {
 }
 
 #sidebar h3 { 
-  font-size: 18px;
+  font-size: 16px;
   padding: 8px 12px;
   background: #103C68;
   color: #FFF;
@@ -221,6 +221,11 @@ padding: 8px 12px;
   font-size: .9em;
 }
 
+button.button:hover, a.button:hover {
+  background-color:#DEDEDE;
+  background-image: none;
+}
+
 /* flash-messages */
 .flash .message {
   -moz-border-radius: 3px;
@@ -321,4 +326,27 @@ ul.list li .item .avatar {
   -webkit-border-bottom-right-radius: 4px;
 }
 
+a.button, button.button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
 /* shadows and gradients */
+
+#header,
+#sidebar h3 {
+  background-image: -moz-linear-gradient(top, #175796, #103C68); 
+  background-image: -o-linear-gradient(top, #175796, #103C68); 
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #175796),color-stop(1, #103C68)); 
+  background-image: -webkit-linear-gradient(#175796, #103C68);
+  background-image: linear-gradient(top, #175796, #103C68);
+}
+
+a.button, button.button {
+  background-image: -moz-linear-gradient(top, #f5f5f5, #d0d0d0); 
+  background-image: -o-linear-gradient(top, #f5f5f5, #d0d0d0); 
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f5f5f5),color-stop(1, #d0d0d0)); 
+  background-image: -webkit-linear-gradient(#f5f5f5, #d0d0d0);
+  background-image: linear-gradient(top, #f5f5f5, #d0d0d0);
+}
