@@ -46,6 +46,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'ruby-debug'
+  gem 'machinist', '~> 2.0.0.beta2'
 end
 
 group :development do

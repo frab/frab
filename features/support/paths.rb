@@ -10,6 +10,16 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+    when /the (.*) cfp home page/
+      cfp_root_path(:conference_acronym => $1)
+    when /the (.*) cfp sign in page/
+      new_cfp_user_session_path(:conference_acronym => $1)
+    when /an open cfp's home page/
+      cfp = CallForPapers.make!
+      cfp_root_path(:conference_acronym => cfp.conference.acronym)
+    when /an open cfp's event submission page/
+      cfp = CallForPapers.make!
+      new_cfp_event_path(:conference_acronym => cfp.conference.acronym)
     when /login/
       '/users/sign_in'
 
