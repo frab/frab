@@ -33,7 +33,9 @@ Frab::Application.routes.draw do
         end
       end
 
-      root :to => "welcome#index"
+      match "/open_soon" => "welcome#open_soon", :as => "open_soon"
+
+      root :to => "people#show"
 
     end
   end
