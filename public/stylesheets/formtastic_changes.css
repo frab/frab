@@ -56,6 +56,13 @@ input, textarea, select {
   -moz-border-radius: 3px 3px 3px 3px;
 }
 
+form.formtastic .error input,
+form.formtastic .error textarea,
+form.formtastic .error select,
+.error input, .error textarea, .error select {
+  border: 1px solid #CC0000;
+}
+
 form.formtastic select,
 select {
   padding: 0px;
@@ -97,4 +104,8 @@ form.formtastic div.nested-fields fieldset > ol > li select {
 
 form.formtastic div.nested-fields fieldset > ol > a.button {
   margin-top: 31px;
+}
+
+form.formtastic fieldset > ol > li p.inline-errors {
+  margin: 0px;
 }

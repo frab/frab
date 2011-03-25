@@ -20,9 +20,12 @@
   
   <% end %>
 
-  <%= f.buttons %>
+  <%= f.buttons  do %>
+    <%= f.commit_button :button_html => {:class => "button", :icon => "tick"} %>
+  <% end %>
 
 <% end %>
+
 <%= javascript_tag do %>
   var event_state_progresses = {
   <% Event::STATES.each do |state, progresses| -%>

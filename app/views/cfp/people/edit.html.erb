@@ -1,6 +1,16 @@
-<h1>Editing cfp_person</h1>
+<%= block do %>
+  <%= content do %>
 
-<%= render 'form' %>
+    <h2>Personal details - Let us know about you</h2>
 
-<%= link_to 'Show', @cfp_person %> |
-<%= link_to 'Back', cfp_people_path %>
+    <%= inner do %>
+
+      <p>Please fill out the following form to let us (and, if your submissions are selected, the conference participants) know you a little better.</p>
+
+      <%= render 'form' %>
+
+    <% end %>
+
+  <% end %>
+
+<% end %>

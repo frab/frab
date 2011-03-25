@@ -19,12 +19,24 @@
         <p>Please take the time to submit your proposal:</p>
 
         <%= action_button "add", "Submit a new event", new_cfp_event_path %>
+        
+        <div class="clear"></div>
 
+        <p>
+          And do not forget to fill out your personal details if you have not done so already.
+          Please remember that you can always go back and edit your profile using the button
+          in the right sidebar.
+        </p>
+
+        <%= action_button "application_edit", "Edit your personal profile", edit_cfp_person_path %>
+      
       <% end %>
+
+      <div class="clear"></div>
 
       <% if @person.events_in(@conference).size > 0 %>
 
-        <p>Events you already submitted:</p>
+        <h3>Events you already submitted:</h3>
 
         <table class="table">
           <thead>
@@ -34,7 +46,7 @@
           </thead>
           <tbody>
             <% @person.events_in(@conference).each do |event| %>
-              <tr>
+              <tr class="<%= cycle("odd", "even") -%>">
                 <td><%= event.title %></td>
                 <td><%= event.state %></td>
                 <td>
@@ -55,6 +67,12 @@
 <% end %>
 
 <% content_for :sidebar do %>
+  
+  <%= actions_block do %>
+    <%= action_button "add", "Submit a new event", new_cfp_event_path %>
+    <%= action_button "application_edit", "Edit your personal profile", edit_cfp_person_path %>
+    <%= action_button "application_edit", "Edit your account", edit_cfp_user_registration_path %>
+  <% end %>
 
   <%= block do %>
     <h3>Information</h3>

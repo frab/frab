@@ -4,7 +4,7 @@
       <%= render association_name.to_s.singularize + "_fields", :f => association_form %>
     <% end %>
     <div class="links">
-      <%= add_association_link "add " + association_name.to_s.singularize, f, association_name %>
+      <%= add_association_link "add " + association_name.to_s.singularize.humanize, f, association_name %>
     </div>
   </div>
 <% end %>
