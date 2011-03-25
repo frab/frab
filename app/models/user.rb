@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   ROLES = ["submitter", "admin"]
 
+  belongs_to :call_for_papers
   has_one :person
   
   # Include default devise modules. Others available are:
@@ -10,7 +11,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id
 
   def self.check_pentabarf_credentials(email, password)
     user = User.find_by_email(email)

@@ -17,7 +17,6 @@ module ActionView
 
         if icon_name = options.delete("icon")
           value = icon(icon_name) + " " + value
-          logger.info("New value: #{value}")
         end
 
         content_tag :button, value, { "type" => "submit", "name" => "commit", "value" => value_without_icon }.update(options.stringify_keys)

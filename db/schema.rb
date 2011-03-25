@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322145105) do
+ActiveRecord::Schema.define(:version => 20110325092540) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20110322145105) do
     t.string   "role",                                :default => "submitter"
     t.string   "pentabarf_salt"
     t.string   "pentabarf_password"
+    t.integer  "call_for_papers_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
