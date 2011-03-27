@@ -6,6 +6,13 @@ User.blueprint do
   password_confirmation { object.password }
 end
 
+Person.blueprint do
+  email { "test#{sn}@example.org" }
+  first_name { "Fred" }
+  last_name { "Besen" }
+  gender { "male" }
+end
+
 Conference.blueprint do
   title { "FrabCon" }
   acronym { "frabcon#{sn}" }
