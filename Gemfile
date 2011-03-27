@@ -17,7 +17,7 @@ gem 'jquery-rails'
 gem 'acts_as_indexed'
 gem 'cocoon', '~> 1.0.2'
 gem 'acts_as_audited', '2.0.0.rc7'
-gem 'localized_language_select', '0.2.0', :path => "../localized_language_select"
+gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -1,5 +1,6 @@
-PATH
-  remote: ../localized_language_select
+GIT
+  remote: git://github.com/oneiros/localized_language_select.git
+  revision: eeba2c551770c6c06f4d033d4b63ecc6ac5a468f
   specs:
     localized_language_select (0.2.0)
       rails (>= 2.3.5)
@@ -105,7 +106,7 @@ GEM
     pg (0.8.0)
     polyglot (0.3.1)
     rack (1.2.2)
-    rack-mount (0.6.13)
+    rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
