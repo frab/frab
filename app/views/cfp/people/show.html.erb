@@ -10,10 +10,19 @@
       <% if cfp_hard_deadline_over? %>
       <% elsif @person.events_in(@conference).size > 0 %>
 
+        <% if @person.availabilities_in(@conference).count == 0 %>
+          <p>Please let us know, at what times you would be available to hold your event:</p>
+
+          <%= action_button "clock", "Edit availability", new_cfp_person_availability_path %>
+          
+          <div class="clear"></div>
+        
+        <% end %>
+
         <p>We really appreciate your input so far. Feel free to submit another event:</p>
 
         <%= action_button "add", "Submit another event", new_cfp_event_path %>
-
+        
       <% else %>
 
         <p>Please take the time to submit your proposal:</p>
@@ -71,6 +80,11 @@
   <%= actions_block do %>
     <%= action_button "add", "Submit a new event", new_cfp_event_path %>
     <%= action_button "application_edit", "Edit your personal profile", edit_cfp_person_path %>
+    <% if @person.availabilities_in(@conference).count == 0 %>
+      <%= action_button "clock", "Edit availability", new_cfp_person_availability_path %>
+    <% else %>
+      <%= action_button "clock", "Edit availability", edit_cfp_person_availability_path %>
+    <% end %>
     <%= action_button "application_edit", "Edit your account", edit_cfp_user_registration_path %>
   <% end %>
 

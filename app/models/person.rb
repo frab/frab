@@ -8,11 +8,13 @@ class Person < ActiveRecord::Base
   has_many :events, :through => :event_people
   has_many :links, :as => :linkable
   has_many :languages, :as => :attachable
+  has_many :availabilities
 
   accepts_nested_attributes_for :phone_numbers, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :im_accounts, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :links, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :availabilities, :reject_if => :all_blank
 
   belongs_to :user
 
@@ -36,6 +38,10 @@ class Person < ActiveRecord::Base
 
   def events_in(conference)
     self.events.where(:conference_id => conference.id).group("events.id").all
+  end
+
+  def availabilities_in(conference)
+    self.availabilities.where(:conference_id => conference.id)
   end
 
   def to_s

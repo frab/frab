@@ -19,6 +19,14 @@ class Conference < ActiveRecord::Base
     self.languages.map{|l| l.code.downcase}
   end
 
+  def each_day(&block)
+    day = self.first_day
+    until (day > self.last_day)
+      yield day
+      day = day.since(1.days).to_date
+    end
+  end
+
   def to_s
     "Conference: #{self.title} (#{self.acronym})"
   end

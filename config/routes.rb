@@ -25,7 +25,9 @@ Frab::Application.routes.draw do
 
       devise_for :users
 
-      resource :person
+      resource :person do
+        resource :availability
+      end
 
       resources :events do
         member do

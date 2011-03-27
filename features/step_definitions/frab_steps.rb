@@ -1,3 +1,7 @@
+Given /^I am not authenticated$/ do
+ visit("/users/sign_out") 
+end
+
 Given /^I am a new user with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
   User.make!(:email => email, :password => password, :confirmed_at => Time.now.ago(1.days))
 end
