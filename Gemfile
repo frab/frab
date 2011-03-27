@@ -53,4 +53,5 @@ group :development do
 #  gem 'mongrel'
   gem 'pg'
   gem 'hpricot'
+  gem 'yaml_db'
 end

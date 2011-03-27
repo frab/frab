@@ -149,6 +149,7 @@ GEM
     will_paginate (3.0.pre2)
     xpath (0.1.2)
       nokogiri (~> 1.3)
+    yaml_db (0.2.0)
 
 PLATFORMS
   ruby
@@ -174,3 +175,4 @@ DEPENDENCIES
   sqlite3-ruby
   web-app-theme
   will_paginate (= 3.0.pre2)
+  yaml_db
