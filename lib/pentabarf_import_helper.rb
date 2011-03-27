@@ -236,6 +236,7 @@ class PentabarfImportHelper
   end
 
   def import_event_people
+    EventPerson.disable_auditing
     event_people = @barf.select_all("SELECT * FROM event_person")
     event_people.each do |event_person|
       EventPerson.create!(
