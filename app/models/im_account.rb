@@ -6,4 +6,8 @@ class ImAccount < ActiveRecord::Base
 
   acts_as_audited :associated_with => :person
 
+  def to_s
+    "IM Account"
+  end
+
 end

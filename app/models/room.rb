@@ -4,4 +4,8 @@ class Room < ActiveRecord::Base
 
   acts_as_audited :associated_with => :conference
 
+  def to_s
+    "Room: #{self.name}"
+  end
+
 end

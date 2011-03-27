@@ -6,4 +6,8 @@ class PhoneNumber < ActiveRecord::Base
 
   acts_as_audited :associated_with => :person
 
+  def to_s
+    "Phone number"
+  end
+
 end

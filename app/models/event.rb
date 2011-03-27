@@ -54,4 +54,8 @@ class Event < ActiveRecord::Base
     self.update_attributes!(:progress => new_progress) if new_progress
   end
 
+  def to_s
+    "Event: #{self.title}"
+  end
+
 end

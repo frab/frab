@@ -19,4 +19,8 @@ class Conference < ActiveRecord::Base
     self.languages.map{|l| l.code.downcase}
   end
 
+  def to_s
+    "Conference: #{self.title} (#{self.acronym})"
+  end
+
 end

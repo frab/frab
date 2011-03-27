@@ -38,4 +38,8 @@ class Person < ActiveRecord::Base
     self.events.where(:conference_id => conference.id).group("events.id").all
   end
 
+  def to_s
+    "Person: #{self.full_name}"
+  end
+
 end

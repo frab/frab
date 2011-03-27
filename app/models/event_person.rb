@@ -8,4 +8,8 @@ class EventPerson < ActiveRecord::Base
 
   acts_as_audited :associated_with => :event
 
+  def to_s
+    "Event person: #{self.person.full_name} (#{self.event_role})"
+  end
+
 end

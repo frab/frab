@@ -6,4 +6,8 @@ class CallForPapers < ActiveRecord::Base
 
   acts_as_audited
 
+  def to_s
+    "Call for Papers: #{self.conference.title}"
+  end
+
 end

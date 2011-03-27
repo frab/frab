@@ -4,4 +4,8 @@ class Track < ActiveRecord::Base
 
   acts_as_audited :associated_with => :conference
 
+  def to_s
+    "Track: #{self.name}"
+  end
+
 end
