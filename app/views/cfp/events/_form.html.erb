@@ -6,7 +6,7 @@
     <%= f.input :event_type, :collection => Event::TYPES %>
     <%= f.input :track, :collection => @conference.tracks %>
     <%= f.input :time_slots, :as => :select, :collection => timeslots %>
-    <%= f.input :language, :collection => t(:languages) %>
+    <%= f.input :language, :as => :language, :only => @conference.language_codes, :include_blank => "" %>
     <%= f.input :logo %>
   <% end %>
   
