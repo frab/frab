@@ -35,6 +35,13 @@ class Event < ActiveRecord::Base
   def self.submission_data(conference)
     result = Hash.new
     events = conference.events.order(:created_at)
+    if events.size > 1
+      date = events.first.created_at.to_date
+      while date <= events.last.created_at.to_date
+        result[date.to_time.to_i * 1000] = 0
+        date = date.since(1.days).to_date
+      end
+    end
     events.each do |event|
       date = event.created_at.to_date.to_time.to_i * 1000
       result[date] = 0 unless result[date]
