@@ -1,0 +1,13 @@
+= block do
+  %h2
+    = @conference.title
+    Sign up
+  = content do
+    = semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      = f.inputs do
+        = f.input :email
+        = f.input :password
+        = f.input :password_confirmation
+      = f.buttons do
+        = f.commit_button "Sign up", :button_html => {:class => "button", :icon => "tick"}
+    = render :partial => "devise/shared/links"

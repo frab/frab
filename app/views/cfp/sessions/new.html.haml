@@ -1,0 +1,36 @@
+= block do
+  %h2
+    = @conference.title
+    \- Call for Papers
+  = content do
+    = render "shared/flash", :flash => flash
+    - if @conference.call_for_papers.welcome_text
+      %p= @conference.call_for_papers.welcome_text
+    - else
+      %p
+        Welcome to the Call for Papers. To create or review your submissions you need to login. If you are new to #{@conference.title} you need to sign up for an account.
+    %h3 Log in with an existing account
+    %p You can sign in if you created an account for this Call for Papers, or for any previous event.
+    = semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      = f.inputs do
+        = f.input :email
+        = f.input :password
+        - if devise_mapping.rememberable?
+          = f.input :remember_me, :as => :boolean
+      = f.buttons do
+        = f.commit_button "Sign in", :button_html => {:icon => "key", :class => :button}
+    %h3 Sign up for a new account
+    %p
+      If you are new to #{@conference.title}, please take the time to create an account. It is really easy and quick.
+    %p= action_button "user_edit", "Sign up", new_registration_path(resource_name)
+    .clear
+    %h3 Forgot your password?
+    %p Been here before, but don't remember your password? We know how it is, so please feel free to
+    = action_button "email", "Request a new password", new_password_path(resource_name)
+    .clear
+    %h3 I have registered but not received my confirmation instructions
+    %p
+      This could be one of the rare occassions where an email has actually not been delivered. If you have already waited for some time and checked your spam folders, please
+    = action_button "email", "Request the confirmation instructions again", new_confirmation_path(resource_name)
+    .clear
+    %p We are sorry for any inconvenience.

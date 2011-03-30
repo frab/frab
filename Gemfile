@@ -9,6 +9,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'pg'
 gem 'mysql'
 
+gem 'haml'
 gem 'devise'
 gem 'acts_as_commentable'
 gem 'will_paginate', '3.0.pre2'

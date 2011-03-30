@@ -1,0 +1,9 @@
+= block do
+  %h2 Forgot your password?
+  = content do
+    = semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+      = f.inputs do
+        = f.input :email
+      = f.buttons do
+        = f.commit_button "Send me reset password instructions", :button_html => {:class => "button", :icon => "tick"}
+    = render :partial => "devise/shared/links"
