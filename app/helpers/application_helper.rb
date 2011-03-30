@@ -32,4 +32,12 @@ module ApplicationHelper
   def dynamic_association(association_name, title, form_builder)
     render "shared/dynamic_association", :association_name => association_name, :title => title, :f => form_builder
   end
+
+  def translated_options(collection)
+    result = Array.new
+    collection.each do |element|
+      result << [t(element), element]
+    end
+    result
+  end
 end

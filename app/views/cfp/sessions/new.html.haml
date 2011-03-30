@@ -7,10 +7,9 @@
     - if @conference.call_for_papers.welcome_text
       %p= @conference.call_for_papers.welcome_text
     - else
-      %p
-        Welcome to the Call for Papers. To create or review your submissions you need to login. If you are new to #{@conference.title} you need to sign up for an account.
-    %h3 Log in with an existing account
-    %p You can sign in if you created an account for this Call for Papers, or for any previous event.
+      %p=t("cfp.welcome_text", :title => @conference.title)
+    %h3=t("cfp.login_existing_headline")
+    %p=t("cfp.login_existing_description")
     = semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
       = f.inputs do
         = f.input :email
@@ -18,19 +17,16 @@
         - if devise_mapping.rememberable?
           = f.input :remember_me, :as => :boolean
       = f.buttons do
-        = f.commit_button "Sign in", :button_html => {:icon => "key", :class => :button}
-    %h3 Sign up for a new account
-    %p
-      If you are new to #{@conference.title}, please take the time to create an account. It is really easy and quick.
-    %p= action_button "user_edit", "Sign up", new_registration_path(resource_name)
+        = f.commit_button t("devise.sign_in"), :button_html => {:icon => "key", :class => :button}
+    %h3=t("cfp.sign_up_headline") 
+    %p=t("cfp.sign_up_description", :title => @conference.title)
+    %p= action_button "user_edit", t("devise.sign_up"), new_registration_path(resource_name)
     .clear
-    %h3 Forgot your password?
-    %p Been here before, but don't remember your password? We know how it is, so please feel free to
-    = action_button "email", "Request a new password", new_password_path(resource_name)
+    %h3=t("cfp.forgot_password_headline")
+    %p=t("cfp.forgot_password_description") 
+    = action_button "email", t("cfp.forgot_password_button"), new_password_path(resource_name)
     .clear
-    %h3 I have registered but not received my confirmation instructions
-    %p
-      This could be one of the rare occassions where an email has actually not been delivered. If you have already waited for some time and checked your spam folders, please
-    = action_button "email", "Request the confirmation instructions again", new_confirmation_path(resource_name)
+    %h3=t("cfp.confirmation_headline") 
+    %p=t("cfp.confirmation_description")
+    = action_button "email", t("cfp.confirmation_button"), new_confirmation_path(resource_name)
     .clear
-    %p We are sorry for any inconvenience.

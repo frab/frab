@@ -6,6 +6,8 @@ en:
       not_locked: "was not locked"
 
   devise:
+    sign_in: "Log in"
+    sign_up: "Sign up"
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
       unconfirmed: 'You have to confirm your account before continuing.'

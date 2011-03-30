@@ -9,5 +9,5 @@
         = f.input :password
         = f.input :password_confirmation
       = f.buttons do
-        = f.commit_button "Sign up", :button_html => {:class => "button", :icon => "tick"}
-    = render :partial => "devise/shared/links"
+        = f.commit_button t("devise.sign_up"), :button_html => {:class => "button", :icon => "tick"}
+    = link_to t("cfp.back"), :back

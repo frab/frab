@@ -1,6 +1,6 @@
 <div class="nested-fields">
   <%= f.inputs do %>
     <%= f.input :code, :as => :language, :label => "Language", :priority_languages => [:en, :es, :de], :include_blank => "" %>
-    <%= remove_association_link "remove language", f %>
+    <%= remove_association_link t(:remove_language), f %>
   <% end %>
 </div>
