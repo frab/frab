@@ -1,9 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :set_locale
   before_filter :load_conference
 
   protected
+
+  def set_locale
+    I18n.locale = :de
+  end
 
   def load_conference
     if params[:conference_acronym]

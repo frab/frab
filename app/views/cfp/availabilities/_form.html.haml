@@ -2,30 +2,29 @@
   = f.inputs do
     - @availabilities.each do |availability|
       %h3
-        = availability.day
-        \:
+        = "#{l availability.day}:"
         %span.time_range
-          = availability.start_time.hour
-          \:00 - #{availability.end_time.hour}:00
+          = "#{availability.start_time.hour}:00 - #{availability.end_time.hour}:00"
       = f.semantic_fields_for :availabilities, availability do |af|
         = af.input :time_range, :as => :hidden
         = af.input :conference_id, :as => :hidden
         = af.input :day, :as => :hidden
         .time_range_slider{"data-from" => availability.start_time.hour, "data-to" => availability.end_time.hour}
   = f.buttons do
-    = f.commit_button "Save", :button_html => {:class => "button", :icon => "tick"}
-= javascript_tag do
+    = f.commit_button t("cfp.save_availability"), :button_html => {:class => "button", :icon => "tick"}
+
+:javascript
   $(function() {
-  $(".time_range_slider").each(function() {
-  $(this).slider({
-  range: true,
-  min: 0,
-  max: 24,
-  values: [$(this).data("from"), $(this).data("to")],
-  slide: function(event, ui) {
-  $(this).prev().prev().prev().prev().children(".time_range").html(ui.values[0] + ":00 - " + ui.values[1] + ":00");
-  $(this).prev().prev().prev().children("input").first().val(ui.values[0] + "-" + ui.values[1]);
-  }
-  });
-  });
+    $(".time_range_slider").each(function() {
+      $(this).slider({
+        range: true,
+        min: 0,
+        max: 24,
+        values: [$(this).data("from"), $(this).data("to")],
+        slide: function(event, ui) {
+          $(this).prev().prev().prev().prev().children(".time_range").html(ui.values[0] + ":00 - " + ui.values[1] + ":00");
+          $(this).prev().prev().prev().children("input").first().val(ui.values[0] + "-" + ui.values[1]);
+        }
+      });
+    });
   });

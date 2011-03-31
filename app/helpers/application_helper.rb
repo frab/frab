@@ -36,7 +36,7 @@ module ApplicationHelper
   def translated_options(collection)
     result = Array.new
     collection.each do |element|
-      result << [t(element), element]
+      result << [t("options.#{element}"), element]
     end
     result
   end
