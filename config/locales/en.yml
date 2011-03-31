@@ -6,3 +6,5 @@ en:
   male: "male"
   female: "female"
   add_association: "add %{name}"
+  remove_link: "remove link"
+  remove_file: "remove file"

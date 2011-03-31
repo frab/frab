@@ -55,8 +55,15 @@ en:
     links: "Links"
     languages_spoken: "Languages spoken"
     contact_data: "Contact data"
-    remove_link: "remove link"
     remove_im_account: "remove IM account"
     remove_phone_number: "remove phone number"
-
+    edit_event_headline: "Editing event"
+    create_event_headline: "Create a new event"
+    basic_information: "Basic information"
+    detailed_description: "Detailed description"
+    event_abstract_hint: "One short paragraph that succinctly describes the event."
+    event_description_hint: "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website."
+    uploaded_files: "Uploaded files"
+    edit_availability_headline: "Edit availability"
+    edit_availability_description: "Please let us know when you will be available to hold the events you submit. We will try our best to incorporate these wishes when planning the schedule."
 
