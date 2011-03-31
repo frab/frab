@@ -15,7 +15,7 @@ class Cfp::AvailabilitiesController < ApplicationController
 
   def update
     current_cfp_user.person.update_attributes(params[:person])
-    redirect_to cfp_root_path, :notice => "Thank you for specifying your availability."
+    redirect_to cfp_root_path, :notice => t("cfp.update_availability_notice") 
   end
 
 end

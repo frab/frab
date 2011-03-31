@@ -66,4 +66,11 @@ en:
     uploaded_files: "Uploaded files"
     edit_availability_headline: "Edit availability"
     edit_availability_description: "Please let us know when you will be available to hold the events you submit. We will try our best to incorporate these wishes when planning the schedule."
+    update_availability_notice: "Thank you for specifying your availability."
+    event_created_notice: "Event was successfully created."
+    event_updated_notice: "Event was successfully updated."
+    event_withdrawn_notice: "Your submission has been withdrawn."
+    person_created_notice: "Profile was successfully created."
+    person_updated_notice: "Profile was successfully updated."
+
 

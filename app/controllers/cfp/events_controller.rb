@@ -53,7 +53,7 @@ class Cfp::EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to(cfp_person_path, :notice => 'Event was successfully created.') }
+        format.html { redirect_to(cfp_person_path, :notice => t("cfp.event_created_notice")) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
@@ -69,7 +69,7 @@ class Cfp::EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to(cfp_person_path, :notice => 'Event was successfully updated.') }
+        format.html { redirect_to(cfp_person_path, :notice => t("cfp.event_updated_notice")) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -81,7 +81,7 @@ class Cfp::EventsController < ApplicationController
   def withdraw
     @event = current_cfp_user.person.events.find(params[:id], :readonly => false)
     @event.withdraw!
-    redirect_to(cfp_person_path, :notice => "Your submission has been withdrawn.")
+    redirect_to(cfp_person_path, :notice => t("cfp.event_withdrawn_notice"))
   end
 
 end
