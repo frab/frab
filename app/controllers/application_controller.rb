@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_locale
-    I18n.locale = :de
+    I18n.locale = params[:locale]
   end
 
   def load_conference
@@ -21,11 +21,11 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
+    result = {:locale => params[:locale]}
     if @conference
-      {:conference_acronym => @conference.acronym}
-    else
-      {}
+      result.merge!(:conference_acronym => @conference.acronym)
     end
+    result
   end
 
   def current_user

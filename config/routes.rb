@@ -1,45 +1,51 @@
 Frab::Application.routes.draw do
-  devise_for :users
 
-  resources :conferences
+  scope "(:locale)" do
+  
+    devise_for :users
 
-  scope :path => "/:conference_acronym" do
-    
-    match "/recent_changes" => "recent_changes#index", :as => "recent_changes"
+    resources :conferences
 
-    resource :conference
+    scope :path => "/:conference_acronym" do
+      
+      match "/recent_changes" => "recent_changes#index", :as => "recent_changes"
 
-    resource :call_for_papers
+      resource :conference
 
-    resources :people do
-      resource :user
-    end
+      resource :call_for_papers
 
-    resources :events do
-      member do
-        get :edit_persons
-      end
-    end
-
-    namespace :cfp do
-
-      devise_for :users
-
-      resource :person do
-        resource :availability
+      resources :people do
+        resource :user
       end
 
       resources :events do
         member do
-          put :withdraw
+          get :edit_persons
         end
       end
 
-      match "/open_soon" => "welcome#open_soon", :as => "open_soon"
+      namespace :cfp do
 
-      root :to => "people#show"
+        devise_for :users
 
+        resource :person do
+          resource :availability
+        end
+
+        resources :events do
+          member do
+            put :withdraw
+          end
+        end
+
+        match "/open_soon" => "welcome#open_soon", :as => "open_soon"
+
+        root :to => "people#show"
+
+      end
     end
+    
+    root :to => "home#index"
   end
 
   root :to => "home#index"
