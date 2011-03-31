@@ -23,3 +23,13 @@
   float: none;
   margin: 10px;
 }
+
+span.language_switcher {
+  float:right;
+  font-size: 60%;
+  vertical-align: super;
+}
+
+span.language_switcher a {
+  color: #DFDFE1;
+}

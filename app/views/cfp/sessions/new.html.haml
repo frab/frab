@@ -2,6 +2,10 @@
   %h2
     = @conference.title
     \- Call for Papers
+    - if available_conference_locales.size > 1
+      %span.language_switcher
+        - available_conference_locales.each do |locale|
+          = link_to locale.to_s, url_for( :locale => locale )
   = content do
     = render "shared/flash", :flash => flash
     - if @conference.call_for_papers.welcome_text

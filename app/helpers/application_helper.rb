@@ -40,4 +40,10 @@ module ApplicationHelper
     end
     result
   end
+
+  def available_conference_locales
+    conference_locales = @conference.language_codes.map {|c| c.to_sym}
+    I18n.available_locales & conference_locales
+  end
+
 end
