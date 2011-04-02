@@ -1,5 +1,0 @@
-<p>Welcome <%= @resource.email %>!</p>
-
-<p>You can confirm your account through the link below:</p>
-
-<p><%= link_to 'Confirm my account', cfp_user_confirmation_url(:confirmation_token => @resource.confirmation_token, :conference_acronym => @resource.call_for_papers.conference.acronym) %></p>
