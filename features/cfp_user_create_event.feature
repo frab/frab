@@ -4,7 +4,7 @@ Feature: Call for Papers event submission
   wants to submit a new event
   
   Scenario: Fill out and submit event submission form
-    Given I am recurring user logged in to an open cfp
+    Given I am a recurring user logged in to an open cfp
       And I follow "Submit a new event"
     When I fill in "Title" with "BDD with Cucumber"
       And I fill in "Subtitle" with "Fun with vegetables"

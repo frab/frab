@@ -6,13 +6,13 @@ Given /^I am a new user with email "([^"]*)" and password "([^"]*)"$/ do |email,
   User.make!(:email => email, :password => password, :confirmed_at => Time.now.ago(1.days))
 end
 
-Given /^I am recurring user logged in to an open cfp$/ do
+Given /^I am a recurring user logged in to an open cfp$/ do
   u = User.make!(:confirmed_at => Time.now.ago(1.days), :person => Person.make!)
   cfp = CallForPapers.make!
   visit(cfp_root_path(:conference_acronym => cfp.conference.acronym))
   fill_in("Email", :with => u.email)
   fill_in("Password", :with => "frab23")
-  click_button("Sign in")
+  click_button("Log in")
 end
 
 Given /^I am a new user logged in to an open cfp/ do
@@ -21,5 +21,5 @@ Given /^I am a new user logged in to an open cfp/ do
   visit(cfp_root_path(:conference_acronym => cfp.conference.acronym))
   fill_in("Email", :with => u.email)
   fill_in("Password", :with => "frab23")
-  click_button("Sign in")
+  click_button("Log in")
 end

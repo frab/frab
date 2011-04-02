@@ -9,7 +9,7 @@ Feature: Call for Papers user first login
       And I am on an open cfp's home page
     When I fill in "Email" with "cukes@example.org"
       And I fill in "Password" with "cukes23"
-      And I press "Sign in"
+      And I press "Log in"
     Then I should see "Personal details"
 
   Scenario: Fill in personal details
@@ -18,6 +18,6 @@ Feature: Call for Papers user first login
       And I fill in "Last name" with "Besen"
       And I select "male" from "Gender"
       And I press "Create Person"
-    Then I should see "Person was successfully created."
+    Then I should see "Profile was successfully created."
       And I should see "Welcome"
 

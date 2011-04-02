@@ -2,7 +2,7 @@ Feature: Call for Papers user signup
   In order to submit proposals in a Call for Papers
   A user
   wants to sign up and create an account
-  
+
   Scenario: Go to the signup page
     Given I am not authenticated
       And I am on an open cfp's home page
