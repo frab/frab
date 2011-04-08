@@ -52,6 +52,10 @@
         <%= @event.public %>
       </p>
 
+      <p>
+        <b>Average rating:</b>
+        <%= number_with_precision @event.average_rating, :precision => 1 %>
+      </p>
     <% end %>
   <% end %>
 <% end %>

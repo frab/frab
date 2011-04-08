@@ -62,6 +62,22 @@ class Event < ActiveRecord::Base
     self.update_attributes!(:progress => new_progress) if new_progress
   end
 
+  def average_rating
+    rating = 0
+    rating_count = 0
+    self.event_feedbacks.each do |event_feedback|
+      if event_feedback.rating
+        rating += event_feedback.rating
+        rating_count += 1
+      end
+    end
+    if rating_count == 0
+      return nil
+    else
+      return rating.to_f / rating_count
+    end
+  end
+
   def to_s
     "Event: #{self.title}"
   end

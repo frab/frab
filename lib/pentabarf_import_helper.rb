@@ -231,7 +231,7 @@ class PentabarfImportHelper
         rating_count += 1
         rating += feedback[rating_column].to_f
       end
-      if rating_count = 0
+      if rating_count == 0
         rating = nil
       else
         rating = rating / rating_count.to_f
