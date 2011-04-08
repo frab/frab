@@ -220,6 +220,31 @@ class PentabarfImportHelper
     save_mappings(:events)
   end
 
+  def import_event_feedbacks
+    event_feedbacks = @barf.select_all("SELECT * FROM event_feedback")
+    event_feedbacks.each do |feedback|
+      next if ["topic_importance", "content_quality", "presentation_quality", "audience_involvement", "remark"].all? {|c| feedback[c].blank? }
+      rating = 0
+      rating_count = 0
+      ["topic_importance", "content_quality", "presentation_quality", "audience_involvement"].each do |rating_column|
+        next if feedback[rating_column].blank?
+        rating_count += 1
+        rating += feedback[rating_column].to_f
+      end
+      if rating_count = 0
+        rating = nil
+      else
+        rating = rating / rating_count.to_f
+      end
+      EventFeedback.create!(
+        :event_id => mappings(:events)[feedback["event_id"]],
+        :rating => rating,
+        :comment => feedback["remark"],
+        :created_at => feedback["eval_time"]
+      )
+    end
+  end
+
   def import_event_attachments
     EventAttachment.disable_auditing
     event_attachments = @barf.select_all("SELECT * FROM event_attachment")

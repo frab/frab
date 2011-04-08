@@ -1,0 +1,15 @@
+class CreateEventFeedbacks < ActiveRecord::Migration
+  def self.up
+    create_table :event_feedbacks do |t|
+      t.integer :event_id
+      t.float :rating
+      t.text :comment
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :event_feedbacks
+  end
+end

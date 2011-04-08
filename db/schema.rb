@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110327150649) do
+ActiveRecord::Schema.define(:version => 20110408124552) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(:version => 20110327150649) do
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_feedbacks", :force => true do |t|
+    t.integer  "event_id"
+    t.float    "rating"
+    t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

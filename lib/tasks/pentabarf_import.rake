@@ -43,6 +43,11 @@ namespace :pentabarf do
       @import_helper.import_events
     end
 
+    desc "Import event_feedbacks"
+    task :event_feedbacks => :setup do
+      @import_helper.import_event_feedbacks
+    end
+
     desc "Import event attachments"
     task :event_attachments => :setup do
       @import_helper.import_event_attachments
@@ -59,6 +64,6 @@ namespace :pentabarf do
     end
 
     desc "Import data from pentabarf"
-    task :all => [:setup, :conferences, :tracks, :rooms, :people, :accounts, :languages, :events, :event_attachments, :event_people, :links]
+    task :all => [:setup, :conferences, :tracks, :rooms, :people, :accounts, :languages, :events, :event_feedbacks, :event_attachments, :event_people, :links]
   end
 end

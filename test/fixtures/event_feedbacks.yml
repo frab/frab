@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  event_id: 1
+  rating: 1.5
+  comment: MyText
+
+two:
+  event_id: 1
+  rating: 1.5
+  comment: MyText

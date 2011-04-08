@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
   }
 
   has_many :event_people
+  has_many :event_feedbacks
   has_many :people, :through => :event_people
   has_many :links, :as => :linkable
   has_many :event_attachments
