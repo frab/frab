@@ -19,7 +19,11 @@ class User < ActiveRecord::Base
     salt = [user.pentabarf_salt.to_i( 16 )].pack("Q").reverse
     
     if Digest::MD5.hexdigest( salt + password ) == user.pentabarf_password
-      user.update_attributes!(:password => password, :password_confirmation => password)
+      user.password = password
+      user.password_confirmation = password
+      user.pentabarf_password = nil
+      user.pentabarf_salt = nil
+      user.save
     end
   end
 
