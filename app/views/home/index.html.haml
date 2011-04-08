@@ -1,0 +1,26 @@
+= block do
+  = content do
+    %h2 Welcome
+    = inner do
+      %h3 Recent changes
+      = render "recent_changes/table"
+      = link_to "more", recent_changes_path
+      %h3 Statistics
+      - if @conference.events.count > 0
+        %h4 Events by state
+        #event_graph(style="width:600px;height:300px;")
+        :javascript
+          var d1 = [[0, #{@conference.events.where(:state => "undecided").count}]];
+          var d2 = [[1, #{@conference.events.where(:state => "accepted").count}]];
+          var d3 = [[2, #{@conference.events.where(:state => "rejected").count}]];
+
+          $.plot($("#event_graph"), [ d1, d2, d3 ], {
+            series: {
+              bars: { show: true, barWidth: 1 }
+            },
+            xaxis: {
+              ticks: [[0.5, "undecided"], [1.5,"accepted"], [2.5, "rejected"]]
+            }
+          });
+
+
