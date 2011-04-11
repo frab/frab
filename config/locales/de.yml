@@ -229,6 +229,7 @@ de:
         logo: "Logo"
         abstract: "Abstract"
         description: "Beschreibung"
+        state: "Status"
       link:
         title: "Titel"
         url: "URL"

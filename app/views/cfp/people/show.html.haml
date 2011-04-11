@@ -24,8 +24,8 @@
         %table.table
           %thead
             %tr
-              %th= t("activerecord.attributes.events.title") 
-              %th= t("activerecord.attributes.events.state")
+              %th= t("activerecord.attributes.event.title") 
+              %th= t("activerecord.attributes.event.state")
               %th= t(:actions)
           %tbody
             - @person.events_in(@conference).each do |event|

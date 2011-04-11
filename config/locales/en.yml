@@ -34,3 +34,7 @@ en:
       phone_number: "Phone number"
       event_attachment: "File"
       language: "Language"
+    attributes:
+      event:
+        title: "Title"
+        state: "State"

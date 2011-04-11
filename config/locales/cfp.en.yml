@@ -33,7 +33,7 @@ en:
     not_forget_personal_details: "And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar."
     edit_profile: "Edit your personal profile"
     events_submitted: "Events you already submitted:"
-    withdraw: "Withdraw"
+    withdraw: "withdraw"
     withdrawal_confirmation: "Really withdraw this event from the Call for Papers?"
     information_headline: "Information"
     info_url_description_html: "Unsure what to submit? Read all about the Call for Papers at: %{link}"
