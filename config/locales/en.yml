@@ -2,13 +2,12 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
-  male: "male"
-  female: "female"
   add_association: "add %{name}"
   remove_link: "remove link"
   remove_file: "remove file"
   remove_language: "remove language"
+  edit: "edit"
+  actions: "Actions"
 
   options:
     lecture: "lecture"

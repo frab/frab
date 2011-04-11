@@ -23,17 +23,18 @@
         %h3=t("cfp.events_submitted") 
         %table.table
           %thead
-        %th t("activerecord.attributes.events.title") 
-        %th t("activerecord.attributes.events.state")
-        %th t(:actions)
-        %tbody
-          - @person.events_in(@conference).each do |event|
-            %tr{:class => cycle("odd", "even")}
-              %td= event.title
-              %td= event.state
-              %td
-                = link_to t("edit"), edit_cfp_event_path(event)
-                = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation")
+            %tr
+              %th= t("activerecord.attributes.events.title") 
+              %th= t("activerecord.attributes.events.state")
+              %th= t(:actions)
+          %tbody
+            - @person.events_in(@conference).each do |event|
+              %tr{:class => cycle("odd", "even")}
+                %td= event.title
+                %td= event.state
+                %td
+                  = link_to t("edit"), edit_cfp_event_path(event)
+                  = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation")
 
 - content_for :sidebar do
   = actions_block do

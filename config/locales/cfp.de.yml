@@ -33,7 +33,7 @@ de:
     not_forget_personal_details: "Und vergessen Sie nicht, Ihr Profil auszufüllen. Sie können jederzeit Änderungen an Ihrem Profil vornehmen mit Hilfes des Buttons in der rechten Seitenleiste."
     edit_profile: "Persönliches Profil bearbeiten"
     events_submitted: "Ihre bisherigen Einreichungen:"
-    withdraw: "Zurückziehen"
+    withdraw: "zurückziehen"
     withdrawal_confirmation: "Wollen Sie diesen Vorschlag wirklich zurückziehen?"
     information_headline: "Information"
     info_url_description_html: "Sind Sie unsicher, was Sie einreichen sollen? Alle Infos zum Call for Papers gibt es hier: %{link}"
