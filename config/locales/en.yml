@@ -26,3 +26,12 @@ en:
     business: "business"
     skype: "skype"
     secretary: "secretary"
+  activerecord:
+    models:
+      event: "Event"
+      person: "Profile"
+      link: "Link"
+      im_account: "IM Account"
+      phone_number: "Phone number"
+      event_attachment: "File"
+      language: "Language"
