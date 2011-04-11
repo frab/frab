@@ -48,12 +48,12 @@
     %h3=t("cfp.information_headline") 
     = content do
       - unless @conference.call_for_papers.info_url.blank?
-        %p=t("cfp.info_url_description", :link => link_to(@conference.call_for_papers.info_url, @conference.call_for_papers.info_url))
+        %p=t("cfp.info_url_description_html", :link => link_to(@conference.call_for_papers.info_url, @conference.call_for_papers.info_url))
       %p
         =t("cfp.deadline_description") 
-        %b= @conference.call_for_papers.end_date
+        %b= l(@conference.call_for_papers.end_date)
   - unless @conference.call_for_papers.contact_email.blank?
     = block do
       %h3=t("cfp.contact_headline")
       = content do
-        %p=t("cfp.contact_description", :mail_to => mail_to(@conference.call_for_papers.contact_email))
+        %p=t("cfp.contact_description_html", :mail_to => mail_to(@conference.call_for_papers.contact_email))
