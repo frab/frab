@@ -22,8 +22,8 @@ class PeopleController < ApplicationController
   # GET /people/1.xml
   def show
     @person = Person.find(params[:id])
-    @current_events = @person.events.where(:conference_id => @conference.id).group("events.id").all
-    @other_events = @person.events.where(Event.arel_table[:conference_id].not_eq(@conference.id)).group("events.id").all
+    @current_events = @person.events.where(:conference_id => @conference.id).all
+    @other_events = @person.events.where(Event.arel_table[:conference_id].not_eq(@conference.id)).all
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @person }
