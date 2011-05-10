@@ -99,6 +99,11 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta_search (1.0.5)
+      actionpack (~> 3.0.2)
+      activerecord (~> 3.0.2)
+      activesupport (~> 3.0.2)
+      arel (~> 2.0.2)
     mime-types (1.16)
     mysql (2.8.1)
     nokogiri (1.4.4)
@@ -144,7 +149,7 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.25)
+    tzinfo (0.3.27)
     warden (1.0.3)
       rack (>= 1.0.0)
     web-app-theme (0.6.3)
@@ -171,6 +176,7 @@ DEPENDENCIES
   jquery-rails
   localized_language_select (= 0.2.0)!
   machinist (~> 2.0.0.beta2)
+  meta_search
   mysql
   paperclip
   pg

@@ -1,27 +1,35 @@
 <table class="table">
   <tr>
     <th class="first"></th>
-    <th>Title</th>
-    <th>Subtitle</th>
-    <th>Event type</th>
-    <th>State</th>
-    <th>Progress</th>
+    <% if @search %>
+      <th><%= sort_link @search, :title, :term => params[:term] %></th>
+      <th><%= sort_link @search, :track_name, "Track", :term => params[:term] %></th>
+      <th><%= sort_link @search, :event_type, :term => params[:term] %></th>
+      <th><%= sort_link @search, :state, :term => params[:term] %></th>
+      <th><%= sort_link @search, :created_at, :term => params[:term] %></th>
+    <% else %>
+      <th>Title</th>
+      <th>Track</th>
+      <th>Event type</th>
+      <th>State</th>
+      <th>Created at</th>
+    <% end %>
     <th class="last"></th>
   </tr>
 
-<% events.each do |event| %>
-  <tr>
-    <td><%= image_box event.logo, :small %></td>
-    <td><%= event.title %></td>
-    <td><%= event.subtitle %></td>
-    <td><%= event.event_type %></td>
-    <td><%= event.state %></td>
-    <td><%= event.progress %></td>
-    <td class="last">
-      <%= link_to 'Show', event %> |
-      <%= link_to 'Edit', edit_event_path(event) %> |
-      <%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %>
-    </td>
-  </tr>
-<% end %>
+  <% events.each do |event| %>
+    <tr>
+      <td><%= image_box event.logo, :small %></td>
+      <td><%= event.title %></td>
+      <td><%= event.track.try(:name) %></td>
+      <td><%= event.event_type %></td>
+      <td><%= event.state %> <br /> <%= event.progress %></td>
+      <td><%= l(event.created_at, :format => :short) %></td>
+      <td class="last">
+        <%= link_to 'Show', event %> |
+        <%= link_to 'Edit', edit_event_path(event) %> |
+        <%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
 </table>
