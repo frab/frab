@@ -17,7 +17,7 @@ Feature: Call for Papers user first login
     When I fill in "First name" with "Fred"
       And I fill in "Last name" with "Besen"
       And I select "male" from "Gender"
-      And I press "Create Person"
+      And I press "Create Profile"
     Then I should see "Profile was successfully created."
       And I should see "Welcome"
 
