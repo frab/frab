@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   has_many :people, :through => :event_people
   has_many :links, :as => :linkable
   has_many :event_attachments
+  has_many :event_ratings
 
   belongs_to :conference
   belongs_to :track
@@ -62,24 +63,34 @@ class Event < ActiveRecord::Base
     self.update_attributes!(:progress => new_progress) if new_progress
   end
 
+  def average_feedback
+    average(:event_feedbacks)
+  end
+
   def average_rating
-    rating = 0
+    average(:event_ratings)
+  end
+
+  def to_s
+    "Event: #{self.title}"
+  end
+
+  private
+
+  def average(rating_type)
+    result = 0
     rating_count = 0
-    self.event_feedbacks.each do |event_feedback|
-      if event_feedback.rating
-        rating += event_feedback.rating
+    self.send(rating_type).each do |rating|
+      if rating.rating
+        result += rating.rating
         rating_count += 1
       end
     end
     if rating_count == 0
       return nil
     else
-      return rating.to_f / rating_count
+      return result.to_f / rating_count
     end
-  end
-
-  def to_s
-    "Event: #{self.title}"
   end
 
 end

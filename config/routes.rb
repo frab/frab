@@ -18,6 +18,16 @@ Frab::Application.routes.draw do
         resource :user
       end
 
+      resources :events do
+        collection do
+          get :ratings
+        end
+        member do
+          get :edit_persons
+        end
+        resource :event_rating
+      end
+
       namespace :cfp do
 
         devise_for :users
@@ -38,12 +48,6 @@ Frab::Application.routes.draw do
 
       end
       
-      resources :events do
-        member do
-          get :edit_persons
-        end
-      end
-
     end
     
     root :to => "home#index"

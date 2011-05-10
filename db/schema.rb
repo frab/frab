@@ -10,7 +10,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110408124552) do
+ActiveRecord::Schema.define(:version => 20110510145153) do
+
+  create_table "attendee_registrations", :force => true do |t|
+    t.integer  "conference_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attendees", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.integer  "attendee_registration_id"
+    t.string   "name_or_company"
+    t.string   "street"
+    t.string   "street_2"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "state"
+    t.string   "country"
+    t.datetime "payed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -98,6 +123,15 @@ ActiveRecord::Schema.define(:version => 20110408124552) do
     t.datetime "updated_at"
   end
 
+  create_table "event_ratings", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "person_id"
+    t.float    "rating"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "events", :force => true do |t|
     t.integer  "conference_id",                              :null => false
     t.string   "title",                                      :null => false
@@ -146,6 +180,14 @@ ActiveRecord::Schema.define(:version => 20110408124552) do
     t.datetime "updated_at"
   end
 
+  create_table "ordered_products", :force => true do |t|
+    t.integer  "attendee_id"
+    t.integer  "product_type_id"
+    t.integer  "amount",          :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "people", :force => true do |t|
     t.string   "first_name",          :null => false
     t.string   "last_name",           :null => false
@@ -170,6 +212,21 @@ ActiveRecord::Schema.define(:version => 20110408124552) do
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "product_types", :force => true do |t|
+    t.string   "type"
+    t.integer  "attendee_registration_id"
+    t.string   "name"
+    t.decimal  "price",                    :precision => 7, :scale => 2
+    t.decimal  "vat",                      :precision => 4, :scale => 2
+    t.boolean  "includes_vat"
+    t.date     "available_until"
+    t.integer  "amount_available"
+    t.boolean  "needs_invoice_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "currency"
   end
 
   create_table "rooms", :force => true do |t|

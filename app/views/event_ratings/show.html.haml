@@ -1,0 +1,30 @@
+= block do
+  = content do
+    %h2 Ratings for #{@event.title}
+    = inner do
+      %h3 My rating
+      = semantic_form_for @rating, :url => event_event_rating_path do |f|
+        = f.inputs do
+          = f.input :rating, :as => :radio, :collection => [0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]
+          = f.input :comment, :input_html => {:rows => 3}
+        = f.buttons do
+          = f.commit_button :button_html => {:class => "button"}
+      %h3 All ratings
+      %table.table
+        %tr
+          %th.first
+          %th User
+          %th Rating
+          %th Comment
+        - @event.event_ratings.each do |event_rating|
+          %tr
+            %td=image_box event_rating.person.avatar, :small
+            %td=event_rating.person.full_name
+            %td=event_rating.rating
+            %td=event_rating.comment
+
+- content_for :sidebar do
+  = block do
+    %h3 Total rating
+    = content do
+      = @event.average_rating

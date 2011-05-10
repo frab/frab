@@ -20,6 +20,11 @@ class EventsController < ApplicationController
     end
   end
 
+  def ratings
+    @search = @conference.events.search(params[:search])
+    @events = @search.paginate :page => params[:page]
+  end
+
   # GET /events/1
   # GET /events/1.xml
   def show

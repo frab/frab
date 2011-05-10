@@ -1,0 +1,2 @@
+module EventRatingsHelper
+end

@@ -9,6 +9,7 @@ class Person < ActiveRecord::Base
   has_many :links, :as => :linkable
   has_many :languages, :as => :attachable
   has_many :availabilities
+  has_many :event_ratings
 
   accepts_nested_attributes_for :phone_numbers, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :im_accounts, :reject_if => :all_blank, :allow_destroy => true
