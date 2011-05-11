@@ -1,0 +1,57 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.active.first= link_to "Event Details", @event 
+      %li= link_to "Ratings", event_event_rating_path(@event)
+  = content do
+    %h2
+      Event: #{@event.title}
+    = inner do
+      %p
+        %b Subtitle:
+        = @event.subtitle
+      %p
+        %b Event type:
+        = @event.event_type
+      %p
+        %b Time slots:
+        = @event.time_slots
+      %p
+        %b State:
+        = @event.state
+      %p
+        %b Progress:
+        = @event.progress
+      %p
+        %b Language:
+        = @event.language
+      %p
+        %b Start time:
+        = @event.start_time
+      %p
+        %b Abstract:
+        = @event.abstract
+      %p
+        %b Description:
+        = @event.description
+      %p
+        %b Public:
+        = @event.public
+      %p
+        %b Average audience feedback:
+        = number_with_precision @event.average_feedback, :precision => 1
+
+- content_for :sidebar do
+  = actions_block do
+    = action_button "application_edit", "Edit event", new_event_path
+  = block do
+    %h3 People involved in this event
+    = content do
+      %table.table
+        - @event.event_people.each do |event_person|
+          %tr
+            %td= image_box event_person.person.avatar, :small
+            %td= link_to event_person.person.full_name, event_person.person
+            %td= event_person.event_role
+            %td= event_person.role_state
+      = action_button "application_edit", "Edit", edit_persons_event_path(@event)
