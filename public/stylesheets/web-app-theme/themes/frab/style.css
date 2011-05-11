@@ -138,8 +138,8 @@ hr {
 }
 
 .secondary-navigation {
-  background: #3B5526;
-  border-bottom: 5px solid #81b953;
+  background: #0a2542;
+  border-bottom: 5px solid #1860A8;
 }
 
 .secondary-navigation ul li a {
@@ -147,13 +147,17 @@ display:block;
 padding: 8px 12px;
 }
 
-.secondary-navigation ul li.active {background: #81b953;  font-weight: bold;}
+.secondary-navigation ul li.active {
+  background: #1860A8;
+  font-weight: bold;
+}
+
 .secondary-navigation ul li.active a:hover {
-  background-color: #81B953;
+  background: #1860A8;
 }
 
 .secondary-navigation li a:hover {
-  background: #81B953;
+  background: #1860A8;
 }
 
 #footer .block {  
