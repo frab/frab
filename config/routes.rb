@@ -2,7 +2,7 @@ Frab::Application.routes.draw do
 
   scope "(:locale)" do
   
-    devise_for :users, :controllers => {:sessions => "sessions"}
+    devise_for :users, :controllers => {:sessions => "sessions"}, :skip => :registrations
 
     resources :conferences
 
