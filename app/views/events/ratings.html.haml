@@ -1,0 +1,26 @@
+= block do
+  = content do
+    %h2 Event Ratings
+    = inner do
+      %table.table
+        %tr
+          %th.first
+          %th= sort_link @search, :title, :term => params[:term]
+          %th= sort_link @search, :track_name, "Track", :term => params[:term]
+          %th= sort_link @search, :event_type, :term => params[:term]
+          %th= sort_link @search, :state, :term => params[:term]
+          %th= sort_link @search, :average_rating, :term => params[:term]
+          %th.last
+        - @events.each do |event|
+          %tr
+            %td= image_box event.logo, :small
+            %td= event.title
+            %td= event.track.try(:name)
+            %td= event.event_type
+            %td
+              = event.state
+              %br/
+              = event.progress
+            %td= event.average_rating 
+            %td.last
+              = link_to 'Show Ratings', event_event_rating_path(event)

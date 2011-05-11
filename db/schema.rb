@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110510145153) do
+ActiveRecord::Schema.define(:version => 20110511103813) do
 
   create_table "attendee_registrations", :force => true do |t|
     t.integer  "conference_id"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20110510145153) do
     t.integer  "room_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "average_rating"
   end
 
   create_table "im_accounts", :force => true do |t|

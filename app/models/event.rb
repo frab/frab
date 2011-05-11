@@ -67,8 +67,8 @@ class Event < ActiveRecord::Base
     average(:event_feedbacks)
   end
 
-  def average_rating
-    average(:event_ratings)
+  def recalculate_average_rating!
+    self.update_attributes(:average_rating => average(:event_ratings))
   end
 
   def to_s
