@@ -8,26 +8,6 @@ Frab::Application.routes.draw do
 
     scope :path => "/:conference_acronym" do
       
-      match "/recent_changes" => "recent_changes#index", :as => "recent_changes"
-
-      resource :conference
-
-      resource :call_for_papers
-
-      resources :people do
-        resource :user
-      end
-
-      resources :events do
-        collection do
-          get :ratings
-        end
-        member do
-          get :edit_persons
-        end
-        resource :event_rating
-      end
-
       namespace :cfp do
 
         devise_for :users
@@ -48,6 +28,26 @@ Frab::Application.routes.draw do
 
       end
       
+      match "/recent_changes" => "recent_changes#index", :as => "recent_changes"
+
+      resource :conference
+
+      resource :call_for_papers
+
+      resources :people do
+        resource :user
+      end
+
+      resources :events do
+        collection do
+          get :ratings
+        end
+        member do
+          get :edit_persons
+        end
+        resource :event_rating
+      end
+
     end
     
     root :to => "home#index"

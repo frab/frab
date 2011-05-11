@@ -5,7 +5,8 @@
       %h3 My rating
       = semantic_form_for @rating, :url => event_event_rating_path do |f|
         = f.inputs do
-          = f.input :rating, :as => :radio, :collection => [0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]
+          = f.input :rating, :as => :hidden
+          #my_rating 
           = f.input :comment, :input_html => {:rows => 3}
         = f.buttons do
           = f.commit_button :button_html => {:class => "button"}
@@ -20,11 +21,37 @@
           %tr
             %td=image_box event_rating.person.avatar, :small
             %td=event_rating.person.full_name
-            %td=event_rating.rating
+            %td
+              .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
             %td=event_rating.comment
 
 - content_for :sidebar do
   = block do
     %h3 Total rating
     = content do
-      = @event.average_rating
+      #total_rating{:"data-rating" => @event.average_rating}
+
+:javascript
+  $(document).ready(function() {
+    $("#my_rating").raty({
+      path: "/images/raty/",
+      half: true,
+      start: $("#event_rating_rating").val(),
+      target: "#event_rating_rating",
+      targetType: "number",
+      targetKeep: true
+    });
+    $("#total_rating").raty({
+      path: "/images/raty/",
+      half: true,
+      start: $("#total_rating").data("rating")
+    });
+    $(".rating").each(function(index) {
+      $(this).raty({
+        readOnly: true,
+        path: "/images/raty/",
+        half: true,
+        start: $(this).data('rating')
+      });
+    });
+  });
