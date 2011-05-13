@@ -88,6 +88,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def update_state
+    @event = Event.find(params[:id])
+    @event.send(:"#{params[:transition]}!")
+    redirect_to @event 
+  end
+
   # DELETE /events/1
   # DELETE /events/1.xml
   def destroy

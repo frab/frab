@@ -77,6 +77,10 @@ class Event < ActiveRecord::Base
     result.to_a.sort
   end
 
+  def transition_possible?(transition)
+    self.class.state_machine.events_for(self.current_state).include?(transition)
+  end
+
   def average_feedback
     average(:event_feedbacks)
   end

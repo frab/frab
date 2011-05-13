@@ -44,6 +44,7 @@ Frab::Application.routes.draw do
         end
         member do
           get :edit_persons
+          put :update_state
         end
         resource :event_rating
       end
