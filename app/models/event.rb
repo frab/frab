@@ -1,11 +1,7 @@
 class Event < ActiveRecord::Base
+  include ActiveRecord::Transitions
 
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
-  STATES = {
-    :undecided => [:new, :review, :withdrawn],
-    :accepted => [:unconfirmed, :confirmed, :canceled],
-    :rejected => [:done]
-  }
 
   has_many :event_people
   has_many :event_feedbacks
@@ -34,6 +30,35 @@ class Event < ActiveRecord::Base
 
   acts_as_audited 
 
+  state_machine do
+    state :new
+    state :review
+    state :withdrawn
+    state :unconfirmed
+    state :confirmed
+    state :canceled
+    state :rejected
+
+    event :start_review do
+      transitions :to => :review, :from => :new
+    end
+    event :withdraw do
+      transitions :to => :withdrawn, :from => [:new, :review, :unconfirmed]
+    end
+    event :accept do
+      transitions :to => :unconfirmed, :from => [:new, :review]
+    end
+    event :confirm do
+      transitions :to => :confirmed, :from => :unconfirmed
+    end
+    event :cancel do
+      transitions :to => :canceled, :from => [:unconfirmed, :confirmed]
+    end
+    event :reject do
+      transitions :to => :rejected, :from => [:new, :review]
+    end
+  end
+
   def self.submission_data(conference)
     result = Hash.new
     events = conference.events.order(:created_at)
@@ -50,17 +75,6 @@ class Event < ActiveRecord::Base
       result[date] += 1
     end
     result.to_a.sort
-  end
-
-  def withdraw!
-    new_progress = nil
-    case self.state
-    when "undecided"
-      new_progress = "withdrawn"
-    when "accepted"
-      new_progress = "canceled"
-    end
-    self.update_attributes!(:progress => new_progress) if new_progress
   end
 
   def average_feedback

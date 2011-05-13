@@ -23,7 +23,7 @@
       <td><%= event.title %></td>
       <td><%= event.track.try(:name) %></td>
       <td><%= event.event_type %></td>
-      <td><%= event.state %> <br /> <%= event.progress %></td>
+      <td><%= event.state %></td>
       <td><%= l(event.created_at, :format => :short) %></td>
       <td class="last">
         <%= link_to 'Show', event %> |

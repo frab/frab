@@ -10,16 +10,17 @@
         %h4 Events by state
         #event_graph(style="width:600px;height:300px;")
         :javascript
-          var d1 = [[0, #{@conference.events.where(:state => "undecided").count}]];
-          var d2 = [[1, #{@conference.events.where(:state => "accepted").count}]];
+          var d1 = [[0, #{@conference.events.where(:state => ["new", "review"]).count}]];
+          var d2 = [[1, #{@conference.events.where(:state => ["unconfirmed", "confirmed"]).count}]];
           var d3 = [[2, #{@conference.events.where(:state => "rejected").count}]];
+          var d4 = [[3, #{@conference.events.where(:state => ["withdrawn", "canceled"]).count}]];
 
-          $.plot($("#event_graph"), [ d1, d2, d3 ], {
+          $.plot($("#event_graph"), [ d1, d2, d3, d4 ], {
             series: {
               bars: { show: true, barWidth: 1 }
             },
             xaxis: {
-              ticks: [[0.5, "undecided"], [1.5,"accepted"], [2.5, "rejected"]]
+              ticks: [[0.5, "undecided"], [1.5,"accepted"], [2.5, "rejected"], [3.5, "withdrawn/canceled"]]
             }
           });
 
