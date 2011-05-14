@@ -20,6 +20,14 @@ class EventsController < ApplicationController
     end
   end
 
+  def cards
+    @events = @conference.events
+    
+    respond_to do |format|
+      format.pdf
+    end
+  end
+
   def ratings
     @search = @conference.events.search(params[:search])
     @events = @search.paginate :page => params[:page]

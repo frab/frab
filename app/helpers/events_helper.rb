@@ -3,8 +3,7 @@ module EventsHelper
   def timeslots
     slots = Array.new
     @conference.max_timeslots.times do |i|
-      duration_in_minutes = i * @conference.timeslot_duration
-      slots << [duration_to_time(duration_in_minutes), i]
+      slots << [format_time_slots(i), i]
     end
     slots
   end
@@ -23,6 +22,11 @@ module EventsHelper
       date = date.tomorrow
     end
     times
+  end
+
+  def format_time_slots(number_of_time_slots)
+    duration_in_minutes = number_of_time_slots * @conference.timeslot_duration
+    duration_to_time(duration_in_minutes)
   end
 
 end

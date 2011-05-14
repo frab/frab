@@ -13,3 +13,4 @@
 - content_for :sidebar do
   = actions_block do
     = action_button "add", "Add event", new_event_path
+    = action_button "printer", "Print cards", cards_events_path(:format => :pdf)
