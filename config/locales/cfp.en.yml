@@ -61,6 +61,7 @@ en:
     create_event_headline: "Create a new event"
     basic_information: "Basic information"
     detailed_description: "Detailed description"
+    event_time_slots_hint: "Length of your event in hours and minutes. For regular talks etc. just use the default."
     event_abstract_hint: "One short paragraph that succinctly describes the event."
     event_description_hint: "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website."
     uploaded_files: "Uploaded files"

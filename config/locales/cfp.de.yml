@@ -61,6 +61,7 @@ de:
     create_event_headline: "Neuen Vorschlag einreichen"
     basic_information: "Basisinformationen"
     detailed_description: "Detaillierte Beschreibung"
+    event_time_slots_hint: "Länge Ihrer Veranstaltung in Stunden und Minuten. Für normale Vorträge sollte in der Regel der Standardwert übernommen werden."
     event_abstract_hint: "Kurzer Absatz, der Ihren Vorschlag prägnant beschreibt."
     event_description_hint: "Eine längere Beschreibung Ihres Vorschlags. Hier kann alles rein, was nicht in den Abstract passt."
     uploaded_files: "Hochgeladene Dateien"
