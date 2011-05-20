@@ -21,10 +21,7 @@
             %td= event.title
             %td= event.track.try(:name)
             %td= event.event_type
-            %td
-              = event.state
-              %br/
-              = event.progress
+            %td= event.state
             %td
               - if event.average_rating
                 .rating{:id => "event_rating_#{event.id}", :"data-rating" => event.average_rating}
