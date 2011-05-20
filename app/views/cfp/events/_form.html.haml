@@ -1,4 +1,4 @@
-= semantic_form_for([:cfp, @event]) do |f|
+= semantic_form_for([:cfp, @event], :html => {:multipart => true}) do |f|
   = f.inputs :name => t("cfp.basic_information") do
     = f.input :title
     = f.input :subtitle

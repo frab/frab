@@ -1,4 +1,4 @@
-= semantic_form_for(@person, :url => cfp_person_path) do |f|
+= semantic_form_for(@person, :url => cfp_person_path, :html => {:multipart => true}) do |f|
   = f.inputs :name => "Basic" do
     = f.input :first_name
     = f.input :last_name
