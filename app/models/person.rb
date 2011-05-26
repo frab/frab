@@ -55,7 +55,7 @@ class Person < ActiveRecord::Base
         count += 1
       end
     end
-    return "no data" if count == 0
+    return nil if count == 0
     feedback / count
   end
 

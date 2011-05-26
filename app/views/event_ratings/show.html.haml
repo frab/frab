@@ -21,7 +21,10 @@
                 %td= person.full_name
                 %td 
                   %b Average feedback as speaker: 
-                  = sprintf("%.2f / 5.0", person.average_feedback_as_speaker)
+                  - if average_feedback = person.average_feedback_as_speaker
+                    = sprintf("%.2f / 5.0", average_feedback)
+                  - else
+                    no data
                   
         %p
           %b Track:
