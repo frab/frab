@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110513143301) do
+ActiveRecord::Schema.define(:version => 20110526154037) do
 
   create_table "attendee_registrations", :force => true do |t|
     t.integer  "conference_id"
@@ -133,17 +133,17 @@ ActiveRecord::Schema.define(:version => 20110513143301) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "conference_id",                         :null => false
-    t.string   "title",                                 :null => false
+    t.integer  "conference_id",                           :null => false
+    t.string   "title",                                   :null => false
     t.string   "subtitle"
-    t.string   "event_type",        :default => "talk"
+    t.string   "event_type",          :default => "talk"
     t.integer  "time_slots"
-    t.string   "state",             :default => "new",  :null => false
+    t.string   "state",               :default => "new",  :null => false
     t.string   "language"
     t.datetime "start_time"
     t.text     "abstract"
     t.text     "description"
-    t.boolean  "public",            :default => true
+    t.boolean  "public",              :default => true
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20110513143301) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "average_rating"
+    t.integer  "event_ratings_count", :default => 0
   end
 
   create_table "im_accounts", :force => true do |t|

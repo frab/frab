@@ -1,6 +1,6 @@
 class EventRating < ActiveRecord::Base
 
-  belongs_to :event
+  belongs_to :event, :counter_cache => true
   belongs_to :person
 
   after_save :update_average

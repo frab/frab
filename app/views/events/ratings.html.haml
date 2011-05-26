@@ -14,6 +14,7 @@
           %th= sort_link @search, :event_type, :term => params[:term]
           %th= sort_link @search, :state, :term => params[:term]
           %th= sort_link @search, :average_rating, :term => params[:term]
+          %th= sort_link @search, :event_ratings_count, :term => params[:term]
           %th.last
         - @events.each do |event|
           %tr
@@ -25,6 +26,7 @@
             %td
               - if event.average_rating
                 .rating{:id => "event_rating_#{event.id}", :"data-rating" => event.average_rating}
+            %td= event.event_ratings_count
             %td.last
               = link_to 'Show Ratings', event_event_rating_path(event)
       = actions_bar do
