@@ -40,7 +40,7 @@
 
 - content_for :sidebar do
   = actions_block do
-    = action_button "application_edit", "Edit event", new_event_path
+    = action_button "application_edit", "Edit event", edit_event_path(@event)
     - if @event.transition_possible? :accept
       = action_button "thumb_up", "Accept event", update_state_event_path(@event, :transition => :accept), :method => :put 
     - if @event.transition_possible? :reject
