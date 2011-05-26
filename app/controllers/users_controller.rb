@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.person = @person
+    @user.skip_confirmation!
 
     respond_to do |format|
       if @user.save
