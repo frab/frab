@@ -45,6 +45,20 @@ class Person < ActiveRecord::Base
     self.availabilities.where(:conference_id => conference.id)
   end
 
+  def average_feedback_as_speaker
+    events = self.event_people.where(:event_role => "speaker").map(&:event)
+    feedback = 0.0
+    count = 0
+    events.each do |event|
+      if current_feedback = event.average_feedback
+        feedback += current_feedback
+        count += 1
+      end
+    end
+    return "no data" if count == 0
+    feedback / count
+  end
+
   def to_s
     "Person: #{self.full_name}"
   end

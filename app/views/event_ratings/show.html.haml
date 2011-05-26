@@ -6,6 +6,55 @@
   = content do
     %h2 Ratings for #{@event.title}
     = inner do
+      = link_to_function "Toggle Full Description", "$('#full_description').toggle();"
+      #full_description{:style => "display:none;"}
+        %p
+          %b= @event.title
+          %br/
+          %em= @event.subtitle
+        %p
+          %b Speakers:
+          %table
+            - @event.speakers.each do |person|
+              %tr
+                %td= image_box person.avatar, :small
+                %td= person.full_name
+                %td 
+                  %b Average feedback as speaker: 
+                  = sprintf("%.2f / 5.0", person.average_feedback_as_speaker)
+                  
+        %p
+          %b Track:
+          = @event.track.name
+          %b Type:
+          = @event.event_type
+          %b Language:
+          = @event.language
+        - if @event.abstract
+          %p
+            %b Abstract:
+            %br/
+            = simple_format @event.abstract
+        - if @event.description
+          %p
+            %b Description:
+            %br/
+            = simple_format @event.description
+        - unless @event.links.empty?
+          %p
+            %b Links:
+            %br/
+            - @event.links.each do |link|
+              = link_to link.title, link.url
+              %br/
+        - unless @event.event_attachments.empty?
+          %p
+            %b Attachments:
+            %br/
+            - @event.event_attachments.each do |attachment|
+              = link_to attachment.title, attachment.attachment.url
+              %br/
+      
       %h3 My rating
       = semantic_form_for @rating, :url => event_event_rating_path do |f|
         = f.inputs do

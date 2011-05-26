@@ -98,6 +98,10 @@ class Event < ActiveRecord::Base
     self.update_attributes(:average_rating => average(:event_ratings))
   end
 
+  def speakers
+    self.event_people.where(:event_role => "speaker").all.map(&:person)
+  end
+
   def to_s
     "Event: #{self.title}"
   end
