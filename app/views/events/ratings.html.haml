@@ -27,6 +27,8 @@
                 .rating{:id => "event_rating_#{event.id}", :"data-rating" => event.average_rating}
             %td.last
               = link_to 'Show Ratings', event_event_rating_path(event)
+      = actions_bar do
+        = will_paginate @events
 
 :javascript
   $(document).ready(function(){
