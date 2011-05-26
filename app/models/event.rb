@@ -77,6 +77,15 @@ class Event < ActiveRecord::Base
     result.to_a.sort
   end
 
+  def next_by_least_reviews(reviewer)
+    already_reviewed = self.class.connection.select_rows("SELECT events.id FROM events JOIN event_ratings ON events.id = event_ratings.event_id WHERE event_ratings.person_id = #{reviewer.id}").flatten
+    already_reviewed.delete(self.id)
+    least_reviewed = self.class.connection.select_rows("SELECT events.id FROM events LEFT OUTER JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{self.conference_id} GROUP BY events.id ORDER BY COUNT(event_ratings.id) DESC").flatten
+    least_reviewed -= already_reviewed
+    return nil if least_reviewed.empty? or least_reviewed.last == self.id
+    self.class.find(least_reviewed[least_reviewed.index(self.id)+1])
+  end
+
   def transition_possible?(transition)
     self.class.state_machine.events_for(self.current_state).include?(transition)
   end

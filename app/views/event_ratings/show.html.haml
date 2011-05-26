@@ -30,6 +30,9 @@
             %td=event_rating.comment
 
 - content_for :sidebar do
+  - if @next_event
+    = actions_block do
+      = action_button "resultset_next", "Rate next event", event_event_rating_path(@next_event) 
   = block do
     %h3 Total rating
     = content do
