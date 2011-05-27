@@ -18,7 +18,7 @@
             - @event.speakers.each do |person|
               %tr
                 %td= image_box person.avatar, :small
-                %td= person.full_name
+                %td= link_to person.full_name, person
                 %td 
                   %b Average feedback as speaker: 
                   - if average_feedback = person.average_feedback_as_speaker
@@ -28,7 +28,7 @@
                   
         %p
           %b Track:
-          = @event.track.name
+          = @event.track.try(:name)
           %b Type:
           = @event.event_type
           %b Language:
