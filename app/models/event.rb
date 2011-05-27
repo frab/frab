@@ -59,24 +59,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.submission_data(conference)
-    result = Hash.new
-    events = conference.events.order(:created_at)
-    if events.size > 1
-      date = events.first.created_at.to_date
-      while date <= events.last.created_at.to_date
-        result[date.to_time.to_i * 1000] = 0
-        date = date.since(1.days).to_date
-      end
-    end
-    events.each do |event|
-      date = event.created_at.to_date.to_time.to_i * 1000
-      result[date] = 0 unless result[date]
-      result[date] += 1
-    end
-    result.to_a.sort
-  end
-
   def next_by_least_reviews(reviewer)
     already_reviewed = self.class.connection.select_rows("SELECT events.id FROM events JOIN event_ratings ON events.id = event_ratings.event_id WHERE event_ratings.person_id = #{reviewer.id}").flatten.map{|e| e.to_i}
     already_reviewed.delete(self.id)

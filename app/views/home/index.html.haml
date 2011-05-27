@@ -8,14 +8,17 @@
       %h3 Statistics
       - if @conference.events.count > 0
         %h4 Events by state
-        #event_graph(style="width:600px;height:300px;")
+        #event_state_graph(style="width:600px;height:300px;")
+      - if @conference.languages.count > 1
+        %h4 Events by language
+        #event_language_graph(style="width:400px;height:300px;")
         :javascript
           var d1 = [[0, #{@conference.events.where(:state => ["new", "review"]).count}]];
           var d2 = [[1, #{@conference.events.where(:state => ["unconfirmed", "confirmed"]).count}]];
           var d3 = [[2, #{@conference.events.where(:state => "rejected").count}]];
           var d4 = [[3, #{@conference.events.where(:state => ["withdrawn", "canceled"]).count}]];
 
-          $.plot($("#event_graph"), [ d1, d2, d3, d4 ], {
+          $.plot($("#event_state_graph"), [ d1, d2, d3, d4 ], {
             series: {
               bars: { show: true, barWidth: 1 }
             },
@@ -24,4 +27,7 @@
             }
           });
 
+          var d5 = [#{@conference.language_breakdown.map{|k,v| "{label: '#{k}', data:#{v}}"}.join(",")}];
+
+          $.plot($("#event_language_graph"), d5, {series: {pie: {show: true}}});
 

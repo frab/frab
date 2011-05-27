@@ -24,7 +24,7 @@
 
 <%= javascript_tag do %>
 
-  var data = <%= Event.submission_data(@conference).inspect %>;
+  var data = <%= @conference.submission_data.inspect %>;
 
   $.plot($("#submission_graph"), [data], { xaxis: { mode: "time" } });
 
