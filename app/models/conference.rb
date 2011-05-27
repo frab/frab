@@ -35,8 +35,8 @@ class Conference < ActiveRecord::Base
 
   def language_breakdown
     result = Hash.new
-    self.language_codes.each do |language_code|
-      result[language_code] = self.events.where(:language => language_code).count
+    self.languages.each do |language|
+      result[language.code] = self.events.where(:language => language.code).count
     end
     result["unknown"] = self.events.where(:language => "").count
     result
