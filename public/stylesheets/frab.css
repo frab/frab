@@ -33,3 +33,7 @@ span.language_switcher {
 span.language_switcher a {
   color: #DFDFE1;
 }
+
+div.rating {
+  white-space: nowrap;
+}

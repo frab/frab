@@ -17,7 +17,7 @@
           %th= sort_link @search, :event_ratings_count, :term => params[:term]
           %th.last
         - @events.each do |event|
-          %tr
+          %tr{:class => cycle('odd', 'even')}
             %td= image_box event.logo, :small
             %td= event.title
             %td= event.track.try(:name)
