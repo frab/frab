@@ -41,6 +41,7 @@ Frab::Application.routes.draw do
       resources :events do
         collection do
           get :ratings
+          get :start_review
           get :cards
         end
         member do

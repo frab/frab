@@ -32,6 +32,22 @@
       = actions_bar do
         = will_paginate @events
 
+- content_for :sidebar do
+  = actions_block do
+    = action_button "resultset_next", "Start reviewing", start_review_events_path
+  = block do
+    %h3 Statistics
+    = content do
+      %p
+        %b Total number of events:
+        = @events_total
+        %br/
+        %b Events you have reviewed:
+        = @events_reviewed
+        %br/
+        %b Events without review:
+        = @events_no_review
+
 :javascript
   $(document).ready(function(){
     $(".rating").each(function(index) {

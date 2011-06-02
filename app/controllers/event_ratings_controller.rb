@@ -6,7 +6,9 @@ class EventRatingsController < ApplicationController
 
   def show
     @rating = @event.event_ratings.find_by_person_id(current_user.person.id) || EventRating.new
-    @next_event = @event.next_by_least_reviews(current_user.person)
+    if session[:review_ids] and current_index = session[:review_ids].index(@event.id) and session[:review_ids].last != @event.id
+      @next_event = Event.find(session[:review_ids][current_index + 1])
+    end
   end
 
   def create

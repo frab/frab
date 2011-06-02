@@ -31,6 +31,19 @@ class EventsController < ApplicationController
   def ratings
     @search = @conference.events.search(params[:search])
     @events = @search.paginate :page => params[:page]
+    @events_total = @conference.events.count
+    @events_reviewed = @conference.events.joins(:event_ratings).where("event_ratings.person_id" => current_user.person.id).count
+    @events_no_review = @events_total - @conference.events.joins(:event_ratings).count
+  end
+
+  def start_review
+    ids = Event.ids_by_least_reviewed(@conference, current_user.person)
+    if ids.empty?
+      redirect_to :action => "ratings", :notice => "You have already reviewed all events:"
+    else
+      session[:review_ids] = ids
+      redirect_to event_event_rating_path(:event_id => ids.first)
+    end
   end
 
   # GET /events/1
