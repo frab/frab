@@ -84,4 +84,12 @@ class Cfp::EventsController < ApplicationController
     redirect_to(cfp_person_path, :notice => t("cfp.event_withdrawn_notice"))
   end
 
+  def confirm
+    event_people = current_user.person.event_people.find_all_by_event_id(params[:id])
+    event_people.each do |event_person|
+      event_person.confirm!
+    end
+    redirect_to cfp_person_path, :notice => t("cfp.thanks_for_confirmation")
+  end
+
 end

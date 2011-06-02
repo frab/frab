@@ -34,6 +34,8 @@
                 %td= event.state
                 %td
                   = link_to t("edit"), edit_cfp_event_path(event)
+                  - if event.state == "unconfirmed"
+                    = link_to t("cfp.confirm"), confirm_cfp_event_path(event), :method => :put
                   = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation")
 
 - content_for :sidebar do

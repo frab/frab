@@ -19,6 +19,7 @@ Frab::Application.routes.draw do
         resources :events do
           member do
             put :withdraw
+            put :confirm
           end
         end
 
