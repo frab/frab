@@ -16,6 +16,18 @@ class EventPerson < ActiveRecord::Base
     self.save!
   end
 
+  def generate_token!
+    loop do
+      token = Devise.friendly_token
+      if EventPerson.find_by_confirmation_token(token)
+        next
+      else
+        self.update_attributes!(:confirmation_token => token)
+        break token
+      end
+    end
+  end
+
   def to_s
     "Event person: #{self.person.full_name} (#{self.event_role})"
   end
