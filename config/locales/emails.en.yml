@@ -1,0 +1,43 @@
+en:
+  emails:
+    event_acceptance:
+      subject: "Your submission to %{title}"
+      greeting: "Dear %{name},"
+      accepted_event: |
+        We are very happy to tell you that we accepted your submission
+        
+        %{title}
+      confirmation: |
+        Please quickly reconfirm that you will be present and deliver
+        your talk, using the following link:
+        
+        %{link}
+      check_data: |
+        While you are at it: After confirming using that link, you will
+        be logged in to the conference planning system. Please take the time
+        to check your data there. The data will be used in the official 
+        conference program. You can also specify your availability at
+        different times there. We will try to consider this when planning the
+        final schedule.
+      goodbye: |
+        Kind regards
+
+        The %{title} team
+    event_rejection:
+      greeting: "Dear %{name},"
+      rejection: |
+        we would like to thank you very much for your submission. We were
+        surprised and overwhelmed by the sheer amount of the high quality
+        submissions that we received.
+
+        After an extensive selection process we unfortunately had to reject your
+        submission
+
+        %{title}
+        
+        We can assure you that this was not an easy decision to make.
+        We hope we can still  welcome you at the conference.
+      goodbye: |
+        Kind regards
+
+        The %ile} team

@@ -112,8 +112,12 @@ class EventsController < ApplicationController
 
   def update_state
     @event = Event.find(params[:id])
-    @event.send(:"#{params[:transition]}!")
-    redirect_to @event 
+    if params[:send_mail]
+      redirect_to(@event, :alert => "Cannot send mails: Please specify an email address for this conference.") and return unless @conference.email
+      redirect_to(@event, :alert => "Cannot send mails: Not all speakers have email addresses.") and return unless @event.speakers.all?{|s| s.email}
+    end
+    @event.send(:"#{params[:transition]}!", :send_mail => params[:send_mail])
+    redirect_to @event, :notice => 'Event was successfully updated.' 
   end
 
   # DELETE /events/1

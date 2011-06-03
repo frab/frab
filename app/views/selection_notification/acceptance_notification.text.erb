@@ -1,0 +1,9 @@
+<%= t("emails.event_acceptance.greeting", :locale => @locale, :name => @person.first_name) %>
+
+<%= t("emails.event_acceptance.accepted_event", :locale => @locale, :title => @event.title) %>
+
+<%= t("emails.event_acceptance.confirmation", :locale => @locale, :link => cfp_root_url(:conference_acronym => @conference.acronym, :locale => @locale)) %>
+
+<%= t("emails.event_acceptance.check_data", :locale => @locale) %>
+
+<%= t("emails.event_acceptance.goodbye", :locale => @locale) %>

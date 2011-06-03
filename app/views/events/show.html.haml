@@ -42,9 +42,11 @@
   = actions_block do
     = action_button "application_edit", "Edit event", edit_event_path(@event)
     - if @event.transition_possible? :accept
-      = action_button "thumb_up", "Accept event", update_state_event_path(@event, :transition => :accept), :method => :put 
+      = action_button "thumb_up", "Accept event", update_state_event_path(@event, :transition => :accept, :send_mail => true), :method => :put 
+      = action_button "thumb_up", "Accept event (no email)", update_state_event_path(@event, :transition => :accept), :method => :put 
     - if @event.transition_possible? :reject
-      = action_button "thumb_down", "Reject event", update_state_event_path(@event, :transition => :reject), :method => :put, :confirm => "Are you sure?"
+      = action_button "thumb_down", "Reject event", update_state_event_path(@event, :transition => :reject, :send_mail => true), :method => :put, :confirm => "Are you sure?"
+      = action_button "thumb_down", "Reject event (no email)", update_state_event_path(@event, :transition => :reject), :method => :put, :confirm => "Are you sure?"
     - if @event.transition_possible? :confirm
       = action_button "tick", "Confirm event", update_state_event_path(@event, :transition => :confirm), :method => :put
     - if @event.transition_possible? :cancel

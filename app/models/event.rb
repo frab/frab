@@ -46,7 +46,7 @@ class Event < ActiveRecord::Base
       transitions :to => :withdrawn, :from => [:new, :review, :unconfirmed]
     end
     event :accept do
-      transitions :to => :unconfirmed, :from => [:new, :review]
+      transitions :to => :unconfirmed, :from => [:new, :review], :on_transition => :process_acceptance
     end
     event :confirm do
       transitions :to => :confirmed, :from => :unconfirmed
@@ -55,7 +55,7 @@ class Event < ActiveRecord::Base
       transitions :to => :canceled, :from => [:unconfirmed, :confirmed]
     end
     event :reject do
-      transitions :to => :rejected, :from => [:new, :review]
+      transitions :to => :rejected, :from => [:new, :review], :on_transition => :process_rejection
     end
   end
 
@@ -84,6 +84,22 @@ class Event < ActiveRecord::Base
 
   def to_s
     "Event: #{self.title}"
+  end
+
+  def process_acceptance(options)
+    if options[:send_mail]
+      self.event_people.where(:event_role => "speaker").each do |event_person|
+        SelectionNotification.acceptance_notification(event_person).deliver
+      end
+    end
+  end
+
+  def process_rejection(options)
+    if options[:send_mail]
+      self.event_people.where(:event_role => "speaker").each do |event_person|
+        SelectionNotification.rejection_notification(event_person).deliver
+      end
+    end
   end
 
   private
