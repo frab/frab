@@ -2,8 +2,8 @@ class Cfp::EventsController < ApplicationController
 
   layout "cfp"
 
-  before_filter :authenticate_cfp_user!
-  before_filter :require_submitter
+  before_filter :authenticate_cfp_user!, :except => :confirm
+  before_filter :require_submitter, :except => :confirm
 
   # GET /cfp/events
   # GET /cfp/events.xml
@@ -85,6 +85,11 @@ class Cfp::EventsController < ApplicationController
   end
 
   def confirm
+    if params[:token]
+      event_person = EventPerson.find_by_confirmation_token(params[:token])
+      sign_in(:cfp_user, event_person.person.user)
+    end
+    raise "Unauthenticated" unless current_user
     event_people = current_user.person.event_people.find_all_by_event_id(params[:id])
     event_people.each do |event_person|
       event_person.confirm!

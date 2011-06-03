@@ -10,6 +10,7 @@ class EventPerson < ActiveRecord::Base
 
   def confirm!
     self.role_state = "confirmed"
+    self.confirmation_token = nil
     if self.event.transition_possible? :confirm
       self.event.confirm!
     end

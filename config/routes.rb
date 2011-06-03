@@ -16,6 +16,8 @@ Frab::Application.routes.draw do
           resource :availability
         end
 
+        match "/events/:id/confirm/:token" => "events#confirm", :as => "event_confirm_by_token"
+
         resources :events do
           member do
             put :withdraw

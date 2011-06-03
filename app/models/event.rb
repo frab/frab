@@ -89,6 +89,7 @@ class Event < ActiveRecord::Base
   def process_acceptance(options)
     if options[:send_mail]
       self.event_people.where(:event_role => "speaker").each do |event_person|
+        event_person.generate_token!
         SelectionNotification.acceptance_notification(event_person).deliver
       end
     end
