@@ -3,12 +3,12 @@ class Event < ActiveRecord::Base
 
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
 
-  has_many :event_people
-  has_many :event_feedbacks
+  has_many :event_people, :dependent => :destroy
+  has_many :event_feedbacks, :dependent => :destroy
   has_many :people, :through => :event_people
-  has_many :links, :as => :linkable
-  has_many :event_attachments
-  has_many :event_ratings
+  has_many :links, :as => :linkable, :dependent => :destroy
+  has_many :event_attachments, :dependent => :destroy
+  has_many :event_ratings, :dependent => :destroy
 
   belongs_to :conference
   belongs_to :track
