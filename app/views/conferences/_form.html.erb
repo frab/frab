@@ -3,6 +3,7 @@
   <%= f.inputs "Basic information" do %>
     <%= f.input :title %>
     <%= f.input :acronym %>
+    <%= f.input :email, :hint => "Contact email address for your conference. Will be used as sender address in emails sent out by the system." %>
   <% end %>
 
   <%= f.inputs "Schedule configuration" do %>

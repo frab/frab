@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110603142013) do
+ActiveRecord::Schema.define(:version => 20110603145005) do
 
   create_table "attendee_registrations", :force => true do |t|
     t.integer  "conference_id"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20110603142013) do
     t.boolean  "feedback_enabled",  :default => false,    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
   end
 
   create_table "event_attachments", :force => true do |t|
