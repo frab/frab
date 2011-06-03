@@ -59,6 +59,13 @@ class Person < ActiveRecord::Base
     feedback / count
   end
 
+  def locale_for_mailing(conference)
+    own_locales = self.languages.all.map{|l| l.code.downcase.to_sym}
+    conference_locales = conference.languages.all.map{|l| l.code.downcase.to_sym}
+    return :en if own_locales.include? :en or own_locales.empty? or (own_locales & conference_locales).empty?
+    (own_locales & conference_locales).first
+  end
+
   def to_s
     "Person: #{self.full_name}"
   end
