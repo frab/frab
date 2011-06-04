@@ -116,7 +116,7 @@ class EventsController < ApplicationController
       redirect_to(@event, :alert => "Cannot send mails: Please specify an email address for this conference.") and return unless @conference.email
       redirect_to(@event, :alert => "Cannot send mails: Not all speakers have email addresses.") and return unless @event.speakers.all?{|s| s.email}
     end
-    @event.send(:"#{params[:transition]}!", :send_mail => params[:send_mail])
+    @event.send(:"#{params[:transition]}!", :send_mail => params[:send_mail], :coordinator => current_user.person)
     redirect_to @event, :notice => 'Event was successfully updated.' 
   end
 

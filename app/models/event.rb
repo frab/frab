@@ -93,6 +93,9 @@ class Event < ActiveRecord::Base
         SelectionNotification.acceptance_notification(event_person).deliver
       end
     end
+    if options[:coordinator]
+      self.event_people.create(:person => options[:coordinator], :event_role => "coordinator") unless self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, "coordinator")
+    end
   end
 
   def process_rejection(options)
@@ -100,6 +103,9 @@ class Event < ActiveRecord::Base
       self.event_people.where(:event_role => "speaker").each do |event_person|
         SelectionNotification.rejection_notification(event_person).deliver
       end
+    end
+    if options[:coordinator]
+      self.event_people.create(:person => options[:coordinator], :event_role => "coordinator") unless self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, "coordinator")
     end
   end
 
