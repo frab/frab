@@ -24,6 +24,7 @@ en:
 
         The %{title} team
     event_rejection:
+      subject: "Your submission to %{title}"
       greeting: "Dear %{name},"
       rejection: |
         we would like to thank you very much for your submission. We were
@@ -40,4 +41,4 @@ en:
       goodbye: |
         Kind regards
 
-        The %ile} team
+        The %{title} team
