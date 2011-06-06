@@ -113,6 +113,7 @@ class EventsController < ApplicationController
       if @event.update_attributes(params[:event])
         format.html { redirect_to(@event, :notice => 'Event was successfully updated.') }
         format.xml  { head :ok }
+        format.js   { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }

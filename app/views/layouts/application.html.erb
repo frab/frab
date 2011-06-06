@@ -44,6 +44,7 @@
               <%= link_to t("call for papers", :default => "Launch Call for Papers"), new_call_for_papers_path %>
             <% end %>
           </li>
+          <li><%= link_to t("schedule", :default => "Schedule"), schedule_path %></li>
           <li><%= link_to t("conference_settings", :default => "Conference Settings"), edit_conference_path(@conference) %></li>
         <% end %>
         </ul>

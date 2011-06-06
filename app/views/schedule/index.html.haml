@@ -1,0 +1,42 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      - @conference.days.each_with_index do |day, index|
+        %li{:class => day_active?(index)}
+          = link_to day.to_s, schedule_path(:day => index)
+  = content do
+    %h2 Schedule for #{@day}
+    = inner do
+      %p
+        %b Toggle rooms:
+        %form
+          - @conference.rooms.each do |room|
+            %input{:class => "toggle-room", :type => "checkbox", :checked => true, :"data-room" => room.name.downcase}
+              = room.name
+          = link_to "hide all", "#", :id => "hide-all-rooms"
+      - @conference.rooms.each do |room|
+        - reset_cycle
+        %table.room{:"data-room" => room.name.downcase, :"data-room-id" => room.id}
+          %tr
+            %th= room.name
+          - time = @day.beginning_of_day.since(7.hours)
+          - while time < @day.end_of_day
+            %tr{:class => cycle('odd', 'even')}
+              %td{:"data-time" => time.to_s(:rfc822)}
+                - if time.min == 0
+                  = time.to_s(:time)
+            - time = time.since(@conference.timeslot_duration.minutes)
+      .clear
+      - @scheduled_events.each do |event|
+        = render 'event', :event => event
+
+= javascript_include_tag "schedule"
+
+- content_for :sidebar do
+  = block do
+    %h3 Unscheduled events
+    = content do
+      = form_tag schedule_update_track_path do
+        = select_tag "track_select", content_tag(:option, "All", :selected => true) + options_from_collection_for_select(@conference.tracks, :id, :name) 
+      #unscheduled-events
+        = render 'unscheduled_events'

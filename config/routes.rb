@@ -33,6 +33,9 @@ Frab::Application.routes.draw do
       
       match "/recent_changes" => "recent_changes#index", :as => "recent_changes"
 
+      match "/schedule" => "schedule#index", :as => "schedule"
+      match "/schedule/update_track" => "schedule#update_track", :as => "schedule_update_track"
+
       resource :conference
 
       resource :call_for_papers

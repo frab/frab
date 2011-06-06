@@ -46,12 +46,18 @@ class Conference < ActiveRecord::Base
     self.languages.map{|l| l.code.downcase}
   end
 
-  def each_day(&block)
+  def days
+    result = Array.new
     day = self.first_day
     until (day > self.last_day)
-      yield day
+      result << day
       day = day.since(1.days).to_date
     end
+    result
+  end
+
+  def each_day(&block)
+    days.each(&block)
   end
 
   def to_s

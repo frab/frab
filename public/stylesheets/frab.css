@@ -37,3 +37,37 @@ span.language_switcher a {
 div.rating {
   white-space: nowrap;
 }
+
+table.room {
+  width: 150px;
+  margin: 10px;
+  float: left;
+  border-collapse: collapse;
+}
+
+table.room tr {
+  margin: 0px;
+}
+
+table.room tr td {
+  border: 1px solid white;
+  height: 20px;
+}
+
+table.room tr td.event-hover {
+  background: #FFFF00;
+}
+
+div.event {
+  background: #33EE33;
+  width: 143px;
+  z-index: 10;
+  font-size: 10px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+table.room tr.odd {background: #F9F9F9}
+table.room tr.even {background: #EEEEEE;}
