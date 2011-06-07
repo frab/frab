@@ -26,6 +26,8 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :title, :time_slots
 
+  scope :associated_with, lambda {|person| joins(:event_people).where(:"event_people.person_id" => person.id)}
+
   acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description]
 
   acts_as_audited 

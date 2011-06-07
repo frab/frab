@@ -2,7 +2,8 @@
   .secondary-navigation
     %ul.wat-cf
       %li.active.first= link_to "All Events", events_path
-      %li= link_to "Ratings", ratings_events_path
+      %li= link_to "My Events", my_events_path
+      %li= link_to "Event Ratings", ratings_events_path
   = content do
     %h2 Listing events
     = inner do

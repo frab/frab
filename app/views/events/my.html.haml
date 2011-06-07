@@ -1,0 +1,13 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "All Events", events_path
+      %li.active= link_to "My Events", my_events_path
+      %li= link_to "Event Ratings", ratings_events_path
+  = content do
+    %h2 My Events
+    = inner do
+      = render 'shared/simple_search', :path => my_events_path
+      = render 'events_table', :events => @events
+      = actions_bar do
+        = will_paginate @events

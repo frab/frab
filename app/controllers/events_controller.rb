@@ -20,6 +20,16 @@ class EventsController < ApplicationController
     end
   end
 
+  def my
+    if params[:term]
+      @search = @conference.events.associated_with(current_user.person).with_query(params[:term]).search(params[:search])
+      @events = @search.paginate :page => params[:page]
+    else
+      @search = @conference.events.associated_with(current_user.person).search(params[:search])
+      @events = @search.paginate :page => params[:page]
+    end
+  end
+
   def cards
     @events = @conference.events
     
