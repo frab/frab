@@ -16,8 +16,8 @@
     %th.last
   - events.each do |event|
     %tr{:class => cycle('odd', 'even')}
-      %td= image_box event.logo, :small
-      %td= event.title
+      %td= link_to (image_box event.logo, :small), event
+      %td= link_to event.title, event
       %td= event.track.try(:name)
       %td= event.event_type
       %td= event.state
