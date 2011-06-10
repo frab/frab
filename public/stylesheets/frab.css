@@ -69,5 +69,15 @@ div.event {
   padding: 3px;
 }
 
+div.unscheduled-event {
+  background: #F9F9F9;
+  border: 1px solid #EEEEEE;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding: 3px;
+  margin: 5px;
+}
+
 table.room tr.odd {background: #F9F9F9}
 table.room tr.even {background: #EEEEEE;}

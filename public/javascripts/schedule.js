@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Mon, 06 Jun 2011 16:35:57 GMT from
+/* DO NOT MODIFY. This file was compiled Fri, 10 Jun 2011 14:52:08 GMT from
  * /home/dave/projects/frab/app/coffeescripts/schedule.coffee
  */
 
@@ -17,12 +17,13 @@
     return update_event_position(event);
   };
   $(function() {
-    var checkbox, event, starting_cell, timeslot, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _ref3;
+    var checkbox, event, starting_cell, timeslot, _i, _j, _k, _l, _len, _len2, _len3, _len4, _ref, _ref2, _ref3, _ref4;
     _ref = $("table.room td");
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       timeslot = _ref[_i];
       $(timeslot).droppable({
         hoverClass: "event-hover",
+        tolerance: "pointer",
         drop: function(event, ui) {
           add_event_to_slot(ui.draggable, this);
           ui.draggable.data("time", $(this).data("time"));
@@ -53,20 +54,50 @@
       }
       $(event).draggable({
         revert: "invalid",
-        opacity: 0.4
+        opacity: 0.4,
+        cursorAt: {
+          left: 5,
+          top: 5
+        }
       });
     }
-    _ref3 = $("input.toggle-room");
+    _ref3 = $("div.unscheduled-event");
     for (_k = 0, _len3 = _ref3.length; _k < _len3; _k++) {
-      checkbox = _ref3[_k];
+      event = _ref3[_k];
+      $(event).draggable({
+        opacity: 0.4,
+        cursorAt: {
+          left: 5,
+          top: 5
+        },
+        start: function() {
+          $(this).removeClass("unscheduled-event");
+          $(this).addClass("event");
+          return $(this).css("height", $(this).data("height"));
+        },
+        revert: function(droppable) {
+          if (droppable === false) {
+            $(this).removeClass("event");
+            $(this).css("height", "auto");
+            $(this).addClass("unscheduled-event");
+            return true;
+          } else {
+            return false;
+          }
+        }
+      });
+    }
+    _ref4 = $("input.toggle-room");
+    for (_l = 0, _len4 = _ref4.length; _l < _len4; _l++) {
+      checkbox = _ref4[_l];
       $(checkbox).attr("checked", true);
       $(checkbox).change(function() {
-        var event, _l, _len4, _ref4, _results;
+        var event, _len5, _m, _ref5, _results;
         $("table[data-room='" + $(this).data('room') + "']").toggle();
-        _ref4 = $("table.room div.event");
+        _ref5 = $("table.room div.event");
         _results = [];
-        for (_l = 0, _len4 = _ref4.length; _l < _len4; _l++) {
-          event = _ref4[_l];
+        for (_m = 0, _len5 = _ref5.length; _m < _len5; _m++) {
+          event = _ref5[_m];
           _results.push(update_event_position(event));
         }
         return _results;
