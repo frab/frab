@@ -9,6 +9,8 @@ class Event < ActiveRecord::Base
   has_many :links, :as => :linkable, :dependent => :destroy
   has_many :event_attachments, :dependent => :destroy
   has_many :event_ratings, :dependent => :destroy
+  has_many :conflicts, :dependent => :destroy
+  has_many :conflicts_as_conflicting, :class_name => "Conflict", :foreign_key => "conflicting_event_id", :dependent => :destroy
 
   belongs_to :conference
   belongs_to :track
@@ -25,6 +27,8 @@ class Event < ActiveRecord::Base
   validates_attachment_content_type :logo, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 
   validates_presence_of :title, :time_slots
+
+  after_save :update_conflicts
 
   scope :associated_with, lambda {|person| joins(:event_people).where(:"event_people.person_id" => person.id)}
   scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gt(day.beginning_of_day)).where(self.arel_table[:start_time].lt(day.end_of_day)).where(self.arel_table[:room_id].not_eq(nil)) }
@@ -71,6 +75,10 @@ class Event < ActiveRecord::Base
     least_reviewed
   end
 
+  def end_time
+    self.start_time.since((self.time_slots * self.conference.timeslot_duration).minutes)
+  end
+
   def transition_possible?(transition)
     self.class.state_machine.events_for(self.current_state).include?(transition)
   end
@@ -111,6 +119,39 @@ class Event < ActiveRecord::Base
     end
     if options[:coordinator]
       self.event_people.create(:person => options[:coordinator], :event_role => "coordinator") unless self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, "coordinator")
+    end
+  end
+
+  def overlap?(other_event)
+    if self.start_time <= other_event.start_time and other_event.start_time < self.end_time
+      true
+    elsif other_event.start_time <= self.start_time and self.start_time < other_event.end_time
+      true
+    else
+      false
+    end
+  end
+
+  def accepted?
+    self.state == "unconfirmed" or self.state == "confirmed"
+  end
+
+  def update_conflicts
+    self.conflicts.delete_all
+    self.conflicts_as_conflicting.delete_all
+    if self.accepted? and self.room and self.start_time and self.time_slots
+      conflicting_event_candidates = self.class.accepted.where(:room_id => self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
+      conflicting_event_candidates.each do |conflicting_event|
+        if self.overlap?(conflicting_event)
+          Conflict.create(:event => self, :conflicting_event => conflicting_event, :conflict_type => "events_overlap", :severity => "fatal")
+          Conflict.create(:event => conflicting_event, :conflicting_event => self, :conflict_type => "events_overlap", :severity => "fatal")
+        end
+      end
+      self.event_people.group(:person_id).each do |event_person|
+        unless event_person.available_between?(self.start_time, self.end_time)
+          Conflict.create(:event => self, :person => event_person.person, :conflict_type => "person_unavailable", :severity => "warning")
+        end
+      end
     end
   end
 

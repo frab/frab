@@ -7,6 +7,8 @@
     %h2
       Event: #{@event.title}
     = inner do
+      - @event.conflicts.each do |conflict|
+        = render "conflicts/#{conflict.conflict_type}", :conflict => conflict
       %p
         %b Subtitle:
         = @event.subtitle

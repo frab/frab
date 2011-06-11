@@ -1,0 +1,4 @@
+%div{:class => ["message", conflict.severity]}
+  = link_to "Event", conflict.event
+  overlaps with
+  = link_to conflict.conflicting_event.title, conflict.conflicting_event

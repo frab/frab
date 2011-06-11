@@ -29,6 +29,16 @@ class EventPerson < ActiveRecord::Base
     end
   end
 
+  def available_between?(start_time, end_time)
+    availability = self.person.availabilities.where(:conference_id => self.event.conference.id, :day => start_time.to_date).first
+    if availability
+      unless (availability.within_range?(start_time) and availability.within_range?(end_time))
+        return false
+      end
+    end
+    true
+  end
+
   def to_s
     "Event person: #{self.person.full_name} (#{self.event_role})"
   end
