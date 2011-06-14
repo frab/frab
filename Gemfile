@@ -23,6 +23,7 @@ gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'prawn'
 gem 'prawn_rails'
 gem 'json'
+gem 'therubyracer'
 gem 'barista'
 
 group :development, :test do
