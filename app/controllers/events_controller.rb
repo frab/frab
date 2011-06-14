@@ -31,7 +31,11 @@ class EventsController < ApplicationController
   end
 
   def cards
-    @events = @conference.events
+    if params[:accepted]
+      @events = @conference.events.accepted
+    else
+      @events = @conference.events
+    end
     
     respond_to do |format|
       format.pdf
