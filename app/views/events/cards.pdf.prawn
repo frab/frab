@@ -1,5 +1,12 @@
 prawn_document(:page_layout => :landscape) do |pdf|
 
+  pdf.font_families.update("BitStream Vera" => {
+    :normal => File.join(Rails.root, "vendor", "fonts", "vera.ttf"),
+    :bold => File.join(Rails.root, "vendor", "fonts", "verabd.ttf"),
+    :italic => File.join(Rails.root, "vendor", "fonts", "verait.ttf")
+  })
+  pdf.font "BitStream Vera"
+
   pdf.define_grid(:rows => 2, :columns => 2, :gutter => 10)
 
   (@events.size / 4 + 1).times do
