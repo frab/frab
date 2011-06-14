@@ -1,0 +1,6 @@
+<% @affected_events.each do |event| %>
+  event_div = $("#event_<%= event.id -%>");
+  event_div.removeClass("warning");
+  event_div.removeClass("fatal");
+  event_div.addClass("<%= event.conflict_level -%>");
+<% end %>

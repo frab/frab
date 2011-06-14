@@ -35,6 +35,7 @@ Frab::Application.routes.draw do
 
       match "/schedule" => "schedule#index", :as => "schedule"
       match "/schedule/update_track" => "schedule#update_track", :as => "schedule_update_track"
+      match "/schedule/update_event" => "schedule#update_event", :as => "schedule_update_event"
 
       resource :conference
 

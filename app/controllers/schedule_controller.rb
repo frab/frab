@@ -19,4 +19,10 @@ class ScheduleController < ApplicationController
     render :partial => "unscheduled_events"
   end
 
+  def update_event
+    event = @conference.events.find(params[:id])
+    affected_event_ids = event.update_attributes_and_return_affected_ids(params[:event])
+    @affected_events = @conference.events.find(affected_event_ids)
+  end
+
 end

@@ -155,6 +155,22 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def conflict_level
+    return "fatal" if self.conflicts.any?{|c| c.severity == "fatal"}
+    return "warning" if self.conflicts.any?{|c| c.severity == "warning"}
+    nil
+  end
+
+  def update_attributes_and_return_affected_ids(attributes)
+    affected_event_ids = self.conflicts.map{|c| c.conflicting_event_id}
+    self.update_attributes(attributes)
+    self.reload
+    affected_event_ids += self.conflicts.map{|c| c.conflicting_event_id}
+    affected_event_ids.delete(nil)
+    affected_event_ids << self.id
+    affected_event_ids.uniq
+  end
+
   private
 
   def average(rating_type)

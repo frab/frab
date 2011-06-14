@@ -69,6 +69,14 @@ div.event {
   padding: 3px;
 }
 
+div.event.fatal {
+  background: #EE3333;
+}
+
+div.event.warning {
+  background: #EEEE00;
+}
+
 div.unscheduled-event {
   background: #F9F9F9;
   border: 1px solid #EEEEEE;
