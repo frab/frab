@@ -4,7 +4,7 @@
     = f.input :acronym
     = f.input :email, :hint => "Contact email address for your conference. Will be used as sender address in emails sent out by the system."
   = f.inputs "Schedule configuration" do
-    = f.input :timezone
+    = f.input :timezone, :as => :time_zone
     = f.input :first_day
     = f.input :last_day
     = f.input :timeslot_duration, :as => :select, :collection => timeslot_durations
