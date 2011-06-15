@@ -1,6 +1,7 @@
 <div class="nested-fields">
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :color, :input_html => {:size => 6, :class => "color"} %>
     <%= remove_association_link "remove track", f %>
   <% end %>
 </div>

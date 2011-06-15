@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110615122659) do
+ActiveRecord::Schema.define(:version => 20110615125223) do
 
   create_table "attendee_registrations", :force => true do |t|
     t.integer  "conference_id"
@@ -254,9 +254,10 @@ ActiveRecord::Schema.define(:version => 20110615122659) do
 
   create_table "tracks", :force => true do |t|
     t.integer  "conference_id"
-    t.string   "name",          :null => false
+    t.string   "name",                                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color",         :default => "fefd7f"
   end
 
   create_table "users", :force => true do |t|

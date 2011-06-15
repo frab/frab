@@ -8,3 +8,12 @@
     %h2 Editing conference
     = inner do
       = render 'form_tracks'
+:coffeescript
+  $ ->
+    $('input.color').ColorPicker(
+      onSubmit: (hsb, hex, rgb, el) ->
+        $(el).val(hex)
+        $(el).ColorPickerHide()
+      onBeforeShow: ->
+        $(this).ColorPickerSetColor(this.value)
+    )
