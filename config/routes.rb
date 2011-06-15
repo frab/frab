@@ -46,6 +46,10 @@ Frab::Application.routes.draw do
 
       resources :people do
         resource :user
+        collection do
+          get :all
+          get :speakers
+        end
       end
 
       resources :events do

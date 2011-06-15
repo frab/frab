@@ -33,6 +33,13 @@ class Person < ActiveRecord::Base
 
   validates_inclusion_of :gender, :in => GENDERS, :allow_nil => true
 
+  scope :involved_in, lambda { |conference|
+    joins(:events => :conference).where(:"conferences.id" => 4).group(:"people.id")
+  }
+  scope :speaking_at, lambda { |conference|
+    joins(:events => :conference).where(:"conferences.id" => 4).where(:"event_people.event_role" => "speaker").where(:"events.state" => ["unconfirmed", "confirmed"]).group(:"people.id")
+  }
+
   def full_name
     "#{first_name} #{last_name}"
   end

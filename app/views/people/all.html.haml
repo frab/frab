@@ -1,0 +1,16 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "This conference", people_path
+      %li= link_to "Speakers", speakers_people_path
+      %li.active= link_to "All people", all_people_path
+  = content do
+    %h2 Listing all people
+    = inner do
+      = render 'shared/simple_search', :path => request.path
+      = render 'table'
+      = actions_bar do
+        = will_paginate @people
+- content_for :sidebar do
+  = actions_block do
+    = action_button "add", "Add person", new_person_path

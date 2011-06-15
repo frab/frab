@@ -7,14 +7,25 @@ class PeopleController < ApplicationController
   # GET /people.xml
   def index
     if params[:term]
+      @people = Person.involved_in(@conference).with_query(params[:term]).paginate :page => params[:page]
+    else
+      @people = Person.involved_in(@conference).paginate :page => params[:page]
+    end
+  end
+
+  def speakers
+    if params[:term]
+      @people = Person.speaking_at(@conference).with_query(params[:term]).paginate :page => params[:page]
+    else
+      @people = Person.speaking_at(@conference).paginate :page => params[:page]
+    end
+  end
+
+  def all
+    if params[:term]
       @people = Person.with_query(params[:term]).paginate :page => params[:page]
     else
       @people = Person.paginate :page => params[:page]
-    end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @people }
     end
   end
 
