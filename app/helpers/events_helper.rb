@@ -12,7 +12,7 @@ module EventsHelper
     times = Array.new
     date = @conference.first_day
     while date <= @conference.last_day
-      time = date.to_time
+      time = date.to_time_in_current_zone
       time = time.since(7.hours)
       end_time = time.since(16.hours)
       while time <= end_time
