@@ -35,7 +35,7 @@ class Event < ActiveRecord::Base
   scope :unscheduled, lambda {|day| where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) }
   scope :accepted, where(self.arel_table[:state].in(["confirmed", "unconfirmed"]))
 
-  acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description]
+  acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description, :track_name]
 
   acts_as_audited 
 
@@ -73,6 +73,10 @@ class Event < ActiveRecord::Base
     least_reviewed = self.connection.select_rows("SELECT events.id FROM events LEFT OUTER JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} GROUP BY events.id ORDER BY COUNT(event_ratings.id) ASC, events.id ASC").flatten.map{|e| e.to_i}
     least_reviewed -= already_reviewed
     least_reviewed
+  end
+
+  def track_name
+    self.track.try(:name)
   end
 
   def end_time
