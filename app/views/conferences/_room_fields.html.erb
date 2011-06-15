@@ -1,7 +1,8 @@
 <div class="nested-fields">
   <%= f.inputs do %>
     <%= f.input :name %>
-    <%= f.input :size %>
+    <%= f.input :size, :input_html => {:size => 5} %>
+    <%= f.input :rank, :input_html => {:size => 3} %>
     <%= f.input :public %>
     <%= remove_association_link "remove room", f %>
   <% end %>

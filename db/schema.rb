@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110611152237) do
+ActiveRecord::Schema.define(:version => 20110615122659) do
 
   create_table "attendee_registrations", :force => true do |t|
     t.integer  "conference_id"
@@ -249,6 +249,7 @@ ActiveRecord::Schema.define(:version => 20110611152237) do
     t.boolean  "public",        :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rank"
   end
 
   create_table "tracks", :force => true do |t|
