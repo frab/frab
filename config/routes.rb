@@ -4,7 +4,7 @@ Frab::Application.routes.draw do
   
     devise_for :users, :controllers => {:sessions => "sessions"}, :skip => :registrations
 
-    resources :conferences
+    resources :conferences, :only => [:new, :create]
 
     scope :path => "/:conference_acronym" do
       
@@ -37,7 +37,10 @@ Frab::Application.routes.draw do
       match "/schedule/update_track" => "schedule#update_track", :as => "schedule_update_track"
       match "/schedule/update_event" => "schedule#update_event", :as => "schedule_update_event"
 
-      resource :conference
+      resource :conference do
+        get :edit_tracks
+        get :edit_rooms
+      end
 
       resource :call_for_papers
 

@@ -39,7 +39,6 @@ class ConferencesController < ApplicationController
 
   # GET /conferences/1/edit
   def edit
-    @conference = Conference.find(params[:id])
   end
 
   # POST /conferences
@@ -59,8 +58,6 @@ class ConferencesController < ApplicationController
   # PUT /conferences/1
   # PUT /conferences/1.xml
   def update
-    @conference = Conference.find(params[:id])
-
     respond_to do |format|
       if @conference.update_attributes(params[:conference])
         format.html { redirect_to(@conference, :notice => 'Conference was successfully updated.') }

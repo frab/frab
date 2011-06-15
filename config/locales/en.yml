@@ -34,6 +34,8 @@ en:
       phone_number: "Phone number"
       event_attachment: "File"
       language: "Language"
+      track: "Track"
+      room: "Room"
     attributes:
       event:
         title: "Title"
