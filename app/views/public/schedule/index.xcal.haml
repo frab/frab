@@ -1,0 +1,31 @@
+!!! XML
+%iCalendar{:"xmlns:xCal"=>"urn:ietf:params:xml:ns:xcal", :"xmlns:pentabarf"=>"http://pentabarf.org"}
+  %vcalendar 
+    %version= "2.0"
+    %prodid= "-//Pentabarf//Schedule//EN"
+    %x-wr-caldesc= "#{@conference.acronym} Schedule"
+    %x-wr-calname= "#{@conference.acronym} Schedule"
+  
+    - @conference.events.accepted.public.each do |event|
+      - next unless event.start_time
+      %vevent 
+        %method= "PUBLISH"
+        %uid= "#{event.id}@#{@conference.acronym}@pentabarf.org"
+        %pentabarf:event-id= event.id
+        %pentabarf:event-slug= event.slug
+        %pentabarf:title= event.title
+        %pentabarf:subtitle= event.subtitle
+        %pentabarf:language= t("languages." + event.language, :locale => :en) if event.language
+        %pentabarf:language-code= event.language
+        %dtstart= event.start_time.strftime('%Y%m%dT%H%M%S')
+        %dtend= event.end_time.strftime('%Y%m%dT%H%M%S')
+        %duration= format_time_slots(event.time_slots).gsub(":", "") + "00"
+        %summary= event.title + ( event.subtitle ? "- #{event.subtitle}" : "" )
+        %description= event.abstract
+        %class= "PUBLIC"
+        %status= "CONFIRMED" 
+        %category= "Lecture" 
+        %url= public_event_url(:id => event.id) 
+        %location= event.room.try(:name)
+        - event.speakers.each do |speaker|
+          %attendee= speaker.full_public_name 
