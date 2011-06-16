@@ -34,6 +34,7 @@ class Event < ActiveRecord::Base
   scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gt(day.beginning_of_day)).where(self.arel_table[:start_time].lt(day.end_of_day)).where(self.arel_table[:room_id].not_eq(nil)) }
   scope :unscheduled, lambda {|day| where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) }
   scope :accepted, where(self.arel_table[:state].in(["confirmed", "unconfirmed"]))
+  scope :public, where(:public => true)
 
   acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description, :track_name]
 

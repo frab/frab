@@ -7,7 +7,16 @@ Frab::Application.routes.draw do
     resources :conferences, :only => [:new, :create]
 
     scope :path => "/:conference_acronym" do
-      
+     
+      namespace :public do
+        match "/schedule" => "schedule#index", :as => "schedule_index"
+        match "/schedule/:date" => "schedule#day", :as => "schedule"
+        match "/events" => "schedule#events", :as => "events"
+        match "/events/:id" => "schedule#event", :as => "event"
+        match "/speakers" => "schedule#speakers", :as => "speakers"
+        match "/speakers/:id" => "schedule#speaker", :as => "speaker"
+      end
+
       namespace :cfp do
 
         devise_for :users
