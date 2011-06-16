@@ -15,7 +15,7 @@
                 %start= event.start_time.strftime('%H:%M')
                 %duration= format_time_slots(event.time_slots)
                 %room= room.name
-                %slug= "TODO" # event.slug
+                %slug= event.slug
                 %title= event.title
                 %subtitle= event.subtitle
                 %track= event.track.try(:name)
