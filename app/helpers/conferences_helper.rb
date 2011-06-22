@@ -1,8 +1,14 @@
 module ConferencesHelper
 
-  def timeslot_durations
+  def timeslot_durations(conference)
     result = Array.new
-    [1,5,10,15,20,30,45,60,90,120].each do |duration|
+    durations = [1,5,10,15,20,30,45,60,90,120]
+    if conference.timeslot_duration and conference.events.size > 0
+      durations.reject! do |duration| 
+        duration > conference.timeslot_duration or (conference.timeslot_duration % duration) != 0
+      end
+    end
+    durations.each do |duration|
       result << [duration_to_time(duration), duration]
     end
     result
