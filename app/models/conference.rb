@@ -13,6 +13,8 @@ class Conference < ActiveRecord::Base
   validates_presence_of :title, :acronym
   validates_uniqueness_of :acronym
 
+  after_update :update_timeslots
+
   acts_as_audited
 
   def submission_data
@@ -62,6 +64,18 @@ class Conference < ActiveRecord::Base
 
   def to_s
     "Conference: #{self.title} (#{self.acronym})"
+  end
+
+  private
+
+  def update_timeslots
+    if self.timeslot_duration_changed? and self.events.count > 0
+      old_duration = self.timeslot_duration_was
+      factor = old_duration / self.timeslot_duration
+      self.events.each do |event|
+        event.update_attributes(:time_slots => event.time_slots * factor)
+      end
+    end
   end
 
 end
