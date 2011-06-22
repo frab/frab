@@ -1,5 +1,7 @@
 class Public::ScheduleController < ApplicationController
 
+  layout 'public_schedule'
+
   def index
     @days = @conference.days
 
@@ -11,7 +13,12 @@ class Public::ScheduleController < ApplicationController
     end
   end
 
+  def style
+  end
+
   def day
+    @day = Date.parse(params[:date])
+    @day_index = @conference.days.index(@day) + 1
   end
 
   def events

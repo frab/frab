@@ -1,0 +1,34 @@
+%h2 Schedule for Day #{@day_index} - #{@day}
+%br.clear/
+#main-table
+  #time-line
+    #top-left
+    - each_time_slot_of(@day) do |time| 
+      .cell.cell-height1
+        - if time.min % 15 == 0
+          %p= time.to_s(:time)
+  #conference-rooms
+    - @conference.rooms.public.each do |room|
+      - events = room.events.public.accepted.scheduled_on(@day).order(:start_time)
+      .conference-room
+        .table-header
+          = room.name
+        - skip_slots = 0
+        - each_time_slot_of(@day) do |time|
+          - skip_slots -= 1
+          - next unless skip_slots <= 0
+          - if not events.empty? and events.first.start_time == time
+            - event = events.shift
+            - skip_slots = event.time_slots
+            .cell{:class => "cell-height#{event.time_slots}"}
+              .event{:class => track_class(event)}
+                .event-wrapper
+                  .event-header
+                    %h2= event.title
+                  .event-details
+                    %p
+                      = event.subtitle
+                      %br/
+                      = event.speakers.map{|p| p.full_public_name}.join(", ")
+          - else
+            .cell.cell-height1

@@ -1,0 +1,11 @@
+%h2 Schedule index
+
+%p
+  %ul
+    - @conference.days.each_with_index do |day, index|
+      %li= link_to "Day #{index + 1} - #{day}", public_schedule_path(:date => day)
+    %li= link_to "Speakers", public_speakers_path
+    %li= link_to "Events", public_events_path
+    %li= link_to "iCalendar", public_schedule_index_path(:format => :ics)
+    %li= link_to "xCal", public_schedule_index_path(:format => :xcal)
+    %li= link_to "XML", public_schedule_index_path(:format => :xcal)
