@@ -96,9 +96,9 @@ table#time-line {
   left: 0px;
 }
 
-#time-line p {
+#time-line td {
+  vertical-align: middle;
   text-align: center;
-  margin: 10px 2px;
 }
 
 td#top-left {

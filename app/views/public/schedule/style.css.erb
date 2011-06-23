@@ -1,4 +1,14 @@
-<% base_size = 40 %>
+<% case @conference.timeslot_duration
+   when 5
+     base_size = 20
+   when 10
+     base_size = 30
+   when 15
+     base_size = 40
+   else
+     base_size = 80
+   end
+%>
 <% @conference.max_timeslots.times do |i| %>
   .cell-height<%= i + 1 -%> { 
     height: <%= base_size * (i + 1) - (i > 0 ? 2 : 0)-%>px;
