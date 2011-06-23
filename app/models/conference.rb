@@ -72,9 +72,11 @@ class Conference < ActiveRecord::Base
     if self.timeslot_duration_changed? and self.events.count > 0
       old_duration = self.timeslot_duration_was
       factor = old_duration / self.timeslot_duration
+      Event.disable_auditing
       self.events.each do |event|
         event.update_attributes(:time_slots => event.time_slots * factor)
       end
+      Event.enable_auditing
     end
   end
 
