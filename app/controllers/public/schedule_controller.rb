@@ -19,10 +19,17 @@ class Public::ScheduleController < ApplicationController
   def day
     @day = Date.parse(params[:date])
     @day_index = @conference.days.index(@day) + 1
+    @rooms = @conference.rooms.public.all
+    @events = Hash.new
+    @skip_row = Hash.new
+    @rooms.each do |room|
+      @events[room] = room.events.accepted.public.scheduled_on(@day).order(:start_time).all
+      @skip_row[room] = 0
+    end
   end
 
   def events
-    @events = @conference.events.public.accepted
+    @events = @conference.events.public.accepted.order(:title)
   end
 
   def event
@@ -30,7 +37,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def speakers
-    @speakers = Person.publicly_speaking_at(@conference)
+    @speakers = Person.publicly_speaking_at(@conference).order(:last_name, :first_name)
   end
 
   def speaker

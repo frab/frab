@@ -1,17 +1,17 @@
 <% base_size = 40 %>
 <% @conference.max_timeslots.times do |i| %>
   .cell-height<%= i + 1 -%> { 
-    height: <%= base_size * (i + 1) + (i * 4) -%>px;
+    height: <%= base_size * (i + 1) - (i > 0 ? 2 : 0)-%>px;
   }
 <% end %>
 
 <% @conference.tracks.each do |track| %>
   <% unless track.color.blank? %>
-    div.event.track-<%= track.name.parameterize -%> {
+    .event.track-<%= track.name.parameterize -%> {
       background-color: #<%= track.color -%>;
       border-color: #<%= track.color -%>;
     }
-    div.event.track-<%= track.name.parameterize -%> div.event-header {
+    .event.track-<%= track.name.parameterize -%> div.event-header {
       background-color: #<%= track.color -%>;
     }
   <% end %>

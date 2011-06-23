@@ -1,0 +1,28 @@
+%h2 #{@event.event_type.humanize}: #{@event.title}
+%h3.title= @event.subtitle
+
+.column.left#basic
+  = image_box(@event.logo, :large)
+  = simple_format @event.abstract, :class => "abstract"
+  = simple_format @event.description, :class => "description"
+
+.column.left#details
+  - if @event.links.any?
+    %h3 Links
+    %ul
+      - @event.links.each do |link|
+        %li= link_to link.title, link.url
+  - if @event.event_attachments.any?
+    %h3 Files
+    %ul
+      - @event.event_attachments.each do |attachment|
+        %li= link_to attachment.title, attachment.attachment.url
+
+.column.right#sidebar
+  %h3 Speakers 
+  %table.list
+    %tbody
+      - @event.speakers.each do |speaker|
+        %tr
+          %td= image_box speaker.avatar, :small
+          %td= link_to speaker.full_public_name, public_speaker_path(:id => speaker.id)

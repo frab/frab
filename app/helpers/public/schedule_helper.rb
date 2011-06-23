@@ -1,7 +1,7 @@
 module Public::ScheduleHelper
 
   def each_time_slot_of(day, &block)
-    time = day.beginning_of_day.since(7.hours)
+    time = @conference.events.public.accepted.scheduled_on(day).order(:start_time).first.start_time 
     while (time < day.end_of_day)
       yield time
       time = time.since(@conference.timeslot_duration.minutes)

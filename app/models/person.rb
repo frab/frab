@@ -48,15 +48,19 @@ class Person < ActiveRecord::Base
   end
 
   def full_public_name
-    if public_name
-      public_name
-    else
+    if public_name.blank?
       full_name
+    else
+      public_name
     end
   end
 
   def events_in(conference)
     self.events.where(:conference_id => conference.id).all
+  end
+
+  def public_and_accepted_events_as_speaker_in(conference)
+    self.events.public.accepted.where(:"event_people.event_role" => "speaker").where(:conference_id => conference.id).all
   end
 
   def availabilities_in(conference)

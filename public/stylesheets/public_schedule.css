@@ -76,21 +76,24 @@ ul.horizontal-navigation li.selected {
 
 #main-table {
   margin: 10px auto;
-  background: #e4e4e4;
   width: auto;
   border: 1px solid #bababa;
   height: auto;
-  overflow: auto;
+  overflow: visible;
+  position: absolute;
 }
 
-#time-line {
+table#time-line {
+  border-spacing: 0;
   width: 45px;
-  float: left;
   border: 1px solid #9d9d9d;
   height: auto;
   background: #5d5e5d;
   font: bold 12px verdana;
   color:#fff;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 #time-line p {
@@ -98,26 +101,35 @@ ul.horizontal-navigation li.selected {
   margin: 10px 2px;
 }
 
-#top-left {
+td#top-left {
   background: #5d5e5d;
-  height: 26px;
-  padding: 10px 0 0 0;
+  height: 36px;
   border-bottom: 1px solid #9D9D9D;
 }
 
-.conference-room {
-  border: 1px solid #9d9d9d;
-  border-left: 1px solid #ececec;
-  float: left;
-  width: 11.84%;
-  height: 100%;
-  min-width: 110px;
+#conference-rooms {
+  position: absolute;
+  left: 45px;
+  top: 0px;
 }
 
-.table-header {
-  height: 26px;
+table.rooms-table {
+  table-layout: fixed;
+  border-spacing: 0;
+  background: #e4e4e4;
+}
+
+table.rooms-table td {
+  border: 1px solid #9d9d9d;
+  border-left: 1px solid #ececec;
+  vertical-align: top;
+}
+
+table.rooms-table th {
+  height: 36px;
+  border: 1px solid #9d9d9d;
+  border-left: 1px solid #ececec;
   text-align: center;
-  padding: 10px 0 0 0;
   color: #fff;
   margin: 0;
   border-bottom: 1px solid #9D9D9D;
@@ -133,10 +145,9 @@ ul.horizontal-navigation li.selected {
 }
 
 .event {
-  width: 100%;
-  height: 100%;
+  width: 98%;
+  height: 98%;
   border:1px solid;
-  position: relative;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -179,8 +190,6 @@ ul.horizontal-navigation li.selected {
 .cell {
   width: 96%;
   border-bottom: 1px solid #9D9D9D;
-  margin:-1px;
-  padding:2px 2%;
 }
 
 div.event.track-default {
@@ -190,3 +199,97 @@ div.event.track-default {
 
 div.event.track-default div.event-header {
   background-color: #fefd7f;
+}
+
+div.subtitle {
+  font-style: italic;
+  display: block;
+  margin-bottom: 10px;
+}
+
+div.speakers {
+  font-weight: bold;
+}
+
+table.list {
+  border-spacing: 2px;
+  font-size: 14px;
+}
+
+table.list td {
+  background: #e4e4e4;
+  padding: 10px;
+}
+
+ul {
+  margin-left: 1em;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+table.list a:hover {
+  text-decoration: underline;
+}
+
+table.list a img {
+  border: none;
+}
+
+.column-left {
+  width: 30%;
+  float: left;
+}
+
+.column-right {
+  width: 30%;
+  float: right;
+}
+
+h2.title,
+h3.title {
+  margin-bottom: 30px;
+}
+
+.column {
+  font-size: 14px;
+}
+
+.column h3,
+.column p,
+.column ul {
+  margin-bottom: 20px;
+}
+
+.column.left {
+  float: left;
+  margin-right: 20px;
+}
+
+.column.right {
+  float: right;
+}
+
+.column#basic {
+  width: 40%;
+}
+
+.column#details {
+  width: 20%;
+}
+
+.column#sidebar {
+  width: 30%;
+}
+
+.column#basic div.image {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  float: left;
+}
+
+p.abstract {
+  font-style: italic;
+}

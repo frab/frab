@@ -1,0 +1,16 @@
+%h2.title Events 
+
+%table.list
+  %thead
+    %th &nbsp;
+    %th Title
+    %th Speakers
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= link_to image_box(event.logo, :small), public_event_path(:id => event.id)
+        %td= link_to event.title, public_event_path(:id => event.id)
+        %td
+          %ul
+            - event.speakers.each do |speaker|
+              %li= link_to speaker.full_public_name, public_speaker_path(:id => speaker.id)
