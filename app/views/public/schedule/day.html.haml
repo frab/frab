@@ -1,5 +1,6 @@
 %h2 Schedule for Day #{@day_index} - #{@day}
 %br.clear/
+#pagination
 #main-table
   %table#time-line
     %tr
@@ -35,3 +36,4 @@
                           .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
               - else
                 %td &nbsp;
+= javascript_include_tag "public_schedule"

@@ -117,6 +117,7 @@ table.rooms-table {
   table-layout: fixed;
   border-spacing: 0;
   background: #e4e4e4;
+  position: relative;
 }
 
 table.rooms-table td {
@@ -292,4 +293,32 @@ h3.title {
 
 p.abstract {
   font-style: italic;
+}
+
+#pagination {
+  text-align: right;
+}
+
+.page-button {
+  background: #5d5e5d;
+  border-bottom: 1px solid #9D9D9D;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 5px 10px 5px 10px;
+  margin: 5px;
+  color: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.page-button.disabled {
+  background: #9D9D9D;
+  color: #9D9D9D;
+}
+
+span#pages {
+  padding: 10px 10px 10px 10px;
+  font-size: 14px;
+  font-weight: bold;
 }
