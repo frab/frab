@@ -11,8 +11,6 @@
     = f.input :default_timeslots, :as => :select, :collection => 1..20
     = f.input :max_timeslots, :as => :select, :collection => 1..100
   = dynamic_association :languages, "Languages", f
-  = dynamic_association :tracks, "Tracks", f
-  = dynamic_association :rooms, "Rooms", f
   = f.inputs "Feedback system" do
     = f.input :feedback_enabled
   = f.buttons do
