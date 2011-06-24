@@ -9,6 +9,24 @@ add_event_to_slot = (event, td) ->
   $(td).append($(event))
   update_event_position(event)
 
+setup_unscheduled_events = ->
+  $("div.unscheduled-event").draggable(
+    opacity: 0.4,
+    cursorAt: {left: 5, top: 5},
+    start: ->
+      $(this).removeClass("unscheduled-event")
+      $(this).addClass("event")
+      $(this).css("height", $(this).data("height"))
+    revert: (droppable) ->
+      if droppable == false
+        $(this).removeClass("event")
+        $(this).css("height", "auto")
+        $(this).addClass("unscheduled-event")
+        return true
+      else
+        return false
+  )
+ 
 $ ->
   for timeslot in $("table.room td")
     $(timeslot).droppable(
@@ -32,24 +50,7 @@ $ ->
       starting_cell = $("table[data-room='" + $(event).data("room") + "']").find("td[data-time='" + $(event).data("time") + "']")
       add_event_to_slot(event, starting_cell)
     $(event).draggable(revert: "invalid", opacity: 0.4, cursorAt: {left: 5, top: 5})
-  for event in $("div.unscheduled-event")
-    $(event).draggable(
-      opacity: 0.4,
-      cursorAt: {left: 5, top: 5},
-      start: ->
-        $(this).removeClass("unscheduled-event")
-        $(this).addClass("event")
-        $(this).css("height", $(this).data("height"))
-      revert: (droppable) ->
-        if droppable == false
-          $(this).removeClass("event")
-          $(this).css("height", "auto")
-          $(this).addClass("unscheduled-event")
-          return true
-        else
-          return false
-    )
-  
+  setup_unscheduled_events()
   for checkbox in $("input.toggle-room")
     $(checkbox).attr("checked", true)
     $(checkbox).change ->
@@ -66,5 +67,5 @@ $ ->
       dataType: "html",
       success: (data) ->
         $("div#unscheduled-events").html(data)
-        $("div#unscheduled-events div.event").draggable(revert: "invalid", opacity: 0.4)
+        setup_unscheduled_events()
     )

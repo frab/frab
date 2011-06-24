@@ -1,9 +1,9 @@
-/* DO NOT MODIFY. This file was compiled Fri, 10 Jun 2011 14:58:08 GMT from
+/* DO NOT MODIFY. This file was compiled Fri, 24 Jun 2011 15:51:46 GMT from
  * /home/dave/projects/frab/app/coffeescripts/schedule.coffee
  */
 
 (function() {
-  var add_event_to_slot, update_event_position;
+  var add_event_to_slot, setup_unscheduled_events, update_event_position;
   update_event_position = function(event) {
     var td;
     td = $(event).parent();
@@ -16,8 +16,32 @@
     $(td).append($(event));
     return update_event_position(event);
   };
+  setup_unscheduled_events = function() {
+    return $("div.unscheduled-event").draggable({
+      opacity: 0.4,
+      cursorAt: {
+        left: 5,
+        top: 5
+      },
+      start: function() {
+        $(this).removeClass("unscheduled-event");
+        $(this).addClass("event");
+        return $(this).css("height", $(this).data("height"));
+      },
+      revert: function(droppable) {
+        if (droppable === false) {
+          $(this).removeClass("event");
+          $(this).css("height", "auto");
+          $(this).addClass("unscheduled-event");
+          return true;
+        } else {
+          return false;
+        }
+      }
+    });
+  };
   $(function() {
-    var checkbox, event, starting_cell, timeslot, _i, _j, _k, _l, _len, _len2, _len3, _len4, _ref, _ref2, _ref3, _ref4;
+    var checkbox, event, starting_cell, timeslot, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _ref3;
     _ref = $("table.room td");
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       timeslot = _ref[_i];
@@ -61,43 +85,18 @@
         }
       });
     }
-    _ref3 = $("div.unscheduled-event");
+    setup_unscheduled_events();
+    _ref3 = $("input.toggle-room");
     for (_k = 0, _len3 = _ref3.length; _k < _len3; _k++) {
-      event = _ref3[_k];
-      $(event).draggable({
-        opacity: 0.4,
-        cursorAt: {
-          left: 5,
-          top: 5
-        },
-        start: function() {
-          $(this).removeClass("unscheduled-event");
-          $(this).addClass("event");
-          return $(this).css("height", $(this).data("height"));
-        },
-        revert: function(droppable) {
-          if (droppable === false) {
-            $(this).removeClass("event");
-            $(this).css("height", "auto");
-            $(this).addClass("unscheduled-event");
-            return true;
-          } else {
-            return false;
-          }
-        }
-      });
-    }
-    _ref4 = $("input.toggle-room");
-    for (_l = 0, _len4 = _ref4.length; _l < _len4; _l++) {
-      checkbox = _ref4[_l];
+      checkbox = _ref3[_k];
       $(checkbox).attr("checked", true);
       $(checkbox).change(function() {
-        var event, _len5, _m, _ref5, _results;
+        var event, _l, _len4, _ref4, _results;
         $("table[data-room='" + $(this).data('room') + "']").toggle();
-        _ref5 = $("table.room div.event");
+        _ref4 = $("table.room div.event");
         _results = [];
-        for (_m = 0, _len5 = _ref5.length; _m < _len5; _m++) {
-          event = _ref5[_m];
+        for (_l = 0, _len4 = _ref4.length; _l < _len4; _l++) {
+          event = _ref4[_l];
           _results.push(update_event_position(event));
         }
         return _results;
@@ -116,10 +115,7 @@
         dataType: "html",
         success: function(data) {
           $("div#unscheduled-events").html(data);
-          return $("div#unscheduled-events div.event").draggable({
-            revert: "invalid",
-            opacity: 0.4
-          });
+          return setup_unscheduled_events();
         }
       });
     });
