@@ -14,3 +14,4 @@
 - content_for :sidebar do
   = actions_block do
     = action_button "add", "Add person", new_person_path
+    = action_button "page_white_text", "Download email list", speakers_people_path(:format => :text)

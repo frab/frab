@@ -14,10 +14,18 @@ class PeopleController < ApplicationController
   end
 
   def speakers
-    if params[:term]
-      @people = Person.speaking_at(@conference).with_query(params[:term]).paginate :page => params[:page]
-    else
-      @people = Person.speaking_at(@conference).paginate :page => params[:page]
+    respond_to do |format|
+      format.html do
+        if params[:term]
+          @people = Person.speaking_at(@conference).with_query(params[:term]).paginate :page => params[:page]
+        else
+          @people = Person.speaking_at(@conference).paginate :page => params[:page]
+        end
+      end
+      format.text do
+        @people = Person.speaking_at(@conference)
+        render :text => @people.map(&:email).join("\n")
+      end
     end
   end
 
