@@ -17,6 +17,10 @@ class Conference < ActiveRecord::Base
 
   acts_as_audited
 
+  def self.current
+    self.order("created_at DESC").first
+  end
+
   def submission_data
     result = Hash.new
     events = self.events.order(:created_at)
