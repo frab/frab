@@ -7,6 +7,19 @@
   = simple_format @event.description, :class => "description"
 
 .column.left#details
+  %h3 Info
+  %p
+    %b Day:
+    = link_to @event.start_time.to_date, public_schedule_path(:date => @event.start_time.to_date)
+    %br/
+    %b Start time:
+    = @event.start_time.to_s(:time)
+    %br/
+    %b Duration:
+    = format_time_slots(@event.time_slots)
+    %br/
+    %b Track:
+    = @event.track.try(:name)
   - if @event.links.any?
     %h3 Links
     %ul

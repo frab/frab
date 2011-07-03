@@ -4,12 +4,14 @@
   %thead
     %th &nbsp;
     %th Title
+    %th Track
     %th Speakers
   %tbody
     - @events.each do |event|
       %tr
         %td= link_to image_box(event.logo, :small), public_event_path(:id => event.id)
         %td= link_to event.title, public_event_path(:id => event.id)
+        %td= event.track.try(:name)
         %td
           %ul
             - event.speakers.each do |speaker|
