@@ -58,7 +58,7 @@ GEM
     celerity (0.8.5)
     childprocess (0.1.4)
       ffi (~> 0.6.3)
-    cocoon (1.0.4)
+    cocoon (1.0.5)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
