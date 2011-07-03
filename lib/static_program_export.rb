@@ -59,11 +59,11 @@ class StaticProgramExport
         if link.attributes["href"].value == "/#{@conference.acronym}/public/schedule/style.css"
           link.attributes["href"].value = dots(level) + "style.css"
         else
-          strip_asset_path(link, "href", level)
+          strip_asset_path(link, "href", level) if link.attributes["href"]
         end
       end
       document.css("script").each do |script|
-        strip_asset_path(script, "src", level)
+        strip_asset_path(script, "src", level) if script.attributes["src"]
       end
       document.css("img").each do |image|
         strip_asset_path(image, "src", level)
