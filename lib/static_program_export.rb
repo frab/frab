@@ -54,7 +54,7 @@ class StaticProgramExport
     FileUtils.mkdir_p(File.dirname(file_path))
     if filename =~ /\.html$/
       level = filename.split("/").size - 1
-      document = Nokogiri::HTML(@session.response.body)
+      document = Nokogiri::HTML(@session.response.body, nil, "UTF-8")
       document.css("link").each do |link|
         if link.attributes["href"].value == "/#{@conference.acronym}/public/schedule/style.css"
           link.attributes["href"].value = dots(level) + "style.css"
@@ -77,7 +77,7 @@ class StaticProgramExport
         end
       end
       File.open(file_path, "w") do |f| 
-        document.write_to(f)
+        document.write_html_to(f, :encoding => "UTF-8")
       end
     else
       File.open(file_path, "w") do |f| 

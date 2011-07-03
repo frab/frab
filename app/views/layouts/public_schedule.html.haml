@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    %meta{ :"http-equiv" => "content-type", :content => "text/html; charset=utf-8" }
     %title= @conference.acronym + ": " + @conference.title + " Program"
     = stylesheet_link_tag 'public_schedule'
     = stylesheet_link_tag public_schedule_style_path(:format => :css), :media => "all"
