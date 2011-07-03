@@ -26,6 +26,7 @@ gem 'json'
 gem 'therubyracer'
 gem 'barista'
 gem 'ri_cal'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'web-app-theme'

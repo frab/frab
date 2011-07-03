@@ -206,6 +206,7 @@ DEPENDENCIES
   machinist (~> 2.0.0.beta2)
   meta_search
   mysql
+  nokogiri
   paperclip
   pg
   prawn
