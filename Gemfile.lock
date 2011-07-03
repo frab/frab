@@ -93,7 +93,7 @@ GEM
       json (>= 1.4.6)
     gravatar-ultimate (1.0.2)
       sc-core-ext (>= 1.2.0)
-    haml (3.0.25)
+    haml (3.1.2)
     hpricot (0.8.1)
     i18n (0.5.0)
     jquery-rails (0.2.7)
