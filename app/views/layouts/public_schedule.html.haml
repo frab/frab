@@ -12,17 +12,17 @@
         %h1= @conference.title + " Program"
         #top-navigation 
           %ul.horizontal-navigation
-            %li.selected
+            %li{:class => selected(/schedule$/)}
               = link_to "Index", public_schedule_index_path
             - @conference.days.each_with_index do |day, index| 
-              %li
+              %li{:class => selected(/#{day}$/)}
                 %a{:href => public_schedule_path(:date => day)}
                   Day #{index + 1}
                   %br/
                   %span.small-font= day.to_s
-            %li
+            %li{:class => selected(/speakers.*$/)}
               = link_to "Speakers", public_speakers_path
-            %li
+            %li{:class => selected(/events.*$/)}
               = link_to "Events", public_events_path
         %br.clear/
       #main-content

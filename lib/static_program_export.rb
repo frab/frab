@@ -31,6 +31,12 @@ class StaticProgramExport
     end
     @session.get("#{path_prefix}/schedule/style.css")
     save_response("style.css")
+    @session.get("#{path_prefix}/schedule.ics")
+    save_response("schedule.ics")
+    @session.get("#{path_prefix}/schedule.xcal")
+    save_response("schedule.xcal")
+    @session.get("#{path_prefix}/schedule.xml")
+    save_response("schedule.xml")
     @asset_paths.uniq.each do |asset_path|
       original_path = File.join(Rails.root, "public", asset_path)
       if File.exist? original_path
@@ -65,7 +71,8 @@ class StaticProgramExport
       document.css("a").each do |link|
         if link.attributes["href"].value.start_with?("/")
           path = strip_path(link.attributes["href"].value)
-          path += ".html"
+          path = "index" if path == "schedule"
+          path += ".html" unless path =~ /\.\w+$/
           link.attributes["href"].value = dots(level) + path
         end
       end

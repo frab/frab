@@ -16,4 +16,8 @@ module Public::ScheduleHelper
     end
   end
 
+  def selected(regex)
+    "selected" if request.path =~ regex
+  end
+
 end
