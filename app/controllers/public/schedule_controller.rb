@@ -9,7 +9,7 @@ class Public::ScheduleController < ApplicationController
       format.html
       format.xml
       format.xcal
-      format.ics
+      format.ics { render :text => @conference.to_ical }
     end
   end
 

@@ -25,6 +25,7 @@ gem 'prawn_rails'
 gem 'json'
 gem 'therubyracer'
 gem 'barista'
+gem 'ri_cal'
 
 group :development, :test do
   gem 'web-app-theme'

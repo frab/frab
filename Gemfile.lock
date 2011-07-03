@@ -150,6 +150,7 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.9.2)
+    ri_cal (0.8.8)
     ruby-debug (0.10.3)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.3.0)
@@ -208,6 +209,7 @@ DEPENDENCIES
   prawn
   prawn_rails
   rails (= 3.0.7)
+  ri_cal
   ruby-debug
   sqlite3-ruby
   therubyracer

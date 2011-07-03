@@ -21,6 +21,21 @@ class Conference < ActiveRecord::Base
     self.order("created_at DESC").first
   end
 
+  def to_ical
+    RiCal.Calendar do |c|
+      self.events.public.accepted.order(:title).each do |event|
+        next if event.start_time.nil?
+        c.event do |e|
+          e.dtstart = event.start_time
+          e.dtend = event.end_time
+          e.summary = event.title
+          e.description = event.abstract if event.abstract
+          e.location = event.room.name if event.room
+        end
+      end
+    end.to_s
+  end
+
   def submission_data
     result = Hash.new
     events = self.events.order(:created_at)
