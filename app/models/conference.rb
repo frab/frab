@@ -56,12 +56,21 @@ class Conference < ActiveRecord::Base
     result.to_a.sort
   end
 
+  def events_by_state
+    [
+      [[0, self.events.where(:state => ["new", "review"]).count]],
+      [[1, self.events.where(:state => ["unconfirmed", "confirmed"]).count]],
+      [[2, self.events.where(:state => "rejected").count]],
+      [[3, self.events.where(:state => ["withdrawn", "canceled"]).count]]
+    ]
+  end
+
   def language_breakdown
-    result = Hash.new
+    result = Array.new
     self.languages.each do |language|
-      result[language.code] = self.events.where(:language => language.code).count
+      result << { :label => language.code, :data => self.events.where(:language => language.code).count }
     end
-    result["unknown"] = self.events.where(:language => "").count
+    result << {:label => "unknown", "data" => self.events.where(:language => "").count }
     result
   end
 

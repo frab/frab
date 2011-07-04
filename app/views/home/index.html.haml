@@ -12,22 +12,28 @@
       - if @conference.languages.count > 1
         %h4 Events by language
         #event_language_graph(style="width:400px;height:300px;")
-        :javascript
-          var d1 = [[0, #{@conference.events.where(:state => ["new", "review"]).count}]];
-          var d2 = [[1, #{@conference.events.where(:state => ["unconfirmed", "confirmed"]).count}]];
-          var d3 = [[2, #{@conference.events.where(:state => "rejected").count}]];
-          var d4 = [[3, #{@conference.events.where(:state => ["withdrawn", "canceled"]).count}]];
 
-          $.plot($("#event_state_graph"), [ d1, d2, d3, d4 ], {
-            series: {
-              bars: { show: true, barWidth: 1 }
-            },
-            xaxis: {
-              ticks: [[0.5, "undecided"], [1.5,"accepted"], [2.5, "rejected"], [3.5, "withdrawn/canceled"]]
-            }
-          });
-
-          var d5 = [#{@conference.language_breakdown.map{|k,v| "{label: '#{k}', data:#{v}}"}.join(",")}];
-
-          $.plot($("#event_language_graph"), d5, {series: {pie: {show: true}}});
+:coffeescript
+  $ ->
+    $.ajax(
+      url: "#{events_by_state_statistics_path}",
+      type: "GET",
+      dataType: "json",
+      success: (data) ->
+        $.plot($("#event_state_graph"), data, {
+          series: {
+            bars: { show: true, barWidth: 1 }
+          },
+          xaxis: {
+            ticks: [[0.5, "undecided"], [1.5,"accepted"], [2.5, "rejected"], [3.5, "withdrawn/canceled"]]
+          }
+        })
+    )
+    $.ajax(
+      url: "#{language_breakdown_statistics_path}",
+      type: "GET",
+      dataType: "json",
+      success: (data) ->
+        $.plot($("#event_language_graph"), data, {series: {pie: {show: true}}})
+    )
 
