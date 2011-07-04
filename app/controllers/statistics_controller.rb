@@ -7,8 +7,10 @@ class StatisticsController < ApplicationController
   end
 
   def language_breakdown
+    result = @conference.language_breakdown(params[:accepted_only])
+
     respond_to do |format|
-      format.json { render :json => @conference.language_breakdown.to_json }
+      format.json { render :json => result.to_json }
     end
   end
 

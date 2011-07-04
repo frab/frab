@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Fri, 24 Jun 2011 10:36:59 GMT from
+/* DO NOT MODIFY. This file was compiled Mon, 04 Jul 2011 16:35:45 GMT from
  * /home/dave/projects/frab/app/coffeescripts/public_schedule.coffee
  */
 

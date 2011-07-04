@@ -11,9 +11,27 @@
         #event_state_graph(style="width:600px;height:300px;")
       - if @conference.languages.count > 1
         %h4 Events by language
+        %p
+          = link_to "All", "#", :id => "languages_all_events"
+          = link_to "Accepted only", "#", :id => "languages_accepted_events_only"
         #event_language_graph(style="width:400px;height:300px;")
 
 :coffeescript
+  update_languages_breakdown = (accepted_only = false) ->
+    if accepted_only
+      params = {"accepted_only": 1}
+    else
+      params = {}
+    $.ajax(
+      url: "#{language_breakdown_statistics_path}",
+      type: "GET",
+      dataType: "json",
+      data: params,
+      success: (data) ->
+        $.plot($("#event_language_graph"), data, {series: {pie: {show: true}}})
+    )
+    
+
   $ ->
     $.ajax(
       url: "#{events_by_state_statistics_path}",
@@ -29,11 +47,11 @@
           }
         })
     )
-    $.ajax(
-      url: "#{language_breakdown_statistics_path}",
-      type: "GET",
-      dataType: "json",
-      success: (data) ->
-        $.plot($("#event_language_graph"), data, {series: {pie: {show: true}}})
-    )
+    $("#languages_all_events").click (event) ->
+      update_languages_breakdown()
+      event.preventDefault()
+    $("#languages_accepted_events_only").click (event) ->
+      update_languages_breakdown(true)
+      event.preventDefault()
+    update_languages_breakdown()
 

@@ -65,12 +65,17 @@ class Conference < ActiveRecord::Base
     ]
   end
 
-  def language_breakdown
+  def language_breakdown(accepted_only = false)
     result = Array.new
-    self.languages.each do |language|
-      result << { :label => language.code, :data => self.events.where(:language => language.code).count }
+    if accepted_only
+      base_relation = self.events.accepted
+    else
+      base_relation = self.events
     end
-    result << {:label => "unknown", "data" => self.events.where(:language => "").count }
+    self.languages.each do |language|
+      result << { :label => language.code, :data => base_relation.where(:language => language.code).count }
+    end
+    result << {:label => "unknown", "data" => base_relation.where(:language => "").count }
     result
   end
 
