@@ -26,6 +26,8 @@ class Conference < ActiveRecord::Base
       self.events.public.accepted.order(:title).each do |event|
         next if event.start_time.nil?
         c.event do |e|
+          e.dtstamp = event.updated_at
+          e.uid = "event-#{event.id}@#{Socket.gethostname}"
           e.dtstart = event.start_time
           e.dtend = event.end_time
           e.summary = event.title
