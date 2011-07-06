@@ -24,8 +24,11 @@
         %description= event.abstract
         %class= "PUBLIC"
         %status= "CONFIRMED" 
-        %category= "Lecture" 
-        %url= public_event_url(:id => event.id) 
+        %category= "Lecture"
+        - if @conference.program_export_base_url.blank?
+          %url= public_event_url(:id => event.id)
+        - else
+          %url= event.static_url
         %location= event.room.try(:name)
         - event.speakers.each do |speaker|
           %attendee= speaker.full_public_name 

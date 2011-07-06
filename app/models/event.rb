@@ -185,6 +185,10 @@ class Event < ActiveRecord::Base
     ].flatten.join("_-_")
   end
 
+  def static_url
+    "#{self.conference.program_export_base_url}events/#{self.id}.html"
+  end
+
   private
 
   def average(rating_type)
