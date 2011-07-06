@@ -10,7 +10,7 @@ class Conference < ActiveRecord::Base
   accepts_nested_attributes_for :tracks, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
 
-  validates_presence_of :title, :acronym
+  validates_presence_of :title, :acronym, :first_day, :last_day
   validates_uniqueness_of :acronym
 
   after_update :update_timeslots

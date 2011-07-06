@@ -14,3 +14,10 @@ admin = User.new(
 admin.role = "admin"
 admin.confirmed_at = Time.now
 admin.save!
+Person.disable_auditing
+Person.create!(
+  :user => admin,
+  :email => admin.email,
+  :first_name => "admin", 
+  :last_name => "admin"
+)

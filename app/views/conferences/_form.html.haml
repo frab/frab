@@ -1,4 +1,4 @@
-= semantic_form_for(@conference, :url => conference_path) do |f|
+= semantic_form_for(@conference, :url => @conference.new_record? ? create_conference_path : conference_path) do |f|
   = f.inputs "Basic information" do
     = f.input :title
     = f.input :acronym

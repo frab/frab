@@ -48,7 +48,7 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to(root_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully created.') }
+        format.html { redirect_to(conference_home_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully created.') }
       else
         format.html { render :action => "new" }
       end

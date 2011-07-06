@@ -10,8 +10,8 @@
   <div id="container">
     <div id="header">
       <h1>
-        <% if params[:conference_acronym] %>
-          <%= link_to "#{@conference.title} (#{@conference.acronym})", root_path %>
+        <% if @conference and not @conference.new_record? %>
+          <%= link_to "#{@conference.title} (#{@conference.acronym})", conference_home_path %>
         <% else %>
           <%= link_to "Welcome to frab", root_path %>
         <% end %>
@@ -22,7 +22,7 @@
             <%= link_to_function t("switch_conference", :default => "Switch Conference"), "$('#conf-switch').toggle();" %>
             <div id="conf-switch" style="position:absolute; background: #262626; z-index: 10; display:none;">
               <% Conference.all.each do |conference| %>
-                <%= link_to conference.acronym, root_path(:conference_acronym => conference.acronym) %> <br />
+                <%= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym) %> <br />
               <% end %>
               <hr />
               <%= link_to "Create new conference", new_conference_path(:conference_acronym => nil) %>
@@ -34,7 +34,7 @@
       </div>
       <div id="main-navigation">
         <ul class="wat-cf">
-        <% if params[:conference_acronym] %>
+        <% if @conference and not @conference.new_record? %>
           <li><%= link_to t("people", :default => "People"), people_path %></li>
           <li><%= link_to t("events", :default => "Events"), events_path %></li>
           <li>

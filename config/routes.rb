@@ -4,7 +4,8 @@ Frab::Application.routes.draw do
   
     devise_for :users, :controllers => {:sessions => "sessions"}, :skip => :registrations
 
-    resources :conferences, :only => [:new, :create]
+    match "/conferences/new" => "conferences#new", :as => "new_conference"
+    match "/conferences" => "conferences#create", :as => "create_conference"
 
     scope :path => "/:conference_acronym" do
      
@@ -50,7 +51,7 @@ Frab::Application.routes.draw do
       match "/statistics/events_by_state" => "statistics#events_by_state", :as => "events_by_state_statistics"
       match "/statistics/language_breakdown" => "statistics#language_breakdown", :as => "language_breakdown_statistics"
 
-      resource :conference do
+      resource :conference, :except => [:new, :create] do
         get :edit_tracks
         get :edit_rooms
       end
@@ -80,7 +81,8 @@ Frab::Application.routes.draw do
       end
 
     end
-    
+
+    match "/:conference_acronym" => "home#index", :as => "conference_home"
     root :to => "home#index"
   end
 
