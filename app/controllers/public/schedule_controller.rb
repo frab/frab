@@ -29,11 +29,11 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events.public.accepted.order(:title)
+    @events = @conference.events.public.accepted.scheduled.order(:title)
   end
 
   def event
-    @event = @conference.events.public.accepted.find(params[:id])
+    @event = @conference.events.public.accepted.scheduled.find(params[:id])
   end
 
   def speakers

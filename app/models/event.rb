@@ -32,6 +32,7 @@ class Event < ActiveRecord::Base
 
   scope :associated_with, lambda {|person| joins(:event_people).where(:"event_people.person_id" => person.id)}
   scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gt(day.beginning_of_day)).where(self.arel_table[:start_time].lt(day.end_of_day)).where(self.arel_table[:room_id].not_eq(nil)) }
+  scope :scheduled, lambda {|day| where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil))) }
   scope :unscheduled, lambda {|day| where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) }
   scope :accepted, where(self.arel_table[:state].in(["confirmed", "unconfirmed"]))
   scope :public, where(:public => true)
