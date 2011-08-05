@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110706125013) do
+ActiveRecord::Schema.define(:version => 20110805144819) do
 
   create_table "attendee_registrations", :force => true do |t|
     t.integer  "conference_id"
@@ -81,19 +81,21 @@ ActiveRecord::Schema.define(:version => 20110706125013) do
   end
 
   create_table "conferences", :force => true do |t|
-    t.string   "acronym",                                       :null => false
-    t.string   "title",                                         :null => false
-    t.string   "timezone",                :default => "Berlin", :null => false
-    t.integer  "timeslot_duration",       :default => 15,       :null => false
-    t.integer  "default_timeslots",       :default => 4,        :null => false
-    t.integer  "max_timeslots",           :default => 20,       :null => false
-    t.date     "first_day",                                     :null => false
-    t.date     "last_day",                                      :null => false
-    t.boolean  "feedback_enabled",        :default => false,    :null => false
+    t.string   "acronym",                                                    :null => false
+    t.string   "title",                                                      :null => false
+    t.string   "timezone",                :default => "Berlin",              :null => false
+    t.integer  "timeslot_duration",       :default => 15,                    :null => false
+    t.integer  "default_timeslots",       :default => 4,                     :null => false
+    t.integer  "max_timeslots",           :default => 20,                    :null => false
+    t.date     "first_day",                                                  :null => false
+    t.date     "last_day",                                                   :null => false
+    t.boolean  "feedback_enabled",        :default => false,                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
     t.string   "program_export_base_url"
+    t.time     "day_start",               :default => '2000-01-01 08:00:00', :null => false
+    t.time     "day_end",                 :default => '2000-01-01 20:00:00', :null => false
   end
 
   create_table "conflicts", :force => true do |t|

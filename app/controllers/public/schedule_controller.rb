@@ -26,6 +26,11 @@ class Public::ScheduleController < ApplicationController
       @events[room] = room.events.accepted.public.scheduled_on(@day).order(:start_time).all
       @skip_row[room] = 0
     end
+
+    respond_to do |format|
+      format.html
+      format.pdf { render :template => "schedule/custom_pdf" }
+    end
   end
 
   def events
