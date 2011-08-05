@@ -19,8 +19,8 @@
         %table.room{:"data-room" => room.name.downcase, :"data-room-id" => room.id}
           %tr
             %th= room.name
-          - time = @day.beginning_of_day.since(7.hours)
-          - while time < @day.end_of_day
+          - time = @conference.day_start
+          - while time < @conference.day_end
             %tr{:class => cycle('odd', 'even')}
               %td{:"data-time" => time.to_s(:rfc822)}
                 - if time.min == 0
