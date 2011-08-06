@@ -1,6 +1,9 @@
 require "prawn/measurement_extensions"
 
-prawn_document(:page_layout => landscape? ? :landscape : :portrait) do |pdf|
+prawn_document(
+  :page_layout => landscape? ? :landscape : :portrait,
+  :page_size => @page_size
+) do |pdf|
 
   pdf.font_families.update("BitStream Vera" => {
     :normal => File.join(Rails.root, "vendor", "fonts", "vera.ttf"),
@@ -14,6 +17,12 @@ prawn_document(:page_layout => landscape? ? :landscape : :portrait) do |pdf|
   column_width = ((pdf.bounds.width - 1.5.cm) / number_of_columns)
   timeslot_height = (pdf.bounds.height - 1.cm) / number_of_timeslots
   row_height = (pdf.bounds.height - 1.cm) / number_of_rows
+
+  puts number_of_rows
+  puts row_height
+  puts pdf.bounds.height
+  puts 1.cm
+  puts "---"
 
   number_of_pages.times do |current_page|
   
@@ -31,13 +40,13 @@ prawn_document(:page_layout => landscape? ? :landscape : :portrait) do |pdf|
       table_data << row
     end
 
-    pdf.table(table_data) do |t|
+    table = pdf.make_table(table_data) do |t|
       t.cells.style(:border_width => 1.pt, :border_color => "cccccc")
-      t.row(0).height = 1.cm
+      t.row(0).height = 1.cm - 1
       t.row(0).align = :center
       t.row(0).font_style = :bold
       t.row(0).style(:size => 10)
-      t.column(0).width = 1.5.cm
+      t.column(0).width = 1.5.cm - 1
       t.rows(1..-1).style(:size => 4)
       t.rows(1..-1).height = row_height
       t.rows(1..-1).padding = 3
@@ -45,10 +54,13 @@ prawn_document(:page_layout => landscape? ? :landscape : :portrait) do |pdf|
       t.columns(1..-1).width = column_width
     end
 
+    table.draw
+    offset = pdf.bounds.height - table.height
+
     rooms.size.times do |i|
       events = @events[rooms[i]]
       events.each do |event|
-        pdf.bounding_box(event_coordinates(i, event, column_width, timeslot_height), 
+        pdf.bounding_box(event_coordinates(i, event, column_width, timeslot_height, offset), 
                          :width => column_width, 
                          :height => event.time_slots * timeslot_height) do
           pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3 

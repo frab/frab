@@ -29,7 +29,10 @@ class Public::ScheduleController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf { render :template => "schedule/custom_pdf" }
+      format.pdf do
+        @page_size = "A4"
+        render :template => "schedule/custom_pdf" 
+      end
     end
   end
 
