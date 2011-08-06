@@ -12,7 +12,8 @@ prawn_document(:page_layout => landscape? ? :landscape : :portrait) do |pdf|
   number_of_columns = @rooms.size < 5 ? @rooms.size : 5 
   number_of_pages = (@rooms.size / number_of_columns.to_f).ceil.to_i
   column_width = ((pdf.bounds.width - 1.5.cm) / number_of_columns)
-  row_height = (pdf.bounds.height - 1.cm) / number_of_timeslots
+  timeslot_height = (pdf.bounds.height - 1.cm) / number_of_timeslots
+  row_height = (pdf.bounds.height - 1.cm) / number_of_rows
 
   number_of_pages.times do |current_page|
   
@@ -23,13 +24,9 @@ prawn_document(:page_layout => landscape? ? :landscape : :portrait) do |pdf|
 
     table_data << [""] + rooms.map(&:name)
 
-    each_time_slot_of(@day) do |time|
+    each_15_minutes do |time|
       row = []
-      if time.min % 15 == 0
-        row << time.to_s(:time)
-      else
-        row << " "
-      end
+      row << time.to_s(:time)
       rooms.size.times { row << "" }
       table_data << row
     end
@@ -51,10 +48,10 @@ prawn_document(:page_layout => landscape? ? :landscape : :portrait) do |pdf|
     rooms.size.times do |i|
       events = @events[rooms[i]]
       events.each do |event|
-        pdf.bounding_box(event_coordinates(i, event, column_width, row_height), 
+        pdf.bounding_box(event_coordinates(i, event, column_width, timeslot_height), 
                          :width => column_width, 
-                         :height => event.time_slots * row_height) do
-          pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 5
+                         :height => event.time_slots * timeslot_height) do
+          pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3 
           pdf.fill_color = "ffffff"
           pdf.fill_and_stroke
           pdf.fill_color = "000000"

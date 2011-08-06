@@ -1,11 +1,7 @@
 module Public::ScheduleHelper
 
-  def each_time_slot_of(day, &block)
-    time = @conference.day_start
-    while (time < @conference.day_end)
-      yield time
-      time = time.since(@conference.timeslot_duration.minutes)
-    end
+  def each_timeslot(&block)
+    each_minutes(@conference.timeslot_duration, &block)
   end
 
   def track_class(event)
@@ -18,6 +14,10 @@ module Public::ScheduleHelper
 
   def selected(regex)
     "selected" if request.path =~ regex
+  end
+
+  def day_at(day, time)
+    day.to_time.change(:hour => time.hour, :min => time.min)
   end
 
 end

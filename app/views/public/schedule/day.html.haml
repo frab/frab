@@ -5,7 +5,7 @@
   %table#time-line
     %tr
       %td#top-left
-    - each_time_slot_of(@day) do |time| 
+    - each_timeslot do |time| 
       %tr.cell-height1
         / %td.cell.cell-height1
         %td.cell
@@ -17,12 +17,12 @@
         - @rooms.each do |room|
           %th= room.name
       %tbody
-        - each_time_slot_of(@day) do |time|
+        - each_timeslot do |time|
           %tr.cell-height1
             - @rooms.each do |room|
               - @skip_row[room] -= 1
               - next if @skip_row[room] > 0
-              - if not @events[room].empty? and @events[room].first.start_time == time
+              - if not @events[room].empty? and @events[room].first.start_time == day_at(@day, time)
                 - event = @events[room].shift
                 - @skip_row[room] = event.time_slots 
                 %td{:rowspan => event.time_slots, :class => "cell-height#{event.time_slots}"}

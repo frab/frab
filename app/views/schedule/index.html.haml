@@ -22,7 +22,7 @@
           - time = @conference.day_start
           - while time < @conference.day_end
             %tr{:class => cycle('odd', 'even')}
-              %td{:"data-time" => time.to_s(:rfc822)}
+              %td{:"data-time" => day_at(@day, time).to_s(:rfc822)}
                 - if time.min == 0
                   = time.to_s(:time)
             - time = time.since(@conference.timeslot_duration.minutes)
