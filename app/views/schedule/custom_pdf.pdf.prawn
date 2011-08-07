@@ -18,12 +18,6 @@ prawn_document(
   timeslot_height = (pdf.bounds.height - 1.cm) / number_of_timeslots
   row_height = (pdf.bounds.height - 1.cm) / number_of_rows
 
-  puts number_of_rows
-  puts row_height
-  puts pdf.bounds.height
-  puts 1.cm
-  puts "---"
-
   number_of_pages.times do |current_page|
   
     offset = current_page * number_of_columns

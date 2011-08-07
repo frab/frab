@@ -16,6 +16,8 @@ class StaticProgramExport
     @conference.days.each do |day|
       @session.get("#{path_prefix}/schedule/#{day}")
       save_response("schedule/#{day}.html")
+      @session.get("#{path_prefix}/schedule/#{day}.pdf")
+      save_response("schedule/#{day}.pdf")
     end
     @session.get("#{path_prefix}/events")
     save_response("events.html")
