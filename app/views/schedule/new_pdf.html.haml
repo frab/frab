@@ -1,0 +1,18 @@
+= block do
+  = content do
+    %h2 Create a custom PDF export 
+    = inner do
+      = form_tag schedule_custom_pdf_path do
+        %p Select paper format:
+        %p
+          = select_tag "paper_size", options_for_select(Prawn::Document::PageGeometry::SIZES.keys.sort)
+        %p Select day:
+        %p
+          = select_tag "date", options_for_select(@conference.days)
+        %p Select rooms:
+        %p 
+          - @conference.rooms.each do |room|
+            = check_box_tag "room_ids[]", room.id
+            = room.name
+        %p= submit_tag "Create PDF", :class => "button", :icon => "page_white_acrobat"
+      .clear

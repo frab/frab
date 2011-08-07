@@ -25,4 +25,22 @@ class ScheduleController < ApplicationController
     @affected_events = @conference.events.find(affected_event_ids)
   end
 
+  def new_pdf
+  end
+
+  def custom_pdf
+    @page_size = params[:page_size]
+
+    @day = Date.parse(params[:date])
+    @rooms = @conference.rooms.public.find(params[:room_ids])
+    @events = Hash.new
+    @rooms.each do |room|
+      @events[room] = room.events.accepted.public.scheduled_on(@day).order(:start_time).all
+    end
+
+    respond_to do |format|
+      format.pdf
+    end
+  end
+
 end

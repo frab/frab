@@ -33,6 +33,9 @@
 = javascript_include_tag "schedule"
 
 - content_for :sidebar do
+  = actions_block do
+    = action_button "table", "View public schedule", public_schedule_index_path
+    = action_button "page_white_acrobat", "Create custom PDF export", new_schedule_pdf_path
   = block do
     %h3 Unscheduled events
     = content do
