@@ -5,7 +5,7 @@
       = form_tag schedule_custom_pdf_path do
         %p Select paper format:
         %p
-          = select_tag "paper_size", options_for_select(Prawn::Document::PageGeometry::SIZES.keys.sort)
+          = select_tag "page_size", options_for_select(Prawn::Document::PageGeometry::SIZES.keys.sort)
         %p Select day:
         %p
           = select_tag "date", options_for_select(@conference.days)
