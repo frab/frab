@@ -12,7 +12,7 @@
           - if time.min % 15 == 0
             %p= time.to_s(:time)
   #conference-rooms
-    %table.rooms-table{:style => "width: #{@rooms.size * 200}px;"}
+    %table.rooms-table{:style => "width: #{@rooms.reject{|r| @events[r].empty?}.size * 200}px;"}
       %thead
         - @rooms.each do |room|
           - next if @events[room].empty?
