@@ -6,7 +6,7 @@ class ScheduleController < ApplicationController
   def index
     params[:day] ||= 0
     @day = @conference.days[params[:day].to_i]
-    @scheduled_events = @conference.events.scheduled_on(@day)
+    @scheduled_events = @conference.events.accepted.scheduled_on(@day)
     @unscheduled_events = @conference.events.accepted.unscheduled
   end
 
