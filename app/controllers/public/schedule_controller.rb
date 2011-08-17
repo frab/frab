@@ -19,16 +19,16 @@ class Public::ScheduleController < ApplicationController
   def day
     @day = Date.parse(params[:date])
     @day_index = @conference.days.index(@day) + 1
-    @rooms = @conference.rooms.public.all
+    @all_rooms = @conference.rooms.public.all
+    @rooms = Array.new
     @events = Hash.new
     @skip_row = Hash.new
-    @rooms.each do |room|
+    @all_rooms.each do |room|
       events = room.events.accepted.public.scheduled_on(@day).order(:start_time).all
-      if events.empty?
-        @rooms.delete(room)
-      else
+      unless events.empty?
         @events[room] = events 
         @skip_row[room] = 0
+        @rooms << room
       end
     end
 
