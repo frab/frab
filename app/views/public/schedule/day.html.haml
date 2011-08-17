@@ -15,11 +15,13 @@
     %table.rooms-table{:style => "width: #{@rooms.size * 200}px;"}
       %thead
         - @rooms.each do |room|
+          - next if @events[room].empty?
           %th= room.name
       %tbody
         - each_timeslot do |time|
           %tr.cell-height1
             - @rooms.each do |room|
+              - next if @events[room].empty?
               - @skip_row[room] -= 1
               - next if @skip_row[room] > 0
               - if not @events[room].empty? and @events[room].first.start_time == day_at(@day, time)
