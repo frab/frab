@@ -17,6 +17,10 @@ Frab::Application.routes.draw do
         match "/events/:id" => "schedule#event", :as => "event"
         match "/speakers" => "schedule#speakers", :as => "speakers"
         match "/speakers/:id" => "schedule#speaker", :as => "speaker"
+        
+        resources :events do
+          resource :feedback, :controller => :feedback
+        end
       end
 
       namespace :cfp do

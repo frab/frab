@@ -1,0 +1,8 @@
+%h2.title Thank you! 
+
+.column
+  %p Thanks for helping us improve our events. Please rate as much events that you attended as possible.
+
+  %p
+    = link_to "Click here", public_schedule_path(:date => @event.start_time.to_date)
+    to return to the schedule.

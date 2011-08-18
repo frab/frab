@@ -30,6 +30,11 @@
     %ul
       - @event.event_attachments.each do |attachment|
         %li= link_to attachment.title, attachment.attachment.url
+  - if @conference.feedback_enabled?
+    %h3 Feeback
+    %p
+      = link_to "Click here", new_public_event_feedback_path(:event_id => @event)
+      to let us know how you liked this event.
 
 .column.right#sidebar
   %h3 Speakers 

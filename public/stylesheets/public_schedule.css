@@ -322,3 +322,7 @@ span#pages {
   font-size: 14px;
   font-weight: bold;
 }
+
+.column a {
+  text-decoration: underline;
+}

@@ -6,6 +6,8 @@
     = stylesheet_link_tag 'public_schedule'
     = stylesheet_link_tag public_schedule_style_path(:format => :css), :media => "all"
     = stylesheet_link_tag 'public_schedule.print', :media => 'print'
+    = stylesheet_link_tag 'formtastic' if feedback_page?
+    = stylesheet_link_tag 'formtastic_changes' if feedback_page?
     = javascript_include_tag :defaults, "jquery-ui-1.8.13.custom.min", :cache => "all_public_schedule"
   %body
     #wrapper
@@ -13,18 +15,19 @@
         %h1= @conference.title + " Program"
         #top-navigation 
           %ul.horizontal-navigation
-            %li{:class => selected(/schedule$/)}
-              = link_to "Index", public_schedule_index_path
-            - @conference.days.each_with_index do |day, index| 
-              %li{:class => selected(/#{day}$/)}
-                %a{:href => public_schedule_path(:date => day)}
-                  Day #{index + 1}
-                  %br/
-                  %span.small-font= day.to_s
-            %li{:class => selected(/speakers.*$/)}
-              = link_to "Speakers", public_speakers_path
-            %li{:class => selected(/events.*$/)}
-              = link_to "Events", public_events_path
+            - unless feedback_page?
+              %li{:class => selected(/schedule$/)}
+                = link_to "Index", public_schedule_index_path
+              - @conference.days.each_with_index do |day, index| 
+                %li{:class => selected(/#{day}$/)}
+                  %a{:href => public_schedule_path(:date => day)}
+                    Day #{index + 1}
+                    %br/
+                    %span.small-font= day.to_s
+              %li{:class => selected(/speakers.*$/)}
+                = link_to "Speakers", public_speakers_path
+              %li{:class => selected(/events.*$/)}
+                = link_to "Events", public_events_path
         %br.clear/
       #main-content
         = yield
