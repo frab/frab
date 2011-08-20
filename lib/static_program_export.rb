@@ -5,7 +5,7 @@ class StaticProgramExport
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
     @session.host = 'frab.froscon.org'
     @session.https!
-    @asset_paths = Array.new
+    @asset_paths = [] 
     @base_directory = File.join(Rails.root, "tmp", "static_export")
   end
 
@@ -73,10 +73,14 @@ class StaticProgramExport
       end
       document.css("a").each do |link|
         if link.attributes["href"].value.start_with?("/")
-          path = strip_path(link.attributes["href"].value)
-          path = "index" if path == "schedule"
-          path += ".html" unless path =~ /\.\w+$/
-          link.attributes["href"].value = dots(level) + path
+          if link.attributes["href"].value =~ /\?\d+$/
+            strip_asset_path(link, "href", level)
+          else
+            path = strip_path(link.attributes["href"].value)
+            path = "index" if path == "schedule"
+            path += ".html" unless path =~ /\.\w+$/
+            link.attributes["href"].value = dots(level) + path
+          end
         end
       end
       File.open(file_path, "w") do |f| 
