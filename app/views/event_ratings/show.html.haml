@@ -3,6 +3,7 @@
     %ul.wat-cf
       %li.first= link_to "Event Details", @event 
       %li.active= link_to "Ratings", event_event_rating_path(@event)
+      %li= link_to "Feedback", event_event_feedbacks_path(@event)
   = content do
     %h2 Ratings for #{@event.title}
     = inner do

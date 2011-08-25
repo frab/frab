@@ -84,6 +84,7 @@ Frab::Application.routes.draw do
           put :update_state
         end
         resource :event_rating
+        resources :event_feedbacks
       end
 
     end

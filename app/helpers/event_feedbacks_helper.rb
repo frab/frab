@@ -1,0 +1,2 @@
+module EventFeedbacksHelper
+end

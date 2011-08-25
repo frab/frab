@@ -1,0 +1,23 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "Event Details", @event 
+      %li= link_to "Ratings", event_event_rating_path(@event)
+      %li.active= link_to "Feedback", event_event_feedbacks_path(@event)
+  = content do
+    %h2 Feedback for #{@event.title}
+    = inner do
+      %p Average Feedback: #{@event.average_feedback}
+      %h3 Comments
+      %table
+        %thead
+          %tr
+            %th Rating
+            %th Comment
+        %tbody
+          - @event_feedbacks.each do |feedback|
+            - next if feedback.comment.blank?
+            %tr
+              %td= feedback.rating
+              %td= feedback.comment
+
