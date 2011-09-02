@@ -3,8 +3,8 @@ class StaticProgramExport
   def initialize(conference)
     @conference = conference
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
-    @session.host = 'frab.froscon.org'
-    @session.https!
+    @session.host = Settings.host
+    @session.https! if Settings['protocol'] == "https"
     @asset_paths = [] 
     @base_directory = File.join(Rails.root, "tmp", "static_export")
   end

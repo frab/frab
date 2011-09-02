@@ -27,6 +27,7 @@ gem 'therubyracer'
 gem 'barista'
 gem 'ri_cal'
 gem 'nokogiri'
+gem 'settingslogic'
 
 group :development, :test do
   gem 'web-app-theme'

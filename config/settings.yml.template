@@ -1,0 +1,12 @@
+development:
+  host: localhost
+  port: 3000
+  protocol: http
+
+test:
+  host: frab.test
+  protocol: http
+
+production:
+  host: frab.example.com
+  protocol: https
