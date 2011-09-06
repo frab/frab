@@ -55,5 +55,25 @@ FactoryGirl.define do
     end
   end
 
+  factory :event do
+    title "Introducing frab"
+    subtitle "Getting started organizing your conference"
+    time_slots 4
+    conference
+  end
+
+  factory :event_person do
+    person
+    event 
+    event_role "speaker"
+  end
+
+  factory :event_rating do
+    event
+    person
+    rating 3.0
+    comment "blah"
+  end
+
 end
 
