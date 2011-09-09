@@ -2,48 +2,33 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
-  end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:users)
+    @conference = FactoryGirl.create(:conference)
+    @person = FactoryGirl.create(:person)
+    @user = FactoryGirl.create(:user, :person => FactoryGirl.create(:person))
+    login_as(:admin)
   end
 
   test "should get new" do
-    get :new
+    get :new, :person_id => @person.id, :conference_acronym => @conference.acronym
     assert_response :success
   end
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, :user => @user.attributes
+      post :create, :user => FactoryGirl.build(:user).attributes.merge(:password => "frab123", :password_confirmation => "frab123"), :person_id => @person.id, :conference_acronym => @conference.acronym
     end
 
-    assert_redirected_to user_path(assigns(:user))
-  end
-
-  test "should show user" do
-    get :show, :id => @user.to_param
-    assert_response :success
+    assert_redirected_to person_path(@person)
   end
 
   test "should get edit" do
-    get :edit, :id => @user.to_param
+    get :edit, :id => @user.to_param, :person_id => @user.person.id, :conference_acronym => @conference.acronym
     assert_response :success
   end
 
   test "should update user" do
-    put :update, :id => @user.to_param, :user => @user.attributes
-    assert_redirected_to user_path(assigns(:user))
+    put :update, :id => @user.to_param, :user => @user.attributes, :person_id => @user.person.id, :conference_acronym => @conference.acronym
+    assert_redirected_to person_path(@user.person)
   end
 
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete :destroy, :id => @user.to_param
-    end
-
-    assert_redirected_to users_path
-  end
 end

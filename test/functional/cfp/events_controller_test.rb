@@ -2,48 +2,33 @@ require 'test_helper'
 
 class Cfp::EventsControllerTest < ActionController::TestCase
   setup do
-    @cfp_event = cfp_events(:one)
-  end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:cfp_events)
+    @event = FactoryGirl.create(:event)
+    @conference = @event.conference
+    @user = login_as(:submitter)
   end
 
   test "should get new" do
-    get :new
+    get :new, :conference_acronym => @conference.acronym
     assert_response :success
   end
 
-  test "should create cfp_event" do
-    assert_difference('Cfp::Event.count') do
-      post :create, :cfp_event => @cfp_event.attributes
+  test "should create event" do
+    assert_difference('Event.count') do
+      post :create, :event => @event.attributes, :conference_acronym => @conference.acronym
     end
-
-    assert_redirected_to cfp_event_path(assigns(:cfp_event))
-  end
-
-  test "should show cfp_event" do
-    get :show, :id => @cfp_event.to_param
-    assert_response :success
+    assert_response :redirect
   end
 
   test "should get edit" do
-    get :edit, :id => @cfp_event.to_param
+    FactoryGirl.create(:event_person, :event => @event, :person => @user.person)
+    get :edit, :id => @event.to_param, :conference_acronym => @conference.acronym
     assert_response :success
   end
 
-  test "should update cfp_event" do
-    put :update, :id => @cfp_event.to_param, :cfp_event => @cfp_event.attributes
-    assert_redirected_to cfp_event_path(assigns(:cfp_event))
+  test "should update event" do
+    FactoryGirl.create(:event_person, :event => @event, :person => @user.person)
+    put :update, :id => @event.to_param, :event => @event.attributes, :conference_acronym => @conference.acronym
+    assert_response :redirect
   end
 
-  test "should destroy cfp_event" do
-    assert_difference('Cfp::Event.count', -1) do
-      delete :destroy, :id => @cfp_event.to_param
-    end
-
-    assert_redirected_to cfp_events_path
-  end
 end

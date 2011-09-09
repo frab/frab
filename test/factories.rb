@@ -12,6 +12,7 @@ FactoryGirl.define do
     email { Factory.next(:email) }
     password "frab23"
     password_confirmation { password }
+    confirmed_at { Time.now }
   end
 
   factory :person do
