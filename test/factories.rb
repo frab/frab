@@ -59,6 +59,7 @@ FactoryGirl.define do
     title "Introducing frab"
     subtitle "Getting started organizing your conference"
     time_slots 4
+    start_time "10:00"
     conference
   end
 
@@ -73,6 +74,12 @@ FactoryGirl.define do
     person
     rating 3.0
     comment "blah"
+  end
+
+  factory :event_feedback do
+    event
+    rating 3.0
+    comment "doh"
   end
 
 end
