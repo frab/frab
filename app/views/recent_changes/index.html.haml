@@ -1,0 +1,7 @@
+= block do
+  = content do
+    %h2 Recent changes
+    = inner do
+      = render 'table'
+      = actions_bar do
+        = will_paginate @audits
