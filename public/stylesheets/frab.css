@@ -89,3 +89,5 @@ div.unscheduled-event {
 
 table.room tr.odd {background: #F9F9F9}
 table.room tr.even {background: #EEEEEE;}
+
+span.right { float: right; }

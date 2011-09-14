@@ -1,0 +1,10 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "Profile", @person
+      %li.active= link_to "User account", person_user_path(@person)
+  = content do
+    %h2
+      Editing account of #{@person.full_name}
+    = inner do
+      = render 'form'

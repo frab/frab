@@ -1,0 +1,20 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "Profile", @person
+      %li.active= link_to "User account", person_user_path(@person)
+  = content do
+    = inner do
+      %h3 User account for #{@person.full_name} 
+      %p
+        %b Email for login:
+        = @user.email
+      %p
+        %b Role:
+        = @user.role
+      %p
+        %b Last login:
+        = @user.last_sign_in_at
+- content_for :sidebar do
+  = actions_block do
+    = action_button "application_edit", "Edit user account", edit_person_user_path(@person)

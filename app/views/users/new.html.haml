@@ -1,0 +1,12 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "Profile", @person
+      %li.active= link_to "User account", person_user_path(@person)
+  = content do
+    %h2 Create account for #{@person.full_name}
+    = inner do
+      %p
+        #{@person.full_name} does not currently have a user account and thus cannot login.
+        You can create a user account right now by filling out this form.
+      = render 'form'

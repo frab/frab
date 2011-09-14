@@ -18,7 +18,7 @@ class UsersControllerTest < ActionController::TestCase
       post :create, :user => FactoryGirl.build(:user).attributes.merge(:password => "frab123", :password_confirmation => "frab123"), :person_id => @person.id, :conference_acronym => @conference.acronym
     end
 
-    assert_redirected_to person_path(@person)
+    assert_redirected_to person_user_path(@person)
   end
 
   test "should get edit" do
@@ -28,7 +28,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should update user" do
     put :update, :id => @user.to_param, :user => @user.attributes, :person_id => @user.person.id, :conference_acronym => @conference.acronym
-    assert_redirected_to person_path(@user.person)
+    assert_redirected_to person_user_path(@user.person)
   end
 
 end
