@@ -12,10 +12,10 @@
         <%= audit.action -%>d
       </td>
       <td>
-        <% if audit.association %>
+        <% if audit.associated %>
           <%= audit.auditable.to_s %>
           on 
-          <%= link_to audit.association.to_s, audit.association %>
+          <%= link_to audit.associated.to_s, audit.associated %>
         <% else %>
           <%= link_to audit.auditable.to_s, audit.auditable %>
         <% end %>

@@ -1,9 +1,8 @@
 module RiCalTemplates
 
   class TemplateHandler
-    include ActionView::Template::Handlers::Compilable
 
-    def compile(template)
+    def self.call(template)
       require "ri_cal"
       "::RiCal.Calendar do |cal|\n" + 
       template.source +

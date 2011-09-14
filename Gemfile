@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.0'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3'
 gem 'pg'
-gem 'mysql'
+gem 'mysql2'
 
 gem 'haml'
 gem 'devise'
@@ -16,7 +16,7 @@ gem 'formtastic'
 gem 'jquery-rails'
 gem 'acts_as_indexed'
 gem 'cocoon', '~> 1.0.4'
-gem 'acts_as_audited', '2.0.0.rc7'
+gem 'acts_as_audited', '2.0.0'
 gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
 gem 'ransack'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
