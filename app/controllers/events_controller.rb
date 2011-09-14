@@ -7,11 +7,11 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     if params[:term]
-      @search = @conference.events.with_query(params[:term]).search(params[:search])
-      @events = @search.paginate :page => params[:page]
+      @search = @conference.events.with_query(params[:term]).search(params[:q])
+      @events = @search.result.paginate :page => params[:page]
     else
-      @search = @conference.events.search(params[:search])
-      @events = @search.paginate :page => params[:page]
+      @search = @conference.events.search(params[:q])
+      @events = @search.result.paginate :page => params[:page]
     end
 
     respond_to do |format|
@@ -22,11 +22,11 @@ class EventsController < ApplicationController
 
   def my
     if params[:term]
-      @search = @conference.events.associated_with(current_user.person).with_query(params[:term]).search(params[:search])
-      @events = @search.paginate :page => params[:page]
+      @search = @conference.events.associated_with(current_user.person).with_query(params[:term]).search(params[:q])
+      @events = @search.result.paginate :page => params[:page]
     else
-      @search = @conference.events.associated_with(current_user.person).search(params[:search])
-      @events = @search.paginate :page => params[:page]
+      @search = @conference.events.associated_with(current_user.person).search(params[:q])
+      @events = @search.result.paginate :page => params[:page]
     end
   end
 
@@ -43,8 +43,8 @@ class EventsController < ApplicationController
   end
 
   def ratings
-    @search = @conference.events.search(params[:search])
-    @events = @search.paginate :page => params[:page]
+    @search = @conference.events.search(params[:q])
+    @events = @search.result.paginate :page => params[:page]
     @events_total = @conference.events.count
     @events_reviewed = @conference.events.joins(:event_ratings).where("event_ratings.person_id" => current_user.person.id).count
     @events_no_review = @events_total - @conference.events.joins(:event_ratings).count

@@ -18,7 +18,7 @@ gem 'acts_as_indexed'
 gem 'cocoon', '~> 1.0.4'
 gem 'acts_as_audited', '2.0.0.rc7'
 gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
-gem 'meta_search'
+gem 'ransack'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'prawn'
 gem 'prawn_rails'
