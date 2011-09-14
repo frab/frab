@@ -71,6 +71,10 @@ class EventsController < ApplicationController
     end
   end
 
+  def people
+    @event = Event.find(params[:id])
+  end
+  
   # GET /events/new
   # GET /events/new.xml
   def new
@@ -87,7 +91,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
-  def edit_persons
+  def edit_people
     @event = Event.find(params[:id])
   end
 

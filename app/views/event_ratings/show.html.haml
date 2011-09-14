@@ -2,6 +2,7 @@
   .secondary-navigation
     %ul.wat-cf
       %li.first= link_to "Event Details", @event 
+      %li= link_to "People", people_event_path(@event)
       %li.active= link_to "Ratings", event_event_rating_path(@event)
       %li= link_to "Feedback", event_event_feedbacks_path(@event)
   = content do
@@ -66,7 +67,7 @@
           #my_rating 
           = f.input :comment, :input_html => {:rows => 3}
         = f.buttons do
-          = f.commit_button :button_html => {:class => "button"}
+          = f.commit_button :button_html => {:class => "button", :icon => "tick"}
       %h3 All ratings
       %table.table
         %tr

@@ -1,0 +1,22 @@
+= semantic_form_for(@event, :html => {:multipart => true}) do |f|
+  = f.inputs :name => "Basic information" do
+    = f.input :title
+    = f.input :subtitle
+    = f.input :event_type, :collection => Event::TYPES
+    = f.input :track, :collection => @conference.tracks
+    = f.input :time_slots, :as => :select, :collection => timeslots
+    = f.input :language, :as => :language, :only => @conference.language_codes
+    = f.input :public, :hint => "Is this event visible in the public schedule?"
+    = f.input :logo
+  = f.inputs :name => "State" do
+    = f.input :state, :collection => Event.state_machine.states_for_select
+  = f.inputs :name => "Time and place" do
+    = f.input :start_time, :as => :select, :collection => start_times
+    = f.input :room, :collection => @conference.rooms
+  = f.inputs :name => "Detailed description" do
+    = f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event."
+    = f.input :description, :hint => "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website."
+    = dynamic_association :links, "Links", f
+    = dynamic_association :event_attachments, "Uploaded files", f
+    = f.buttons do
+      = f.commit_button :button_html => {:class => "button", :icon => "tick"}

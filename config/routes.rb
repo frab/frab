@@ -80,7 +80,8 @@ Frab::Application.routes.draw do
           get :cards
         end
         member do
-          get :edit_persons
+          get :people
+          get :edit_people
           put :update_state
         end
         resource :event_rating

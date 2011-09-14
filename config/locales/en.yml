@@ -29,6 +29,7 @@ en:
     models:
       event: "Event"
       person: "Profile"
+      event_person: "Person"
       link: "Link"
       im_account: "IM Account"
       phone_number: "Phone number"

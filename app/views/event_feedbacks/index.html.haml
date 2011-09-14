@@ -2,6 +2,7 @@
   .secondary-navigation
     %ul.wat-cf
       %li.first= link_to "Event Details", @event 
+      %li= link_to "People", people_event_path(@event)
       %li= link_to "Ratings", event_event_rating_path(@event)
       %li.active= link_to "Feedback", event_event_feedbacks_path(@event)
   = content do

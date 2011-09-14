@@ -1,0 +1,15 @@
+= block do
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "Event Details", @event 
+      %li.active= link_to "People", people_event_path(@event)
+      %li= link_to "Ratings", event_event_rating_path(@event)
+      %li= link_to "Feedback", event_event_feedbacks_path(@event)
+  = content do
+    %h2
+      Editing People for "#{@event.title}"
+    = inner do
+      = semantic_form_for(@event) do |f|
+        = dynamic_association :event_people, nil, f
+        = f.buttons do
+          = f.commit_button :button_html => {:class => "button", :icon => "tick"}
