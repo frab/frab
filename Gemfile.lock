@@ -90,7 +90,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     multi_json (1.0.3)
-    mysql2 (0.2.11)
+    mysql2 (0.3.7)
     nokogiri (1.4.4)
     orm_adapter (0.0.5)
     paperclip (2.3.8)
@@ -175,7 +175,7 @@ GEM
     warden (1.0.5)
       rack (>= 1.0)
     web-app-theme (0.6.3)
-    will_paginate (3.0.pre2)
+    will_paginate (3.0.0)
     yaml_db (0.2.0)
 
 PLATFORMS
@@ -212,5 +212,5 @@ DEPENDENCIES
   therubyracer
   transitions
   web-app-theme
-  will_paginate (= 3.0.pre2)
+  will_paginate
   yaml_db
