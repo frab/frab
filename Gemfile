@@ -12,10 +12,10 @@ gem 'acts_as_commentable'
 gem 'will_paginate'
 gem 'paperclip'
 gem 'gravatar-ultimate'
-gem 'formtastic'
+gem 'formtastic', '2.0.0.rc5'
 gem 'jquery-rails'
 gem 'acts_as_indexed'
-gem 'cocoon', '~> 1.0.4'
+gem 'cocoon'
 gem 'acts_as_audited', '2.0.0'
 gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
 gem 'ransack'
@@ -37,9 +37,16 @@ end
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'turn', :require => false
 end
 
 group :development do
   gem 'hpricot'
   gem 'yaml_db'
 end
+
+group :assets do
+  gem 'sass-rails', " ~> 3.1.0"  
+  gem 'coffee-rails', " ~> 3.1.0"  
+  gem 'uglifier'  
+end 

@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %title
+      = @conference.title
+      \- Call for Papers
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application" 
+    = csrf_meta_tags
+  %body
+    #container
+      #header
+        %h1= link_to @conference.title + " - Call for Papers", cfp_root_path
+        #user-navigation
+          %ul.wat-cf
+            - if current_cfp_user
+              %li= link_to t("web-app-theme.logout", :default => "Logout"), destroy_cfp_user_session_path
+        #main-navigation
+          %ul.wat-cf
+      #wrapper.wat-cf
+        .flash
+          - flash.each do |type, message|
+            %div{:class => "message #{type}"}
+              %p= message
+        #main
+          = yield
+          #footer
+            .block
+              %p
+                Copyright &copy; #{Time.now.year} the frab project.
+        #sidebar
+          = yield :sidebar

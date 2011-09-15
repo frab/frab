@@ -95,7 +95,7 @@
 :javascript
   $(document).ready(function() {
     $("#my_rating").raty({
-      path: "/images/raty/",
+      path: "/assets/raty/",
       half: true,
       start: $("#event_rating_rating").val(),
       target: "#event_rating_rating",
@@ -103,14 +103,14 @@
       targetKeep: true
     });
     $("#total_rating").raty({
-      path: "/images/raty/",
+      path: "/assets/raty/",
       half: true,
       start: $("#total_rating").data("rating")
     });
     $(".rating").each(function(index) {
       $(this).raty({
         readOnly: true,
-        path: "/images/raty/",
+        path: "/assets/raty/",
         half: true,
         start: $(this).data('rating')
       });

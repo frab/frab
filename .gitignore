@@ -9,3 +9,4 @@ public/system
 index
 *.swp
 rerun.txt
+.sass-cache/

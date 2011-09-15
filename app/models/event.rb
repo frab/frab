@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
 
   has_attached_file :logo, 
     :styles => {:tiny => "16x16>", :small => "32x32>", :large => "128x128>"},
-    :default_url => "/images/event_:style.png"
+    :default_url => "/assets/event_:style.png"
 
   accepts_nested_attributes_for :event_people, :allow_destroy => true, :reject_if => Proc.new {|attr| attr[:person_id].blank?} 
   accepts_nested_attributes_for :links, :allow_destroy => true, :reject_if => :all_blank
