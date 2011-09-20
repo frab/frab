@@ -1,42 +1,49 @@
 <table class="table">
-  <% @audits.each do |audit| %>
+  <% @versions.each do |version| %>
+    <% user = User.find(version.whodunnit) %>
     <tr class="<%= cycle("odd", "even") -%>">
-      <td><%= audit.created_at.to_s(:long) %></td>
+      <td><%= version.created_at.to_s(:long) %></td>
       <td>
-        <%= image_box audit.user.person.avatar, :small %>
+        <%= image_box user.person.avatar, :small %>
       </td>
       <td>
-        <%= link_to audit.user.person.full_name, audit.user.person %> 
+        <%= link_to user.person.full_name, user.person %> 
       </td>
       <td>
-        <%= audit.action -%>d
+        <%= version.event -%>d
       </td>
       <td>
-        <% if audit.associated %>
-          <%= audit.auditable.to_s %>
+        <% if version.associated_id %>
+          <%= version.item.to_s %>
           on 
-          <%= link_to audit.associated.to_s, audit.associated %>
+          <%= associated_link_for version %>
         <% else %>
-          <%= link_to audit.auditable.to_s, audit.auditable %>
+          <%= link_to version.item.to_s, version.item %>
         <% end %>
       </td>
-      <td><%= link_to_function "Details", "$('#recent_change_#{audit.id}').toggle();" %></td>
-    </tr>
-    <tr id="recent_change_<%= audit.id -%>" style="display: none;">
-      <td colspan="5">
-        <ul>
-          <% audit.audited_changes.each do |attribute, change| %>
-            <li>
-              <em><%= attribute %></em>
-              <% if change.is_a? Array %>
-                changed from <em>"<%= change[0] %>"</em> to <em>"<%= change[1] %>"</em>.
-              <% else %>
-                set to <em>"<%= change %>"</em>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+      <td>
+        <% if version.event == "update" %>
+          <%= link_to_function "Details", "$('#recent_change_#{version.id}').toggle();" %>
+        <% end %>
       </td>
     </tr>
+    <% if version.event == "update" %>
+      <tr id="recent_change_<%= version.id -%>" style="display: none;">
+        <td colspan="5">
+          <ul>
+            <% YAML.load(version.object_changes).each do |attribute, change| %>
+              <li>
+                <em><%= attribute %></em>
+                <% if change.is_a? Array %>
+                  changed from <em>"<%= change[0] %>"</em> to <em>"<%= change[1] %>"</em>.
+                <% else %>
+                  set to <em>"<%= change %>"</em>
+                <% end %>
+              </li>
+            <% end if version.object_changes %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>

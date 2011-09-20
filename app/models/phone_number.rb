@@ -4,7 +4,7 @@ class PhoneNumber < ActiveRecord::Base
 
   belongs_to :person
 
-  acts_as_audited :associated_with => :person
+  has_paper_trail :meta => {:associated_id => :person_id, :associated_type => "Person"}
 
   def to_s
     "Phone number"

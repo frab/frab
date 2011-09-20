@@ -8,10 +8,10 @@ class PentabarfImportHelper
 
   def initialize
     @barf = Pentabarf.connection
+    PaperTrail.enabled = false
   end
 
   def import_conferences
-    Conference.disable_auditing
     conferences = @barf.select_all("SELECT * FROM conference")
     conference_mapping = create_mappings(:conferences) 
     conferences.each do |conference|
@@ -36,7 +36,6 @@ class PentabarfImportHelper
   end
 
   def import_tracks
-    Track.disable_auditing
     track_mapping = create_mappings(:tracks)
     tracks = @barf.select_all("SELECT * FROM conference_track")
     tracks.each do |track|
@@ -50,7 +49,6 @@ class PentabarfImportHelper
   end
 
   def import_rooms
-    Room.disable_auditing
     room_mapping = create_mappings(:rooms)
     rooms = @barf.select_all("SELECT * FROM conference_room")
     rooms.each do |room|
@@ -66,9 +64,6 @@ class PentabarfImportHelper
   end
 
   def import_people
-    Person.disable_auditing
-    ImAccount.disable_auditing
-    PhoneNumber.disable_auditing
     people = @barf.select_all("SELECT * FROM person")
     people_mapping = create_mappings(:people) 
     people.each do |person|
@@ -165,7 +160,6 @@ class PentabarfImportHelper
   end
 
   def import_links
-    Link.disable_auditing
     mappings(:people).each do |orig_id, new_id|
       links = @barf.select_all("SELECT l.title, l.url FROM conference_person as p LEFT OUTER JOIN conference_person_link as l ON p.conference_person_id = l.conference_person_id WHERE p.person_id = #{orig_id}")
       links.each do |link|
@@ -187,7 +181,6 @@ class PentabarfImportHelper
   end
 
   def import_events
-    Event.disable_auditing
     events = @barf.select_all("SELECT e.*, c.conference_day FROM event AS e LEFT OUTER JOIN conference_day AS c ON e.conference_day_id = c.conference_day_id")
     event_mapping = create_mappings(:events) 
     events.each do |event|
@@ -246,7 +239,6 @@ class PentabarfImportHelper
   end
 
   def import_event_attachments
-    EventAttachment.disable_auditing
     event_attachments = @barf.select_all("SELECT * FROM event_attachment")
     event_attachments.each do |event_attachment|
       attachment_file = attachment_to_file(event_attachment)
@@ -261,7 +253,6 @@ class PentabarfImportHelper
   end
 
   def import_event_people
-    EventPerson.disable_auditing
     event_people = @barf.select_all("SELECT * FROM event_person")
     event_people.each do |event_person|
       EventPerson.create!(

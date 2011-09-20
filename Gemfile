@@ -16,7 +16,7 @@ gem 'formtastic', '2.0.0.rc5'
 gem 'jquery-rails'
 gem 'acts_as_indexed'
 gem 'cocoon'
-gem 'acts_as_audited', '2.0.0'
+gem 'paper_trail'
 gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
 gem 'ransack'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]

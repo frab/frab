@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+PaperTrail.enabled = false
 
 admin = User.new(
   :email => "admin@example.org", 
@@ -14,7 +15,6 @@ admin = User.new(
 admin.role = "admin"
 admin.confirmed_at = Time.now
 admin.save!
-Person.disable_auditing
 Person.create!(
   :user => admin,
   :email => admin.email,

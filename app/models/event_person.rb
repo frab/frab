@@ -6,7 +6,7 @@ class EventPerson < ActiveRecord::Base
   belongs_to :event
   belongs_to :person
 
-  acts_as_audited :associated_with => :event
+  has_paper_trail :meta => {:associated_id => :event_id, :associated_type => "Event"}
 
   def confirm!
     self.role_state = "confirmed"

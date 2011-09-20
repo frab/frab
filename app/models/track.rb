@@ -4,7 +4,7 @@ class Track < ActiveRecord::Base
 
   default_scope order(:name)
 
-  acts_as_audited :associated_with => :conference
+  has_paper_trail :meta => {:associated_id => :conference_id, :associated_type => "Conference"}
 
   def to_s
     "Track: #{self.name}"

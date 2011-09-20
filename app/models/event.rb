@@ -39,7 +39,7 @@ class Event < ActiveRecord::Base
 
   acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description, :track_name]
 
-  acts_as_audited 
+  has_paper_trail 
 
   state_machine do
     state :new

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_locale
-  before_filter :load_conference
+  prepend_before_filter :load_conference
 
   protected
 
@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
       @conference = Conference.current
     end
     Time.zone = @conference.timezone if @conference
+  end
+
+  def info_for_paper_trail
+    {:conference_id => @conference.id} if @conference
   end
 
   def default_url_options

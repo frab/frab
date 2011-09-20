@@ -15,7 +15,7 @@ class Conference < ActiveRecord::Base
 
   after_update :update_timeslots
 
-  acts_as_audited
+  has_paper_trail 
 
   def self.current
     self.order("created_at DESC").first
@@ -90,11 +90,11 @@ class Conference < ActiveRecord::Base
     if self.timeslot_duration_changed? and self.events.count > 0
       old_duration = self.timeslot_duration_was
       factor = old_duration / self.timeslot_duration
-      Event.disable_auditing
+      Event.paper_trail_off
       self.events.each do |event|
         event.update_attributes(:time_slots => event.time_slots * factor)
       end
-      Event.enable_auditing
+      Event.paper_trail_on
     end
   end
 

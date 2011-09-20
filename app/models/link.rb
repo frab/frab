@@ -4,7 +4,10 @@ class Link < ActiveRecord::Base
 
   validates_presence_of :title, :url
 
-  acts_as_audited :associated_with => :linkable
+  has_paper_trail :meta => {
+    :associated_id => :linkable_id, 
+    :associated_type => :linkable_type 
+  } 
 
   def to_s
     "Link: #{self.title}"

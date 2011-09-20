@@ -4,14 +4,14 @@ class RecentChangesController < ApplicationController
   before_filter :require_admin
 
   def index
-    @audits = Audit.reorder("created_at DESC").paginate(
+    @versions = Version.where(:conference_id => @conference.id).order("created_at DESC").paginate(
       :page => params[:page],
       :per_page => 25
     )
   end
 
   def show
-    @audit = Audit.find(params[:id])
+    @version = Version.where(:conference_id => @conference.id, :id => params[:id]).first
   end
 
 end

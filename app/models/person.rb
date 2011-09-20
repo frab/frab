@@ -21,7 +21,7 @@ class Person < ActiveRecord::Base
 
   acts_as_indexed :fields => [:first_name, :last_name, :public_name, :email, :abstract, :description]
 
-  acts_as_audited
+  has_paper_trail 
 
   has_attached_file :avatar, 
     :styles => {:tiny => "16x16>", :small => "32x32>", :large => "128x128>"},

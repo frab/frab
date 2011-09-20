@@ -4,6 +4,6 @@ class EventAttachment < ActiveRecord::Base
 
   has_attached_file :attachment
 
-  acts_as_audited :associated_with => :event
+  has_paper_trail :meta => {:associated_id => :event_id, :associated_type => "Event"}
 
 end
