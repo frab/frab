@@ -17,7 +17,8 @@ module Frab
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-
+    config.autoload_paths += %W(#{config.root}/lib)
+    
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -42,10 +43,6 @@ module Frab
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
     
-    config.to_prepare do
-      Devise::SessionsController.layout 'signup'
-    end
-  
     # Enable the asset pipeline
     config.assets.enabled = true
 

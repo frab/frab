@@ -27,7 +27,7 @@
                 = link_to "Create new conference", new_conference_path(:conference_acronym => nil)
             %li
               = link_to "My Profile", edit_person_path(current_user.person) unless @conference.new_record?
-            %li= link_to t("web-app-theme.logout", :default => "Logout"), destroy_user_session_path
+            %li= link_to t("web-app-theme.logout", :default => "Logout"), session_path, :method => :delete
         #main-navigation
           %ul.wat-cf
             - if @conference and not @conference.new_record?

@@ -13,8 +13,8 @@
         %h1= link_to @conference.title + " - Call for Papers", cfp_root_path
         #user-navigation
           %ul.wat-cf
-            - if current_cfp_user
-              %li= link_to t("web-app-theme.logout", :default => "Logout"), destroy_cfp_user_session_path
+            - if current_user
+              %li= link_to t("web-app-theme.logout", :default => "Logout"), cfp_session_path, :method => :delete
         #main-navigation
           %ul.wat-cf
       #wrapper.wat-cf

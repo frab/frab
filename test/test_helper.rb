@@ -2,10 +2,6 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
-class ActionController::TestCase
-  include Devise::TestHelpers
-end
-
 class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -22,12 +18,7 @@ class ActiveSupport::TestCase
       :person => FactoryGirl.create(:person),
       :role => role.to_s
     )
-    case role
-    when :admin
-      sign_in user 
-    when :submitter
-      sign_in :cfp_user, user
-    end
+    session[:user_id] = user.id
     user
   end
 

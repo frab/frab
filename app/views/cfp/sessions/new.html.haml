@@ -14,23 +14,23 @@
       %p=t("cfp.welcome_text", :title => @conference.title)
     %h3=t("cfp.login_existing_headline")
     %p=t("cfp.login_existing_description")
-    = semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    = semantic_form_for @user, :url => cfp_session_path do |f|
       = f.inputs do
         = f.input :email
         = f.input :password
-        - if devise_mapping.rememberable?
+        - if false 
           = f.input :remember_me, :as => :boolean
       = f.buttons do
-        = f.commit_button t("devise.sign_in"), :button_html => {:icon => "key", :class => :button}
+        = f.commit_button t("cfp.sign_in"), :button_html => {:icon => "key", :class => :button}
     %h3=t("cfp.sign_up_headline") 
     %p=t("cfp.sign_up_description", :title => @conference.title)
-    %p= action_button "user_edit", t("devise.sign_up"), new_registration_path(resource_name)
+    %p= action_button "user_edit", t("cfp.sign_up"), new_cfp_user_path
     .clear
     %h3=t("cfp.forgot_password_headline")
     %p=t("cfp.forgot_password_description") 
-    = action_button "email", t("cfp.forgot_password_button"), new_password_path(resource_name)
+    = action_button "email", t("cfp.forgot_password_button"), new_cfp_user_password_path
     .clear
     %h3=t("cfp.confirmation_headline") 
     %p=t("cfp.confirmation_description")
-    = action_button "email", t("cfp.confirmation_button"), new_confirmation_path(resource_name)
+    = action_button "email", t("cfp.confirmation_button"), new_cfp_user_confirmation_path
     .clear

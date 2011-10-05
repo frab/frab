@@ -8,7 +8,9 @@ en:
   remove_language: "remove language"
   edit: "edit"
   actions: "Actions"
-
+  error_signing_in: "Invalid email or password."
+  sign_in_successful: "Successfully signed in."
+  
   options:
     lecture: "lecture"
     workshop: "workshop"

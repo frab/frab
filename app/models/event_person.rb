@@ -1,4 +1,5 @@
 class EventPerson < ActiveRecord::Base
+  include UniqueToken
 
   ROLES = [:coordinator, :submitter, :speaker, :moderator]
   STATES = [:canceled, :confirmed, :declined, :idea, :offer, :unclear]
@@ -18,15 +19,8 @@ class EventPerson < ActiveRecord::Base
   end
 
   def generate_token!
-    loop do
-      token = Devise.friendly_token
-      if EventPerson.find_by_confirmation_token(token)
-        next
-      else
-        self.update_attributes!(:confirmation_token => token)
-        break token
-      end
-    end
+     generate_token_for(:confirmation_token)
+     save
   end
 
   def available_between?(start_time, end_time)

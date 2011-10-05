@@ -2,7 +2,7 @@ class Cfp::AvailabilitiesController < ApplicationController
 
   layout 'cfp'
 
-  before_filter :authenticate_cfp_user!
+  before_filter :authenticate_user!
   before_filter :require_submitter
 
   def new
@@ -14,7 +14,7 @@ class Cfp::AvailabilitiesController < ApplicationController
   end
 
   def update
-    current_cfp_user.person.update_attributes(params[:person])
+    current_user.person.update_attributes(params[:person])
     redirect_to cfp_root_path, :notice => t("cfp.update_availability_notice") 
   end
 

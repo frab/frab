@@ -1,5 +1,17 @@
 en:
   cfp:
+    sign_in: "Sign In"
+    sign_up: "Sign Up"
+    signed_up: "You have signed up successfully. An email with confirmation instructions has been sent to the address you provided. Please follow these instructions to complete your registration."
+    updated: "Successfully updated."
+    password_updated: "Successfully updated your password."
+    confirmation_instructions_sent: "The confirmation instructions have been sent to the address you provided."
+
+    sent_password_reset_instructions: "Instructions how to reset your password have been sent to the email address you provided."
+    error_sending_confirmation_instructions: "Could not send confirmation instructions. Please make sure you entered the correct email address and that your account is not confirmed already."
+    successfully_confirmed: "Your account has been successfully confirmed. Thank you for signing up!"
+    error_confirming: "There was an error confirming your account. Please make sure that you have pasted the full link from the email and that you have not confirmed the account before."
+    problem_sending_password_reset_instructions: "Could not send password reset instructions. Please make sure you entered the correct email address."
     welcome_text: "Welcome to the Call for Papers. To create or review your submissions you need to login. If you are new to %{title} you need to sign up for an account."
     login_existing_headline: "Log in with an existing account"
     login_existing_description: "You can sign in if you created an account for this Call for Papers, or for any previous event."

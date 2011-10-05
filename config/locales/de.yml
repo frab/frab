@@ -5,6 +5,8 @@ de:
   remove_language: "Sprache entfernen"
   edit: "bearbeiten"
   actions: "Aktionen"
+  error_signing_in: "E-Mailadresse oder Passwort ungültig."
+  sign_in_successful: "Erfolgreich eingeloggt."
 
   options:
     lecture: "Vortrag"

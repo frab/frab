@@ -57,10 +57,6 @@ GEM
       execjs
     coffee-script-source (1.1.1)
     columnize (0.3.1)
-    devise (1.4.5)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.0.3)
-      warden (~> 1.0.3)
     erubis (2.7.0)
     execjs (1.1.0)
       multi_json (~> 1.0)
@@ -92,7 +88,6 @@ GEM
     multi_json (1.0.3)
     mysql2 (0.3.7)
     nokogiri (1.4.4)
-    orm_adapter (0.0.5)
     paper_trail (2.3.3)
       rails (~> 3)
     paperclip (2.3.8)
@@ -185,8 +180,6 @@ GEM
     uglifier (1.0.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
-    warden (1.0.5)
-      rack (>= 1.0)
     web-app-theme (0.6.3)
     will_paginate (3.0.0)
     yaml_db (0.2.0)
@@ -200,7 +193,6 @@ DEPENDENCIES
   barista
   cocoon
   coffee-rails (~> 3.1.0)
-  devise
   factory_girl_rails
   formtastic (= 2.0.0.rc5)
   gravatar-ultimate

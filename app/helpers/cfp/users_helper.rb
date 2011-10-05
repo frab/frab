@@ -1,0 +1,2 @@
+module Cfp::UsersHelper
+end

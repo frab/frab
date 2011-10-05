@@ -2,10 +2,12 @@ development:
   host: localhost
   port: 3000
   protocol: http
+  from_email: frab@localhost
 
 test:
   host: frab.test
   protocol: http
+  from_email: frab@frab.test
 
 production:
   host: frab.example.com

@@ -1,5 +1,0 @@
-Willkommen <%= @resource.email %>!
-
-Sie können Ihren Account durch folgenden Link bestätigen:
-
-<%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @resource.confirmation_token, :conference_acronym => @resource.call_for_papers.conference.acronym) %>

@@ -1,7 +1,8 @@
 = block do
   %h2=t("cfp.change_password_headline") 
   = content do
-    = semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+    = render "shared/flash", :flash => flash
+    = semantic_form_for(@user, :url => cfp_user_password_path, :html => { :method => :put }) do |f|
       = f.hidden_field :reset_password_token
       = f.inputs do
         = f.input :password

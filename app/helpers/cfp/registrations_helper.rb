@@ -1,2 +1,0 @@
-module Cfp::RegistrationsHelper
-end

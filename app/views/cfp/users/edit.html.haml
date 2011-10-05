@@ -1,12 +1,11 @@
 = block do
   %h2=t("cfp.edit_account") 
   = content do
-    = semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+    = semantic_form_for(@user, :url => cfp_user_path, :html => { :method => :put }) do |f|
       = f.inputs do
         = f.input :email
         = f.input :password, :hint => t("cfp.password_hint") 
         = f.input :password_confirmation
-        = f.input :current_password, :hint => t("cfp.current_password_hint") 
       = f.buttons do
         = f.commit_button t("cfp.update"), :button_html => {:class => "button", :icon => "tick"}
     = link_to t("cfp.back"), :back

@@ -7,7 +7,6 @@ gem 'pg'
 gem 'mysql2'
 
 gem 'haml'
-gem 'devise'
 gem 'acts_as_commentable'
 gem 'will_paginate'
 gem 'paperclip'

@@ -2,17 +2,17 @@ class Cfp::PeopleController < ApplicationController
 
   layout "cfp"
 
-  before_filter :authenticate_cfp_user!
+  before_filter :authenticate_user!
   before_filter :require_submitter
 
   def show
-    @person = current_cfp_user.person
+    @person = current_user.person
 
     redirect_to :action => "new" unless @person
   end
 
   def new
-    @person = Person.new(:email => current_cfp_user.email)
+    @person = Person.new(:email => current_user.email)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -21,12 +21,12 @@ class Cfp::PeopleController < ApplicationController
   end
 
   def edit
-    @person = current_cfp_user.person 
+    @person = current_user.person 
   end
 
   def create
     @person = Person.new(params[:person])
-    @person.user = current_cfp_user
+    @person.user = current_user
 
     respond_to do |format|
       if @person.save
@@ -40,7 +40,7 @@ class Cfp::PeopleController < ApplicationController
   end
 
   def update
-    @person = current_cfp_user.person 
+    @person = current_user.person 
 
     respond_to do |format|
       if @person.update_attributes(params[:person])

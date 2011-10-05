@@ -2,13 +2,13 @@ class Cfp::EventsController < ApplicationController
 
   layout "cfp"
 
-  before_filter :authenticate_cfp_user!, :except => :confirm
+  before_filter :authenticate_user!, :except => :confirm
   before_filter :require_submitter, :except => :confirm
 
   # GET /cfp/events
   # GET /cfp/events.xml
   def index
-    @events = current_cfp_user.person.events.all
+    @events = current_user.person.events.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +19,7 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events/1
   # GET /cfp/events/1.xml
   def show
-    @event = current_cfp_user.person.events.find(params[:id])
+    @event = current_user.person.events.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,7 +40,7 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1/edit
   def edit
-    @event = current_cfp_user.person.events.find(params[:id])
+    @event = current_user.person.events.find(params[:id])
   end
 
   # POST /cfp/events
@@ -48,8 +48,8 @@ class Cfp::EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.conference = @conference
-    @event.event_people << EventPerson.new(:person => current_cfp_user.person, :event_role => "submitter")
-    @event.event_people << EventPerson.new(:person => current_cfp_user.person, :event_role => "speaker")
+    @event.event_people << EventPerson.new(:person => current_user.person, :event_role => "submitter")
+    @event.event_people << EventPerson.new(:person => current_user.person, :event_role => "speaker")
 
     respond_to do |format|
       if @event.save
@@ -65,7 +65,7 @@ class Cfp::EventsController < ApplicationController
   # PUT /cfp/events/1
   # PUT /cfp/events/1.xml
   def update
-    @event = current_cfp_user.person.events.find(params[:id], :readonly => false)
+    @event = current_user.person.events.find(params[:id], :readonly => false)
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
@@ -79,7 +79,7 @@ class Cfp::EventsController < ApplicationController
   end
 
   def withdraw
-    @event = current_cfp_user.person.events.find(params[:id], :readonly => false)
+    @event = current_user.person.events.find(params[:id], :readonly => false)
     @event.withdraw!
     redirect_to(cfp_person_path, :notice => t("cfp.event_withdrawn_notice"))
   end

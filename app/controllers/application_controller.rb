@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   prepend_before_filter :load_conference
 
+  helper_method :current_user
+
   protected
 
   def set_locale
@@ -32,38 +34,39 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    super || current_cfp_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def authenticate_user!
+    redirect_to scoped_sign_in_path unless current_user
+  end
+
+  def login_as(user)
+    session[:user_id] = user.id
+    @current_user = user
   end
 
   def require_admin
-    require_role("admin", new_user_session_path)
+    require_role("admin", new_session_path)
   end
 
   def require_submitter
-    require_role("submitter", new_cfp_user_session_path)
+    require_role("submitter", new_cfp_session_path)
   end
 
   def require_role(role, redirect_path)
-    user = current_user || current_cfp_user
+    user = current_user
     unless user and user.role == role 
       sign_out_all_scopes
       redirect_to redirect_path 
     end
   end
 
-  def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.is_a?(User) && resource_or_scope.role == "submitter"
-      cfp_root_path
+  def scoped_sign_in_path
+    if request.path =~ /\/cfp/
+      new_cfp_session_path
     else
-      super
-    end
-  end
-
-  def after_sign_out_path_for(resource_or_scope)
-    if resource_or_scope == :cfp_user 
-      new_cfp_user_session_path 
-    else
-      super
+      new_session_path
     end
   end
 

@@ -1,8 +1,8 @@
 Frab::Application.routes.draw do
 
   scope "(:locale)" do
-  
-    devise_for :users, :controllers => {:sessions => "sessions"}, :skip => :registrations
+
+    resource :session
 
     match "/conferences/new" => "conferences#new", :as => "new_conference"
     match "/conferences" => "conferences#create", :as => "create_conference"
@@ -25,7 +25,12 @@ Frab::Application.routes.draw do
 
       namespace :cfp do
 
-        devise_for :users
+        resource :session
+        
+        resource :user do 
+          resource :password
+          resource :confirmation
+        end
 
         resource :person do
           resource :availability
