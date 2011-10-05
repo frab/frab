@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id
 
+  scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
   validates_presence_of :email
   validates_format_of :email, :with => EMAIL_REGEXP
   validates_uniqueness_of :email

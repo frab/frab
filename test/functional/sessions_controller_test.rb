@@ -25,6 +25,15 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "unconfirmed user cannot login" do
+    user = FactoryGirl.create(:user, :password => "frab123", :password_confirmation => "frab123", :role => "admin")
+    user.confirmed_at = nil
+    user.save!
+    post :create, :conference_acronym => @conference.acronym, :user => {:email => user.email, :password => "frab123"}
+    assert_response :success
+    assert_nil assigns(:current_user)
+  end
+
   test "cannot login with wrong password" do
     user = FactoryGirl.create(:user, :password => "frab123", :password_confirmation => "frab123", :role => "admin")
     post :create, :conference_acronym => @conference.acronym, :user => {:email => user.email, :password => "wrong"}
