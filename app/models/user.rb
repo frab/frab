@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id
 
   validates_presence_of :email
-  validates_format_of :email, :with => EMAIL_REGEXP 
+  validates_format_of :email, :with => EMAIL_REGEXP
+  validates_uniqueness_of :email
   validates_length_of :password, :minimum => 6, :allow_nil => true
 
   before_create :generate_confirmation_token, :unless => :confirmed_at
