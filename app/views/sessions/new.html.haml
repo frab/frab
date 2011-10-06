@@ -1,6 +1,7 @@
 .block
   %h2 Sign in
   .content
+    = render "shared/flash", :flash => flash
     = form_for @user, :url => session_path do |f|
       %p
         = f.label :email
