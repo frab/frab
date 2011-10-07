@@ -6,7 +6,7 @@
       #submission_graph{:style => "width: 800px; height: 300px;"}
 - content_for :sidebar do
   = actions_block do
-    = action_button "application_edit", "Edit", edit_call_for_papers_path
+    = action_button "application_edit", "Edit", edit_call_for_papers_path, :title => "Edit this call for paper's data."
 = javascript_tag do
   var data = #{@conference.submission_data.inspect};
   

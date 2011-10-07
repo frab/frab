@@ -49,3 +49,6 @@
                 Copyright &copy; #{Time.now.year} the frab project.
         #sidebar
           = yield :sidebar
+  :coffeescript
+    $ ->
+      $("div#actions a[title]").tooltip(position: "center left", opacity: 0.9)

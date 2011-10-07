@@ -17,5 +17,5 @@
         = render 'shared/search_and_table', :collection => @people
 - content_for :sidebar do
   = actions_block do
-    = action_button "add", "Add person", new_person_path
-    = action_button "page_white_text", "Download email list", speakers_people_path(:format => :text)
+    = action_button "add", "Add person", new_person_path, :title => "Add a new person."
+    = action_button "page_white_text", "Download email list", speakers_people_path(:format => :text), :title => "Download a list of all your speakers' email addresses (one address per line). This can easily be imported into other applications, including mailing list software."

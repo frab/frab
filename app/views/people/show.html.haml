@@ -57,4 +57,4 @@
         = render "events/table", :events => @other_events
 - content_for :sidebar do
   = actions_block do
-    = action_button "application_edit", "Edit person", edit_person_path(@person)
+    = action_button "application_edit", "Edit person", edit_person_path(@person), :title => "Edit this person's data."

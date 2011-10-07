@@ -115,3 +115,18 @@ div#conf-switch a {
   color: #000;
   background: #fff;
 }
+
+.tooltip {
+  display: none;
+  background: #f9f9f9;
+  color: #111111;
+  border: 1px solid #c3c2c5;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius-bottom: 4px;
+  padding: 10px;
+  -moz-box-shadow: 0px 0px 4px #000;
+  -webkit-box-shadow: 0px 0px 4px #000;
+  box-shadow: 0px 0px 3px #000;
+  width: 25%;
+}

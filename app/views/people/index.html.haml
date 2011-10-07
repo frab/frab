@@ -28,4 +28,4 @@
         = render 'shared/search_and_table', :collection => @people
 - content_for :sidebar do
   = actions_block do
-    = action_button "add", "Add person", new_person_path
+    = action_button "add", "Add person", new_person_path, :title => "Add a new person."

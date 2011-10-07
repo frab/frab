@@ -50,8 +50,8 @@
 
 - content_for :sidebar do
   = actions_block do
-    = action_button "table", "View public schedule", public_schedule_index_path
-    = action_button "page_white_acrobat", "Create custom PDF export", new_schedule_pdf_path
+    = action_button "table", "View public schedule", public_schedule_index_path, :title => "View the public live version of your schedule just like any attendee might see it."
+    = action_button "page_white_acrobat", "Create custom PDF export", new_schedule_pdf_path, :title => "Create a PDF version of your program schedule that can easily be printed."
   - unless @conference.rooms.empty? or @conference.events.count == 0
     = block do
       %h3 Unscheduled events

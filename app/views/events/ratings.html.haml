@@ -45,7 +45,7 @@
 
 - content_for :sidebar do
   = actions_block do
-    = action_button "resultset_next", "Start reviewing", start_review_events_path
+    = action_button "resultset_next", "Start reviewing", start_review_events_path, :title => "Review a batch of events in a row. You will be presented with the event that has the least ratings first and can easily navigate to the next event in the row."
   = block do
     %h3 Statistics
     = content do

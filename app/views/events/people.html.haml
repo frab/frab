@@ -32,4 +32,4 @@
               %td= event_person.role_state
 - content_for :sidebar do
   = actions_block do
-    = action_button "application_edit", "Edit", edit_people_event_path(@event)
+    = action_button "application_edit", "Edit", edit_people_event_path(@event), :title => "Add or remove people from this event."

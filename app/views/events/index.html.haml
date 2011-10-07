@@ -19,6 +19,6 @@
         = render 'shared/search_and_table', :collection => @events
 - content_for :sidebar do
   = actions_block do
-    = action_button "add", "Add event", new_event_path
-    = action_button "printer", "Print cards", cards_events_path(:format => :pdf)
-    = action_button "printer", "Print cards (accepted only)", cards_events_path(:accepted => true, :format => :pdf)
+    = action_button "add", "Add event", new_event_path, :title => "Add a new event."
+    = action_button "printer", "Print cards", cards_events_path(:format => :pdf), :title => "Download a PDF with all events as cards (four cards per page). Print this out to take your planning offline."
+    = action_button "printer", "Print cards (accepted only)", cards_events_path(:accepted => true, :format => :pdf), :title => "Download a PDF with only the accepted events as cards (four cards per page). Especially useful to plan your program schedule offline."
