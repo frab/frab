@@ -13,31 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20110930110209) do
 
-  create_table "attendee_registrations", :force => true do |t|
-    t.integer  "conference_id"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "attendees", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.integer  "attendee_registration_id"
-    t.string   "name_or_company"
-    t.string   "street"
-    t.string   "street_2"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "state"
-    t.string   "country"
-    t.datetime "payed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
     t.integer  "conference_id"
