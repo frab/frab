@@ -1,8 +1,15 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  test "logins can be recorded" do
+    user = FactoryGirl.create(:user)
+    assert_equal 0, user.sign_in_count
+    assert_nil user.last_sign_in_at
+    user.record_login!
+    user.reload
+    assert_equal 1, user.sign_in_count
+    assert_not_nil user.last_sign_in_at
   end
+
 end

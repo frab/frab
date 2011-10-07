@@ -79,6 +79,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def record_login!
+    self.last_sign_in_at = Time.now
+    self.sign_in_count += 1
+    save(:validate => false)
+  end
+
   private
 
   def generate_confirmation_token

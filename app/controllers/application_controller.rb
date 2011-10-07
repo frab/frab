@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
   def login_as(user)
     session[:user_id] = user.id
     @current_user = user
+    user.record_login!
   end
 
   def require_admin
