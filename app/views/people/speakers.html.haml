@@ -7,10 +7,14 @@
   = content do
     %h2 Listing speakers 
     = inner do
-      = render 'shared/simple_search', :path => request.path
-      = render 'table'
-      = actions_bar do
-        = will_paginate @people
+      - if params[:term].blank? and @people.all.empty?
+        .blank-slate
+          %p
+            You do not yet have any speakers in this conference.
+            Create some events and assign people with the role
+            'speaker' to have them appear in this list.
+      - else
+        = render 'shared/search_and_table', :collection => @people
 - content_for :sidebar do
   = actions_block do
     = action_button "add", "Add person", new_person_path

@@ -8,18 +8,28 @@
   = content do
     %h2 People involved in event "#{@event.title}"
     = inner do
-      %table.table
-        %tr
-          %th.first
-          %th Name
-          %th Role in this event
-          %th.last State
-        - @event.event_people.each do |event_person|
-          %tr{:class => cycle("odd", "even")}
-            %td= image_box event_person.person.avatar, :small
-            %td= link_to event_person.person.full_name, event_person.person
-            %td= event_person.event_role
-            %td= event_person.role_state
+      - if @event.event_people.count == 0
+        .blank-slate
+          %p
+            There are no people associated with this event yet.
+            Use the button on the right to add people. Please
+            note that you can only add people that are already
+            in the system. If the person you would like to add
+            is not yet in the system, go to the <em>People</em>
+            tab above and create this person first.
+      - else
+        %table.table
+          %tr
+            %th.first
+            %th Name
+            %th Role in this event
+            %th.last State
+          - @event.event_people.each do |event_person|
+            %tr{:class => cycle("odd", "even")}
+              %td= image_box event_person.person.avatar, :small
+              %td= link_to event_person.person.full_name, event_person.person
+              %td= event_person.event_role
+              %td= event_person.role_state
 - content_for :sidebar do
   = actions_block do
     = action_button "application_edit", "Edit", edit_people_event_path(@event)

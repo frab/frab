@@ -1,0 +1,18 @@
+= block do
+  = content do
+    - if @first
+      %h2 Create your first conference
+    - else
+      %h2 New conference
+    = inner do
+      - if @first
+        .blank-slate
+          %p 
+            Welcome! It looks as if this is your first time here.
+            To get started organizing a conference you need to first
+            enter some data about it. You can change most of what
+            you enter now later. But some things cannot be changed
+            easily after you submit this form, so please read the
+            hints for every form field carefully and double check
+            what you enter.
+      = render "form"

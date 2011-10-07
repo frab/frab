@@ -69,19 +69,25 @@
         = f.buttons do
           = f.commit_button :button_html => {:class => "button", :icon => "tick"}
       %h3 All ratings
-      %table.table
-        %tr
-          %th.first
-          %th User
-          %th Rating
-          %th Comment
-        - @event.event_ratings.each do |event_rating|
+      - if @event.event_ratings.count == 0
+        .blank-slate
+          %p
+            No one has entered a rating for this event yet. Be the first
+            and rate the event using the form above.
+      - else
+        %table.table
           %tr
-            %td=image_box event_rating.person.avatar, :small
-            %td=event_rating.person.full_name
-            %td
-              .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
-            %td=event_rating.comment
+            %th.first
+            %th User
+            %th Rating
+            %th Comment
+          - @event.event_ratings.each do |event_rating|
+            %tr
+              %td=image_box event_rating.person.avatar, :small
+              %td=event_rating.person.full_name
+              %td
+                .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
+              %td=event_rating.comment
 
 - content_for :sidebar do
   - if @next_event

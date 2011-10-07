@@ -5,6 +5,13 @@
       %li= link_to "Tracks", edit_tracks_conference_path
       %li.active= link_to "Rooms", edit_rooms_conference_path
   = content do
-    %h2 Editing conference
+    %h2 Editing conference rooms
     = inner do
+      - if @conference.rooms.empty?
+        .blank-slate
+          %p
+            Here you can create and edit the rooms in which
+            your events take place. Please enter at least one
+            room. This is needed to determine the number of
+            columns in your program schedule.
       = render 'form_rooms'

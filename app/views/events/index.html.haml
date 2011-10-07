@@ -7,10 +7,16 @@
   = content do
     %h2 Listing events
     = inner do
-      = render 'shared/simple_search', :path => events_path
-      = render 'events_table', :events => @events
-      = actions_bar do
-        = will_paginate @events
+      - if params[:term].blank? and @events.all.empty?
+        .blank-slate
+          %p
+            This conference does not yet have any events.
+            Start adding events by clicking on the 
+            button on the right. Or start a call for 
+            papers, to allow others to submit events for
+            you to review.
+      - else
+        = render 'shared/search_and_table', :collection => @events
 - content_for :sidebar do
   = actions_block do
     = action_button "add", "Add event", new_event_path

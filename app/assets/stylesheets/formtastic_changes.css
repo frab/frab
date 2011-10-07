@@ -96,6 +96,16 @@ form.formtastic div.nested-fields fieldset > ol > li {
   float: left;
 }
 
+form.formtastic div.nested-fields fieldset > ol > li.boolean {
+  margin-top: 2em;
+  margin-right: 20px;
+}
+
+form.formtastic div.nested-fields fieldset > ol > li > label.label {
+  float: none;
+  width: auto;
+}
+
 form.formtastic div.nested-fields fieldset > ol > li input, 
 form.formtastic div.nested-fields fieldset > ol > li select {
   margin-right: 20px;
@@ -109,3 +119,4 @@ form.formtastic div.nested-fields fieldset > ol > a.button {
 form.formtastic fieldset > ol > li p.inline-errors {
   margin: 0px;
 }
+

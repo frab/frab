@@ -2,11 +2,48 @@
   = content do
     %h2 Welcome
     = inner do
+      - if @conference.rooms.count == 0
+        .blank-slate
+          %p
+            Welcome, you seem to have just created this
+            conference. A good first step would be to go
+            to the <em>Conference Settings</em> tab above
+            and add a room to this conference. This will
+            be needed to schedule your program.
+      - if @conference.events.count == 0 and @conference.call_for_papers.nil?
+        .blank-slate
+          %p
+            This conference does not yet have any events.
+            (Note that throughout the application, the
+            generic term 'event' is used to refer to all
+            sessions within your conference, no matter if
+            they are talks, workshops, panels or something
+            else entirely).
+          %p
+            Start adding events by clicking on the 
+            <em>Events</em> tab above. Or start a call for 
+            papers, to allow others to submit events for
+            you to review.
       %h3 Recent changes
-      = render "recent_changes/table"
-      = link_to "more", recent_changes_path
+      - if @versions.empty?
+        .blank-slate
+          %p
+            Once you, or others start creating data for this
+            conference, you will find who changed what here.
+            This is especially interesting if you conduct a
+            call for papers. In this case, this area allows
+            you to quickly see if new submissions came in.
+      - else
+        = render "recent_changes/table"
+        = link_to "more", recent_changes_path
       %h3 Statistics
-      - if @conference.events.count > 0
+      - if @conference.events.count == 0
+        .blank-slate
+          %p
+            Once you created some events for this conference,
+            or gathered submissions through a call for papers,
+            you will find some statistics about them here.
+      - else
         %h4 Events by state
         #event_state_graph(style="width:600px;height:300px;")
       - if @conference.languages.count > 1

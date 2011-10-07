@@ -91,3 +91,27 @@ table.room tr.odd {background: #F9F9F9}
 table.room tr.even {background: #EEEEEE;}
 
 span.right { float: right; }
+
+div#conf-switch {
+  position:absolute; 
+  background: #262626; 
+  z-index: 10;
+  -moz-border-radius: 0px 0px 3px 3px;
+  -webkit-border-radius: 0px 0px 3px 3px;
+  border-radius-bottom: 0px 0px 3px 3px;
+  padding: 5px;
+}
+
+div#conf-switch a {
+  padding: 10px;
+  margin: 5px;
+  display: block;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius-bottom: 3px;
+}
+
+#user-navigation ul li div#conf-switch a:hover {
+  color: #000;
+  background: #fff;
+}

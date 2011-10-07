@@ -21,16 +21,16 @@ module ApplicationHelper
     link_to icon(icon_name) + " " + link_name, path, options
   end
 
-  def add_association_link(text, form_builder, div_class)
-    link_to_add_association icon(:add) + " " + text, form_builder, div_class, :class => "button"
+  def add_association_link(text, form_builder, div_class, html_options = {})
+    link_to_add_association icon(:add) + " " + text, form_builder, div_class, html_options.merge(:class => "button")
   end
 
   def remove_association_link(text, form_builder)
     link_to_remove_association icon(:delete) + " " + text, form_builder, :class => "button"
   end
 
-  def dynamic_association(association_name, title, form_builder)
-    render "shared/dynamic_association", :association_name => association_name, :title => title, :f => form_builder
+  def dynamic_association(association_name, title, form_builder, options = {})
+    render "shared/dynamic_association", :association_name => association_name, :title => title, :f => form_builder, :hint => options[:hint]
   end
 
   def translated_options(collection)

@@ -7,31 +7,41 @@
   = content do
     %h2 Event Ratings
     = inner do
-      %table.table
-        %tr
-          %th.first
-          %th= sort_link @search, :title, :term => params[:term]
-          %th= sort_link @search, :track_name, "Track", :term => params[:term]
-          %th= sort_link @search, :event_type, :term => params[:term]
-          %th= sort_link @search, :state, :term => params[:term]
-          %th= sort_link @search, :average_rating, :term => params[:term]
-          %th= sort_link @search, :event_ratings_count, :term => params[:term]
-          %th.last
-        - @events.each do |event|
-          %tr{:class => cycle('odd', 'even')}
-            %td= image_box event.logo, :small
-            %td= event.title
-            %td= event.track.try(:name)
-            %td= event.event_type
-            %td= event.state
-            %td
-              - if event.average_rating
-                .rating{:id => "event_rating_#{event.id}", :"data-rating" => event.average_rating}
-            %td= event.event_ratings_count
-            %td.last
-              = link_to 'Show Ratings', event_event_rating_path(event)
-      = actions_bar do
-        = will_paginate @events
+      - if @events.all.empty?
+        .blank-slate
+          %p
+            There are no events in this conference yet. Once
+            you add events, they will appear here together
+            with their current ratings. You can edit your
+            rating by clicking on an event, or you can use
+            the "Start reviewing" button on the right, to
+            rate a whole batch of events in a row.
+      - else
+        %table.table
+          %tr
+            %th.first
+            %th= sort_link @search, :title, :term => params[:term]
+            %th= sort_link @search, :track_name, "Track", :term => params[:term]
+            %th= sort_link @search, :event_type, :term => params[:term]
+            %th= sort_link @search, :state, :term => params[:term]
+            %th= sort_link @search, :average_rating, :term => params[:term]
+            %th= sort_link @search, :event_ratings_count, :term => params[:term]
+            %th.last
+          - @events.each do |event|
+            %tr{:class => cycle('odd', 'even')}
+              %td= image_box event.logo, :small
+              %td= event.title
+              %td= event.track.try(:name)
+              %td= event.event_type
+              %td= event.state
+              %td
+                - if event.average_rating
+                  .rating{:id => "event_rating_#{event.id}", :"data-rating" => event.average_rating}
+              %td= event.event_ratings_count
+              %td.last
+                = link_to 'Show Ratings', event_event_rating_path(event)
+        = actions_bar do
+          = will_paginate @events
 
 - content_for :sidebar do
   = actions_block do

@@ -355,3 +355,18 @@ a.button, button.button {
   background-image: -webkit-linear-gradient(#f5f5f5, #d0d0d0);
   background-image: linear-gradient(top, #f5f5f5, #d0d0d0);
 }
+
+.blank-slate {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #D2D5D3;
+  background: #F2F2F2;
+  font-size: 110%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.blank-slate p {
+  margin: 0px;
+}

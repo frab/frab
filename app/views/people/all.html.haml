@@ -7,10 +7,7 @@
   = content do
     %h2 Listing all people
     = inner do
-      = render 'shared/simple_search', :path => request.path
-      = render 'table'
-      = actions_bar do
-        = will_paginate @people
+      = render 'shared/search_and_table', :collection => @people
 - content_for :sidebar do
   = actions_block do
     = action_button "add", "Add person", new_person_path

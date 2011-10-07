@@ -7,10 +7,25 @@
   = content do
     %h2 Listing people involved in this conference
     = inner do
-      = render 'shared/simple_search', :path => request.path
-      = render 'table'
-      = actions_bar do
-        = will_paginate @people
+      - if params[:term].blank? and @people.all.empty?
+        .blank-slate
+          - if Person.count <= 1
+            %p
+              You do not have any data on people yet.
+              Use the button on the right to start adding
+              people. Please note that they will not appear
+              here right away, unless they are involved
+              in any of this conference's events. Use the
+              <em>All people</em> tab above to see all
+              people across all your conferences.
+          - else
+            %p
+              There are no people associated with this
+              conference yet. People will start appearing
+              here, once they take on a role in any of
+              this conference's events.
+      - else
+        = render 'shared/search_and_table', :collection => @people
 - content_for :sidebar do
   = actions_block do
     = action_button "add", "Add person", new_person_path

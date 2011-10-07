@@ -7,7 +7,12 @@
   = content do
     %h2 My Events
     = inner do
-      = render 'shared/simple_search', :path => my_events_path
-      = render 'events_table', :events => @events
-      = actions_bar do
-        = will_paginate @events
+      - if params[:term].blank? and @events.all.empty?
+        .blank-slate
+          %p
+            You are not yet involved in any event in this
+            conference. Add yourself to an event in whatever
+            role you like and the event will appear in this
+            list.
+      - else
+        = render 'shared/search_and_table', :collection => @events

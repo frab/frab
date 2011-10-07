@@ -8,17 +8,27 @@
   = content do
     %h2 Feedback for #{@event.title}
     = inner do
-      %p Average Feedback: #{@event.average_feedback}
-      %h3 Comments
-      %table
-        %thead
-          %tr
-            %th Rating
-            %th Comment
-        %tbody
-          - @event_feedbacks.each do |feedback|
-            - next if feedback.comment.blank?
+      - if @event_feedbacks.all.empty?
+        .blank-slate
+          %p
+            There is no attendee feedback for this event yet.
+          %p
+            Enable attendee feedback in the conference
+            settings and the web program schedule will include a
+            form for your attendees to provide feedback. This
+            feedback will appear here.
+      - else
+        %p Average Feedback: #{@event.average_feedback}
+        %h3 Comments
+        %table
+          %thead
             %tr
-              %td= feedback.rating
-              %td= feedback.comment
+              %th Rating
+              %th Comment
+          %tbody
+            - @event_feedbacks.each do |feedback|
+              - next if feedback.comment.blank?
+              %tr
+                %td= feedback.rating
+                %td= feedback.comment
 

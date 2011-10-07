@@ -19,10 +19,9 @@
           %ul.wat-cf
             %li
               = link_to_function t("switch_conference", :default => "Switch Conference"), "$('#conf-switch').toggle();"
-              #conf-switch{:style => "position:absolute; background: #262626; z-index: 10; display:none;"}
+              #conf-switch{:style => "display:none;"}
                 - Conference.all.each do |conference|
                   = link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
-                  %br/
                 %hr/
                 = link_to "Create new conference", new_conference_path(:conference_acronym => nil)
             %li
