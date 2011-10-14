@@ -86,6 +86,7 @@ en:
     person_created_notice: "Profile was successfully created."
     person_updated_notice: "Profile was successfully updated."
     save_availability: "Save availability"
+    event_confirmed: "Event confirmed"
     thanks_for_confirmation: "Thank you for confirming your participation."
     confirm: "confirm"
 

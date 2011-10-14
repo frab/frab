@@ -87,14 +87,20 @@ class Cfp::EventsController < ApplicationController
   def confirm
     if params[:token]
       event_person = EventPerson.find_by_confirmation_token(params[:token])
-      sign_in(:cfp_user, event_person.person.user)
+      event_people = event_person.person.event_people.find_all_by_event_id(params[:id])
+      login_as(event_person.person.user) if event_person.person.user
+    else
+      raise "Unauthenticated" unless current_user
+      event_people = current_user.person.event_people.find_all_by_event_id(params[:id])
     end
-    raise "Unauthenticated" unless current_user
-    event_people = current_user.person.event_people.find_all_by_event_id(params[:id])
     event_people.each do |event_person|
       event_person.confirm!
     end
-    redirect_to cfp_person_path, :notice => t("cfp.thanks_for_confirmation")
+    if current_user
+      redirect_to cfp_person_path, :notice => t("cfp.thanks_for_confirmation")
+    else
+      render :layout => "signup"
+    end
   end
 
 end

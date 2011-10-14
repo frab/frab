@@ -31,4 +31,28 @@ class Cfp::EventsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
+  test "should confirm event and login user" do
+    session[:user_id] = nil
+    @event.update_attributes(:state => "unconfirmed")
+    event_person = FactoryGirl.create(:event_person, :event => @event, :person => @user.person)
+    event_person.generate_token!
+    get :confirm, :conference_acronym => @conference.acronym, :id => @event.id, :token => event_person.confirmation_token
+    assert_response :redirect
+    @event.reload
+    assert_equal "confirmed", @event.state
+    assert_not_nil session[:user_id]
+  end
+  
+  test "should confirm event without user" do
+    session[:user_id] = nil
+    @event.update_attributes(:state => "unconfirmed")
+    person = FactoryGirl.create(:person)
+    event_person = FactoryGirl.create(:event_person, :event => @event, :person => person)
+    event_person.generate_token!
+    get :confirm, :conference_acronym => @conference.acronym, :id => @event.id, :token => event_person.confirmation_token
+    assert_response :success
+    @event.reload
+    assert_equal "confirmed", @event.state
+  end
+
 end

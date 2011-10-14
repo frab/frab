@@ -1,0 +1,6 @@
+= block do
+  %h2=t("cfp.event_confirmed") 
+  = content do
+    = render "shared/flash", :flash => flash
+    %p
+      = t("cfp.thanks_for_confirmation")
