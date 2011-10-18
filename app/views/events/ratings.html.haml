@@ -64,7 +64,10 @@
     $(".rating").each(function(index) {
       $(this).raty({
         readOnly: true,
-        path: "/assets/raty/",
+        path: "",
+        starOn: '#{raty_icon_path("on")}',
+        starHalf: '#{raty_icon_path("half")}',
+        starOff: '#{raty_icon_path("off")}',
         half: true,
         start: $(this).data('rating')
       });

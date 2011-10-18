@@ -101,7 +101,10 @@
 :javascript
   $(document).ready(function() {
     $("#my_rating").raty({
-      path: "/assets/raty/",
+      path: "",
+      starOn: '#{raty_icon_path("on")}',
+      starHalf: '#{raty_icon_path("half")}',
+      starOff: '#{raty_icon_path("off")}',
       half: true,
       start: $("#event_rating_rating").val(),
       target: "#event_rating_rating",
@@ -109,14 +112,20 @@
       targetKeep: true
     });
     $("#total_rating").raty({
-      path: "/assets/raty/",
+      path: "",
+      starOn: '#{raty_icon_path("on")}',
+      starHalf: '#{raty_icon_path("half")}',
+      starOff: '#{raty_icon_path("off")}',
       half: true,
       start: $("#total_rating").data("rating")
     });
     $(".rating").each(function(index) {
       $(this).raty({
         readOnly: true,
-        path: "/assets/raty/",
+        path: "",
+        starOn: '#{raty_icon_path("on")}',
+        starHalf: '#{raty_icon_path("half")}',
+        starOff: '#{raty_icon_path("off")}',
         half: true,
         start: $(this).data('rating')
       });
