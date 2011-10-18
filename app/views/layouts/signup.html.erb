@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>
-    <% if @conference %>
+    <% if request.path =~ /\/cfp/ %>
       <%= @conference.title %> - Call for Papers
     <% else %>
       frab

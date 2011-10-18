@@ -2,8 +2,12 @@
 %html
   %head
     %title
-      = @conference.title
-      \- Management
+      - if @conference.title
+        = @conference.title
+      - else
+        frab
+      \- Conference Management
+
     = stylesheet_link_tag "application", "admin"
     = javascript_include_tag "application", "admin"
     = csrf_meta_tags
