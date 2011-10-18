@@ -13,7 +13,7 @@ class Conference < ActiveRecord::Base
   validates_presence_of :title, :acronym, :first_day, :last_day
   validates_uniqueness_of :acronym
   validates_format_of :acronym, :with => /[a-z][a-z0-9_]*/
-  validates :last_day_after_first_day
+  validate :last_day_after_first_day
 
   after_update :update_timeslots
 
