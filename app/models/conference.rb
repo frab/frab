@@ -101,6 +101,6 @@ class Conference < ActiveRecord::Base
   end
 
   def last_day_after_first_day
-    self.errors.add(:last_day, "should be after the first day") if self.last_day <= self.first_day
+    self.errors.add(:last_day, "should be after the first day") if self.last_day < self.first_day
   end
 end
