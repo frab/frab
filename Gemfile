@@ -1,11 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.1'
 
 gem 'sqlite3'
 gem 'pg'
 gem 'mysql2'
 
+gem 'bcrypt-ruby'
 gem 'haml'
 gem 'acts_as_commentable'
 gem 'will_paginate'
