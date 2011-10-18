@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
   def require_role(role, redirect_path)
     user = current_user
     unless user and user.role == role 
-      sign_out_all_scopes
       redirect_to redirect_path 
     end
   end
