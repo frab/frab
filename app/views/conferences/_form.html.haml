@@ -2,7 +2,7 @@
   = f.inputs "Basic information" do
     = f.input :title, :hint => "The name of your conference as it shall appear throughout the site. Example: 'FrOSCon'"
     = f.input :acronym, :hint => "A short and unique handle for your conference, using only lower-case letters, numbers and underscores. This will be used to identify your conference in URLs etc. Example: 'froscon2011'"
-    = f.input :email, :hint => "Contact email address for your conference. Will be used as sender address in emails sent out by the system."
+    = f.input :email, :hint => "Contact email address for your conference. Will be used as reply-to address in emails sent out by the system."
   = f.inputs "Schedule configuration" do
     = f.input :timezone, :as => :time_zone, :hint => "Please select in what time zone your conference will take place. This is needed to correctly display times for your events."
     = f.input :first_day, :hint => "When does your conference start?"
