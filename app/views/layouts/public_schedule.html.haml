@@ -5,7 +5,7 @@
     %title= @conference.acronym + ": " + @conference.title + " Program"
     = stylesheet_link_tag 'public_schedule'
     = stylesheet_link_tag public_schedule_style_path(:format => :css), :media => "all"
-    = stylesheet_link_tag 'public_schedule.print', :media => 'print'
+    = stylesheet_link_tag 'public_schedule_print', :media => 'print'
     = stylesheet_link_tag 'formtastic' if feedback_page?
     = stylesheet_link_tag 'formtastic_changes' if feedback_page?
     = javascript_include_tag "application" 
