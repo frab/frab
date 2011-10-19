@@ -1,4 +1,4 @@
-= semantic_form_for(current_cfp_user.person, :url => cfp_person_availability_path) do |f|
+= semantic_form_for(current_user.person, :url => cfp_person_availability_path) do |f|
   = f.inputs do
     - @availabilities.each do |availability|
       %h3
