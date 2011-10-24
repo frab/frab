@@ -26,7 +26,7 @@ than 5 parallel tracks over 2 days.
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 3) application. 
+frab is a pretty standard Ruby on Rails (version 3.1) application. 
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
@@ -49,14 +49,18 @@ Basically, to get started  you need to:
     cp config/database.yml.template config/database.yml
 
 frab bundles all three built-in rails database drivers. 
-And it should work with all three, alhtough it is best tested 
+And it should work with all three, although it is best tested 
 with MySQL and SQLite3 (for development). 
 
-5) Create and setup the database
+5) Create and modify settings:
+
+    cp config/settings.yml.template config/settings.yml
+
+6) Create and setup the database
 
     rake db:setup
 
-6) Start the server
+7) Start the server
 
     rails server
 
@@ -84,4 +88,4 @@ from there.
 
 frab is licensed under an MIT-License. It bundles some
 third-party libraries and assets that might be licensed
-differently.
+differently. See LICENSE.
