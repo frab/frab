@@ -1,87 +1,107 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
-  <meta charset='utf-8'>
-
-  <title>oneiros/frab @ GitHub</title>
-
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #e9cbaf;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #163450; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #163450; }
-    h3 { text-align: center; color: #163450; }
-    a { color: #163450; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
-
-<body>
-  <a href="http://github.com/oneiros/frab"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/oneiros/frab/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/oneiros/frab/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+  <head>
+    <title>frab - conference management system</title>
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Gentium+Basic:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
+    <link href='style.css' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <div id='github'>
+      <a href='https://github.com/oneiros/frab' title='Fork me on GitHub'>
+        <img alt='Fork me on GitHub' src='github.png' />
+      </a>
     </div>
-
-    <h1><a href="http://github.com/oneiros/frab">frab</a>
-      <span class="small">by <a href="http://github.com/oneiros">oneiros</a></span></h1>
-
-    <div class="description">
-      conference manangement system
+    <div class='container'>
+      <h1>frab</h1>
+      <h2>free and open conference management system</h2>
+      <h3>About</h3>
+      <p>
+        frab is a web-based conference planning and management system.
+        It helps to collect submissions, to manage talks and speakers
+        and to create a schedule.
+      </p>
+      <p>
+        frab is based upon
+        <a href='http://www.rubyonrails.org'>Ruby on Rails</a>
+        . It was created to organize
+        <a href='http://www.froscon.org'>FrOSCon</a>
+        , where it replaced
+        <a href='http://pentabarf.org'>pentabarf</a>
+        as the primary conference planning tool.
+      </p>
+      <h3>Features</h3>
+      <p>
+        Here is an incomplete list of features, to get you an idea of what
+        frab is capable of:
+      </p>
+      <ul>
+        <li>Manage multiple conferences</li>
+        <li>
+          Manage all the people involved in your conference
+          <ul>
+            <li>This includes (but is not limited to) speakers, moderators, staff etc.</li>
+            <li>You can reuse a person's details across all conferences</li>
+          </ul>
+        </li>
+        <li>
+          Manage the individual events your conference is composed of (talks, workshops etc.)
+          <ul>
+            <li>Track an event's state from inception to final confirmation</li>
+            <li>Assign people to an event (speakers, moderators, etc.)</li>
+            <li>Print paper cards with your events for "offline" planning</li>
+          </ul>
+        </li>
+        <li>
+          Conduct a Call for Papers
+          <ul>
+            <li>Collect submissions from prospective speakers</li>
+            <li>Let speakers enter their data themselves into a central database</li>
+            <li>Review and rate submissions</li>
+            <li>Select submissions and let speakers reconfirm their attendance with a single click</li>
+          </ul>
+        </li>
+        <li>
+          Schedule events
+          <ul>
+            <li>Drag&amp;drop events onto your schedule</li>
+            <li>frab automatically checks for conflicts and gives you instant feedback</li>
+            <li>Export your schedule to different formats (HTML, PDF, iCalendar, xCal, pentabarf XML)</li>
+            <li>Use the online schedule or make a static export</li>
+            <li>Create custom PDF exports</li>
+          </ul>
+        </li>
+      </ul>
+      <h3>Download and Installation</h3>
+      <p>
+        frab is hosted at
+        <a href='https://github.com/oneiros/frab'>github</a>
+        .
+      </p>
+      <p>
+        There is no official release yet. Just clone the repository and get the latest code.
+      </p>
+      <p>
+        Please refer to the README for installation instructions.
+      </p>
+      <!-- %h3 frab and pentabarf -->
+      <!-- %p -->
+      <h3>Hosted frab with frabulous</h3>
+      <p>
+        I am currenty experimenting with a hosted version of frab,
+        <a href='http://www.frabulous.net' title='frabulous conference planning and management software'>frabulous</a>
+        . frabulous is currently in private beta. I am still looking for testers, so if you are interested, please sign up.
+      </p>
+      <p>
+        Feature-wise, frab and frabulous are nearly identical. New features will always be developed in frab first.
+        frab is and will always be free open source software.
+      </p>
+      <h3>Contact</h3>
+      <p>
+        If you have trouble using frab, consider
+        <a href='https://github.com/oneiros/frab/issues/new'>filing an issue</a>
+        . If you have any questions, feel free to email frab (at) roetzel.de. I would love to hear from you.
+      </p>
     </div>
-
-    <p>frab is a web-based conference planning and management system. It helps to collect submissions, to manage talks and speakers and to create a schedule.
-
-frab is based upon Ruby on Rails . It was created to organize FrOSCon , where it replaced pentabarf as the primary conference planning tool. </p><h2>Install</h2>
-<p>frab is hosted at github .
-
-There is no official release yet. Just clone the repository and get the latest code.
-
-Please refer to the README for installation instructions. </p>
-<h2>License</h2>
-<p>MIT</p>
-<h2>Authors</h2>
-<p>David Roetzel<br/>      </p>
-<h2>Contact</h2>
-<p>frab (at) roetzel.de</p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/oneiros/frab/zipball/master">zip</a> or
-      <a href="http://github.com/oneiros/frab/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/oneiros/frab</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/oneiros/frab">oneiros/frab</a>
-    </div>
-
-  </div>
-
-  
-</body>
+  </body>
 </html>

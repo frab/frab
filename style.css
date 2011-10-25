@@ -1,0 +1,52 @@
+body {
+  background: #DED4B9;
+  color: #46433A;
+  font-family: "Gentium Basic", Garamond, Times, serif;
+  font-size: 18px;
+}
+
+h1, h2, h3 {
+  font-family: "Yanone Kaffeesatz", Impact, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+h1 {
+  color: #64B6B1;
+  font-size: 72px;
+  -webkit-text-shadow: 2px 2px 0px #46433A;
+  -moz-text-shadow: 2px 2px 0px #46433A;
+  text-shadow: 2px 2px 0px #46433A;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #CE534D;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-size: 36px;
+}
+
+h3 {
+  border-bottom: 1px solid #46433A;
+}
+
+a:link, a:visited {
+  color: #CE534D;
+}
+
+a:hover {
+  color: #64B6B1;
+}
+
+.container {
+  width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#github {
+  position: fixed;
+  width: 141px;
+  right: 0px;
+  top: 0px;
+}
