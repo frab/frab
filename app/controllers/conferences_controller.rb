@@ -60,7 +60,7 @@ class ConferencesController < ApplicationController
   def update
     respond_to do |format|
       if @conference.update_attributes(params[:conference])
-        format.html { redirect_to(:back, :notice => 'Conference was successfully updated.') }
+        format.html { redirect_to(edit_conference_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully updated.') }
       else
         format.html { render :action => "edit" }
       end

@@ -23,9 +23,9 @@ class ConferencesControllerTest < ActionController::TestCase
   end
 
   test "should update conference" do
-    @request.env["HTTP_REFERER"] = "http://localhost/"
-    put :update, :id => @conference.to_param, :conference => @conference.attributes, :conference_acronym => @conference.acronym
-    assert_redirected_to "http://localhost/" 
+    new_acronym = @conference.acronym + "1"
+    put :update, :id => @conference.to_param, :conference => @conference.attributes.merge(:acronym => new_acronym), :conference_acronym => @conference.acronym
+    assert_redirected_to edit_conference_path(:conference_acronym => new_acronym)
   end
 
 end
