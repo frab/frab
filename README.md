@@ -60,9 +60,13 @@ with MySQL and SQLite3 (for development).
 
     rake db:setup
 
-7) Start the server
+7) Precompile assets
 
-    rails server
+    rake assets:precompile
+
+8) Start the server
+
+    rails server -e production
 
 Navigate to http://localhost:3000/ and login as 
 "admin@example.org" with password "test123".
