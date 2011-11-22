@@ -16,9 +16,9 @@ Frab::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
-  config.assets.precompile += ['admin.css', 'admin.js', 'schedule.js', 'public_schedule.css', 'public_schedule_print.css', 'public_schedule.js']
+  config.assets.precompile += %w(admin.css admin.js schedule.js public_schedule.css public_schedule_print.css public_schedule.js frab.css formtastic_changes.css formtastic.css web-app-theme/base.css web-app-theme/themes/frab/style.css web-app-theme/override.css)
 
   # Generate digests for assets URLs
   config.assets.digest = true
