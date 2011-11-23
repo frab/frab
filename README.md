@@ -60,13 +60,24 @@ with MySQL and SQLite3 (for development).
 
     rake db:setup
 
-7) Precompile assets
+7) Precompile assets (only needed for production)
 
     rake assets:precompile
 
 8) Start the server
 
+To start frab in the development environment simply run
+
+    rails server
+
+To start frab in the production environment make sure you
+did not skip step 7 and run:
+
     rails server -e production
+
+(Note that for a "real" production environment you
+probably do not want to use this script, but rather something
+like unicorn or passenger.)
 
 Navigate to http://localhost:3000/ and login as 
 "admin@example.org" with password "test123".
