@@ -16,24 +16,4 @@
             = link_to version.item.to_s, version.item
         %td
           - if version.event == "update"
-            = link_to_function "Details", "$('#recent_change_#{version.id}').toggle();"
-      - if version.event == "update"
-        %tr{:id => "recent_change_#{version.id}", :style => "display: none;"}
-          %td{:colspan => "5"}
-            %ul
-              - YAML.load(version.object_changes).each do |attribute, change|
-                %li
-                  %em= attribute
-                  - if change.is_a? Array
-                    changed from
-                    %em
-                      "#{change[0]}"
-                    to
-                    = succeed "." do
-                      %em
-                        "#{change[1]}"
-                  - else
-                    set to
-                    %em
-                      "#{change}"
-              - end if version.object_changes
+            %a{:href => "#", :rel => "popover", :"data-placement" => "below", :"data-original-title" => "Detailed Changes", :"data-content" => render("recent_changes/detailed_changes", :version => version), :"data-html" => "true", :"data-trigger" => "manual"} Details 

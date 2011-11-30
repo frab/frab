@@ -40,7 +40,7 @@
                 %li= link_to "Create new conference", new_conference_path(:conference_acronym => nil)
             %li= link_to t("web-app-theme.logout", :default => "Logout"), session_path, :method => :delete
     .container
-      .content
+      .main-content
         = render 'shared/flash', :flash => flash
         = yield
     %footer.footer
