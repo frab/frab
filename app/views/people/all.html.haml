@@ -1,13 +1,19 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "This conference", people_path
-      %li= link_to "Speakers", speakers_people_path
-      %li.active= link_to "All people", all_people_path
-  = content do
-    %h2 Listing all people
-    = inner do
-      = render 'shared/search_and_table', :collection => @people
-- content_for :sidebar do
-  = actions_block do
-    = action_button "add", "Add person", new_person_path, :title => "Add a new person."
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Add person", new_person_path, :title => "Add a new person."
+    %h1 List of people
+  %ul.tabs
+    %li= link_to "This conference", people_path
+    %li= link_to "Speakers", speakers_people_path
+    %li.active= link_to "All people", all_people_path
+  .row
+    .span16
+      = render 'shared/simple_search', :path => request.path
+  .row
+    .span16
+      - if @people.all.empty?
+        %p Sorry, but your search yielded no results.
+      - else  
+        = render 'table', :events => @people 
+        = will_paginate @people 

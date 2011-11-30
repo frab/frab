@@ -1,7 +1,8 @@
-= block do
-  = content do
-    %h2 Welcome
-    = inner do
+%section
+  .page-header
+    %h1 Welcome
+  .row
+    .span16
       - if @conference.rooms.count == 0
         .blank-slate
           %p
@@ -24,7 +25,11 @@
             <em>Events</em> tab above. Or start a call for 
             papers, to allow others to submit events for
             you to review.
-      %h3 Recent changes
+  .row
+    .span16
+      %h2 
+        Recent changes
+        %small= link_to "more >>", recent_changes_path
       - if @versions.empty?
         .blank-slate
           %p
@@ -35,8 +40,10 @@
             you to quickly see if new submissions came in.
       - else
         = render "recent_changes/table"
-        = link_to "more", recent_changes_path
-      %h3 Statistics
+        %p
+  .row
+    .span16
+      %h2 Statistics
       - if @conference.events.count == 0
         .blank-slate
           %p

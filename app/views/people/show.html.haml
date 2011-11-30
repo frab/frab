@@ -1,13 +1,14 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.active.first= link_to "Profile", @person
-      %li= link_to "User account", person_user_path(@person)
-  = content do
-    = inner do
-      %h3 Basic information
-      %span.right
-        = image_box @person.avatar, :large
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+    %h1 Person: #{@person.full_name} 
+  %ul.tabs
+    %li.active= link_to "Profile", @person
+    %li= link_to "User account", person_user_path(@person)
+  .row 
+    .span6 
+      %h2 Basic information
       %p
         %b First name:
         = @person.first_name
@@ -20,7 +21,8 @@
       %p
         %b Gender:
         = @person.gender
-      %h3 Contact information
+    .span6 
+      %h2 Contact information
       %p
         %b Email:
         = mail_to @person.email
@@ -36,25 +38,33 @@
             = im_account.im_type
             \:
           = im_account.im_address
-      %h3 Bio
+    .span4
+      = image_box @person.avatar, :large
+%section
+  .row
+    .span16
+      %h2 Bio
+  .row
+    .span6
       %p
         %b Abstract:
         = simple_format @person.abstract
-      %p
-        %b Description:
-        = simple_format @person.description
       %p
         %b Links:
         %br/
         - @person.links.each do |link|
           = link_to link.title, link.url
           %br/
+    .span10
+      %p
+        %b Description:
+        = simple_format @person.description
+%section
+  .row
+    .span16
       - unless @current_events.empty?
-        %h3 Events in current conference
+        %h2 Events in current conference
         = render "events/table", :events => @current_events
       - unless @other_events.empty?
-        %h3 Events in other conferences
+        %h2 Events in other conferences
         = render "events/table", :events => @other_events
-- content_for :sidebar do
-  = actions_block do
-    = action_button "application_edit", "Edit person", edit_person_path(@person), :title => "Edit this person's data."

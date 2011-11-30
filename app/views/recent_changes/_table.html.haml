@@ -1,38 +1,39 @@
-%table.table
-  - @versions.each do |version|
-    - user = User.find(version.whodunnit)
-    %tr{:class => cycle("odd", "even")}
-      %td= version.created_at.to_s(:long)
-      %td= image_box user.person.avatar, :small
-      %td= link_to user.person.full_name, user.person
-      %td= verb_for version.event
-      %td
-        - if version.associated_id
-          = version.item.to_s
-          on
-          \#{associated_link_for version}
-        - else
-          = link_to version.item.to_s, version.item
-      %td
-        - if version.event == "update"
-          = link_to_function "Details", "$('#recent_change_#{version.id}').toggle();"
-    - if version.event == "update"
-      %tr{:id => "recent_change_#{version.id}", :style => "display: none;"}
-        %td{:colspan => "5"}
-          %ul
-            - YAML.load(version.object_changes).each do |attribute, change|
-              %li
-                %em= attribute
-                - if change.is_a? Array
-                  changed from
-                  %em
-                    "#{change[0]}"
-                  to
-                  = succeed "." do
+%table.zebra-striped
+  %tbody
+    - @versions.each do |version|
+      - user = User.find(version.whodunnit)
+      %tr
+        %td= version.created_at.to_s(:long)
+        %td= image_box user.person.avatar, :small
+        %td= link_to user.person.full_name, user.person
+        %td= verb_for version.event
+        %td
+          - if version.associated_id
+            = version.item.to_s
+            on
+            \#{associated_link_for version}
+          - else
+            = link_to version.item.to_s, version.item
+        %td
+          - if version.event == "update"
+            = link_to_function "Details", "$('#recent_change_#{version.id}').toggle();"
+      - if version.event == "update"
+        %tr{:id => "recent_change_#{version.id}", :style => "display: none;"}
+          %td{:colspan => "5"}
+            %ul
+              - YAML.load(version.object_changes).each do |attribute, change|
+                %li
+                  %em= attribute
+                  - if change.is_a? Array
+                    changed from
                     %em
-                      "#{change[1]}"
-                - else
-                  set to
-                  %em
-                    "#{change}"
-            - end if version.object_changes
+                      "#{change[0]}"
+                    to
+                    = succeed "." do
+                      %em
+                        "#{change[1]}"
+                  - else
+                    set to
+                    %em
+                      "#{change}"
+              - end if version.object_changes

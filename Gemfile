@@ -12,7 +12,7 @@ gem 'acts_as_commentable'
 gem 'will_paginate'
 gem 'paperclip'
 gem 'gravatar-ultimate'
-gem 'formtastic', '2.0.0.rc5'
+gem 'formtastic', '~> 2.0.2'
 gem 'jquery-rails'
 gem 'acts_as_indexed'
 gem 'cocoon'
@@ -28,9 +28,10 @@ gem 'barista'
 gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
+gem 'twitter-bootstrap-rails'
+gem 'formtastic-bootstrap'
 
 group :development, :test do
-  gem 'web-app-theme'
   gem 'ruby-debug', :platforms => :mri_18
   gem 'ruby-debug19', :platforms => :mri_19
 end

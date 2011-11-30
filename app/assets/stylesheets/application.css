@@ -1,9 +1,7 @@
 /*
- *= require frab
- *= require web-app-theme/base
- *= require web-app-theme/themes/frab/style
- *= require web-app-theme/override
- *= require formtastic
+ *= //require formtastic
+ *= require twitter/bootstrap
  *= require formtastic_changes
  *= require overcast
+ *= require frab
 */
