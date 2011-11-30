@@ -7,5 +7,5 @@
 $(function() {
   $('.topbar').dropdown();
   $('.alert-message').alert();
-  $('a[rel=popover]').popover();
+  $('a[data-original-title]').popover();
 });

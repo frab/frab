@@ -1,50 +1,60 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "Event Details", @event 
-      %li= link_to "People", people_event_path(@event)
-      %li.active= link_to "Ratings", event_event_rating_path(@event)
-      %li= link_to "Feedback", event_event_feedbacks_path(@event)
-  = content do
-    %h2 Ratings for #{@event.title}
-    = inner do
-      = link_to_function "Toggle Full Description", "$('#full_description').toggle();"
-      #full_description{:style => "display:none;"}
+%section
+  .page-header
+    .pull-right
+      - if @next_event
+        = actions_block do
+          = action_button "primary", "Rate next event", event_event_rating_path(@next_event), :hint => "Proceed to rate the next event." 
+    %h1 Event: #{@event.title}
+  %ul.tabs
+    %li= link_to "Event Details", @event 
+    %li= link_to "People", people_event_path(@event)
+    %li.active= link_to "Ratings", event_event_rating_path(@event)
+    %li= link_to "Feedback", event_event_feedbacks_path(@event)
+  .row
+    .span16
+      %h2 
+        Title: #{@event.title}
+        %small= link_to_function "Toggle Description >>", "$('#full_description').toggle();"
+  #full_description{:style => "display:none;"}
+    .row
+      .span16
         %p
-          %b= @event.title
-          %br/
           %em= @event.subtitle
+    .row
+      .span16
         %p
           %b Speakers:
-          %table
-            - @event.speakers.each do |person|
-              %tr
-                %td= image_box person.avatar, :small
-                %td= link_to person.full_name, person
-                %td 
-                  %b Average feedback as speaker: 
-                  - if average_feedback = person.average_feedback_as_speaker
-                    = sprintf("%.2f / 5.0", average_feedback)
-                  - else
-                    no data
-                  
+          %table.zebra-striped
+            %tbody
+              - @event.speakers.each do |person|
+                %tr
+                  %td= image_box person.avatar, :small
+                  %td= link_to person.full_name, person
+                  %td 
+                    %b Average feedback as speaker: 
+                    - if average_feedback = person.average_feedback_as_speaker
+                      = sprintf("%.2f / 5.0", average_feedback)
+                    - else
+                      no data
+    .row
+      .span3
         %p
           %b Track:
           = @event.track.try(:name)
+      .span3
+        %p
           %b Type:
           = @event.event_type
+      .span3
+        %p
           %b Language:
           = @event.language
-        - if @event.abstract
-          %p
-            %b Abstract:
-            %br/
-            = simple_format @event.abstract
-        - if @event.description
-          %p
-            %b Description:
-            %br/
-            = simple_format @event.description
+    .row
+      .span6
+        %p
+          %b Abstract:
+          %br/
+          = simple_format @event.abstract
         - unless @event.links.empty?
           %p
             %b Links:
@@ -59,44 +69,47 @@
             - @event.event_attachments.each do |attachment|
               = link_to attachment.title, attachment.attachment.url
               %br/
-      
-      %h3 My rating
+      .span10
+        %p
+          %b Description:
+          %br/
+          = simple_format @event.description
+  .row
+    .span16
+      %h2 My rating
       = semantic_form_for @rating, :url => event_event_rating_path do |f|
         = f.inputs do
-          = f.input :rating, :as => :hidden
-          #my_rating 
+          = f.input :rating, :as => :rating
           = f.input :comment, :input_html => {:rows => 3}
         = f.buttons do
-          = f.commit_button :button_html => {:class => "button", :icon => "tick"}
-      %h3 All ratings
+          = f.commit_button :button_html => {:class => "btn primary"}
+  .row
+    .span16
+      %h2 All ratings
       - if @event.event_ratings.count == 0
         .blank-slate
           %p
             No one has entered a rating for this event yet. Be the first
             and rate the event using the form above.
       - else
-        %table.table
-          %tr
-            %th.first
-            %th User
-            %th Rating
-            %th Comment
-          - @event.event_ratings.each do |event_rating|
+        %p
+          %b Total:  
+          %span#total_rating{:"data-rating" => @event.average_rating}
+        %table.zebra-striped
+          %thead
             %tr
-              %td=image_box event_rating.person.avatar, :small
-              %td=event_rating.person.full_name
-              %td
-                .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
-              %td=event_rating.comment
-
-- content_for :sidebar do
-  - if @next_event
-    = actions_block do
-      = action_button "resultset_next", "Rate next event", event_event_rating_path(@next_event), :title => "Proceed to rate the next event." 
-  = block do
-    %h3 Total rating
-    = content do
-      #total_rating{:"data-rating" => @event.average_rating}
+              %th
+              %th User
+              %th Rating
+              %th Comment
+          %tbody
+            - @event.event_ratings.each do |event_rating|
+              %tr
+                %td=image_box event_rating.person.avatar, :small
+                %td=event_rating.person.full_name
+                %td
+                  .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
+                %td=event_rating.comment
 
 :javascript
   $(document).ready(function() {
@@ -112,6 +125,7 @@
       targetKeep: true
     });
     $("#total_rating").raty({
+      readOnly: true,
       path: "",
       starOn: '#{raty_icon_path("on")}',
       starHalf: '#{raty_icon_path("half")}',
@@ -119,7 +133,7 @@
       half: true,
       start: $("#total_rating").data("rating")
     });
-    $(".rating").each(function(index) {
+    $("td .rating").each(function(index) {
       $(this).raty({
         readOnly: true,
         path: "",

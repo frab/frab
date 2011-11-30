@@ -1,18 +1,20 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "All Events", events_path
-      %li.active= link_to "My Events", my_events_path
-      %li= link_to "Event Ratings", ratings_events_path
-  = content do
-    %h2 My Events
-    = inner do
-      - if params[:term].blank? and @events.all.empty?
+%section
+  .page-header
+    %h1 My events 
+  %ul.tabs
+    %li= link_to "All Events", events_path
+    %li.active= link_to "My Events", my_events_path
+    %li= link_to "Event Ratings", ratings_events_path
+  - if params[:term].blank? and @events.all.empty?
+    .row
+      .span16
         .blank-slate
           %p
             You are not yet involved in any event in this
             conference. Add yourself to an event in whatever
             role you like and the event will appear in this
             list.
-      - else
+  - else
+    .row
+      .span16
         = render 'shared/search_and_table', :collection => @events

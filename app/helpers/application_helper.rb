@@ -18,6 +18,13 @@ module ApplicationHelper
 
   def action_button(button_type, link_name, path, options = {})
     options[:class] = "btn #{button_type}"
+    if options[:hint]
+      options[:rel] = "popover"
+      options["data-original-title"] = "Hint"
+      options["data-content"] = options[:hint]
+      options["data-placement"] = "below"
+      options[:hint] = nil
+    end
     link_to link_name, path, options
   end
 

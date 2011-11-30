@@ -1,14 +1,16 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "Event Details", @event 
-      %li.active= link_to "People", people_event_path(@event)
-      %li= link_to "Ratings", event_event_rating_path(@event)
-      %li= link_to "Feedback", event_event_feedbacks_path(@event)
-  = content do
-    %h2 People involved in event "#{@event.title}"
-    = inner do
-      - if @event.event_people.count == 0
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Edit", edit_people_event_path(@event), :hint => "Add or remove people from this event."
+    %h1 Event: #{@event.title}
+  %ul.tabs
+    %li= link_to "Event Details", @event 
+    %li.active= link_to "People", people_event_path(@event)
+    %li= link_to "Ratings", event_event_rating_path(@event)
+    %li= link_to "Feedback", event_event_feedbacks_path(@event)
+  - if @event.event_people.count == 0
+    .row
+      .span16
         .blank-slate
           %p
             There are no people associated with this event yet.
@@ -17,19 +19,20 @@
             in the system. If the person you would like to add
             is not yet in the system, go to the <em>People</em>
             tab above and create this person first.
-      - else
-        %table.table
-          %tr
-            %th.first
-            %th Name
-            %th Role in this event
-            %th.last State
-          - @event.event_people.each do |event_person|
-            %tr{:class => cycle("odd", "even")}
-              %td= image_box event_person.person.avatar, :small
-              %td= link_to event_person.person.full_name, event_person.person
-              %td= event_person.event_role
-              %td= event_person.role_state
-- content_for :sidebar do
-  = actions_block do
-    = action_button "application_edit", "Edit", edit_people_event_path(@event), :title => "Add or remove people from this event."
+  - else
+    .row
+      .span16
+        %table.zebra-striped
+          %thead
+            %tr
+              %th.first
+              %th Name
+              %th Role in this event
+              %th State
+          %tbody
+            - @event.event_people.each do |event_person|
+              %tr
+                %td= image_box event_person.person.avatar, :small
+                %td= link_to event_person.person.full_name, event_person.person
+                %td= event_person.event_role
+                %td= event_person.role_state

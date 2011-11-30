@@ -1,14 +1,14 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "Event Details", @event 
-      %li= link_to "People", people_event_path(@event)
-      %li= link_to "Ratings", event_event_rating_path(@event)
-      %li.active= link_to "Feedback", event_event_feedbacks_path(@event)
-  = content do
-    %h2 Feedback for #{@event.title}
-    = inner do
-      - if @event_feedbacks.all.empty?
+%section
+  .page-header
+    %h1 Event: #{@event.title}
+  %ul.tabs
+    %li= link_to "Event Details", @event 
+    %li= link_to "People", people_event_path(@event)
+    %li= link_to "Ratings", event_event_rating_path(@event)
+    %li.active= link_to "Feedback", event_event_feedbacks_path(@event)
+  - if @event_feedbacks.all.empty?
+    .row
+      .span16
         .blank-slate
           %p
             There is no attendee feedback for this event yet.
@@ -17,10 +17,14 @@
             settings and the web program schedule will include a
             form for your attendees to provide feedback. This
             feedback will appear here.
-      - else
-        %p Average Feedback: #{@event.average_feedback}
-        %h3 Comments
-        %table
+  - else
+    .row
+      .span16
+        %p 
+          %b Average Feedback: 
+          #{@event.average_feedback}
+        %h2 Comments
+        %table.zebra-striped
           %thead
             %tr
               %th Rating

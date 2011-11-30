@@ -15,7 +15,7 @@
         %td= person.last_name
         %td= person.public_name
         %td= person.email
-        %td.last
+        %td.buttons
           = action_button "small", 'Show', person
           = action_button "small", 'Edit', edit_person_path(person) 
           = action_button "small danger", 'Destroy', person, :confirm => 'Are you sure?', :method => :delete

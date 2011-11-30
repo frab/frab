@@ -43,6 +43,10 @@ section {
   margin: 10px;
 }
 
+#my_rating {
+  padding-top: 8px;
+}
+
 div.rating {
   white-space: nowrap;
 }
@@ -101,41 +105,4 @@ table.room tr.even {background: #EEEEEE;}
 
 span.right { float: right; }
 
-div#conf-switch {
-  position:absolute; 
-  background: #262626; 
-  z-index: 10;
-  -moz-border-radius: 0px 0px 3px 3px;
-  -webkit-border-radius: 0px 0px 3px 3px;
-  border-radius-bottom: 0px 0px 3px 3px;
-  padding: 5px;
-}
-
-div#conf-switch a {
-  padding: 10px;
-  margin: 5px;
-  display: block;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius-bottom: 3px;
-}
-
-#user-navigation ul li div#conf-switch a:hover {
-  color: #000;
-  background: #fff;
-}
-
-.tooltip {
-  display: none;
-  background: #f9f9f9;
-  color: #111111;
-  border: 1px solid #c3c2c5;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius-bottom: 4px;
-  padding: 10px;
-  -moz-box-shadow: 0px 0px 4px #000;
-  -webkit-box-shadow: 0px 0px 4px #000;
-  box-shadow: 0px 0px 3px #000;
-  width: 25%;
-}
+td.buttons { width: 160px; }
