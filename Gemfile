@@ -29,7 +29,7 @@ gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
 gem 'twitter-bootstrap-rails'
-gem 'formtastic-bootstrap'
+gem 'formtastic-bootstrap', :path => "../formtastic-bootstrap"
 
 group :development, :test do
   gem 'ruby-debug', :platforms => :mri_18
