@@ -6,13 +6,6 @@ GIT
       rails (>= 2.3.5)
       rails (>= 2.3.5)
 
-PATH
-  remote: ../formtastic-bootstrap
-  specs:
-    formtastic-bootstrap (1.0.1)
-      formtastic
-      rails (~> 3.1.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -72,6 +65,9 @@ GEM
       railties (>= 3.0.0)
     formtastic (2.0.2)
       rails (~> 3.0)
+    formtastic-bootstrap (1.0.2)
+      formtastic
+      rails (~> 3.1.0)
     gravatar-ultimate (1.0.2)
       sc-core-ext (>= 1.2.0)
     haml (3.1.2)
@@ -81,7 +77,7 @@ GEM
     jquery-rails (1.0.14)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.6.2)
+    json (1.6.3)
     less (2.0.7)
       therubyracer (~> 0.9.2)
     less-rails (2.1.1)
@@ -213,7 +209,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.0)
   factory_girl_rails
   formtastic (~> 2.0.2)
-  formtastic-bootstrap!
+  formtastic-bootstrap
   gravatar-ultimate
   haml
   hpricot

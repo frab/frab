@@ -20,8 +20,6 @@ gem 'paper_trail'
 gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
 gem 'ransack'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
-gem 'prawn'
-gem 'prawn_rails'
 gem 'json'
 gem 'therubyracer'
 gem 'barista'
@@ -29,7 +27,9 @@ gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
 gem 'twitter-bootstrap-rails'
-gem 'formtastic-bootstrap', :path => "../formtastic-bootstrap"
+gem 'formtastic-bootstrap'
+gem 'prawn'
+gem 'prawn_rails'
 
 group :development, :test do
   gem 'ruby-debug', :platforms => :mri_18
