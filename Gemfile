@@ -27,7 +27,7 @@ gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
 gem 'twitter-bootstrap-rails'
-gem 'formtastic-bootstrap'
+gem 'formtastic-bootstrap', :path => "../formtastic-bootstrap"
 gem 'prawn'
 gem 'prawn_rails'
 

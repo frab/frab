@@ -1,11 +1,9 @@
-= block do
-  = content do
-    - if @first
-      %h2 Create your first conference
-    - else
-      %h2 New conference
-    = inner do
-      - if @first
+%section
+  .page-header
+    %h1= @first ? "Create your first conference" : "New Conference"
+  - if @first
+    .row
+      .span16
         .blank-slate
           %p 
             Welcome! It looks as if this is your first time here.
@@ -15,4 +13,6 @@
             easily after you submit this form, so please read the
             hints for every form field carefully and double check
             what you enter.
+  .row
+    .span16
       = render "form"

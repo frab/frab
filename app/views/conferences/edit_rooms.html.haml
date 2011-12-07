@@ -1,17 +1,19 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "Settings", edit_conference_path
-      %li= link_to "Tracks", edit_tracks_conference_path
-      %li.active= link_to "Rooms", edit_rooms_conference_path
-  = content do
-    %h2 Editing conference rooms
-    = inner do
-      - if @conference.rooms.empty?
+%section
+  .page-header
+    %h1 Edit Conference Rooms
+  %ul.tabs
+    %li= link_to "Settings", edit_conference_path
+    %li= link_to "Tracks", edit_tracks_conference_path
+    %li.active= link_to "Rooms", edit_rooms_conference_path
+  - if @conference.rooms.empty?
+    .row
+      .span16
         .blank-slate
           %p
             Here you can create and edit the rooms in which
             your events take place. Please enter at least one
             room. This is needed to determine the number of
             columns in your program schedule.
+  .row
+    .span16
       = render 'form_rooms'
