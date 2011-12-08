@@ -1,17 +1,19 @@
 GIT
+  remote: git://github.com/oneiros/formtastic-bootstrap
+  revision: 7e0700ad2dc12123ca004f5a7bb42b08cdc3805d
+  branch: time_zone_input
+  specs:
+    formtastic-bootstrap (1.0.2)
+      formtastic
+      rails (~> 3.1.0)
+
+GIT
   remote: git://github.com/oneiros/localized_language_select.git
   revision: 12aba5fb945cf50ea3919b3ae774d9205a6cfcc4
   specs:
     localized_language_select (0.2.0)
       rails (>= 2.3.5)
       rails (>= 2.3.5)
-
-PATH
-  remote: ../formtastic-bootstrap
-  specs:
-    formtastic-bootstrap (1.0.2)
-      formtastic
-      rails (~> 3.1.0)
 
 GEM
   remote: http://rubygems.org/
