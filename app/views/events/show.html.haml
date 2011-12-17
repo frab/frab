@@ -46,6 +46,10 @@
       %p
         %b Average audience feedback:
         = number_with_precision @event.average_feedback, :precision => 1
+      - if not @event.ticket.nil?
+        %p
+          %b Ticket
+          = @event.ticket
 
 - content_for :sidebar do
   = actions_block do
@@ -60,3 +64,5 @@
       = action_button "tick", "Confirm event", update_state_event_path(@event, :transition => :confirm), :method => :put, :title => "Confirm that the speaker(s) will be present and that the event will actually take place."
     - if @event.transition_possible? :cancel
       = action_button "cancel", "Cancel event", update_state_event_path(@event, :transition => :cancel), :method => :put, :title => "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
+    - if @event.ticket.nil?
+      = action_button "add", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
