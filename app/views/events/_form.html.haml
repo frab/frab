@@ -2,6 +2,9 @@
   = f.inputs :name => "Basic information" do
     = f.input :title
     = f.input :subtitle
+    - @event.build_ticket unless @event.ticket
+    = f.semantic_fields_for :ticket do |ticket|
+      = ticket.input :remote_ticket_id
     = f.input :event_type, :collection => Event::TYPES
     = f.input :track, :collection => @conference.tracks
     = f.input :time_slots, :as => :select, :collection => timeslots
