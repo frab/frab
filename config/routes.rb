@@ -65,6 +65,7 @@ Frab::Application.routes.draw do
       resource :conference, :except => [:new, :create] do
         get :edit_tracks
         get :edit_rooms
+        get :edit_ticket_server
       end
 
       resource :call_for_papers
@@ -87,10 +88,17 @@ Frab::Application.routes.draw do
         member do
           get :people
           get :edit_people
+          get :ticket
           put :update_state
         end
         resource :event_rating
         resources :event_feedbacks
+      end
+
+      resources :tickets do
+        member do
+          post :create
+        end
       end
 
     end
