@@ -27,7 +27,7 @@ gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
 gem 'twitter-bootstrap-rails'
-gem 'formtastic-bootstrap', :git => "git://github.com/oneiros/formtastic-bootstrap", :branch => "time_zone_input"
+gem 'formtastic-bootstrap'
 gem 'prawn'
 gem 'prawn_rails'
 
