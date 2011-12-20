@@ -1,20 +1,25 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      - @conference.days.each_with_index do |day, index|
-        %li{:class => day_active?(index)}
-          = link_to day.to_s, schedule_path(:day => index)
-  = content do
-    %h2 Schedule for #{@day}
-    = inner do
-      - if @conference.rooms.empty?
+%section
+  .page-header
+    .pull-right
+      = action_button "", "View public schedule", public_schedule_index_path, :hint => "View the public live version of your schedule just like any attendee might see it."
+      = action_button "", "Create custom PDF export", new_schedule_pdf_path, :hint => "Create a PDF version of your program schedule that can easily be printed."
+    %h1 Schedule 
+  %ul.tabs
+    - @conference.days.each_with_index do |day, index|
+      %li{:class => day_active?(index)}
+        = link_to day.to_s, schedule_path(:day => index)
+  - if @conference.rooms.empty?
+    .row
+      .span16
         .blank-slate
           %p
             Before you can schedule any events, you need
             to have at least one room defined for this
             conference. Go to <em>Conference Settings</em>
             above to enter a room.
-      - elsif @conference.events.count == 0
+  - elsif @conference.events.count == 0
+    .row
+      .span16
         .blank-slate
           %p
             This conference does not yet have any events.
@@ -22,41 +27,51 @@
             or launch a call for papers to gather events.
             Once you have events, you can schedule them
             here.
-      - else
+  - else
+    .row
+      .span16
         %p
           %b Toggle rooms:
-          %form
-            - @conference.rooms.each do |room|
-              %input{:class => "toggle-room", :type => "checkbox", :checked => true, :"data-room" => room.name.downcase}
-                = room.name
-            = link_to "hide all", "#", :id => "hide-all-rooms"
+        %p
+          - @conference.rooms.each do |room|
+            = link_to room.name, "#", :class => "btn small success toggle-room", :data => {:room => room.name.downcase}
+          = link_to "hide all", "#", :id => "hide-all-rooms", :class => "btn small danger"
+    .row
+      .span16
         - @conference.rooms.each do |room|
           - reset_cycle
           %table.room{:"data-room" => room.name.downcase, :"data-room-id" => room.id}
-            %tr
-              %th= room.name
-            - time = @conference.day_start
-            - while time < @conference.day_end
-              %tr{:class => cycle('odd', 'even')}
-                %td{:"data-time" => day_at(@day, time).to_s(:rfc822)}
-                  - if time.min == 0
-                    = time.to_s(:time)
-              - time = time.since(@conference.timeslot_duration.minutes)
+            %thead
+              %tr
+                %th= room.name
+            %tbody
+              - time = @conference.day_start
+              - while time < @conference.day_end
+                %tr{:class => cycle('odd', 'even')}
+                  %td{:"data-time" => day_at(@day, time).to_s(:rfc822)}
+                    - if time.min == 0
+                      = time.to_s(:time)
+                - time = time.since(@conference.timeslot_duration.minutes)
         .clear
-        - @scheduled_events.each do |event|
-          = render 'event', :event => event
+        #event-pane
+          - @scheduled_events.each do |event|
+            = render 'event', :event => event
+        #add-event-modal.modal{:style => "display: none;"}
+          .modal-header
+            = link_to "×", "#", :class => "close"
+            %h3 
+              Add event at
+              %span#current-time &nbsp;
+          .modal-body
+            %p
+              = form_tag schedule_update_track_path, :id => "update-track" do
+                = label_tag "track_select", "Filter by track"
+                = select_tag "track_select", content_tag(:option, "All", :selected => true) + options_from_collection_for_select(@conference.tracks, :id, :name)
+            %p
+              %ul#unscheduled-events
+                = render 'unscheduled_events'
+          .modal-footer
+            &nbsp;
 
 = javascript_include_tag "schedule"
 
-- content_for :sidebar do
-  = actions_block do
-    = action_button "table", "View public schedule", public_schedule_index_path, :title => "View the public live version of your schedule just like any attendee might see it."
-    = action_button "page_white_acrobat", "Create custom PDF export", new_schedule_pdf_path, :title => "Create a PDF version of your program schedule that can easily be printed."
-  - unless @conference.rooms.empty? or @conference.events.count == 0
-    = block do
-      %h3 Unscheduled events
-      = content do
-        = form_tag schedule_update_track_path do
-          = select_tag "track_select", content_tag(:option, "All", :selected => true) + options_from_collection_for_select(@conference.tracks, :id, :name) 
-        #unscheduled-events
-          = render 'unscheduled_events'

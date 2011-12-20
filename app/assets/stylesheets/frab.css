@@ -58,16 +58,21 @@ table.room {
   border-collapse: collapse;
 }
 
-table.room tr {
+table.room thead tr th {
+  padding: 5px;
+}
+
+table.room tbody tr {
   margin: 0px;
 }
 
-table.room tr td {
+table.room tbody tr td {
   border: 1px solid white;
   height: 20px;
+  padding: 0px;
 }
 
-table.room tr td.event-hover {
+table.room tbody tr td.event-hover {
   background: #FFFF00;
 }
 
