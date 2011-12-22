@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111217191457) do
+ActiveRecord::Schema.define(:version => 20111222141647) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(:version => 20111217191457) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "queue"
   end
 
   create_table "tickets", :force => true do |t|
