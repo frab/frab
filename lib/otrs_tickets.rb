@@ -47,7 +47,7 @@ module OtrsTickets
       data = URI.escape(data, '=\',\\/+-&?#.;')
       uri.query += "&Data=#{data}"
 
-      if $DEBUG or 1
+      if $DEBUG
         @logger.info "[ === ] #{object}::#{method}"
         @logger.info uri.to_s 
       end
@@ -87,7 +87,7 @@ module OtrsTickets
   def create_remote_ticket( title, requestors, owner_email, body='' ) 
     otrs = OtrsAdapter.new( @conference, logger )
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { :User => 'fraps' })
+    data = otrs.connect( 'UserObject', 'GetUserData', { :User => @conference.ticket_server.user })
     user_data = Hash[*data]
 
     data = otrs.connect( 'UserObject', 'GetUserData', { :UserEmail => owner_email })
@@ -111,9 +111,9 @@ module OtrsTickets
       :ArticleType => 'webrequest',
       :SenderType => 'customer',
       :HistoryType =>    "WebRequestCustomer",
-      :HistoryComment => "created from fraps",
+      :HistoryComment => "created from frab",
       :From => from,
-      :Subject => 'created from fraps',
+      :Subject => 'created from frab',
       :ContentType => 'text/plain; charset=ISO-8859-1',
       :Body => body,
       :UserID => user_data['UserID'],
@@ -123,7 +123,7 @@ module OtrsTickets
       #   'From' => owner_email,
       #   'To' => 'Postmaster',
       #   'Subject' => title,
-      #   'Body' => "Created from fraps"
+      #   'Body' => "Created from frab"
       # },
     }).first
 
