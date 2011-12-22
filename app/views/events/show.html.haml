@@ -46,10 +46,10 @@
       %p
         %b Average audience feedback:
         = number_with_precision @event.average_feedback, :precision => 1
-      - if not @event.ticket.nil?
+      - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.empty?
         %p
-          %b Ticket
-          = get_ticket_url( @event.ticket.remote_ticket_id )
+          %b Ticket:
+          = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), :target => "_blank"
 
 - content_for :sidebar do
   = actions_block do
