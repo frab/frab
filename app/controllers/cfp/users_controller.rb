@@ -21,6 +21,7 @@ class Cfp::UsersController < ApplicationController
 
   def edit
     @user = current_user
+    render :layout => "cfp"
   end
 
   def update

@@ -1,11 +1,13 @@
-= block do
-  %h2=t("cfp.edit_account") 
-  = content do
-    = semantic_form_for(@user, :url => cfp_user_path, :html => { :method => :put }) do |f|
-      = f.inputs do
-        = f.input :email
-        = f.input :password, :hint => t("cfp.password_hint") 
-        = f.input :password_confirmation
-      = f.buttons do
-        = f.commit_button t("cfp.update"), :button_html => {:class => "button", :icon => "tick"}
-    = link_to t("cfp.back"), :back
+%section
+  .page-header
+    %h1=t("cfp.edit_account") 
+  .row
+    .span16
+      = semantic_form_for(@user, :url => cfp_user_path, :html => { :method => :put }) do |f|
+        = f.inputs do
+          = f.input :email
+          = f.input :password, :hint => t("cfp.password_hint") 
+          = f.input :password_confirmation
+        = f.buttons do
+          = f.commit_button t("cfp.update"), :button_html => {:class => "btn primary"}
+          = link_to t("cfp.back"), :back, :class => "btn"

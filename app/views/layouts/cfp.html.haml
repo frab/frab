@@ -8,25 +8,17 @@
     = javascript_include_tag "application" 
     = csrf_meta_tags
   %body
-    #container
-      #header
-        %h1= link_to @conference.title + " - Call for Papers", cfp_root_path
-        #user-navigation
-          %ul.wat-cf
-            - if current_user
-              %li= link_to t("web-app-theme.logout", :default => "Logout"), cfp_session_path, :method => :delete
-        #main-navigation
-          %ul.wat-cf
-      #wrapper.wat-cf
-        .flash
-          - flash.each do |type, message|
-            %div{:class => "message #{type}"}
-              %p= message
-        #main
-          = yield
-          #footer
-            .block
-              %p
-                Copyright &copy; #{Time.now.year} the frab project.
-        #sidebar
-          = yield :sidebar
+    .container
+      .topbar
+        .fill
+          .container
+            = link_to @conference.title + " - Call for Papers", cfp_root_path, :class => "brand"
+            %ul.nav.secondary-nav.pull-right
+              - if current_user
+                %li= link_to t("web-app-theme.logout", :default => "Logout"), cfp_session_path, :method => :delete
+    .container
+      .main-content
+        = render 'shared/flash', :flash => flash
+        = yield
+    %footer
+      .container/

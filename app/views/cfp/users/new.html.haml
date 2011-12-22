@@ -1,13 +1,15 @@
-= block do
-  %h2
-    = @conference.title
-    Sign up
-  = content do
-    = semantic_form_for(@user, :url => cfp_user_path) do |f|
-      = f.inputs do
-        = f.input :email
-        = f.input :password
-        = f.input :password_confirmation
-      = f.buttons do
-        = f.commit_button t("cfp.sign_up"), :button_html => {:class => "button", :icon => "tick"}
-    = link_to t("cfp.back"), :back
+%section
+  .page-header
+    %h1
+      = @conference.title
+      Sign up
+  .row
+    .span16
+      = semantic_form_for(@user, :url => cfp_user_path) do |f|
+        = f.inputs do
+          = f.input :email
+          = f.input :password
+          = f.input :password_confirmation
+        = f.buttons do
+          = f.commit_button t("cfp.sign_up"), :button_html => {:class => "btn primary"}
+          = link_to t("cfp.back"), :back, :class => "btn"
