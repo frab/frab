@@ -31,7 +31,7 @@ class Person < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :email
 
-  validates_inclusion_of :gender, :in => GENDERS, :allow_nil => true
+  #validates_inclusion_of :gender, :in => GENDERS, :allow_nil => true
 
   scope :involved_in, lambda { |conference|
     joins(:events => :conference).where(:"conferences.id" => conference.id).group(:"people.id")
