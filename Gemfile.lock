@@ -128,7 +128,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.6)
-    rake (0.9.2)
+    rake (0.9.2.2)
     ransack (0.5.7)
       actionpack (~> 3.0)
       activerecord (~> 3.0)
@@ -182,7 +182,7 @@ GEM
       multi_json (>= 1.0.2)
     web-app-theme (0.6.3)
     will_paginate (3.0.0)
-    yaml_db (0.2.0)
+    yaml_db (0.2.2)
 
 PLATFORMS
   ruby

@@ -1,6 +1,7 @@
 class Conference < ActiveRecord::Base
 
   has_one :call_for_papers
+  has_one :ticket_server
   has_many :events
   has_many :rooms
   has_many :tracks
@@ -9,6 +10,7 @@ class Conference < ActiveRecord::Base
   accepts_nested_attributes_for :rooms, :reject_if => proc {|r| r["name"].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :tracks, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :ticket_server, :reject_if => :all_blank, :allow_destroy => true
 
   validates_presence_of :title, :acronym, :first_day, :last_day
   validates_uniqueness_of :acronym

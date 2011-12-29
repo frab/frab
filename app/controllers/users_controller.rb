@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    @user.role = params[:user][:role]
     @user.person = @person
     @user.skip_confirmation!
 

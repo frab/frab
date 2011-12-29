@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
 
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
 
+  has_one :ticket
   has_many :event_people, :dependent => :destroy
   has_many :event_feedbacks, :dependent => :destroy
   has_many :people, :through => :event_people
@@ -23,6 +24,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :event_people, :allow_destroy => true, :reject_if => Proc.new {|attr| attr[:person_id].blank?} 
   accepts_nested_attributes_for :links, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :event_attachments, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :ticket, :allow_destroy => true, :reject_if => :all_blank
 
   validates_attachment_content_type :logo, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 
