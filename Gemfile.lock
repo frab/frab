@@ -196,7 +196,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     will_paginate (3.0.0)
-    yaml_db (0.2.0)
+    yaml_db (0.2.2)
 
 PLATFORMS
   ruby
