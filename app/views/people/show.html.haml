@@ -58,3 +58,4 @@
 - content_for :sidebar do
   = actions_block do
     = action_button "application_edit", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+    = action_button "add", "Add person", new_person_path, :title => "Add a new person."
