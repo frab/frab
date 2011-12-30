@@ -29,11 +29,11 @@ module ApplicationHelper
   end
 
   def add_association_link(text, form_builder, div_class, html_options = {})
-    link_to_add_association text, form_builder, div_class, html_options.merge(:class => "btn")
+    link_to_add_association text, form_builder, div_class, html_options.merge(:class => "assoc btn")
   end
 
   def remove_association_link(text, form_builder)
-    link_to_remove_association text, form_builder, :class => "btn danger"
+    link_to_remove_association(text, form_builder, :class => "assoc btn danger") + tag(:hr)
   end
 
   def dynamic_association(association_name, title, form_builder, options = {})

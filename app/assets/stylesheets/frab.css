@@ -38,11 +38,6 @@ section {
   vertical-align: middle;
 }
 
-#sidebar a.button {
-  float: none;
-  margin: 10px;
-}
-
 #my_rating {
   padding-top: 8px;
 }
@@ -111,3 +106,7 @@ table.room tr.even {background: #EEEEEE;}
 span.right { float: right; }
 
 td.buttons { width: 160px; }
+
+a.assoc {
+  margin-left: 150px;
+}
