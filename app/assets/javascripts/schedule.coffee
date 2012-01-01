@@ -31,6 +31,9 @@ add_event_to_slot = (event, td, update = true) ->
         event.effect('highlight')
     )
 
+make_draggable = (element) ->
+  element.draggable(revert: "invalid", opacity: 0.4, cursorAt: {left: 5, top: 5})
+
 $ ->
   $("body").delegate("div.event", "mouseenter", ->
     event_div = $(this)
@@ -94,6 +97,7 @@ $ ->
       new_event.data("update-url", li.data("update-url"))
       $("#event-pane").append(new_event)
       add_event_to_slot(new_event, td)
+      make_draggable(new_event)
       li.remove()
       $("#add-event-modal").modal('hide')
       click_event.preventDefault()
@@ -105,5 +109,5 @@ $ ->
     if $(event).data("room") and $(event).data("time")
       starting_cell = $("table[data-room='" + $(event).data("room") + "']").find("td[data-time='" + $(event).data("time") + "']")
       add_event_to_slot(event, starting_cell, false)
-    $(event).draggable(revert: "invalid", opacity: 0.4, cursorAt: {left: 5, top: 5})
+    make_draggable($(event))
 
