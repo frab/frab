@@ -5,4 +5,5 @@
     = f.input :password_confirmation
     = f.input :role, :as => :radio, :collection => User::ROLES
   = f.buttons do
-    = f.commit_button :button_html => {:class => "button", :icon => "tick"}
+    = f.commit_button :button_html => {:class => "btn primary"}
+    = link_to "Cancel", :back, :class => "btn"

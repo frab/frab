@@ -12,27 +12,14 @@
     = javascript_include_tag "application", "admin"
     = csrf_meta_tags
   %body
-    #container
-      #header
-        %h1
+    .topbar
+      .fill
+        .container
           - if @conference and not @conference.new_record?
-            = link_to "#{@conference.title} (#{@conference.acronym})", conference_home_path
+            = link_to "#{@conference.title} (#{@conference.acronym})", conference_home_path, :class => "brand"
           - else
-            = link_to "Welcome to frab", root_path
-        #user-navigation
-          %ul.wat-cf
-            %li
-              = link_to_function t("switch_conference", :default => "Switch Conference"), "$('#conf-switch').toggle();"
-              #conf-switch{:style => "display:none;"}
-                - Conference.all.each do |conference|
-                  = link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
-                %hr/
-                = link_to "Create new conference", new_conference_path(:conference_acronym => nil)
-            %li
-              = link_to "My Profile", edit_person_path(current_user.person) unless @conference.new_record?
-            %li= link_to t("web-app-theme.logout", :default => "Logout"), session_path, :method => :delete
-        #main-navigation
-          %ul.wat-cf
+            = link_to "Welcome to frab", root_path, :class => "brand"
+          %ul.nav
             - if @conference and not @conference.new_record?
               %li= link_to t("people", :default => "People"), people_path
               %li= link_to t("events", :default => "Events"), events_path
@@ -42,17 +29,19 @@
                 - else
                   = link_to t("call for papers", :default => "Launch Call for Papers"), new_call_for_papers_path
               %li= link_to t("schedule", :default => "Schedule"), schedule_path
-              %li= link_to t("conference_settings", :default => "Conference Settings"), edit_conference_path
-      #wrapper.wat-cf
+              %li= link_to t("settings", :default => "Settings"), edit_conference_path
+          %ul.nav.secondary-nav.pull-right
+            %li.dropdown
+              = link_to t("switch_conference", :default => "Switch Conference"), "#", :class => "dropdown-toggle"
+              %ul.dropdown-menu
+                - Conference.all.each do |conference|
+                  %li= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
+                %li.divider/
+                %li= link_to "Create new conference", new_conference_path(:conference_acronym => nil)
+            %li= link_to t("web-app-theme.logout", :default => "Logout"), session_path, :method => :delete
+    .container
+      .main-content
         = render 'shared/flash', :flash => flash
-        #main
-          = yield
-          #footer
-            .block
-              %p
-                Copyright &copy; #{Time.now.year} the frab project.
-        #sidebar
-          = yield :sidebar
-  :coffeescript
-    $ ->
-      $("div#actions a[title]").tooltip(position: "center left", opacity: 0.9)
+        = yield
+    %footer.footer
+      .container/

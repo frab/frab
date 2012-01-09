@@ -1,21 +1,19 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "This conference", people_path
-      %li.active= link_to "Speakers", speakers_people_path
-      %li= link_to "All people", all_people_path
-  = content do
-    %h2 Listing speakers 
-    = inner do
-      - if params[:term].blank? and @people.all.empty?
-        .blank-slate
-          %p
-            You do not yet have any speakers in this conference.
-            Create some events and assign people with the role
-            'speaker' to have them appear in this list.
-      - else
-        = render 'shared/search_and_table', :collection => @people
-- content_for :sidebar do
-  = actions_block do
-    = action_button "add", "Add person", new_person_path, :title => "Add a new person."
-    = action_button "page_white_text", "Download email list", speakers_people_path(:format => :text), :title => "Download a list of all your speakers' email addresses (one address per line). This can easily be imported into other applications, including mailing list software."
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Add person", new_person_path, :title => "Add a new person."
+    %h1 List of people
+  %ul.tabs
+    %li= link_to "This conference", people_path
+    %li.active= link_to "Speakers", speakers_people_path
+    %li= link_to "All people", all_people_path
+  .row
+    .span16
+      = render 'shared/simple_search', :path => request.path
+  .row
+    .span16
+      - if @people.all.empty?
+        %p Sorry, but your search yielded no results.
+      - else  
+        = render 'table', :events => @people 
+        = will_paginate @people 

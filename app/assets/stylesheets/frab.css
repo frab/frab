@@ -1,37 +1,45 @@
+body {
+  padding-top: 40px;
+  background-color: #eeeeee;
+}
+
+.main-content {
+  background-color: #fff;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  margin: 0 -20px;
+  padding: 20px;
+}
+
+section {
+  padding-top: 20px;
+}
+
 .image {
-  display: table-cell;
-  border: 1px solid #262626;
   text-align: center;
   vertical-align: middle;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  padding: 4px;
 }
 
 .image.small {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
 }
 
 .image.large {
-  width: 132px;
-  height: 132px;
+  width: 128px;
+  height: 128px;
 }
 
 .image img {
   vertical-align: middle;
 }
 
-#sidebar a.button {
-  float: none;
-  margin: 10px;
-}
-
-span.language_switcher {
-  float:right;
-  font-size: 60%;
-  vertical-align: super;
-}
-
-span.language_switcher a {
-  color: #DFDFE1;
+#my_rating {
+  padding-top: 8px;
 }
 
 div.rating {
@@ -45,16 +53,21 @@ table.room {
   border-collapse: collapse;
 }
 
-table.room tr {
+table.room thead tr th {
+  padding: 5px;
+}
+
+table.room tbody tr {
   margin: 0px;
 }
 
-table.room tr td {
+table.room tbody tr td {
   border: 1px solid white;
   height: 20px;
+  padding: 0px;
 }
 
-table.room tr td.event-hover {
+table.room tbody tr td.event-hover {
   background: #FFFF00;
 }
 
@@ -92,41 +105,8 @@ table.room tr.even {background: #EEEEEE;}
 
 span.right { float: right; }
 
-div#conf-switch {
-  position:absolute; 
-  background: #262626; 
-  z-index: 10;
-  -moz-border-radius: 0px 0px 3px 3px;
-  -webkit-border-radius: 0px 0px 3px 3px;
-  border-radius-bottom: 0px 0px 3px 3px;
-  padding: 5px;
-}
+td.buttons { width: 160px; }
 
-div#conf-switch a {
-  padding: 10px;
-  margin: 5px;
-  display: block;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius-bottom: 3px;
-}
-
-#user-navigation ul li div#conf-switch a:hover {
-  color: #000;
-  background: #fff;
-}
-
-.tooltip {
-  display: none;
-  background: #f9f9f9;
-  color: #111111;
-  border: 1px solid #c3c2c5;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius-bottom: 4px;
-  padding: 10px;
-  -moz-box-shadow: 0px 0px 4px #000;
-  -webkit-box-shadow: 0px 0px 4px #000;
-  box-shadow: 0px 0px 3px #000;
-  width: 25%;
+a.assoc {
+  margin-left: 150px;
 }

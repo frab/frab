@@ -4,6 +4,7 @@
     = f.input :acronym, :hint => "A short and unique handle for your conference, using only lower-case letters, numbers and underscores. This will be used to identify your conference in URLs etc. Example: 'froscon2011'"
     = f.input :email, :hint => "Contact email address for your conference. Will be used as reply-to address in emails sent out by the system."
   = f.inputs "Schedule configuration" do
+    - debugger
     = f.input :timezone, :as => :time_zone, :hint => "Please select in what time zone your conference will take place. This is needed to correctly display times for your events."
     = f.input :first_day, :hint => "When does your conference start?"
     = f.input :last_day, :hint => "When does your conference end?"
@@ -18,4 +19,4 @@
   = f.inputs "Feedback system" do
     = f.input :feedback_enabled, :hint => "If you enable this, your program export will include links to a feedback form where attendees can rate an event."
   = f.buttons do
-    = f.commit_button :button_html => {:class => "button", :icon => "tick"}
+    = f.commit_button :button_html => {:class => "btn primary"}

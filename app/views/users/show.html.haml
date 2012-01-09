@@ -1,11 +1,13 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first= link_to "Profile", @person
-      %li.active= link_to "User account", person_user_path(@person)
-  = content do
-    = inner do
-      %h3 User account for #{@person.full_name} 
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Edit user account", edit_person_user_path(@person), :title => "Edit this user account."
+    %h1 Person: #{@person.full_name}
+  %ul.tabs
+    %li= link_to "Profile", @person
+    %li.active= link_to "User account", person_user_path(@person)
+  .row
+    .span16
       %p
         %b Email for login:
         = @user.email
@@ -15,6 +17,3 @@
       %p
         %b Last login:
         = @user.last_sign_in_at
-- content_for :sidebar do
-  = actions_block do
-    = action_button "application_edit", "Edit user account", edit_person_user_path(@person), :title => "Edit this user account."

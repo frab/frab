@@ -1,27 +1,47 @@
-= block do
-  = content do
-    %h2=t("cfp.welcome") 
-    = inner do
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
+      = action_button "", t("cfp.edit_profile"), edit_cfp_person_path
+      - if @person.availabilities_in(@conference).count == 0
+        = action_button "", t("cfp.edit_availability"), new_cfp_person_availability_path
+      - else
+        = action_button "", t("cfp.edit_availability"), edit_cfp_person_availability_path
+      = action_button "", t("cfp.edit_account"), edit_cfp_user_path
+    %h1=t("cfp.welcome") 
+  .row
+    .span8
       %p=t("cfp.thanks_for_interest", :title => @conference.title)
       - if cfp_hard_deadline_over?
         %p=t("cfp.hard_deadline_over")
       - elsif @person.events_in(@conference).size > 0
         - if @person.availabilities_in(@conference).count == 0
           %p=t("cfp.specify_availability") 
-          = action_button "clock", t("cfp.edit_availability"), new_cfp_person_availability_path
+          = action_button "success", t("cfp.edit_availability"), new_cfp_person_availability_path
           .clear
         %p=t("cfp.input_appreciation") 
-        = action_button "add", t("cfp.submit_another_event"), new_cfp_event_path
+        = action_button "success", t("cfp.submit_another_event"), new_cfp_event_path
       - else
         %p=t("cfp.take_time_to_submit") 
-        = action_button "add", t("cfp.submit_new_event"), new_cfp_event_path
+        = action_button "success", t("cfp.submit_new_event"), new_cfp_event_path
         .clear
         %p=t("cfp.not_forget_personal_details")
-        = action_button "application_edit", t("cfp.edit_profile"), edit_cfp_person_path
-      .clear
+        = action_button "success", t("cfp.edit_profile"), edit_cfp_person_path
+    .span8
+      %h2=t("cfp.information_headline") 
+      - unless @conference.call_for_papers.info_url.blank?
+        %p=t("cfp.info_url_description_html", :link => link_to(@conference.call_for_papers.info_url, @conference.call_for_papers.info_url))
+      %p
+        =t("cfp.deadline_description") 
+        %b= l(@conference.call_for_papers.end_date)
+      - unless @conference.call_for_papers.contact_email.blank?
+        %h2=t("cfp.contact_headline")
+        %p=t("cfp.contact_description_html", :mail_to => mail_to(@conference.call_for_papers.contact_email))
+  .row
+    .span16
       - if @person.events_in(@conference).size > 0
         %h3=t("cfp.events_submitted") 
-        %table.table
+        %table.zebra-striped
           %thead
             %tr
               %th= t("activerecord.attributes.event.title") 
@@ -29,34 +49,12 @@
               %th= t(:actions)
           %tbody
             - @person.events_in(@conference).each do |event|
-              %tr{:class => cycle("odd", "even")}
+              %tr
                 %td= event.title
                 %td= event.state
                 %td
-                  = link_to t("edit"), edit_cfp_event_path(event)
+                  = link_to t("edit"), edit_cfp_event_path(event), :class => "btn small"
                   - if event.state == "unconfirmed"
-                    = link_to t("cfp.confirm"), confirm_cfp_event_path(event), :method => :put
-                  = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation")
-
-- content_for :sidebar do
-  = actions_block do
-    = action_button "add", t("cfp.submit_new_event"), new_cfp_event_path
-    = action_button "application_edit", t("cfp.edit_profile"), edit_cfp_person_path
-    - if @person.availabilities_in(@conference).count == 0
-      = action_button "clock", t("cfp.edit_availability"), new_cfp_person_availability_path
-    - else
-      = action_button "clock", t("cfp.edit_availability"), edit_cfp_person_availability_path
-    = action_button "application_edit", t("cfp.edit_account"), edit_cfp_user_path
-  = block do
-    %h3=t("cfp.information_headline") 
-    = content do
-      - unless @conference.call_for_papers.info_url.blank?
-        %p=t("cfp.info_url_description_html", :link => link_to(@conference.call_for_papers.info_url, @conference.call_for_papers.info_url))
-      %p
-        =t("cfp.deadline_description") 
-        %b= l(@conference.call_for_papers.end_date)
-  - unless @conference.call_for_papers.contact_email.blank?
-    = block do
-      %h3=t("cfp.contact_headline")
-      = content do
-        %p=t("cfp.contact_description_html", :mail_to => mail_to(@conference.call_for_papers.contact_email))
+                    = link_to t("cfp.confirm"), confirm_cfp_event_path(event), :method => :put, :class => "btn success small"
+                  - if event.state != "withdrawn"
+                    = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation"), :class => "btn danger small"

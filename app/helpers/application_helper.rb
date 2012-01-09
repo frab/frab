@@ -16,17 +16,24 @@ module ApplicationHelper
     image_tag "icons/#{name}.png"
   end
 
-  def action_button(icon_name, link_name, path, options = {})
-    options[:class] = "button"
-    link_to icon(icon_name) + " " + link_name, path, options
+  def action_button(button_type, link_name, path, options = {})
+    options[:class] = "btn #{button_type}"
+    if options[:hint]
+      options[:rel] = "popover"
+      options["data-original-title"] = "Hint"
+      options["data-content"] = options[:hint]
+      options["data-placement"] = "below"
+      options[:hint] = nil
+    end
+    link_to link_name, path, options
   end
 
   def add_association_link(text, form_builder, div_class, html_options = {})
-    link_to_add_association icon(:add) + " " + text, form_builder, div_class, html_options.merge(:class => "button")
+    link_to_add_association text, form_builder, div_class, html_options.merge(:class => "assoc btn")
   end
 
   def remove_association_link(text, form_builder)
-    link_to_remove_association icon(:delete) + " " + text, form_builder, :class => "button"
+    link_to_remove_association(text, form_builder, :class => "assoc btn danger") + tag(:hr)
   end
 
   def dynamic_association(association_name, title, form_builder, options = {})

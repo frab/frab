@@ -1,13 +1,15 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.active.first= link_to "This conference", people_path
-      %li= link_to "Speakers", speakers_people_path
-      %li= link_to "All people", all_people_path
-  = content do
-    %h2 Listing people involved in this conference
-    = inner do
-      - if params[:term].blank? and @people.all.empty?
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Add person", new_person_path, :title => "Add a new person."
+    %h1 List of people
+  %ul.tabs
+    %li.active= link_to "This conference", people_path
+    %li= link_to "Speakers", speakers_people_path
+    %li= link_to "All people", all_people_path
+  - if params[:term].blank? and @people.all.empty?
+    .row
+      .span16
         .blank-slate
           - if Person.count <= 1
             %p
@@ -24,8 +26,14 @@
               conference yet. People will start appearing
               here, once they take on a role in any of
               this conference's events.
-      - else
-        = render 'shared/search_and_table', :collection => @people
-- content_for :sidebar do
-  = actions_block do
-    = action_button "add", "Add person", new_person_path, :title => "Add a new person."
+  - else
+    .row
+      .span16
+        = render 'shared/simple_search', :path => request.path
+    .row
+      .span16
+        - if @people.all.empty?
+          %p Sorry, but your search yielded no results.
+        - else  
+          = render 'table', :events => @people 
+          = will_paginate @people 

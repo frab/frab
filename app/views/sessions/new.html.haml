@@ -1,19 +1,13 @@
-.block
-  %h2 Sign in
-  .content
-    = render "shared/flash", :flash => flash
-    = form_for @user, :url => session_path do |f|
-      %p
-        = f.label :email
-        %br/
-        = f.text_field :email
-      %p
-        = f.label :password
-        %br/
-        = f.password_field :password
-      - if false 
-        %p
-          = f.check_box :remember_me
-          = f.label :remember_me
-      %p= f.submit "Sign in", :icon => "key", :class => :button
-      .clear
+%section
+  .page-header
+    %h1 Sign in
+  .row
+    .span16
+      = render "shared/flash", :flash => flash
+      = semantic_form_for @user, :url => session_path do |f|
+        = f.inputs do
+          = f.input :email
+          = f.input :password
+          = f.input :remember_me, :as => :boolean
+        = f.buttons do
+          = f.commit_button "Sign in", :button_html => {:class => "btn primary"}

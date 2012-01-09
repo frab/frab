@@ -12,7 +12,7 @@ gem 'acts_as_commentable'
 gem 'will_paginate'
 gem 'paperclip'
 gem 'gravatar-ultimate'
-gem 'formtastic', '2.0.0.rc5'
+gem 'formtastic', '~> 2.0.2'
 gem 'jquery-rails'
 gem 'acts_as_indexed'
 gem 'cocoon'
@@ -20,17 +20,18 @@ gem 'paper_trail'
 gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
 gem 'ransack'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
-gem 'prawn'
-gem 'prawn_rails'
 gem 'json'
 gem 'therubyracer'
 gem 'barista'
 gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
+gem 'twitter-bootstrap-rails'
+gem 'formtastic-bootstrap'
+gem 'prawn'
+gem 'prawn_rails'
 
 group :development, :test do
-  gem 'web-app-theme'
   gem 'ruby-debug', :platforms => :mri_18
   gem 'ruby-debug19', :platforms => :mri_19
 end

@@ -1,18 +1,32 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.active.first= link_to "Event Details", @event 
-      %li= link_to "People", people_event_path(@event)
-      %li= link_to "Ratings", event_event_rating_path(@event)
-      %li= link_to "Feedback", event_event_feedbacks_path(@event)
-  = content do
-    %h2
-      Event: #{@event.title}
-    = inner do
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Edit event", edit_event_path(@event), :hint => "Edit this event's data."
+      - if @event.transition_possible? :accept
+        = action_button "success", "Accept event", update_state_event_path(@event, :transition => :accept, :send_mail => true), :method => :put, :hint => "Accept this event. The speaker(s) will be notified of the acceptance via email. If they have access to the call for papers system, they will receive a link to confirm their attendance as well." 
+        = action_button "success", "Accept event (no email)", update_state_event_path(@event, :transition => :accept), :method => :put, :hint => "Accept this event without sending an automated email."
+      - if @event.transition_possible? :reject
+        = action_button "danger", "Reject event", update_state_event_path(@event, :transition => :reject, :send_mail => true), :method => :put, :confirm => "Are you sure?", :hint => "Reject this event. The speaker(s) will be notified of the rejection via email."
+        = action_button "danger", "Reject event (no email)", update_state_event_path(@event, :transition => :reject), :method => :put, :confirm => "Are you sure?", :hint => "Reject this event without sending an automated email."
+      - if @event.transition_possible? :confirm
+        = action_button "", "Confirm event", update_state_event_path(@event, :transition => :confirm), :method => :put, :hint => "Confirm that the speaker(s) will be present and that the event will actually take place."
+      - if @event.transition_possible? :cancel
+        = action_button "danger", "Cancel event", update_state_event_path(@event, :transition => :cancel), :method => :put, :hint => "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
+      - if @event.ticket.nil? or @event.ticket.remote_ticket_id.empty?
+        = action_button "add", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
+    %h1 Event: #{@event.title}
+  %ul.tabs
+    %li.active= link_to "Event Details", @event 
+    %li= link_to "People", people_event_path(@event)
+    %li= link_to "Ratings", event_event_rating_path(@event)
+    %li= link_to "Feedback", event_event_feedbacks_path(@event)
+  .row
+    .span16
       - @event.conflicts.each do |conflict|
         = render "conflicts/#{conflict.conflict_type}", :conflict => conflict
-      %span.right
-        = image_box @event.logo, :large
+  .row
+    .span6
+      %h2 Basic Information
       %p
         %b Subtitle:
         = @event.subtitle
@@ -23,46 +37,49 @@
         %b Event type:
         = @event.event_type
       %p
-        %b Time slots:
-        = format_time_slots @event.time_slots
-      %p
         %b State:
         = @event.state
+      - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.empty?
+        %p
+          %b Ticket:
+          = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), :target => "_blank"
       %p
         %b Language:
         = @event.language
-      %p
-        %b Start time:
-        = @event.start_time
-      %p
-        %b Abstract:
-        = @event.abstract
-      %p
-        %b Description:
-        = @event.description
       %p
         %b Public:
         = @event.public
       %p
         %b Average audience feedback:
         = number_with_precision @event.average_feedback, :precision => 1
-      - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.empty?
-        %p
-          %b Ticket:
-          = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), :target => "_blank"
-
-- content_for :sidebar do
-  = actions_block do
-    = action_button "application_edit", "Edit event", edit_event_path(@event), :title => "Edit this event's data."
-    - if @event.transition_possible? :accept
-      = action_button "thumb_up", "Accept event", update_state_event_path(@event, :transition => :accept, :send_mail => true), :method => :put, :title => "Accept this event. The speaker(s) will be notified of the acceptance via email. If they have access to the call for papers system, they will receive a link to confirm their attendance as well." 
-      = action_button "thumb_up", "Accept event (no email)", update_state_event_path(@event, :transition => :accept), :method => :put, :title => "Accept this event without sending an automated email."
-    - if @event.transition_possible? :reject
-      = action_button "thumb_down", "Reject event", update_state_event_path(@event, :transition => :reject, :send_mail => true), :method => :put, :confirm => "Are you sure?", :title => "Reject this event. The speaker(s) will be notified of the rejection via email."
-      = action_button "thumb_down", "Reject event (no email)", update_state_event_path(@event, :transition => :reject), :method => :put, :confirm => "Are you sure?", :title => "Reject this event without sending an automated email."
-    - if @event.transition_possible? :confirm
-      = action_button "tick", "Confirm event", update_state_event_path(@event, :transition => :confirm), :method => :put, :title => "Confirm that the speaker(s) will be present and that the event will actually take place."
-    - if @event.transition_possible? :cancel
-      = action_button "cancel", "Cancel event", update_state_event_path(@event, :transition => :cancel), :method => :put, :title => "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
-    - if @event.ticket.nil? or @event.ticket.remote_ticket_id.empty?
-      = action_button "add", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
+    .span6
+      %h2 Scheduling
+      %p
+        %b Time slots:
+        = format_time_slots @event.time_slots
+      %p
+        %b Start time:
+        = @event.start_time
+      %p
+        %b Room:
+        = @event.room.try(:name)
+    .span4
+      = image_box @event.logo, :large
+  .row
+    .span16
+      %h2 Content
+  .row
+    .span6
+      %p
+        %b Abstract:
+        = simple_format @event.abstract
+      %p
+        %b Links:
+        %br/
+        - @event.links.each do |link|
+          = link_to link.title, link.url
+          %br/
+    .span10
+      %p
+        %b Description:
+        = simple_format @event.description
