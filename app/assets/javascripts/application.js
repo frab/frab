@@ -8,4 +8,7 @@ $(function() {
   $('.topbar').dropdown();
   $('.alert-message').alert();
   $('a[data-original-title]').popover();
+  $('div.date input').datepicker({
+    dateFormat: "yy-mm-dd"
+  });
 });
