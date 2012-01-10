@@ -1,11 +1,6 @@
-= block do
-  .secondary-navigation
-    %ul.wat-cf
-      %li.active.first= link_to "Event Details", @event 
-      %li= link_to "People", people_event_path(@event)
-      %li= link_to "Ratings", event_event_rating_path(@event)
-      %li= link_to "Feedback", event_event_feedbacks_path(@event)
-  = content do
-    %h2 Editing event
-    = inner do
+%section
+  .page-header
+    %h1 Edit Event
+  .row
+    .span16
       = render 'form'
