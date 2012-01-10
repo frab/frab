@@ -5,7 +5,7 @@
     = f.input :event_type, :collection => Event::TYPES
     = f.input :track, :collection => @conference.tracks
     = f.input :time_slots, :as => :select, :collection => timeslots
-    = f.input :language, :as => :language, :only => @conference.language_codes
+    = f.input :language, :as => :bootstrap_language, :only => @conference.language_codes
     = f.input :public, :hint => "Is this event visible in the public schedule?"
     = f.input :logo
   = f.inputs :name => "State" do
