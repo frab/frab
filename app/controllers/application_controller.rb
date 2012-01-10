@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_locale
+  before_filter :set_mailer_host
   prepend_before_filter :load_conference
 
   helper_method :current_user
@@ -10,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     I18n.locale = params[:locale]
+  end
+
+  def set_mailer_host
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
   def load_conference
