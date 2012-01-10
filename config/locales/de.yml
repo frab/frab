@@ -262,6 +262,10 @@ de:
         password_confirmation: "Passwort wiederholen"
         current_password: "Aktuelles Passwort"
         remember_me: "An diesem Computer eingeloggt bleiben"
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Account aktivieren"
+      password_reset_instructions: "Password zurücksetzen"
   formtastic:
     actions:
       create: "%{model} anlegen" 
