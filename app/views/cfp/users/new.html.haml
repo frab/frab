@@ -12,4 +12,4 @@
           = f.input :password_confirmation
         = f.buttons do
           = f.commit_button t("cfp.sign_up"), :button_html => {:class => "btn primary"}
-          = link_to t("cfp.back"), :back, :class => "btn"
+          = link_to t("cfp.back"), new_cfp_session_path, :class => "btn"
