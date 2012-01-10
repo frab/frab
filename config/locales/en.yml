@@ -43,3 +43,7 @@ en:
       event:
         title: "Title"
         state: "State"
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Account Activation"
+      password_reset_instructions: "Reset Password"
