@@ -14,6 +14,7 @@
   = f.inputs :name => "Bio" do
     = f.input :abstract, :input_html => {:rows => 4, :class => "span6"}, :hint => "One short paragraph that succinctly describes this person."
     = f.input :description, :input_html => {:class => "span6"}, :hint => "A longer description of this person. Use this to give additional details that did not fit in the abstract."
+    = f.input :note, :hint => "visibility: admin only."
     = dynamic_association :links, "Links", f
   = f.buttons do
     = f.commit_button :button_html => {:class => "primary"}
