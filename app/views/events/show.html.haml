@@ -77,3 +77,11 @@
       %p
         %b Description:
         = simple_format @event.description
+    .span10
+      %p
+        %b Notes(admin):
+        = simple_format @event.note
+    .span10
+      %p
+        %b Submission Notes(user and admin):
+        = simple_format @event.submission_note
