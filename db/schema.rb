@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111222141647) do
+ActiveRecord::Schema.define(:version => 20120117220807) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -124,6 +124,8 @@ ActiveRecord::Schema.define(:version => 20111222141647) do
     t.datetime "updated_at"
     t.float    "average_rating"
     t.integer  "event_ratings_count", :default => 0
+    t.text     "note"
+    t.text     "submission_note"
   end
 
   create_table "im_accounts", :force => true do |t|
@@ -175,6 +177,7 @@ ActiveRecord::Schema.define(:version => 20111222141647) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.text     "note"
   end
 
   create_table "phone_numbers", :force => true do |t|
