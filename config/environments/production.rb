@@ -61,3 +61,11 @@ Frab::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+
+# Don't show trace pages in production! Requests shall never originate from localhost!
+# see: http://helderribeiro.net/?p=357
+class ActionDispatch::Request
+  def local?
+    false
+  end
+end
