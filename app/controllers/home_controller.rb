@@ -7,9 +7,6 @@ class HomeController < ApplicationController
     if Conference.count == 0
       redirect_to new_conference_path and return
     end
-    if @conference.nil?
-      @conference = Conference.first
-    end
     @versions = Version.where(:conference_id => @conference.id).order("created_at DESC").limit(5)
   end
 end
