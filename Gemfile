@@ -37,6 +37,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'minitest'
   gem 'factory_girl_rails'
   gem 'turn', :require => false
 end
