@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :authenticate_user!
+  before_filter :require_admin
   before_filter :find_person
 
   # GET /users/1
