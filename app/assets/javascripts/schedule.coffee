@@ -83,7 +83,8 @@ $ ->
       drop: (event, ui) ->
         add_event_to_slot(ui.draggable, this)
     )
-  $("body").delegate("table.room td", "click", (click_even) ->
+  $("#add-event-modal").modal()
+  $("body").delegate("table.room td", "click", (click_event) ->
     td = $(this)
     $("#add-event-modal #current-time").html(td.data("time"))
     $("ul#unscheduled-events").undelegate("click")
@@ -102,7 +103,7 @@ $ ->
       $("#add-event-modal").modal('hide')
       click_event.preventDefault()
     )
-    $("#add-event-modal").modal()
+    $("#add-event-modal").modal('show')
     click_event.stopPropagation()
   )
   for event in $("div.event")
