@@ -9,7 +9,12 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_locale
-    I18n.locale = params[:locale]
+    if %w{en de}.include?( params[:locale] )
+      I18n.locale = params[:locale]
+    else
+      I18n.locale = 'en'
+      params[:locale] = 'en'
+    end
   end
 
   def load_conference
