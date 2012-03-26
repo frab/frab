@@ -10,7 +10,7 @@
         = action_button "", "Confirm event", update_state_event_path(@event, :transition => :confirm), :method => :put, :hint => "Confirm that the speaker(s) will be present and that the event will actually take place."
       - if @event.transition_possible? :cancel
         = action_button "danger", "Cancel event", update_state_event_path(@event, :transition => :cancel), :method => :put, :hint => "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
-      - if @event.ticket.nil? or @event.ticket.remote_ticket_id.empty?
+      - if @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         = action_button "primary", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
     %h1 Event: #{@event.title}
   %ul.tabs
@@ -37,7 +37,7 @@
       %p
         %b State:
         = @event.state
-      - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.empty?
+      - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
           %b Ticket:
           = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), :target => "_blank"
