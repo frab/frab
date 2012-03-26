@@ -19,7 +19,11 @@
     - events.each do |event|
       %tr
         %td= link_to (image_box event.logo, :small), event
-        %td= link_to event.title, event
+        %td 
+          = link_to event.title, event
+          %p.small
+            by
+            = event.event_people.select{|p| p.event_role == "speaker" or p.event_role == "moderator"}.map{ |p| link_to p.person.full_name, p.person}.join(", ").html_safe
         %td= event.track.try(:name)
         %td= event.event_type
         %td= event.state
