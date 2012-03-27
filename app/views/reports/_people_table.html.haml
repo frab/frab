@@ -1,0 +1,26 @@
+%table.zebra-stripe
+  %thead
+    %tr
+      %th.first
+      - if @search
+        %th= sort_link @search, :name, :term => params[:term]
+        %th= sort_link @search, :track_name, "Track", :term => params[:term]
+        %th= sort_link @search, :event_type, :term => params[:term]
+        %th= sort_link @search, :state, :term => params[:term]
+        %th= sort_link @search, :created_at, :term => params[:term]
+      - else
+        %th Name
+        %th State
+        %th Created at
+      %th
+  %tbody
+    - people.each do |person|
+      %tr
+        %td= link_to (image_box event.logo, :small), person
+        %td= link_to person.title, person
+        %td= person.state
+        %td= l(person.created_at.to_date)
+        %td.buttons
+          = action_button "small", 'Show', person
+          = action_button "small", 'Edit', edit_person_path(person)
+          = action_button "small danger", 'Destroy', person, :confirm => 'Are you sure?', :method => :delete
