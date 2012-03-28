@@ -1,4 +1,5 @@
 %ul
-  %li= link_to "events without speaker", report_on_events_path(1)
-  %li= link_to "events with unconfirmed speakers", report_on_events_path(2)
-  %li= link_to "people without event", report_on_people_path(1)
+  %li= link_to "lectures with speaker", report_on_events_path('lectures_with_speaker')
+  %li= link_to "events without speaker", report_on_events_path('events_without_speaker')
+  %li= link_to "events with unconfirmed speakers", report_on_events_path("events_with_unconfirmed_speakers")
+  %li= link_to "people speaking at conference", report_on_people_path("people_speaking_at")

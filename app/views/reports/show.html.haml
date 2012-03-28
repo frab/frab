@@ -2,6 +2,11 @@
   .page-header
     %h1 Available Reports
   = render 'report_menu'
+  %h2 Results
+  = render 'shared/simple_search', :path => request.path
+  Found 
+  = @search_count
+  results.
   - if not @people.nil? and not @people.empty?
     .row
       .span16
