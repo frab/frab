@@ -21,7 +21,7 @@ class ReportsController < ApplicationController
       r = conference_events.with_speaker.where(:event_type => :lecture)
     when 'events_without_speaker'
       r = conference_events.without_speaker
-    when 'events_with__speakers'
+    when 'events_with_unconfirmed_speakers'
       r = conference_events.joins(:event_people).where(:event_people => { :role_state => [:canceled, :declined, :idea, :offer, :unclear], :event_role => :speaker } )
     end
 
@@ -45,7 +45,7 @@ class ReportsController < ApplicationController
 
     case @report_type
     when 'people_speaking_at'
-      r = conference_people.speaking_at
+      r = conference_people.speaking_at(@conference)
     end
 
     unless r.nil?
