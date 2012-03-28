@@ -25,7 +25,7 @@ class ReportsController < ApplicationController
       r = conference_events.joins(:event_people).where(:event_people => { :role_state => [:canceled, :declined, :idea, :offer, :unclear], :event_role => :speaker } )
     end
 
-    unless r.nil?
+    unless r.nil? or r.empty?
       @search = r.search(params[:q])
       @search_count = r.count
       @events = @search.result.paginate :page => params[:page]
@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
       r = conference_people.speaking_at(@conference)
     end
 
-    unless r.nil?
+    unless r.nil? or r.empty?
       @search = r.search(params[:q])
       @search_count = r.count
       @people = @search.result.paginate :page => params[:page]
