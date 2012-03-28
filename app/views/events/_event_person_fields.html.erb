@@ -1,6 +1,6 @@
 <div class="nested-fields">
   <%= f.inputs do %>
-    <%= f.input :person, :collection => Person.order(:last_name, :first_name) %>
+    <%= f.input :person, :collection => Person.order(:first_name, :last_name) %>
     <%= f.input :event_role, :as => :select, :collection => EventPerson::ROLES %>
     <%= f.input :role_state, :as => :select, :collection => EventPerson::STATES %>
     <%= remove_association_link "remove person", f %>
