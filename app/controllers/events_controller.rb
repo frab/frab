@@ -45,10 +45,12 @@ class EventsController < ApplicationController
   def ratings
     @search = @conference.events.search(params[:q])
     @events = @search.result.paginate :page => params[:page]
+    # total
     @events_total = @conference.events.count
-    @events_no_review_total = @events_total - @conference.events.joins(:event_ratings).count
+    @events_no_review_total = @events_total - @conference.events.joins(:event_ratings).count(:select => 'DISTINCT event_id')
+    # current_user
     @events_reviewed = @conference.events.joins(:event_ratings).where("event_ratings.person_id" => current_user.person.id).count
-    @events_no_review = @events_total - @conference.events.joins(:event_ratings).count
+    @events_no_review = @events_total - @events_reviewed
   end
 
   def start_review
