@@ -23,6 +23,7 @@
             - if @conference and not @conference.new_record?
               %li= link_to t("people", :default => "People"), people_path
               %li= link_to t("events", :default => "Events"), events_path
+              %li= link_to t("reports", :default => "Reports"), reports_path
               %li
                 - if @conference.call_for_papers
                   = link_to t("call for papers", :default => "Call for Papers"), call_for_papers_path

@@ -45,6 +45,7 @@ end
 group :development do
   gem 'hpricot'
   gem 'yaml_db'
+  gem 'shotgun'
 end
 
 group :assets do

@@ -32,6 +32,9 @@ class Event < ActiveRecord::Base
 
   after_save :update_conflicts
 
+  scope :with_speaker, where("speaker_count > 0")
+  scope :without_speaker, where("speaker_count = 0")
+
   scope :associated_with, lambda {|person| joins(:event_people).where(:"event_people.person_id" => person.id)}
   scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gt(day.beginning_of_day)).where(self.arel_table[:start_time].lt(day.end_of_day)).where(self.arel_table[:room_id].not_eq(nil)) }
   scope :scheduled, where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil))) 

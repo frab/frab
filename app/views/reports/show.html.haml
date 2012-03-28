@@ -1,0 +1,28 @@
+%section
+  .page-header
+    %h1 Available Reports
+  = render 'report_menu'
+  %h2 Results
+  = render 'shared/simple_search', :path => request.path
+  Found 
+  = @search_count
+  results.
+  - if not @people.nil? and not @people.empty?
+    .row
+      .span16
+        - if @people.all.empty?
+          %p Sorry, but your search yielded no results.
+        - else  
+          = render 'people_table', :people => @people 
+          = actions_bar do
+            = will_paginate @people
+  - if not @events.nil? and not @events.empty?
+    .row
+      .span16
+        - if @events.all.empty?
+          %p Sorry, but your search yielded no results.
+        - else  
+          = render 'events_table', :events => @events 
+          = actions_bar do
+            = will_paginate @events
+

@@ -95,6 +95,10 @@ Frab::Application.routes.draw do
         resources :event_feedbacks
       end
 
+      match "/reports" => "reports#index", :as => "reports"
+      match "/reports/on_people/:id" => "reports#show_people", :as => "report_on_people"
+      match "/reports/on_events/:id" => "reports#show_events", :as => "report_on_events"
+
       resources :tickets do
         member do
           post :create

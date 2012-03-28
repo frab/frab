@@ -6,8 +6,16 @@ class EventPerson < ActiveRecord::Base
 
   belongs_to :event
   belongs_to :person
+  after_save :update_speaker_count
+  after_destroy :update_speaker_count
 
   has_paper_trail :meta => {:associated_id => :event_id, :associated_type => "Event"}
+
+  def update_speaker_count
+    event = Event.find(self.event_id)
+    event.speaker_count = EventPerson.where(:event_id => event.id, :event_role => :speaker).count
+    event.save
+  end
 
   def confirm!
     self.role_state = "confirmed"
