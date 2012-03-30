@@ -20,9 +20,9 @@ frab is under heavy development. There is no stable release yet.
 You may want to try to use frab regardless, but be warned, that it may
 be a rocky ride.
 
-That being said, frab is being used to organize FrOSCon 2011, a
-conference with more than 60 talks (and as many speakers) in more
-than 5 parallel tracks over 2 days.
+That being said, frab has been used to organize FrOSCon 2011, a
+conference with more than 100 talks (and as many speakers) in more
+than 5 parallel tracks (plus devrooms) over 2 days.
 
 ## Installing
 
