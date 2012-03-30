@@ -30,7 +30,8 @@ frab is a pretty standard Ruby on Rails (version 3.1) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
-Basically, to get started  you need to:
+Basically, to get started you need git, ruby (>= 1.9.2) and bundler 
+and follow these steps:
 
 1) Clone the repository
 
@@ -46,7 +47,7 @@ Basically, to get started  you need to:
 
 4) Install Imagemagick:
 
-This is a dependency of the paper_clip gem. Imagemagick
+This is a dependency of the paperclip gem. Imagemagick
 tools need to be installed to identify and resize images.
 
 Imagemagick should be easy to install using your OS's
