@@ -44,7 +44,15 @@ Basically, to get started  you need to:
 
     bundle install
 
-4) Create (and possibly modify) the database configuration:
+4) Install Imagemagick:
+
+This is a dependency of the paper_clip gem. Imagemagick
+tools need to be installed to identify and resize images.
+
+Imagemagick should be easy to install using your OS's
+preferred package manager (apt-get, yum, brew etc.).
+ 
+5) Create (and possibly modify) the database configuration:
 
     cp config/database.yml.template config/database.yml
 
@@ -52,26 +60,26 @@ frab bundles all three built-in rails database drivers.
 And it should work with all three, although it is best tested 
 with MySQL and SQLite3 (for development). 
 
-5) Create and modify settings:
+6) Create and modify settings:
 
     cp config/settings.yml.template config/settings.yml
 
-6) Create and setup the database
+7) Create and setup the database
 
     rake db:setup
 
-7) Precompile assets (only needed for production)
+8) Precompile assets (only needed for production)
 
     rake assets:precompile
 
-8) Start the server
+9) Start the server
 
 To start frab in the development environment simply run
 
     rails server
 
 To start frab in the production environment make sure you
-did not skip step 7 and run:
+did not skip step 8 and run:
 
     rails server -e production
 
