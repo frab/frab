@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   def load_conference
     if params[:conference_acronym]
       @conference = Conference.find_by_acronym(params[:conference_acronym])
+      raise ActionController::RoutingError.new("Not found") unless @conference
     elsif Conference.count > 0
       @conference = Conference.current
     end
