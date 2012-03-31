@@ -9,7 +9,7 @@ class TicketsController < ApplicationController
     remote_id = create_remote_ticket( 
                                      create_ticket_title( @event ), 
                                      create_ticket_requestors( @event.people ),
-                                     @current_user.email
+                                     current_user.email
                                     )
     if (@event.ticket.nil?)
       @event.ticket = Ticket.new

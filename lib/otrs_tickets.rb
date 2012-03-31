@@ -16,7 +16,7 @@ module OtrsTickets
   #
   class OtrsAdapter
     require 'uri'
-    require 'net/https'
+    require 'net/http'
 
     def initialize(c, l)
       @conference = c
@@ -34,7 +34,6 @@ module OtrsTickets
       uri = get_ticket_json_uri
 
       # credentials
-      # FIXME passing credentials in a https url is not safe!
       user = URI.encode @conference.ticket_server.user
       password = URI.encode @conference.ticket_server.password
       uri.query = "User=#{user}"
@@ -85,7 +84,7 @@ module OtrsTickets
   # connect to a remote ticket system and return remote_id
   #
   def create_remote_ticket( title, requestors, owner_email, body='' ) 
-    otrs = OtrsAdapter.new( @conference, logger )
+    otrs = OtrsAdapter.new( @conference, Rails.logger )
 
     data = otrs.connect( 'UserObject', 'GetUserData', { :User => @conference.ticket_server.user })
     user_data = Hash[*data]
@@ -93,7 +92,10 @@ module OtrsTickets
     data = otrs.connect( 'UserObject', 'GetUserData', { :UserEmail => owner_email })
     owner_data = Hash[*data]
 
-    from = requestors.collect { |r| "#{r[:name]} <#{r[:email]}>" }.join(', ')
+    from = owner_email
+    unless requestors.empty?
+      from = requestors.collect { |r| "#{r[:name]} <#{r[:email]}>" }.join(', ')
+    end
 
     remote_ticket_id = otrs.connect( 'TicketObject', 'TicketCreate', {
         :Title => title,
