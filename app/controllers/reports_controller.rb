@@ -19,8 +19,10 @@ class ReportsController < ApplicationController
     case @report_type
     when 'lectures_with_speaker'
       r = conference_events.with_speaker.where(:event_type => :lecture)
+    when 'events_that_are_workshops'
+      r = conference_events.where(Event.arel_table[:event_type].eq(:workshop))
     when 'events_that_are_no_lectures'
-      r = conference_events.where(Event.arel_table[:event_type].not_eq(:lecture))
+      r = conference_events.where(Event.arel_table[:event_type].not_eq(:lecture).and(Event.arel_table[:event_type].not_eq(:lecture)))
     when 'events_without_speaker'
       r = conference_events.without_speaker
     when 'events_with_unconfirmed_speakers'
@@ -46,9 +48,9 @@ class ReportsController < ApplicationController
     end
 
     case @report_type
-    when 'people_with_a_note'
-      r = conference_people.speaking_at(@conference).when(:note)
     when 'people_speaking_at'
+      r = conference_people.speaking_at(@conference)
+    when 'people_with_a_note'
       r = conference_people.involved_in(@conference).where(Person.arel_table[:note].not_eq(""))
     end
 

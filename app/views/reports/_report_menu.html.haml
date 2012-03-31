@@ -1,7 +1,8 @@
 %p Query Events
 %ul
   %li= link_to "lectures with speaker", report_on_events_path('lectures_with_speaker')
-  %li= link_to "events != lecture", report_on_events_path('events_that_are_no_lectures')
+  %li= link_to "list of all workshops", report_on_events_path('events_that_are_workshops')
+  %li= link_to "events that are neither lectures nor workshops", report_on_events_path('events_that_are_no_lectures')
   %li= link_to "events without speaker", report_on_events_path('events_without_speaker')
   %li= link_to "events with unconfirmed speakers", report_on_events_path("events_with_unconfirmed_speakers")
 %p Query Speakers  
