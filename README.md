@@ -20,9 +20,9 @@ frab is under heavy development. There is no stable release yet.
 You may want to try to use frab regardless, but be warned, that it may
 be a rocky ride.
 
-That being said, frab is being used to organize FrOSCon 2011, a
-conference with more than 60 talks (and as many speakers) in more
-than 5 parallel tracks over 2 days.
+That being said, frab has been used to organize FrOSCon 2011, a
+conference with more than 100 talks (and as many speakers) in more
+than 5 parallel tracks (plus devrooms) over 2 days.
 
 ## Installing
 
@@ -30,7 +30,8 @@ frab is a pretty standard Ruby on Rails (version 3.1) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
-Basically, to get started  you need to:
+Basically, to get started you need git, ruby (>= 1.9.2) and bundler 
+and follow these steps:
 
 1) Clone the repository
 
@@ -44,7 +45,15 @@ Basically, to get started  you need to:
 
     bundle install
 
-4) Create (and possibly modify) the database configuration:
+4) Install Imagemagick:
+
+This is a dependency of the paperclip gem. Imagemagick
+tools need to be installed to identify and resize images.
+
+Imagemagick should be easy to install using your OS's
+preferred package manager (apt-get, yum, brew etc.).
+ 
+5) Create (and possibly modify) the database configuration:
 
     cp config/database.yml.template config/database.yml
 
@@ -52,26 +61,26 @@ frab bundles all three built-in rails database drivers.
 And it should work with all three, although it is best tested 
 with MySQL and SQLite3 (for development). 
 
-5) Create and modify settings:
+6) Create and modify settings:
 
     cp config/settings.yml.template config/settings.yml
 
-6) Create and setup the database
+7) Create and setup the database
 
     rake db:setup
 
-7) Precompile assets (only needed for production)
+8) Precompile assets (only needed for production)
 
     rake assets:precompile
 
-8) Start the server
+9) Start the server
 
 To start frab in the development environment simply run
 
     rails server
 
 To start frab in the production environment make sure you
-did not skip step 7 and run:
+did not skip step 8 and run:
 
     rails server -e production
 
