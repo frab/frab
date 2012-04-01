@@ -8,7 +8,7 @@
     = dynamic_association :languages, "Languages spoken", f
   = f.inputs :name => "Contact Data" do
     = f.input :email, :hint => "Please enter the email address that should be used as main means of contacting this person."
-    = f.input :email_public, :hint => "If set, this email address will be published in the public program."
+    = f.input :email_public, :as => :boolean, :hint => "If set, this email address will be published in the public program."
     = dynamic_association :phone_numbers, "Phone numbers", f
     = dynamic_association :im_accounts, "Instant messaging accounts", f
   = f.inputs :name => "Bio" do

@@ -18,6 +18,6 @@
   = f.inputs "Static program export" do
     = f.input :program_export_base_url, :hint => "If you want to use the static program export, enter the URL where you want to put the files under here. All references will be generated using this as a prefix."
   = f.inputs "Feedback system" do
-    = f.input :feedback_enabled, :hint => "If you enable this, your program export will include links to a feedback form where attendees can rate an event."
+    = f.input :feedback_enabled, :as => :boolean, :hint => "If you enable this, your program export will include links to a feedback form where attendees can rate an event."
   = f.buttons do
     = f.commit_button :button_html => {:class => "btn primary"}
