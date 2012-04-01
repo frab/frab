@@ -1,5 +1,13 @@
 module EventsHelper
 
+  def fix_http_proto(url)
+    if url.start_with?('https') or url.start_with?('http') or url.start_with?('ftp')
+      url
+    else
+      "http://#{url}"
+    end
+  end
+
   def timeslots
     slots = Array.new
     @conference.max_timeslots.times do |i|
