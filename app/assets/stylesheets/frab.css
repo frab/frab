@@ -110,3 +110,5 @@ td.buttons { width: 160px; }
 a.assoc {
   margin-left: 150px;
 }
+
+textarea { height: auto; width: 420px; }
