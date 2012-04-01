@@ -21,6 +21,8 @@ class ReportsController < ApplicationController
       r = conference_events.with_speaker.where(:event_type => :lecture)
     when 'events_that_are_workshops'
       r = conference_events.where(Event.arel_table[:event_type].eq(:workshop))
+    when 'event_timeslot_deviation'
+      r = conference_events.where(:event_type => :lecture).where('time_slots != ?', @conference.default_timeslots)
     when 'events_that_are_no_lectures'
       r = conference_events.where(Event.arel_table[:event_type].not_eq(:lecture).and(Event.arel_table[:event_type].not_eq(:workshop)))
     when 'events_without_speaker'
