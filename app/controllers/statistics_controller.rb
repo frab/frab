@@ -1,8 +1,20 @@
 class StatisticsController < ApplicationController
 
   def events_by_state
+    case params[:type]
+    when "lectures"
+        result = @conference.events_by_state_and_type(:lecture)
+    when "workshops"
+        result = @conference.events_by_state_and_type(:workshop)
+    when "others"
+        remaining = Event::TYPES - [:workshop,:lecture]
+        result = @conference.events_by_state_and_type(remaining)
+    else
+        result = @conference.events_by_state
+    end
+
     respond_to do |format|
-      format.json { render :json => @conference.events_by_state.to_json }
+      format.json { render :json => result.to_json }
     end
   end
 
