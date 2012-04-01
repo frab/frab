@@ -67,16 +67,23 @@
       %p
         %b Abstract:
         = simple_format @event.abstract
-      %p
-        %b Links:
-        %br/
-        - @event.links.each do |link|
-          = link_to link.title, fix_http_proto(link.url)
-          %br/
     .span10
       %p
         %b Description:
         = simple_format @event.description
+      %p
+        - if @event.links.any?
+          %b Links:
+          %br/
+          - @event.links.each do |link|
+            = link_to link.title, fix_http_proto(link.url)
+            %br/
+      %p
+        - if @event.event_attachments.any?
+          %b Files
+          %ul
+            - @event.event_attachments.each do |attachment|
+              %li= link_to attachment.title, attachment.attachment.url
     .span10
       %p
         %b Notes(admin):
