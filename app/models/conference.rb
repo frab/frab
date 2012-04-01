@@ -50,6 +50,15 @@ class Conference < ActiveRecord::Base
     ]
   end
 
+  def events_by_state_and_type(type)
+    [
+      [[0, self.events.where(:state => ["new", "review"], :event_type => type).count]],
+      [[1, self.events.where(:state => ["unconfirmed", "confirmed"], :event_type => type).count]],
+      [[2, self.events.where(:state => "rejected", :event_type => type).count]],
+      [[3, self.events.where(:state => ["withdrawn", "canceled"], :event_type => type).count]]
+    ]
+  end
+
   def language_breakdown(accepted_only = false)
     result = Array.new
     if accepted_only
