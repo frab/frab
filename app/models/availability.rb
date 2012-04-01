@@ -22,11 +22,21 @@ class Availability < ActiveRecord::Base
     "#{self.start_time.hour}-#{self.end_time.hour}"
   end
 
+  def fix_hour_range(h)
+    if h<0
+      0
+    elsif h>24
+      24
+    else
+      h
+    end
+  end
+
   def time_range=(new_range) 
     unless new_range.blank?
       from, to = new_range.split("-")
-      self.start_time = from
-      self.end_time = to
+      self.start_time = fix_hour_range(from)
+      self.end_time = fix_hour_range(to)
     end
   end
 

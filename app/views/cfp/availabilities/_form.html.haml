@@ -2,7 +2,8 @@
   = f.inputs do
     - @availabilities.each do |availability|
       %h3
-        = "#{l availability.day}:"
+        = l availability.day
+        from
         %span.time_range
           = "#{availability.start_time.hour}:00 - #{availability.end_time.hour}:00"
       = f.semantic_fields_for :availabilities, availability do |af|
@@ -22,8 +23,11 @@
         max: 24,
         values: [$(this).data("from"), $(this).data("to")],
         slide: function(event, ui) {
+          // label
           $(this).prev().prev().prev().prev().children(".time_range").html(ui.values[0] + ":00 - " + ui.values[1] + ":00");
-          $(this).prev().prev().prev().children("input").first().val(ui.values[0] + "-" + ui.values[1]);
+          // value
+          var slider = $(this).prev().prev().prev().prev().children(".time_range");
+          $(this).prev().prev().prev().find("input").first().val(ui.values[0] + "-" + ui.values[1]);
         }
       });
     });
