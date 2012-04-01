@@ -69,7 +69,7 @@ module OtrsTickets
   end
 
   def create_ticket_title( prefix, event )
-    "#{prefix} #{"%04d" % event.id}: #{event.title.truncate(30)}"
+    "#{prefix} '#{event.title.truncate(30)}'"
   end
 
   def create_ticket_requestors( people )
