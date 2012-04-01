@@ -9,7 +9,7 @@
     = f.input :track, :collection => @conference.tracks
     = f.input :time_slots, :as => :select, :collection => timeslots
     = f.input :language, :as => :bootstrap_language, :only => @conference.language_codes
-    = f.input :public, :hint => "Is this event visible in the public schedule?"
+    = f.input :public, :as => :radio, :collection => 0..1, :hint => "Is this event visible in the public schedule?"
     = f.input :logo
   = f.inputs :name => "State" do
     = f.input :state, :collection => Event.state_machine.states_for_select

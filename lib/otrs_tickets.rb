@@ -83,7 +83,8 @@ module OtrsTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def create_remote_ticket( title, requestors, owner_email, body='' ) 
+  def create_remote_ticket( conference, title, requestors, owner_email, body='' ) 
+    @conference = conference
     otrs = OtrsAdapter.new( @conference, Rails.logger )
 
     data = otrs.connect( 'UserObject', 'GetUserData', { :User => @conference.ticket_server.user })
@@ -115,7 +116,7 @@ module OtrsTickets
       :HistoryType =>    "WebRequestCustomer",
       :HistoryComment => "created from frab",
       :From => from,
-      :Subject => 'created from frab',
+      :Subject => title,
       :ContentType => 'text/plain; charset=ISO-8859-1',
       :Body => body,
       :UserID => user_data['UserID'],
