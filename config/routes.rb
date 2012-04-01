@@ -71,6 +71,7 @@ Frab::Application.routes.draw do
 
       resources :people do
         resource :user
+        resource :availability
         collection do
           get :all
           get :speakers
