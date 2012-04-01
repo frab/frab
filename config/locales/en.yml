@@ -3,6 +3,7 @@
 
 en:
   add_association: "add %{name}"
+  your_submission: "Your Submission"
   remove_link: "remove link"
   remove_file: "remove file"
   remove_language: "remove language"

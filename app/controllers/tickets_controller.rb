@@ -7,8 +7,9 @@ class TicketsController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     remote_id = create_remote_ticket( @conference,  
-                                     create_ticket_title( @event ), 
-                                     create_ticket_requestors( @event.people ),
+                                     create_ticket_title( t(:your_submission),
+                                                         @event ), 
+                                     create_ticket_requestors( @event.speakers ),
                                      current_user.email
                                     )
     if (@event.ticket.nil?)

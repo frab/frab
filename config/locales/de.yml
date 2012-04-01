@@ -1,5 +1,6 @@
 de:
   add_association: "%{name} hinzufügen"
+  your_submission: "Dein Vortrag"
   remove_link: "Link entfernen"
   remove_file: "Datei entfernen"
   remove_language: "Sprache entfernen"
