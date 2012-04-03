@@ -4,6 +4,11 @@ class AvailabilitiesController < ApplicationController
   before_filter :require_admin
   before_filter :find_person
 
+  def new
+    @availabilities = Availability.build_for(@conference)
+  end
+
+  # is really edit
   def show
     @availabilities = @person.availabilities_in(@conference)
   end

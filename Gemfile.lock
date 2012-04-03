@@ -68,7 +68,7 @@ GEM
       railties (>= 3.0.0)
     formtastic (2.0.2)
       rails (~> 3.0)
-    formtastic-bootstrap (1.2.0)
+    formtastic-bootstrap (1.1.0)
       formtastic
       rails (~> 3.1.0)
     gravatar-ultimate (1.0.3)
