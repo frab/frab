@@ -8,8 +8,7 @@ class AvailabilitiesController < ApplicationController
     @availabilities = Availability.build_for(@conference)
   end
 
-  # is really edit
-  def show
+  def edit
     @availabilities = @person.availabilities_in(@conference)
   end
 
