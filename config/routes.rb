@@ -99,6 +99,7 @@ Frab::Application.routes.draw do
       match "/reports" => "reports#index", :as => "reports"
       match "/reports/on_people/:id" => "reports#show_people", :as => "report_on_people"
       match "/reports/on_events/:id" => "reports#show_events", :as => "report_on_events"
+      match "/reports/on_statistics/:id" => "reports#show_statistics", :as => "report_on_statistics"
 
       resources :tickets do
         member do

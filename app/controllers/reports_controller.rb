@@ -19,6 +19,8 @@ class ReportsController < ApplicationController
     case @report_type
     when 'lectures_with_speaker'
       r = conference_events.with_speaker.where(:event_type => :lecture)
+    when 'lectures_not_confirmed'
+      r = conference_events.with_speaker.where(:event_type => :lecture, :state => [:new,:review] )
     when 'events_that_are_workshops'
       r = conference_events.where(Event.arel_table[:event_type].eq(:workshop))
     when 'event_timeslot_deviation'
@@ -61,6 +63,45 @@ class ReportsController < ApplicationController
       @search_count = r.count
       @people = @search.result.paginate :page => params[:page]
     end
+    render :show
+  end
+
+  def event_duration_sum(events)
+    # FIXME adjust for configurable duration and move to model
+    hours = events.map { |e| 
+      if e.time_slots < 5
+        1
+      else
+        v = e.time_slots / 4
+        v += 1 if e.time_slots % 4
+        v
+      end
+    }
+    hours.sum
+  end
+
+  def show_statistics
+    @report_type = params[:id]
+    @search_count = 0
+
+    case @report_type
+    when 'event_timeslot_sum'
+      @data = []
+      row = []
+      @labels = %w{LecturesCommited LecturesConfirmed LecturesUnconfirmed Lectures Workshops}
+      events = @conference.events.where(:event_type => :lecture, :state => [:confirmed, :unconfirmed])
+      row << event_duration_sum(events)
+      events = @conference.events.where(:event_type => :lecture, :state => :confirmed)
+      row << event_duration_sum(events)
+      events = @conference.events.where(:event_type => :lecture, :state => :unconfirmed)
+      row << event_duration_sum(events)
+      events = @conference.events.where(:event_type => :lecture)
+      row << event_duration_sum(events)
+      events = @conference.events.where(:event_type => :workshops)
+      row << event_duration_sum(events)
+      @data << row
+    end
+
     render :show
   end
 

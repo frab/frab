@@ -25,4 +25,7 @@
           = render 'events_table', :events => @events 
           = actions_bar do
             = will_paginate @events
-
+  - if not @data.nil? and not @data.empty?
+    .row
+      .span16
+        = render 'statistics_table', :data => @data 
