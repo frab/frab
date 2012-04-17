@@ -24,7 +24,7 @@ class Public::ScheduleController < ApplicationController
     @events = Hash.new
     @skip_row = Hash.new
     @all_rooms.each do |room|
-      events = room.events.accepted.public.scheduled_on(@day).order(:start_time).all
+      events = room.events.confirmed.public.scheduled_on(@day).order(:start_time).all
       unless events.empty?
         @events[room] = events 
         @skip_row[room] = 0
@@ -42,11 +42,11 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events.public.accepted.scheduled.order(:title)
+    @events = @conference.events.public.confirmed.scheduled.order(:title)
   end
 
   def event
-    @event = @conference.events.public.accepted.scheduled.find(params[:id])
+    @event = @conference.events.public.confirmed.scheduled.find(params[:id])
   end
 
   def speakers

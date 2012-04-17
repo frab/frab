@@ -41,6 +41,7 @@ class Event < ActiveRecord::Base
   scope :unscheduled, where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) 
   scope :accepted, where(self.arel_table[:state].in(["confirmed", "unconfirmed"]))
   scope :public, where(:public => true)
+  scope :confirmed, where(:state => :confirmed)
 
   acts_as_indexed :fields => [:title, :subtitle, :event_type, :abstract, :description, :track_name]
 
