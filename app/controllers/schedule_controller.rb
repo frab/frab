@@ -6,8 +6,8 @@ class ScheduleController < ApplicationController
   def index
     params[:day] ||= 0
     @day = @conference.days[params[:day].to_i]
-    @scheduled_events = @conference.events.accepted.scheduled_on(@day)
-    @unscheduled_events = @conference.events.accepted.unscheduled
+    @scheduled_events = @conference.events.accepted.scheduled_on(@day).order(:title)
+    @unscheduled_events = @conference.events.accepted.unscheduled.order(:title)
   end
 
   def update_track
