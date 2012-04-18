@@ -37,10 +37,10 @@ class Person < ActiveRecord::Base
     joins(:events => :conference).where(:"conferences.id" => conference.id).group(:"people.id")
   }
   scope :speaking_at, lambda { |conference|
-    joins(:events => :conference).where(:"conferences.id" => conference.id).where(:"event_people.event_role" => "speaker").where(:"events.state" => ["unconfirmed", "confirmed"]).group(:"people.id")
+    joins(:events => :conference).where(:"conferences.id" => conference.id).where(:"event_people.event_role" => ["speaker", "moderator"]).where(:"events.state" => ["unconfirmed", "confirmed"]).group(:"people.id")
   }
   scope :publicly_speaking_at, lambda { |conference|
-    joins(:events => :conference).where(:"conferences.id" => conference.id).where(:"event_people.event_role" => "speaker").where(:"events.public" => true).where(:"events.state" => ["unconfirmed", "confirmed"]).group(:"people.id")
+    joins(:events => :conference).where(:"conferences.id" => conference.id).where(:"event_people.event_role" => ["speaker", "moderator"]).where(:"events.public" => true).where(:"events.state" => ["unconfirmed", "confirmed"]).group(:"people.id")
   }
 
   def full_name
