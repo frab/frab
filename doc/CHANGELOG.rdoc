@@ -1,4 +1,6 @@
 = Frab Changelog
+== Master
+* Removed current Conference from the dropdown for "Switch Conference". https://github.com/katastrophie/frab/issues/17
 == 0.0.1
 * Start tagging versions
 * Changelog initialized
