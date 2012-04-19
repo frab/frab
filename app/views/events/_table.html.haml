@@ -23,7 +23,7 @@
           = link_to event.title, event
           %p.small
             by
-            = event.speakers.map{ |p| link_to p.person.full_public_name, p.person}.join(", ").html_safe
+            = event.speakers.map{ |p| link_to p.full_public_name, p}.join(", ").html_safe
         %td= event.track.try(:name)
         %td= event.event_type
         %td= event.state
