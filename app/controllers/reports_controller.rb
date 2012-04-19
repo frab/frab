@@ -87,6 +87,16 @@ class ReportsController < ApplicationController
     @search_count = 0
 
     case @report_type
+    when 'events_by_track'
+      @data = []
+      row = []
+      @labels = Track.all.collect { |t| t.name }
+      @labels.each { |track|
+        row << @conference.events.confirmed.joins(:track).where(:tracks => { :name => track}).count
+      }
+      @data << row
+      @search_count = row.inject(:+)
+
     when 'event_timeslot_sum'
       @data = []
       row = []
