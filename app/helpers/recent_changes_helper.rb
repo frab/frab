@@ -1,12 +1,15 @@
 module RecentChangesHelper
 
   def associated_link_for(version)
-    associated = version.associated_type.constantize.find(version.associated_id)
-    if associated.is_a? Conference
-      link_to associated.to_s, edit_conference_path
-    else
+    begin
       associated = version.associated_type.constantize.find(version.associated_id)
-      link_to associated.to_s, associated
+      if associated.is_a? Conference
+        link_to associated.to_s, edit_conference_path
+      else
+        link_to associated.to_s, associated
+      end
+    rescue
+      "[deleted #{version.associated_type.constantize} with id=#{version.associated_id}]"
     end
   end
 
