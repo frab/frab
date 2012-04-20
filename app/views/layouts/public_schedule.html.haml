@@ -28,5 +28,9 @@
                 = link_to "Events", public_events_path
         %br.clear/
       #main-content
+        - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
+          %p.release
+            = "Version #{@conference.schedule_version}"
+
         = yield
         %br.clear/

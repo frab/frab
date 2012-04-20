@@ -30,7 +30,27 @@ div#header  { width: 1200px; }
 #top-navigation {
   width: 60%;
   float: left;
-  margin: 42px 0 0 0
+  margin: 42px 0 0 0;
+}
+
+#main-content p.release {
+  left: 1030px;
+  position: relative;
+
+  background-color: #48B7E4;
+  color: white;
+  float: left;
+  font-size: 100%;
+
+  margin-bottom: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
 }
 
 ul.horizontal-navigation {
@@ -70,7 +90,9 @@ ul.horizontal-navigation li.selected {
 }
 
 #main-content {
-  padding: 15px 26px;
+  padding: 26px;
+  padding-top: 0px;
+  padding-bottom: 15px;
   width: 96%;
   height: auto;
   display: table;
@@ -78,6 +100,7 @@ ul.horizontal-navigation li.selected {
 
 #main-content > h2 {
   font-size: 24px;
+  padding-top: 15px;
 }
 
 .small-font{ font-size: 8px; }
