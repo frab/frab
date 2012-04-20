@@ -36,7 +36,8 @@
               = link_to t("switch_conference", :default => "Switch Conference"), "#", :class => "dropdown-toggle"
               %ul.dropdown-menu
                 - Conference.all.each do |conference|
-                  %li= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
+                  - unless @conference == conference
+                    %li= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
                 %li.divider/
                 %li= link_to "Create new conference", new_conference_path(:conference_acronym => nil)
             %li= link_to t("web-app-theme.logout", :default => "Logout"), session_path, :method => :delete
