@@ -52,11 +52,11 @@ class Public::ScheduleController < ApplicationController
 
   def speakers
     # TODO order by public name?
-    @speakers = Person.publicly_speaking_at(@conference).order(:public_name, :first_name, :last_name)
+    @speakers = Person.publicly_speaking_at(@conference).confirmed(@conference).order(:public_name, :first_name, :last_name)
   end
 
   def speaker
-    @speaker = Person.publicly_speaking_at(@conference).find(params[:id])
+    @speaker = Person.publicly_speaking_at(@conference).confirmed(@conference).find(params[:id])
   end
 
 end

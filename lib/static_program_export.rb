@@ -22,13 +22,13 @@ class StaticProgramExport
     end
     @session.get("#{path_prefix}/events")
     save_response("events.html")
-    @conference.events.accepted.public.each do |event|
+    @conference.events.confirmed.public.each do |event|
       @session.get("#{path_prefix}/events/#{event.id}")
       save_response("events/#{event.id}.html")
     end
     @session.get("#{path_prefix}/speakers")
     save_response("speakers.html")
-    Person.publicly_speaking_at(@conference).each do |speaker|
+    Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
       @session.get("#{path_prefix}/speakers/#{speaker.id}")
       save_response("speakers/#{speaker.id}.html")
     end
