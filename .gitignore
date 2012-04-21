@@ -10,3 +10,5 @@ index
 *.swp
 rerun.txt
 .sass-cache/
+.idea/
+.redcar/
