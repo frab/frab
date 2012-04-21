@@ -29,6 +29,8 @@ section {
   height: 32px;
 }
 
+p.small{ font-size: 8px; }
+
 .image.large {
   width: 128px;
   height: 128px;
