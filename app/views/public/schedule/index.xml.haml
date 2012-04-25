@@ -1,5 +1,7 @@
 !!! XML
 %schedule
+  - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
+    %version= @conference.schedule_version
   %conference
     %title= @conference.title
     %start= @conference.days.first.strftime('%Y-%m-%d')
