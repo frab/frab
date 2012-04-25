@@ -27,9 +27,9 @@ prawn_document(
 
     table_data << [""] + rooms.map(&:name)
 
-    each_15_minutes do |time|
+    each_timeslot do |time|
       row = []
-      row << time.to_s(:time)
+      row << minutes_to_time_str(time)
       rooms.size.times { row << "" }
       table_data << row
     end
