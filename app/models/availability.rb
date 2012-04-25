@@ -3,6 +3,7 @@ class Availability < ActiveRecord::Base
   belongs_to :person
   belongs_to :conference
 
+  validate :start_time_before_end_time
   after_save :update_event_conflicts
 
   def self.build_for(conference)
@@ -10,8 +11,8 @@ class Availability < ActiveRecord::Base
     conference.each_day do |date|
       result << self.new(
         :day => date,
-        :start_time => "08:00:00",
-        :end_time => "18:00:00",
+        :start_time => "%02d:00:00" % conference.day_start,
+        :end_time => "%02d:00:00" % conference.day_end,
         :conference => conference
       )
     end
@@ -25,8 +26,8 @@ class Availability < ActiveRecord::Base
   def fix_hour_range(h)
     if h.to_i<0
       "0"
-    elsif h.to_i>24
-      "24"
+    elsif h.to_i>=24
+      "23"
     else
       h
     end
@@ -63,6 +64,10 @@ class Availability < ActiveRecord::Base
     self.person.events_in(self.conference).each do |event|
       event.update_conflicts if event.start_time and event.start_time.to_date == self.day
     end
+  end
+  
+  def start_time_before_end_time
+    self.errors.add(:end_time, "should be after start time") if self.end_time < self.start_time
   end
 
 end
