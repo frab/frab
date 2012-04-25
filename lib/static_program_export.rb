@@ -87,8 +87,8 @@ class StaticProgramExport
         document.write_html_to(f, :encoding => "UTF-8")
       end
     else
-      File.open(file_path, "w") do |f| 
-        f.write(@session.response.body)
+      File.open(file_path, "w:utf-8") do |f| 
+        f.write(@session.response.body.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?"))
       end
     end
   end
