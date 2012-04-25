@@ -40,7 +40,7 @@ module ScheduleHelper
   end
 
   def minutes_to_time_str(minutes)
-    "#{minutes/60}:" + "%02d" % (minutes%60)
+    "%02d:%02d" % [minutes/60, minutes%60]
   end
 
 end
