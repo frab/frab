@@ -16,6 +16,9 @@ class Conference < ActiveRecord::Base
   validates_uniqueness_of :acronym
   validates_format_of :acronym, :with => /[a-z][a-z0-9_]*/
   validate :last_day_after_first_day
+  validates_inclusion_of :day_start, :in => 0..24, :message => "should be a number representing the hour of the day"
+  validates_inclusion_of :day_end, :in => 0..24, :message => "should be a number representing the hour of the day"
+  validate :day_start_before_day_end
 
   after_update :update_timeslots
 
@@ -113,5 +116,9 @@ class Conference < ActiveRecord::Base
 
   def last_day_after_first_day
     self.errors.add(:last_day, "should be after the first day") if self.last_day < self.first_day
+  end
+
+  def day_start_before_day_end
+    self.errors.add(:day_end, "should be after day start") if self.day_end < self.day_start
   end
 end
