@@ -38,10 +38,10 @@ class StaticProgramExport
     end
 
     # write files
-    paths.each { |p|
-      save_response("#{path_prefix}/#{p[:source]}", p[:target])
-    }
+    paths.each { |p| save_response("#{path_prefix}/#{p[:source]}", p[:target]) }
+    #save_response("#{path_prefix}/#{paths[1][:source]}", paths[1][:target])
 
+    return
     # copy all assets we detected earlier (jquery, ...)
     @asset_paths.uniq.each do |asset_path|
       original_path = File.join(Rails.root, "public", URI.unescape(asset_path))
@@ -70,7 +70,9 @@ class StaticProgramExport
     if filename =~ /\.html$/
       document = modify_response_html(filename)
       File.open(file_path, "w") do |f| 
-        document.write_html_to(f, :encoding => "UTF-8")
+        # FIXME corrupts events and speakers?
+        #document.write_html_to(f, :encoding => "UTF-8")
+        f.puts(document.to_html)
       end
     else
       File.open(file_path, "w:utf-8") do |f| 
