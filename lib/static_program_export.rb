@@ -7,82 +7,68 @@ class StaticProgramExport
     @session.https! if Settings['protocol'] == "https"
     @asset_paths = [] 
     @base_directory = File.join(Rails.root, "tmp", "static_export")
+    @base_url = @conference.program_export_base_url
+    unless @base_url.end_with?('/')
+      @base_url += '/'
+    end
+
   end
 
   def run_export
     setup_directories
     path_prefix = "/#{@conference.acronym}/public"
-    @session.get("#{path_prefix}/schedule")
-    save_response("index.html")
+    paths = [
+      { :source => "schedule", :target => "index.html" },
+      { :source => "events", :target => "events.html" },
+      { :source => "speakers", :target => "speakers.html" },
+      { :source => "schedule/style.css", :target => "style.css" },
+      { :source => "schedule.ics", :target => "schedule.ics" },
+      { :source => "schedule.xcal", :target => "schedule.xcal" },
+      { :source => "schedule.xml", :target => "schedule.xml" },
+    ]
     @conference.days.each do |day|
-      @session.get("#{path_prefix}/schedule/#{day}")
-      save_response("schedule/#{day}.html")
-      @session.get("#{path_prefix}/schedule/#{day}.pdf")
-      save_response("schedule/#{day}.pdf")
+      paths << { :source => "schedule/#{day}", :target => "schedule/#{day}.html" }
+      paths << { :source => "schedule/#{day}.pdf", :target => "schedule/#{day}.pdf" }
     end
-    @session.get("#{path_prefix}/events")
-    save_response("events.html")
     @conference.events.confirmed.public.each do |event|
-      @session.get("#{path_prefix}/events/#{event.id}")
-      save_response("events/#{event.id}.html")
+      paths << { :source => "events/#{event.id}", :target => "events/#{event.id}.html" }
     end
-    @session.get("#{path_prefix}/speakers")
-    save_response("speakers.html")
     Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
-      @session.get("#{path_prefix}/speakers/#{speaker.id}")
-      save_response("speakers/#{speaker.id}.html")
+      paths << { :source => "speakers/#{speaker.id}", :target => "speakers/#{speaker.id}.html" }
     end
-    @session.get("#{path_prefix}/schedule/style.css")
-    save_response("style.css")
-    @session.get("#{path_prefix}/schedule.ics")
-    save_response("schedule.ics")
-    @session.get("#{path_prefix}/schedule.xcal")
-    save_response("schedule.xcal")
-    @session.get("#{path_prefix}/schedule.xml")
-    save_response("schedule.xml")
+
+    # write files
+    paths.each { |p|
+      save_response("#{path_prefix}/#{p[:source]}", p[:target])
+    }
+
+    # copy all assets we detected earlier (jquery, ...)
     @asset_paths.uniq.each do |asset_path|
       original_path = File.join(Rails.root, "public", asset_path)
       if File.exist? original_path
         new_path = File.join(@base_directory, asset_path)
         FileUtils.mkdir_p(File.dirname(new_path))
         FileUtils.cp(original_path, new_path)
+      else
+        STDERR.puts '?? We might be missing "%s"' % original_path
       end
     end
   end
 
   private
 
-  def save_response(filename)
+  def save_response(source, filename)
+    status_code = @session.get(source)
+    unless status_code == 200
+      STDERR.puts '!! Failed to fetch "%s" as "%s" with error code %d' % [ source, filename, status_code ]
+      return 
+    end
+
     file_path = File.join(@base_directory, filename)
     FileUtils.mkdir_p(File.dirname(file_path))
+
     if filename =~ /\.html$/
-      level = filename.split("/").size - 1
-      document = Nokogiri::HTML(@session.response.body, nil, "UTF-8")
-      document.css("link").each do |link|
-        if link.attributes["href"].value == "/#{@conference.acronym}/public/schedule/style.css"
-          link.attributes["href"].value = dots(level) + "style.css"
-        else
-          strip_asset_path(link, "href", level) if link.attributes["href"]
-        end
-      end
-      document.css("script").each do |script|
-        strip_asset_path(script, "src", level) if script.attributes["src"]
-      end
-      document.css("img").each do |image|
-        strip_asset_path(image, "src", level)
-      end
-      document.css("a").each do |link|
-        if link.attributes["href"].value.start_with?("/")
-          if link.attributes["href"].value =~ /\?\d+$/
-            strip_asset_path(link, "href", level)
-          else
-            path = strip_path(link.attributes["href"].value)
-            path = "index" if path == "schedule"
-            path += ".html" unless path =~ /\.\w+$/
-            link.attributes["href"].value = dots(level) + path
-          end
-        end
-      end
+      document = modify_response_html(filename)
       File.open(file_path, "w") do |f| 
         document.write_html_to(f, :encoding => "UTF-8")
       end
@@ -93,20 +79,53 @@ class StaticProgramExport
     end
   end
 
-  def strip_asset_path(element, attribute, level = 0)
+  def modify_response_html(filename)
+    document = Nokogiri::HTML(@session.response.body, nil, "UTF-8")
+    
+    # <link>
+    document.css("link").each do |link|
+      href_attr = link.attributes["href"]
+      if href_attr.value.index("/#{@conference.acronym}/public/schedule/style.css")
+        link.attributes["href"].value = @base_url + "style.css"
+      else
+        strip_asset_path(link, "href") if href_attr
+      end
+    end
+
+    # <script>
+    document.css("script").each do |script|
+      strip_asset_path(script, "src") if script.attributes["src"]
+    end
+    
+    # <img>
+    document.css("img").each do |image|
+      strip_asset_path(image, "src")
+    end
+    
+    # <a>
+    document.css("a").each do |link|
+      if link.attributes["href"].value.start_with?("/")
+        if link.attributes["href"].value =~ /\?\d+$/
+          strip_asset_path(link, "href")
+        else
+          path = @base_url + strip_path(link.attributes["href"].value)
+          path = "index" if path == "schedule"
+          path += ".html" unless path =~ /\.\w+$/
+          link.attributes["href"].value = path
+        end
+      end
+    end
+    document
+  end
+
+  def strip_asset_path(element, attribute)
     path = strip_path(element.attributes[attribute].value)
     @asset_paths << path
-    element.attributes[attribute].value = dots(level) + path
+    element.attributes[attribute].value = @base_url + path
   end
 
   def strip_path(path)
-    path.gsub(/^\//, "").gsub(/^#{@conference.acronym}\/public\//, "").gsub(/\?\d+$/, "")
-  end
-
-  def dots(level)
-    result = (1..level).map{|i| ".."}.join("/")
-    result += "/" unless result.blank?
-    result
+    path.gsub(/^\//, "").gsub(/^(?:en|de)?\/?#{@conference.acronym}\/public\//, "").gsub(/\?(?:body=)?\d+$/, "")
   end
 
   def setup_directories
