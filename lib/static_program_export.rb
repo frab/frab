@@ -41,7 +41,6 @@ class StaticProgramExport
     paths.each { |p| save_response("#{path_prefix}/#{p[:source]}", p[:target]) }
     #save_response("#{path_prefix}/#{paths[1][:source]}", paths[1][:target])
 
-    return
     # copy all assets we detected earlier (jquery, ...)
     @asset_paths.uniq.each do |asset_path|
       original_path = File.join(Rails.root, "public", URI.unescape(asset_path))
