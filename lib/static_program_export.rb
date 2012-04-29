@@ -18,7 +18,7 @@ class StaticProgramExport
     setup_directories
     path_prefix = "/#{@conference.acronym}/public"
     paths = [
-      { :source => "schedule", :target => "index.html" },
+      { :source => "schedule", :target => "schedule.html" },
       { :source => "events", :target => "events.html" },
       { :source => "speakers", :target => "speakers.html" },
       { :source => "schedule/style.css", :target => "style.css" },
@@ -51,6 +51,12 @@ class StaticProgramExport
       else
         STDERR.puts '?? We might be missing "%s"' % original_path
       end
+    end
+
+    # create index.html
+    schedule_file = File.join(@base_directory, 'schedule.html')
+    if File.exist?  schedule_file 
+      FileUtils.cp(schedule_file, File.join(@base_directory, 'index.html'))
     end
   end
 
@@ -110,7 +116,6 @@ class StaticProgramExport
           strip_asset_path(link, "href")
         else
           path = @base_url + strip_path(link.attributes["href"].value)
-          path = "index" if path == "schedule"
           path += ".html" unless path =~ /\.\w+$/
           link.attributes["href"].value = path
         end
