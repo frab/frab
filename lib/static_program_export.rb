@@ -8,10 +8,10 @@ class StaticProgramExport
     @asset_paths = [] 
     @base_directory = File.join(Rails.root, "tmp", "static_export")
     @base_url = @conference.program_export_base_url
+    @base_url = URI.parse(@base_url).path
     unless @base_url.end_with?('/')
       @base_url += '/'
     end
-
   end
 
   def run_export
