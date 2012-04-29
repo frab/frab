@@ -44,7 +44,7 @@ class StaticProgramExport
 
     # copy all assets we detected earlier (jquery, ...)
     @asset_paths.uniq.each do |asset_path|
-      original_path = File.join(Rails.root, "public", asset_path)
+      original_path = File.join(Rails.root, "public", URI.unescape(asset_path))
       if File.exist? original_path
         new_path = File.join(@base_directory, asset_path)
         FileUtils.mkdir_p(File.dirname(new_path))
