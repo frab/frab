@@ -134,7 +134,7 @@ table.rooms-table {
 
 table.rooms-table td {
   border: 1px solid white;
-  border-top: none
+  border-top: none;
   vertical-align: top;
 }
 
