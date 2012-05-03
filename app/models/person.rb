@@ -29,7 +29,7 @@ class Person < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, :content_type => [/jpg/, /jpeg/, /png/, /gif/]
 
-  validates_presence_of :first_name, :last_name, :email
+  validates_presence_of :public_name, :email
 
   #validates_inclusion_of :gender, :in => GENDERS, :allow_nil => true
 
@@ -47,7 +47,11 @@ class Person < ActiveRecord::Base
   }
 
   def full_name
-    "#{first_name} #{last_name}"
+    if first_name.blank? or last_name.blank? and not public_name.blank?
+      public_name
+    else
+      "#{first_name} #{last_name}"
+    end
   end
 
   def full_public_name
