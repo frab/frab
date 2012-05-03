@@ -63,7 +63,7 @@ class Person < ActiveRecord::Base
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    self.events.public.accepted.where(:"event_people.event_role" => "speaker").where(:conference_id => conference.id).all
+    self.events.public.accepted.where(:"event_people.event_role" => ["speaker", "moderator"]).where(:conference_id => conference.id).all
   end
 
   def availabilities_in(conference)
@@ -71,7 +71,7 @@ class Person < ActiveRecord::Base
   end
 
   def average_feedback_as_speaker
-    events = self.event_people.where(:event_role => "speaker").map(&:event)
+    events = self.event_people.where(:event_role => ["speaker", "moderator"]).map(&:event)
     feedback = 0.0
     count = 0
     events.each do |event|

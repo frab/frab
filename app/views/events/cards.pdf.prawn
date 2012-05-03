@@ -19,7 +19,7 @@ prawn_document(:page_layout => :landscape) do |pdf|
           pdf.text(title, :size => 16, :style => :bold, :skip_encoding => true)
           subtitle = (event.subtitle || "").truncate(40)
           pdf.text(subtitle, :size => 14, :style => :italic)
-          speakers = event.event_people.select{|p| p.event_role == "speaker"}.map{|p| p.person.full_name}
+          speakers = event.speakers.map{|p| p.person.full_name}
           pdf.formatted_text_box(
             [{:text => "Speakers:\n", :styles => [:bold], :size => 12},
              {:text => speakers.join("\n"), :size => 12}],

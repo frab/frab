@@ -104,7 +104,7 @@ class Event < ActiveRecord::Base
   end
 
   def speakers
-    self.event_people.where(:event_role => "speaker").all.map(&:person)
+    self.event_people.where(:event_role => ["speaker", "moderator"]).all.map(&:person)
   end
 
   def to_s

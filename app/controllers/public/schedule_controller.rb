@@ -50,7 +50,6 @@ class Public::ScheduleController < ApplicationController
   end
 
   def speakers
-    # TODO order by public name?
     @speakers = Person.publicly_speaking_at(@conference).confirmed(@conference).order(:public_name, :first_name, :last_name)
   end
 
