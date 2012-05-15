@@ -106,6 +106,10 @@ class Event < ActiveRecord::Base
     "Event: #{self.title}"
   end
 
+  def to_sortable
+    self.title.gsub(/[^\d\w]/, '').upcase
+  end
+
   def process_acceptance(options)
     if options[:send_mail]
       self.event_people.where(:event_role => "speaker").each do |event_person|
