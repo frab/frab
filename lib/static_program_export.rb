@@ -79,7 +79,12 @@ class StaticProgramExport
         #document.write_html_to(f, :encoding => "UTF-8")
         f.puts(document.to_html)
       end
+    elsif filename =~ /\.pdf$/
+      File.open(file_path, "wb") do |f| 
+        f.write(@session.response.body)
+      end
     else
+      # CSS,...
       File.open(file_path, "w:utf-8") do |f| 
         f.write(@session.response.body.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?"))
       end
