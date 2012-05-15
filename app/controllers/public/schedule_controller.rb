@@ -42,7 +42,9 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events.public.confirmed.scheduled.order(:title)
+    @events = @conference.events.public.confirmed.scheduled.sort {|a,b|
+      a.to_sortable <=> b.to_sortable
+    }
   end
 
   def event
