@@ -69,7 +69,7 @@ class StaticProgramExport
       return 
     end
 
-    file_path = File.join(@base_directory, filename)
+    file_path = File.join(@base_directory, filename.encode('utf-8'))
     FileUtils.mkdir_p(File.dirname(file_path))
 
     if filename =~ /\.html$/
