@@ -83,6 +83,7 @@ Frab::Application.routes.draw do
         collection do
           get :my
           get :ratings
+          get :feedbacks
           get :start_review
           get :cards
         end
