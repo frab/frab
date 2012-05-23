@@ -57,7 +57,7 @@ class EventsController < ApplicationController
   end
 
   def feedbacks
-    @search = @conference.events.search(params[:q])
+    @search = @conference.events.accepted.search(params[:q])
     @events = @search.result.paginate :page => params[:page]
   end
 
