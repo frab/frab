@@ -53,6 +53,11 @@ class EventsController < ApplicationController
     @events_no_review = @events_total - @events_reviewed
   end
 
+  def feedbacks
+    @search = @conference.events.search(params[:q])
+    @events = @search.result.paginate :page => params[:page]
+  end
+
   def start_review
     ids = Event.ids_by_least_reviewed(@conference, current_user.person)
     if ids.empty?

@@ -90,8 +90,8 @@ class Event < ActiveRecord::Base
     self.class.state_machine.events_for(self.current_state).include?(transition)
   end
 
-  def average_feedback
-    average(:event_feedbacks)
+  def recalculate_average_feedback!
+    self.update_attributes(:average_feedback => average(:event_feedbacks))
   end
 
   def recalculate_average_rating!
