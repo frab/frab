@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425121612) do
+ActiveRecord::Schema.define(:version => 20120523130743) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -36,21 +36,22 @@ ActiveRecord::Schema.define(:version => 20120425121612) do
   end
 
   create_table "conferences", :force => true do |t|
-    t.string   "acronym",                                 :null => false
-    t.string   "title",                                   :null => false
-    t.string   "timezone",                                :null => false
-    t.integer  "timeslot_duration",                       :null => false
-    t.integer  "default_timeslots",                       :null => false
-    t.integer  "max_timeslots",                           :null => false
-    t.date     "first_day",                               :null => false
-    t.date     "last_day",                                :null => false
-    t.integer  "feedback_enabled",                        :null => false
+    t.string   "acronym",                 :null => false
+    t.string   "title",                   :null => false
+    t.string   "timezone",                :null => false
+    t.integer  "timeslot_duration",       :null => false
+    t.integer  "default_timeslots",       :null => false
+    t.integer  "max_timeslots",           :null => false
+    t.date     "first_day",               :null => false
+    t.date     "last_day",                :null => false
+    t.integer  "feedback_enabled",        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
     t.string   "program_export_base_url"
-    t.integer  "day_start",               :default => 8,  :null => false
-    t.integer  "day_end",                 :default => 20, :null => false
+    t.integer  "day_start",               :null => false
+    t.integer  "day_end",                 :null => false
+    t.string   "schedule_version"
   end
 
   create_table "conflicts", :force => true do |t|
@@ -103,12 +104,12 @@ ActiveRecord::Schema.define(:version => 20120425121612) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "conference_id",       :null => false
-    t.string   "title",               :null => false
+    t.integer  "conference_id",                        :null => false
+    t.string   "title",                                :null => false
     t.string   "subtitle"
     t.string   "event_type"
     t.integer  "time_slots"
-    t.string   "state",               :null => false
+    t.string   "state",                                :null => false
     t.string   "language"
     t.datetime "start_time"
     t.text     "abstract"
@@ -127,6 +128,8 @@ ActiveRecord::Schema.define(:version => 20120425121612) do
     t.text     "note"
     t.text     "submission_note"
     t.integer  "speaker_count"
+    t.integer  "event_feedbacks_count", :default => 0
+    t.float    "average_feedback"
   end
 
   create_table "im_accounts", :force => true do |t|
