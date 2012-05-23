@@ -61,6 +61,27 @@
           |
           = link_to "others only", "#", :id => "events_others_only"
         #event_state_graph(style="width:600px;height:300px;")
+        %table.zebra-stripe
+          %thead
+            %tr
+              %th new
+              %th review
+              %th withdrawn
+              %th unconfirmed
+              %th confirmed
+              %th canceled
+              %th rejected
+              %th total
+          %tbody
+            %tr
+              %td= @conference.events.where(:state => :new).count
+              %td= @conference.events.where(:state => :review).count
+              %td= @conference.events.where(:state => :withdrawn).count
+              %td= @conference.events.where(:state => :unconfirmed).count
+              %td= @conference.events.where(:state => :confirmed).count
+              %td= @conference.events.where(:state => :canceled).count
+              %td= @conference.events.where(:state => :rejected).count
+              %td= @conference.events.count
       - if @conference.languages.count > 1
         %h4 Events by language
         %p
