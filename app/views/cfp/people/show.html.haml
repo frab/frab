@@ -46,12 +46,19 @@
             %tr
               %th= t("activerecord.attributes.event.title") 
               %th= t("activerecord.attributes.event.state")
+              - if @conference.feedback_enabled
+                %th= t(:event_feedback)
               %th= t(:actions)
           %tbody
             - @person.events_in(@conference).each do |event|
               %tr
                 %td= event.title
                 %td= event.state
+                - if @conference.feedback_enabled
+                  %td
+                    = event.average_feedback
+                    %br
+                    = "n=#{event.event_feedbacks_count}"
                 %td
                   = link_to t("edit"), edit_cfp_event_path(event), :class => "btn small"
                   - if event.state == "unconfirmed"
