@@ -4,9 +4,9 @@ module RTTickets
   #
   module Helper
     def get_ticket_view_url( remote_id='0' )
-      uri = URI(@conference.ticket_server.url)
-      uri.path += 'index.pl'
-      uri.query = "Action=AgentTicketZoom;TicketID=#{remote_id}"
+      uri = URI.parse(@conference.ticket_server.url)
+      uri.path += 'Ticket/Display.html'
+      uri.query = "id=#{remote_id}"
       uri.to_s
     end
   end
@@ -21,51 +21,54 @@ module RTTickets
     def initialize(c, l)
       @conference = c
       @logger = l
+      @cookie = nil
     end
 
-    def get_ticket_json_uri
-      uri = URI(@conference.ticket_server.url)
-      uri.path += 'json.pl'
-      uri
-    end
+    def login
+      @uri = URI.parse(@conference.ticket_server.url)
+      @user = URI.encode @conference.ticket_server.user
+      @password = URI.encode @conference.ticket_server.password
 
-    def connect(object, method, data)
-      # see https://github.com/cpuguy83/rails_otrs
-      uri = get_ticket_json_uri
+      request = Net::HTTP::Post.new(@uri.path)
+      request.set_form_data( { 'user' => @user, 'pass' => @password } )
 
-      # credentials
-      user = URI.encode @conference.ticket_server.user
-      password = URI.encode @conference.ticket_server.password
-      uri.query = "User=#{user}"
-      uri.query += "&Password=#{password}"
-
-      # otrs api
-      uri.query += "&Object=#{object}"
-      uri.query += "&Method=#{method}"
-      data = URI.encode(data.to_json)
-      data = URI.escape(data, '=\',\\/+-&?#.;')
-      uri.query += "&Data=#{data}"
-
-      if $DEBUG
-        @logger.info "[ === ] #{object}::#{method}"
-        @logger.info uri.to_s 
-      end
-
-      # https connection
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-      result = ActiveSupport::JSON::decode(response.body)
-      if result["Result"] == 'successful'
-          result["Data"]
+      response = Net::HTTP.start(@uri.host, @uri.port) {|http| http.request(request) }
+      case response
+      when Net::HTTPSuccess
+        @cookie = response['set-cookie'].split(/;/).first
       else
         @logger.info response.to_json
-        raise "OTRS Error:#{result["Result"]} #{result["Data"]} #{result["Message"]}"
+        raise "RT Login Failed: #{response.error!}"
       end
     end
 
+    def create(data)
+      @uri = URI.parse(@conference.ticket_server.url)
+      @uri.path += 'REST/1.0/ticket/new'
+
+      request = Net::HTTP::Post.new(@uri.path)
+      request.add_field('Cookie', @cookie)
+      request.set_form_data({ 'content' => data })
+
+      response = Net::HTTP.start(@uri.host, @uri.port) {|http| 
+        # SSL
+        #http.use_ssl = true
+        #http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.request(request) 
+      }
+      case response
+      when Net::HTTPSuccess
+        if response.body.match(/200 Ok/) and m = response.body.match(/Ticket (\d+) created./)
+          return m[1]
+        else
+          @logger.info response.to_json
+          raise "RT Error: #{response.body}"
+        end
+      else
+        @logger.info response.to_json
+        raise "RT HTTP Error: #{response.error!}"
+      end
+    end
   end
 
   def create_ticket_title( prefix, event )
@@ -85,51 +88,22 @@ module RTTickets
   #
   def create_remote_ticket( conference, title, requestors, owner_email, body='' ) 
     @conference = conference
-    otrs = RTAdapter.new( @conference, Rails.logger )
+    ticket_system = RTAdapter.new( @conference, Rails.logger )
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { :User => @conference.ticket_server.user })
-    user_data = Hash[*data]
+    ticket_system.login
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { :UserEmail => owner_email })
-    owner_data = Hash[*data]
+    data = <<-EOF
+id: ticket/new
+Queue: #{@conference.ticket_server.queue}
+Subject:  #{title}
+Requestor: #{owner_email}
+    EOF
 
-    from = owner_email
-    unless requestors.empty?
-      from = requestors.collect { |r| "#{r[:name]} <#{r[:email]}>" }.join(', ')
-    end
+    requestors.each { |r| 
+      data << "Requestor: #{r[:name]} <#{r[:email]}>"
+    }
 
-    remote_ticket_id = otrs.connect( 'TicketObject', 'TicketCreate', {
-        :Title => title,
-        :Queue => @conference.ticket_server.queue,
-        :Lock => 'unlock',
-        :Priority => '3 normal',
-        :State => 'new',
-        :CustomerUser => from,
-        :OwnerID => owner_data['UserID'],
-        :UserID => user_data['UserID']
-    }).first
-
-    remote_article_id = otrs.connect( 'TicketObject', 'ArticleCreate', {
-      :TicketID => remote_ticket_id,
-      :ArticleType => 'webrequest',
-      :SenderType => 'customer',
-      :HistoryType =>    "WebRequestCustomer",
-      :HistoryComment => "created from frab",
-      :From => from,
-      :Subject => title,
-      :ContentType => 'text/plain; charset=ISO-8859-1',
-      :Body => body,
-      :UserID => user_data['UserID'],
-      :Loop => 0,
-      # :AutoResponseType => 'auto reply',
-      # :OrigHeader => {
-      #   'From' => owner_email,
-      #   'To' => 'Postmaster',
-      #   'Subject' => title,
-      #   'Body' => "Created from frab"
-      # },
-    }).first
-
+    remote_ticket_id = ticket_system.create( data ) 
     remote_ticket_id
   end
 
