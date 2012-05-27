@@ -1,19 +1,17 @@
 %table.zebra-striped
   %tbody
     - @versions.each do |version|
-      - user = User.find(version.whodunnit)
-      %tr
-        %td= version.created_at.to_s(:long)
-        %td= image_box user.person.avatar, :small
-        %td= link_to user.person.full_name, user.person
-        %td= verb_for version.event
-        %td
-          - if version.associated_id
+      - if version.associated_id
+        - user = User.find(version.whodunnit)
+        %tr
+          %td= version.created_at.to_s(:long)
+          %td= image_box user.person.avatar, :small
+          %td= link_to user.person.full_name, user.person
+          %td= verb_for version.event
+          %td
             = version.item.to_s
             on
             \#{associated_link_for version}
-          - else
-            = link_to version.item.to_s, version.item
-        %td
-          - if version.event == "update"
-            %a{:href => "#", :rel => "popover", :"data-placement" => "below", :"data-original-title" => "Detailed Changes", :"data-content" => render("recent_changes/detailed_changes", :version => version), :"data-html" => "true", :"data-trigger" => "manual"} Details 
+          %td
+            - if version.event == "update"
+              %a{:href => "#", :rel => "popover", :"data-placement" => "below", :"data-original-title" => "Detailed Changes", :"data-content" => render("recent_changes/detailed_changes", :version => version), :"data-html" => "true", :"data-trigger" => "manual"} Details 
