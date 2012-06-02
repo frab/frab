@@ -4,7 +4,7 @@ module OtrsTickets
   #
   module Helper
     def get_ticket_view_url( remote_id='0' )
-      uri = URI(@conference.ticket_server.url)
+      uri = URI.parse(@conference.ticket_server.url)
       uri.path += 'index.pl'
       uri.query = "Action=AgentTicketZoom;TicketID=#{remote_id}"
       uri.to_s

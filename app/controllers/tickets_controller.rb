@@ -1,5 +1,9 @@
 class TicketsController < ApplicationController
-  include OtrsTickets
+  if Rails.configuration.ticket_server_type == 'otrs_ticket'
+    include OtrsTickets
+  else
+    include RTTickets
+  end
 
   before_filter :authenticate_user!
   before_filter :require_admin

@@ -1,3 +1,6 @@
+%b 
+  using ticket server adapter: 
+  = Rails.configuration.ticket_server_type
 = semantic_form_for(@conference, :url => conference_path) do |f|
   - @conference.build_ticket_server unless @conference.ticket_server
   = f.semantic_fields_for :ticket_server do |ts|
