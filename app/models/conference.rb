@@ -11,8 +11,16 @@ class Conference < ActiveRecord::Base
   accepts_nested_attributes_for :tracks, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :ticket_server
-
-  validates_presence_of :title, :acronym, :first_day, :last_day
+  validates_presence_of :title, 
+    :acronym, 
+    :first_day, 
+    :last_day, 
+    :timeslot_duration, 
+    :default_timeslots,
+    :max_timeslots,
+    :first_day,
+    :last_day,
+    :feedback_enabled
   validates_uniqueness_of :acronym
   validates_format_of :acronym, :with => /[a-z][a-z0-9_]*/
   validate :last_day_after_first_day
@@ -115,10 +123,12 @@ class Conference < ActiveRecord::Base
   end
 
   def last_day_after_first_day
+    return unless self.last_day && self.first_day # 'validates_presence_of' throws errors already
     self.errors.add(:last_day, "should be after the first day") if self.last_day < self.first_day
   end
 
   def day_start_before_day_end
+    return unless self.day_end && self.day_start
     self.errors.add(:day_end, "should be after day start") if self.day_end < self.day_start
   end
 end
