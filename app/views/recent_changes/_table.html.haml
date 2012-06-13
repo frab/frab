@@ -1,7 +1,7 @@
 %table.zebra-striped
   %tbody
     - @versions.each do |version|
-      - if version.associated_id
+      - if version.associated_id and version.whodunnit
         - user = User.find(version.whodunnit)
         %tr
           %td= version.created_at.to_s(:long)
