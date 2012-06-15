@@ -1,0 +1,53 @@
+{ "schedule": {
+    <% unless @conference.schedule_version.nil? or @conference.schedule_version.empty? %>
+    "version": "<%= @conference.schedule_version%>",
+    <% end %>
+    "conference": {
+      "title": "<%= @conference.title %>",
+      "start": "<%= @conference.days.first.strftime('%Y-%m-%d') %>",
+      "end": "<%= @conference.days.last.strftime('%Y-%m-%d') %>",
+      "days": "<%= @conference.days.length %>",
+      "timeslot_duration": "<%= duration_to_time(@conference.timeslot_duration) %>",
+      "days": [
+        <% @conference.days.each_with_index do |day, index| %>
+          {
+            "index": "<%= index %>",
+            "date": "<%= day %>",
+            "rooms": {
+              <% @conference.rooms.public.each do |room| %>
+              "<%= room.name %>": [
+                <% room.events.public.accepted.scheduled_on(day).order(:start_time).each do |event| %>
+                  {
+                    "id": "<%= event.id %>",
+                    "start": "<%= event.start_time.strftime('%H:%M') %>",
+                    "duration": "<%= format_time_slots(event.time_slots) %>",
+                    "room": "<%= room.name %>",
+                    "slug": "<%= event.slug %>",
+                    "title": "<%= event.title %>",
+                    "subtitle": "<%= event.subtitle %>",
+                    "track": "<%= event.track.try(:name) %>",
+                    "type": "<%= event.event_type %>",
+                    "language": "<%= event.language %>",
+                    "abstract": "<%= event.abstract %>",
+                    "description": "<%= event.description %>",
+                    "persons": [
+                      <% event.speakers.each do |speaker| %>
+                        {"id": "<%= speaker.id %>",  "full_public_name": "<%= speaker.full_public_name %>"}<% if event.speakers.last.id != speaker.id %>,<% end %>
+                      <% end %>
+                    ],
+                    "links": [
+                      <% event.links.each do |link| %>
+                        {"url": "<%= link.url %>", "title": "<%= link.title%>"}
+                      <% end %>
+                    ]
+                  }<% if room.events.public.accepted.scheduled_on(day).order(:start_time).last.id != event.id %>,<% end %>
+                <% end %>
+              ]<% if @conference.rooms.public.last.id != room.id %>,<% end %>
+            <% end %>
+            }
+          }<% if @conference.last_day != day %>,<% end %>
+        <% end %>
+      ]
+    }
+  }
+}

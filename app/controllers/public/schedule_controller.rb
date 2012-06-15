@@ -10,6 +10,7 @@ class Public::ScheduleController < ApplicationController
       format.xml
       format.xcal
       format.ics
+      format.json { render :file => "public/schedule/index.json.erb", :content_type => 'application/json' }
     end
   end
 
