@@ -15,7 +15,7 @@ prawn_document(:page_layout => :landscape) do |pdf|
 
       if event = @events.pop
         pdf.grid(coords[0], coords[1]).bounding_box do
-          title = event.title.truncate(100)
+          title = "[#{event.id}] #{event.title.truncate(90)}"
           pdf.text(title, :size => 16, :style => :bold, :skip_encoding => true)
           subtitle = (event.subtitle || "").truncate(40)
           pdf.text(subtitle, :size => 14, :style => :italic)
