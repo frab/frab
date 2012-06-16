@@ -48,7 +48,7 @@ class EventsController < ApplicationController
 
     # total ratings:
     @events_total = @conference.events.count
-    @events_reviewed_total = @conference.events.select{|e|e.event_ratings_count>0}.count
+    @events_reviewed_total = @conference.events.select{|e| e.event_ratings_count != nil and e.event_ratings_count > 0 }.count
     @events_no_review_total = @events_total - @events_reviewed_total
 
     # current_user rated:
