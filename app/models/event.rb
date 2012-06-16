@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   include ActiveRecord::Transitions
 
-  TYPES = [:lecture, :workshop, :podium, :lightning_talk, :short_presentation, :meeting, :other]
+  TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
 
   has_many :event_people, :dependent => :destroy
   has_many :event_feedbacks, :dependent => :destroy
