@@ -1,4 +1,4 @@
-class Change_conferenceDayStartType < ActiveRecord::Migration
+class ChangeConferenceDayStartType < ActiveRecord::Migration
   def up
     change_column :conferences, :day_start, :integer, :default => "8", :null => false
     change_column :conferences, :day_end, :integer, :default => "20", :null => false
