@@ -26,7 +26,6 @@
           // label
           $(this).prev().prev().prev().prev().children(".time_range").html(ui.values[0] + ":00 - " + ui.values[1] + ":00");
           // value
-          var slider = $(this).prev().prev().prev().prev().children(".time_range");
           $(this).prev().prev().prev().find("input").first().val(ui.values[0] + "-" + ui.values[1]);
         }
       });
