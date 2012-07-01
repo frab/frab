@@ -19,5 +19,6 @@ Person.create!(
   :user => admin,
   :email => admin.email,
   :first_name => "admin", 
-  :last_name => "admin"
+  :last_name => "admin",
+  :public_name => "admin_127"
 )
