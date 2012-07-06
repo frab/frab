@@ -2,9 +2,6 @@ class Public::ScheduleController < ApplicationController
 
   layout 'public_schedule'
 
-  before_filter :authenticate_user!
-  before_filter :require_admin
-
   def index
     @days = @conference.days
 
