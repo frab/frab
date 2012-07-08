@@ -42,6 +42,9 @@ class Person < ActiveRecord::Base
   scope :publicly_speaking_at, lambda { |conference|
     joins(:events => :conference).where(:"conferences.id" => conference.id).where(:"event_people.event_role" => "speaker").where(:"events.public" => true).where(:"events.state" => ["unconfirmed", "confirmed"]).group(:"people.id")
   }
+  scope :confirmed, lambda { |conference|
+    joins(:events => :conference).where(:"conferences.id" => conference.id).where(:"events.state" => "confirmed")
+  }
 
   def full_name
     "#{first_name} #{last_name}"
