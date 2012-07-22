@@ -38,7 +38,7 @@ end
 
 group :test do
   gem 'minitest'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '~> 1.2.0'
   gem 'turn', :require => false
 end
 
