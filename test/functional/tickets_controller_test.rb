@@ -8,6 +8,8 @@ class TicketsControllerTest < ActionController::TestCase
     FactoryGirl.create(:event_person, :event => @event, :person => @person, :event_role => "submitter")
     FactoryGirl.create(:event_person, :event => @event, :person => @person, :event_role => "speaker")
 
+    # FIXME Rails.configuration.ticket_server_type
+    
     @url = 'https://localhost/otrs/'
     #@ticket_server = FactoryGirl.create(:ticket_server) #, :conference => @conference, :url => @url, :queue => 'test')
     @conference.ticket_server = TicketServer.new(:conference => @conference, :url => @url, :queue => 'test', :user => 'guest', :password => 'guest')
