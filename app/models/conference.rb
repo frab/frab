@@ -13,14 +13,12 @@ class Conference < ActiveRecord::Base
   accepts_nested_attributes_for :ticket_server
   validates_presence_of :title, 
     :acronym, 
+    :default_timeslots,
+    :feedback_enabled,
     :first_day, 
     :last_day, 
-    :timeslot_duration, 
-    :default_timeslots,
     :max_timeslots,
-    :first_day,
-    :last_day,
-    :feedback_enabled
+    :timeslot_duration
   validates_uniqueness_of :acronym
   validates_format_of :acronym, :with => /[a-z][a-z0-9_]*/
   validate :last_day_after_first_day
