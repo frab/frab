@@ -12,14 +12,13 @@ FactoryGirl.define do
     email { Factory.next(:email) }
     password "frab23"
     password_confirmation { password }
+    sign_in_count 0
     confirmed_at { Time.now }
   end
 
   factory :person do
     email { Factory.next(:email) }
-    first_name "Fred"
-    last_name "Besen"
-    gender "male"
+    public_name "Fred Besen"
   end
 
   factory :conference do
@@ -28,8 +27,12 @@ FactoryGirl.define do
     timeslot_duration 15
     default_timeslots 4
     max_timeslots 20
+    feedback_enabled true
     first_day { Date.today.since(60.days).to_date }
     last_day { Date.today.since(62.days).to_date }
+    day_start 7
+    day_end 21
+    timezone "Berlin"
   end
 
   factory :call_for_papers do
