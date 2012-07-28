@@ -46,6 +46,7 @@ GEM
       coffee-script (~> 2.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
+    cancan (1.6.8)
     cocaine (0.2.1)
     cocoon (1.0.17)
     coffee-rails (3.2.2)
@@ -213,6 +214,7 @@ DEPENDENCIES
   acts_as_indexed
   barista
   bcrypt-ruby
+  cancan
   cocoon
   coffee-rails (~> 3.2.0)
   factory_girl_rails (~> 1.2.0)

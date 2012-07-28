@@ -7,6 +7,7 @@ gem 'pg'
 gem 'mysql2'
 
 gem 'bcrypt-ruby'
+gem 'cancan'
 gem 'haml'
 gem 'acts_as_commentable'
 gem 'will_paginate'
