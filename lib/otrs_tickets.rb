@@ -21,7 +21,9 @@ module OtrsTickets
     def initialize(c, l)
       @conference = c
       @logger = l
+      @test_only = false
     end
+    attr_accessor :test_only
 
     def get_ticket_json_uri
       uri = URI(@conference.ticket_server.url)
@@ -49,6 +51,11 @@ module OtrsTickets
       if $DEBUG
         @logger.info "[ === ] #{object}::#{method}"
         @logger.info uri.to_s 
+      end
+
+      if @test_only
+        @logger.info uri.request_uri
+        return
       end
 
       # https connection
@@ -83,23 +90,26 @@ module OtrsTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def create_remote_ticket( conference, title, requestors, owner_email, body='' ) 
-    @conference = conference
+  def create_remote_ticket( args = {} )
+    args.reverse_update(body: '', test_only: false)
+    @conference = args[:conference]
+
     otrs = OtrsAdapter.new( @conference, Rails.logger )
+    otrs.test_only = args[:test_only]
 
     data = otrs.connect( 'UserObject', 'GetUserData', { :User => @conference.ticket_server.user })
     user_data = Hash[*data]
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { :UserEmail => owner_email })
+    data = otrs.connect( 'UserObject', 'GetUserData', { :UserEmail => args[:owner_email] })
     owner_data = Hash[*data]
 
-    from = owner_email
-    unless requestors.empty?
-      from = requestors.collect { |r| "#{r[:name]} <#{r[:email]}>" }.join(', ')
+    from = args[:owner_email]
+    unless args[:requestors].empty?
+      from = args[:requestors].collect { |r| "#{r[:name]} <#{r[:email]}>" }.join(', ')
     end
 
     remote_ticket_id = otrs.connect( 'TicketObject', 'TicketCreate', {
-        :Title => title,
+        :Title => args[:title],
         :Queue => @conference.ticket_server.queue,
         :Lock => 'unlock',
         :Priority => '3 normal',
@@ -116,18 +126,11 @@ module OtrsTickets
       :HistoryType =>    "WebRequestCustomer",
       :HistoryComment => "created from frab",
       :From => from,
-      :Subject => title,
+      :Subject => args[:title],
       :ContentType => 'text/plain; charset=ISO-8859-1',
-      :Body => body,
+      :Body => args[:body],
       :UserID => user_data['UserID'],
       :Loop => 0,
-      # :AutoResponseType => 'auto reply',
-      # :OrigHeader => {
-      #   'From' => owner_email,
-      #   'To' => 'Postmaster',
-      #   'Subject' => title,
-      #   'Body' => "Created from frab"
-      # },
     }).first
 
     remote_ticket_id

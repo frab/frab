@@ -22,12 +22,20 @@ module RTTickets
       @conference = c
       @logger = l
       @cookie = nil
+      @test_only = false
     end
+    attr_accessor :test_only
 
     def login
       @uri = URI.parse(@conference.ticket_server.url)
       @user = URI.encode @conference.ticket_server.user
       @password = URI.encode @conference.ticket_server.password
+
+      if @test_only
+        @logger.info @uri.path
+        @logger.info "user => #{@user}, pass => 'XXX'"
+        return
+      end
 
       request = Net::HTTP::Post.new(@uri.path)
       request.set_form_data( { 'user' => @user, 'pass' => @password } )
@@ -45,6 +53,12 @@ module RTTickets
     def create(data)
       @uri = URI.parse(@conference.ticket_server.url)
       @uri.path += 'REST/1.0/ticket/new'
+
+      if @test_only
+        @logger.info @uri.path
+        @logger.info "content => #{data}"
+        return
+      end
 
       request = Net::HTTP::Post.new(@uri.path)
       request.add_field('Cookie', @cookie)
@@ -86,20 +100,22 @@ module RTTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def create_remote_ticket( conference, title, requestors, owner_email, body='' ) 
-    @conference = conference
-    ticket_system = RTAdapter.new( @conference, Rails.logger )
+  def create_remote_ticket( args = {} )
+    args.reverse_update(body: '', test_only: false)
+    @conference = args[:conference]
 
+    ticket_system = RTAdapter.new( @conference, Rails.logger )
+    ticket_system.test_only = args[:test_only]
     ticket_system.login
 
     data = <<-EOF
 id: ticket/new
 Queue: #{@conference.ticket_server.queue}
-Subject:  #{title}
-Requestor: #{owner_email}
+Subject:  #{args[:title]}
+Requestor: #{args[:owner_email]}
     EOF
 
-    requestors.each { |r| 
+    args[:requestors].each { |r| 
       data << "Requestor: #{r[:name]} <#{r[:email]}>"
     }
 
