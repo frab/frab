@@ -86,5 +86,10 @@ FactoryGirl.define do
     comment "doh"
   end
 
+  factory :ticket do
+    event
+    remote_ticket_id "1234"
+  end
+
 end
 
