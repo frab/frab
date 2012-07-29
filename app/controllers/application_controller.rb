@@ -59,21 +59,6 @@ class ApplicationController < ActionController::Base
     user.record_login!
   end
 
-  def require_admin
-    require_role("admin", new_session_path)
-  end
-
-  def require_submitter
-    require_role("submitter", new_cfp_session_path)
-  end
-
-  def require_role(role, redirect_path)
-    user = current_user
-    unless user and user.role == role 
-      redirect_to redirect_path 
-    end
-  end
-
   def scoped_sign_in_path
     if request.path =~ /\/cfp/
       new_cfp_session_path

@@ -20,6 +20,7 @@ class Ability
       # everything from reviewer
       # TODO coordinators restricted to their conference
       can :manage, CallForPapers
+      cannot :destroy CallForPapers
       can :read, Conference
       can :manage, Event
       can :read, EventFeedback
