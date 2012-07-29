@@ -1,5 +1,8 @@
 class StatisticsController < ApplicationController
 
+  before_filter :authenticate_user!
+  before_filter :require_admin
+
   def events_by_state
     case params[:type]
     when "lectures"
