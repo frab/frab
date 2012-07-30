@@ -3,6 +3,8 @@ class Ability
 
   def initialize(user)
     user ||= User.new
+
+    # Attention: User.role vs. EventPerson.role
     case user.role
     when /admin/
       can :manage, :all
@@ -18,9 +20,8 @@ class Ability
     when /coordinator/
       # coordinates speakers and their events
       # everything from reviewer
-      # TODO coordinators restricted to their conference
       can :manage, CallForPapers
-      cannot :destroy CallForPapers
+      cannot :destroy, CallForPapers
       can :read, Conference
       can :manage, Event
       can :read, EventFeedback
@@ -45,7 +46,6 @@ class Ability
       # edits own events
       # manage his account
       # everything from guest
-      # TODO is the call_for_papers_id assigned to manually created users?
       can :read, CallForPapers
       can :manage, Event, Event.associated_with(user.person.id)
       can :create, EventFeedback
