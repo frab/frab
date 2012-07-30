@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include UniqueToken
 
-  ROLES = ["submitter", "admin"]
+  ROLES = ["submitter", "reviewer", "coordinator", "orga", "admin"]
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   belongs_to :call_for_papers
@@ -12,6 +12,13 @@ class User < ActiveRecord::Base
   attr_accessor :remember_me
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id
+
+  after_initialize :check_default_values
+
+  def check_default_values
+    self.role ||= 'submitter'
+    self.sign_in_count ||= 0
+  end
 
   scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
   validates_presence_of :email
