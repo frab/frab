@@ -1,7 +1,7 @@
 class AvailabilitiesController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  load_and_authorize_resource :person, :parent => false
   before_filter :find_person
 
   def new

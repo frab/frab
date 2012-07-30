@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  load_and_authorize_resource :user, :parent => false
   before_filter :find_person
 
   # GET /users/1

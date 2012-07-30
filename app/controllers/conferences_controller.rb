@@ -3,7 +3,7 @@ class ConferencesController < ApplicationController
   skip_before_filter :load_conference, :only => :new
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  load_and_authorize_resource
 
   # GET /conferences
   # GET /conferences.xml
