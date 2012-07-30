@@ -34,6 +34,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.role = params[:user][:role]
     @user.person = @person
+    @user.call_for_papers = @conference.call_for_papers
     @user.skip_confirmation!
 
     respond_to do |format|
