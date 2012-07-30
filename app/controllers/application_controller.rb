@@ -6,10 +6,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to new_session_path
-    # TODO redirect to correct path
-    # redirect_to new_cfp_session_path
+  rescue_from CanCan::AccessDenied do |ex|
+      redirect_to new_session_path
+    else
+      redirect_to new_cfp_session_path
+    end
   end
 
   protected
