@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   rescue_from CanCan::AccessDenied do |ex|
+    if @current_user and @current_user.role != 'submitter'
       redirect_to new_session_path
     else
       redirect_to new_cfp_session_path
