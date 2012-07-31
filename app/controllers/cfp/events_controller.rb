@@ -3,7 +3,7 @@ class Cfp::EventsController < ApplicationController
   layout "cfp"
 
   before_filter :authenticate_user!, :except => :confirm
-  before_filter :require_submitter, :except => :confirm
+  load_and_authorize_resource :conference, :parent => false
 
   # GET /cfp/events
   # GET /cfp/events.xml

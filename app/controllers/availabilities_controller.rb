@@ -5,6 +5,7 @@ class AvailabilitiesController < ApplicationController
   before_filter :find_person
 
   def new
+    # authorize! :create, @person
     @availabilities = Availability.build_for(@conference)
   end
 

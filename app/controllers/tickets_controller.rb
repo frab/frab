@@ -6,7 +6,7 @@ class TicketsController < ApplicationController
   end
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  load_and_authorize_resource :ticket_server, :parent => false
 
   def create
     @event = Event.find(params[:event_id])

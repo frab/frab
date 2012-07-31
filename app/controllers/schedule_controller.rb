@@ -1,7 +1,7 @@
 class ScheduleController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  load_and_authorize_resource :event, :parent => false
 
   def index
     params[:day] ||= 0

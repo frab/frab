@@ -3,7 +3,7 @@ class Cfp::PeopleController < ApplicationController
   layout "cfp"
 
   before_filter :authenticate_user!
-  before_filter :require_submitter
+  load_and_authorize_resource :people, :parent => false
 
   def show
     @person = current_user.person
