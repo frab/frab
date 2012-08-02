@@ -30,7 +30,8 @@
                 - else
                   = link_to t("call for papers", :default => "Launch Call for Papers"), new_call_for_papers_path
               %li= link_to t("schedule", :default => "Schedule"), schedule_path
-              %li= link_to t("settings", :default => "Settings"), edit_conference_path
+              - if can? :manage, :conference
+                %li= link_to t("settings", :default => "Settings"), edit_conference_path
           %ul.nav.secondary-nav.pull-right
             %li.dropdown
               = link_to t("switch_conference", :default => "Switch Conference"), "#", :class => "dropdown-toggle"
