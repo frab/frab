@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :user, :parent => false
   before_filter :find_person
 
   # GET /users/1
   # GET /users/1.xml
   def show
     @user = @person.user
+    authorize! :manage, @user
 
     redirect_to new_person_user_path(@person) unless @user
   end
@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new.xml
   def new
     @user = User.new
+    authorize! :manage, @user
 
     respond_to do |format|
       format.html # new.html.erb
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = @person.user 
+    authorize! :manage, @user
   end
 
   # POST /users
@@ -52,6 +54,8 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = @person.user 
+    authorize! :manage, @user
+
     [:password, :password_confirmation].each do |password_key|
       params[:user].delete(password_key) if params[:user][password_key].blank?
     end

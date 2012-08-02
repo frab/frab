@@ -3,11 +3,11 @@ class Cfp::EventsController < ApplicationController
   layout "cfp"
 
   before_filter :authenticate_user!, :except => :confirm
-  load_and_authorize_resource :conference, :parent => false
 
   # GET /cfp/events
   # GET /cfp/events.xml
   def index
+    authorize! :submit, Event
     @events = current_user.person.events.all
 
     respond_to do |format|
@@ -19,6 +19,7 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events/1
   # GET /cfp/events/1.xml
   def show
+    authorize! :submit, Event
     @event = current_user.person.events.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +31,7 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events/new
   # GET /cfp/events/new.xml
   def new
+    authorize! :submit, Event
     @event = Event.new(:time_slots => @conference.default_timeslots)
 
     respond_to do |format|
@@ -40,12 +42,14 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1/edit
   def edit
+    authorize! :submit, Event
     @event = current_user.person.events.find(params[:id])
   end
 
   # POST /cfp/events
   # POST /cfp/events.xml
   def create
+    authorize! :submit, Event
     @event = Event.new(params[:event])
     @event.conference = @conference
     @event.event_people << EventPerson.new(:person => current_user.person, :event_role => "submitter")
@@ -65,6 +69,7 @@ class Cfp::EventsController < ApplicationController
   # PUT /cfp/events/1
   # PUT /cfp/events/1.xml
   def update
+    authorize! :submit, Event
     @event = current_user.person.events.find(params[:id], :readonly => false)
 
     respond_to do |format|
@@ -79,6 +84,7 @@ class Cfp::EventsController < ApplicationController
   end
 
   def withdraw
+    authorize! :submit, Event
     @event = current_user.person.events.find(params[:id], :readonly => false)
     @event.withdraw!
     redirect_to(cfp_person_path, :notice => t("cfp.event_withdrawn_notice"))

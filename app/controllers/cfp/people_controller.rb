@@ -3,7 +3,7 @@ class Cfp::PeopleController < ApplicationController
   layout "cfp"
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :people, :parent => false
+  load_and_authorize_resource :person, :parent => false
 
   def show
     @person = current_user.person
