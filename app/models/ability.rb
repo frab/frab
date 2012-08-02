@@ -47,7 +47,7 @@ class Ability
       # manage his account
       # everything from guest
       can :read, CallForPapers
-      can :manage, Event, Event.associated_with(user.person.id)
+      can :submit, Event
       can :create, EventFeedback
       can :manage, Person, :user_id => user.id
       can :manage, User, :id => user.id
