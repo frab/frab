@@ -19,8 +19,7 @@ class TicketsControllerTest < ActionController::TestCase
     login_as(:admin)
   end
 
-  test "create remote ticket" do
-    assert true
+  test "create remote ticket with RT" do
     post :create, :event_id => @event.id, 
          :conference_acronym => @conference.acronym, :test_only => true
     assert_redirected_to event_path(assigns(:event))
