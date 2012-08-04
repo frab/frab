@@ -1,8 +1,10 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
-      = action_button "add", "Add person", new_person_path, :title => "Add a new person."
+      - if can? :manage, @person
+        = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+      - if can? :manage, :person
+        = action_button "add", "Add person", new_person_path, :title => "Add a new person."
     %h1 Person: #{@person.full_name} 
   %ul.tabs
     %li.active= link_to "Profile", @person
@@ -27,23 +29,24 @@
       %p
         %b Gender:
         = @person.gender
-    .span6 
-      %h2 Contact information
-      %p
-        %b Email:
-        = mail_to @person.email
-        (#{@person.email_public ? "public" : "non-public"})
-      - @person.phone_numbers.each do |phone_number|
+    - if can? :manage, :person
+      .span6 
+        %h2 Contact information
         %p
-          %b
-            Phone number (#{phone_number.phone_type}):
-          = phone_number.phone_number
-      - @person.im_accounts.each do |im_account|
-        %p
-          %b
-            = im_account.im_type
-            \:
-          = im_account.im_address
+          %b Email:
+          = mail_to @person.email
+          (#{@person.email_public ? "public" : "non-public"})
+        - @person.phone_numbers.each do |phone_number|
+          %p
+            %b
+              Phone number (#{phone_number.phone_type}):
+            = phone_number.phone_number
+        - @person.im_accounts.each do |im_account|
+          %p
+            %b
+              = im_account.im_type
+              \:
+            = im_account.im_address
     .span4
       = image_box @person.avatar, :large
 %section

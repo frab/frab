@@ -1,7 +1,8 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Add person", new_person_path, :title => "Add a new person."
+      - if can? :manage, :person
+        = action_button "primary", "Add person", new_person_path, :title => "Add a new person."
     %h1 List of people
   %ul.tabs
     %li= link_to "This conference", people_path
