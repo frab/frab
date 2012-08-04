@@ -24,6 +24,7 @@ class StaticProgramExport
       { :source => "schedule/style.css", :target => "style.css" },
       { :source => "schedule.ics", :target => "schedule.ics" },
       { :source => "schedule.xcal", :target => "schedule.xcal" },
+      { :source => "schedule.json", :target => "schedule.json" },
       { :source => "schedule.xml", :target => "schedule.xml" },
     ]
     @conference.days.each do |day|
