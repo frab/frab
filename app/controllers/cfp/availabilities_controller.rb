@@ -3,7 +3,6 @@ class Cfp::AvailabilitiesController < ApplicationController
   layout 'cfp'
 
   before_filter :authenticate_user!
-  #load_and_authorize_resource :person, :parent => false
 
   def new
     can? :create, Person
@@ -11,12 +10,12 @@ class Cfp::AvailabilitiesController < ApplicationController
   end
 
   def edit
-    can? :edit, Person
+    can? :edit, current_user.person
     @availabilities = current_user.person.availabilities_in(@conference)
   end
 
   def update
-    can? :update, Person
+    can? :update, current_user.person
     current_user.person.update_attributes(params[:person])
     redirect_to cfp_root_path, :notice => t("cfp.update_availability_notice") 
   end
