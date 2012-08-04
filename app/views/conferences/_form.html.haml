@@ -13,6 +13,7 @@
     = f.input :default_timeslots, :as => :select, :collection => 1..20, :hint => "What is the default length of your events? Example: If you chose a timeslot duration of 15 minutes to account for breaks, but your talks are usually 1 hour long, select 4, because 4 times 15 minutes is one hour."
     = f.input :max_timeslots, :as => :select, :collection => 1..100, :hint => "What is the maximum length of a single event (e.g. a single talk)?"
     = f.input :schedule_version, hint: "What is the current schedule version?"
+    = f.input :schedule_public, hint: "Is the dynamic schedule public? You can still create static exports regardless of this setting."
   = dynamic_association :languages, "Languages", f, :hint => "Choose which languages events in this conference can be held in."
   = f.inputs "Static program export" do
     = f.input :program_export_base_url, :hint => "If you want to use the static program export, enter the URL where you want to put the files under here. All references will be generated using this as a prefix."

@@ -28,6 +28,7 @@ FactoryGirl.define do
     default_timeslots 4
     max_timeslots 20
     feedback_enabled true
+    schedule_public true
     first_day { Date.today.since(60.days).to_date }
     last_day { Date.today.since(62.days).to_date }
     day_start 7
