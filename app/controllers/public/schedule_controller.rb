@@ -1,6 +1,7 @@
 class Public::ScheduleController < ApplicationController
 
   layout 'public_schedule'
+  before_filter :maybe_authenticate_user!
 
   def index
     @days = @conference.days
@@ -58,6 +59,12 @@ class Public::ScheduleController < ApplicationController
 
   def speaker
     @speaker = Person.publicly_speaking_at(@conference).confirmed(@conference).find(params[:id])
+  end
+
+  private
+
+  def maybe_authenticate_user!
+    authenticate_user! unless @conference.schedule_public
   end
 
 end

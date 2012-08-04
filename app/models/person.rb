@@ -2,14 +2,14 @@ class Person < ActiveRecord::Base
 
   GENDERS = ["male", "female"]
 
-  has_many :event_people
-  has_many :phone_numbers
-  has_many :im_accounts
+  has_many :event_people, :dependent => :destroy
+  has_many :phone_numbers, :dependent => :destroy
+  has_many :im_accounts, :dependent => :destroy
   has_many :events, :through => :event_people, :uniq => true
-  has_many :links, :as => :linkable
-  has_many :languages, :as => :attachable
-  has_many :availabilities
-  has_many :event_ratings
+  has_many :links, :as => :linkable, :dependent => :destroy
+  has_many :languages, :as => :attachable, :dependent => :destroy
+  has_many :availabilities, :dependent => :destroy
+  has_many :event_ratings, :dependent => :destroy
 
   accepts_nested_attributes_for :phone_numbers, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :im_accounts, :reject_if => :all_blank, :allow_destroy => true
