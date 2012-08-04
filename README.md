@@ -6,7 +6,10 @@ and to create a schedule.
 
 ## Background
 
-frab was created for the organization of FrOSCon 2011 (http://www.froscon.de).
+This fork was used for the CCC conference SIGINT12 and is still in active
+development for future conferences.
+
+frab was originally created for the organization of FrOSCon 2011 (http://www.froscon.de).
 FrOSCon has previously used pentabarf (http://pentabarf.org), and although
 frab is a completely new implementation, it borrows heavily from pentabarf.
 
@@ -26,7 +29,7 @@ than 5 parallel tracks (plus devrooms) over 2 days.
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 3.1) application. 
+frab is a pretty standard Ruby on Rails (version 3.2) application. 
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
@@ -35,7 +38,7 @@ and follow these steps:
 
 1) Clone the repository
 
-    git clone git://github.com/oneiros/frab.git
+    git clone git://github.com/katastrophie/frab.git
 
 2) cd into the directory:
 
@@ -107,6 +110,16 @@ and will most probably not work. If you still want to try it
 out, checkout the code at the revision the script was last
 changed at and upgrade the code and migrate the database
 from there.
+
+## Ticket Server 
+
+This fork supports OTRS and RT ticket servers. Instead of sending 
+event acceptance/rejection mails directly to submitters, frab adds
+a ticket to a request tracker.
+
+The ticket server type can be configured in 
+
+    config/initializers/ticket_server_type.rb
 
 ## License
 
