@@ -37,7 +37,8 @@ class Ability
       can :read, Conference
       can :read, Event
       can :read, EventFeedback
-      can :manage, EventRating
+      can :read, EventRating
+      can :manage, EventRating, :person_id => user.person.id
       can :read, Person
       can :manage, Person, :user_id => user.id
       can :manage, User, :id => user.id

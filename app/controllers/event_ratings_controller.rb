@@ -1,7 +1,7 @@
 class EventRatingsController < ApplicationController
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :event_rating, :parent => false
+  load_and_authorize_resource :event_rating
   before_filter :find_event
 
   def show

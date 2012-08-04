@@ -12,7 +12,8 @@
         = af.input :day, :as => :hidden
         .time_range_slider{"data-from" => availability.start_time.hour, "data-to" => availability.end_time.hour}
   = f.buttons do
-    = f.commit_button t("cfp.save_availability"), :button_html => {:class => "btn primary"}
+    - if can? :manage, @person
+      = f.commit_button t("cfp.save_availability"), :button_html => {:class => "btn primary"}
 
 :javascript
   $(function() {

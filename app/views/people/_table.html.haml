@@ -17,5 +17,6 @@
         %td= person.email
         %td.buttons
           = action_button "small", 'Show', person
-          = action_button "small", 'Edit', edit_person_path(person) 
-          = action_button "small danger", 'Destroy', person, :confirm => 'Are you sure?', :method => :delete
+          - if can? :manage, person
+            = action_button "small", 'Edit', edit_person_path(person) 
+            = action_button "small danger", 'Destroy', person, :confirm => 'Are you sure?', :method => :delete
