@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/katastrophie/formtastic-bootstrap.git
-  revision: 9e1437021088dd8a3853fe12bd7068fc142a55a1
+  revision: 8c18bf28d511a6846837a17bc59306304055c5f3
   specs:
     formtastic-bootstrap (1.2.0)
       formtastic

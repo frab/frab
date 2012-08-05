@@ -1,7 +1,7 @@
 <div class="nested-fields">
   <%= f.inputs do %>
-    <%= f.input :start_date, :hint => "yyyy-mm-dd HH:MM" %>
-    <%= f.input :end_date, :hint => "yyyy-mm-dd HH:MM" %>
+    <%= f.input :start_date, :hint => "yyyy-mm-dd hh:mm", :as => :datetime %>
+    <%= f.input :end_date, :hint => "yyyy-mm-dd hh:mm", :as => :datetime %>
     <%= remove_association_link "remove day", f %>
   <% end %>
 </div>
@@ -9,11 +9,19 @@
 
 <script>
     $(function() {
+      $('div.string input').datetimepicker({ 
+        dateFormat: "yy-mm-dd",
+        timeFormat: "hh:mm:ss"
+      });
+      $('div.date input').datetimepicker({ 
+        dateFormat: "yy-mm-dd",
+        timeFormat: "hh:mm:ss"
+      });
       $('div.datetime input[id*="[date]"]').datepicker({
         dateFormat: "yy-mm-dd"
       });
       $('div.datetime input[id*="[time]"]').timepicker({
-        timeFormat: "HH:MM"
+        timeFormat: "hh:mm"
       });
     });
 </script>
