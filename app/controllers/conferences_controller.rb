@@ -62,7 +62,8 @@ class ConferencesController < ApplicationController
       if @conference.update_attributes(params[:conference])
         format.html { redirect_to(edit_conference_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully updated.') }
       else
-        format.html { render :action => "edit" }
+        # redirect to the right nested form page
+        format.html { render :action => get_previous_nested_form(params[:conference]) }
       end
     end
   end
@@ -78,4 +79,16 @@ class ConferencesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def get_previous_nested_form(parameters)
+    parameters.keys.each { |name|
+      next unless name.index("_attributes") > 0
+      test = name.gsub("_attributes", '')
+      return "edit_#{test}"
+    }
+    return "edit"
+  end
+
 end
