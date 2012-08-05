@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery-ui-timepicker-addon
 //= require cocoon
 //= require twitter/bootstrap
 
@@ -9,6 +10,6 @@ $(function() {
   $('.alert-message').alert();
   $('a[data-original-title]').popover();
   $('div.date input').datepicker({
-    dateFormat: "yy-mm-dd"
+      dateFormat: "yy-mm-dd"
   });
 });

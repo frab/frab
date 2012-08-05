@@ -28,7 +28,7 @@ gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
 gem 'twitter-bootstrap-rails'
-gem 'formtastic-bootstrap'
+gem 'formtastic-bootstrap', :git => "git://github.com/katastrophie/formtastic-bootstrap.git"
 gem 'prawn'
 gem 'prawn_rails'
 

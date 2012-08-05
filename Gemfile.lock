@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/katastrophie/formtastic-bootstrap.git
+  revision: 9e1437021088dd8a3853fe12bd7068fc142a55a1
+  specs:
+    formtastic-bootstrap (1.2.0)
+      formtastic
+      rails (>= 3.1.0)
+
+GIT
   remote: git://github.com/oneiros/localized_language_select.git
   revision: 12aba5fb945cf50ea3919b3ae774d9205a6cfcc4
   specs:
@@ -68,9 +76,6 @@ GEM
       railties (>= 3.0.0)
     formtastic (2.1.1)
       actionpack (~> 3.0)
-    formtastic-bootstrap (1.1.1)
-      formtastic
-      rails (~> 3.1)
     gravatar-ultimate (1.0.3)
     haml (3.1.4)
     hike (1.2.1)
@@ -219,7 +224,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.0)
   factory_girl_rails (~> 1.2.0)
   formtastic (~> 2.1.0)
-  formtastic-bootstrap
+  formtastic-bootstrap!
   gravatar-ultimate
   haml
   hpricot
