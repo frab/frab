@@ -1,13 +1,15 @@
 class Conference < ActiveRecord::Base
 
-  has_one :call_for_papers
-  has_one :ticket_server
-  has_many :events
-  has_many :rooms
-  has_many :tracks
-  has_many :languages, :as => :attachable
+  has_one :call_for_papers, :dependent => :destroy
+  has_one :ticket_server, :dependent => :destroy
+  has_many :events, :dependent => :destroy
+  has_many :days, :dependent => :destroy
+  has_many :rooms, :dependent => :destroy
+  has_many :tracks, :dependent => :destroy
+  has_many :languages, :as => :attachable, :dependent => :destroy
 
   accepts_nested_attributes_for :rooms, :reject_if => proc {|r| r["name"].blank?}, :allow_destroy => true
+  accepts_nested_attributes_for :days, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :tracks, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :ticket_server
@@ -88,15 +90,15 @@ class Conference < ActiveRecord::Base
     self.languages.map{|l| l.code.downcase}
   end
 
-  def days
-    result = Array.new
-    day = self.first_day
-    until (day > self.last_day)
-      result << day
-      day = day.since(1.days).to_date
-    end
-    result
-  end
+  # def days
+    # result = Array.new
+    # day = self.first_day
+    # until (day > self.last_day)
+      # result << day
+      # day = day.since(1.days).to_date
+    # end
+    # result
+  # end
 
   def each_day(&block)
     days.each(&block)

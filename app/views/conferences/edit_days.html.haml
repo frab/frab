@@ -1,0 +1,20 @@
+%section
+  .page-header
+    %h1 Edit Conference Days
+  %ul.tabs
+    %li= link_to "Settings", edit_conference_path
+    %li.active= link_to "Days", edit_days_conference_path
+    %li= link_to "Tracks", edit_tracks_conference_path
+    %li= link_to "Rooms", edit_rooms_conference_path
+    %li= link_to "Ticket Server", edit_ticket_server_conference_path
+  - if @conference.days.empty?
+    .row
+      .span16
+        .blank-slate
+          %p
+            Here you can create and edit the conference days.
+            Your 'days' can start an end anytime, but should not
+            overlap.
+  .row
+    .span16
+      = render 'form_days'

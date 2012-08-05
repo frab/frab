@@ -1,0 +1,7 @@
+<div class="nested-fields">
+  <%= f.inputs do %>
+    <%= f.input :start_date, :as => :date %>
+    <%= f.input :end_date, :as => :date, :hint => "YYYY/MM/DD HH:MM" %>
+    <%= remove_association_link "remove day", f %>
+  <% end %>
+</div>

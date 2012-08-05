@@ -7,6 +7,10 @@ Frab::Application.routes.draw do
     match "/conferences/new" => "conferences#new", :as => "new_conference"
     match "/conferences" => "conferences#create", :as => "create_conference"
 
+    resources :people do
+      resource :user
+    end
+
     scope :path => "/:conference_acronym" do
      
       namespace :public do
@@ -64,6 +68,7 @@ Frab::Application.routes.draw do
 
       resource :conference, :except => [:new, :create] do
         get :edit_tracks
+        get :edit_days
         get :edit_rooms
         get :edit_ticket_server
       end
