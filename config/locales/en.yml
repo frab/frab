@@ -30,6 +30,7 @@ en:
     secretary: "secretary"
   activerecord:
     models:
+      day: "day"
       event: "Event"
       person: "Profile"
       event_person: "Person"

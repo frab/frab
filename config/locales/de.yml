@@ -216,6 +216,7 @@ de:
     models:
       event: "Einreichung"
       person: "Profil"
+      day: "Tag"
       link: "Link"
       im_account: "IM Account"
       phone_number: "Telefonnummer"
