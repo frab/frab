@@ -121,6 +121,7 @@ put   , /#{@c.acronym}/people/#{@person.id}/user                               ,
 post  , /#{@c.acronym}/tickets/#{@ticket.id}                                   ,  tickets#create                        ,   a
 
 = redirects
+      , /conferences/new                                                       ,  conferences#new                       ,   a
       , /#{@c.acronym}/cfp/events/#{@event.id}/confirm/1234                    ,  cfp/events#confirm                    ,   s g
 put   , /#{@c.acronym}/cfp/user                                                ,  cfp/users#update                      ,   a s
       , /#{@c.acronym}/cfp/open_soon                                           ,  cfp/welcome#open_soon                 ,   a s g
@@ -141,7 +142,6 @@ delete, /#{@c.acronym}/people/#{@person.id}/availability                       ,
 
 =end
     routes_csv = <<EOF
-      , /conferences/new                                                       ,  conferences#new                       ,   a
       , /conferences                                                           ,  conferences#create                    ,   a
 get   , /#{@c.acronym}/conference/edit                                         ,  conferences#edit                      ,   a
       , /#{@c.acronym}/public/schedule                                         ,  public/schedule#index                 ,   a s g
