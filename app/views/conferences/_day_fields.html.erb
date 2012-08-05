@@ -9,18 +9,8 @@
 
 <script>
     $(function() {
-      $('div.string input').datetimepicker({ 
+      $('div.datetime input').datetimepicker({ 
         dateFormat: "yy-mm-dd",
-        timeFormat: "hh:mm:ss"
-      });
-      $('div.date input').datetimepicker({ 
-        dateFormat: "yy-mm-dd",
-        timeFormat: "hh:mm:ss"
-      });
-      $('div.datetime input[id*="[date]"]').datepicker({
-        dateFormat: "yy-mm-dd"
-      });
-      $('div.datetime input[id*="[time]"]').timepicker({
         timeFormat: "hh:mm"
       });
     });
