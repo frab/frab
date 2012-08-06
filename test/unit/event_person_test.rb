@@ -28,6 +28,8 @@ class EventPersonTest < ActiveSupport::TestCase
     assert event_person.available_between?(today.to_time.change(:hour => 11), today.to_time.change(:hour => 13))
     assert event_person.available_between?(today.to_time.change(:hour => 10), today.to_time.change(:hour => 14))
     assert !event_person.available_between?(today.to_time.change(:hour => 9), today.to_time.change(:hour => 11))
+    assert !event_person.available_between?(today.to_time.change(:hour => 0), today.to_time.change(:hour => 11))
+    assert !event_person.available_between?(today.to_time.change(:hour => 13), today.to_time.change(:hour => 24))
   end
 
 end

@@ -4,5 +4,5 @@
   %p Thanks for helping us improve our events. Please rate as much events that you attended as possible.
 
   %p
-    = link_to "Click here", public_schedule_path(:date => @event.start_time.to_date)
+    = link_to "Click here", public_schedule_path(:day => @conference.day_at(@event.start_time))
     to return to the schedule.
