@@ -17,11 +17,11 @@
               %li{:class => selected(/schedule$/)}
                 = link_to "Index", public_schedule_index_path
               - @conference.days.each_with_index do |day, index| 
-                %li{:class => selected(/#{day}$/)}
-                  %a{:href => public_schedule_path(:date => day)}
+                %li{:class => selected(/#{day.name}$/)}
+                  %a{:href => public_schedule_path(:day => index)}
                     Day #{index + 1}
                     %br/
-                    %span.small-font= day.to_s
+                    %span.small-font= day.name
               %li{:class => selected(/speakers.*$/)}
                 = link_to "Speakers", public_speakers_path
               %li{:class => selected(/events.*$/)}

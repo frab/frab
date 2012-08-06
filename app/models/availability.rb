@@ -11,8 +11,8 @@ class Availability < ActiveRecord::Base
     conference.each_day do |date|
       result << self.new(
         :day => date,
-        :start_time => "%02d:00:00" % conference.day_start,
-        :end_time => "%02d:00:00" % conference.day_end,
+        :start_time => "%02d:00:00" % date.hour,
+        :end_time => "%02d:00:00" % date.hour,
         :conference => conference
       )
     end
@@ -27,7 +27,7 @@ class Availability < ActiveRecord::Base
     if h.to_i<0
       "0"
     elsif h.to_i>=24
-      "23"
+      "24"
     else
       h
     end

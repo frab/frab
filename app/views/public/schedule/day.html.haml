@@ -1,4 +1,4 @@
-%h2 Schedule for Day #{@day_index} - #{@day}
+%h2 Schedule for Day #{@day_index+1} - #{@day.name}
 %br.clear/
 #pagination
 #main-table
@@ -22,7 +22,7 @@
             - @rooms.each do |room|
               - @skip_row[room] -= 1
               - next if @skip_row[room] > 0
-              - if not @events[room].empty? and @events[room].first.start_time == day_at_i(@day, time)
+              - if not @events[room].empty? and @events[room].first.start_time == day_at_i(@day.start_date, time)
                 - event = @events[room].shift
                 - @skip_row[room] = event.time_slots 
                 %td{:rowspan => event.time_slots, :class => "cell-height#{event.time_slots}"}

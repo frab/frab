@@ -17,16 +17,11 @@ class Conference < ActiveRecord::Base
     :acronym, 
     :default_timeslots,
     :feedback_enabled,
-    :first_day, 
-    :last_day, 
     :max_timeslots,
     :timeslot_duration
   validates_uniqueness_of :acronym
   validates_format_of :acronym, :with => /[a-z][a-z0-9_]*/
   validate :last_day_after_first_day
-  validates_inclusion_of :day_start, :in => 0..24, :message => "should be a number representing the hour of the day"
-  validates_inclusion_of :day_end, :in => 0..24, :message => "should be a number representing the hour of the day"
-  validate :day_start_before_day_end
 
   after_update :update_timeslots
 
@@ -90,18 +85,25 @@ class Conference < ActiveRecord::Base
     self.languages.map{|l| l.code.downcase}
   end
 
-  # def days
-    # result = Array.new
-    # day = self.first_day
-    # until (day > self.last_day)
-      # result << day
-      # day = day.since(1.days).to_date
-    # end
-    # result
-  # end
+  def first_day
+    self.days.min
+  end
+
+  def last_day
+    self.days.max
+  end
+
+  def day_at(date)
+    i = 0
+    self.days.each { |day|
+      return i if date.between?(day.start_date, day.end_date)
+      i = i + 1
+    }
+    nil
+  end
 
   def each_day(&block)
-    days.each(&block)
+    self.days.each(&block)
   end
 
   def to_s
@@ -124,11 +126,7 @@ class Conference < ActiveRecord::Base
 
   def last_day_after_first_day
     return unless self.last_day && self.first_day # 'validates_presence_of' throws errors already
-    self.errors.add(:last_day, "should be after the first day") if self.last_day < self.first_day
+    self.errors.add(:last_day, "should be after the first day") if self.last_day.start_date < self.first_day.end_date
   end
 
-  def day_start_before_day_end
-    return unless self.day_end && self.day_start
-    self.errors.add(:day_end, "should be after day start") if self.day_end < self.day_start
-  end
 end

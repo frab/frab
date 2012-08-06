@@ -9,17 +9,26 @@ class Day < ActiveRecord::Base
   validates_presence_of :start_date, :message => "missing start date"
   validates_presence_of :end_date, :message => "missing end date"
   validate :start_date_before_end_date, :message => "failed validation"
-  #validate :does_not_overlap
+  validate :does_not_overlap
 
   def start_date_before_end_date
     return unless self.start_date && self.end_date
-    self.errors.add(:end_date, "should be after start date") if self.start_date > self.end_date
+    self.errors.add(:end_date, "should be after start date") if self.start_date >= self.end_date
   end
 
   def does_not_overlap
     # TODO does not overlap with any other day of this conference
     true
   end
+
+  def name
+    self.start_date.strftime('%Y-%m-%d')
+  end
+
+  # def uniq_name
+  #   # enforced?
+  #   self.start_date.strftime('%Y-%m-%d %H:%M')
+  # end
 
   def to_s
     "#{self.start_date} - #{self.end_date}"

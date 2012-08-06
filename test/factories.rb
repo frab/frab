@@ -31,9 +31,13 @@ FactoryGirl.define do
     schedule_public true
     first_day { Date.today.since(60.days).to_date }
     last_day { Date.today.since(62.days).to_date }
-    day_start 7
-    day_end 21
     timezone "Berlin"
+  end
+
+  factory :day do
+    start_date { Date.today.ago(1.days) }
+    end_date { Date.today.since(6.days) }
+    conference
   end
 
   factory :call_for_papers do

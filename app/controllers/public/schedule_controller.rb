@@ -19,8 +19,8 @@ class Public::ScheduleController < ApplicationController
   end
 
   def day
-    @day = Date.parse(params[:date])
-    @day_index = @conference.days.index(@day) + 1
+    @day_index = params[:day].to_i ||= 0
+    @day = @conference.days[@day_index]
     @all_rooms = @conference.rooms.public.all
     @rooms = Array.new
     @events = Hash.new

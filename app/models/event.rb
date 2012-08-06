@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
   scope :without_speaker, where("speaker_count = 0")
 
   scope :associated_with, lambda {|person| joins(:event_people).where(:"event_people.person_id" => person.id)}
-  scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gt(day.beginning_of_day)).where(self.arel_table[:start_time].lt(day.end_of_day)).where(self.arel_table[:room_id].not_eq(nil)) }
+  scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gt(day.start_date.beginning_of_day)).where(self.arel_table[:start_time].lt(day.end_date.end_of_day)).where(self.arel_table[:room_id].not_eq(nil)) }
   scope :scheduled, where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil))) 
   scope :unscheduled, where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) 
   scope :accepted, where(self.arel_table[:state].in(["confirmed", "unconfirmed"]))

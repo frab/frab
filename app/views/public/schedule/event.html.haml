@@ -10,7 +10,7 @@
   %h3 Info
   %p
     %b Day:
-    = link_to @event.start_time.to_date, public_schedule_path(:date => @event.start_time.to_date)
+    = link_to @event.start_time.to_date, public_schedule_path(:day => @conference.day_at(@event.start_time))
     %br/
     %b Start time:
     = @event.start_time.to_s(:time)

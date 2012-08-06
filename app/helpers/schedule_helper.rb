@@ -10,7 +10,7 @@ module ScheduleHelper
 
   # for pdf
   def number_of_rows
-    ((@conference.day_end - @conference.day_start) * 60 / @conference.timeslot_duration).to_i
+    ((@day.end_date.hour - @day.start_date.hour) * 60 / @conference.timeslot_duration).to_i
   end
  
   # for pdf
@@ -18,18 +18,18 @@ module ScheduleHelper
     number_of_rows * 15.0 / @conference.timeslot_duration
   end
 
-  # for event boxes in public schedule
+  # for pdf: event boxes in public schedule
   def event_coordinates(room_index, event, column_width, row_height, offset = 0)
     x = 1.5.cm - 1 + room_index * column_width
-    day_end = event.start_time.change(:hour => @conference.day_end, :min => 0)
+    day_end = event.start_time.change(:hour => @day.end_date.hour, :min => 0)
     y = ((day_end - event.start_time) / (@conference.timeslot_duration * 60)) * row_height
     y += offset
     [x, y]
   end
 
   def each_minutes(minutes, &block)
-    time = @conference.day_start*60
-    while time < @conference.day_end*60
+    time = @day.start_date.hour*60
+    while time < @day.end_date.hour*60
       yield time
       time += minutes
     end

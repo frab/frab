@@ -18,17 +18,13 @@ module EventsHelper
 
   def start_times
     times = Array.new
-    date = @conference.first_day
-    while date <= @conference.last_day
-      time = date.to_time_in_current_zone
-      time = time.since(7.hours)
-      end_time = time.since(16.hours)
-      while time <= end_time
+    @conference.days.each { |day|
+      time = day.start_date
+      while time <= day.end_date
         times << [time.strftime("%Y-%m-%d %H:%M"), time]
         time = time.since(@conference.timeslot_duration.minutes)
       end
-      date = date.tomorrow
-    end
+    }
     times
   end
 

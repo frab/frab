@@ -7,7 +7,7 @@
   %ul.tabs
     - @conference.days.each_with_index do |day, index|
       %li{:class => day_active?(index)}
-        = link_to day.to_s, schedule_path(:day => index)
+        = link_to day.name, schedule_path(:day => index)
   - if @conference.rooms.empty?
     .row
       .span16
@@ -45,10 +45,10 @@
               %tr
                 %th= room.name
             %tbody
-              - time = @conference.day_start * 60
-              - while time < @conference.day_end * 60
+              - time = @day.start_date.hour * 60 + @day.start_date.to_time.min
+              - while time < @day.end_date.hour * 60 + @day.end_date.to_time.min
                 %tr{:class => cycle('odd', 'even')}
-                  %td{:"data-time" => day_at_i(@day, time).to_s(:rfc822)}
+                  %td{:"data-time" => day_at_i(@day.start_date, time).to_s(:rfc822)}
                     - if time % 60 == 0
                       = minutes_to_time_str(time)
                 - time += @conference.timeslot_duration

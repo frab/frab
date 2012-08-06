@@ -16,7 +16,7 @@ Frab::Application.routes.draw do
       namespace :public do
         match "/schedule" => "schedule#index", :as => "schedule_index"
         match "/schedule/style" => "schedule#style", :as => "schedule_style"
-        match "/schedule/:date" => "schedule#day", :as => "schedule"
+        match "/schedule/:day" => "schedule#day", :as => "schedule"
         match "/events" => "schedule#events", :as => "events"
         match "/events/:id" => "schedule#event", :as => "event"
         match "/speakers" => "schedule#speakers", :as => "speakers"
