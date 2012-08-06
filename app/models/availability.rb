@@ -1,7 +1,11 @@
 class Availability < ActiveRecord::Base
 
+  # if several conferences were on the same day,
+  # one person could have different availabilities for
+  # each of them
   belongs_to :person
   belongs_to :conference
+  belongs_to :days
 
   validate :start_time_before_end_time
   after_save :update_event_conflicts

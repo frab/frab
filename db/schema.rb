@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804201907) do
+ActiveRecord::Schema.define(:version => 20120806161457) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
     t.integer  "conference_id"
-    t.date     "day"
-    t.time     "start_time"
-    t.time     "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "day_id"
   end
 
   create_table "call_for_papers", :force => true do |t|
@@ -35,11 +35,6 @@ ActiveRecord::Schema.define(:version => 20120804201907) do
     t.string   "contact_email"
   end
 
-  create_table "conference_date_conversions", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "conferences", :force => true do |t|
     t.string   "acronym",                                    :null => false
     t.string   "title",                                      :null => false
@@ -47,15 +42,11 @@ ActiveRecord::Schema.define(:version => 20120804201907) do
     t.integer  "timeslot_duration",                          :null => false
     t.integer  "default_timeslots",                          :null => false
     t.integer  "max_timeslots",                              :null => false
-    t.date     "first_day",                                  :null => false
-    t.date     "last_day",                                   :null => false
     t.integer  "feedback_enabled",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
     t.string   "program_export_base_url"
-    t.integer  "day_start",                                  :null => false
-    t.integer  "day_end",                                    :null => false
     t.string   "schedule_version"
     t.boolean  "schedule_public",         :default => false, :null => false
   end
@@ -180,7 +171,7 @@ ActiveRecord::Schema.define(:version => 20120804201907) do
   create_table "people", :force => true do |t|
     t.string   "first_name",          :default => ""
     t.string   "last_name",           :default => ""
-    t.string   "public_name",         :default => "",    :null => false
+    t.string   "public_name",                            :null => false
     t.string   "email",                                  :null => false
     t.integer  "email_public"
     t.string   "gender"
