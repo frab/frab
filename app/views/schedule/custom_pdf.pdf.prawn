@@ -25,7 +25,15 @@ prawn_document(
 
     table_data = Array.new
 
-    table_data << [""] + rooms.map(&:name)
+    all_rooms = [""] + rooms.map(&:name)
+
+    all_rooms.each do |r|
+      if r.match( /^\w\d{2,}(\/).*$/)
+        r.gsub!( "#{r.scan(/^\w\d{1,}(\/.*).*$/).join}", '')
+      end
+    end
+
+    table_data << all_rooms
 
     each_15_minutes do |time|
       row = []
