@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
 
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
 
-  has_one :ticket
+  has_one :ticket, :dependent => :destroy
   has_many :event_people, :dependent => :destroy
   has_many :event_feedbacks, :dependent => :destroy
   has_many :people, :through => :event_people

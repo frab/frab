@@ -1,16 +1,27 @@
 = semantic_form_for(@person, :url => person_availability_path) do |f|
   = f.inputs do
-    - @availabilities.each do |availability|
-      %h3
-        = l availability.day
+    - @conference.days.each do |day|
+      - availability = @availabilities.select{ |a| a.day == day }.first
+      - day_id = "day_" + day.id.to_s 
+      %h3{ :id => day_id }
         from
-        %span.time_range
-          = "#{availability.start_time.hour}:00 - #{availability.end_time.hour}:00"
-      = f.semantic_fields_for :availabilities, availability do |af|
-        = af.input :time_range, :as => :hidden
-        = af.input :conference_id, :as => :hidden
-        = af.input :day, :as => :hidden
-        .time_range_slider{"data-from" => availability.start_time.hour, "data-to" => availability.end_time.hour}
+        %span.start_date
+          = l day.start_date, :format => :pretty_datetime
+        to
+        %span.end_date
+          = l day.end_date, :format => :pretty_datetime
+  
+      - if availability
+        = f.semantic_fields_for :availabilities, availability do |af|
+          = af.input :start_date, :as => :hidden
+          = af.input :end_date, :as => :hidden
+          = af.input :conference_id, :as => :hidden
+          = af.input :day_id, :as => :hidden
+          .time_range_slider{"data-day_id" => day_id, "data-from" => availability.start_date.to_i, "data-to" => availability.end_date.to_i}
+          #TODO remove button
+      - else
+        #TODO magic button
+
   = f.buttons do
     - if can? :manage, @person
       = f.commit_button t("cfp.save_availability"), :button_html => {:class => "btn primary"}
@@ -20,15 +31,13 @@
     $(".time_range_slider").each(function() {
       $(this).slider({
         range: true,
-        min: 0,
-        max: 24,
+        step: 5,
         values: [$(this).data("from"), $(this).data("to")],
         slide: function(event, ui) {
           // label
-          $(this).prev().prev().prev().prev().children(".time_range").html(ui.values[0] + ":00 - " + ui.values[1] + ":00");
+          $(this).parent( 'h3.' + $(this).data("day_id") ).next(".start_date").html(ui.values[0]);
           // value
-          var slider = $(this).prev().prev().prev().prev().children(".time_range");
-          $(this).prev().prev().prev().find("input").first().val(ui.values[0] + "-" + ui.values[1]);
+          //$(this).prev().prev().prev().find("input").first().val(ui.values[0] + "-" + ui.values[1]);
         }
       });
     });

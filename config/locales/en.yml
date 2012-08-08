@@ -49,3 +49,6 @@ en:
     user_mailer:
       confirmation_instructions: "Account Activation"
       password_reset_instructions: "Reset Password"
+  time:
+    formats:
+      pretty_datetime: "%Y-%m-%d %H:%M"

@@ -5,7 +5,10 @@ class Day < ActiveRecord::Base
   #      in case someone deletes a day, availabilities need to persist,
   #      so they can be reclaimed by a new day later
   #      if a.day_id.nil?
-  #      a.day_id = Conference.all.days.map { |day| day.id 
+  #      on_create(day)
+  #      confernence.availabilities.each { |a| 
+  #      next unless a.day_id = nil
+  #      a.day_id = @conference.days.map { |day| day.id 
   #        if a.start_time.between?(day.start_date, day.end_date)
   #           or a.end_time.between?(day.start_date, day.end_date)
   #           or day.start_date.between?(a.start_time, a.end_time) }

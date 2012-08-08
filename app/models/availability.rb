@@ -5,55 +5,30 @@ class Availability < ActiveRecord::Base
   # each of them
   belongs_to :person
   belongs_to :conference
-  belongs_to :days
+  belongs_to :day
 
-  validate :start_time_before_end_time
+  validate :start_date_before_end_date
   after_save :update_event_conflicts
 
   def self.build_for(conference)
     result = Array.new
-    conference.each_day do |date|
+    conference.each_day do |day|
       result << self.new(
-        :day => date,
-        :start_time => "%02d:00:00" % date.hour,
-        :end_time => "%02d:00:00" % date.hour,
+        :day => day,
+        :start_date=> day.start_date,
+        :end_date=> day.end_date,
         :conference => conference
       )
     end
     result
   end
 
-  def time_range
-    "#{self.start_time.hour}-#{self.end_time.hour}"
-  end
-
-  def fix_hour_range(h)
-    if h.to_i<0
-      "0"
-    elsif h.to_i>=24
-      "24"
-    else
-      h
-    end
-  end
-
-  def time_range=(new_range) 
-    unless new_range.blank?
-      if new_range.starts_with?("-")
-        new_range = "0-0"
-      end
-      from, to = new_range.split("-")
-      self.start_time = fix_hour_range(from)
-      self.end_time = fix_hour_range(to)
-    end
-  end
-
   def within_range?(time)
     if self.conference.timezone and time.zone != self.conference.timezone
       time = time.in_time_zone(self.conference.timezone)
     end
-    start_minutes = time_in_minutes(self.start_time)
-    end_minutes = time_in_minutes(self.end_time)
+    start_minutes = time_in_minutes(self.start_date)
+    end_minutes = time_in_minutes(self.end_date)
     test_minutes = time_in_minutes(time)
     start_minutes <= test_minutes and end_minutes >= test_minutes
   end
@@ -70,8 +45,8 @@ class Availability < ActiveRecord::Base
     end
   end
   
-  def start_time_before_end_time
-    self.errors.add(:end_time, "should be after start time") if self.end_time < self.start_time
+  def start_date_before_end_date
+    self.errors.add(:end_date, "should be after start date") if self.end_date < self.start_date
   end
 
 end
