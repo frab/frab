@@ -5,7 +5,7 @@
         = l availability.day
         from
         %span.time_range
-          = "#{availability.start_time.hour}:00 - #{availability.end_time.hour}:00"
+          = "#{availability.start_date} - #{availability.end_date}"
       = f.semantic_fields_for :availabilities, availability do |af|
         = af.input :time_range, :as => :hidden
         = af.input :conference_id, :as => :hidden
