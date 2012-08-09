@@ -1,0 +1,32 @@
+- day_id = "day_" + day.id.to_s 
+%h3{ :id => day_id }
+  from
+  %span.start_date
+    = l day.start_date, :format => :pretty_datetime
+  to
+  %span.end_date
+    = l day.end_date, :format => :pretty_datetime
+  = f.semantic_fields_for :availabilities, availability do |af|
+    = af.input :start_date, :as => :hidden
+    = af.input :end_date, :as => :hidden
+    = af.input :conference_id, :as => :hidden
+    = af.input :day_id, :as => :hidden
+    .time_range_slider{"data-day_id" => day_id, "data-from" => availability.start_date.to_i, "data-to" => availability.end_date.to_i}
+  = link_to_function "remove", "$('h3##{day_id}').replaceWith('AYAYAY')"
+
+:javascript
+  $(function() {
+    $(".time_range_slider").each(function() {
+      $(this).slider({
+        range: true,
+        step: 5,
+        values: [$(this).data("from"), $(this).data("to")],
+        slide: function(event, ui) {
+          // label
+          $(this).parent( 'h3.' + $(this).data("day_id") ).next(".start_date").html(ui.values[0]);
+          // value
+          //$(this).prev().prev().prev().find("input").first().val(ui.values[0] + "-" + ui.values[1]);
+        }
+      });
+    });
+  });
