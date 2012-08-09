@@ -8,13 +8,35 @@ FactoryGirl.define do
     "frabcon#{n}"
   end
 
-  factory :user do
+  trait :user_data do
     email { Factory.next(:email) }
     password "frab23"
     password_confirmation { password }
     sign_in_count 0
     confirmed_at { Time.now }
   end
+
+  trait :admin_role do
+    role "admin"
+  end
+
+  trait :orga_role do
+    role "orga"
+  end
+
+  trait :coordinator_role do
+    role "coordinator"
+  end
+
+  trait :reviewer_role do
+    role "reviewer"
+  end
+
+  factory :user, traits: [:user_data]
+  factory :admin_user, traits: [:user_data, :admin_role]
+  factory :orga_user, traits: [:user_data, :orga_role]
+  factory :coordinator_user, traits: [:user_data, :coordinator_role]
+  factory :reviewer_user, traits: [:user_data, :reviewer_role]
 
   factory :person do
     email { Factory.next(:email) }
