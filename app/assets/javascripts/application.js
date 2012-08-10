@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui-timepicker-addon
+//= require jquery.dateFormat
 //= require cocoon
 //= require twitter/bootstrap
 

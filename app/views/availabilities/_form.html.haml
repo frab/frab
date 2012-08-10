@@ -3,13 +3,80 @@
     - @conference.days.each do |day|
       - availability = @availabilities.select{ |a| a.day == day }.first
       - availability.nil? and availability = Availability.new(:day => day, :conference => @conference)
-  
-      - if availability.start_date
-        = render(:partial => 'shared/availabilities_slider', :locals => { :f => f, :day => day, :availability => availability })
-      - else
-        = add_dynamic_partial 'shared/availabilities_slider', "make available", { :f => f, :day => day, :availability => availability }
-
+      = render(:partial => 'shared/availabilities_slider', :locals => { :f => f, :day => day, :availability => availability })
   = f.buttons do
     - if can? :manage, @person
       = f.commit_button t("cfp.save_availability"), :button_html => {:class => "btn primary"}
 
+:javascript
+  $(function() {
+
+    SliderForm = {
+      initialize: function(options) {
+        this.id = options.id;
+        this.model_id = options.id - 1;
+        this.checkbox = $('span#day_'+this.id+' input[type="checkbox"].cbx')
+
+        // initial state
+        var test = $('input#person_availabilities_attributes_'+this.model_id+'_start_date').val();
+        if( test ) {
+          this.checkbox.attr('checked', true);
+          this.setOn(this.id);
+        } else {
+          this.checkbox.attr('checked', false);
+          this.setOff(this.id);
+        }
+
+        // setup checkbox event
+        this.setupCheckbox();
+      },
+
+      setupCheckbox: function() {
+        var id = this.id;
+        var that = this;
+        $('span#day_'+this.id+' input[type="checkbox"].cbx').change(function() { 
+          if( $(this).attr('checked') )
+            that.setOn(id);
+          else
+            that.setOff(id);
+        });
+      },
+
+      setOn: function(id) {
+        // slider enable, initialize
+        $('span#day_'+id+' .time_range_slider').slider("enable");
+      },
+
+      setOff: function(id) {
+        // TODO kill data in model
+        // slider disable
+        $('span#day_'+id+' .time_range_slider').slider("disable");
+      },
+    };
+
+    // setup slider
+    $(".time_range_slider").each(function() {
+      $(this).slider({
+        range: true,
+        step: 5,
+        min: $(this).data("from"), 
+        max: $(this).data("to"),
+        values: [$(this).data("from"), $(this).data("to")],
+        slide: function(event, ui) {
+          // label
+          // TODO date conversion
+          $('span#'+$(this).data("day_id")+' .start_date').html(ui.values[0]);
+          $('span#'+$(this).data("day_id")+' .end_date').html(ui.values[1]);
+          // value
+          //$(this).prev().prev().prev().find("input").first().val(ui.values[0] + "-" + ui.values[1]);
+        }
+      });
+    });
+
+  });
+    
+- @conference.days.each do |day|
+  :javascript
+    $(function() {
+      SliderForm.initialize({ id: #{day.id} });
+    });
