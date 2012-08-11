@@ -13,65 +13,111 @@
 
     SliderForm = {
       initialize: function(options) {
-        this.id = options.id;
-        this.model_id = options.id - 1;
-        this.checkbox = $('span#day_'+this.id+' input[type="checkbox"].cbx')
-
-        // initial state
-        var test = $('input#person_availabilities_attributes_'+this.model_id+'_start_date').val();
-        if( test ) {
-          this.checkbox.attr('checked', true);
-          this.setOn(this.id);
-        } else {
-          this.checkbox.attr('checked', false);
-          this.setOff(this.id);
-        }
+        var id                = options.id;
+        var model_id          = options.id - 1;
+        var checkbox          = $('span#day_'+id+' input[type="checkbox"].cbx')
+        var time_range_slider = $('span#day_'+id+' .time_range_slider');
 
         // setup checkbox event
-        this.setupCheckbox();
+        SliderForm._setup_checkbox(id);
+        SliderForm._setup_slider(id);
+
+        // initial state
+        var test = time_range_slider.data("from")
+        if( test && test > 0 ) {
+          checkbox.attr('checked', true);
+          SliderForm.set_on(id);
+        } else {
+          checkbox.attr('checked', false);
+          SliderForm.set_off(id);
+        }
+
       },
 
-      setupCheckbox: function() {
-        var id = this.id;
-        var that = this;
-        $('span#day_'+this.id+' input[type="checkbox"].cbx').change(function() { 
+      _setup_checkbox: function(id) {
+        $('span#day_'+id+' input[type="checkbox"].cbx').change(function() { 
           if( $(this).attr('checked') )
-            that.setOn(id);
+            SliderForm.set_on(id);
           else
-            that.setOff(id);
+            SliderForm.set_off(id);
         });
       },
 
-      setOn: function(id) {
-        // slider enable, initialize
-        $('span#day_'+id+' .time_range_slider').slider("enable");
+      _setup_slider: function(id) {
+        var el_slider      = $('span#day_'+id+' .time_range_slider');
+        el_slider.slider({
+          range: true,
+          step: 15*60,
+          min: el_slider.data("min"),
+          max: el_slider.data("max"),
+          values: [el_slider.data("from"), el_slider.data("to")],
+          slide: function(event, ui) {
+            var dates = [SliderForm.get_date_string(ui.values[0]), 
+                         SliderForm.get_date_string(ui.values[1])];
+            SliderForm.update_date_labels(id, dates);
+            SliderForm.update_hidden_inputs(id, dates);
+          }
+        });
       },
 
-      setOff: function(id) {
-        // TODO kill data in model
-        // slider disable
-        $('span#day_'+id+' .time_range_slider').slider("disable");
+      get_date_string: function(unix) {
+        var date_format = 'yyyy-MM-dd HH:mm';
+        return $.format.date(new Date(unix*1000), date_format)
+      },
+
+      update_date_labels: function(id,values) {
+        var el_start_label = $('span#day_'+id+' .start_date');
+        var el_end_label   = $('span#day_'+id+' .end_date');
+        el_start_label.html(values[0]);
+        el_end_label.html(values[1]);
+      },
+
+      update_hidden_inputs: function(id,values) {
+        var el_inputs = $('span#day_'+id+' input');
+        el_inputs.eq(0).val(values[0]);
+        el_inputs.eq(1).val(values[1]);
+      },
+
+      update_slider_values: function(id,values) {
+        var el_slider = $('span#day_'+id+' .time_range_slider');
+        el_slider.slider("values",0, values[0]);
+        el_slider.slider("values",1, values[1]);
+      },
+
+      set_slider_state: function(id,state) {
+        var el_slider = $('span#day_'+id+' .time_range_slider');
+        $('span#day_'+id+' .time_range_slider').slider(state);
+      },
+
+      set_on: function(id) {
+        var el_slider = $('span#day_'+id+' .time_range_slider');
+        var el_inputs = $('span#day_'+id+' input');
+        if(el_inputs.eq(0).val()<0) {
+          var min = el_slider.data("min");
+          var max = el_slider.data("max");
+          // missing values, use min/max as default
+          SliderForm.update_slider_values(id, [min,max]);
+          var dates = [SliderForm.get_date_string(min), 
+                       SliderForm.get_date_string(max)];
+          SliderForm.update_date_labels(id, dates);
+          SliderForm.update_hidden_inputs(id, dates);
+        } else {
+          var from  = el_slider.data("from");
+          var to    = el_slider.data("to");
+          var dates = [SliderForm.get_date_string(from), 
+                       SliderForm.get_date_string(to)];
+          SliderForm.update_date_labels(id, dates);
+        }
+        SliderForm.set_slider_state(id, "enable");
+      },
+
+      set_off: function(id) {
+        SliderForm.update_hidden_inputs(id, [-1,-1]);
+        SliderForm.update_slider_values(id, [-1,-1]);
+        SliderForm.update_date_labels(id, ['-','-']);
+        SliderForm.set_slider_state(id, "disable");
       },
     };
-
-    // setup slider
-    $(".time_range_slider").each(function() {
-      $(this).slider({
-        range: true,
-        step: 5,
-        min: $(this).data("from"), 
-        max: $(this).data("to"),
-        values: [$(this).data("from"), $(this).data("to")],
-        slide: function(event, ui) {
-          // label
-          // TODO date conversion
-          $('span#'+$(this).data("day_id")+' .start_date').html(ui.values[0]);
-          $('span#'+$(this).data("day_id")+' .end_date').html(ui.values[1]);
-          // value
-          //$(this).prev().prev().prev().find("input").first().val(ui.values[0] + "-" + ui.values[1]);
-        }
-      });
-    });
 
   });
     
