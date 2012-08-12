@@ -42,6 +42,14 @@ class Day < ActiveRecord::Base
   #   self.start_date.strftime('%Y-%m-%d %H:%M')
   # end
 
+  def first
+    self.name
+  end
+
+  def last
+    self.id
+  end
+
   def to_s
     "#{self.start_date} - #{self.end_date}"
   end

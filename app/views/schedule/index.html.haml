@@ -45,13 +45,13 @@
               %tr
                 %th= room.name
             %tbody
-              - time = @day.start_date.hour * 60 + @day.start_date.to_time.min
-              - while time < @day.end_date.hour * 60 + @day.end_date.to_time.min
+              - time = @day.start_date
+              - while time < @day.end_date
                 %tr{:class => cycle('odd', 'even')}
-                  %td{:"data-time" => day_at_i(@day.start_date, time).to_s(:rfc822)}
-                    - if time % 60 == 0
-                      = minutes_to_time_str(time)
-                - time += @conference.timeslot_duration
+                  %td{:"data-time" => time.to_s(:rfc822)}
+                    - if time.min == 0
+                      = time.strftime("%H:%M")
+                - time = time.since(@conference.timeslot_duration.minutes)
         .clear
         #event-pane
           - @scheduled_events.each do |event|

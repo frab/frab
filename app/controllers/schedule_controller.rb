@@ -30,8 +30,7 @@ class ScheduleController < ApplicationController
 
   def custom_pdf
     @page_size = params[:page_size]
-
-    @day = Date.parse(params[:date])
+    @day = @conference.days.find(params[:date_id])
     @rooms = @conference.rooms.public.find(params[:room_ids])
     @events = Hash.new
     @rooms.each do |room|

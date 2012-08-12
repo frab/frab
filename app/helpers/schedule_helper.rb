@@ -10,7 +10,7 @@ module ScheduleHelper
 
   # for pdf
   def number_of_rows
-    ((@day.end_date.hour - @day.start_date.hour) * 60 / @conference.timeslot_duration).to_i
+    timeslots_between(@day.start_date, @day.end_date)
   end
  
   # for pdf
@@ -21,17 +21,16 @@ module ScheduleHelper
   # for pdf: event boxes in public schedule
   def event_coordinates(room_index, event, column_width, row_height, offset = 0)
     x = 1.5.cm - 1 + room_index * column_width
-    day_end = event.start_time.change(:hour => @day.end_date.hour, :min => 0)
-    y = ((day_end - event.start_time) / (@conference.timeslot_duration * 60)) * row_height
+    y = timeslots_between(event.start_time, @day.end_date)  * row_height
     y += offset
     [x, y]
   end
 
   def each_minutes(minutes, &block)
-    time = @day.start_date.hour*60
-    while time < @day.end_date.hour*60
+    time = @day.start_date
+    while time <= @day.end_date
       yield time
-      time += minutes
+      time = time.since(minutes.minutes)
     end
   end
 
@@ -39,8 +38,8 @@ module ScheduleHelper
     each_minutes(15, &block)
   end
 
-  def minutes_to_time_str(minutes)
-    "%02d:%02d" % [minutes/60, minutes%60]
+  def timeslots_between(start_date, end_date)
+    ((end_date - start_date) / 60 / @conference.timeslot_duration).to_i + 1
   end
 
 end

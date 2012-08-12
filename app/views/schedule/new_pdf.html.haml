@@ -9,9 +9,9 @@
           .input
             = select_tag "page_size", options_for_select(Prawn::Document::PageGeometry::SIZES.keys.sort)
         .clearfix
-          = label_tag "date", "Select day:"
+          = label_tag "date_id", "Select day:"
           .input
-            = select_tag "date", options_for_select(@conference.days)
+            = select_tag "date_id", options_for_select(@conference.days)
         .clearfix
           = label_tag "room_ids[]", "Select rooms:"
           .input
