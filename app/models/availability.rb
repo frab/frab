@@ -28,21 +28,14 @@ class Availability < ActiveRecord::Base
     if self.conference.timezone and time.zone != self.conference.timezone
       time = time.in_time_zone(self.conference.timezone)
     end
-    start_minutes = time_in_minutes(self.start_date)
-    end_minutes = time_in_minutes(self.end_date)
-    test_minutes = time_in_minutes(time)
-    start_minutes <= test_minutes and end_minutes >= test_minutes
+    time.between?(self.start_date, self.end_date)
   end
 
   private
 
-  def time_in_minutes(time)
-    time.hour * 60 + time.min
-  end
-
   def update_event_conflicts
     self.person.events_in(self.conference).each do |event|
-      event.update_conflicts if event.start_time and event.start_time.to_date == self.day
+      event.update_conflicts if event.start_time.between?(self.day.start_date, self.day.end_date)
     end
   end
   

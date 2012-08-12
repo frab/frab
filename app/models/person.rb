@@ -71,7 +71,26 @@ class Person < ActiveRecord::Base
   end
 
   def availabilities_in(conference)
-    self.availabilities.where(:conference_id => conference.id)
+    availabilities = self.availabilities.where(:conference_id => conference.id)
+    availabilities.each { |a|
+      a.start_date = a.start_date.in_time_zone
+      a.end_date = a.end_date.in_time_zone
+    } 
+    availabilities
+  end
+
+  def update_attributes_from_slider_form(params)
+    # remove empty availabilities
+    params['availabilities_attributes'].each { |k,v| 
+      Availability.delete(v['id']) if v['start_date'].to_i == -1
+    }
+    params['availabilities_attributes'].select! { |k,v| v['start_date'].to_i > 0 }
+    # fix dates
+    params['availabilities_attributes'].each { |k,v|
+      v['start_date']  = Time.zone.parse(v['start_date'])
+      v['end_date']  = Time.zone.parse(v['end_date'])
+    }
+    self.update_attributes(params)
   end
 
   def average_feedback_as_speaker

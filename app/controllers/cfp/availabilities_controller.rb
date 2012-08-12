@@ -16,7 +16,7 @@ class Cfp::AvailabilitiesController < ApplicationController
 
   def update
     can? :update, current_user.person
-    current_user.person.update_attributes(params[:person])
+    current_user.person.update_attributes_from_slider_form(params[:person])
     redirect_to cfp_root_path, :notice => t("cfp.update_availability_notice") 
   end
 
