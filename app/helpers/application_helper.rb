@@ -53,12 +53,4 @@ module ApplicationHelper
     I18n.available_locales & conference_locales
   end
 
-  # def add_dynamic_partial(partial_file, title, locals)
-  #   id = locals[:day].id.to_s
-  #   page = %{
-  #     partial = "#{escape_javascript(render(:partial => partial_file, :locals => locals))}";
-  #     $('#avail#{id}').replaceWith(partial);
-  #   }
-  #   link_to_function title, page, :id => 'avail'+id
-  # end
 end

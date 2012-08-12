@@ -16,11 +16,4 @@ module Public::ScheduleHelper
     "selected" if request.path =~ regex
   end
 
-  # def day_at(day, time)
-  #   day.to_time.change(:hour => time.hour, :min => time.min)
-  # end
-
-  def day_at_i(day, time)
-    day.to_time.change(:hour => time/60, :min => time%60)
-  end
 end
