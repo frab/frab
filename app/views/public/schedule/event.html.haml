@@ -18,6 +18,9 @@
     %b Duration:
     = format_time_slots(@event.time_slots)
     %br/
+    %b Room:
+    = @event.room.name
+    %br/
     %b Track:
     = @event.track.try(:name)
   - if @event.links.any?
