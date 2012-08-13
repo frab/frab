@@ -20,10 +20,10 @@ class EventPersonTest < ActiveSupport::TestCase
 
   test "checks for availability correctly" do
     today = Date.today
-    conference = FactoryGirl.create(:conference)
+    conference = FactoryGirl.create(:three_day_conference)
     event = FactoryGirl.create(:event, :conference => conference)
     person = FactoryGirl.create(:person)
-    availability = FactoryGirl.create(:availability, :conference => conference, :person => person, :day => today, :start_time => "10:00", :end_time => "14:00")
+    availability = FactoryGirl.create(:availability, :conference => conference, :person => person, :start_date => Time.parse("10:00"), :end_date => Time.parse("14:00"))
     event_person = FactoryGirl.create(:event_person, :event => event, :person => person)
     assert event_person.available_between?(today.to_time.change(:hour => 11), today.to_time.change(:hour => 13))
     assert event_person.available_between?(today.to_time.change(:hour => 10), today.to_time.change(:hour => 14))

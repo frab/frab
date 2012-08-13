@@ -8,7 +8,7 @@ class Public::FeedbackControllerTest < ActionController::TestCase
   end
 
   test "feedback form gets displayed" do
-    get :new, :conference_acronym => @conference.acronym, :event_id => @event.id
+    get :new, :conference_acronym => @conference.acronym, :event_id => @event.id, :day => @conference.days.first
     assert_response :success
     assert_not_nil assigns(:event)
     assert_not_nil assigns(:feedback)

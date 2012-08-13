@@ -99,7 +99,8 @@ class Conference < ActiveRecord::Base
       return i if date.between?(day.start_date, day.end_date)
       i = i + 1
     }
-    nil
+    # fallback to day at index 0
+    0
   end
 
   def each_day(&block)

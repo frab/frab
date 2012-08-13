@@ -12,4 +12,9 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil user.last_sign_in_at
   end
 
+  test "create admin user" do
+    user = FactoryGirl.create(:admin_user)
+    assert_equal "admin", user.role
+  end
+
 end

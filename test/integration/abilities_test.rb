@@ -37,7 +37,7 @@ class AbilitiesTest < ActionDispatch::IntegrationTest
     @admin = create(:user, :person => create(:person), :role => "admin")
 
     #
-    date = @conference.days.first.strftime('%Y-%m-%d')
+    date = @conference.days.first.start_date.strftime('%Y-%m-%d')
 
 =begin non existent controller methods?
 get   , /session/edit                                                          ,  sessions#edit                         ,   a

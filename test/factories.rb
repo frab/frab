@@ -8,12 +8,8 @@ FactoryGirl.define do
     "frabcon#{n}"
   end
 
-  trait :user_data do
-    email { Factory.next(:email) }
-    password "frab23"
-    password_confirmation { password }
-    sign_in_count 0
-    confirmed_at { Time.now }
+  sequence :event_title do |n|
+    "Introducing frap part #{n}"
   end
 
   trait :admin_role do
@@ -32,15 +28,41 @@ FactoryGirl.define do
     role "reviewer"
   end
 
-  factory :user, traits: [:user_data]
-  factory :admin_user, traits: [:user_data, :admin_role]
-  factory :orga_user, traits: [:user_data, :orga_role]
-  factory :coordinator_user, traits: [:user_data, :coordinator_role]
-  factory :reviewer_user, traits: [:user_data, :reviewer_role]
+  trait :three_days do
+    after_create do |conference|
+      conference.days << FactoryGirl.create(:day, 
+                                            :start_date => Date.today.since(1.days).since(11.hours),
+                                            :end_date => Date.today.since(1.days).since(23.hours))
+      conference.days << FactoryGirl.create(:day,
+                                            :start_date => Date.today.since(2.days).since(10.hours),
+                                            :end_date => Date.today.since(2.days).since(24.hours))
+      conference.days << FactoryGirl.create(:day,
+                                            :start_date => Date.today.since(3.days).since(10.hours),
+                                            :end_date => Date.today.since(3.days).since(17.hours))
+    end
+  end
+
+  factory :user do
+    email { Factory.next(:email) }
+    password "frab23"
+    password_confirmation { password }
+    sign_in_count 0
+    confirmed_at { Time.now }
+
+    factory :admin_user, traits: [:admin_role]
+    factory :orga_user, traits: [:orga_role]
+    factory :coordinator_user, traits: [:coordinator_role]
+    factory :reviewer_user, traits: [:reviewer_role]
+  end
 
   factory :person do
     email { Factory.next(:email) }
     public_name "Fred Besen"
+  end
+
+  factory :day do
+    start_date { Date.today.since(1.days).since(11.hours) }
+    end_date { Date.today.since(1.days).since(23.hours) }
   end
 
   factory :conference do
@@ -51,16 +73,11 @@ FactoryGirl.define do
     max_timeslots 20
     feedback_enabled true
     schedule_public true
-    first_day { Date.today.since(60.days).to_date }
-    last_day { Date.today.since(62.days).to_date }
     timezone "Berlin"
+
+    factory :three_day_conference, traits: [:three_days]
   end
 
-  factory :day do
-    start_date { Date.today.ago(1.days) }
-    end_date { Date.today.since(6.days) }
-    conference
-  end
 
   factory :call_for_papers do
     start_date { Date.today.ago(1.days) }
@@ -72,8 +89,8 @@ FactoryGirl.define do
     conference
     person
     day { conference.days.first }
-    start_time "08:00"
-    end_time "20:00"
+    start_date { conference.days.first.start_date.since(2.hours) }
+    end_date { conference.days.first.start_date.since(3.hours) }
   end
 
   factory :language do
@@ -87,11 +104,11 @@ FactoryGirl.define do
   end
 
   factory :event do
-    title "Introducing frab"
+    title { Factory.next(:event_title) }
     subtitle "Getting started organizing your conference"
     time_slots 4
     start_time "10:00"
-    conference
+    conference { Factory.create(:three_day_conference) }
   end
 
   factory :event_person do

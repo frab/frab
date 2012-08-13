@@ -99,8 +99,8 @@ class Person < ActiveRecord::Base
     count = 0
     events.each do |event|
       if current_feedback = event.average_feedback
-        feedback += current_feedback
-        count += 1
+        feedback += current_feedback * event.event_feedbacks_count
+        count += event.event_feedbacks_count
       end
     end
     return nil if count == 0

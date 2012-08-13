@@ -3,7 +3,7 @@ require 'test_helper'
 class Public::ScheduleControllerTest < ActionController::TestCase
 
   setup do
-    @conference = FactoryGirl.create(:conference)
+    @conference = FactoryGirl.create(:three_day_conference)
     10.times do
       FactoryGirl.create(:event, :conference => @conference, :state => "confirmed")
     end

@@ -77,6 +77,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.ids_by_least_reviewed(conference, reviewer)
+    # FIXME native SQL
     already_reviewed = self.connection.select_rows("SELECT events.id FROM events JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} AND event_ratings.person_id = #{reviewer.id}").flatten.map{|e| e.to_i}
     least_reviewed = self.connection.select_rows("SELECT events.id FROM events LEFT OUTER JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} GROUP BY events.id ORDER BY COUNT(event_ratings.id) ASC, events.id ASC").flatten.map{|e| e.to_i}
     least_reviewed -= already_reviewed
