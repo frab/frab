@@ -125,7 +125,6 @@ FactoryGirl.define do
   end
 
   factory :event_feedback do
-    event
     rating 3.0
     comment "doh"
   end
