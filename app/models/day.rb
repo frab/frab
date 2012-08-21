@@ -6,7 +6,7 @@ class Day < ActiveRecord::Base
   #      so they can be reclaimed by a new day later
   #      if a.day_id.nil?
   #      on_create(day)
-  #      confernence.availabilities.each { |a| 
+  #      conference.availabilities.each { |a| 
   #      next unless a.day_id = nil
   #      a.day_id = @conference.days.map { |day| day.id 
   #        if a.start_time.between?(day.start_date, day.end_date)
@@ -21,37 +21,33 @@ class Day < ActiveRecord::Base
   validates_presence_of :start_date, :message => "missing start date"
   validates_presence_of :end_date, :message => "missing end date"
   validate :start_date_before_end_date, :message => "failed validation"
-  validate :does_not_overlap
+  validate :does_not_overlap, :message => "overlaps, failed validation"
 
   def start_date_before_end_date
-    return unless self.start_date && self.end_date
     self.errors.add(:end_date, "should be after start date") if self.start_date >= self.end_date
   end
 
   def does_not_overlap
-    # TODO does not overlap with any other day of this conference
-    true
+    return if self.conference.nil?
+    self.conference.days.each { |day|
+      next if day == self
+      self.errors.add(:start_date, "day overlapping with day #{day.label} from this conference") if self.start_date.between?(day.start_date, day.end_date)
+      self.errors.add(:end_date, "day overlapping with day #{day.label} from this conference") if self.end_date.between?(day.start_date, day.end_date)
+    }
   end
 
-  def name
+  def label
     self.start_date.strftime('%Y-%m-%d')
   end
 
-  # def uniq_name
-  #   # enforced?
-  #   self.start_date.strftime('%Y-%m-%d %H:%M')
-  # end
-
+  # ActionView::Helper.options_for_select
   def first
     self.name
   end
 
+  # ActionView::Helper.options_for_select
   def last
     self.id
-  end
-
-  def to_s
-    "#{self.start_date} - #{self.end_date}"
   end
 
 end

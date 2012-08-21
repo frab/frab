@@ -7,7 +7,7 @@
   %ul.tabs
     - @conference.days.each_with_index do |day, index|
       %li{:class => day_active?(index)}
-        = link_to day.name, schedule_path(:day => index)
+        = link_to day.label, schedule_path(:day => index)
   - if @conference.rooms.empty?
     .row
       .span16

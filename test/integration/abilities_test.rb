@@ -122,6 +122,7 @@ post  , /#{@c.acronym}/tickets/#{@ticket.id}                                   ,
 
 = redirects
       , /conferences/new                                                       ,  conferences#new                       ,   a
+get   , /#{@c.acronym}/cfp/person/availability/new                             ,  cfp/availabilities#new                ,   s
       , /#{@c.acronym}/cfp/events/#{@event.id}/confirm/1234                    ,  cfp/events#confirm                    ,   s g
 put   , /#{@c.acronym}/cfp/user                                                ,  cfp/users#update                      ,   a s
       , /#{@c.acronym}/cfp/open_soon                                           ,  cfp/welcome#open_soon                 ,   a s g
@@ -155,7 +156,6 @@ get   , /#{@c.acronym}/cfp/user/password/new                                   ,
 get   , /#{@c.acronym}/cfp/user/password/edit                                  ,  cfp/passwords#edit                    ,   a s g
 get   , /#{@c.acronym}/cfp/user/confirmation/new                               ,  cfp/confirmations#new                 ,   a s g
 get   , /#{@c.acronym}/cfp/user/new                                            ,  cfp/users#new                         ,   a s g
-get   , /#{@c.acronym}/cfp/person/availability/new                             ,  cfp/availabilities#new                ,   s
 get   , /#{@c.acronym}/cfp/person/availability/edit                            ,  cfp/availabilities#edit               ,   s
 put   , /#{@c.acronym}/cfp/person/availability                                 ,  cfp/availabilities#update             ,   s
 post  , /#{@c.acronym}/cfp/person                                              ,  cfp/people#create                     ,   s
