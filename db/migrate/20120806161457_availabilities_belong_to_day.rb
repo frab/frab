@@ -31,5 +31,11 @@ class AvailabilitiesBelongToDay < ActiveRecord::Migration
   end
 
   def down
+    remove_column :availabilities, :start_date, :datetime
+    remove_column :availabilities, :end_date, :datetime
+    remove_column :availabilities, :day_id, :integer
+    add_column :availabilities, :start_time
+    add_column :availabilities, :end_time
+    add_column :availabilities, :day
   end
 end

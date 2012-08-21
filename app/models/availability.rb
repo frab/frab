@@ -25,6 +25,7 @@ class Availability < ActiveRecord::Base
   end
 
   def within_range?(time)
+    return unless self.start_date and self.end_date
     if self.conference.timezone and time.zone != self.conference.timezone
       time = time.in_time_zone(self.conference.timezone)
     end
@@ -35,7 +36,7 @@ class Availability < ActiveRecord::Base
 
   def update_event_conflicts
     self.person.events_in(self.conference).each do |event|
-      event.update_conflicts if event.start_time.between?(self.day.start_date, self.day.end_date)
+      event.update_conflicts if event.start_time and event.start_time.between?(self.day.start_date, self.day.end_date)
     end
   end
   
