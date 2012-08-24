@@ -1,4 +1,4 @@
-class EventRatingsController < ApplicationController
+class EventRatingsController < FrabApplicationController
 
   before_filter :authenticate_user!
   before_filter :require_admin

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include UniqueToken
+  include Frab::UniqueToken
 
   ROLES = ["submitter", "admin"]
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/

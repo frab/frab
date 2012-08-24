@@ -1,4 +1,4 @@
-class PeopleController < ApplicationController
+class PeopleController < FrabApplicationController
 
   before_filter :authenticate_user!
   before_filter :require_admin

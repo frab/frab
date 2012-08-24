@@ -1,0 +1,4 @@
+test:
+  host: frab.test
+  protocol: http
+  from_email: frab@frab.test

@@ -1,0 +1,25 @@
+require "haml"
+require "will_paginate"
+require "paperclip"
+require "formtastic"
+require "acts_as_indexed"
+require "cocoon"
+require "paper_trail"
+require "localized_language_select"
+require "ransack"
+require "transitions"
+require "active_record/transitions"
+require "barista"
+require "ri_cal"
+require "nokogiri"
+require "settingslogic"
+require "twitter-bootstrap-rails"
+require "formtastic-bootstrap"
+require "prawn"
+require "prawn_rails"
+
+require "frab/engine"
+require "frab/unique_token"
+
+module Frab
+end

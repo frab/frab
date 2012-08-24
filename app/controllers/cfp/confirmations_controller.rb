@@ -1,4 +1,4 @@
-class Cfp::ConfirmationsController < ApplicationController
+class Cfp::ConfirmationsController < FrabApplicationController
 
   layout "signup"
 

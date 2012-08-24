@@ -1,4 +1,4 @@
-class Cfp::WelcomeController < ApplicationController
+class Cfp::WelcomeController < FrabApplicationController
 
   layout 'cfp'
 

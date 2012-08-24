@@ -1,4 +1,4 @@
-class StatisticsController < ApplicationController
+class StatisticsController < FrabApplicationController
 
   def events_by_state
     respond_to do |format|

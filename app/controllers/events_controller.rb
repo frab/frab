@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class EventsController < FrabApplicationController
 
   before_filter :authenticate_user!
   before_filter :require_admin

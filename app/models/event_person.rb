@@ -1,5 +1,5 @@
 class EventPerson < ActiveRecord::Base
-  include UniqueToken
+  include Frab::UniqueToken
 
   ROLES = [:coordinator, :submitter, :speaker, :moderator]
   STATES = [:canceled, :confirmed, :declined, :idea, :offer, :unclear]

@@ -1,4 +1,4 @@
-class Cfp::PasswordsController < ApplicationController
+class Cfp::PasswordsController < FrabApplicationController
 
   layout "signup"
 

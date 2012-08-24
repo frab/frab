@@ -1,4 +1,4 @@
-class Public::ScheduleController < ApplicationController
+class Public::ScheduleController < FrabApplicationController
 
   layout 'public_schedule'
 

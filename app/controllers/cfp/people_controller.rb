@@ -1,4 +1,4 @@
-class Cfp::PeopleController < ApplicationController
+class Cfp::PeopleController < FrabApplicationController
 
   layout "cfp"
 

@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class HomeController < FrabApplicationController
 
   before_filter :authenticate_user!
   before_filter :require_admin

@@ -1,4 +1,4 @@
-class Cfp::EventsController < ApplicationController
+class Cfp::EventsController < FrabApplicationController
 
   layout "cfp"
 

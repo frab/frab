@@ -1,4 +1,4 @@
-class ConferencesController < ApplicationController
+class ConferencesController < FrabApplicationController
 
   skip_before_filter :load_conference, :only => :new
 

@@ -1,4 +1,4 @@
-class EventFeedbacksController < ApplicationController
+class EventFeedbacksController < FrabApplicationController
 
   before_filter :authenticate_user!
   before_filter :require_admin

@@ -1,4 +1,4 @@
-class Public::FeedbackController < ApplicationController
+class Public::FeedbackController < FrabApplicationController
 
   layout "public_schedule"
 

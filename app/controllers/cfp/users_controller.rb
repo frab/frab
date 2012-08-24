@@ -1,4 +1,4 @@
-class Cfp::UsersController < ApplicationController
+class Cfp::UsersController < FrabApplicationController
 
   layout 'signup'
 

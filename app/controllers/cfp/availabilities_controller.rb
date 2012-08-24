@@ -1,4 +1,4 @@
-class Cfp::AvailabilitiesController < ApplicationController
+class Cfp::AvailabilitiesController < FrabApplicationController
 
   layout 'cfp'
 

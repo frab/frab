@@ -1,3 +1,11 @@
+/*
+ *= require formtastic-bootstrap
+ *= require twitter/bootstrap
+ *= require formtastic_changes
+ *= require jquery-ui-bootstrap 
+ *= require_self 
+*/
+
 body {
   padding-top: 40px;
   background-color: #eeeeee;
