@@ -20,32 +20,39 @@ frab is under heavy development. There is no stable release yet.
 You may want to try to use frab regardless, but be warned, that it may
 be a rocky ride.
 
-That being said, frab has been used to organize FrOSCon 2011, a
-conference with more than 100 talks (and as many speakers) in more
-than 5 parallel tracks (plus devrooms) over 2 days.
+That being said, frab has been used to organize several conferences,
+including hundreds of talks, speakers etc. 
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 3.1) application. 
-There should be plenty of tutorials online on how to install,
-deploy and setup these.
+frab is a Ruby on Rails (version 3.1) engine. Installation
+requires Ruby (>= 1.9.2) and rails (~> 3.1.8).
 
-Basically, to get started you need git, ruby (>= 1.9.2) and bundler 
-and follow these steps:
+Roughly, the following steps are necessary:
 
-1) Clone the repository
+1) Create a new rails application:
 
-    git clone git://github.com/oneiros/frab.git
+    rails new <app_name> --skip-bundle
 
-2) cd into the directory:
+As a default, rails will pick sqlite3 as database. This can be
+overriden with the -d parameter.
 
-    cd frab
+frab should work with all three built-in rails database drivers. 
+But it is best tested with MySQL and SQLite3 (for development). 
 
-3) Install all necessary gems:
+2) Change into your app directory:
+
+    cd <app_name>
+
+3) Add this to your Gemfile:
+
+    gem 'frab', :git => "git://github.com/oneiros/frab.git", :branch => 'engine'
+
+4) Install all necessary gems:
 
     bundle install
 
-4) Install Imagemagick:
+5) Install Imagemagick:
 
 This is a dependency of the paperclip gem. Imagemagick
 tools need to be installed to identify and resize images.
@@ -53,27 +60,28 @@ tools need to be installed to identify and resize images.
 Imagemagick should be easy to install using your OS's
 preferred package manager (apt-get, yum, brew etc.).
  
-5) Create (and possibly modify) the database configuration:
+6) Create and modify settings config/settings.yml.
 
-    cp config/database.yml.template config/database.yml
+See file config/settings.yml.template in the frab repository
+for an example configuration.
 
-frab bundles all three built-in rails database drivers. 
-And it should work with all three, although it is best tested 
-with MySQL and SQLite3 (for development). 
+7) Copy migrations to you applications:
 
-6) Create and modify settings:
+    rake frab:install:migrations
 
-    cp config/settings.yml.template config/settings.yml
+8) Add seed data. Edit the file db/seeds.rb and add the following line:
 
-7) Create and setup the database
+    Frab::Engine.load_seed
+
+9) Create and setup the database
 
     rake db:setup
 
-8) Precompile assets (only needed for production)
+10) Precompile assets (only needed for production)
 
     rake assets:precompile
 
-9) Start the server
+11) Start the server
 
 To start frab in the development environment simply run
 
@@ -91,22 +99,13 @@ like unicorn or passenger.)
 Navigate to http://localhost:3000/ and login as 
 "admin@example.org" with password "test123".
 
-## Migrating from pentabarf
+## Contributing
 
-frab comes with a script that offers limited capabilities of
-migrating data from pentabarf. For it to work, you need access
-to pentabarf's database and configure it in config/database.yml
-under the key "pentabarf".
-
-Then simply run
-
-    rake pentabarf:import:all
-
-Please note, that the script has not been tested with HEAD
-and will most probably not work. If you still want to try it
-out, checkout the code at the revision the script was last
-changed at and upgrade the code and migrate the database
-from there.
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 ## License
 
