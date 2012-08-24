@@ -1,12 +1,13 @@
 class ReportsController < ApplicationController
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :conference, :parent => false
 
   def index
   end
 
   def show_events
+    authorize! :show, @conference
+
     @report_type = params[:id]
     @events = []
     @search_count = 0
@@ -44,6 +45,8 @@ class ReportsController < ApplicationController
   end
 
   def show_people
+    authorize! :show, @conference
+
     @report_type = params[:id]
     @people = []
     @search_count = 0
@@ -68,21 +71,9 @@ class ReportsController < ApplicationController
     render :show
   end
 
-  def event_duration_sum(events)
-    # FIXME adjust for configurable duration and move to model
-    hours = events.map { |e| 
-      if e.time_slots < 5
-        1
-      else
-        v = e.time_slots / 4
-        v += 1 if e.time_slots % 4
-        v
-      end
-    }
-    hours.sum
-  end
-
   def show_statistics
+    authorize! :show, @conference
+
     @report_type = params[:id]
     @search_count = 0
 
@@ -116,5 +107,22 @@ class ReportsController < ApplicationController
 
     render :show
   end
+
+  protected
+
+  def event_duration_sum(events)
+    # FIXME adjust for configurable duration and move to model
+    hours = events.map { |e| 
+      if e.time_slots < 5
+        1
+      else
+        v = e.time_slots / 4
+        v += 1 if e.time_slots % 4
+        v
+      end
+    }
+    hours.sum
+  end
+
 
 end

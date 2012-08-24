@@ -10,8 +10,12 @@
 <% @conferences.each do |conference| %>
   <tr>
     <td><%= link_to 'Show', conference %></td>
-    <td><%= link_to 'Edit', edit_conference_path(conference) %></td>
-    <td><%= link_to 'Destroy', conference, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if can? :manage, event %>
+      <td><%= link_to 'Edit', edit_conference_path(conference) %></td>
+      <td><%= link_to 'Destroy', conference, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% else %>
+      <td colspan="2"></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

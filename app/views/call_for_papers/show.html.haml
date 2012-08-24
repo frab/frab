@@ -1,7 +1,8 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit", edit_call_for_papers_path, :hint => "Edit this call for paper's data."
+      - if can? :manage, CallForPapers
+        = action_button "primary", "Edit", edit_call_for_papers_path, :hint => "Edit this call for paper's data."
     %h1 Call for Papers
   .row
     .span16

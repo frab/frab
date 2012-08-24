@@ -1,11 +1,11 @@
 class EventsController < ApplicationController
 
   before_filter :authenticate_user!
-  load_and_authorize_resource
   
   # GET /events
   # GET /events.xml
   def index
+    authorize! :read, Event
     if params[:term]
       @search = @conference.events.with_query(params[:term]).search(params[:q])
       @events = @search.result.paginate :page => params[:page]
@@ -20,7 +20,9 @@ class EventsController < ApplicationController
     end
   end
 
+  # current_users events
   def my
+    authorize! :read, Event
     if params[:term]
       @search = @conference.events.associated_with(current_user.person).with_query(params[:term]).search(params[:q])
       @events = @search.result.paginate :page => params[:page]
@@ -30,7 +32,9 @@ class EventsController < ApplicationController
     end
   end
 
+  # events as pdf
   def cards
+    authorize! :read, Event
     if params[:accepted]
       @events = @conference.events.accepted
     else
@@ -42,7 +46,9 @@ class EventsController < ApplicationController
     end
   end
 
+  # show event ratings
   def ratings
+    authorize! :read, EventRating
     @search = @conference.events.search(params[:q])
     @events = @search.result.paginate :page => params[:page]
 
@@ -56,12 +62,16 @@ class EventsController < ApplicationController
     @events_no_review = @events_total - @events_reviewed
   end
 
+  # show event feedbacks
   def feedbacks
+    authorize! :read, EventFeedback
     @search = @conference.events.accepted.search(params[:q])
     @events = @search.result.paginate :page => params[:page]
   end
 
+  # start batch event review
   def start_review
+    authorize! :manage, EventRating
     ids = Event.ids_by_least_reviewed(@conference, current_user.person)
     if ids.empty?
       redirect_to :action => "ratings", :notice => "You have already reviewed all events:"
@@ -75,6 +85,7 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     @event = Event.find(params[:id])
+    authorize! :read, @event
 
     respond_to do |format|
       format.html # show.html.erb
@@ -82,13 +93,18 @@ class EventsController < ApplicationController
     end
   end
 
+  # people tab of event detail page, the rating and
+  # feedback tabs are handled in routes.rb
+  # GET /events/2/people
   def people
     @event = Event.find(params[:id])
+    authorize! :read, @event
   end
   
   # GET /events/new
   # GET /events/new.xml
   def new
+    authorize! :manage, Event
     @event = Event.new
 
     respond_to do |format|
@@ -100,10 +116,13 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    authorize! :manage, @event
   end
 
+  # GET /events/2/edit_people
   def edit_people
     @event = Event.find(params[:id])
+    authorize! :manage, @event
   end
 
   # POST /events
@@ -111,6 +130,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.conference = @conference
+    authorize! :manage, @event
 
     respond_to do |format|
       if @event.save
@@ -127,6 +147,7 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
+    authorize! :manage, @event
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
@@ -140,8 +161,12 @@ class EventsController < ApplicationController
     end
   end
 
+  # update event state
+  # GET /events/2/update_state?transition=cancel
   def update_state
     @event = Event.find(params[:id])
+    authorize! :manage, @event
+
     if params[:send_mail]
       redirect_to(@event, :alert => "Cannot send mails: Please specify an email address for this conference.") and return unless @conference.email
       redirect_to(@event, :alert => "Cannot send mails: Not all speakers have email addresses.") and return unless @event.speakers.all?{|s| s.email}
@@ -154,6 +179,7 @@ class EventsController < ApplicationController
   # DELETE /events/1.xml
   def destroy
     @event = Event.find(params[:id])
+    authorize! :manage, @event
     @event.destroy
 
     respond_to do |format|
