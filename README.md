@@ -107,6 +107,11 @@ Navigate to http://localhost:3000/ and login as
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+## Mailing List
+
+There is a mailing list hosted at librelist.com. Just email
+frab (at) librelist.com to sign up.
+
 ## License
 
 frab is licensed under an MIT-License. It bundles some
