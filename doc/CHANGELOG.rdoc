@@ -1,0 +1,2 @@
+= Frab Changelog
+* Changelog initialized
