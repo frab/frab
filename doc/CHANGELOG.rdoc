@@ -1,2 +1,4 @@
 = Frab Changelog
+== 0.0.1
+* Start tagging versions
 * Changelog initialized
