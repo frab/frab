@@ -24,12 +24,12 @@ gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/loca
 gem 'ransack'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'json'
-gem 'therubyracer', '~> 0.9.2'
 gem 'barista'
 gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
-gem 'twitter-bootstrap-rails', '~> 1.4.1'
+gem 'node'
+gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
 gem 'formtastic-bootstrap', :git => "git://github.com/katastrophie/formtastic-bootstrap.git"
 gem 'prawn'
 gem 'prawn_rails'

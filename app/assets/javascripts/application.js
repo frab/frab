@@ -1,10 +1,10 @@
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require jquery-ui
 //= require jquery-ui-timepicker-addon
 //= require jquery.dateFormat
 //= require cocoon
-//= require twitter/bootstrap
 
 $(function() {
   $('.topbar').dropdown();
