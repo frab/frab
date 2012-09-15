@@ -12,7 +12,7 @@
     = f.input :public, :as => :boolean, :hint => "Is this event visible in the public schedule?"
     = f.input :logo
   = f.inputs :name => "State" do
-    = f.input :state, :collection => Event.state_machine.states_for_select
+    = f.input :state, :collection => Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
   = f.inputs :name => "Time and place" do
     = f.input :start_time, :as => :select, :collection => start_times
     = f.input :room, :collection => @conference.rooms
