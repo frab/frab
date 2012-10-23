@@ -12,3 +12,8 @@ rerun.txt
 .sass-cache/
 .idea/
 .redcar/
+bin/
+bundler/
+cache/
+gems/
+specifications/
