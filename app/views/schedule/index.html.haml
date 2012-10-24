@@ -27,6 +27,15 @@
             or launch a call for papers to gather events.
             Once you have events, you can schedule them
             here.
+  - elsif @conference.days.count == 0
+    .row
+      .span16
+        .blank-slate
+          %p
+            Before you can schedule any events, you need
+            to have at least one day defined for this
+            conference. Go to <em>Conference Settings</em>
+            above to enter a day.
   - else
     .row
       .span16

@@ -5,8 +5,10 @@ class ScheduleController < ApplicationController
 
   def index
     params[:day] ||= 0
+    @schedules_events = []
     @day = @conference.days[params[:day].to_i]
-    @scheduled_events = @conference.events.accepted.scheduled_on(@day).order(:title)
+
+    @scheduled_events = @conference.events.accepted.scheduled_on(@day).order(:title) if not @day.nil?
     @unscheduled_events = @conference.events.accepted.unscheduled.order(:title)
   end
 
