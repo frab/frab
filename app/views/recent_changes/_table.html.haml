@@ -12,7 +12,7 @@
           %td= image_box user.person.avatar, :small
           %td= link_to user.person.full_name, user.person
         -else
-          %td= image_box User.first.person.avatar, :small
+          %td= image_box Person.new.avatar, :small
           %td deleted id
         %td= verb_for version.event
         %td
