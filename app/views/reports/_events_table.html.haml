@@ -30,6 +30,6 @@
         %td= l(event.created_at.to_date)
         %td.buttons
           = action_button "small", 'Show', event
-          - if can? :manage, person
+          - if can? :manage, event
             = action_button "small", 'Edit', edit_event_path(event)
             = action_button "small danger", 'Destroy', event, :confirm => 'Are you sure?', :method => :delete
