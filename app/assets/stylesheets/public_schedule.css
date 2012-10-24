@@ -115,23 +115,6 @@ table.rooms-table {
   position: relative;
 }
 
-table.rooms-table td {
-  border: 1px solid white;
-  border-top: none;
-  vertical-align: top;
-  width: 200px;
-}
-
-table.rooms-table td.cell-time {
-  width: 45px;
-  border-bottom: 1px solid #9D9D9D;
-  vertical-align: middle;
-  text-align: center;
-  font: bold 12px verdana, sans-serif;
-  color:#666;
-  background: #fff;
-}
-
 table.rooms-table th {
   height: 25px;
   padding: 3px;
@@ -139,12 +122,25 @@ table.rooms-table th {
   text-align: center;
   color: #fff;
   margin: 0;
-  border-bottom: 1px solid #9D9D9D;
   font-weight: bold;
   background: #666;
 }
 
-table.rooms-table th.cell-time {
+table.rooms-table td {
+  border: 1px solid white;
+  border-top: none;
+  vertical-align: top;
+  width: 200px;
+}
+
+table.rooms-table td.cell-time, table.rooms-table th.cell-time {
+  width: 45px;
+  padding: 0px;
+  border-bottom: 1px solid #9D9D9D;
+  vertical-align: middle;
+  text-align: center;
+  font: bold 12px verdana, sans-serif;
+  color:#666;
   background: #fff;
 }
 
