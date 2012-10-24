@@ -50,4 +50,8 @@ class Day < ActiveRecord::Base
     self.id
   end
 
+  def to_s
+    "Day: #{self.label}"
+  end
+
 end
