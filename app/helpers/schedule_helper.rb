@@ -28,7 +28,7 @@ module ScheduleHelper
 
   def each_minutes(minutes, &block)
     time = @day.start_date
-    while time <= @day.end_date
+    while time < @day.end_date
       yield time
       time = time.since(minutes.minutes)
     end
