@@ -149,8 +149,9 @@ table.rooms-table th.cell-time {
 
 .event {
   width: 98%;
-  height: 98%;
+  height: 100%;
   border:1px solid;
+  margin: 0 auto;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
