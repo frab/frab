@@ -1,8 +1,11 @@
 %table.zebra-striped
   %tbody
     - @versions.each do |version|
+      - user = nil
       - if version.whodunnit
-        - user = User.find(version.whodunnit)
+        - begin
+          - user = User.find(version.whodunnit)
+        - rescue
       %tr
         %td= version.created_at.to_s(:long)
         - if user and user.person

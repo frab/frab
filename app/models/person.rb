@@ -17,7 +17,7 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :availabilities, :reject_if => :all_blank
 
-  belongs_to :user
+  belongs_to :user, :dependent => :destroy
 
   acts_as_indexed :fields => [:first_name, :last_name, :public_name, :email, :abstract, :description]
 
