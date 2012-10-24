@@ -2,23 +2,18 @@
 %br.clear/
 #pagination
 #main-table
-  %table#time-line
-    %tr
-      %td#top-left
-    - each_timeslot do |time| 
-      %tr.cell-height1
-        / %td.cell.cell-height1
-        %td.cell
-          - if time.min % 15 == 0
-            %p= time.strftime("%H:%M")
   #conference-rooms
-    %table.rooms-table{:style => "width: #{@rooms.size * 200}px;"}
+    %table.rooms-table
       %thead
+        %th.cell-time
         - @rooms.each do |room|
           %th= room.name
       %tbody
         - each_timeslot do |time|
           %tr.cell-height1
+            %td.cell-time
+              - if time.min % 15 == 0
+                %p= time.strftime("%H:%M")
             - @rooms.each do |room|
               - @skip_row[room] -= 1
               - next if @skip_row[room] > 0
