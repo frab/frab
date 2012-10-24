@@ -35,7 +35,7 @@
         %p
           %b Email:
           = mail_to @person.email
-          (#{@person.email_public ? "public" : "non-public"})
+          (#{@person.email_public? ? "public" : "non-public"})
         - @person.phone_numbers.each do |phone_number|
           %p
             %b
