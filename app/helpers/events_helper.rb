@@ -10,7 +10,7 @@ module EventsHelper
 
   def timeslots
     slots = Array.new
-    @conference.max_timeslots.times do |i|
+    (@conference.max_timeslots+1).times do |i|
       slots << [format_time_slots(i), i]
     end
     slots
