@@ -115,7 +115,7 @@ table.room tr.even {background: #EEEEEE;}
 
 span.right { float: right; }
 
-td.buttons { width: 160px; }
+td.buttons { white-space: nowrap; }
 
 a.assoc {
   margin-left: 150px;
