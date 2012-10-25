@@ -42,11 +42,12 @@ body {
 
 #horizontal-navigation {
   float: left;
-  padding: 8em 0.7em 0 1.5em;
+  padding: 8em 0.7em 1em 2em;
   vertical-align: top;
 }
 
 #horizontal-navigation ul {
+  margin: 0;
   min-width: 135px;
 }
 
@@ -75,8 +76,7 @@ body {
 
 #main-content {
   overflow: hidden;
-  margin-top: 1em;
-  margin-right: 2em;
+  margin: 1em 2em 1em 0;
   padding-left: 1em;
   height: auto;
   border-style: solid;
