@@ -17,3 +17,4 @@ bundler/
 cache/
 gems/
 specifications/
+*~
