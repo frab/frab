@@ -1,11 +1,11 @@
-%h2.title Events 
+%h2.title= t '.events'
 
 %table.list
   %thead
     %th &nbsp;
-    %th Title
-    %th Track
-    %th Speakers
+    %th= t '.title'
+    %th= t '.track'
+    %th= t '.speakers'
   %tbody
     - @events.each do |event|
       %tr

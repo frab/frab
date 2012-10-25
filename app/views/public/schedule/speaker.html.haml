@@ -1,4 +1,4 @@
-%h2.title Speaker: #{@speaker.full_public_name}
+%h2.title #{t '.speaker'}: #{@speaker.full_public_name}
 
 .column.left#basic
   = image_box(@speaker.avatar, :large)
@@ -7,18 +7,18 @@
 
 .column.left#details
   - if @speaker.email_public?
-    %h3 Contact
+    %h3= t '.contact'
     %p
-      %b E-Mail:
+      %b #{t '.email'}:
       = mail_to @speaker.email, nil, :replace_at => "(at)", :replace_dot => "(dot)", :encode => :javascript
   - if @speaker.links.any?
-    %h3 Links
+    %h3= t '.links'
     %ul
       - @speaker.links.each do |link|
         %li= link_to link.title, link.url
 
 .column.right#sidebar
-  %h3 Events in this conference
+  %h3= t '.events_in_this_conference'
   %table.list
     %tbody
       - @speaker.public_and_accepted_events_as_speaker_in(@conference).each do |event|

@@ -1,0 +1,52 @@
+en:
+  time:
+    formats:
+      time: "%H:%M"
+
+  public:
+    schedule:
+      title: "Schedule %{title}"
+
+      nav:
+        index: "Index"
+        day: "Day %{index}"
+        speakers: "Speakers"
+        events: "Events"
+
+      index:
+        schedule_index: "Schedule index"
+        day: "Day %{index} – %{label}"
+        speakers: "Speakers"
+        events: "Events"
+
+      day:
+        schedule_for_day: "Schedule for day %{index} – %{label}"
+
+      speakers:
+        speakers: "Speakers"
+        name: "Name"
+        events: "Events"
+
+      events:
+        events: "Events"
+        title: "Title"
+        track: "Track"
+        speakers: "Speakers"
+
+      event:
+        info: "Info"
+        day: "Day"
+        start_time: "Start time"
+        duration: "Duration"
+        track: "Track"
+        links: "Links"
+        files: "Files"
+        feedback: "Feedback"
+        speakers: "Speakers"
+
+      speaker:
+        speaker: "Speaker"
+        contact: "Contact"
+        email: "E-Mail"
+        links: "Links"
+        events_in_this_conference: "Events in this conference"

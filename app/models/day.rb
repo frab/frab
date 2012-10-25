@@ -40,6 +40,10 @@ class Day < ActiveRecord::Base
     self.start_date.strftime('%Y-%m-%d')
   end
 
+  def date
+    self.start_date.to_date
+  end
+
   # ActionView::Helper.options_for_select
   def first
     self.name

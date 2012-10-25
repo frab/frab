@@ -1,8 +1,9 @@
 !!!
+- title = t 'public.schedule.title', :title => @conference.title
 %html
   %head
     %meta{ :"http-equiv" => "content-type", :content => "text/html; charset=utf-8" }
-    %title= @conference.acronym + ": " + @conference.title + " Program"
+    %title= title
     = stylesheet_link_tag 'public_schedule'
     = stylesheet_link_tag public_schedule_style_path(:format => :css), :media => "all"
     = stylesheet_link_tag 'public_schedule_print', :media => 'print'
@@ -10,22 +11,22 @@
   %body
     #wrapper
       #header
-        %h1= @conference.title + " Program"
+        %h1= title
         #top-navigation 
           %ul.horizontal-navigation
             - unless feedback_page?
               %li{:class => selected(/schedule$/)}
-                = link_to "Index", public_schedule_index_path
+                = link_to t('public.schedule.nav.index'), public_schedule_index_path
               - @conference.days.each_with_index do |day, index| 
                 %li{:class => selected(/#{day.label}$/)}
                   %a{:href => public_schedule_path(:day => index)}
-                    Day #{index + 1}
+                    #{t 'public.schedule.nav.day', :index => index + 1}
                     %br/
-                    %span.small-font= day.label
+                    %span.small-font= l day.date
               %li{:class => selected(/speakers.*$/)}
-                = link_to "Speakers", public_speakers_path
+                = link_to t('public.schedule.nav.speakers'), public_speakers_path
               %li{:class => selected(/events.*$/)}
-                = link_to "Events", public_events_path
+                = link_to t('public.schedule.nav.events'), public_events_path
         %br.clear/
       #main-content
         - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?

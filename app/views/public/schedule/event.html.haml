@@ -1,4 +1,4 @@
-%h2 #{@event.event_type.humanize}: #{@event.title}
+%h2 #{t "options.#{@event.event_type}"}: #{@event.title}
 %h3.title= @event.subtitle
 
 .column.left#basic
@@ -7,37 +7,37 @@
   = simple_format @event.description, :class => "description"
 
 .column.left#details
-  %h3 Info
+  %h3= t '.info'
   %p
-    %b Day:
-    = link_to @event.start_time.to_date, public_schedule_path(:day => @conference.day_at(@event.start_time))
+    %b #{t '.day'}:
+    = link_to l(@event.start_time.to_date), public_schedule_path(:day => @conference.day_at(@event.start_time))
     %br/
-    %b Start time:
-    = @event.start_time.to_s(:time)
+    %b #{t '.start_time'}:
+    = l @event.start_time, :format => :time
     %br/
-    %b Duration:
+    %b #{t '.duration'}:
     = format_time_slots(@event.time_slots)
     %br/
-    %b Track:
+    %b #{t '.track'}:
     = @event.track.try(:name)
   - if @event.links.any?
-    %h3 Links
+    %h3 #{t '.links'}:
     %ul
       - @event.links.each do |link|
         %li= link_to link.title, link.url
   - if @event.event_attachments.any?
-    %h3 Files
+    %h3= t '.files'
     %ul
       - @event.event_attachments.each do |attachment|
         %li= link_to attachment.title, attachment.attachment.url
   - if @conference.feedback_enabled?
-    %h3 Feeback
+    %h3= t '.feedback'
     %p
       = link_to "Click here", new_public_event_feedback_url(:event_id => @event)
       to let us know how you liked this event.
 
 .column.right#sidebar
-  %h3 Speakers 
+  %h3= t '.speakers'
   %table.list
     %tbody
       - @event.speakers.each do |speaker|

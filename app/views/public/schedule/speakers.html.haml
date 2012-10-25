@@ -1,10 +1,10 @@
-%h2.title Speakers
+%h2.title= t '.speakers'
 
 %table.list
   %thead
     %th &nbsp;
-    %th Name
-    %th Events
+    %th= t '.name'
+    %th= t '.events'
   %tbody
     - @speakers.each do |speaker|
       %tr

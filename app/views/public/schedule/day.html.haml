@@ -1,4 +1,4 @@
-%h2 Schedule for Day #{@day_index+1} - #{@day.label}
+%h2= t '.schedule_for_day', :index => @day_index+1, :label => l(@day.date)
 %br.clear/
 #pagination
 #main-table
