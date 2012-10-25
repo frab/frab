@@ -222,6 +222,8 @@ de:
       phone_number: "Telefonnummer"
       event_attachment: "Datei"
       language: "Sprache"
+      track: "Track"
+      room: "Raum"
     attributes:
       event:
         title: "Titel"
