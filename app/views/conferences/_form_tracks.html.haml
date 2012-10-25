@@ -1,4 +1,4 @@
 = semantic_form_for(@conference, :url => conference_path) do |f|
-  = dynamic_association :tracks, "Tracks", f
+  = dynamic_association :tracks, t(:tracks), f
   = f.buttons do
     = f.commit_button :button_html => {:class => "btn primary"}

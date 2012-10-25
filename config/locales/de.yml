@@ -4,10 +4,42 @@ de:
   remove_link: "Link entfernen"
   remove_file: "Datei entfernen"
   remove_language: "Sprache entfernen"
-  edit: "bearbeiten"
+  remove_day: "Tag entfernen"
+  remove_track: "Track entfernen"
+  remove_room: "Raum entfernen"
+  edit: "Bearbeiten"
   actions: "Aktionen"
   error_signing_in: "E-Mailadresse oder Passwort ungültig."
   sign_in_successful: "Erfolgreich eingeloggt."
+
+  people: "Personen"
+  events: "Veranstaltungen"
+  reports: "Berichte"
+  call_for_papers: "Call for Papers"
+  launch_call_for_papers: "Call for Papers starten"
+  schedule: "Zeitplan"
+  settings: "Einstellungen"
+  switch_conference: "Konferenz wechseln"
+  create_new_conference: "Neue Konferenz erstellen"
+
+  days: "Tage"
+  tracks: "Tracks"
+  rooms: "Räume"
+  ticket_server: "Ticket-Server"
+
+  create_your_first_conference: "Erste Konferenz erstellen"
+  new_conference: "Neue Konferenz"
+  edit_conference: "Konferenz bearbeiten"
+  edit_conference_days: "Konferenz-Tage bearbeiten"
+  edit_conference_tracks: "Konferenz-Tracks bearbeiten"
+  edit_conference_rooms: "Konferenz-Räume bearbeiten"
+  edit_ticket_server: "Ticket-Server bearbeiten"
+
+  basic_information: "Grundlegende Informationen"
+  schedule_configuration: "Konfiguration des Zeitplans"
+  event_languages: "Veranstaltungssprachen"
+  static_program_export: "Statischer Programm-Export"
+  feedback_system: "Feedback-System"
 
   options:
     lecture: "Vortrag"
@@ -214,6 +246,7 @@ de:
       full_messages:
         format: "%{attribute}%{message}"
     models:
+      conference: "Konferenz"
       event: "Einreichung"
       person: "Profil"
       day: "Tag"
@@ -225,6 +258,28 @@ de:
       track: "Track"
       room: "Raum"
     attributes:
+      conference:
+        title: "Titel"
+        acronym: "Kürzel"
+        email: "E-Mail"
+        timezone: "Zeitzone"
+        timeslot_duration: "Dauer der Zeitslots"
+        default_timeslots: "Standard-Anzahl Zeitslots"
+        max_timeslots: "Maximale Anzahl Zeitslots"
+        schedule_version: "Version des Zeitplans"
+        schedule_public: "Zeitplan öffentlich"
+        feedback_enabled: "Feedback aktiviert"
+      day:
+        start_date: "Anfang"
+        end_date: "Ende"
+      track:
+        name: "Name"
+        color: "Farbe"
+      room:
+        name: "Name"
+        size: "Größe"
+        rank: "Rang"
+        public: "Öffentlich"
       event:
         title: "Titel"
         subtitle: "Untertitel"

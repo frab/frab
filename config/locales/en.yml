@@ -2,16 +2,36 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  add_association: "add %{name}"
+  add_association: "Add %{name}"
   your_submission: "Your Submission"
   remove_link: "remove link"
   remove_file: "remove file"
   remove_language: "remove language"
+  remove_day: "Remove day"
+  remove_track: "Remove track"
+  remove_room: "Remove room"
   edit: "edit"
   actions: "Actions"
   error_signing_in: "Invalid email or password."
   sign_in_successful: "Successfully signed in."
-  
+
+  settings: "Settings"
+
+  create_your_first_conference: "Create your first conference"
+  new_conference: "New conference"
+  edit_conference: "Edit conference"
+  edit_conference_days: "Edit conference days"
+  edit_conference_tracks: "Edit conference tracks"
+  edit_conference_rooms: "Edit conference rooms"
+  edit_ticket_server: "Edit ticket server"
+
+  basic_information: "Basic information"
+  event_languages: "Event languages"
+  days: "Days"
+  tracks: "Tracks"
+  rooms: "Rooms"
+  ticket_server: "Ticket Server"
+
   options:
     lecture: "lecture"
     workshop: "workshop"
@@ -30,21 +50,25 @@ en:
     secretary: "secretary"
   activerecord:
     models:
+      conference: "conference"
       day: "day"
-      event: "Event"
-      person: "Profile"
-      event_person: "Person"
-      link: "Link"
-      im_account: "IM Account"
-      phone_number: "Phone number"
-      event_attachment: "File"
-      language: "Language"
-      track: "Track"
-      room: "Room"
+      event: "event"
+      person: "profile"
+      event_person: "person"
+      language: "language"
+      link: "link"
+      im_account: "IM account"
+      phone_number: "phone number"
+      event_attachment: "file"
+      language: "language"
+      track: "track"
+      room: "room"
     attributes:
+      conference:
+        email: "E-Mail"
       event:
-        title: "Title"
-        state: "State"
+        title: "title"
+        state: "state"
   mailers:
     user_mailer:
       confirmation_instructions: "Account Activation"

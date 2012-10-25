@@ -20,7 +20,7 @@ de:
         events: "Veranstaltungen"
 
       day:
-        schedule_for_day: "Programm für Tag %{index} – %{label}"
+        schedule_for_day: "Zeitplan für Tag %{index} – %{label}"
 
       speakers:
         speakers: "Referenten"
