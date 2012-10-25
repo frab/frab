@@ -158,13 +158,17 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background: -moz-linear-gradient(top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.6) 100%); /* FF3.6+ */
+  background: -moz-linear-gradient(top, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.7) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.2)), color-stop(100%,rgba(255,255,255,0.6))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* Chrome10+,Safari5.1+ */
   background: -o-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* Opera11.10+ */
   background: -ms-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* IE10+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#66ffffff',GradientType=0 ); /* IE6-9 */
   background: linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* W3C */
+}
+
+.event-header a {
+  color: #fff;
 }
 
 .event-header {
@@ -183,6 +187,7 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
   width: 100%;
   height: 67%;
   font-size: 11px;
+  padding: 2px;
 }
 
 .event-details p { margin: 5px; }
@@ -193,12 +198,12 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
 }
 
 div.event.track-default {
-  background-color: #fefd7f;
-  border-color: #fefd7f;
+  background-color: #555;
+  border-color: #555;
 }
 
 div.event.track-default div.event-header {
-  background-color: #fefd7f;
+  background-color: #555;
 }
 
 div.subtitle {
