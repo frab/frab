@@ -10,17 +10,20 @@ en:
       nav:
         index: "Index"
         day: "Day %{index}"
+        schedule: "Schedule"
         speakers: "Speakers"
         events: "Events"
 
       index:
         schedule_index: "Schedule index"
         day: "Day %{index} – %{label}"
+        schedule: "Schedule – %{label}"
         speakers: "Speakers"
         events: "Events"
 
       day:
         schedule_for_day: "Schedule for day %{index} – %{label}"
+        schedule: "Schedule – %{label}"
 
       speakers:
         speakers: "Speakers"

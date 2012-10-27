@@ -4,7 +4,11 @@
   %ul
     - @conference.days.each_with_index do |day, index|
       %li
-        = link_to t('.day', :index => index + 1, :label => l(day.date)), public_schedule_path(:day => index)
+        - if @conference.days.length > 1
+          - label = t('.day', :index => index + 1, :label => l(day.date))
+        - else
+          - label = t('.schedule', :label => l(day.date))
+        = link_to label, public_schedule_path(:day => index)
         (#{link_to "PDF", public_schedule_path(:day => index, :format => :pdf)})
     %li= link_to t('.speakers'), public_speakers_path
     %li= link_to t('.events'), public_events_path

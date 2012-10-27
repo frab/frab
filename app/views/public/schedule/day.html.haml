@@ -1,4 +1,8 @@
-%h2= t '.schedule_for_day', :index => @day_index+1, :label => l(@day.date)
+%h2
+  - if @conference.days.length > 1
+    = t '.schedule_for_day', :index => @day_index+1, :label => l(@day.date)
+  - else
+    = t '.schedule', :label => l(@day.date)
 %br.clear/
 #pagination
 #main-table

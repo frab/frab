@@ -20,9 +20,12 @@
             - @conference.days.each_with_index do |day, index|
               %li{:class => selected(/#{day.label}$/)}
                 %a{:href => public_schedule_path(:day => index)}
-                  #{t 'public.schedule.nav.day', :index => index + 1}
-                  %br/
-                  %span.small-font= l day.date
+                  - if @conference.days.length > 1
+                    = t 'public.schedule.nav.day', :index => index + 1
+                    %br/
+                    %span.small-font= l day.date
+                  - else
+                    = t 'public.schedule.nav.schedule'
             %li{:class => selected(/speakers.*$/)}
               = link_to t('public.schedule.nav.speakers'), public_speakers_path
             %li{:class => selected(/events.*$/)}

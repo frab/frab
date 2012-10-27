@@ -10,17 +10,20 @@ de:
       nav:
         index: "Übersicht"
         day: "Tag %{index}"
+        schedule: "Zeitplan"
         speakers: "Referenten"
         events: "Veranstaltungen"
 
       index:
         schedule_index: "Programmübersicht"
         day: "Tag %{index} – %{label}"
+        schedule: "Zeitplan – %{label}"
         speakers: "Referenten"
         events: "Veranstaltungen"
 
       day:
         schedule_for_day: "Zeitplan für Tag %{index} – %{label}"
+        schedule: "Zeitplan – %{label}"
 
       speakers:
         speakers: "Referenten"
