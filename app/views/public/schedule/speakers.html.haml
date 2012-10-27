@@ -2,9 +2,10 @@
 
 %table.list
   %thead
-    %th &nbsp;
-    %th= t '.name'
-    %th= t '.events'
+    %tr
+      %th &nbsp;
+      %th= t '.name'
+      %th= t '.events'
   %tbody
     - @speakers.each do |speaker|
       %tr

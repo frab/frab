@@ -198,6 +198,7 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
 div.subtitle {
   font-style: italic;
   display: block;
+  margin-top: 3px;
   margin-bottom: 10px;
 }
 

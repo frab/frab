@@ -4,11 +4,12 @@
 
 %table.list
   %thead
-    %th &nbsp;
-    %th= t '.title'
-    - unless no_tracks
-      %th= t '.track'
-    %th= t '.speakers'
+    %tr
+      %th &nbsp;
+      %th= t '.title'
+      - unless no_tracks
+        %th= t '.track'
+      %th= t '.speakers'
   %tbody
     - @events.each do |event|
       %tr

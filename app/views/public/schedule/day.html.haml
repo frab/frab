@@ -9,9 +9,10 @@
   #conference-rooms
     %table.rooms-table
       %thead
-        %th.cell-time
-        - @rooms.each do |room|
-          %th= room.name
+        %tr
+          %th.cell-time
+          - @rooms.each do |room|
+            %th= room.name
       %tbody
         - each_timeslot do |time|
           %tr.cell-height1
@@ -30,9 +31,8 @@
                       .event-header
                         %h2= link_to event.title, public_event_path(:id => event.id)
                       .event-details
-                        %p
-                          .subtitle= event.subtitle
-                          .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
+                        .subtitle= event.subtitle
+                        .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
               - else
                 %td &nbsp;
 = javascript_include_tag "public_schedule"
