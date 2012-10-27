@@ -195,15 +195,6 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
   border-bottom: 1px solid #9D9D9D;
 }
 
-div.event.track-default {
-  background-color: #555;
-  border-color: #555;
-}
-
-div.event.track-default div.event-header {
-  background-color: #555;
-}
-
 div.subtitle {
   font-style: italic;
   display: block;
