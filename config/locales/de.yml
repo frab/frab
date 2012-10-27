@@ -262,6 +262,7 @@ de:
         title: "Titel"
         acronym: "Kürzel"
         email: "E-Mail"
+        color: "Farbe"
         timezone: "Zeitzone"
         timeslot_duration: "Dauer der Zeitslots"
         default_timeslots: "Standard-Anzahl Zeitslots"
