@@ -18,8 +18,9 @@
     %b #{t '.duration'}:
     = format_time_slots(@event.time_slots)
     %br/
-    %b #{t '.track'}:
-    = @event.track.try(:name)
+    - unless @event.track.blank?
+      %b #{t '.track'}:
+      = @event.track.try(:name)
   - if @event.links.any?
     %h3 #{t '.links'}:
     %ul
