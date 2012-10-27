@@ -20,12 +20,12 @@ prawn_document(
     margin_height = 2.cm
   end
 
+  header_height = 0.8.cm
 
   number_of_columns = @rooms.size < 5 ? @rooms.size : 5 
   number_of_pages = (@rooms.size / number_of_columns.to_f).ceil.to_i
   column_width = (pdf.bounds.width - margin_width) / number_of_columns
-  timeslot_height = (pdf.bounds.height - margin_height) / number_of_timeslots
-  row_height = (pdf.bounds.height - margin_height) / number_of_rows
+  timeslot_height = (pdf.bounds.height - margin_height - header_height) / number_of_timeslots
 
   # A page contains the full time range. New pages will
   # contain further rooms.
@@ -47,13 +47,13 @@ prawn_document(
 
     table = pdf.make_table(table_data) do |t|
       t.cells.style(:border_width => 1.pt, :border_color => "cccccc")
-      t.row(0).height = timeslot_height - 1
+      t.row(0).height = header_height
       t.row(0).align = :center
       t.row(0).font_style = :bold
       t.row(0).style(:size => 10)
       t.column(0).width = margin_width - 1
       t.rows(1..-1).style(:size => 4)
-      t.rows(1..-1).height = row_height
+      t.rows(1..-1).height = timeslot_height
       t.rows(1..-1).padding = 3
       t.rows(1..-1).align = :right
       t.columns(1..-1).width = column_width

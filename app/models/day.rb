@@ -46,12 +46,12 @@ class Day < ActiveRecord::Base
 
   # ActionView::Helper.options_for_select
   def first
-    self.name
+    self.label
   end
 
   # ActionView::Helper.options_for_select
   def last
-    self.id
+    self.label
   end
 
   def to_s

@@ -9,19 +9,14 @@ module ScheduleHelper
   end
 
   # for pdf
-  def number_of_rows
-    timeslots_between(@day.start_date, @day.end_date)
-  end
- 
-  # for pdf
   def number_of_timeslots
-    number_of_rows * 15.0 / @conference.timeslot_duration
+    timeslots_between(@day.start_date, @day.end_date)
   end
 
   # for pdf: event boxes in public schedule
   def event_coordinates(room_index, event, column_width, row_height, offset = 0)
     x = 1.5.cm - 1 + room_index * column_width
-    y = timeslots_between(event.start_time, @day.end_date)  * row_height
+    y = (timeslots_between(event.start_time, @day.end_date) - 1) * row_height
     y += offset
     [x, y]
   end

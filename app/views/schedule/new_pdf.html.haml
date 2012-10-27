@@ -11,7 +11,7 @@
         .clearfix
           = label_tag "date_id", "Select day:"
           .input
-            = select_tag "date_id", options_for_select(@conference.days)
+            = select_tag "date_id", options_from_collection_for_select(@conference.days, "id", "label")
         .clearfix
           = label_tag "room_ids[]", "Select rooms:"
           .input
