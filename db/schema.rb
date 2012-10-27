@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120920213816) do
+ActiveRecord::Schema.define(:version => 20121027095651) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120920213816) do
     t.string   "program_export_base_url"
     t.string   "schedule_version"
     t.boolean  "schedule_public",         :default => false, :null => false
+    t.string   "color"
   end
 
   create_table "conflicts", :force => true do |t|
