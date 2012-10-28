@@ -34,8 +34,7 @@
   - if @conference.feedback_enabled?
     %h3= t '.feedback'
     %p
-      = link_to "Click here", new_public_event_feedback_url(:event_id => @event)
-      to let us know how you liked this event.
+      = link_to t('.feedback_link'), new_public_event_feedback_url(:event_id => @event)
 
 .column.right#sidebar
   %h3= t '.speakers'

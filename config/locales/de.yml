@@ -322,6 +322,9 @@ de:
         password_confirmation: "Passwort wiederholen"
         current_password: "Aktuelles Passwort"
         remember_me: "An diesem Computer eingeloggt bleiben"
+      event_feedback:
+        rating: "Bewertung"
+        comment: "Kommentar"
   mailers:
     user_mailer:
       confirmation_instructions: "Account aktivieren"

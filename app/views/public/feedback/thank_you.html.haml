@@ -1,8 +1,7 @@
-%h2.title Thank you! 
+%h2.title= t '.thank_you'
 
 .column
-  %p Thanks for helping us improve our events. Please rate as much events that you attended as possible.
+  %p= t '.thank_you_for_helping_us'
 
   %p
-    = link_to "Click here", public_schedule_path(:day => @conference.day_at(@event.start_time))
-    to return to the schedule.
+    = link_to t('.return'), public_schedule_path(:day => @conference.day_at(@event.start_time))

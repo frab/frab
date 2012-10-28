@@ -320,3 +320,22 @@ span#pages {
 .column a {
   text-decoration: underline;
 }
+
+
+.event_feedback li.choice {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.event_feedback fieldset.inputs {
+  margin-top: 1em;
+}
+
+.event_feedback fieldset.inputs ul.choices-group {
+  float: none;
+}
+
+.event_feedback fieldset.inputs .help-block {
+  display: block;
+  padding-top: 0.5em;
+}

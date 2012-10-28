@@ -45,6 +45,7 @@ en:
         links: "Links"
         files: "Files"
         feedback: "Feedback"
+        feedback_link: "Click here to let us know how you liked this event."
         speakers: "Speakers"
 
       speaker:
@@ -53,3 +54,16 @@ en:
         email: "E-Mail"
         links: "Links"
         events_in_this_conference: "Events in this conference"
+
+    feedback:
+      new:
+        feedback_for: "Feedback for: %{title}"
+        please_let_us_know: "Please let us know how you liked this event:"
+        how_would_you_rate: "How would you rate this event? 5 is the best rating and 1 is the worst."
+        what_did_you_like: "What did you like? What did you not like? How could this event be improved? Please share your thoughts."
+        submit_feedback: "Submit feedback"
+
+      thank_you:
+        thank_you: "Thank you!"
+        thank_you_for_helping_us: "Thanks for helping us improve our events. Please rate as many events that you attended as possible."
+        return: "Return to the schedule"
