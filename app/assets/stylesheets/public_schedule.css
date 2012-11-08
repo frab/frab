@@ -168,10 +168,6 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
   overflow: auto;
 }
 
-.event-header a {
-  color: #fff;
-}
-
 .event-header {
   position: relative;
   width: 100%;

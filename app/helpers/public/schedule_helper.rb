@@ -1,7 +1,21 @@
 module Public::ScheduleHelper
 
+  require 'scanf'
+
   def each_timeslot(&block)
     each_minutes(@conference.timeslot_duration, &block)
+  end
+
+  def color_dark?(color)
+    parts = color.scanf('%02x%02x%02x')
+    logger.info(parts)
+    return parts.sum < 384 if parts.length == 3
+
+    parts = color.scanf('%01x%01x%01x')
+    logger.info(parts)
+    return parts.sum < 24  if parts.length == 3
+
+    return false
   end
 
   def track_class(event)
