@@ -2,6 +2,6 @@
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :color, :input_html => {:size => 6, :class => "color"} %>
-    <%= remove_association_link t(:remove_track), f %>
+    <%= remove_association_link :track, f %>
   <% end %>
 </div>

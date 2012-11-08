@@ -4,6 +4,6 @@
     <%= f.input :size, :input_html => {:size => 5} %>
     <%= f.input :rank, :input_html => {:size => 3} %>
     <%= f.input :public, :as => :boolean %>
-    <%= remove_association_link t(:remove_room), f %>
+    <%= remove_association_link :room, f %>
   <% end %>
 </div>

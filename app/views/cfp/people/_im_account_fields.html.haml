@@ -2,4 +2,4 @@
   = f.inputs do
     = f.input :im_type, :collection => ImAccount::TYPES
     = f.input :im_address
-    = remove_association_link t("cfp.remove_im_account"), f
+    = remove_association_link :im_account, f

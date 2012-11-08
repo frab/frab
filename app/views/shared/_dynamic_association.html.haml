@@ -5,4 +5,4 @@
     = f.semantic_fields_for association_name do |association_form|
       = render association_name.to_s.singularize + "_fields", :f => association_form
     .links
-      = add_association_link t(:add_association, :name => t("activerecord.models." + association_name.to_s.singularize)), f, association_name
+      = add_association_link association_name, f, association_name

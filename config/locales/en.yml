@@ -3,13 +3,8 @@
 
 en:
   add_association: "Add %{name}"
+  remove_association: "Remove %{name}"
   your_submission: "Your Submission"
-  remove_link: "remove link"
-  remove_file: "remove file"
-  remove_language: "remove language"
-  remove_day: "Remove day"
-  remove_track: "Remove track"
-  remove_room: "Remove room"
   edit: "edit"
   actions: "Actions"
   error_signing_in: "Invalid email or password."

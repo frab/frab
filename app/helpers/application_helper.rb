@@ -28,12 +28,12 @@ module ApplicationHelper
     link_to link_name, path, options
   end
 
-  def add_association_link(text, form_builder, div_class, html_options = {})
-    link_to_add_association text, form_builder, div_class, html_options.merge(:class => "assoc btn")
+  def add_association_link(association_name, form_builder, div_class, html_options = {})
+    link_to_add_association t(:add_association, :name => t("activerecord.models." + association_name.to_s.singularize)), form_builder, div_class, html_options.merge(:class => "assoc btn")
   end
 
-  def remove_association_link(text, form_builder)
-    link_to_remove_association(text, form_builder, :class => "assoc btn danger") + tag(:hr)
+  def remove_association_link(association_name, form_builder)
+    link_to_remove_association(t(:remove_association, :name => t("activerecord.models." + association_name.to_s.singularize)), form_builder, :class => "assoc btn danger") + tag(:hr)
   end
 
   def dynamic_association(association_name, title, form_builder, options = {})

@@ -8,6 +8,6 @@
         <%= link_to f.object.attachment_file_name, f.object.attachment.url %>
       </li>
     <% end %>
-    <%= remove_association_link t("remove_file"), f %>
+    <%= remove_association_link :event_attachment, f %>
   <% end %>
 </div>

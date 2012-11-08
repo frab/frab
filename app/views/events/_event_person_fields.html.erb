@@ -3,6 +3,6 @@
     <%= f.input :person, :collection => Person.order(:first_name, :last_name) %>
     <%= f.input :event_role, :as => :select, :collection => EventPerson::ROLES %>
     <%= f.input :role_state, :as => :select, :collection => EventPerson::STATES %>
-    <%= remove_association_link "remove person", f %>
+    <%= remove_association_link :event_person, f %>
   <% end %>
 </div>
