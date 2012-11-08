@@ -49,7 +49,7 @@ en:
     withdrawal_confirmation: "Really withdraw this event from the Call for Papers?"
     information_headline: "Information"
     info_url_description_html: "Unsure what to submit? Read all about the Call for Papers at: %{link}"
-    deadline_description: "Please make sure to submit your proposal until"
+    deadline_description: "Please make sure to submit your proposal before"
     contact_headline: "Contact"
     contact_description_html: "If anything goes wrong with your submission or if you have any question, please do not hesitate to contact us at %{mail_to}"
     personal_details_headline: "Personal details - Let us know about you"
