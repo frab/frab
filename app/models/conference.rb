@@ -126,7 +126,6 @@ class Conference < ActiveRecord::Base
   end
 
   def last_day_after_first_day
-    return unless self.last_day && self.first_day # 'validates_presence_of' throws errors already
     self.errors.add(:last_day, "should be after the first day") if self.last_day.start_date < self.first_day.end_date
   end
 
