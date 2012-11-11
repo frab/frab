@@ -15,22 +15,42 @@ class PentabarfImportHelper
     conferences = @barf.select_all("SELECT * FROM conference")
     conference_mapping = create_mappings(:conferences) 
     conferences.each do |conference|
-      first_day = @barf.select_value("SELECT conference_day FROM conference_day WHERE conference_id = #{conference["conference_id"]} ORDER BY conference_day ASC LIMIT 1")
-      last_day = @barf.select_value("SELECT conference_day FROM conference_day WHERE conference_id = #{conference["conference_id"]} ORDER BY conference_day DESC LIMIT 1")
+
       new_conference = Conference.create!(
         :title => conference["title"],
+        # clean up acronyms in pentabarf db first!
         :acronym => conference["acronym"],
-        #TODO might need mapping to something rails understands
+        # it's a string like 'Europe/Berlin', 'Berlin'
         :timezone => conference["timezone"],
-        #TODO
+        #TODO omg timeslots
         :timeslot_duration => interval_to_minutes(conference["timeslot_duration"]),
         :default_timeslots => conference["default_timeslots"],
         :max_timeslots => conference["max_timeslot_duration"],
         :feedback_enabled => conference["f_feedback_enabled"],
-        :first_day => first_day,
-        :last_day => last_day
+        # TODO ticket server, instead of link? DO TICKET URLS THEY END UP PUBLIC?
       )
       conference_mapping[conference["conference_id"]] = new_conference.id
+
+      # use the conference time zone from now on
+      Time.zone = new_conference.timezone
+      puts "+++ %s - %s" % [conference["acronym"], Time.zone]
+
+      # convert pentabarf days to frab days
+      penta_days = @barf.select_values("SELECT conference_day FROM conference_day 
+                                      WHERE conference_id = #{conference["conference_id"]} 
+                                      ORDER BY conference_day ASC")
+      penta_days.each do |day|
+        day = day.to_datetime
+        # pentabarf uses a 'day change time', which is set at 04:00 o'clock for ccc congresses
+        # so we kind of fix it:
+        start_date = day.to_datetime.change(:hour => 4, :minute => 0)
+        end_date = day.since(1.days).to_datetime.change(:hour => 3, :minute => 59)
+        tmp = Day.new(:conference => new_conference,
+                      :start_date => Time.zone.local_to_utc(start_date),
+                      :end_date => Time.zone.local_to_utc(end_date))
+        tmp.save!
+      end
+      
     end
     save_mappings(:conferences)
   end
@@ -213,9 +233,22 @@ class PentabarfImportHelper
     save_mappings(:events)
   end
 
+  def import_event_ratings
+    event_ratings = @barf.select_all("SELECT * FROM event_ratings")
+    event_ratings.each do |rating|
+      EventRating.create!(
+        :event_id => mappings(:events)[rating["event_id"]],
+        :person_id => mappings(:people)[rating["person_id"]],
+        :rating => rating["rating"],
+        :comment => rating["remark"],
+      )
+    end
+  end
+
   def import_event_feedbacks
     event_feedbacks = @barf.select_all("SELECT * FROM event_feedback")
     event_feedbacks.each do |feedback|
+      # Pentabarf has 3 values, frab only got one, therefore:
       next if ["topic_importance", "content_quality", "presentation_quality", "audience_involvement", "remark"].all? {|c| feedback[c].blank? }
       rating = 0
       rating_count = 0
@@ -327,6 +360,6 @@ class PentabarfImportHelper
   end
 
   def mappings_file(name)
-    File.join(RAILS_ROOT, "tmp", "#{name}_mappings.yml")
+    Rails.root.join('tmp', "#{name}_mappings.yml").to_s
   end
 end
