@@ -21,7 +21,7 @@ class Conference < ActiveRecord::Base
     :timeslot_duration
   validates_uniqueness_of :acronym
   validates_format_of :acronym, :with => /[a-z][a-z0-9_]*/
-  validate :last_day_after_first_day
+  validate :days_do_not_overlap
 
   after_update :update_timeslots
 
@@ -125,8 +125,15 @@ class Conference < ActiveRecord::Base
     end
   end
 
-  def last_day_after_first_day
-    self.errors.add(:last_day, "should be after the first day") if self.last_day.start_date < self.first_day.end_date
+  # if a conference has multiple days, they sould not overlap
+  def days_do_not_overlap
+    return if self.days.count < 2
+    yesterday = self.days[0]
+    self.days[1..-1].each { |day|
+      if day.start_date < yesterday.end_date
+        self.errors.add(:days, "day #{day} overlaps with day before") 
+      end
+    }
   end
 
 end
