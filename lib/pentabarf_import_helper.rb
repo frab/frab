@@ -1,6 +1,12 @@
 class PentabarfImportHelper
     
-  FILE_TYPES = { "image/jpeg" => "jpg", "image/png" => "png", "image/gif" => "gif" }
+  # maps mime types from pentabarf to file extensions
+  FILE_TYPES = { 
+    "image/jpeg" => "jpg",
+    "image/png" => "png",
+    "image/gif" => "gif" }
+
+  DUMMY_MAIL = "root@localhost.localdomain"
 
   class Pentabarf < ActiveRecord::Base
     self.establish_connection(:pentabarf)
@@ -87,19 +93,26 @@ class PentabarfImportHelper
     people = @barf.select_all("SELECT * FROM person")
     people_mapping = create_mappings(:people) 
     people.each do |person|
+      puts "+++ %d %s - %s" % [person['person_id'], guess_public_name(person), person['email']]
       abstract, description = @barf.select_values("SELECT abstract, description FROM conference_person WHERE person_id = #{person["person_id"]} ORDER BY conference_person_id DESC")
       image = @barf.select_one("SELECT * FROM person_image WHERE person_id = #{person["person_id"]}")
       image_file = image_to_file(image, "person_id")
       new_person = Person.create!(
-        :first_name => person["first_name"].blank? ? "unknown" : person["first_name"],
-        :last_name => person["last_name"].blank? ? "unknown" : person["last_name"],
-        :public_name => person["public_name"],
-        :email => person["email"].blank? ? "unknown" : person["email"],
-        :gender => person["gender"] ? "male" : "female",
+        :first_name => person["first_name"].blank? ? "" : person["first_name"],
+        :last_name => person["last_name"].blank? ? "" : person["last_name"],
+        # fun fact: pentabarf has a first_name, last_name, public_name and nickname field
+        :public_name => guess_public_name(person),
+        :email => person["email"].blank? ? DUMMY_MAIL : person["email"],
+        :include_in_mailings => person["spam"],
+        :gender => guess_gender(person),
         :abstract => abstract,
         :description => description,
         :avatar => image_file
       )
+      # don't include dummy addresses in mailings
+      if new_person.email == DUMMY_MAIL
+        new_person.include_in_mailings = false
+      end
       remove_file(image_file)
       people_mapping[person["person_id"]] = new_person.id
     end
@@ -300,6 +313,32 @@ class PentabarfImportHelper
 
   private
 
+  def guess_public_name(person)
+    # by order of preference
+    if person["nickname"]
+      return person["nickname"]
+    elsif person["public_name"]
+      return person["public_name"]
+    elsif person["first_name"] and person["last_name"]
+      return "#{person["first_name"]} #{person["last_name"]}"
+    elsif person["first_name"]
+      return person["first_name"]
+    elsif person["last_name"]
+      return person["last_name"]
+    else
+      return "unknown"
+    end
+  end
+
+  def guess_gender(person)
+    # pentabarf mostly encodes gender as a boolean
+    if person["gender"].nil?
+      return
+    else
+      return person["gender"] ? "male" : "female"
+    end
+  end
+
   def interval_to_minutes(interval)
     return nil unless interval
     hours, minutes, seconds = interval.split(":")
@@ -315,6 +354,14 @@ class PentabarfImportHelper
     if image
       file_name = "tmp/#{image[id_column]}.#{FILE_TYPES[image["mime_type"]]}"
       File.open(file_name, "w:ASCII-8BIT") {|f| f.write(image["image"]) }
+
+      # maybe convert the file?
+      if image["mime_type"] == "image/pjpeg" or image["mime_type"] == "image/tiff"
+        new_file_name = "tmp/#{image[id_column]}.png"
+        system("convert", file_name, new_file_name)
+        file_name = new_file_name
+      end
+
       file = File.open(file_name, "r")
       return file
     end
