@@ -4,9 +4,22 @@ class PentabarfImportHelper
   FILE_TYPES = { 
     "image/jpeg" => "jpg",
     "image/png" => "png",
-    "image/gif" => "gif" }
+    "image/gif" => "gif" 
+  }
 
   DUMMY_MAIL = "root@localhost.localdomain"
+
+  # pentabarf roles are just different
+  ROLE_MAPPING = {
+    "comittee" => "coordinator",
+    "developer" => "admin",
+    "admin" => "orga",
+    "submitter" => "submitter",
+    "reviewer" => "reviewer"
+  }
+
+  # as in User
+  EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   class Pentabarf < ActiveRecord::Base
     self.establish_connection(:pentabarf)
@@ -39,7 +52,7 @@ class PentabarfImportHelper
 
       # use the conference time zone from now on
       Time.zone = new_conference.timezone
-      puts "+++ %s - %s" % [conference["acronym"], Time.zone]
+      puts "+++ %s - %s" % [conference["acronym"], Time.zone] if DEBUG
 
       # convert pentabarf days to frab days
       penta_days = @barf.select_values("SELECT conference_day FROM conference_day 
@@ -93,8 +106,11 @@ class PentabarfImportHelper
     people = @barf.select_all("SELECT * FROM person")
     people_mapping = create_mappings(:people) 
     people.each do |person|
-      puts "+++ %d %s - %s" % [person['person_id'], guess_public_name(person), person['email']]
-      abstract, description = @barf.select_values("SELECT abstract, description FROM conference_person WHERE person_id = #{person["person_id"]} ORDER BY conference_person_id DESC")
+      puts "+++ %d %s - %s" % [person['person_id'], guess_public_name(person), person['email']] if DEBUG
+      abstract, description = @barf.select_values("SELECT abstract, description 
+                                                  FROM conference_person 
+                                                  WHERE person_id = #{person["person_id"]} 
+                                                  ORDER BY conference_person_id DESC")
       image = @barf.select_one("SELECT * FROM person_image WHERE person_id = #{person["person_id"]}")
       image_file = image_to_file(image, "person_id")
       new_person = Person.create!(
@@ -136,31 +152,42 @@ class PentabarfImportHelper
   end
 
   def import_accounts
+    # Alert: This import will skip invalid accounts
+    # Additionally, frab requires the email of an account to uniq. pentabarf does not.
     emails = Hash.new
-    accounts = @barf.select_all("SELECT a.*, r.admin FROM auth.account AS a LEFT OUTER JOIN (SELECT DISTINCT account_id, '1' AS admin FROM auth.account_role WHERE role <> 'submitter') AS r ON a.account_id = r.account_id")
+    accounts = @barf.select_all("SELECT * FROM auth.account")
     accounts.each do |account|
+      # Luckily pentabarf roles ranks match the alphabetical order
+      role = @barf.select_value("SELECT role FROM auth.account_role 
+                              WHERE account_id=#{account["account_id"]} ORDER BY role LIMIT 1")
       # do not import if no person is associated
       next if account["person_id"].blank?
       # frab uses email as login, so no user can be created without email
       next if account["email"].blank?
-      # Stupid edge case, where devise validation fails.
-      account["email"].sub!(/@localhost$/, "@example.com")
+      # Stupid edge case, where validation fails.
+      account["email"].sub!(/@localhost$/, "@localhost.localdomain")
       # skip if email is still not valid
-      unless account["email"] =~ Devise.email_regexp
-        puts "invalid email #{account["email"]} - pentabarf person_id #{account["person_id"]}"
+      unless account["email"] =~ EMAIL_REGEXP
+        puts "!!! invalid email #{account["email"]} - pentabarf person_id #{account["person_id"]}"
         next
       end
-      # check for duplicates
-      if emails[account["email"]]
-        counter = 1
-        email = account["email"]
-        while emails[email]
-          email = account["email"].sub("@", "#{counter}@")
-          counter += 1
-        end
-        puts "Duplicate email address #{account["email"]} will be imported as #{email} - pentabarf person_id #{account["person_id"]}"
-        account["email"] = email
-      end
+
+      # TODO decide on proper behaviour for duplicate accounts
+      # check for duplicates and rename their mail address
+      #if emails[account["email"]]
+      #  counter = 1
+      #  email = account["email"]
+      #  while emails[email]
+      #    email = account["email"].sub("@", "#{counter}@")
+      #    counter += 1
+      #  end
+      #  puts "Duplicate email address #{account["email"]} will be imported as #{email} - pentabarf person_id #{account["person_id"]}"
+      #  account["email"] = email
+      #end
+
+      # instead of the above duplication, skip
+      next if emails[account["email"]]
+
       emails[account["email"]] = true
       password = (account["login_name"].hash + rand(9999999)).to_s
       User.transaction do
@@ -170,7 +197,7 @@ class PentabarfImportHelper
           :password_confirmation => password
         )
         user.confirmed_at = Time.now
-        user.role = account["admin"] ? "admin" : "submitter"
+        user.role = role ? "submitter" : ROLE_MAPPING[role],
         user.pentabarf_salt = account["salt"]
         user.pentabarf_password = account["password"]
         user.save!
