@@ -6,4 +6,6 @@ class EventAttachment < ActiveRecord::Base
 
   has_paper_trail :meta => {:associated_id => :event_id, :associated_type => "Event"}
 
+  scope :public, where(:public => true)
+
 end

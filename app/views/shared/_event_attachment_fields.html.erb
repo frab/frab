@@ -2,6 +2,7 @@
   <%= f.inputs do %>
     <% if f.object.new_record? %>
       <%= f.input :title %>
+      <%= f.input :public, :as => :boolean, :hint => "Is this attachment visible to the public?" %>
       <%= f.input :attachment %>
     <% else %>
       <li>

@@ -62,11 +62,11 @@
             - @event.links.each do |link|
               = link_to link.title, link.url
               %br/
-        - unless @event.event_attachments.empty?
+        - unless @event.event_attachments.public.empty?
           %p
             %b Attachments:
             %br/
-            - @event.event_attachments.each do |attachment|
+            - @event.event_attachments.public.each do |attachment|
               = link_to attachment.title, attachment.attachment.url
               %br/
       .span10

@@ -26,10 +26,10 @@
     %ul
       - @event.links.each do |link|
         %li= link_to link.title, link.url
-  - if @event.event_attachments.any?
+  - if @event.event_attachments.public.any?
     %h3= t '.files'
     %ul
-      - @event.event_attachments.each do |attachment|
+      - @event.event_attachments.public.each do |attachment|
         %li= link_to attachment.title, attachment.attachment.url
   - if @conference.feedback_enabled?
     %h3= t '.feedback'
