@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027095651) do
+ActiveRecord::Schema.define(:version => 20121118034920) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -69,14 +69,15 @@ ActiveRecord::Schema.define(:version => 20121027095651) do
   end
 
   create_table "event_attachments", :force => true do |t|
-    t.integer  "event_id",                :null => false
-    t.string   "title",                   :null => false
+    t.integer  "event_id",                                  :null => false
+    t.string   "title",                                     :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "public",                  :default => true
   end
 
   create_table "event_feedbacks", :force => true do |t|

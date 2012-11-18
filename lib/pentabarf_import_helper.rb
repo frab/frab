@@ -280,7 +280,7 @@ class PentabarfImportHelper
         :conference_id => conference.id,
         :track_id => mappings(:tracks)[event["conference_track_id"]],
         :title => event["title"],
-        :subtitle => event["subtitle"],
+        :subtitle => truncate_string(event["subtitle"]),
         :event_type => event["event_type"],
         :time_slots => interval_to_minutes(event["duration"]) / conference.timeslot_duration,
         # frab does not distinguish in state and progress:
@@ -408,12 +408,18 @@ class PentabarfImportHelper
     #  event.update_attribute :speaker_count, c
     #end
     puts "[ ] updating speaker counters on events" if DEBUG
-    ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count() FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
+    ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
     # re-enable callback
     EventPerson.set_callback(:save, :after, :update_speaker_count)
   end
 
   private
+
+  # because there is a mismatch between pentabarf text and frab string columns
+  def truncate_string(str)
+    return if str.nil?
+    return str[0..254]
+  end
 
   def guess_public_name(person)
     # by order of preference
