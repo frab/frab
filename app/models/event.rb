@@ -164,7 +164,7 @@ class Event < ActiveRecord::Base
           Conflict.create(:event => conflicting_event, :conflicting_event => self, :conflict_type => "events_overlap", :severity => "fatal")
         end
       end
-      self.event_people.group(:person_id).each do |event_person|
+      self.event_people.group(:person_id,:id).each do |event_person|
         unless event_person.available_between?(self.start_time, self.end_time)
           Conflict.create(:event => self, :person => event_person.person, :conflict_type => "person_unavailable", :severity => "warning")
         end

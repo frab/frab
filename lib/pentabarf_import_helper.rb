@@ -1,4 +1,5 @@
 class PentabarfImportHelper
+  DEBUG=true
     
   # maps mime types from pentabarf to file extensions
   FILE_TYPES = { 
@@ -18,6 +19,25 @@ class PentabarfImportHelper
     "reviewer" => "reviewer"
   }
 
+  EVENT_STATE_MAPPING = {
+    'undecided' => 'unconfirmed',
+    'rejected' => 'rejected',
+    'accepted' => 'confirmed'
+  }
+
+  EVENT_PROGRESS_MAPPING = {
+    'canceled' => 'canceled',
+    'candidate' => 'unconfirmed',
+    'confirmed' => 'confirmed',
+    'new' => 'new',
+    'reconfirmed' => 'confirmed',
+    'rejected' => 'rejected',
+    'rejection-candidate' => 'unconfirmed',
+    'review' => 'review',
+    'unconfirmed' => 'unconfirmed',
+    'withdrawn' => 'withdrawn'
+  }
+
   # as in User
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
@@ -32,6 +52,7 @@ class PentabarfImportHelper
 
   def import_conferences
     conferences = @barf.select_all("SELECT * FROM conference")
+    puts "[ ] importing #{conferences.count} conferences" if DEBUG
     conference_mapping = create_mappings(:conferences) 
     conferences.each do |conference|
 
@@ -52,7 +73,7 @@ class PentabarfImportHelper
 
       # use the conference time zone from now on
       Time.zone = new_conference.timezone
-      puts "+++ %s - %s" % [conference["acronym"], Time.zone] if DEBUG
+      #puts "+++ %s - %s" % [conference["acronym"], Time.zone] if DEBUG
 
       # convert pentabarf days to frab days
       penta_days = @barf.select_values("SELECT conference_day FROM conference_day 
@@ -77,6 +98,7 @@ class PentabarfImportHelper
   def import_tracks
     track_mapping = create_mappings(:tracks)
     tracks = @barf.select_all("SELECT * FROM conference_track")
+    puts "[ ] importing #{tracks.count} tracks" if DEBUG
     tracks.each do |track|
       new_track = Track.create!(
         :name => track["conference_track"],
@@ -90,6 +112,7 @@ class PentabarfImportHelper
   def import_rooms
     room_mapping = create_mappings(:rooms)
     rooms = @barf.select_all("SELECT * FROM conference_room")
+    puts "[ ] importing #{rooms.count} rooms" if DEBUG
     rooms.each do |room|
       new_room = Room.create!(
         :name => room["conference_room"],
@@ -104,9 +127,10 @@ class PentabarfImportHelper
 
   def import_people
     people = @barf.select_all("SELECT * FROM person")
+    puts "[ ] importing #{people.count} people" if DEBUG
     people_mapping = create_mappings(:people) 
     people.each do |person|
-      puts "+++ %d %s - %s" % [person['person_id'], guess_public_name(person), person['email']] if DEBUG
+      #puts "+++ %d %s - %s" % [person['person_id'], guess_public_name(person), person['email']] if DEBUG
       abstract, description = @barf.select_values("SELECT abstract, description 
                                                   FROM conference_person 
                                                   WHERE person_id = #{person["person_id"]} 
@@ -156,6 +180,7 @@ class PentabarfImportHelper
     # Additionally, frab requires the email of an account to uniq. pentabarf does not.
     emails = Hash.new
     accounts = @barf.select_all("SELECT * FROM auth.account")
+    puts "[ ] importing #{accounts.count} accounts" if DEBUG
     accounts.each do |account|
       # Luckily pentabarf roles ranks match the alphabetical order
       role = @barf.select_value("SELECT role FROM auth.account_role 
@@ -208,6 +233,7 @@ class PentabarfImportHelper
 
   def import_languages
     languages = @barf.select_all("SELECT * FROM conference_language")
+    puts "[ ] importing #{languages.count} languages" if DEBUG
     languages.each do |language|
       conference = Conference.find(mappings(:conferences)[language["conference_id"]])
       Language.create(:code => language["language"], :attachable => conference)
@@ -222,6 +248,7 @@ class PentabarfImportHelper
   def import_links
     mappings(:people).each do |orig_id, new_id|
       links = @barf.select_all("SELECT l.title, l.url FROM conference_person as p LEFT OUTER JOIN conference_person_link as l ON p.conference_person_id = l.conference_person_id WHERE p.person_id = #{orig_id}")
+    puts "[ ] importing #{links.count} links from people" if DEBUG
       links.each do |link|
         if link["title"] and link["url"]
           person = Person.find(new_id)
@@ -231,6 +258,7 @@ class PentabarfImportHelper
     end
     mappings(:events).each do |orig_id, new_id|
       links = @barf.select_all("SELECT title, url FROM event_link WHERE event_id = #{orig_id}")
+      puts "[ ] importing #{links.count} links from events" if DEBUG
       links.each do |link|
         if link["title"] and link["url"]
           event = Event.find(new_id)
@@ -242,6 +270,7 @@ class PentabarfImportHelper
 
   def import_events
     events = @barf.select_all("SELECT e.*, c.conference_day FROM event AS e LEFT OUTER JOIN conference_day AS c ON e.conference_day_id = c.conference_day_id")
+    puts "[ ] importing #{events.count} events" if DEBUG
     event_mapping = create_mappings(:events) 
     events.each do |event|
       image = @barf.select_one("SELECT * FROM event_image WHERE event_id = #{event["event_id"]}")
@@ -253,11 +282,10 @@ class PentabarfImportHelper
         :title => event["title"],
         :subtitle => event["subtitle"],
         :event_type => event["event_type"],
-        #TODO
         :time_slots => interval_to_minutes(event["duration"]) / conference.timeslot_duration,
-        :state => event["event_state"],
-        :progress => event["event_state_progress"],
-        #TODO 
+        # frab does not distinguish in state and progress:
+        #:state => EVENT_STATE_MAPPING[event["event_state"]],
+        :state => EVENT_PROGRESS_MAPPING[event["event_state_progress"]],
         :language => event["language"],
         #TODO
         :start_time => start_time(event["conference_day"], event["start_time"]),
@@ -265,6 +293,8 @@ class PentabarfImportHelper
         :abstract => event["abstract"],
         :description => event["description"],
         :public => event["public"],
+        :submission_note => event["submission_notes"],
+        :note => event["remark"],
         :logo => image_file
       )
       remove_file(image_file)
@@ -274,7 +304,8 @@ class PentabarfImportHelper
   end
 
   def import_event_ratings
-    event_ratings = @barf.select_all("SELECT * FROM event_ratings")
+    event_ratings = @barf.select_all("SELECT * FROM event_rating")
+    puts "[ ] importing #{event_ratings.count} event ratings" if DEBUG
     event_ratings.each do |rating|
       EventRating.create!(
         :event_id => mappings(:events)[rating["event_id"]],
@@ -286,7 +317,11 @@ class PentabarfImportHelper
   end
 
   def import_event_feedbacks
+    # we wan't to update this in batch after all the inserts
+    Event.skip_callback(:save, :after, :update_conflicts)
+    EventFeedback.skip_callback(:save, :after, :update_average)
     event_feedbacks = @barf.select_all("SELECT * FROM event_feedback")
+    puts "[ ] importing #{event_feedbacks.count} event feedbacks" if DEBUG
     event_feedbacks.each do |feedback|
       # Pentabarf has 3 values, frab only got one, therefore:
       next if ["topic_importance", "content_quality", "presentation_quality", "audience_involvement", "remark"].all? {|c| feedback[c].blank? }
@@ -302,6 +337,10 @@ class PentabarfImportHelper
       else
         rating = rating / rating_count.to_f
       end
+      # this might happen:
+      if rating.nil?
+        rating = -99
+      end
       EventFeedback.create!(
         :event_id => mappings(:events)[feedback["event_id"]],
         :rating => rating,
@@ -309,16 +348,41 @@ class PentabarfImportHelper
         :created_at => feedback["eval_time"]
       )
     end
+    # update counts in batch
+    puts "[ ] updating feedbacks counters on events" if DEBUG
+    # FIXME speed problems: 26h
+    # Event.joins(:event_feedbacks).readonly(false).all.each {|e| e.recalculate_average_feedback!}
+    
+    # direct sqlite syntax: 10min?
+    ActiveRecord::Base.connection.execute "UPDATE events SET average_feedback=(
+       SELECT sum(rating)/count(rating)
+       FROM event_feedbacks WHERE events.id = event_feedbacks.event_id)"
+   
+    # other databases?
+    # UPDATE events 
+    # SET average_feedback=(sum(rating)/count(rating))
+    # FROM events 
+    # INNER JOIN event_feedbacks 
+    # ON id = event_id
+
+    # re-enable after_save callbacks
+    Event.set_callback(:save, :after, :update_conflicts)
+    EventFeedback.set_callback(:save, :after, :update_average)
   end
 
   def import_event_attachments
     event_attachments = @barf.select_all("SELECT * FROM event_attachment")
+    puts "[ ] importing #{event_attachments.count} event attachments" if DEBUG
     event_attachments.each do |event_attachment|
       attachment_file = attachment_to_file(event_attachment)
       title = event_attachment["title"] || event_attachment["attachment_type"]
       EventAttachment.create!(
         :title => title,
         :event_id => mappings(:events)[event_attachment["event_id"]],
+        :public => event_attachment['public'],
+        :attachment_file_name => event_attachment['filename'],
+        :attachment_content_type =>  event_attachment['mime_type'],
+        :attachment_file_size => attachment_file.size,
         :attachment => attachment_file
       )
       remove_file(attachment_file)
@@ -326,7 +390,9 @@ class PentabarfImportHelper
   end
 
   def import_event_people
+    EventPerson.skip_callback(:save, :after, :update_speaker_count)
     event_people = @barf.select_all("SELECT * FROM event_person")
+    puts "[ ] importing #{event_people.count} event people" if DEBUG
     event_people.each do |event_person|
       EventPerson.create!(
         :event_id => mappings(:events)[event_person["event_id"]],
@@ -336,6 +402,15 @@ class PentabarfImportHelper
         :comment => event_person["remark"]
       )
     end
+    # update all event counts
+    #Event.all.each do |event|
+    #  c = EventPerson.where(:event_id => event.id, :event_role => :speaker).count
+    #  event.update_attribute :speaker_count, c
+    #end
+    puts "[ ] updating speaker counters on events" if DEBUG
+    ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count() FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
+    # re-enable callback
+    EventPerson.set_callback(:save, :after, :update_speaker_count)
   end
 
   private
@@ -378,7 +453,7 @@ class PentabarfImportHelper
   end
 
   def image_to_file(image, id_column)
-    if image
+    if image and image['image'].size > 10
       file_name = "tmp/#{image[id_column]}.#{FILE_TYPES[image["mime_type"]]}"
       File.open(file_name, "w:ASCII-8BIT") {|f| f.write(image["image"]) }
 
@@ -397,7 +472,12 @@ class PentabarfImportHelper
 
   def attachment_to_file(attachment)
     if attachment
-      file_name = "tmp/#{attachment["filename"]}"
+      # fix file name, maybe
+      unless attachment["filename"]
+        puts "!!! had to guess attachment file name: #{attachment['event_attachment_id']} (#{ attachment["filename"] })"
+        attachment["filename"] = attachment['attachment_type']
+      end
+      file_name = File.join("tmp", attachment["filename"])
       File.open(file_name, "w:ASCII-8BIT") {|f| f.write(attachment["data"]) }
       file = File.open(file_name, "r")
       return file
@@ -417,7 +497,7 @@ class PentabarfImportHelper
     if !@mappings[name] and File.exist?(mappings_file(name))
       @mappings[name] = YAML.load_file(mappings_file(name))
     elsif !@mappings[name]
-      raise "No mappings to load. Please run a full import."
+      raise "No mappings (#{name}) to load. Please run a full import."
     end
     return @mappings[name] if @mappings[name]
   end
