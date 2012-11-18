@@ -212,8 +212,8 @@ class PentabarfImportHelper
 
       # instead of the above duplication, skip
       next if emails[account["email"]]
-
       emails[account["email"]] = true
+
       password = (account["login_name"].hash + rand(9999999)).to_s
       User.transaction do
         user = User.new(
@@ -222,7 +222,7 @@ class PentabarfImportHelper
           :password_confirmation => password
         )
         user.confirmed_at = Time.now
-        user.role = role ? "submitter" : ROLE_MAPPING[role],
+        user.role = role ? "submitter" : ROLE_MAPPING[role]
         user.pentabarf_salt = account["salt"]
         user.pentabarf_password = account["password"]
         user.save!
