@@ -1,6 +1,7 @@
 class ConferencesController < ApplicationController
 
-  skip_before_filter :load_conference, :only => :new
+  # these methods don't need a conference
+  skip_before_filter :load_conference, :only => [:new, :index]
 
   before_filter :authenticate_user!
   load_and_authorize_resource
@@ -71,11 +72,10 @@ class ConferencesController < ApplicationController
   # DELETE /conferences/1
   # DELETE /conferences/1.xml
   def destroy
-    @conference = Conference.find(params[:id])
     @conference.destroy
 
     respond_to do |format|
-      format.html { redirect_to(conferences_url) }
+      format.html { redirect_to(conferences_path) }
       format.xml  { head :ok }
     end
   end

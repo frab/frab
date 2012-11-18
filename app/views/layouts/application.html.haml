@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      - if @conference.title
+      - if @conference and @conference.title
         = @conference.title
       - else
         frab
@@ -31,17 +31,21 @@
                   = link_to t(:launch_call_for_papers, :default => "Launch Call for Papers"), new_call_for_papers_path
               %li= link_to t("schedule", :default => "Schedule"), schedule_path
               - if can? :manage, :conference
-                %li= link_to t("settings", :default => "Settings"), edit_conference_path
+                %li= link_to t("settings", :default => "Settings"), edit_conference_path(@conference)
           %ul.nav.secondary-nav.pull-right
             - if Conference.count > 1
               %li.dropdown
                 = link_to t("switch_conference", :default => "Switch conference"), "#", :class => "dropdown-toggle"
                 %ul.dropdown-menu
-                  - Conference.all.each do |conference|
-                    - unless @conference == conference
-                      %li= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
+                  - conferences = Conference.order("created_at DESC")
+                  - unless conferences.nil?
+                    - conferences[0..19].each do |conference|
+                      - unless @conference == conference
+                        %li= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
+                  %li.divider/
+                  - if conferences.count > 1
+                    %li= link_to t(:conferences, :default => "more"), conference_index_path
                   - if can? :manage, :conference
-                    %li.divider/
                     %li= link_to t(:create_new_conference, :default => "Create new conference"), new_conference_path(:conference_acronym => nil)
             - elsif can? :manage, :conference_acronym
               %li= link_to t(:create_new_conference, :default => "Create new conference"), new_conference_path(:conference_acronym => nil)

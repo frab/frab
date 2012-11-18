@@ -1,0 +1,24 @@
+%section
+  .page-header
+    .pull-right
+      = action_button "primary", "Add conference", new_conference_path, :hint => "Add a new conference"
+    %h1 List of conferences 
+  - if params[:term].blank? and Conference.all.empty?
+    .row
+      .span16
+        .blank-slate
+          %p
+            There is not a single conference yet.
+            Start adding a conference by clicking on the 
+            button on the right.
+  - else
+    - conferences = Conference.order('created_at DESC')
+    .row
+      .span16
+        = render 'shared/simple_search', :path => request.path
+    .row
+      .span16
+        - if conferences.empty?
+          %p Sorry, but your search yielded no results.
+        - else  
+          = render 'table', :conferences => conferences 

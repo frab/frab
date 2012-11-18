@@ -5,7 +5,9 @@ Frab::Application.routes.draw do
     resource :session
 
     match "/conferences/new" => "conferences#new", :as => "new_conference"
-    match "/conferences" => "conferences#create", :as => "create_conference"
+    match "/conferences" => "conferences#create", :as => "create_conference", :via => :post
+    match "/conferences" => "conferences#index", :as => "conference_index", :via => :get
+    match "/conferences" => "conferences#destroy", :via => :delete
 
     resources :people do
       resource :user
