@@ -48,7 +48,14 @@ and follow these steps:
 
     bundle install
 
-4) Install Imagemagick:
+4) Install nodejs:
+
+frab needs a javascript runtime. You should use
+nodejs, as it is easier to install than v8.
+
+    apt-get install nodejs
+
+5) Install Imagemagick:
 
 This is a dependency of the paperclip gem. Imagemagick
 tools need to be installed to identify and resize images.
@@ -56,7 +63,7 @@ tools need to be installed to identify and resize images.
 Imagemagick should be easy to install using your OS's
 preferred package manager (apt-get, yum, brew etc.).
  
-5) Create (and possibly modify) the database configuration:
+6) Create (and possibly modify) the database configuration:
 
     cp config/database.yml.template config/database.yml
 
@@ -64,19 +71,19 @@ frab bundles all three built-in rails database drivers.
 And it should work with all three, although it is best tested 
 with MySQL and SQLite3 (for development). 
 
-6) Create and modify settings:
+7) Create and modify settings:
 
     cp config/settings.yml.template config/settings.yml
 
-7) Create and setup the database
+8) Create and setup the database
 
     rake db:setup
 
-8) Precompile assets (only needed for production)
+9) Precompile assets (only needed for production)
 
     rake assets:precompile
 
-9) Start the server
+10) Start the server
 
 To start frab in the development environment simply run
 
