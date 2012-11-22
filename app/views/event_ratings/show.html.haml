@@ -12,9 +12,7 @@
     %li= link_to "Feedback", event_event_feedbacks_path(@event)
   .row
     .span16
-      %h2 
-        Title: #{@event.title}
-        %small= link_to_function "Toggle Description >>", "$('#full_description').toggle();"
+      %small= link_to_function "Toggle Description >>", "$('#full_description').toggle();"
   #full_description{:style => "display:none;"}
     .row
       .span16
@@ -95,21 +93,22 @@
         %p
           %b Total:  
           %span#total_rating{:"data-rating" => @event.average_rating}
-        %table.zebra-striped
-          %thead
-            %tr
-              %th
-              %th User
-              %th Rating
-              %th Comment
-          %tbody
-            - @event.event_ratings.each do |event_rating|
+        - if @event_ratings.count > 1
+          %table.zebra-striped
+            %thead
               %tr
-                %td=image_box event_rating.person.avatar, :small
-                %td=event_rating.person.full_name
-                %td
-                  .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
-                %td=event_rating.comment
+                %th
+                %th User
+                %th Rating
+                %th Comment
+            %tbody
+              - @event_ratings.each do |event_rating|
+                %tr
+                  %td=image_box event_rating.person.avatar, :small
+                  %td=event_rating.person.full_name
+                  %td
+                    .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
+                  %td=event_rating.comment
 
 :javascript
   $(document).ready(function() {
