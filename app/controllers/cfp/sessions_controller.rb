@@ -8,8 +8,4 @@ class Cfp::SessionsController < SessionsController
     cfp_person_path
   end
 
-  def check_cfp_open
-    redirect_to cfp_open_soon_path if @conference.call_for_papers.start_date > Date.today
-  end
-
 end

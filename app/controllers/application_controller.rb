@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     if @current_user and @current_user.role != 'submitter'
       redirect_to new_session_path
     else
-      redirect_to new_cfp_session_path
+      redirect_to new_cfp_session_path(params)
     end
   end
 
@@ -70,4 +70,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_cfp_open
+    if @conference.call_for_papers.nil?
+      redirect_to cfp_not_existing_path 
+    elsif @conference.call_for_papers.start_date > Date.today
+      redirect_to cfp_open_soon_path 
+    end
+  end
 end

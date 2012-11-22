@@ -3,6 +3,7 @@ class Cfp::PeopleController < ApplicationController
   layout "cfp"
 
   before_filter :authenticate_user!
+  before_filter :check_cfp_open
   load_and_authorize_resource :person, :parent => false
 
   def show

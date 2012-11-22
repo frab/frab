@@ -12,7 +12,10 @@
       .topbar
         .fill
           .container
-            = link_to @conference.title + " - Call for Papers", cfp_root_path, :class => "brand"
+            - if @conference.call_for_papers.nil?
+              = link_to @conference.title + " - Call for Papers", new_cfp_session_path, :class => "brand"
+            - else
+              = link_to @conference.title + " - Call for Papers", cfp_root_path, :class => "brand"
             %ul.nav.secondary-nav.pull-right
               - if current_user
                 %li= link_to t("web-app-theme.logout", :default => "Logout"), cfp_session_path, :method => :delete

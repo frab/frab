@@ -52,6 +52,7 @@ Frab::Application.routes.draw do
         end
 
         match "/open_soon" => "welcome#open_soon", :as => "open_soon"
+        match "/not_existing" => "welcome#not_existing", :as => "not_existing"
 
         root :to => "people#show"
 
