@@ -1,11 +1,9 @@
 class AvailabilitiesController < ApplicationController
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :person, :parent => false
   before_filter :find_person
 
   def new
-    # authorize! :create, @person
     @availabilities = Availability.build_for(@conference)
   end
 
@@ -22,6 +20,7 @@ class AvailabilitiesController < ApplicationController
 
   def find_person
     @person = Person.find(params[:person_id])
+    authorize! :create, @person
   end
 
 end

@@ -6,10 +6,15 @@ class TicketsController < ApplicationController
   end
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :ticket_server, :parent => false
 
   def create
     @event = Event.find(params[:event_id])
+    authorize! :manage, @event
+    if @conference.ticket_server.nil?
+      redirect_to edit_conference_path(:conference_acronym => @conference.acronym), :alert => "No ticket server configured"
+      return
+    end
+
     remote_id = create_remote_ticket(:conference => @conference,
                                      :title => create_ticket_title(
                                        t(:your_submission, :locale => @event.language),

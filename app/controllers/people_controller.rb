@@ -1,11 +1,12 @@
 class PeopleController < ApplicationController
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :person, :parent => false
+  after_filter :restrict_people
 
   # GET /people
   # GET /people.xml
   def index
+    authorize! :manage, Person
     if params[:term]
       @people = Person.involved_in(@conference).with_query(params[:term]).paginate :page => params[:page]
     else
@@ -14,22 +15,25 @@ class PeopleController < ApplicationController
   end
 
   def speakers
+    authorize! :manage, Person
+    @people = Person.speaking_at(@conference).accessible_by(current_ability)
+
     respond_to do |format|
       format.html do
         if params[:term]
-          @people = Person.speaking_at(@conference).with_query(params[:term]).paginate :page => params[:page]
+          @people = @people.with_query(params[:term]).paginate :page => params[:page]
         else
-          @people = Person.speaking_at(@conference).paginate :page => params[:page]
+          @people = @people.paginate :page => params[:page]
         end
       end
       format.text do
-        @people = Person.speaking_at(@conference)
         render :text => @people.map(&:email).join("\n")
       end
     end
   end
 
   def all
+    authorize! :manage, Person
     if params[:term]
       @people = Person.with_query(params[:term]).paginate :page => params[:page]
     else
@@ -41,6 +45,7 @@ class PeopleController < ApplicationController
   # GET /people/1.xml
   def show
     @person = Person.find(params[:id])
+    authorize! :manage, @person
     @current_events = @person.events.where(:conference_id => @conference.id).all
     @other_events = @person.events.where(Event.arel_table[:conference_id].not_eq(@conference.id)).all
     respond_to do |format|
@@ -53,6 +58,7 @@ class PeopleController < ApplicationController
   # GET /people/new.xml
   def new
     @person = Person.new
+    authorize! :manage, @person
 
     respond_to do |format|
       format.html # new.html.erb
@@ -63,12 +69,14 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    authorize! :manage, @person
   end
 
   # POST /people
   # POST /people.xml
   def create
     @person = Person.new(params[:person])
+    authorize! :manage, @person
 
     respond_to do |format|
       if @person.save
@@ -85,6 +93,7 @@ class PeopleController < ApplicationController
   # PUT /people/1.xml
   def update
     @person = Person.find(params[:id])
+    authorize! :manage, @person
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
@@ -101,6 +110,7 @@ class PeopleController < ApplicationController
   # DELETE /people/1.xml
   def destroy
     @person = Person.find(params[:id])
+    authorize! :manage, @person
     @person.destroy
 
     respond_to do |format|
@@ -108,4 +118,13 @@ class PeopleController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def restrict_people
+    unless @people.nil?
+      @people = @people.accessible_by(current_ability)
+    end
+  end
+
 end

@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 
   before_filter :authenticate_user!
+  after_filter :restrict_events
   
   # GET /events
   # GET /events.xml
@@ -187,4 +188,13 @@ class EventsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def restrict_events
+    unless @events.nil?
+      @events = @events.accessible_by(current_ability)
+    end
+  end
+
 end

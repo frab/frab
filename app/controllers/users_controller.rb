@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    authorize! :manage, @user
     @user.role = params[:user][:role]
     @user.person = @person
     @user.call_for_papers = @conference.call_for_papers
@@ -59,7 +60,10 @@ class UsersController < ApplicationController
     [:password, :password_confirmation].each do |password_key|
       params[:user].delete(password_key) if params[:user][password_key].blank?
     end
-    @user.role = params[:user][:role]
+    if can? :assign_roles, User
+      @user.role = params[:user][:role]
+    end
+    params[:user].delete(:role)
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

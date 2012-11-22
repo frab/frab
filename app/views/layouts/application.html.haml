@@ -27,7 +27,7 @@
               %li
                 - if @conference.call_for_papers
                   = link_to t(:call_for_papers, :default => "Call for Papers"), call_for_papers_path
-                - else
+                - elsif can? :manage, :conference
                   = link_to t(:launch_call_for_papers, :default => "Launch Call for Papers"), new_call_for_papers_path
               %li= link_to t("schedule", :default => "Schedule"), schedule_path
               - if can? :manage, :conference

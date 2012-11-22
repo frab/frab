@@ -5,7 +5,7 @@ class Cfp::AvailabilitiesController < ApplicationController
   before_filter :authenticate_user!
 
   def new
-    authorize! :create, Person
+    authorize! :create, current_user.person
     @availabilities = Availability.build_for(@conference)
   end
 
