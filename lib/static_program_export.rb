@@ -6,7 +6,7 @@ class StaticProgramExport
     @session.host = Settings.host
     @session.https! if Settings['protocol'] == "https"
     @asset_paths = [] 
-    @base_directory = File.join(Rails.root, "tmp", "static_export")
+    @base_directory = Rails.root.join("public", "schedule")
     @base_url = @conference.program_export_base_url
     @base_url = URI.parse(@base_url).path
     unless @base_url.end_with?('/')
