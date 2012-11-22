@@ -47,6 +47,7 @@
               %th= t("activerecord.attributes.event.title") 
               %th= t("activerecord.attributes.event.state")
               - if @conference.feedback_enabled
+                %th
                 %th= t(:event_feedback)
               %th= t(:actions)
           %tbody
@@ -56,12 +57,24 @@
                 %td= event.state
                 - if @conference.feedback_enabled
                   %td
+                  %td
                     = event.average_feedback
-                    %br
-                    = "n=#{event.event_feedbacks_count}"
+                    - if event.event_feedbacks_count
+                      (
+                      = "n=#{event.event_feedbacks_count}"
+                      )
                 %td
                   = link_to t("edit"), edit_cfp_event_path(event), :class => "btn small"
                   - if event.state == "unconfirmed"
                     = link_to t("cfp.confirm"), confirm_cfp_event_path(event), :method => :put, :class => "btn success small"
                   - if event.state != "withdrawn"
                     = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation"), :class => "btn danger small"
+              - if @conference.feedback_enabled
+                - event.event_feedbacks.each do |feedback|
+                  - next if feedback.comment.blank?
+                  %tr
+                    %td
+                    %td
+                    %td= feedback.rating
+                    %td= feedback.comment
+                    %td
