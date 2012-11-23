@@ -4,7 +4,6 @@ class Cfp::PeopleController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :check_cfp_open
-  load_and_authorize_resource :person, :parent => false
 
   def show
     @person = current_user.person
@@ -26,8 +25,11 @@ class Cfp::PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(params[:person])
-    @person.user = current_user
+    @person = current_user.person 
+    if @person.nil?
+      @person = Person.new(params[:person])
+      @person.user = current_user
+    end
 
     respond_to do |format|
       if @person.save

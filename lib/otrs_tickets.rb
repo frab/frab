@@ -1,6 +1,6 @@
 module OtrsTickets
   #
-  # Rails Views
+  #  Rails Views
   #
   module Helper
     def get_ticket_view_url( remote_id='0' )
@@ -55,7 +55,7 @@ module OtrsTickets
 
       if @test_only
         @logger.info uri.request_uri
-        return
+        return Array.new
       end
 
       # https connection

@@ -3,7 +3,8 @@ require 'test_helper'
 class Cfp::PeopleControllerTest < ActionController::TestCase
   setup do
     @cfp_person = FactoryGirl.create(:person)
-    @conference = FactoryGirl.create(:conference)
+    @call_for_papers = FactoryGirl.create(:call_for_papers)
+    @conference = @call_for_papers.conference
     login_as(:submitter)
   end
 
@@ -13,12 +14,18 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
   end
 
   test "should create cfp_person" do
+    # can't have two persons on one user, so delete the one from login_as
+    user = FactoryGirl.create(
+      :user, 
+      :role => 'submitter'
+    ) 
+    session[:user_id] = user.id
+
     assert_difference 'Person.count' do
       post :create, :person => {:email => @cfp_person.email, 
                     :public_name => @cfp_person.public_name}, 
                     :conference_acronym => @conference.acronym
     end
-
     assert_response :redirect
   end
 

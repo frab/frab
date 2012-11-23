@@ -70,6 +70,8 @@ delete, /#{@c.acronym}/cfp/user                                                ,
 post  , /#{@c.acronym}/cfp/person/availability                                 ,  cfp/availabilities#create             ,   a
 get   , /#{@c.acronym}/cfp/person/availability                                 ,  cfp/availabilities#show               ,   a
 delete, /#{@c.acronym}/cfp/person/availability                                 ,  cfp/availabilities#destroy            ,   a
+get   , /#{@c.acronym}/cfp/person/availability/edit                            ,  cfp/availabilities#edit               ,   s
+put   , /#{@c.acronym}/cfp/person/availability                                 ,  cfp/availabilities#update             ,   s
 delete, /#{@c.acronym}/cfp/person                                              ,  cfp/people#destroy                    ,   a
 delete, /#{@c.acronym}/call_for_papers                                         ,  call_for_papers#destroy               ,   a
 post  , /#{@c.acronym}/events/#{@event.id}/event_feedbacks                     ,  event_feedbacks#create                ,   a
@@ -103,6 +105,8 @@ get   , /#{@c.acronym}/conference                                              ,
 put   , /#{@c.acronym}/conference                                              ,  conferences#update                    ,   a
       , /#{@c.acronym}/public/events/#{@event.id}                              ,  public/schedule#event                 ,   a s g
       , /#{@c.acronym}/public/speakers/#{@speaker.id}                          ,  public/schedule#speaker               ,   a s g
+get   , /#{@c.acronym}/cfp/person/new                                          ,  cfp/people#new                        ,   s
+get   , /#{@c.acronym}/cfp/person/edit                                         ,  cfp/people#edit                       ,   s
 post  , /#{@c.acronym}/cfp/user/password                                       ,  cfp/passwords#create                  ,   a s g
 get   , /#{@c.acronym}/cfp/user/confirmation                                   ,  cfp/confirmations#show                ,   a s g
 put   , /#{@c.acronym}/cfp/user/password                                       ,  cfp/passwords#update                  ,   a s g
@@ -111,6 +115,9 @@ post  , /#{@c.acronym}/cfp/user/confirmation                                   ,
       , /#{@c.acronym}/schedule/update_event                                   ,  schedule#update_event                 ,   a
 post  , /#{@c.acronym}/cfp/user                                                ,  cfp/users#create                      ,   a s g
 get   , /#{@c.acronym}/cfp/user/edit                                           ,  cfp/users#edit                        ,   a s
+post  , /#{@c.acronym}/cfp/events                                              ,  cfp/events#create                     ,   s
+get   , /#{@c.acronym}/cfp/events/new                                          ,  cfp/events#new                        ,   s
+      , /#{@c.acronym}/cfp                                                     ,  cfp/people#show                       ,   s
 put   , /#{@c.acronym}/events/#{@event.id}/event_rating                        ,  event_ratings#update                  ,   a
 put   , /#{@c.acronym}/events/#{@event.id}/update_state                        ,  events#update_state                   ,   a
 get   , /#{@c.acronym}/events/#{@event.id}                                     ,  events#show                           ,   a
@@ -118,6 +125,7 @@ delete, /#{@c.acronym}/events/#{@event.id}                                     ,
 get   , /#{@c.acronym}/people/#{@person.id}/user/edit                          ,  users#edit                            ,   a
 post  , /#{@c.acronym}/people/#{@person.id}/user                               ,  users#create                          ,   a
 put   , /#{@c.acronym}/people/#{@person.id}/user                               ,  users#update                          ,   a
+get   , /#{@c.acronym}/cfp/person                                              ,  cfp/people#show                       ,   s
 post  , /#{@c.acronym}/tickets/#{@ticket.id}                                   ,  tickets#create                        ,   a
 
 = redirects
@@ -156,23 +164,15 @@ get   , /#{@c.acronym}/cfp/user/password/new                                   ,
 get   , /#{@c.acronym}/cfp/user/password/edit                                  ,  cfp/passwords#edit                    ,   a s g
 get   , /#{@c.acronym}/cfp/user/confirmation/new                               ,  cfp/confirmations#new                 ,   a s g
 get   , /#{@c.acronym}/cfp/user/new                                            ,  cfp/users#new                         ,   a s g
-get   , /#{@c.acronym}/cfp/person/availability/edit                            ,  cfp/availabilities#edit               ,   s
-put   , /#{@c.acronym}/cfp/person/availability                                 ,  cfp/availabilities#update             ,   s
 post  , /#{@c.acronym}/cfp/person                                              ,  cfp/people#create                     ,   s
-get   , /#{@c.acronym}/cfp/person/new                                          ,  cfp/people#new                        ,   s
-get   , /#{@c.acronym}/cfp/person/edit                                         ,  cfp/people#edit                       ,   s
-get   , /#{@c.acronym}/cfp/person                                              ,  cfp/people#show                       ,   s
 put   , /#{@c.acronym}/cfp/person                                              ,  cfp/people#update                     ,   s
 put   , /#{@c.acronym}/cfp/events/#{@event.id}/withdraw                        ,  cfp/events#withdraw                   ,   s
 put   , /#{@c.acronym}/cfp/events/#{@event.id}/confirm                         ,  cfp/events#confirm                    ,   s
 get   , /#{@c.acronym}/cfp/events                                              ,  cfp/events#index                      ,   s
-post  , /#{@c.acronym}/cfp/events                                              ,  cfp/events#create                     ,   s
-get   , /#{@c.acronym}/cfp/events/new                                          ,  cfp/events#new                        ,   s
 get   , /#{@c.acronym}/cfp/events/#{@event.id}/edit                            ,  cfp/events#edit                       ,   s
 get   , /#{@c.acronym}/cfp/events/#{@event.id}                                 ,  cfp/events#show                       ,   s
 put   , /#{@c.acronym}/cfp/events/#{@event.id}                                 ,  cfp/events#update                     ,   s
 delete, /#{@c.acronym}/cfp/events/#{@event.id}                                 ,  cfp/events#destroy                    ,   s
-      , /#{@c.acronym}/cfp                                                     ,  cfp/people#show                       ,   s
       , /#{@c.acronym}/recent_changes                                          ,  recent_changes#index                  ,   a
       , /#{@c.acronym}/schedule                                                ,  schedule#index                        ,   a
       , /#{@c.acronym}/schedule/update_track                                   ,  schedule#update_track                 ,   a

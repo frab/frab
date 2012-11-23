@@ -78,7 +78,6 @@ FactoryGirl.define do
     factory :three_day_conference, traits: [:three_days]
   end
 
-
   factory :call_for_papers do
     start_date { Date.today.ago(1.days) }
     end_date { Date.today.since(6.days) }
