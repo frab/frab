@@ -105,7 +105,7 @@ class Event < ActiveRecord::Base
   end
 
   def speakers
-    self.event_people.where(:event_role => ["speaker", "moderator"]).all.map(&:person)
+    self.event_people.presenter.includes(:person).all.map(&:person)
   end
 
   def to_s
@@ -118,7 +118,7 @@ class Event < ActiveRecord::Base
 
   def process_acceptance(options)
     if options[:send_mail]
-      self.event_people.where(:event_role => "speaker").each do |event_person|
+      self.event_people.presenter.each do |event_person|
         event_person.generate_token!
         SelectionNotification.acceptance_notification(event_person).deliver
       end
@@ -130,7 +130,7 @@ class Event < ActiveRecord::Base
 
   def process_rejection(options)
     if options[:send_mail]
-      self.event_people.where(:event_role => "speaker").each do |event_person|
+      self.event_people.presenter.each do |event_person|
         SelectionNotification.rejection_notification(event_person).deliver
       end
     end
@@ -164,7 +164,7 @@ class Event < ActiveRecord::Base
           Conflict.create(:event => conflicting_event, :conflicting_event => self, :conflict_type => "events_overlap", :severity => "fatal")
         end
       end
-      self.event_people.group(:person_id,:id).each do |event_person|
+      self.event_people.presenter.group(:person_id,:id).each do |event_person|
         unless event_person.available_between?(self.start_time, self.end_time)
           Conflict.create(:event => self, :person => event_person.person, :conflict_type => "person_unavailable", :severity => "warning")
         end

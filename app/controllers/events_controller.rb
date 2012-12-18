@@ -8,10 +8,10 @@ class EventsController < ApplicationController
   def index
     authorize! :read, Event
     if params[:term]
-      @search = @conference.events.with_query(params[:term]).search(params[:q])
+      @search = @conference.events.with_query(params[:term]).includes(:track).search(params[:q])
       @events = @search.result.paginate :page => params[:page]
     else
-      @search = @conference.events.search(params[:q])
+      @search = @conference.events.includes(:track).search(params[:q])
       @events = @search.result.paginate :page => params[:page]
     end
 

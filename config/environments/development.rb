@@ -29,5 +29,13 @@ Frab::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = false
+
+  # bullet
+  config.after_initialize do
+    Bullet.enable = true
+    #Bullet.alert = true
+    Bullet.rails_logger = true
+  end
 end
+
 

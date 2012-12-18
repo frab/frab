@@ -8,8 +8,8 @@ class ScheduleController < ApplicationController
     @schedules_events = []
     @day = @conference.days[params[:day].to_i]
 
-    @scheduled_events = @conference.events.accepted.scheduled_on(@day).order(:title) if not @day.nil?
-    @unscheduled_events = @conference.events.accepted.unscheduled.order(:title)
+    @scheduled_events = @conference.events.accepted.includes([:track, :room,:conflicts]).scheduled_on(@day).order(:title) if not @day.nil?
+    @unscheduled_events = @conference.events.accepted.includes([:track, :room,:conflicts]).unscheduled.order(:title)
   end
 
   def update_track

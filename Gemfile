@@ -35,6 +35,7 @@ gem 'prawn'
 gem 'prawn_rails'
 
 group :development, :test do
+  gem 'bullet'
   gem 'ruby-debug', :platforms => :mri_18
   gem 'ruby-debug19', :platforms => :mri_19
 end
