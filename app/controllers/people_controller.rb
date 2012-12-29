@@ -46,8 +46,8 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
     authorize! :manage, @person
-    @current_events = @person.events.where(:conference_id => @conference.id).includes(:track).all
-    @other_events = @person.events.where(Event.arel_table[:conference_id].not_eq(@conference.id)).includes(:track).all
+    @current_events = @person.events_as_presenter_in(@conference)
+    @other_events = @person.events_as_presenter_not_in(@conference)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @person }

@@ -66,8 +66,16 @@ class Person < ActiveRecord::Base
     self.events.where(:conference_id => conference.id).all
   end
 
+  def events_as_presenter_in(conference)
+    self.events.where(:"event_people.event_role" => ["speaker", "moderator"], :conference_id => conference.id).all
+  end
+
+  def events_as_presenter_not_in(conference)
+    self.events.where(:"event_people.event_role" => ["speaker", "moderator"]).where("conference_id != ?", conference.id).all
+  end
+
   def public_and_accepted_events_as_speaker_in(conference)
-    self.events.public.accepted.where(:"event_people.event_role" => ["speaker", "moderator"]).where(:conference_id => conference.id).all
+    self.events.public.accepted.where(:"event_people.event_role" => ["speaker", "moderator"], :conference_id => conference.id).all
   end
 
   def availabilities_in(conference)
