@@ -84,7 +84,7 @@
   .row
     .span16
       %h2 All ratings
-      - if @event.event_ratings.count == 0
+      - if @event_ratings.nil? or @event_ratings.count == 0
         .blank-slate
           %p
             No one has entered a rating for this event yet. Be the first

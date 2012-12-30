@@ -29,9 +29,10 @@ class EventRatingsController < ApplicationController
 
   protected
 
+  # filter according to users abilities
   def find_event
     @event = Event.find(params[:event_id])
-    unless @event_rating.nil?
+    if @event_ratings.nil?
       @event_ratings = @event.event_ratings.accessible_by(current_ability)
     end
   end
