@@ -28,7 +28,6 @@ gem 'barista'
 gem 'ri_cal'
 gem 'nokogiri'
 gem 'settingslogic'
-gem 'node'
 gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
 gem 'formtastic-bootstrap', :git => "git://github.com/katastrophie/formtastic-bootstrap.git"
 gem 'prawn'
