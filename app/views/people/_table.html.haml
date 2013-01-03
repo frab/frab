@@ -2,13 +2,20 @@
   %thead
     %tr
       %th.first
-      %th First name
-      %th Last name
-      %th Public name
-      %th Email
+      - if @search
+        %th= sort_link @search, :first_name, :term => params[:term]
+        %th= sort_link @search, :last_name, :term => params[:term]
+        %th= sort_link @search, :public_name, :term => params[:term]
+        %th= sort_link @search, :email, :term => params[:term]
+        %th
+      - else
+        %th First name
+        %th Last name
+        %th Public name
+        %th Email
       %th.last
   %tbody
-    - @people.each do |person|
+    - collection.each do |person|
       %tr
         %td= image_box person.avatar, :small
         %td= person.first_name

@@ -7,11 +7,12 @@ class PeopleController < ApplicationController
   # GET /people.xml
   def index
     authorize! :manage, Person
-    if params[:term]
-      @people = Person.involved_in(@conference).with_query(params[:term]).paginate :page => params[:page]
+    if params.has_key?(:term) and not params[:term].empty?
+      @search = Person.involved_in(@conference).with_query(params[:term]).search(params[:q])
     else
-      @people = Person.involved_in(@conference).paginate :page => params[:page]
+      @search = Person.involved_in(@conference).search(params[:q])
     end
+    @people = @search.result.paginate :page => params[:page]
   end
 
   def speakers
@@ -20,11 +21,12 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if params[:term]
-          @people = @people.with_query(params[:term]).paginate :page => params[:page]
+        if params.has_key?(:term) and not params[:term].empty?
+          @search = @people.involved_in(@conference).with_query(params[:term]).search(params[:q])
         else
-          @people = @people.paginate :page => params[:page]
+          @search = @people.involved_in(@conference).search(params[:q])
         end
+        @people = @search.result.paginate :page => params[:page]
       end
       format.text do
         render :text => @people.map(&:email).join("\n")
@@ -34,11 +36,12 @@ class PeopleController < ApplicationController
 
   def all
     authorize! :manage, Person
-    if params[:term]
-      @people = Person.with_query(params[:term]).paginate :page => params[:page]
+    if params.has_key?(:term) and not params[:term].empty?
+      @search = Person.with_query(params[:term]).search(params[:q])
     else
-      @people = Person.paginate :page => params[:page]
+      @search = Person.search(params[:q])
     end
+    @people = @search.result.paginate :page => params[:page]
   end
 
   # GET /people/1

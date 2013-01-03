@@ -8,6 +8,8 @@ class Conference < ActiveRecord::Base
   has_many :tracks, :dependent => :destroy
   has_many :languages, :as => :attachable, :dependent => :destroy
 
+  acts_as_indexed :fields => [:title, :acronym ]
+
   accepts_nested_attributes_for :rooms, :reject_if => proc {|r| r["name"].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :days, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :tracks, :reject_if => :all_blank, :allow_destroy => true

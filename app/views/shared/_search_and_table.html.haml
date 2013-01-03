@@ -1,7 +1,11 @@
-= render 'shared/simple_search', :path => request.path
-- if collection.all.empty?
-  %p Sorry, but your search yielded no results.
-- else  
-  = render 'table', :events => collection 
-  = actions_bar do
-    = will_paginate collection
+.row
+  .span16
+    = render 'shared/simple_search', :path => request.path
+.row
+  .span16
+    - if collection.empty?
+      %p Sorry, but your search yielded no results.
+    - else  
+      = render 'table', :collection => collection 
+      = actions_bar do
+        = will_paginate collection

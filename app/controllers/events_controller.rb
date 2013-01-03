@@ -7,13 +7,12 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     authorize! :read, Event
-    if params[:term]
+    if params.has_key?(:term) and not params[:term].empty?
       @search = @conference.events.with_query(params[:term]).includes(:track).search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
     else
       @search = @conference.events.includes(:track).search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
     end
+    @events = @search.result.paginate :page => params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,13 +23,12 @@ class EventsController < ApplicationController
   # current_users events
   def my
     authorize! :read, Event
-    if params[:term]
+    if params.has_key?(:term) and not params[:term].empty?
       @search = @conference.events.associated_with(current_user.person).with_query(params[:term]).search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
     else
       @search = @conference.events.associated_with(current_user.person).search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
     end
+    @events = @search.result.paginate :page => params[:page]
   end
 
   # events as pdf

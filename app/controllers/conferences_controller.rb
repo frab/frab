@@ -9,7 +9,12 @@ class ConferencesController < ApplicationController
   # GET /conferences
   # GET /conferences.xml
   def index
-    @conferences = Conference.all
+    if params.has_key?(:term) and not params[:term].empty?
+      @search = Conference.with_query(params[:term]).search(params[:q])
+    else
+      @search = Conference.search(params[:q])
+    end
+    @conferences = @search.result.paginate :page => params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

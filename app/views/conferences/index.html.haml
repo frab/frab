@@ -12,13 +12,4 @@
             Start adding a conference by clicking on the 
             button on the right.
   - else
-    - conferences = Conference.order('created_at DESC')
-    .row
-      .span16
-        = render 'shared/simple_search', :path => request.path
-    .row
-      .span16
-        - if conferences.empty?
-          %p Sorry, but your search yielded no results.
-        - else  
-          = render 'table', :conferences => conferences 
+    = render 'shared/search_and_table', :collection => @conferences

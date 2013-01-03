@@ -28,13 +28,4 @@
               here, once they take on a role in any of
               this conference's events.
   - else
-    .row
-      .span16
-        = render 'shared/simple_search', :path => request.path
-    .row
-      .span16
-        - if @people.all.empty?
-          %p Sorry, but your search yielded no results.
-        - else  
-          = render 'table', :events => @people 
-          = will_paginate @people 
+    = render 'shared/search_and_table', :collection => @people

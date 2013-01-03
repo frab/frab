@@ -2,13 +2,19 @@
   %thead
     %tr
       %th.first
-      %th Acronym
-      %th Title
-      %th Date
-      %th Email
+      - if @search
+        %th= sort_link @search, :acronym, :term => params[:term]
+        %th= sort_link @search, :title, :term => params[:term]
+        %th= sort_link @search, :date, :term => params[:term]
+        %th= sort_link @search, :email, :term => params[:term]
+      - else
+        %th Acronym
+        %th Title
+        %th Date
+        %th Email
       %th.last
   %tbody
-    - conferences.each do |conference|
+    - collection.each do |conference|
       %tr
         %td
         %td= conference.acronym

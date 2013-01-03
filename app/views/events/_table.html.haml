@@ -3,10 +3,10 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :title, :term => params[:term]
+        %th= sort_link @search, :title, 'Title', :term => params[:term]
         %th= sort_link @search, :track_name, "Track", :term => params[:term]
         %th= sort_link @search, :event_type, :term => params[:term]
-        %th= sort_link @search, :state, :term => params[:term]
+        %th= sort_link @search, :state, 'State', :term => params[:term]
         %th= sort_link @search, :created_at, :term => params[:term]
       - else
         %th Title
@@ -14,9 +14,9 @@
         %th Event type
         %th State
         %th Created at
-      %th
+      %th.last
   %tbody
-    - events.each do |event|
+    - collection.each do |event|
       %tr
         %td= link_to (image_box event.logo, :small), event
         %td 
