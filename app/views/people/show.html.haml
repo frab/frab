@@ -77,7 +77,7 @@
     .span16
       - unless @current_events.empty?
         %h2 Events in current conference
-        = render "events/table", :events => @current_events
+        = render "events/table", :collection => @current_events
       - unless @other_events.empty?
         %h2 Events in other conferences
-        = render "events/table", :events => @other_events
+        = render "events/table", :collection => @other_events
