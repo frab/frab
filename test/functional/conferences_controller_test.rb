@@ -2,8 +2,15 @@ require 'test_helper'
 
 class ConferencesControllerTest < ActionController::TestCase
   setup do
+    FactoryGirl.create(:conference)
+    FactoryGirl.create(:conference)
     @conference = FactoryGirl.create(:conference)
     login_as(:admin)
+  end
+
+  test "should list all" do
+    get :index
+    assert_response :success
   end
 
   test "should get new" do

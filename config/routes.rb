@@ -14,7 +14,7 @@ Frab::Application.routes.draw do
     end
 
     scope :path => "/:conference_acronym" do
-     
+
       namespace :public do
         match "/schedule" => "schedule#index", :as => "schedule_index"
         match "/schedule/style" => "schedule#style", :as => "schedule_style"
@@ -23,16 +23,16 @@ Frab::Application.routes.draw do
         match "/events/:id" => "schedule#event", :as => "event"
         match "/speakers" => "schedule#speakers", :as => "speakers"
         match "/speakers/:id" => "schedule#speaker", :as => "speaker"
-        
+
         resources :events do
           resource :feedback, :controller => :feedback
         end
-      end
+      end # namespace :public
 
       namespace :cfp do
 
         resource :session
-        
+
         resource :user do 
           resource :password
           resource :confirmation
@@ -56,8 +56,8 @@ Frab::Application.routes.draw do
 
         root :to => "people#show"
 
-      end
-      
+      end # namespace :cfp
+
       match "/recent_changes" => "recent_changes#index", :as => "recent_changes"
 
       match "/schedule.pdf" => "schedule#custom_pdf", :as => "schedule_custom_pdf", :defaults => {:format => :pdf}
@@ -116,11 +116,12 @@ Frab::Application.routes.draw do
         end
       end
 
-    end
+    end # scope :path => "/:conference_acronym"
 
     match "/:conference_acronym" => "home#index", :as => "conference_home"
     root :to => "home#index"
-  end
+
+  end # scope "(:locale)" do
 
   root :to => "home#index"
 
