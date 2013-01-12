@@ -49,7 +49,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    user = nil
+    # maybe the user got deleted, so lets wrap this in a rescue block
+    begin
+      user = User.find(session[:user_id]) if session[:user_id]
+    rescue
+    end
+    @current_user ||= user
   end
 
   def authenticate_user!

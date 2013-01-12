@@ -12,11 +12,11 @@ class PentabarfImportHelper
 
   # pentabarf roles are just different
   ROLE_MAPPING = {
-    "comittee" => "coordinator",
-    "developer" => "admin",
-    "admin" => "orga",
     "submitter" => "submitter",
-    "reviewer" => "reviewer"
+    "reviewer" => "reviewer",
+    "comittee" => "coordinator",
+    "admin" => "orga",
+    "developer" => "admin",
   }
 
   EVENT_STATE_MAPPING = {
@@ -54,19 +54,30 @@ class PentabarfImportHelper
     conferences = @barf.select_all("SELECT * FROM conference")
     puts "[ ] importing #{conferences.count} conferences" if DEBUG
     conference_mapping = create_mappings(:conferences) 
+
     conferences.each do |conference|
+      penta_days = @barf.select_values("SELECT conference_day FROM conference_day 
+                                      WHERE conference_id = #{conference["conference_id"]} 
+                                      ORDER BY conference_day ASC")
+
+      fake_days = penta_days
+      if fake_days.empty?
+        fake_days << Time.now.ago(1.year)
+      end
 
       new_conference = Conference.create!(
         :title => conference["title"],
         # clean up acronyms in pentabarf db first!
-        :acronym => conference["acronym"],
+        :acronym => conference["acronym"].gsub(/ /,''),
         # it's a string like 'Europe/Berlin', 'Berlin'
         :timezone => conference["timezone"],
-        #TODO omg timeslots
         :timeslot_duration => interval_to_minutes(conference["timeslot_duration"]),
         :default_timeslots => conference["default_timeslots"],
         :max_timeslots => conference["max_timeslot_duration"],
-        :feedback_enabled => conference["f_feedback_enabled"],
+        :feedback_enabled => conference["f_feedback_enabled"] == 'f' ? false : true,
+        # nowhere to find. just use the conference dates instead..
+        :created_at => fake_days.first.to_datetime,
+        :updated_at => fake_days.last.to_datetime,
         # TODO ticket server, instead of link? DO TICKET URLS THEY END UP PUBLIC?
       )
       conference_mapping[conference["conference_id"]] = new_conference.id
@@ -76,21 +87,31 @@ class PentabarfImportHelper
       #puts "+++ %s - %s" % [conference["acronym"], Time.zone] if DEBUG
 
       # convert pentabarf days to frab days
-      penta_days = @barf.select_values("SELECT conference_day FROM conference_day 
-                                      WHERE conference_id = #{conference["conference_id"]} 
-                                      ORDER BY conference_day ASC")
       penta_days.each do |day|
         day = day.to_datetime
-        # pentabarf uses a 'day change time', which is set at 04:00 o'clock for ccc congresses
+        # pentabarf uses a 'day change time', 
+        # which is set at 04:00 o'clock for ccc congresses
         # so we kind of fix it:
-        start_date = day.to_datetime.change(:hour => 4, :minute => 0)
-        end_date = day.since(1.days).to_datetime.change(:hour => 3, :minute => 59)
+        hour = conference['day_change'].gsub(/:.*/,'').to_i
+
+        start_date = day.to_datetime.change(:hour => hour, :minute => 0)
+        end_date = day.since(1.days).to_datetime.change(:hour => hour-1, :minute => 59)
         tmp = Day.new(:conference => new_conference,
                       :start_date => Time.zone.local_to_utc(start_date),
                       :end_date => Time.zone.local_to_utc(end_date))
         tmp.save!
       end
-      
+
+      # create a dummy cfp for this conference
+      cfp = CallForPapers.new
+      cfp.conference = new_conference
+      cfp.start_date = fake_days.first.to_datetime.ago(3.month)
+      cfp.end_date = fake_days.first.to_datetime.ago(1.month)
+      cfp.created_at = cfp.start_date
+      cfp.updated_at = cfp.end_date
+      cfp.info_url = conference["homepage"]
+      cfp.contact_email = conference["email"]
+      cfp.save!
     end
     save_mappings(:conferences)
   end
@@ -222,7 +243,7 @@ class PentabarfImportHelper
           :password_confirmation => password
         )
         user.confirmed_at = Time.now
-        user.role = role ? "submitter" : ROLE_MAPPING[role]
+        user.role = role ? ROLE_MAPPING[role] : "submitter"
         user.pentabarf_salt = account["salt"]
         user.pentabarf_password = account["password"]
         user.save!
@@ -248,21 +269,23 @@ class PentabarfImportHelper
   def import_links
     mappings(:people).each do |orig_id, new_id|
       links = @barf.select_all("SELECT l.title, l.url FROM conference_person as p LEFT OUTER JOIN conference_person_link as l ON p.conference_person_id = l.conference_person_id WHERE p.person_id = #{orig_id}")
-    puts "[ ] importing #{links.count} links from people" if DEBUG
+      # puts "[ ] importing #{links.count} links from people" if DEBUG
       links.each do |link|
         if link["title"] and link["url"]
           person = Person.find(new_id)
-          Link.create(:title => link["title"], :url => link["url"], :linkable => person)
+          Link.create(:title => truncate_string(link["title"]),
+                      :url => truncate_string(link["url"]), :linkable => person)
         end
       end
     end
     mappings(:events).each do |orig_id, new_id|
       links = @barf.select_all("SELECT title, url FROM event_link WHERE event_id = #{orig_id}")
-      puts "[ ] importing #{links.count} links from events" if DEBUG
+      #puts "[ ] importing #{links.count} links from events" if DEBUG
       links.each do |link|
         if link["title"] and link["url"]
           event = Event.find(new_id)
-          Link.create(:title => link["title"], :url => link["url"], :linkable => event)
+          Link.create(:title => truncate_string(link["title"]),
+                      :url => truncate_string(link["url"]), :linkable => event)
         end
       end
     end
@@ -276,6 +299,8 @@ class PentabarfImportHelper
       image = @barf.select_one("SELECT * FROM event_image WHERE event_id = #{event["event_id"]}")
       image_file = image_to_file(image, "event_id")
       conference = Conference.find(mappings(:conferences)[event["conference_id"]])
+      Time.zone = conference.timezone
+
       new_event = Event.create!(
         :conference_id => conference.id,
         :track_id => mappings(:tracks)[event["conference_track_id"]],
@@ -287,7 +312,6 @@ class PentabarfImportHelper
         #:state => EVENT_STATE_MAPPING[event["event_state"]],
         :state => EVENT_PROGRESS_MAPPING[event["event_state_progress"]],
         :language => event["language"],
-        #TODO
         :start_time => start_time(event["conference_day"], event["start_time"]),
         :room_id => mappings(:rooms)[event["conference_room_id"]],
         :abstract => event["abstract"],
@@ -304,6 +328,8 @@ class PentabarfImportHelper
   end
 
   def import_event_ratings
+    disable_event_callback(EventRating)
+
     event_ratings = @barf.select_all("SELECT * FROM event_rating")
     puts "[ ] importing #{event_ratings.count} event ratings" if DEBUG
     event_ratings.each do |rating|
@@ -314,12 +340,16 @@ class PentabarfImportHelper
         :comment => rating["remark"],
       )
     end
+
+    # update in batch
+    puts "[ ] updating rating average on events" if DEBUG
+    update_event_average("event_ratings", "average_rating")
+    enable_event_callbacks(EventRating)
   end
 
   def import_event_feedbacks
-    # we wan't to update this in batch after all the inserts
-    Event.skip_callback(:save, :after, :update_conflicts)
-    EventFeedback.skip_callback(:save, :after, :update_average)
+    disable_event_callback(EventFeedback)
+
     event_feedbacks = @barf.select_all("SELECT * FROM event_feedback")
     puts "[ ] importing #{event_feedbacks.count} event feedbacks" if DEBUG
     event_feedbacks.each do |feedback|
@@ -339,7 +369,7 @@ class PentabarfImportHelper
       end
       # this might happen:
       if rating.nil?
-        rating = -99
+        rating = 3
       end
       EventFeedback.create!(
         :event_id => mappings(:events)[feedback["event_id"]],
@@ -348,26 +378,11 @@ class PentabarfImportHelper
         :created_at => feedback["eval_time"]
       )
     end
-    # update counts in batch
-    puts "[ ] updating feedbacks counters on events" if DEBUG
-    # FIXME speed problems: 26h
-    # Event.joins(:event_feedbacks).readonly(false).all.each {|e| e.recalculate_average_feedback!}
-    
-    # direct sqlite syntax: 10min?
-    ActiveRecord::Base.connection.execute "UPDATE events SET average_feedback=(
-       SELECT sum(rating)/count(rating)
-       FROM event_feedbacks WHERE events.id = event_feedbacks.event_id)"
-   
-    # other databases?
-    # UPDATE events 
-    # SET average_feedback=(sum(rating)/count(rating))
-    # FROM events 
-    # INNER JOIN event_feedbacks 
-    # ON id = event_id
 
-    # re-enable after_save callbacks
-    Event.set_callback(:save, :after, :update_conflicts)
-    EventFeedback.set_callback(:save, :after, :update_average)
+    # update in batch
+    puts "[ ] updating feedback average on events" if DEBUG
+    update_event_average("event_feedbacks", "average_feedback")
+    enable_event_callbacks(EventFeedback)
   end
 
   def import_event_attachments
@@ -455,7 +470,8 @@ class PentabarfImportHelper
 
   def start_time(day, interval)
     return nil unless day and interval
-    Time.parse(day + " " + interval)
+    t = Time.parse(day + " " + interval)
+    Time.zone.utc_to_local(t).in_time_zone
   end
 
   def image_to_file(image, id_column)
@@ -522,4 +538,35 @@ class PentabarfImportHelper
   def mappings_file(name)
     Rails.root.join('tmp', "#{name}_mappings.yml").to_s
   end
+
+  def update_event_average(table, field)
+    # FIXME speed problems: 26h
+    # Event.joins(:event_feedbacks).readonly(false).all.each {|e| e.recalculate_average_feedback!}
+    
+    # direct sqlite syntax: 10min?
+    ActiveRecord::Base.connection.execute "UPDATE events SET #{field}=(
+       SELECT sum(rating)/count(rating)
+       FROM #{table} WHERE events.id = #{table}.event_id)"
+   
+    # other databases?
+    # UPDATE events 
+    #   SET average_feedback=(sum(rating)/count(rating))
+    #   FROM events 
+    #   INNER JOIN event_feedbacks 
+    #   ON id = event_id    
+  end
+
+  def disable_event_callback(average)
+    # we wan't to update this in batch after all the inserts
+    Event.skip_callback(:save, :after, :update_conflicts)
+    average.skip_callback(:save, :after, :update_average)
+    # TODO disable counter_cache?
+  end
+
+  def enable_event_callbacks(average)
+    # re-enable after_save callbacks
+    Event.set_callback(:save, :after, :update_conflicts)
+    average.set_callback(:save, :after, :update_average)
+  end
+
 end
