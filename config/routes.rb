@@ -83,6 +83,7 @@ Frab::Application.routes.draw do
         resource :availability
         collection do
           get :all
+          get :feedbacks
           get :speakers
         end
       end

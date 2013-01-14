@@ -96,6 +96,14 @@ class Event < ActiveRecord::Base
     self.class.state_machine.events_for(self.current_state).include?(transition)
   end
 
+  def feedback_standard_deviation
+    arr = self.event_feedbacks.map(&:rating)
+    return if arr.empty?
+    n = arr.count
+    m = arr.inject(0){|sum,item| sum + item}.to_f/n
+    "%02.02f" % Math.sqrt(arr.inject(0){|sum,item| sum + (item - m)**2  }/(n-1))
+  end
+
   def recalculate_average_feedback!
     self.update_attributes(:average_feedback => average(:event_feedbacks))
   end

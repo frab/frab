@@ -110,6 +110,12 @@ class Conference < ActiveRecord::Base
     self.days.each(&block)
   end
 
+  def in_the_past
+    return false if self.days.nil? or self.days.empty?
+    return false if Time.now < self.days.last.end_date
+    return true
+  end
+
   def to_s
     "Conference: #{self.title} (#{self.acronym})"
   end

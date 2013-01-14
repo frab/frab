@@ -57,6 +57,13 @@ class PeopleController < ApplicationController
     end
   end
 
+  def feedbacks
+    @person = Person.find(params[:id])
+    authorize! :manage, @person
+    @current_events = @person.events_as_presenter_in(@conference)
+    @other_events = @person.events_as_presenter_not_in(@conference)
+  end
+
   # GET /people/new
   # GET /people/new.xml
   def new

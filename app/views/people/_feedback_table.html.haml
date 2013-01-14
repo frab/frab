@@ -1,0 +1,31 @@
+%table.zebra-stripe
+  %thead
+    %tr
+      %th.first
+      %th Title
+      %th Track
+      %th Event type
+      %th Created at
+      %th.last Average Feedback
+  %tbody
+    - collection.each do |event|
+      %tr
+        %td= link_to (image_box event.logo, :small), event
+        %td 
+          = link_to event.title, event
+          %p.small
+            by
+            = event.speakers.map{ |p| link_to p.try(:full_public_name), p}.join(", ").html_safe
+        %td= event.track.try(:name)
+        %td= event.event_type
+        %td= l(event.created_at.to_date)
+        %td
+          = number_with_precision event.average_feedback, :precision => 2
+          - if event.event_feedbacks_count
+            %br
+            s<sub>N-1</sub> = #{event.feedback_standard_deviation} n = #{event.event_feedbacks_count}
+      - event.event_feedbacks.each do |feedback|
+        - next if feedback.comment.blank?
+        %tr
+          %td= feedback.rating
+          %td{:colspan=>5}= feedback.comment
