@@ -6,9 +6,6 @@ and to create a schedule.
 
 ## Background
 
-This fork was used for the CCC conference SIGINT12 and is still in active
-development for future conferences.
-
 frab was originally created for the organization of FrOSCon 2011 (http://www.froscon.de).
 FrOSCon has previously used pentabarf (http://pentabarf.org), and although
 frab is a completely new implementation, it borrows heavily from pentabarf.
@@ -38,7 +35,7 @@ and follow these steps:
 
 1) Clone the repository
 
-    git clone git://github.com/katastrophie/frab.git
+    git clone git://github.com/frab/frab.git
 
 2) cd into the directory:
 
