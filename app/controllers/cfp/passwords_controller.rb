@@ -6,6 +6,10 @@ class Cfp::PasswordsController < ApplicationController
     @user = User.new
   end
 
+  def show
+    redirect_to new_cfp_user_password_path
+  end
+
   def create
     @user = User.find_by_email(params[:user][:email])
     if @user and @user.send_password_reset_instructions(@conference.call_for_papers)
