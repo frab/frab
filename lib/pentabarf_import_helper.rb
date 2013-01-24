@@ -330,14 +330,30 @@ class PentabarfImportHelper
   def import_event_ratings
     disable_event_callback(EventRating)
 
+    rating_rankings = Hash.new{ |h,v| h[v] = 0 }
+    rating_rankings_n = Hash.new{ |h,v| h[v] = 0 }
     event_ratings = @barf.select_all("SELECT * FROM event_rating")
+    event_ratings.each { |er|
+      key = er["person_id"] + "##" + er["event_id"]
+      rating_rankings[key] += er["rating"].to_i
+      rating_rankings_n[key] += 1
+    }
+
+    event_ratings = @barf.select_all("SELECT * FROM event_rating_remark")
     puts "[ ] importing #{event_ratings.count} event ratings" if DEBUG
     event_ratings.each do |rating|
+      key = rating["person_id"] + "##" + rating["event_id"]
+      if rating_rankings_n.has_key?(key)
+        score = rating_rankings[key]/rating_rankings_n[key]
+      else
+        score = 0
+      end
       EventRating.create!(
         :event_id => mappings(:events)[rating["event_id"]],
         :person_id => mappings(:people)[rating["person_id"]],
-        :rating => rating["rating"],
+        :rating => score,
         :comment => rating["remark"],
+        :created_at => rating["eval_time"],
       )
     end
 
