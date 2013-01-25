@@ -74,7 +74,7 @@ class PentabarfImportHelper
         :timeslot_duration => interval_to_minutes(conference["timeslot_duration"]),
         :default_timeslots => conference["default_timeslots"],
         :max_timeslots => conference["max_timeslot_duration"],
-        :feedback_enabled => conference["f_feedback_enabled"] == 'f' ? false : true,
+        :feedback_enabled => penta_bool(conference["f_feedback_enabled"]),
         # nowhere to find. just use the conference dates instead..
         :created_at => fake_days.first.to_datetime,
         :updated_at => fake_days.last.to_datetime,
@@ -164,7 +164,8 @@ class PentabarfImportHelper
         # fun fact: pentabarf has a first_name, last_name, public_name and nickname field
         :public_name => guess_public_name(person),
         :email => person["email"].blank? ? DUMMY_MAIL : person["email"],
-        :include_in_mailings => person["spam"],
+        :email_public => 0,
+        :include_in_mailings => penta_bool(person["spam"]),
         :gender => guess_gender(person),
         :abstract => abstract,
         :description => description,
@@ -316,7 +317,7 @@ class PentabarfImportHelper
         :room_id => mappings(:rooms)[event["conference_room_id"]],
         :abstract => event["abstract"],
         :description => event["description"],
-        :public => event["public"],
+        :public => penta_bool(event["public"]),
         :submission_note => event["submission_notes"],
         :note => event["remark"],
         :logo => image_file
@@ -410,7 +411,7 @@ class PentabarfImportHelper
       EventAttachment.create!(
         :title => title,
         :event_id => mappings(:events)[event_attachment["event_id"]],
-        :public => event_attachment['public'],
+        :public => penta_bool(event_attachment['public']),
         :attachment_file_name => event_attachment['filename'],
         :attachment_content_type =>  event_attachment['mime_type'],
         :attachment_file_size => attachment_file.size,
@@ -474,8 +475,13 @@ class PentabarfImportHelper
     if person["gender"].nil?
       return
     else
-      return person["gender"] ? "male" : "female"
+      return penta_bool(person["gender"]) ? "male" : "female"
     end
+  end
+
+  def penta_bool(value)
+    return false if value.nil?
+    value == "t" ? true : false
   end
 
   def interval_to_minutes(interval)
