@@ -29,7 +29,7 @@
           - next if feedback.comment.blank?
           %tr
             %td
-            %td
-            %td= feedback.rating
+            %td{:colspan=>2}
+              .rating{:id => "event_rating_#{event.id}", :"data-rating" => feedback.rating}
             %td= feedback.comment
             %td

@@ -103,6 +103,7 @@
                 %th Comment
             %tbody
               - @event_ratings.each do |event_rating|
+                - event_rating.person = Person.new if event_rating.person.nil?
                 %tr
                   %td=image_box event_rating.person.avatar, :small
                   %td=event_rating.person.full_name

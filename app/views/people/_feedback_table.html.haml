@@ -27,5 +27,7 @@
       - event.event_feedbacks.each do |feedback|
         - next if feedback.comment.blank?
         %tr
-          %td= feedback.rating
+          %td
+            .rating{:id => "event_rating_#{feedback.id}", :"data-rating" => feedback.rating}
           %td{:colspan=>5}= feedback.comment
+
