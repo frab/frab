@@ -51,6 +51,7 @@ class Ability
       can :read, EventFeedback
       can :manage, EventRating, :person_id => user.person.id
       can :manage, Person, :id => user.person.id
+      can :read, Person
       can :manage, User, :id => user.id
       cannot :assign_roles, User
     when /submitter/
