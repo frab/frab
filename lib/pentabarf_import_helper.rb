@@ -491,6 +491,7 @@ class PentabarfImportHelper
   end
 
   def start_time(day, interval)
+    return nil unless day and interval
     t = Time.parse(day + " " + interval).in_time_zone
     if t.dst?
       t + 2.hour
