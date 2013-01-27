@@ -27,6 +27,9 @@ en:
   rooms: "Rooms"
   ticket_server: "Ticket Server"
 
+  ability:
+    denied: "This action is not allowed."
+
   options:
     lecture: "lecture"
     workshop: "workshop"

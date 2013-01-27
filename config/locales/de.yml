@@ -36,6 +36,9 @@ de:
   static_program_export: "Statischer Programm-Export"
   feedback_system: "Feedback-System"
 
+  ability:
+    denied: "Der Vorgang ist nicht erlaubt."
+
   options:
     lecture: "Vortrag"
     workshop: "Workshop"
