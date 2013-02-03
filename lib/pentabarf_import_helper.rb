@@ -480,9 +480,11 @@ class PentabarfImportHelper
     return nil unless day and interval
     t = Time.parse(day + " " + interval).in_time_zone
     if t.dst?
-      t + 2.hour
+      #t + 2.hour
+      t + 4.hour
     else
-      t + 3.hour
+      #t + 3.hour
+      t + 4.hour
     end
   end
 
