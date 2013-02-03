@@ -63,6 +63,9 @@
       %p
         %b Room:
         = @event.room.try(:name)
+      -if @event.conference != @conference
+        %b Conference:
+        = @event.conference.acronym
     .span4
       = image_box @event.logo, :large
   .row

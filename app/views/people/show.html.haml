@@ -81,4 +81,4 @@
         = render "events/table", :collection => @current_events
       - unless @other_events.empty?
         %h2 Events in other conferences
-        = render "events/table", :collection => @other_events
+        = render "events_in_other_conferences_table", :collection => @other_events
