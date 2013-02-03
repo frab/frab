@@ -25,19 +25,6 @@ class PentabarfImportHelper
     'accepted' => 'confirmed'
   }
 
-  EVENT_PROGRESS_MAPPING = {
-    'canceled' => 'canceled',
-    'candidate' => 'unconfirmed',
-    'confirmed' => 'confirmed',
-    'new' => 'new',
-    'reconfirmed' => 'confirmed',
-    'rejected' => 'rejected',
-    'rejection-candidate' => 'unconfirmed',
-    'review' => 'review',
-    'unconfirmed' => 'unconfirmed',
-    'withdrawn' => 'withdrawn'
-  }
-
   # as in User
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
@@ -310,8 +297,7 @@ class PentabarfImportHelper
         :event_type => event["event_type"],
         :time_slots => interval_to_minutes(event["duration"]) / conference.timeslot_duration,
         # frab does not distinguish in state and progress:
-        #:state => EVENT_STATE_MAPPING[event["event_state"]],
-        :state => EVENT_PROGRESS_MAPPING[event["event_state_progress"]],
+        :state => EVENT_STATE_MAPPING[event["event_state"]],
         :language => event["language"],
         :start_time => start_time(event["conference_day"], event["start_time"]),
         :room_id => mappings(:rooms)[event["conference_room_id"]],
