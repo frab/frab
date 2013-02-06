@@ -1,0 +1,334 @@
+gsw:
+  add_association: "%{name} hinzuefüegä"
+  remove_association: "%{name} entfärnä"
+  your_submission: "Diin Vortrag"
+  edit: "Bearbeite"
+  actions: "Aktione"
+  error_signing_in: "E-Mailadresse oder Passwort ungültig."
+  sign_in_successful: "Erfolgrich iigloggt."
+
+  people: "Personä"
+  events: "Veranstaltigä"
+  reports: "Brichtä"
+  call_for_papers: "Call for Papers"
+  launch_call_for_papers: "Call for Papers startä"
+  schedule: "Ziitplan"
+  settings: "Iistelligä"
+  switch_conference: "Konferenz wächslä"
+  create_new_conference: "Nöii Konferänz erstelle"
+
+  days: "Tääg"
+  tracks: "Tracks"
+  rooms: "Rüüm"
+  ticket_server: "Ticket-Server"
+
+  create_your_first_conference: "Ersti Konferänz erstelle"
+  new_conference: "Neui Konferänz"
+  edit_conference: "Konferänz bearbeite"
+  edit_conference_days: "Konferänz-Tääg bearbeite"
+  edit_conference_tracks: "Konferänz-Tracks bearbeite"
+  edit_conference_rooms: "Konferänz-Rüüm bearbeite"
+  edit_ticket_server: "Ticket-Server bearbeite"
+
+  basic_information: "Grundlegendi Informatione"
+  schedule_configuration: "Konfiguration vom Ziitplan"
+  event_languages: "Veranstaltungssprachä"
+  static_program_export: "Statische Programm-Export"
+  feedback_system: "Feedback-System"
+
+  options:
+    lecture: "Vortrag"
+    workshop: "Workshop"
+    podium: "Podiumsdiskussion"
+    lightning_talk: "Lightning Talk"
+    meeting: "Meeting"
+    other: "Anders"
+    male: "männlich"
+    female: "wiiblich"
+    fax: "Fax"
+    phone: "Telefon"
+    mobile: "Mobil"
+    private: "Privat"
+    business: "Gschäftlich"
+    skype: "Skype"
+    secretary: "Sekretärin/Vorzimmer"
+
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+
+    day_names: [Sunnti, Mänti, Zischti, Mittwuch, Donnsti, Friiti, Samsti]
+    abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
+    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, Septämber, Oktober, Novämber, Dezämber]
+    abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
+    order:
+      - :day
+      - :month
+      - :year
+  
+  time:
+    formats:
+      default: "%A, %d. %B %Y, %H:%M Uhr"
+      short: "%d. %B, %H:%M Uhr"
+      long: "%A, %d. %B %Y, %H:%M Uhr"
+      time: "%H:%M"
+
+    am: "am morge"
+    pm: "am nomitag"
+      
+  datetime:
+    distance_in_words:
+      half_a_minute: 'e halbi Minute'
+      less_than_x_seconds:
+        one: 'weniger als e Sekunde'
+        other: 'weniger als %{count} Sekundä'
+      x_seconds:
+        one: 'ei Sekunde'
+        other: '%{count} Sekundä'
+      less_than_x_minutes:
+        one: 'weniger als ei Minute'
+        other: 'weniger als %{count} Minutä'
+      x_minutes:
+        one: 'ei Minute'
+        other: '%{count} Minutä'
+      about_x_hours:
+        one: 'öppe e Stund'
+        other: 'öppe %{count} Stundä'
+      x_days:
+        one: 'ei Tag'
+        other: '%{count} Täg'
+      about_x_months:
+        one: 'öppe en Monet'
+        other: 'öppe %{count} Mönet'
+      x_months:
+        one: 'ei Monet'
+        other: '%{count} Mönet'
+      almost_x_years:
+        one: 'fast es Johr'
+        other: 'fast %{count} Johr'
+      about_x_years:
+        one: 'öppe es Jahr'
+        other: 'öppe %{count} Johr'
+      over_x_years:
+        one: 'mehr als ein Jahr'
+        other: 'meh als %{count} Johr'
+    prompts:
+      second: "Sekundä"
+      minute: "Minutä"
+      hour: "Stunde"
+      day: "Tag"
+      month: "Monet"
+      year: "Johr"
+
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        unit: '€'
+        format: '%n%u'
+        separator: ","
+        delimiter: ""
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: Tausend
+          million: Millionen
+          billion: 
+            one: Milliarde
+            others: Milliarden
+          trillion: Billionen
+          quadrillion: 
+            one: Billiarde
+            others: Billiarden
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " und "
+      last_word_connector: " und "
+    select:
+      prompt: "Bitte wähle:"
+
+  activemodel:
+    errors:
+      template:
+        header:
+          one:    "Het %{model} nöd chenne spichere: en Fähler."
+          other:  "Het %{model} nöd chenne spichere: %{count} Fähler."
+        body: "Bitte überprüfed Sie die folgenden Fälder:"
+  helpers:
+    select:
+      prompt: "Bitte wähle"
+
+    submit:
+      create: '%{model} erstelle'
+      update: '%{model} aktualisiere'
+      submit: '%{model} spiichere'
+
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "isch kei gültige Wärt"
+      exclusion: "isch nöd verfügbar"
+      invalid: "isch nöd gültig"
+      confirmation: "stimmt nöd mit dr Bestätigung überii"
+      accepted: "muess akzeptiert wärde"
+      empty: "muess ausgefüllt wärde"
+      blank: "muess ausgefüllt wärde"
+      too_long: "isch z'lang (nöd meh als %{count} Zeichä)"
+      too_short: "isch z'churz (nöd weniger als %{count} Zeichä)"
+      wrong_length: "het die falsch Längi (muess genau %{count} Zeichä haa)"
+      not_a_number: "isch kei Zahl"
+      greater_than: "muess größer als %{count} sii"
+      greater_than_or_equal_to: "muess größer oder gliich %{count} sii"
+      equal_to: "muess genau %{count} sii"
+      less_than: "muess chliner als %{count} sii"
+      less_than_or_equal_to: "muess chliiner oder gleich %{count} sii"
+      odd: "muess ungrade sii"
+      even: "muess grade sii"
+      not_an_integer: "muess ganzzahlig sii"
+      
+  activerecord:
+    errors:
+      template:
+        header:
+          one:    "Het %{model} nöd chenne spiichere:ein Fähler."
+          other:  "Het %{model} nöd chenne spiichere: %{count} Fähler."
+        body: "Bitte überprüfed Sie die folgende Fälder:"
+
+      messages:        
+        taken: "isch bereits vergää"
+        record_invalid: "Gültigkeitsprüfig isch fehlgeschlagä: %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute}%{message}"
+    models:
+      conference: "Konferänz"
+      event: "Iireichig"
+      person: "Profil"
+      event_person: "Person"
+      day: "Tag"
+      link: "Link"
+      im_account: "IM-Account"
+      phone_number: "Telefonnummere"
+      event_attachment: "Datei"
+      language: "Sproch"
+      track: "Track"
+      room: "Ruum"
+    attributes:
+      conference:
+        title: "Titel"
+        acronym: "Chürzel"
+        email: "E-Mail"
+        color: "Farb"
+        timezone: "Ziitzone"
+        timeslot_duration: "Dauer vom Ziitslot"
+        default_timeslots: "Standard-Anzahl vode Ziitslots"
+        max_timeslots: "Maximale Anzahl Ziitslots"
+        schedule_version: "Version vom Ziitplans"
+        schedule_public: "Ziitplan öffentlich"
+        feedback_enabled: "Feedback aktiviert"
+      day:
+        start_date: "Afang"
+        end_date: "Ändi"
+      track:
+        name: "Name"
+        color: "Farb"
+      room:
+        name: "Name"
+        size: "Größi"
+        rank: "Rang"
+        public: "Öffentlich"
+      event:
+        title: "Titel"
+        subtitle: "Untertitel"
+        event_type: "Art vode Veranstaltig"
+        track: "Track"
+        time_slots: "Duur"
+        language: "Sproch"
+        logo: "Logo"
+        abstract: "Abstract"
+        description: "Beschriibig"
+        state: "Status"
+      link:
+        title: "Titel"
+        url: "URL"
+      event_attachment:
+        title: "Titel"
+        attachment: "Datei"
+      person:
+        first_name: "Vorname"
+        last_name: "Nachname"
+        public_name: "Öffentliche Name"
+        gender: "Gschlecht"
+        avatar: "Profilbild"
+        email: "E-Mail"
+        email_public: "E-Mail öffentlich?"
+        abstract: "Abstract"
+        description: "Beschriibig"
+      language:
+        language: "Sproche"
+      phone_number:
+        phone_type: "Typ"
+        phone_number: "Nummer"
+      im_account:
+        im_type: "Typ"
+        im_address: "Adresse/Username"
+      user:
+        email: "E-Mail"
+        password: "Passwort"
+        password_confirmation: "Passwort wiederholä"
+        current_password: "Aktuelles Passwort"
+        remember_me: "A däm Computer iigloggt blibä"
+      event_feedback:
+        rating: "Bewärtig"
+        comment: "Kommentar"
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Account aktivieren"
+      password_reset_instructions: "Password zrücksetzä"
+  formtastic:
+    actions:
+      create: "%{model} aaleggä" 
+      update: "Änderige a %{model} spiicherä"
+  time:
+    formats:
+      pretty_datetime: "%Y-%m-%d %H:%M"
