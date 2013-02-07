@@ -69,6 +69,6 @@ namespace :pentabarf do
     end
 
     desc "Import data from pentabarf"
-    task :all => [:setup, :conferences, :tracks, :rooms, :people, :accounts, :languages, :events, :event_feedbacks, :event_attachments, :event_people, :links]
+    task :all => [:setup, :conferences, :tracks, :rooms, :people, :accounts, :languages, :events, :event_feedbacks, :event_ratings, :event_attachments, :event_people, :links]
   end
 end
