@@ -24,14 +24,13 @@ class ImportExportHelper
     dump "conference_rooms", @conference.rooms
     dump "conference_days", @conference.days
     dump "conference_languages", @conference.languages
-    dump "events", @conference.events
+    events = dump "events", @conference.events
     dump_has_many "tickets", @conference.events, 'ticket'
     dump_has_many "event_people", @conference.events, 'event_people'
     dump_has_many "event_feedbacks", @conference.events, 'event_feedbacks'
     people = dump_has_many "people", @conference.events, 'people'
     dump_has_many "event_links", @conference.events, 'links'
     attachments = dump_has_many "event_attachments", @conference.events, 'event_attachments'
-    export_attachments(attachments)
     dump_has_many "event_ratings", @conference.events, 'event_ratings'
     dump_has_many "conflicts", @conference.events, 'conflicts'
     #dump_has_many "conflicts_as_conflicting", @conference.events, 'conflicts_as_conflicting'
@@ -41,6 +40,7 @@ class ImportExportHelper
     dump_has_many "people_languages", people, 'languages'
     dump_has_many "people_availabilities", people, 'availabilities'
     dump_has_many "users", people, 'user'
+    export_paperclip_files(events, people, attachments)
   end
 
   def run_import(export_dir=EXPORT_DIR)
@@ -53,6 +53,8 @@ class ImportExportHelper
       :people => {}, :users => {},
       :events => {}
     }
+
+    unpack_paperclip_files
 
     restore("conference", Conference) do |id, c|
       test = Conference.find_by_acronym(c.acronym)
@@ -96,6 +98,9 @@ class ImportExportHelper
         @mappings[:people][id] = person.id
       else
         obj.user_id = @mappings[:users][obj.user_id]
+        if (file = import_file("avatars", id, obj.avatar_file_name))
+            obj.avatar = file
+        end
         obj.save!
         @mappings[:people][id] = obj.id
       end
@@ -105,6 +110,9 @@ class ImportExportHelper
       obj.conference_id =  @conference_id
       obj.track_id = @mappings[:tracks][obj.track_id]
       obj.room_id = @mappings[:rooms][obj.room_id]
+      if (file = import_file("logos", id, obj.logo_file_name))
+          obj.logo = file
+      end
       obj.save!
       @mappings[:events][id] = obj.id
     end
@@ -120,84 +128,6 @@ class ImportExportHelper
   end
 
   private
-
-  def dump_has_many(name, obj, attr)
-    arr = obj.collect { |t| t.send(attr) }
-             .flatten.select { |t| not t.nil? }.sort.uniq
-    dump name, arr
-  end
-
-  def dump(name,obj)
-    File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f| 
-      if obj.respond_to?("collect")
-        f.puts obj.collect {|record| record.attributes}.to_yaml
-      else
-        f.puts obj.attributes.to_yaml
-      end
-    }
-    return obj
-  end
-
-  def restore(name, obj)
-    puts "[ ] restore #{name}" if DEBUG
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
-    tmp = obj.new(records)
-    yield records['id'], tmp
-  end
-
-  def restore_multiple(name, obj)
-    puts "[ ] restore all #{name}" if DEBUG
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
-    records.each do |record|
-      tmp = obj.new(record)
-      yield record['id'], tmp
-    end
-  end
-
-  def restore_users(name="users", obj=User)
-    puts "[ ] restore all #{name}" if DEBUG
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
-    records.each do |record|
-      tmp = obj.new(record)
-      yield record['id'], record, tmp
-    end
-  end
-
-  def export_attachments(attachments)
-    out_path = File.join(@export_dir, 'attachments')
-    FileUtils.mkdir_p out_path
-    attachments.each { |a|
-      path = File.join('public/assets', a.attachment_file_name)
-      if File.readable?(path)
-        FileUtils.cp path, out_path
-      end
-    }
-  end
-
-  def import_attachment(attachment_file_name)
-    path = File.join(@export_dir, 'attachments', attachment_file_name)
-    out_path = File.join('public/assets', attachment_file_name)
-    FileUtils.cp path, out_path
-  end
-
-  def disable_callbacks
-    EventPerson.skip_callback(:save, :after, :update_speaker_count)
-    Event.skip_callback(:save, :after, :update_conflicts)
-    EventRating.skip_callback(:save, :after, :update_average)
-    EventFeedback.skip_callback(:save, :after, :update_average)
-  end
-
-  def update_counters
-    ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
-    update_event_average("event_ratings", "average_rating")
-    update_event_average("event_feedbacks", "average_feedback")
-  end
-
-  def update_event_average(table, field)
-    ActiveRecord::Base.connection.execute "UPDATE events SET #{field}=(
-       SELECT sum(rating)/count(rating)
-       FROM #{table} WHERE events.id = #{table}.event_id)"
-  end
    
   def restore_conference_data
     restore_multiple("conference_tracks", Track) do |id, obj|
@@ -265,8 +195,10 @@ class ImportExportHelper
 
     restore_multiple("event_attachments", EventAttachment) do |id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
+      if (file = import_file("attachments", id, obj.attachment_file_name))
+          obj.attachment = file
+      end
       obj.save!
-      import_attachment(obj.attachment_file_name)
     end
 
     restore_multiple("conflicts", Conflict) do |id, obj|
@@ -324,6 +256,96 @@ class ImportExportHelper
       obj.day_id = @mappings[:days][obj.day_id]
       obj.save!
     end
+  end
+
+  def dump_has_many(name, obj, attr)
+    arr = obj.collect { |t| t.send(attr) }
+             .flatten.select { |t| not t.nil? }.sort.uniq
+    dump name, arr
+  end
+
+  def dump(name,obj)
+    File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f| 
+      if obj.respond_to?("collect")
+        f.puts obj.collect {|record| record.attributes}.to_yaml
+      else
+        f.puts obj.attributes.to_yaml
+      end
+    }
+    return obj
+  end
+
+  def restore(name, obj)
+    puts "[ ] restore #{name}" if DEBUG
+    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    tmp = obj.new(records)
+    yield records['id'], tmp
+  end
+
+  def restore_multiple(name, obj)
+    puts "[ ] restore all #{name}" if DEBUG
+    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    records.each do |record|
+      tmp = obj.new(record)
+      yield record['id'], tmp
+    end
+  end
+
+  def restore_users(name="users", obj=User)
+    puts "[ ] restore all #{name}" if DEBUG
+    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    records.each do |record|
+      tmp = obj.new(record)
+      yield record['id'], record, tmp
+    end
+  end
+
+  def export_paperclip_files(events,people,attachments)
+    out_path = File.join(@export_dir, 'attachments.tar.gz')
+
+    paths = []
+    paths << events.select { |e| not e.logo.path.nil? }.collect { |e| e.logo.path.gsub(/^#{Rails.root}\//,'') }
+    paths << people.select { |e| not e.avatar.path.nil? }.collect { |e| e.avatar.path.gsub(/^#{Rails.root}\//,'') }
+    paths << attachments.select { |e| not e.attachment.path.nil? }.collect { |e| e.attachment.path.gsub(/^#{Rails.root}\//,'') }
+    paths.flatten!
+
+    # TODO don't use system
+    system( 'tar', *['-cpz', '-f', out_path, paths].flatten )
+  end
+  
+  def import_file(dir, id, file_name)
+    return if file_name.nil? or file_name.empty?
+
+    path = File.join(@export_dir, 'public/system', dir, id.to_s, 'original', file_name)
+    if (File.readable?(path))
+      return File.open(path, 'r')
+    end
+
+    return
+  end
+
+  def unpack_paperclip_files()
+    path = File.join(@export_dir, 'attachments.tar.gz')
+    system( 'tar', *['-xz', '-f', path, '-C', @export_dir].flatten )
+  end
+
+  def disable_callbacks
+    EventPerson.skip_callback(:save, :after, :update_speaker_count)
+    Event.skip_callback(:save, :after, :update_conflicts)
+    EventRating.skip_callback(:save, :after, :update_average)
+    EventFeedback.skip_callback(:save, :after, :update_average)
+  end
+
+  def update_counters
+    ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
+    update_event_average("event_ratings", "average_rating")
+    update_event_average("event_feedbacks", "average_feedback")
+  end
+
+  def update_event_average(table, field)
+    ActiveRecord::Base.connection.execute "UPDATE events SET #{field}=(
+       SELECT sum(rating)/count(rating)
+       FROM #{table} WHERE events.id = #{table}.event_id)"
   end
 
 end
