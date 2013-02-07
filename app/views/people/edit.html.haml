@@ -3,7 +3,7 @@
     %h1 Edit Person: #{@person.full_name}
   %ul.tabs
     %li.active= link_to "Profile", @person
-    - if can? :manage, @user
+    - if can? :manage, @user or can? :manage, User
       %li= link_to "User account", person_user_path(@person)
     - if @person.availabilities_in(@conference).count == 0
       %li= link_to "Availability", new_person_availability_path(@person)
