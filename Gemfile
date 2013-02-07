@@ -15,12 +15,12 @@ gem 'bcrypt-ruby'
 gem 'cancan'
 gem 'cocoon'
 gem 'formtastic', '~> 2.1.0'
-gem 'formtastic-bootstrap', :git => "git://github.com/katastrophie/formtastic-bootstrap.git"
+gem 'formtastic-bootstrap', :git => "git://github.com/frab/formtastic-bootstrap.git"
 gem 'gravatar-ultimate'
 gem 'haml'
 gem 'jquery-rails', '~> 1.0.19'
 gem 'json'
-gem 'localized_language_select', '0.2.0', :git => "git://github.com/oneiros/localized_language_select.git"
+gem 'localized_language_select', '0.2.0', :git => "git://github.com/frab/localized_language_select.git"
 gem 'nokogiri'
 gem 'paperclip', '< 3.0'
 gem 'paper_trail', '2.3.3'
@@ -30,7 +30,7 @@ gem 'ransack'
 gem 'ri_cal'
 gem 'settingslogic'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
-gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
+gem 'twitter-bootstrap-rails', :git => "git://github.com/frab/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
 gem 'will_paginate'
 
 group :development, :test do

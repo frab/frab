@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/katastrophie/formtastic-bootstrap.git
+  remote: git://github.com/frab/formtastic-bootstrap.git
   revision: 8c18bf28d511a6846837a17bc59306304055c5f3
   specs:
     formtastic-bootstrap (1.2.0)
@@ -7,7 +7,7 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: git://github.com/oneiros/localized_language_select.git
+  remote: git://github.com/frab/localized_language_select.git
   revision: 12aba5fb945cf50ea3919b3ae774d9205a6cfcc4
   specs:
     localized_language_select (0.2.0)
@@ -15,7 +15,7 @@ GIT
       rails (>= 2.3.5)
 
 GIT
-  remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
+  remote: git://github.com/frab/twitter-bootstrap-rails.git
   revision: 5e62b21c8f258010af7f5bc858b89a24f16936a9
   ref: 5e62b21c8f258010af7f5bc858b89a24f16936a9
   specs:
