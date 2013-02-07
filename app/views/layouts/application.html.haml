@@ -27,10 +27,10 @@
               %li
                 - if @conference.call_for_papers
                   = link_to t(:call_for_papers, :default => "Call for Papers"), call_for_papers_path
-                - elsif can? :manage, :conference
+                - elsif can? :manage, Conference
                   = link_to t(:launch_call_for_papers, :default => "Launch Call for Papers"), new_call_for_papers_path
               %li= link_to t("schedule", :default => "Schedule"), schedule_path
-              - if can? :manage, :conference
+              - if can? :manage, Conference
                 %li= link_to t("settings", :default => "Settings"), edit_conference_path(@conference)
           %ul.nav.secondary-nav.pull-right
             - if Conference.count > 1
@@ -45,9 +45,9 @@
                   %li.divider/
                   - if conferences.count > 1
                     %li= link_to t(:conferences, :default => "more"), conference_index_path
-                  - if can? :manage, :conference
+                  - if can? :manage, Conference
                     %li= link_to t(:create_new_conference, :default => "Create new conference"), new_conference_path(:conference_acronym => nil)
-            - elsif can? :manage, :conference_acronym
+            - elsif can? :manage, Conference
               %li= link_to t(:create_new_conference, :default => "Create new conference"), new_conference_path(:conference_acronym => nil)
             %li.dropdown
               = link_to t("show_account", :default => "Account"), "#", :class => "dropdown-toggle"
