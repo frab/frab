@@ -7,6 +7,7 @@
     - if can? :manage, @user or can? :manage, @user
       %li= link_to "User account", person_user_path(@person)
     %li.active= link_to "Availability", person_availability_path(@person)
+    %li= link_to "Feedback", feedbacks_people_path(:id => @person.id)
   .row
     .span16
       = render 'form'
