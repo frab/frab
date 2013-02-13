@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby "1.9.3"
 
-gem 'rails', '3.2.11'
+gem 'rails', '~> 3.2.12'
 
 gem 'mysql2'
 gem 'pg'
