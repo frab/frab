@@ -15,10 +15,10 @@ class Availability < ActiveRecord::Base
     result = Array.new
     conference.each_day do |day|
       result << self.new(
-        :day => day,
-        :start_date=> day.start_date,
-        :end_date=> day.end_date,
-        :conference => conference
+        day: day,
+        start_date: day.start_date,
+        end_date: day.end_date,
+        conference: conference
       )
     end
     result

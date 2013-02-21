@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |ex|
     Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}" 
     if @current_user and @current_user.role != 'submitter'
-      redirect_to :back, :notice => t(:"ability.denied")
+      redirect_to :back, notice: t(:"ability.denied")
     else
-      redirect_to :back, :notice => t(:"ability.denied")
+      redirect_to :back, notice: t(:"ability.denied")
     end
   end
 
@@ -37,13 +37,13 @@ class ApplicationController < ActionController::Base
   end
 
   def info_for_paper_trail
-    {:conference_id => @conference.id} if @conference
+    {conference_id: @conference.id} if @conference
   end
 
   def default_url_options
-    result = {:locale => params[:locale]}
+    result = {locale: params[:locale]}
     if @conference
-      result.merge!(:conference_acronym => @conference.acronym)
+      result.merge!(conference_acronym: @conference.acronym)
     end
     result
   end

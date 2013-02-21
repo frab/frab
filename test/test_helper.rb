@@ -16,8 +16,8 @@ class ActiveSupport::TestCase
   def login_as(role)
     user = FactoryGirl.create(
       :user, 
-      :person => FactoryGirl.create(:person),
-      :role => role.to_s
+      person: FactoryGirl.create(:person),
+      role: role.to_s
     )
     session[:user_id] = user.id
     user

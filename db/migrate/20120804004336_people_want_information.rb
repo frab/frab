@@ -1,6 +1,6 @@
 class PeopleWantInformation < ActiveRecord::Migration
   def up
-    add_column :people, :include_in_mailings, :boolean, :null => false, :default => false
+    add_column :people, :include_in_mailings, :boolean, null: false, default: false
   end
 
   def down

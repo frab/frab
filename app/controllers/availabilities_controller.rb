@@ -13,7 +13,7 @@ class AvailabilitiesController < ApplicationController
 
   def update
     @person.update_attributes_from_slider_form(params[:person])
-    redirect_to(person_url(@person), :notice => 'Availibility was successfully updated.')
+    redirect_to(person_url(@person), notice: 'Availibility was successfully updated.')
   end
 
   private

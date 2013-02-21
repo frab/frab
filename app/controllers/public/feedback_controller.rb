@@ -13,9 +13,9 @@ class Public::FeedbackController < ApplicationController
     @feedback = @event.event_feedbacks.new(params[:event_feedback])
     
     if @feedback.save
-      render :action => "thank_you"
+      render action: "thank_you"
     else
-      render :action => "new"
+      render action: "new"
     end
   end
 

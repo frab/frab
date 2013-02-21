@@ -83,7 +83,7 @@ module OtrsTickets
     people.collect { |p|
       name = "#{p.first_name} #{p.last_name}"
       name.gsub!(/,/, '')
-      { :name => name, :email => p.email }
+      { name: name, email: p.email }
     }
   end
 
@@ -97,10 +97,10 @@ module OtrsTickets
     otrs = OtrsAdapter.new( @conference, Rails.logger )
     otrs.test_only = args[:test_only]
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { :User => @conference.ticket_server.user })
+    data = otrs.connect( 'UserObject', 'GetUserData', { User: @conference.ticket_server.user })
     user_data = Hash[*data]
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { :UserEmail => args[:owner_email] })
+    data = otrs.connect( 'UserObject', 'GetUserData', { UserEmail: args[:owner_email] })
     owner_data = Hash[*data]
 
     from = args[:owner_email]
@@ -109,28 +109,28 @@ module OtrsTickets
     end
 
     remote_ticket_id = otrs.connect( 'TicketObject', 'TicketCreate', {
-        :Title => args[:title],
-        :Queue => @conference.ticket_server.queue,
-        :Lock => 'unlock',
-        :Priority => '3 normal',
-        :State => 'new',
-        :CustomerUser => from,
-        :OwnerID => owner_data['UserID'],
-        :UserID => user_data['UserID']
+        Title: args[:title],
+        Queue: @conference.ticket_server.queue,
+        Lock: 'unlock',
+        Priority: '3 normal',
+        State: 'new',
+        CustomerUser: from,
+        OwnerID: owner_data['UserID'],
+        UserID: user_data['UserID']
     }).first
 
     remote_article_id = otrs.connect( 'TicketObject', 'ArticleCreate', {
-      :TicketID => remote_ticket_id,
-      :ArticleType => 'webrequest',
-      :SenderType => 'customer',
-      :HistoryType =>    "WebRequestCustomer",
-      :HistoryComment => "created from frab",
-      :From => from,
-      :Subject => args[:title],
-      :ContentType => 'text/plain; charset=ISO-8859-1',
-      :Body => args[:body],
-      :UserID => user_data['UserID'],
-      :Loop => 0,
+      TicketID: remote_ticket_id,
+      ArticleType: 'webrequest',
+      SenderType: 'customer',
+      HistoryType: "WebRequestCustomer",
+      HistoryComment: "created from frab",
+      From: from,
+      Subject: args[:title],
+      ContentType: 'text/plain; charset=ISO-8859-1',
+      Body: args[:body],
+      UserID: user_data['UserID'],
+      Loop: 0,
     }).first
 
     remote_ticket_id

@@ -53,18 +53,18 @@ class PentabarfImportHelper
       end
 
       new_conference = Conference.create!(
-        :title => conference["title"],
+        title: conference["title"],
         # clean up acronyms in pentabarf db first!
-        :acronym => conference["acronym"].gsub(/ /,''),
+        acronym: conference["acronym"].gsub(/ /,''),
         # it's a string like 'Europe/Berlin', 'Berlin'
-        :timezone => conference["timezone"],
-        :timeslot_duration => interval_to_minutes(conference["timeslot_duration"]),
-        :default_timeslots => conference["default_timeslots"],
-        :max_timeslots => conference["max_timeslot_duration"],
-        :feedback_enabled => penta_bool(conference["f_feedback_enabled"]),
+        timezone: conference["timezone"],
+        timeslot_duration: interval_to_minutes(conference["timeslot_duration"]),
+        default_timeslots: conference["default_timeslots"],
+        max_timeslots: conference["max_timeslot_duration"],
+        feedback_enabled: penta_bool(conference["f_feedback_enabled"]),
         # nowhere to find. just use the conference dates instead..
-        :created_at => fake_days.first.to_datetime,
-        :updated_at => fake_days.last.to_datetime,
+        created_at: fake_days.first.to_datetime,
+        updated_at: fake_days.last.to_datetime,
         # TODO ticket server, instead of link? DO TICKET URLS THEY END UP PUBLIC?
       )
       conference_mapping[conference["conference_id"]] = new_conference.id
@@ -81,11 +81,11 @@ class PentabarfImportHelper
         # so we kind of fix it:
         hour = conference['day_change'].gsub(/:.*/,'').to_i
 
-        start_date = day.to_datetime.change(:hour => hour, :minute => 0)
-        end_date = day.since(1.days).to_datetime.change(:hour => hour-1, :minute => 59)
-        tmp = Day.new(:conference => new_conference,
-                      :start_date => Time.zone.local_to_utc(start_date),
-                      :end_date => Time.zone.local_to_utc(end_date))
+        start_date = day.to_datetime.change(hour: hour, minute: 0)
+        end_date = day.since(1.days).to_datetime.change(hour: hour-1, minute: 59)
+        tmp = Day.new(conference: new_conference,
+                      start_date: Time.zone.local_to_utc(start_date),
+                      end_date: Time.zone.local_to_utc(end_date))
         tmp.save!
       end
 
@@ -109,8 +109,8 @@ class PentabarfImportHelper
     puts "[ ] importing #{tracks.count} tracks" if DEBUG
     tracks.each do |track|
       new_track = Track.create!(
-        :name => track["conference_track"],
-        :conference_id => mappings(:conferences)[track["conference_id"]]
+        name: track["conference_track"],
+        conference_id: mappings(:conferences)[track["conference_id"]]
       )
       track_mapping[track["conference_track_id"]] = new_track.id
     end
@@ -123,10 +123,10 @@ class PentabarfImportHelper
     puts "[ ] importing #{rooms.count} rooms" if DEBUG
     rooms.each do |room|
       new_room = Room.create!(
-        :name => room["conference_room"],
-        :size => room["size"],
-        :public => room["public"],
-        :conference_id => mappings(:conferences)[room["conference_id"]]
+        name: room["conference_room"],
+        size: room["size"],
+        public: room["public"],
+        conference_id: mappings(:conferences)[room["conference_id"]]
       )
       room_mapping[room["conference_room_id"]] = new_room.id
     end
@@ -146,17 +146,17 @@ class PentabarfImportHelper
       image = @barf.select_one("SELECT * FROM person_image WHERE person_id = #{person["person_id"]}")
       image_file = image_to_file(image, "person_id")
       new_person = Person.create!(
-        :first_name => person["first_name"].blank? ? "" : person["first_name"],
-        :last_name => person["last_name"].blank? ? "" : person["last_name"],
+        first_name: person["first_name"].blank? ? "" : person["first_name"],
+        last_name: person["last_name"].blank? ? "" : person["last_name"],
         # fun fact: pentabarf has a first_name, last_name, public_name and nickname field
-        :public_name => guess_public_name(person),
-        :email => person["email"].blank? ? DUMMY_MAIL : person["email"],
-        :email_public => 0,
-        :include_in_mailings => penta_bool(person["spam"]),
-        :gender => guess_gender(person),
-        :abstract => abstract,
-        :description => description,
-        :avatar => image_file
+        public_name: guess_public_name(person),
+        email: person["email"].blank? ? DUMMY_MAIL : person["email"],
+        email_public: 0,
+        include_in_mailings: penta_bool(person["spam"]),
+        gender: guess_gender(person),
+        abstract: abstract,
+        description: description,
+        avatar: image_file
       )
       # don't include dummy addresses in mailings
       if new_person.email == DUMMY_MAIL
@@ -169,17 +169,17 @@ class PentabarfImportHelper
     phone_numbers = @barf.select_all("SELECT * FROM person_phone")
     phone_numbers.each do |phone_number|
       PhoneNumber.create!(
-        :person_id => people_mapping[phone_number["person_id"]],
-        :phone_type => phone_number["phone_type"],
-        :phone_number => phone_number["phone_number"]
+        person_id: people_mapping[phone_number["person_id"]],
+        phone_type: phone_number["phone_type"],
+        phone_number: phone_number["phone_number"]
       )
     end
     im_accounts = @barf.select_all("SELECT * FROM person_im")
     im_accounts.each do |im_account|
       ImAccount.create!(
-        :person_id => people_mapping[im_account["person_id"]],
-        :im_type => im_account["im_type"],
-        :im_address => im_account["im_address"]
+        person_id: people_mapping[im_account["person_id"]],
+        im_type: im_account["im_type"],
+        im_address: im_account["im_address"]
       )
     end
   end
@@ -226,16 +226,16 @@ class PentabarfImportHelper
       password = (account["login_name"].hash + rand(9999999)).to_s
       User.transaction do
         user = User.new(
-          :email => account["email"],
-          :password => password,
-          :password_confirmation => password
+          email: account["email"],
+          password: password,
+          password_confirmation: password
         )
         user.confirmed_at = Time.now
         user.role = role ? ROLE_MAPPING[role] : "submitter"
         user.pentabarf_salt = account["salt"]
         user.pentabarf_password = account["password"]
         user.save!
-        Person.find(mappings(:people)[account["person_id"]]).update_attributes!(:user_id => user.id)
+        Person.find(mappings(:people)[account["person_id"]]).update_attributes!(user_id: user.id)
       end
     end
   end
@@ -245,12 +245,12 @@ class PentabarfImportHelper
     puts "[ ] importing #{languages.count} languages" if DEBUG
     languages.each do |language|
       conference = Conference.find(mappings(:conferences)[language["conference_id"]])
-      Language.create(:code => language["language"], :attachable => conference)
+      Language.create(code: language["language"], attachable: conference)
     end
     languages = @barf.select_all("SELECT * FROM person_language")
     languages.each do |language|
       person = Person.find(mappings(:people)[language["person_id"]])
-      Language.create(:code => language["language"], :attachable => person)
+      Language.create(code: language["language"], attachable: person)
     end
   end
 
@@ -261,8 +261,8 @@ class PentabarfImportHelper
       links.each do |link|
         if link["title"] and link["url"]
           person = Person.find(new_id)
-          Link.create(:title => truncate_string(link["title"]),
-                      :url => truncate_string(link["url"]), :linkable => person)
+          Link.create(title: truncate_string(link["title"]),
+                      url: truncate_string(link["url"]), linkable: person)
         end
       end
     end
@@ -272,8 +272,8 @@ class PentabarfImportHelper
       links.each do |link|
         if link["title"] and link["url"]
           event = Event.find(new_id)
-          Link.create(:title => truncate_string(link["title"]),
-                      :url => truncate_string(link["url"]), :linkable => event)
+          Link.create(title: truncate_string(link["title"]),
+                      url: truncate_string(link["url"]), linkable: event)
         end
       end
     end
@@ -290,23 +290,23 @@ class PentabarfImportHelper
       Time.zone = conference.timezone
 
       new_event = Event.create!(
-        :conference_id => conference.id,
-        :track_id => mappings(:tracks)[event["conference_track_id"]],
-        :title => event["title"],
-        :subtitle => truncate_string(event["subtitle"]),
-        :event_type => event["event_type"],
-        :time_slots => interval_to_minutes(event["duration"]) / conference.timeslot_duration,
+        conference_id: conference.id,
+        track_id: mappings(:tracks)[event["conference_track_id"]],
+        title: event["title"],
+        subtitle: truncate_string(event["subtitle"]),
+        event_type: event["event_type"],
+        time_slots: interval_to_minutes(event["duration"]) / conference.timeslot_duration,
         # frab does not distinguish in state and progress:
-        :state => EVENT_STATE_MAPPING[event["event_state"]],
-        :language => event["language"],
-        :start_time => start_time(event["conference_day"], event["start_time"]),
-        :room_id => mappings(:rooms)[event["conference_room_id"]],
-        :abstract => event["abstract"],
-        :description => event["description"],
-        :public => penta_bool(event["public"]),
-        :submission_note => event["submission_notes"],
-        :note => event["remark"],
-        :logo => image_file
+        state: EVENT_STATE_MAPPING[event["event_state"]],
+        language: event["language"],
+        start_time: start_time(event["conference_day"], event["start_time"]),
+        room_id: mappings(:rooms)[event["conference_room_id"]],
+        abstract: event["abstract"],
+        description: event["description"],
+        public: penta_bool(event["public"]),
+        submission_note: event["submission_notes"],
+        note: event["remark"],
+        logo: image_file
       )
       remove_file(image_file)
       event_mapping[event["event_id"]] = new_event.id
@@ -336,11 +336,11 @@ class PentabarfImportHelper
         score = 0
       end
       EventRating.create!(
-        :event_id => mappings(:events)[rating["event_id"]],
-        :person_id => mappings(:people)[rating["person_id"]],
-        :rating => score,
-        :comment => rating["remark"],
-        :created_at => rating["eval_time"],
+        event_id: mappings(:events)[rating["event_id"]],
+        person_id: mappings(:people)[rating["person_id"]],
+        rating: score,
+        comment: rating["remark"],
+        created_at: rating["eval_time"],
       )
     end
 
@@ -375,10 +375,10 @@ class PentabarfImportHelper
         rating = 3
       end
       EventFeedback.create!(
-        :event_id => mappings(:events)[feedback["event_id"]],
-        :rating => rating,
-        :comment => feedback["remark"],
-        :created_at => feedback["eval_time"]
+        event_id: mappings(:events)[feedback["event_id"]],
+        rating: rating,
+        comment: feedback["remark"],
+        created_at: feedback["eval_time"]
       )
     end
 
@@ -395,13 +395,13 @@ class PentabarfImportHelper
       attachment_file = attachment_to_file(event_attachment)
       title = event_attachment["title"] || event_attachment["attachment_type"]
       EventAttachment.create!(
-        :title => title,
-        :event_id => mappings(:events)[event_attachment["event_id"]],
-        :public => penta_bool(event_attachment['public']),
-        :attachment_file_name => event_attachment['filename'],
-        :attachment_content_type =>  event_attachment['mime_type'],
-        :attachment_file_size => attachment_file.size,
-        :attachment => attachment_file
+        title: title,
+        event_id: mappings(:events)[event_attachment["event_id"]],
+        public: penta_bool(event_attachment['public']),
+        attachment_file_name: event_attachment['filename'],
+        attachment_content_type: event_attachment['mime_type'],
+        attachment_file_size: attachment_file.size,
+        attachment: attachment_file
       )
       remove_file(attachment_file)
     end
@@ -413,16 +413,16 @@ class PentabarfImportHelper
     puts "[ ] importing #{event_people.count} event people" if DEBUG
     event_people.each do |event_person|
       EventPerson.create!(
-        :event_id => mappings(:events)[event_person["event_id"]],
-        :person_id => mappings(:people)[event_person["person_id"]],
-        :event_role => event_person["event_role"],
-        :role_state => event_person["event_role_state"],
-        :comment => event_person["remark"]
+        event_id: mappings(:events)[event_person["event_id"]],
+        person_id: mappings(:people)[event_person["person_id"]],
+        event_role: event_person["event_role"],
+        role_state: event_person["event_role_state"],
+        comment: event_person["remark"]
       )
     end
     # update all event counts
     #Event.all.each do |event|
-    #  c = EventPerson.where(:event_id => event.id, :event_role => :speaker).count
+    #  c = EventPerson.where(event_id: event.id, event_role: :speaker).count
     #  event.update_attribute :speaker_count, c
     #end
     puts "[ ] updating speaker counters on events" if DEBUG

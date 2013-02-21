@@ -7,7 +7,7 @@ class Ability
     #
     # Attention
     #
-    #   can :manage, EventRating, :person_id => user.person.id
+    #   can :manage, EventRating, person_id: user.person.id
     #
     # This means a user can [:manage,:read] EventRating, but may 
     # only :manage @event_rating if it belongs to her.
@@ -38,7 +38,7 @@ class Ability
       can :manage, EventRating
       can :manage, Person
       can :read, TicketServer
-      can :manage, User, :id => user.id
+      can :manage, User, id: user.id
       can :read, User
       cannot :assign_roles, User
     when /reviewer/
@@ -49,10 +49,10 @@ class Ability
       can :read, Event
       can :submit, Event
       can :read, EventFeedback
-      can :manage, EventRating, :person_id => user.person.id
-      can :manage, Person, :id => user.person.id
+      can :manage, EventRating, person_id: user.person.id
+      can :manage, Person, id: user.person.id
       can :read, Person
-      can :manage, User, :id => user.id
+      can :manage, User, id: user.id
       cannot :assign_roles, User
     when /submitter/
       # submits events to conferences
@@ -61,8 +61,8 @@ class Ability
       # everything from guest
       can :submit, Event
       can :create, EventFeedback
-      can :manage, Person, :id => user.person.id
-      can :manage, User, :id => user.id
+      can :manage, Person, id: user.person.id
+      can :manage, User, id: user.id
       cannot :assign_roles, User
     else
       # guest can visit the cfp page 

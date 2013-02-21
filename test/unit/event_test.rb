@@ -4,41 +4,41 @@ class EventTest < ActiveSupport::TestCase
 
   setup do
     ActionMailer::Base.deliveries = []
-    @event = FactoryGirl.create(:event, :state => "unconfirmed")
+    @event = FactoryGirl.create(:event, state: "unconfirmed")
     @speaker = FactoryGirl.create(:person)
-    FactoryGirl.create(:event_person, :event => @event, :person => @speaker, :event_role => "speaker")
+    FactoryGirl.create(:event_person, event: @event, person: @speaker, event_role: "speaker")
     @coordinator = FactoryGirl.create(:person)
   end
 
   test "acceptance processing sends email if asked to" do
-    @event.process_acceptance(:send_mail => true)
+    @event.process_acceptance(send_mail: true)
     assert !ActionMailer::Base.deliveries.empty?
   end
 
   test "acceptance processing does not send email by default" do
-    @event.process_acceptance(:send_mail => false)
+    @event.process_acceptance(send_mail: false)
     assert ActionMailer::Base.deliveries.empty?
   end
 
   test "acceptance processing sets coordinator" do
     assert_difference "EventPerson.count" do
-      @event.process_acceptance(:coordinator => @coordinator)
+      @event.process_acceptance(coordinator: @coordinator)
     end
   end
 
   test "rejection processing sends email if asked to" do
-    @event.process_rejection(:send_mail => true)
+    @event.process_rejection(send_mail: true)
     assert !ActionMailer::Base.deliveries.empty?
   end
 
   test "rejection processing does not send email by default" do
-    @event.process_rejection(:send_mail => false)
+    @event.process_rejection(send_mail: false)
     assert ActionMailer::Base.deliveries.empty?
   end
 
   test "rejection processing sets coordinator" do
     assert_difference "EventPerson.count" do
-      @event.process_rejection(:coordinator => @coordinator)
+      @event.process_rejection(coordinator: @coordinator)
     end
   end
 

@@ -9,13 +9,13 @@ class EventPerson < ActiveRecord::Base
   after_save :update_speaker_count
   after_destroy :update_speaker_count
 
-  has_paper_trail :meta => {:associated_id => :event_id, :associated_type => "Event"}
+  has_paper_trail meta: {associated_id: :event_id, associated_type: "Event"}
 
-  scope :presenter, where(:event_role => ["speaker", "moderator"])
+  scope :presenter, where(event_role: ["speaker", "moderator"])
 
   def update_speaker_count
     event = Event.find(self.event_id)
-    event.speaker_count = EventPerson.where(:event_id => event.id, :event_role => [:moderator, :speaker]).count
+    event.speaker_count = EventPerson.where(event_id: event.id, event_role: [:moderator, :speaker]).count
     event.save
   end
 

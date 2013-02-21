@@ -49,9 +49,9 @@ class ImportExportHelper
 
     # old => new
     @mappings = {
-      :conference => {}, :tracks => {}, :cfp => {}, :rooms => {}, :days => {},
-      :people => {}, :users => {},
-      :events => {}
+      conference: {}, tracks: {}, cfp: {}, rooms: {}, days: {},
+      people: {}, users: {},
+      events: {}
     }
 
     unpack_paperclip_files
@@ -213,7 +213,7 @@ class ImportExportHelper
   def restore_people_data
     restore_multiple("people_phone_numbers", PhoneNumber) do |id, obj|
       new_id = @mappings[:people][obj.person_id]
-      test = PhoneNumber.where(:person_id => new_id, :phone_number => obj.phone_number)
+      test = PhoneNumber.where(person_id: new_id, phone_number: obj.phone_number)
       unless test
         obj.person_id = new_id
         obj.save!
@@ -222,7 +222,7 @@ class ImportExportHelper
 
     restore_multiple("people_im_accounts", ImAccount) do |id, obj|
       new_id = @mappings[:people][obj.person_id]
-      test = ImAccount.where(:person_id => new_id, :im_address => obj.im_address)
+      test = ImAccount.where(person_id: new_id, im_address: obj.im_address)
       unless test
         obj.person_id = new_id
         obj.save!
@@ -231,8 +231,8 @@ class ImportExportHelper
 
     restore_multiple("people_links", Link) do |id, obj|
       new_id = @mappings[:people][obj.linkable_id]
-      test = Link.where(:linkable_id => new_id, :linkable_type => obj.linkable_type,
-                        :url => obj.url)
+      test = Link.where(linkable_id: new_id, linkable_type: obj.linkable_type,
+                        url: obj.url)
       unless test
         obj.linkable_id = new_id
         obj.save!
@@ -241,8 +241,8 @@ class ImportExportHelper
 
     restore_multiple("people_languages", Language) do |id, obj|
       new_id = @mappings[:people][obj.attachable_id]
-      test = Language.where(:attachable_id => new_id, :attachable_type => obj.attachable_type,
-                        :code => obj.code)
+      test = Language.where(attachable_id: new_id, attachable_type: obj.attachable_type,
+                        code: obj.code)
       unless test
         obj.attachable_id = new_id
         obj.save!
