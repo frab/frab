@@ -14,7 +14,7 @@ class AvailabilityTest < ActiveSupport::TestCase
   end
 
   test "correctly determines if given time is within current range" do
-    availability = FactoryGirl.build(:availability, :conference => @conference)
+    availability = FactoryGirl.build(:availability, conference: @conference)
     availability.start_date = availability.day.start_date.since(1.hours)
     availability.end_date = availability.day.end_date.ago(4.hours)
     time = availability.start_date
@@ -28,7 +28,7 @@ class AvailabilityTest < ActiveSupport::TestCase
   end
 
   test "correctly handles full day" do
-    availability = FactoryGirl.build(:availability, :conference => @conference)
+    availability = FactoryGirl.build(:availability, conference: @conference)
     availability.start_date = Time.parse("00:00:00").ago(5.hours)
     availability.end_date = Time.parse("00:00:00").since(5.hours)
     time = Time.parse("00:00:00")

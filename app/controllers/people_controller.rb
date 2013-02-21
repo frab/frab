@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
     else
       @search = Person.involved_in(@conference).search(params[:q])
     end
-    @people = @search.result.paginate :page => params[:page]
+    @people = @search.result.paginate page: params[:page]
   end
 
   def speakers
@@ -26,10 +26,10 @@ class PeopleController < ApplicationController
         else
           @search = @people.involved_in(@conference).search(params[:q])
         end
-        @people = @search.result.paginate :page => params[:page]
+        @people = @search.result.paginate page: params[:page]
       end
       format.text do
-        render :text => @people.map(&:email).join("\n")
+        render text: @people.map(&:email).join("\n")
       end
     end
   end
@@ -41,7 +41,7 @@ class PeopleController < ApplicationController
     else
       @search = Person.search(params[:q])
     end
-    @people = @search.result.paginate :page => params[:page]
+    @people = @search.result.paginate page: params[:page]
   end
 
   # GET /people/1
@@ -53,7 +53,7 @@ class PeopleController < ApplicationController
     @other_events = @person.events_as_presenter_not_in(@conference)
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @person }
+      format.xml  { render xml: @person }
     end
   end
 
@@ -72,7 +72,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @person }
+      format.xml  { render xml: @person }
     end
   end
 
@@ -90,11 +90,11 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to(@person, :notice => 'Person was successfully created.') }
-        format.xml  { render :xml => @person, :status => :created, :location => @person }
+        format.html { redirect_to(@person, notice: 'Person was successfully created.') }
+        format.xml  { render xml: @person, status: :created, location: @person }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -107,11 +107,11 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to(@person, :notice => 'Person was successfully updated.') }
+        format.html { redirect_to(@person, notice: 'Person was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end
     end
   end

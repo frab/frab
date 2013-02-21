@@ -18,24 +18,24 @@ class StaticProgramExport
     setup_directories
     path_prefix = "/#{@conference.acronym}/public"
     paths = [
-      { :source => "schedule", :target => "schedule.html" },
-      { :source => "events", :target => "events.html" },
-      { :source => "speakers", :target => "speakers.html" },
-      { :source => "schedule/style.css", :target => "style.css" },
-      { :source => "schedule.ics", :target => "schedule.ics" },
-      { :source => "schedule.xcal", :target => "schedule.xcal" },
-      { :source => "schedule.json", :target => "schedule.json" },
-      { :source => "schedule.xml", :target => "schedule.xml" },
+      { source: "schedule", target: "schedule.html" },
+      { source: "events", target: "events.html" },
+      { source: "speakers", target: "speakers.html" },
+      { source: "schedule/style.css", target: "style.css" },
+      { source: "schedule.ics", target: "schedule.ics" },
+      { source: "schedule.xcal", target: "schedule.xcal" },
+      { source: "schedule.json", target: "schedule.json" },
+      { source: "schedule.xml", target: "schedule.xml" },
     ]
     @conference.days.each do |day|
-      paths << { :source => "schedule/#{day}", :target => "schedule/#{day}.html" }
-      paths << { :source => "schedule/#{day}.pdf", :target => "schedule/#{day}.pdf" }
+      paths << { source: "schedule/#{day}", target: "schedule/#{day}.html" }
+      paths << { source: "schedule/#{day}.pdf", target: "schedule/#{day}.pdf" }
     end
     @conference.events.confirmed.public.each do |event|
-      paths << { :source => "events/#{event.id}", :target => "events/#{event.id}.html" }
+      paths << { source: "events/#{event.id}", target: "events/#{event.id}.html" }
     end
     Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
-      paths << { :source => "speakers/#{speaker.id}", :target => "speakers/#{speaker.id}.html" }
+      paths << { source: "speakers/#{speaker.id}", target: "speakers/#{speaker.id}.html" }
     end
 
     # write files
@@ -77,7 +77,7 @@ class StaticProgramExport
       document = modify_response_html(filename)
       File.open(file_path, "w") do |f| 
         # FIXME corrupts events and speakers?
-        #document.write_html_to(f, :encoding => "UTF-8")
+        #document.write_html_to(f, encoding: "UTF-8")
         f.puts(document.to_html)
       end
     elsif filename =~ /\.pdf$/
@@ -87,7 +87,7 @@ class StaticProgramExport
     else
       # CSS,...
       File.open(file_path, "w:utf-8") do |f| 
-        f.write(@session.response.body.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?"))
+        f.write(@session.response.body.encode("UTF-8", invalid: :replace, undef: :replace, replace: "?"))
       end
     end
   end
@@ -141,7 +141,7 @@ class StaticProgramExport
   end
 
   def setup_directories
-    FileUtils.rm_r(@base_directory, :secure => true) if File.exist? @base_directory
+    FileUtils.rm_r(@base_directory, secure: true) if File.exist? @base_directory
     FileUtils.mkdir_p(@base_directory)
   end
 

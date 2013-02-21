@@ -11,7 +11,7 @@ class Public::ScheduleController < ApplicationController
       format.xml
       format.xcal
       format.ics
-      format.json { render :file => "public/schedule/index.json.erb", :content_type => 'application/json' }
+      format.json { render file: "public/schedule/index.json.erb", content_type: 'application/json' }
     end
   end
 
@@ -38,7 +38,7 @@ class Public::ScheduleController < ApplicationController
       format.html
       format.pdf do
         @page_size = "A4"
-        render :template => "schedule/custom_pdf" 
+        render template: "schedule/custom_pdf" 
       end
     end
   end

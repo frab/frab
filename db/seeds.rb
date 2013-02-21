@@ -3,22 +3,22 @@
 #
 # Examples:
 #
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Daley', city: cities.first)
 PaperTrail.enabled = false
 
 admin = User.new(
-  :email => "admin@example.org", 
-  :password => "test123", 
-  :password_confirmation => "test123"
+  email: "admin@example.org", 
+  password: "test123", 
+  password_confirmation: "test123"
 )
 admin.role = "admin"
 admin.confirmed_at = Time.now
 admin.save!
 Person.create!(
-  :user => admin,
-  :email => admin.email,
-  :first_name => "admin", 
-  :last_name => "admin",
-  :public_name => "admin_127"
+  user: admin,
+  email: admin.email,
+  first_name: "admin", 
+  last_name: "admin",
+  public_name: "admin_127"
 )

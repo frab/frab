@@ -15,11 +15,11 @@ class ScheduleController < ApplicationController
   def update_track
     authorize! :manage, Event
     if params[:track_id] and params[:track_id] =~ /\d+/
-      @unscheduled_events = @conference.events.accepted.unscheduled.where(:track_id => params[:track_id])
+      @unscheduled_events = @conference.events.accepted.unscheduled.where(track_id: params[:track_id])
     else
       @unscheduled_events = @conference.events.accepted.unscheduled
     end
-    render :partial => "unscheduled_events"
+    render partial: "unscheduled_events"
   end
 
   def update_event

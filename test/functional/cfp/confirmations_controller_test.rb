@@ -8,21 +8,21 @@ class Cfp::ConfirmationsControllerTest < ActionController::TestCase
   end
 
   test "displays resend confirmation instructions form" do
-    get :new, :conference_acronym => @conference.acronym
+    get :new, conference_acronym: @conference.acronym
     assert_response :success
   end
 
   test "resends confirmation instructions" do
-    user = FactoryGirl.create(:user, :confirmed_at => nil, :call_for_papers => @call_for_papers)
+    user = FactoryGirl.create(:user, confirmed_at: nil, call_for_papers: @call_for_papers)
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      post :create, :conference_acronym => @conference.acronym, :user => {:email => user.email}
+      post :create, conference_acronym: @conference.acronym, user: {email: user.email}
     end
     assert_response :redirect
   end
 
   test "performs confirmation" do
-    user = FactoryGirl.create(:user, :confirmed_at => nil, :call_for_papers => @call_for_papers)
-    get :show, :conference_acronym => @conference.acronym, :confirmation_token => user.confirmation_token 
+    user = FactoryGirl.create(:user, confirmed_at: nil, call_for_papers: @call_for_papers)
+    get :show, conference_acronym: @conference.acronym, confirmation_token: user.confirmation_token 
     assert_response :redirect
     assert_not_nil assigns(:current_user)
     user.reload

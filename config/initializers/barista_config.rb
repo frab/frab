@@ -12,7 +12,7 @@ Barista.configure do |c|
 
   # Add a new framework:
 
-  # c.register :tests, :root => Rails.root.join('test', 'coffeescript'), :output_prefix => 'test'
+  # c.register :tests, root: Rails.root.join('test', 'coffeescript'), output_prefix: 'test'
 
   # Disable wrapping in a closure:
   # c.bare = true

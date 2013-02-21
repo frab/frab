@@ -22,19 +22,19 @@ class AbilitiesTest < ActionDispatch::IntegrationTest
 
     # 
     @speaker = FactoryGirl.create(:person)
-    FactoryGirl.create(:event_person, :event => @event, :person => @speaker, :event_role => "speaker")
+    FactoryGirl.create(:event_person, event: @event, person: @speaker, event_role: "speaker")
 
     #
-    @feedback = FactoryGirl.create(:event_feedback, :event => @event, :rating => 4.0)
+    @feedback = FactoryGirl.create(:event_feedback, event: @event, rating: 4.0)
 
     #
-    @cfp = FactoryGirl.create(:call_for_papers, :conference => @conference)
+    @cfp = FactoryGirl.create(:call_for_papers, conference: @conference)
 
     #
-    @ticket = FactoryGirl.create(:ticket, :event => @event)
+    @ticket = FactoryGirl.create(:ticket, event: @event)
 
     # users
-    @admin = create(:user, :person => create(:person), :role => "admin")
+    @admin = create(:user, person: create(:person), role: "admin")
 
     #
     date = @conference.days.first.start_date.strftime('%Y-%m-%d')
@@ -111,7 +111,7 @@ post  , /#{@c.acronym}/cfp/user/password                                       ,
 get   , /#{@c.acronym}/cfp/user/confirmation                                   ,  cfp/confirmations#show                ,   a s g
 put   , /#{@c.acronym}/cfp/user/password                                       ,  cfp/passwords#update                  ,   a s g
 post  , /#{@c.acronym}/cfp/user/confirmation                                   ,  cfp/confirmations#create              ,   a s g
-      , /#{@c.acronym}/schedule.pdf                                            ,  schedule#custom_pdf {:format=>:pdf}   ,   a
+      , /#{@c.acronym}/schedule.pdf                                            ,  schedule#custom_pdf {format: :pdf}   ,   a
       , /#{@c.acronym}/schedule/update_event                                   ,  schedule#update_event                 ,   a
 post  , /#{@c.acronym}/cfp/user                                                ,  cfp/users#create                      ,   a s g
 get   , /#{@c.acronym}/cfp/user/edit                                           ,  cfp/users#edit                        ,   a s
@@ -251,7 +251,7 @@ EOF
   end
 
   test "admin user" do
-    post "/session", :user => {:email => @admin.email, :password => "frab23"}
+    post "/session", user: {email: @admin.email, password: "frab23"}
     @routes.each { |route|
       request(route, ROLE_ADMIN)
     }

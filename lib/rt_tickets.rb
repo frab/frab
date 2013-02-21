@@ -93,7 +93,7 @@ module RTTickets
     people.collect { |p|
       name = "#{p.first_name} #{p.last_name}"
       name.gsub!(/,/, '')
-      { :name => name, :email => p.email }
+      { name: name, email: p.email }
     }
   end
 

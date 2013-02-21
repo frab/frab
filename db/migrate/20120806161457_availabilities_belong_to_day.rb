@@ -11,9 +11,9 @@ class AvailabilitiesBelongToDay < ActiveRecord::Migration
     Availability.all.each do |a|
       Time.zone = a.conference.timezone
       a.start_date = a.attributes["day"].to_datetime.change(
-        :hour=>a.start_time.hour, :minute=>a.start_time.min)
+        hour: a.start_time.hour, minute: a.start_time.min)
       a.end_date = a.attributes["day"].to_datetime.change(
-        :hour=>a.end_time.hour, :minute=>a.end_time.min)
+        hour: a.end_time.hour, minute: a.end_time.min)
       a.day_id = a.conference.days.select { |d| a.attributes["day"].strftime("%Y-%m-%d") == d.start_date.strftime("%Y-%m-%d") }.first.id
 
       if a.start_date >= a.end_date

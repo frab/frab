@@ -16,9 +16,9 @@ class CallForPapersController < ApplicationController
     @call_for_papers.conference = @conference
     
     if @call_for_papers.save
-      redirect_to call_for_papers_path, :notice => "Launched Call for Papers."
+      redirect_to call_for_papers_path, notice: "Launched Call for Papers."
     else
-      render :action => "new"
+      render action: "new"
     end
   end
 
@@ -29,9 +29,9 @@ class CallForPapersController < ApplicationController
   def update
     @call_for_papers = @conference.call_for_papers
     if @call_for_papers.update_attributes(params[:call_for_papers])
-      redirect_to call_for_papers_path, :notice => "Changes saved successfully"
+      redirect_to call_for_papers_path, notice: "Changes saved successfully"
     else
-      render :action => "edit"
+      render action: "edit"
     end
   end
 
