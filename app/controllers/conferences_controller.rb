@@ -1,7 +1,7 @@
 class ConferencesController < ApplicationController
 
   # these methods don't need a conference
-  skip_before_filter :load_conference, :only => [:new, :index]
+  skip_before_filter :load_conference, only: [:new, :index]
 
   before_filter :authenticate_user!
   load_and_authorize_resource
@@ -14,7 +14,7 @@ class ConferencesController < ApplicationController
     else
       @search = Conference.search(params[:q])
     end
-    @conferences = @search.result.paginate :page => params[:page]
+    @conferences = @search.result.paginate page: params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -54,9 +54,9 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to(conference_home_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully created.') }
+        format.html { redirect_to(conference_home_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
       else
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -66,10 +66,10 @@ class ConferencesController < ApplicationController
   def update
     respond_to do |format|
       if @conference.update_attributes(params[:conference])
-        format.html { redirect_to(edit_conference_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully updated.') }
+        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
       else
         # redirect to the right nested form page
-        format.html { render :action => get_previous_nested_form(params[:conference]) }
+        format.html { render action: get_previous_nested_form(params[:conference]) }
       end
     end
   end

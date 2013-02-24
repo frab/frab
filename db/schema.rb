@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118034920) do
+ActiveRecord::Schema.define(version: 20121118034920) do
 
-  create_table "availabilities", :force => true do |t|
+  create_table "availabilities", force: true do |t|
     t.integer  "person_id"
     t.integer  "conference_id"
     t.datetime "created_at"
@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.integer  "day_id"
   end
 
-  create_table "call_for_papers", :force => true do |t|
-    t.date     "start_date",    :null => false
-    t.date     "end_date",      :null => false
+  create_table "call_for_papers", force: true do |t|
+    t.date     "start_date",    null: false
+    t.date     "end_date",      null: false
     t.date     "hard_deadline"
     t.text     "welcome_text"
     t.integer  "conference_id"
@@ -35,24 +35,24 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.string   "contact_email"
   end
 
-  create_table "conferences", :force => true do |t|
-    t.string   "acronym",                                    :null => false
-    t.string   "title",                                      :null => false
-    t.string   "timezone",                                   :null => false
-    t.integer  "timeslot_duration",                          :null => false
-    t.integer  "default_timeslots",                          :null => false
-    t.integer  "max_timeslots",                              :null => false
-    t.integer  "feedback_enabled",                           :null => false
+  create_table "conferences", force: true do |t|
+    t.string   "acronym",                                    null: false
+    t.string   "title",                                      null: false
+    t.string   "timezone",                                   null: false
+    t.integer  "timeslot_duration",                          null: false
+    t.integer  "default_timeslots",                          null: false
+    t.integer  "max_timeslots",                              null: false
+    t.integer  "feedback_enabled",                           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
     t.string   "program_export_base_url"
     t.string   "schedule_version"
-    t.boolean  "schedule_public",         :default => false, :null => false
+    t.boolean  "schedule_public",         default: false, null: false
     t.string   "color"
   end
 
-  create_table "conflicts", :force => true do |t|
+  create_table "conflicts", force: true do |t|
     t.integer  "event_id"
     t.integer  "conflicting_event_id"
     t.integer  "person_id"
@@ -62,25 +62,25 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.datetime "updated_at"
   end
 
-  create_table "days", :force => true do |t|
+  create_table "days", force: true do |t|
     t.integer  "conference_id"
     t.datetime "start_date"
     t.datetime "end_date"
   end
 
-  create_table "event_attachments", :force => true do |t|
-    t.integer  "event_id",                                  :null => false
-    t.string   "title",                                     :null => false
+  create_table "event_attachments", force: true do |t|
+    t.integer  "event_id",                                  null: false
+    t.string   "title",                                     null: false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "public",                  :default => true
+    t.boolean  "public",                  default: true
   end
 
-  create_table "event_feedbacks", :force => true do |t|
+  create_table "event_feedbacks", force: true do |t|
     t.integer  "event_id"
     t.float    "rating"
     t.text     "comment"
@@ -88,10 +88,10 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.datetime "updated_at"
   end
 
-  create_table "event_people", :force => true do |t|
-    t.integer  "event_id",           :null => false
-    t.integer  "person_id",          :null => false
-    t.string   "event_role",         :null => false
+  create_table "event_people", force: true do |t|
+    t.integer  "event_id",           null: false
+    t.integer  "person_id",          null: false
+    t.string   "event_role",         null: false
     t.string   "role_state"
     t.string   "comment"
     t.datetime "created_at"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.string   "confirmation_token"
   end
 
-  create_table "event_ratings", :force => true do |t|
+  create_table "event_ratings", force: true do |t|
     t.integer  "event_id"
     t.integer  "person_id"
     t.float    "rating"
@@ -108,13 +108,13 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.datetime "updated_at"
   end
 
-  create_table "events", :force => true do |t|
-    t.integer  "conference_id",         :null => false
-    t.string   "title",                 :null => false
+  create_table "events", force: true do |t|
+    t.integer  "conference_id",         null: false
+    t.string   "title",                 null: false
     t.string   "subtitle"
     t.string   "event_type"
     t.integer  "time_slots"
-    t.string   "state",                 :null => false
+    t.string   "state",                 null: false
     t.string   "language"
     t.datetime "start_time"
     t.text     "abstract"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.float    "average_feedback"
   end
 
-  create_table "im_accounts", :force => true do |t|
+  create_table "im_accounts", force: true do |t|
     t.integer  "person_id"
     t.string   "im_type"
     t.string   "im_address"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.datetime "updated_at"
   end
 
-  create_table "languages", :force => true do |t|
+  create_table "languages", force: true do |t|
     t.string   "code"
     t.integer  "attachable_id"
     t.string   "attachable_type"
@@ -153,20 +153,20 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.datetime "updated_at"
   end
 
-  create_table "links", :force => true do |t|
-    t.string   "title",         :null => false
-    t.string   "url",           :null => false
-    t.integer  "linkable_id",   :null => false
-    t.string   "linkable_type", :null => false
+  create_table "links", force: true do |t|
+    t.string   "title",         null: false
+    t.string   "url",           null: false
+    t.integer  "linkable_id",   null: false
+    t.string   "linkable_type", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "people", :force => true do |t|
-    t.string   "first_name",          :default => ""
-    t.string   "last_name",           :default => ""
-    t.string   "public_name",                            :null => false
-    t.string   "email",                                  :null => false
+  create_table "people", force: true do |t|
+    t.string   "first_name",          default: ""
+    t.string   "last_name",           default: ""
+    t.string   "public_name",                            null: false
+    t.string   "email",                                  null: false
     t.integer  "email_public"
     t.string   "gender"
     t.string   "avatar_file_name"
@@ -179,10 +179,10 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.text     "note"
-    t.boolean  "include_in_mailings", :default => false, :null => false
+    t.boolean  "include_in_mailings", default: false, null: false
   end
 
-  create_table "phone_numbers", :force => true do |t|
+  create_table "phone_numbers", force: true do |t|
     t.integer  "person_id"
     t.string   "phone_type"
     t.string   "phone_number"
@@ -190,9 +190,9 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.datetime "updated_at"
   end
 
-  create_table "rooms", :force => true do |t|
-    t.integer  "conference_id", :null => false
-    t.string   "name",          :null => false
+  create_table "rooms", force: true do |t|
+    t.integer  "conference_id", null: false
+    t.string   "name",          null: false
     t.integer  "size"
     t.integer  "public"
     t.datetime "created_at"
@@ -200,8 +200,8 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.integer  "rank"
   end
 
-  create_table "ticket_servers", :force => true do |t|
-    t.integer  "conference_id", :null => false
+  create_table "ticket_servers", force: true do |t|
+    t.integer  "conference_id", null: false
     t.string   "url"
     t.string   "user"
     t.string   "password"
@@ -210,24 +210,24 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.string   "queue"
   end
 
-  create_table "tickets", :force => true do |t|
-    t.integer  "event_id",         :null => false
+  create_table "tickets", force: true do |t|
+    t.integer  "event_id",         null: false
     t.string   "remote_ticket_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "tracks", :force => true do |t|
+  create_table "tracks", force: true do |t|
     t.integer  "conference_id"
-    t.string   "name",          :null => false
+    t.string   "name",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "color"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                               :null => false
-    t.string   "password_digest",      :limit => 128, :null => false
+  create_table "users", force: true do |t|
+    t.string   "email",                               null: false
+    t.string   "password_digest",      limit: 128, null: false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
@@ -247,10 +247,10 @@ ActiveRecord::Schema.define(:version => 20121118034920) do
     t.integer  "call_for_papers_id"
   end
 
-  create_table "versions", :force => true do |t|
-    t.string   "item_type",       :null => false
-    t.integer  "item_id",         :null => false
-    t.string   "event",           :null => false
+  create_table "versions", force: true do |t|
+    t.string   "item_type",       null: false
+    t.integer  "item_id",         null: false
+    t.string   "event",           null: false
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"

@@ -5,11 +5,11 @@ class CreateConferenceDateConversions < ActiveRecord::Migration
       Time.zone = conference.timezone
       day = conference.attributes["first_day"]
       until (day > conference.attributes["last_day"])
-        start_date = day.to_datetime.change(:hour => conference.attributes["day_start"])
-        end_date = day.to_datetime.change(:hour => conference.attributes["day_end"])
-        tmp = Day.new(:conference => conference,
-                      :start_date => Time.zone.local_to_utc(start_date), 
-                      :end_date => Time.zone.local_to_utc(end_date))
+        start_date = day.to_datetime.change(hour: conference.attributes["day_start"])
+        end_date = day.to_datetime.change(hour: conference.attributes["day_end"])
+        tmp = Day.new(conference: conference,
+                      start_date: Time.zone.local_to_utc(start_date), 
+                      end_date: Time.zone.local_to_utc(end_date))
         tmp.save!
         day = day.since(1.days).to_date
       end

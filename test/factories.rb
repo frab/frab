@@ -31,14 +31,14 @@ FactoryGirl.define do
   trait :three_days do
     after_create do |conference|
       conference.days << FactoryGirl.create(:day, 
-                                            :start_date => Date.today.since(1.days).since(11.hours),
-                                            :end_date => Date.today.since(1.days).since(23.hours))
+                                            start_date: Date.today.since(1.days).since(11.hours),
+                                            end_date: Date.today.since(1.days).since(23.hours))
       conference.days << FactoryGirl.create(:day,
-                                            :start_date => Date.today.since(2.days).since(10.hours),
-                                            :end_date => Date.today.since(2.days).since(24.hours))
+                                            start_date: Date.today.since(2.days).since(10.hours),
+                                            end_date: Date.today.since(2.days).since(24.hours))
       conference.days << FactoryGirl.create(:day,
-                                            :start_date => Date.today.since(3.days).since(10.hours),
-                                            :end_date => Date.today.since(3.days).since(17.hours))
+                                            start_date: Date.today.since(3.days).since(10.hours),
+                                            end_date: Date.today.since(3.days).since(17.hours))
     end
   end
 

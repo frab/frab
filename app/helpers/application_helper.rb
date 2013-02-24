@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def image_box(image, size)
-    content_tag(:div, :class => "image #{size}") do
+    content_tag(:div, class: "image #{size}") do
       image_tag image.url(size)
     end
   end
@@ -29,15 +29,15 @@ module ApplicationHelper
   end
 
   def add_association_link(association_name, form_builder, div_class, html_options = {})
-    link_to_add_association t(:add_association, :name => t("activerecord.models." + association_name.to_s.singularize)), form_builder, div_class, html_options.merge(:class => "assoc btn")
+    link_to_add_association t(:add_association, name: t("activerecord.models." + association_name.to_s.singularize)), form_builder, div_class, html_options.merge(class: "assoc btn")
   end
 
   def remove_association_link(association_name, form_builder)
-    link_to_remove_association(t(:remove_association, :name => t("activerecord.models." + association_name.to_s.singularize)), form_builder, :class => "assoc btn danger") + tag(:hr)
+    link_to_remove_association(t(:remove_association, name: t("activerecord.models." + association_name.to_s.singularize)), form_builder, class: "assoc btn danger") + tag(:hr)
   end
 
   def dynamic_association(association_name, title, form_builder, options = {})
-    render "shared/dynamic_association", :association_name => association_name, :title => title, :f => form_builder, :hint => options[:hint]
+    render "shared/dynamic_association", association_name: association_name, title: title, f: form_builder, hint: options[:hint]
   end
 
   def translated_options(collection)

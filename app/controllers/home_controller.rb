@@ -9,6 +9,6 @@ class HomeController < ApplicationController
     if cannot? :read, Conference
       redirect_to cfp_root_path and return
     end
-    @versions = Version.where(:conference_id => @conference.id).includes(:item).order("created_at DESC").limit(5)
+    @versions = Version.where(conference_id: @conference.id).includes(:item).order("created_at DESC").limit(5)
   end
 end

@@ -17,7 +17,7 @@ class Cfp::AvailabilitiesController < ApplicationController
   def update
     authorize! :update, current_user.person
     current_user.person.update_attributes_from_slider_form(params[:person])
-    redirect_to cfp_root_path, :notice => t("cfp.update_availability_notice") 
+    redirect_to cfp_root_path, notice: t("cfp.update_availability_notice") 
   end
 
 end

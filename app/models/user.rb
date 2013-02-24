@@ -22,12 +22,12 @@ class User < ActiveRecord::Base
 
   scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
   validates_presence_of :email
-  validates_format_of :email, :with => EMAIL_REGEXP
+  validates_format_of :email, with: EMAIL_REGEXP
   validates_uniqueness_of :email
-  validates_length_of :password, :minimum => 6, :allow_nil => true
+  validates_length_of :password, minimum: 6, allow_nil: true
 
-  before_create :generate_confirmation_token, :unless => :confirmed_at
-  after_create :send_confirmation_instructions, :unless => :confirmed_at
+  before_create :generate_confirmation_token, unless: :confirmed_at
+  after_create :send_confirmation_instructions, unless: :confirmed_at
 
   def self.check_pentabarf_credentials(email, password)
     user = User.find_by_email(email)
@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
   def record_login!
     self.last_sign_in_at = Time.now
     self.sign_in_count += 1
-    save(:validate => false)
+    save(validate: false)
   end
 
   private

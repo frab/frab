@@ -6,7 +6,7 @@ class AddRankToRooms < ActiveRecord::Migration
     Conference.all.each do |conference|
       i = 1
       conference.rooms.each do |room|
-        room.update_attributes(:rank => i)
+        room.update_attributes(rank: i)
         i += 1
       end
     end

@@ -1,19 +1,19 @@
 class Conference < ActiveRecord::Base
 
-  has_one :call_for_papers, :dependent => :destroy
-  has_one :ticket_server, :dependent => :destroy
-  has_many :events, :dependent => :destroy
-  has_many :days, :dependent => :destroy
-  has_many :rooms, :dependent => :destroy
-  has_many :tracks, :dependent => :destroy
-  has_many :languages, :as => :attachable, :dependent => :destroy
+  has_one :call_for_papers, dependent: :destroy
+  has_one :ticket_server, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :days, dependent: :destroy
+  has_many :rooms, dependent: :destroy
+  has_many :tracks, dependent: :destroy
+  has_many :languages, as: :attachable, dependent: :destroy
 
-  acts_as_indexed :fields => [:title, :acronym ]
+  acts_as_indexed fields: [:title, :acronym ]
 
-  accepts_nested_attributes_for :rooms, :reject_if => proc {|r| r["name"].blank?}, :allow_destroy => true
-  accepts_nested_attributes_for :days, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :tracks, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :rooms, reject_if: proc {|r| r["name"].blank?}, allow_destroy: true
+  accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ticket_server
   validates_presence_of :title, 
     :acronym, 
@@ -23,7 +23,7 @@ class Conference < ActiveRecord::Base
     :timeslot_duration,
     :timezone
   validates_uniqueness_of :acronym
-  validates_format_of :acronym, :with => /^[a-zA-Z0-9_-]*$/
+  validates_format_of :acronym, with: /^[a-zA-Z0-9_-]*$/
   validate :days_do_not_overlap
 
   after_update :update_timeslots
@@ -54,19 +54,19 @@ class Conference < ActiveRecord::Base
 
   def events_by_state
     [
-      [[0, self.events.where(:state => ["new", "review"]).count]],
-      [[1, self.events.where(:state => ["unconfirmed", "confirmed"]).count]],
-      [[2, self.events.where(:state => "rejected").count]],
-      [[3, self.events.where(:state => ["withdrawn", "canceled"]).count]]
+      [[0, self.events.where(state: ["new", "review"]).count]],
+      [[1, self.events.where(state: ["unconfirmed", "confirmed"]).count]],
+      [[2, self.events.where(state: "rejected").count]],
+      [[3, self.events.where(state: ["withdrawn", "canceled"]).count]]
     ]
   end
 
   def events_by_state_and_type(type)
     [
-      [[0, self.events.where(:state => ["new", "review"], :event_type => type).count]],
-      [[1, self.events.where(:state => ["unconfirmed", "confirmed"], :event_type => type).count]],
-      [[2, self.events.where(:state => "rejected", :event_type => type).count]],
-      [[3, self.events.where(:state => ["withdrawn", "canceled"], :event_type => type).count]]
+      [[0, self.events.where(state: ["new", "review"], event_type: type).count]],
+      [[1, self.events.where(state: ["unconfirmed", "confirmed"], event_type: type).count]],
+      [[2, self.events.where(state: "rejected", event_type: type).count]],
+      [[3, self.events.where(state: ["withdrawn", "canceled"], event_type: type).count]]
     ]
   end
 
@@ -78,9 +78,9 @@ class Conference < ActiveRecord::Base
       base_relation = self.events
     end
     self.languages.each do |language|
-      result << { :label => language.code, :data => base_relation.where(:language => language.code).count }
+      result << { label: language.code, data: base_relation.where(language: language.code).count }
     end
-    result << {:label => "unknown", "data" => base_relation.where(:language => "").count }
+    result << {label: "unknown", "data" => base_relation.where(language: "").count }
     result
   end
 
@@ -128,7 +128,7 @@ class Conference < ActiveRecord::Base
       factor = old_duration / self.timeslot_duration
       Event.paper_trail_off
       self.events.each do |event|
-        event.update_attributes(:time_slots => event.time_slots * factor)
+        event.update_attributes(time_slots: event.time_slots * factor)
       end
       Event.paper_trail_on
     end

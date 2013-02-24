@@ -19,27 +19,27 @@ class ReportsController < ApplicationController
 
     case @report_type
     when 'lectures_with_speaker'
-      r = conference_events.with_speaker.where(:event_type => :lecture)
+      r = conference_events.with_speaker.where(event_type: :lecture)
     when 'lectures_not_confirmed'
-      r = conference_events.with_speaker.where(:event_type => :lecture, :state => [:new,:review] )
+      r = conference_events.with_speaker.where(event_type: :lecture, state: [:new,:review] )
     when 'events_that_are_workshops'
       r = conference_events.where(Event.arel_table[:event_type].eq(:workshop))
     when 'event_timeslot_deviation'
-      r = conference_events.where(:event_type => :lecture).where('time_slots != ?', @conference.default_timeslots)
+      r = conference_events.where(event_type: :lecture).where('time_slots != ?', @conference.default_timeslots)
     when 'events_that_are_no_lectures'
       r = conference_events.where(Event.arel_table[:event_type].not_eq(:lecture).and(Event.arel_table[:event_type].not_eq(:workshop)))
     when 'events_without_speaker'
       r = conference_events.without_speaker
     when 'unconfirmed_events'
-      r = conference_events.where(:event_type => :lecture, :state => :unconfirmed)
+      r = conference_events.where(event_type: :lecture, state: :unconfirmed)
     when 'events_with_unusual_state_speakers'
-      r = conference_events.joins(:event_people).where(:event_people => { :role_state => [:canceled, :declined, :idea, :offer, :unclear], :event_role => [:moderator, :speaker] } )
+      r = conference_events.joins(:event_people).where(event_people: { role_state: [:canceled, :declined, :idea, :offer, :unclear], event_role: [:moderator, :speaker] } )
     end
 
     unless r.nil? or r.empty?
       @search = r.search(params[:q])
       @search_count = r.count
-      @events = @search.result.paginate :page => params[:page]
+      @events = @search.result.paginate page: params[:page]
     end
     render :show
   end
@@ -66,7 +66,7 @@ class ReportsController < ApplicationController
     unless r.nil? or r.empty?
       @search = r.search(params[:q])
       @search_count = r.length
-      @people = @search.result.paginate :page => params[:page]
+      @people = @search.result.paginate page: params[:page]
     end
     render :show
   end
@@ -83,7 +83,7 @@ class ReportsController < ApplicationController
       row = []
       @labels = Track.all.collect { |t| t.name }
       @labels.each { |track|
-        row << @conference.events.confirmed.joins(:track).where(:tracks => { :name => track}).count
+        row << @conference.events.confirmed.joins(:track).where(tracks: { name: track}).count
       }
       @data << row
       @search_count = row.inject(:+)
@@ -92,15 +92,15 @@ class ReportsController < ApplicationController
       @data = []
       row = []
       @labels = %w{LecturesCommited LecturesConfirmed LecturesUnconfirmed Lectures Workshops}
-      events = @conference.events.where(:event_type => :lecture, :state => [:confirmed, :unconfirmed])
+      events = @conference.events.where(event_type: :lecture, state: [:confirmed, :unconfirmed])
       row << event_duration_sum(events)
-      events = @conference.events.where(:event_type => :lecture, :state => :confirmed)
+      events = @conference.events.where(event_type: :lecture, state: :confirmed)
       row << event_duration_sum(events)
-      events = @conference.events.where(:event_type => :lecture, :state => :unconfirmed)
+      events = @conference.events.where(event_type: :lecture, state: :unconfirmed)
       row << event_duration_sum(events)
-      events = @conference.events.where(:event_type => :lecture)
+      events = @conference.events.where(event_type: :lecture)
       row << event_duration_sum(events)
-      events = @conference.events.where(:event_type => :workshops)
+      events = @conference.events.where(event_type: :workshops)
       row << event_duration_sum(events)
       @data << row
     end

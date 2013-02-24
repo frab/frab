@@ -2,7 +2,7 @@ class Cfp::EventsController < ApplicationController
 
   layout "cfp"
 
-  before_filter :authenticate_user!, :except => :confirm
+  before_filter :authenticate_user!, except: :confirm
 
   # GET /cfp/events
   # GET /cfp/events.xml
@@ -12,7 +12,7 @@ class Cfp::EventsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @events }
+      format.xml  { render xml: @events }
     end
   end
 
@@ -24,7 +24,7 @@ class Cfp::EventsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @event }
+      format.xml  { render xml: @event }
     end
   end
 
@@ -32,11 +32,11 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events/new.xml
   def new
     authorize! :submit, Event
-    @event = Event.new(:time_slots => @conference.default_timeslots)
+    @event = Event.new(time_slots: @conference.default_timeslots)
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @event }
+      format.xml  { render xml: @event }
     end
   end
 
@@ -52,16 +52,16 @@ class Cfp::EventsController < ApplicationController
     authorize! :submit, Event
     @event = Event.new(params[:event])
     @event.conference = @conference
-    @event.event_people << EventPerson.new(:person => current_user.person, :event_role => "submitter")
-    @event.event_people << EventPerson.new(:person => current_user.person, :event_role => "speaker")
+    @event.event_people << EventPerson.new(person: current_user.person, event_role: "submitter")
+    @event.event_people << EventPerson.new(person: current_user.person, event_role: "speaker")
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to(cfp_person_path, :notice => t("cfp.event_created_notice")) }
-        format.xml  { render :xml => @event, :status => :created, :location => @event }
+        format.html { redirect_to(cfp_person_path, notice: t("cfp.event_created_notice")) }
+        format.xml  { render xml: @event, status: :created, location: @event }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,24 +70,24 @@ class Cfp::EventsController < ApplicationController
   # PUT /cfp/events/1.xml
   def update
     authorize! :submit, Event
-    @event = current_user.person.events.find(params[:id], :readonly => false)
+    @event = current_user.person.events.find(params[:id], readonly: false)
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to(cfp_person_path, :notice => t("cfp.event_updated_notice")) }
+        format.html { redirect_to(cfp_person_path, notice: t("cfp.event_updated_notice")) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @event.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def withdraw
     authorize! :submit, Event
-    @event = current_user.person.events.find(params[:id], :readonly => false)
+    @event = current_user.person.events.find(params[:id], readonly: false)
     @event.withdraw!
-    redirect_to(cfp_person_path, :notice => t("cfp.event_withdrawn_notice"))
+    redirect_to(cfp_person_path, notice: t("cfp.event_withdrawn_notice"))
   end
 
   def confirm
@@ -103,9 +103,9 @@ class Cfp::EventsController < ApplicationController
       event_person.confirm!
     end
     if current_user
-      redirect_to cfp_person_path, :notice => t("cfp.thanks_for_confirmation")
+      redirect_to cfp_person_path, notice: t("cfp.thanks_for_confirmation")
     else
-      render :layout => "signup"
+      render layout: "signup"
     end
   end
 
