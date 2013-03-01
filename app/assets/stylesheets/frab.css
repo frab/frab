@@ -129,3 +129,10 @@ ul#unscheduled-events {
 div#add-event-modal {
   overflow: auto; 
 }
+
+p.availability span {
+    float: right;
+    margin-left: 5px;
+    margin-right: 140px;
+    display: block;
+}
