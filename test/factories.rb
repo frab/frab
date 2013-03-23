@@ -43,6 +43,7 @@ FactoryGirl.define do
   end
 
   factory :user do
+    person
     email { Factory.next(:email) }
     password "frab23"
     password_confirmation { password }

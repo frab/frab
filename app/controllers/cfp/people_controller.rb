@@ -8,7 +8,8 @@ class Cfp::PeopleController < ApplicationController
   def show
     @person = current_user.person
 
-    redirect_to action: "new" unless @person
+    redirect_to :action => "new" unless @person
+    redirect_to :action => "edit" if @person.public_name == current_user.email
   end
 
   def new

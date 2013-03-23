@@ -11,6 +11,7 @@ class Cfp::UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.call_for_papers = @conference.call_for_papers
+    @user.person = Person.new(email: @user.email, public_name: @user.email)
 
     if @user.save
       redirect_to new_cfp_session_path, notice: t(:"cfp.signed_up")

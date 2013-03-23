@@ -19,6 +19,7 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
       :user, 
       role: 'submitter'
     ) 
+    user.person = nil
     session[:user_id] = user.id
 
     assert_difference 'Person.count' do
