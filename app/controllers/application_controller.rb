@@ -8,11 +8,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |ex|
     Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}" 
-    if @current_user and @current_user.role != 'submitter'
-      redirect_to :back, notice: t(:"ability.denied")
-    else
-      redirect_to :back, notice: t(:"ability.denied")
-    end
+    redirect_to :back, :notice => t(:"ability.denied")
   end
 
   protected

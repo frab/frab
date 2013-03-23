@@ -17,6 +17,7 @@ class Ability
     case user.role
     when /admin/
       can :manage, :all
+
     when /orga/
       can :manage, CallForPapers
       can :manage, Conference
@@ -24,9 +25,9 @@ class Ability
       can :manage, EventFeedback
       can :manage, EventRating
       can :manage, Person
-      can :manage, TicketServer
       can :manage, User
       can :assign_roles, User
+
     when /coordinator/
       # coordinates speakers and their events
       # everything from reviewer
@@ -37,11 +38,13 @@ class Ability
       can :read, EventFeedback
       can :manage, EventRating
       can :manage, Person
-      can :read, TicketServer
-      can :manage, User, id: user.id
+      can :manage, User, :id => user.id
       can :read, User
       cannot :assign_roles, User
+
     when /reviewer/
+      fix_missing_person(user)
+
       # reviews events prior to conference schedule release
       # everything from submitter
       can :read, CallForPapers
@@ -54,7 +57,10 @@ class Ability
       can :read, Person
       can :manage, User, id: user.id
       cannot :assign_roles, User
+
     when /submitter/
+      fix_missing_person(user)
+
       # submits events to conferences
       # edits own events
       # manage his account
@@ -64,6 +70,7 @@ class Ability
       can :manage, Person, id: user.person.id
       can :manage, User, id: user.id
       cannot :assign_roles, User
+
     else
       # guest can visit the cfp page 
       # guest can create/confirm an account
@@ -73,4 +80,12 @@ class Ability
       cannot :assign_roles, User
     end
   end
+
+  def fix_missing_person(user)
+    if (user.person.nil?)
+      user.person ||= Person.new(email: user.email, public_name: user.email)
+      Rails.logger.info "[ !!! ] Missing person object on #{user.email} was created"
+    end
+  end
+
 end
