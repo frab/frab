@@ -23,7 +23,7 @@ class Conference < ActiveRecord::Base
     :timeslot_duration,
     :timezone
   validates_uniqueness_of :acronym
-  validates_format_of :acronym, with: /^[a-zA-Z0-9_-]*$/
+  validates_format_of :acronym, :with => /^[a-zA-Z][a-zA-Z0-9_-]*$/
   validate :days_do_not_overlap
 
   after_update :update_timeslots
