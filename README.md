@@ -1,7 +1,7 @@
 # frab - conference management system
 
-frab is a web-based conference planning and management system. 
-It helps to collect submissions, to manage talks and speakers 
+frab is a web-based conference planning and management system.
+It helps to collect submissions, to manage talks and speakers
 and to create a schedule.
 
 ## Background
@@ -26,11 +26,11 @@ than 5 parallel tracks (plus devrooms) over 2 days.
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 3.2) application. 
+frab is a pretty standard Ruby on Rails (version 3.2) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
-Basically, to get started you need git, ruby (>= 1.9.3) and bundler 
+Basically, to get started you need git, ruby (>= 1.9.3) and bundler
 and follow these steps:
 
 1) Clone the repository
@@ -59,14 +59,14 @@ tools need to be installed to identify and resize images.
 
 Imagemagick should be easy to install using your OS's
 preferred package manager (apt-get, yum, brew etc.).
- 
+
 6) Create (and possibly modify) the database configuration:
 
     cp config/database.yml.template config/database.yml
 
-frab bundles all three built-in rails database drivers. 
-And it should work with all three, although it is best tested 
-with MySQL and SQLite3 (for development). 
+frab bundles all three built-in rails database drivers.
+And it should work with all three, although it is best tested
+with MySQL and SQLite3 (for development).
 
 7) Create and modify settings:
 
@@ -95,7 +95,7 @@ did not skip step 8 and run:
 probably do not want to use this script, but rather something
 like unicorn or passenger.)
 
-Navigate to http://localhost:3000/ and login as 
+Navigate to http://localhost:3000/ and login as
 "admin@example.org" with password "test123".
 
 ## Migrating from pentabarf
@@ -115,15 +115,46 @@ out, checkout the code at the revision the script was last
 changed at and upgrade the code and migrate the database
 from there.
 
-## Ticket Server 
+## Ticket Server
 
-This fork supports OTRS and RT ticket servers. Instead of sending 
+This fork supports OTRS and RT ticket servers. Instead of sending
 event acceptance/rejection mails directly to submitters, frab adds
 a ticket to a request tracker.
 
-The ticket server type can be configured in 
+The ticket server type can be configured in
 
     config/initializers/ticket_server_type.rb
+
+## Vagrant Server
+
+frab can more easily be tested by using vagrant. First install the
+vagrant gem:
+
+    gem install vagrant
+
+Afterwards setup your virtualbox machine, install chef inside and
+let vagrant run the frab chef recipes.
+Simply run the following command directly inside the frab checkout
+directory:
+
+    vagrant up
+
+
+Sometimes vagrant runs into timing problems, reload the vm:
+
+    vagrant reload
+
+And you can always re-deploy
+
+    vagrant provision
+
+You can now ssh into the box and start the rails app
+
+    vagrant ssh
+    cd /srv/frab
+    rails server
+
+Visit http://localhost:3000/ to log in to frab.
 
 ## License
 
