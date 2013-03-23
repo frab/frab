@@ -12,6 +12,9 @@ class Ability
     # This means a user can [:manage,:read] EventRating, but may 
     # only :manage @event_rating if it belongs to her.
     # Take a look how these abilities are used across controllers, before changing them.
+    #
+    # Whenever authorization against a class is needed, for which a limited instance rule exists,
+    # a new verb is introduced. This avoids the ambiguity of checking classes versus instances.
 
     # Attention: User.role vs. EventPerson.role
     case user.role
@@ -25,6 +28,7 @@ class Ability
       can :manage, EventFeedback
       can :manage, EventRating
       can :manage, Person
+      can :control, Person
       can :manage, User
       can :assign_roles, User
 
@@ -38,8 +42,8 @@ class Ability
       can :read, EventFeedback
       can :manage, EventRating
       can :manage, Person
+      can :control, Person
       can :manage, User, :id => user.id
-      can :read, User
       cannot :assign_roles, User
 
     when /reviewer/
@@ -52,10 +56,12 @@ class Ability
       can :read, Event
       can :submit, Event
       can :read, EventFeedback
-      can :manage, EventRating, person_id: user.person.id
-      can :manage, Person, id: user.person.id
+      can :manage, EventRating, :person_id => user.person.id
+      can :read, EventRating
+      can :manage, Person, :id => user.person.id
       can :read, Person
-      can :manage, User, id: user.id
+      cannot :control, Person
+      can :manage, User, :id => user.id
       cannot :assign_roles, User
 
     when /submitter/
@@ -67,8 +73,9 @@ class Ability
       # everything from guest
       can :submit, Event
       can :create, EventFeedback
-      can :manage, Person, id: user.person.id
-      can :manage, User, id: user.id
+      can :manage, Person, :id => user.person.id
+      cannot :control, Person
+      can :manage, User, :id => user.id
       cannot :assign_roles, User
 
     else

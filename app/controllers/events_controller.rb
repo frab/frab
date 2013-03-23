@@ -70,7 +70,7 @@ class EventsController < ApplicationController
 
   # start batch event review
   def start_review
-    authorize! :manage, EventRating
+    authorize! :create, EventRating
     ids = Event.ids_by_least_reviewed(@conference, current_user.person)
     if ids.empty?
       redirect_to action: "ratings", notice: "You have already reviewed all events:"
