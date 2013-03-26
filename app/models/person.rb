@@ -30,7 +30,6 @@ class Person < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
   validates_presence_of :public_name, :email
-  validate :public_name_is_set
 
   #validates_inclusion_of :gender, in: GENDERS, allow_nil: true
 
@@ -121,10 +120,6 @@ class Person < ActiveRecord::Base
     conference_locales = conference.languages.all.map{|l| l.code.downcase.to_sym}
     return :en if own_locales.include? :en or own_locales.empty? or (own_locales & conference_locales).empty?
     (own_locales & conference_locales).first
-  end
-
-  def public_name_is_set
-    self.errors.add(:public_name, "Please change your public name") if self.public_name == self.user.email
   end
 
   def to_s
