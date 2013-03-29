@@ -3,14 +3,45 @@
     %h1 Welcome
   .row
     .span16
-      %p
-        Thank you for your interest in participating in #{@conference.title}.
-      %p
-        Unfortunately, the Call for Papers has not yet started. Please bear with us
-        and leave us a little more time for our preparations.
+      .flash
+        %div{:class => "alert-message error fade in", "data-alert" => "alert"}
+          %p
+            Thank you for your interest in participating in #{@conference.title}.
+          %p
+            Unfortunately, the Call for Papers has not yet started. Please bear with us
+            and leave us a little more time for our preparations.
       %p
         The Call for Papers will start on
         = succeed "." do
           %b= @conference.call_for_papers.start_date
         Please return
         at or after this date. We are looking forward to your submission.
+  .row
+    .span16
+      = render "shared/flash", :flash => flash
+  .row
+    .span8
+      %h2=t("cfp.login_existing_headline")
+      %p
+      %p=t("cfp.login_existing_description")
+      = semantic_form_for @user, :url => cfp_session_path do |f|
+        = f.inputs do
+          = f.input :email
+          = f.input :password
+          - if false 
+            = f.input :remember_me, :as => :boolean
+        = f.buttons do
+          = f.commit_button t("cfp.sign_in"), :button_html => {:class => "btn primary"}
+    .span8
+      %h2=t("cfp.sign_up_headline") 
+      %p=t("cfp.sign_up_description", :title => @conference.title)
+      %p= action_button "", t("cfp.sign_up"), new_cfp_user_path
+  .row
+    .span8
+      %h2=t("cfp.forgot_password_headline")
+      %p=t("cfp.forgot_password_description") 
+      = action_button "", t("cfp.forgot_password_button"), new_cfp_user_password_path
+    .span8
+      %h2=t("cfp.confirmation_headline") 
+      %p=t("cfp.confirmation_description")
+      = action_button "", t("cfp.confirmation_button"), new_cfp_user_confirmation_path

@@ -3,10 +3,10 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :title, :term => params[:term]
+        %th= sort_link @search, :title, 'Title', :term => params[:term]
         %th= sort_link @search, :track_name, "Track", :term => params[:term]
         %th= sort_link @search, :event_type, :term => params[:term]
-        %th= sort_link @search, :state, :term => params[:term]
+        %th= sort_link @search, :state, 'State', :term => params[:term]
         %th= sort_link @search, :created_at, :term => params[:term]
       - else
         %th Title
@@ -14,17 +14,22 @@
         %th Event type
         %th State
         %th Created at
-      %th
+      %th.last
   %tbody
-    - events.each do |event|
+    - collection.each do |event|
       %tr
         %td= link_to (image_box event.logo, :small), event
-        %td= link_to event.title, event
+        %td 
+          = link_to event.title, event
+          %p.small
+            by
+            = event.speakers.map{ |p| link_to p.try(:full_public_name), p}.join(", ").html_safe
         %td= event.track.try(:name)
         %td= event.event_type
         %td= event.state
         %td= l(event.created_at.to_date)
         %td.buttons
           = action_button "small", 'Show', event
-          = action_button "small", 'Edit', edit_event_path(event)
-          = action_button "small danger", 'Destroy', event, :confirm => 'Are you sure?', :method => :delete
+          - if can? :manage, event
+            = action_button "small", 'Edit', edit_event_path(event)
+            = action_button "small danger", 'Destroy', event, :confirm => 'Are you sure?', :method => :delete

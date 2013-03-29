@@ -1,19 +1,30 @@
 class Conference < ActiveRecord::Base
 
-  has_one :call_for_papers
-  has_many :events
-  has_many :rooms
-  has_many :tracks
-  has_many :languages, :as => :attachable
+  has_one :call_for_papers, dependent: :destroy
+  has_one :ticket_server, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :days, dependent: :destroy
+  has_many :rooms, dependent: :destroy
+  has_many :tracks, dependent: :destroy
+  has_many :languages, as: :attachable, dependent: :destroy
 
-  accepts_nested_attributes_for :rooms, :reject_if => proc {|r| r["name"].blank?}, :allow_destroy => true
-  accepts_nested_attributes_for :tracks, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :languages, :reject_if => :all_blank, :allow_destroy => true
+  acts_as_indexed fields: [:title, :acronym ]
 
-  validates_presence_of :title, :acronym, :first_day, :last_day
+  accepts_nested_attributes_for :rooms, reject_if: proc {|r| r["name"].blank?}, allow_destroy: true
+  accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :ticket_server
+  validates_presence_of :title, 
+    :acronym, 
+    :default_timeslots,
+    :feedback_enabled,
+    :max_timeslots,
+    :timeslot_duration,
+    :timezone
   validates_uniqueness_of :acronym
-  validates_format_of :acronym, :with => /[a-z][a-z0-9_]*/
-  validate :last_day_after_first_day
+  validates_format_of :acronym, :with => /^[a-zA-Z][a-zA-Z0-9_-]*$/
+  validate :days_do_not_overlap
 
   after_update :update_timeslots
 
@@ -43,10 +54,19 @@ class Conference < ActiveRecord::Base
 
   def events_by_state
     [
-      [[0, self.events.where(:state => ["new", "review"]).count]],
-      [[1, self.events.where(:state => ["unconfirmed", "confirmed"]).count]],
-      [[2, self.events.where(:state => "rejected").count]],
-      [[3, self.events.where(:state => ["withdrawn", "canceled"]).count]]
+      [[0, self.events.where(state: ["new", "review"]).count]],
+      [[1, self.events.where(state: ["unconfirmed", "confirmed"]).count]],
+      [[2, self.events.where(state: "rejected").count]],
+      [[3, self.events.where(state: ["withdrawn", "canceled"]).count]]
+    ]
+  end
+
+  def events_by_state_and_type(type)
+    [
+      [[0, self.events.where(state: ["new", "review"], event_type: type).count]],
+      [[1, self.events.where(state: ["unconfirmed", "confirmed"], event_type: type).count]],
+      [[2, self.events.where(state: "rejected", event_type: type).count]],
+      [[3, self.events.where(state: ["withdrawn", "canceled"], event_type: type).count]]
     ]
   end
 
@@ -58,9 +78,9 @@ class Conference < ActiveRecord::Base
       base_relation = self.events
     end
     self.languages.each do |language|
-      result << { :label => language.code, :data => base_relation.where(:language => language.code).count }
+      result << { label: language.code, data: base_relation.where(language: language.code).count }
     end
-    result << {:label => "unknown", "data" => base_relation.where(:language => "").count }
+    result << {label: "unknown", "data" => base_relation.where(language: "").count }
     result
   end
 
@@ -68,18 +88,32 @@ class Conference < ActiveRecord::Base
     self.languages.map{|l| l.code.downcase}
   end
 
-  def days
-    result = Array.new
-    day = self.first_day
-    until (day > self.last_day)
-      result << day
-      day = day.since(1.days).to_date
-    end
-    result
+  def first_day
+    self.days.min
+  end
+
+  def last_day
+    self.days.max
+  end
+
+  def day_at(date)
+    i = 0
+    self.days.each { |day|
+      return i if date.between?(day.start_date, day.end_date)
+      i = i + 1
+    }
+    # fallback to day at index 0
+    0
   end
 
   def each_day(&block)
-    days.each(&block)
+    self.days.each(&block)
+  end
+
+  def in_the_past
+    return false if self.days.nil? or self.days.empty?
+    return false if Time.now < self.days.last.end_date
+    return true
   end
 
   def to_s
@@ -94,13 +128,21 @@ class Conference < ActiveRecord::Base
       factor = old_duration / self.timeslot_duration
       Event.paper_trail_off
       self.events.each do |event|
-        event.update_attributes(:time_slots => event.time_slots * factor)
+        event.update_attributes(time_slots: event.time_slots * factor)
       end
       Event.paper_trail_on
     end
   end
 
-  def last_day_after_first_day
-    self.errors.add(:last_day, "should be after the first day") if self.last_day < self.first_day
+  # if a conference has multiple days, they sould not overlap
+  def days_do_not_overlap
+    return if self.days.count < 2
+    yesterday = self.days[0]
+    self.days[1..-1].each { |day|
+      if day.start_date < yesterday.end_date
+        self.errors.add(:days, "day #{day} overlaps with day before") 
+      end
+    }
   end
+
 end

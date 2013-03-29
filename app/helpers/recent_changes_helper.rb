@@ -8,7 +8,7 @@ module RecentChangesHelper
       else
         link_to associated.to_s, associated
       end
-    rescue
+    rescue ActiveRecord::RecordNotFound
       "[deleted #{version.associated_type.constantize} with id=#{version.associated_id}]"
     end
   end

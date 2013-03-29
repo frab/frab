@@ -1,14 +1,20 @@
 class ConferencesController < ApplicationController
 
-  skip_before_filter :load_conference, :only => :new
+  # these methods don't need a conference
+  skip_before_filter :load_conference, only: [:new, :index]
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  load_and_authorize_resource
 
   # GET /conferences
   # GET /conferences.xml
   def index
-    @conferences = Conference.all
+    if params.has_key?(:term) and not params[:term].empty?
+      @search = Conference.with_query(params[:term]).search(params[:q])
+    else
+      @search = Conference.search(params[:q])
+    end
+    @conferences = @search.result.paginate page: params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,9 +54,9 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to(conference_home_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully created.') }
+        format.html { redirect_to(conference_home_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
       else
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -60,9 +66,10 @@ class ConferencesController < ApplicationController
   def update
     respond_to do |format|
       if @conference.update_attributes(params[:conference])
-        format.html { redirect_to(edit_conference_path(:conference_acronym => @conference.acronym), :notice => 'Conference was successfully updated.') }
+        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
       else
-        format.html { render :action => "edit" }
+        # redirect to the right nested form page
+        format.html { render action: get_previous_nested_form(params[:conference]) }
       end
     end
   end
@@ -70,12 +77,23 @@ class ConferencesController < ApplicationController
   # DELETE /conferences/1
   # DELETE /conferences/1.xml
   def destroy
-    @conference = Conference.find(params[:id])
     @conference.destroy
 
     respond_to do |format|
-      format.html { redirect_to(conferences_url) }
+      format.html { redirect_to(conferences_path) }
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def get_previous_nested_form(parameters)
+    parameters.keys.each { |name|
+      next unless name.index("_attributes") > 0
+      test = name.gsub("_attributes", '')
+      return "edit_#{test}"
+    }
+    return "edit"
+  end
+
 end

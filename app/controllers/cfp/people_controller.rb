@@ -3,20 +3,24 @@ class Cfp::PeopleController < ApplicationController
   layout "cfp"
 
   before_filter :authenticate_user!
-  before_filter :require_submitter
+  before_filter :check_cfp_open
 
   def show
     @person = current_user.person
 
     redirect_to :action => "new" unless @person
+    if @person.public_name == current_user.email
+      flash[:alert] = "Please change your public name"
+      redirect_to :action => "edit"
+    end
   end
 
   def new
-    @person = Person.new(:email => current_user.email)
+    @person = Person.new(email: current_user.email)
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @person }
+      format.xml  { render xml: @person }
     end
   end
 
@@ -25,16 +29,19 @@ class Cfp::PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(params[:person])
-    @person.user = current_user
+    @person = current_user.person 
+    if @person.nil?
+      @person = Person.new(params[:person])
+      @person.user = current_user
+    end
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to(cfp_person_path, :notice => t("cfp.person_created_notice")) }
-        format.xml  { render :xml => @person, :status => :created, :location => @person }
+        format.html { redirect_to(cfp_person_path, notice: t("cfp.person_created_notice")) }
+        format.xml  { render xml: @person, status: :created, location: @person }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,11 +51,11 @@ class Cfp::PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to(cfp_person_path, :notice => t("cfp.person_updated_notice")) }
+        format.html { redirect_to(cfp_person_path, notice: t("cfp.person_updated_notice")) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end
     end
   end

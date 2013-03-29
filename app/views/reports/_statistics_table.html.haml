@@ -1,0 +1,10 @@
+%table.zebra-stripe
+  %thead
+    %tr
+    - @labels.each do |label|
+      %th= label
+  %tbody
+    - @data.each do |row|
+      %tr
+      - row.each do |c|
+        %td= c

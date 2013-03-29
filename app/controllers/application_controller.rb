@@ -6,10 +6,20 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  rescue_from CanCan::AccessDenied do |ex|
+    Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}" 
+    redirect_to :back, :notice => t(:"ability.denied")
+  end
+
   protected
 
   def set_locale
-    I18n.locale = params[:locale]
+    if %w{en de}.include?( params[:locale] )
+      I18n.locale = params[:locale]
+    else
+      I18n.locale = 'en'
+      params[:locale] = 'en'
+    end
   end
 
   def load_conference
@@ -23,19 +33,25 @@ class ApplicationController < ActionController::Base
   end
 
   def info_for_paper_trail
-    {:conference_id => @conference.id} if @conference
+    {conference_id: @conference.id} if @conference
   end
 
   def default_url_options
-    result = {:locale => params[:locale]}
+    result = {locale: params[:locale]}
     if @conference
-      result.merge!(:conference_acronym => @conference.acronym)
+      result.merge!(conference_acronym: @conference.acronym)
     end
     result
   end
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    user = nil
+    # maybe the user got deleted, so lets wrap this in a rescue block
+    begin
+      user = User.find(session[:user_id]) if session[:user_id]
+    rescue
+    end
+    @current_user ||= user
   end
 
   def authenticate_user!
@@ -48,21 +64,6 @@ class ApplicationController < ActionController::Base
     user.record_login!
   end
 
-  def require_admin
-    require_role("admin", new_session_path)
-  end
-
-  def require_submitter
-    require_role("submitter", new_cfp_session_path)
-  end
-
-  def require_role(role, redirect_path)
-    user = current_user
-    unless user and user.role == role 
-      redirect_to redirect_path 
-    end
-  end
-
   def scoped_sign_in_path
     if request.path =~ /\/cfp/
       new_cfp_session_path
@@ -71,4 +72,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_cfp_open
+    if @conference.call_for_papers.nil?
+      redirect_to cfp_not_existing_path 
+    elsif @conference.call_for_papers.start_date > Date.today
+      redirect_to cfp_open_soon_path 
+    end
+  end
 end

@@ -8,18 +8,62 @@ FactoryGirl.define do
     "frabcon#{n}"
   end
 
+  sequence :event_title do |n|
+    "Introducing frap part #{n}"
+  end
+
+  trait :admin_role do
+    role "admin"
+  end
+
+  trait :orga_role do
+    role "orga"
+  end
+
+  trait :coordinator_role do
+    role "coordinator"
+  end
+
+  trait :reviewer_role do
+    role "reviewer"
+  end
+
+  trait :three_days do
+    after_create do |conference|
+      conference.days << FactoryGirl.create(:day, 
+                                            start_date: Date.today.since(1.days).since(11.hours),
+                                            end_date: Date.today.since(1.days).since(23.hours))
+      conference.days << FactoryGirl.create(:day,
+                                            start_date: Date.today.since(2.days).since(10.hours),
+                                            end_date: Date.today.since(2.days).since(24.hours))
+      conference.days << FactoryGirl.create(:day,
+                                            start_date: Date.today.since(3.days).since(10.hours),
+                                            end_date: Date.today.since(3.days).since(17.hours))
+    end
+  end
+
   factory :user do
+    person
     email { Factory.next(:email) }
     password "frab23"
     password_confirmation { password }
+    sign_in_count 0
     confirmed_at { Time.now }
+
+    factory :admin_user, traits: [:admin_role]
+    factory :orga_user, traits: [:orga_role]
+    factory :coordinator_user, traits: [:coordinator_role]
+    factory :reviewer_user, traits: [:reviewer_role]
   end
 
   factory :person do
     email { Factory.next(:email) }
-    first_name "Fred"
-    last_name "Besen"
-    gender "male"
+    public_name "Fred Besen"
+  end
+
+  factory :day do
+    start_date { Date.today.since(1.days).since(11.hours) }
+    end_date { Date.today.since(1.days).since(23.hours) }
   end
 
   factory :conference do
@@ -28,8 +72,11 @@ FactoryGirl.define do
     timeslot_duration 15
     default_timeslots 4
     max_timeslots 20
-    first_day { Date.today.since(60.days).to_date }
-    last_day { Date.today.since(62.days).to_date }
+    feedback_enabled true
+    schedule_public true
+    timezone "Berlin"
+
+    factory :three_day_conference, traits: [:three_days]
   end
 
   factory :call_for_papers do
@@ -42,8 +89,8 @@ FactoryGirl.define do
     conference
     person
     day { conference.days.first }
-    start_time "08:00"
-    end_time "20:00"
+    start_date { conference.days.first.start_date.since(2.hours) }
+    end_date { conference.days.first.start_date.since(3.hours) }
   end
 
   factory :language do
@@ -57,11 +104,11 @@ FactoryGirl.define do
   end
 
   factory :event do
-    title "Introducing frab"
+    title { Factory.next(:event_title) }
     subtitle "Getting started organizing your conference"
     time_slots 4
     start_time "10:00"
-    conference
+    conference { Factory.create(:three_day_conference) }
   end
 
   factory :event_person do
@@ -78,9 +125,13 @@ FactoryGirl.define do
   end
 
   factory :event_feedback do
-    event
     rating 3.0
     comment "doh"
+  end
+
+  factory :ticket do
+    event
+    remote_ticket_id "1234"
   end
 
 end

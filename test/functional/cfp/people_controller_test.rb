@@ -3,30 +3,40 @@ require 'test_helper'
 class Cfp::PeopleControllerTest < ActionController::TestCase
   setup do
     @cfp_person = FactoryGirl.create(:person)
-    @conference = FactoryGirl.create(:conference)
+    @call_for_papers = FactoryGirl.create(:call_for_papers)
+    @conference = @call_for_papers.conference
     login_as(:submitter)
   end
 
   test "should get new" do
-    get :new, :conference_acronym => @conference.acronym
+    get :new, conference_acronym: @conference.acronym
     assert_response :success
   end
 
   test "should create cfp_person" do
-    assert_difference('Person.count') do
-      post :create, :person => @cfp_person.attributes, :conference_acronym => @conference.acronym
-    end
+    # can't have two persons on one user, so delete the one from login_as
+    user = FactoryGirl.create(
+      :user, 
+      role: 'submitter'
+    ) 
+    user.person = nil
+    session[:user_id] = user.id
 
+    assert_difference 'Person.count' do
+      post :create, person: {email: @cfp_person.email, 
+                    public_name: @cfp_person.public_name}, 
+                    conference_acronym: @conference.acronym
+    end
     assert_response :redirect
   end
 
   test "should get edit" do
-    get :edit, :id => @cfp_person.to_param, :conference_acronym => @conference.acronym
+    get :edit, conference_acronym: @conference.acronym
     assert_response :success
   end
 
   test "should update cfp_person" do
-    put :update, :id => @cfp_person.to_param, :person => @cfp_person.attributes, :conference_acronym => @conference.acronym
+    put :update, id: @cfp_person.id, person: @cfp_person.attributes, conference_acronym: @conference.acronym
     assert_response :redirect
   end
 

@@ -1,6 +1,6 @@
 class AddColorToTrack < ActiveRecord::Migration
   def self.up
-    add_column :tracks, :color, :string, :default => "fefd7f"
+    add_column :tracks, :color, :string, default: "fefd7f"
   end
 
   def self.down

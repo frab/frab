@@ -1,12 +1,13 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
+      - unless @conference.in_the_past
+        = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
+        - if @person.availabilities_in(@conference).count == 0
+          = action_button "", t("cfp.edit_availability"), new_cfp_person_availability_path
+        - else
+          = action_button "", t("cfp.edit_availability"), edit_cfp_person_availability_path
       = action_button "", t("cfp.edit_profile"), edit_cfp_person_path
-      - if @person.availabilities_in(@conference).count == 0
-        = action_button "", t("cfp.edit_availability"), new_cfp_person_availability_path
-      - else
-        = action_button "", t("cfp.edit_availability"), edit_cfp_person_availability_path
       = action_button "", t("cfp.edit_account"), edit_cfp_user_path
     %h1=t("cfp.welcome") 
   .row
@@ -14,7 +15,7 @@
       %p=t("cfp.thanks_for_interest", :title => @conference.title)
       - if cfp_hard_deadline_over?
         %p=t("cfp.hard_deadline_over")
-      - elsif @person.events_in(@conference).size > 0
+      - elsif @person.events_in(@conference).size > 0 and not @conference.in_the_past
         - if @person.availabilities_in(@conference).count == 0
           %p=t("cfp.specify_availability") 
           = action_button "success", t("cfp.edit_availability"), new_cfp_person_availability_path
@@ -22,8 +23,9 @@
         %p=t("cfp.input_appreciation") 
         = action_button "success", t("cfp.submit_another_event"), new_cfp_event_path
       - else
-        %p=t("cfp.take_time_to_submit") 
-        = action_button "success", t("cfp.submit_new_event"), new_cfp_event_path
+        - unless @conference.in_the_past
+          %p=t("cfp.take_time_to_submit") 
+          = action_button "success", t("cfp.submit_new_event"), new_cfp_event_path
         .clear
         %p=t("cfp.not_forget_personal_details")
         = action_button "success", t("cfp.edit_profile"), edit_cfp_person_path
@@ -41,20 +43,19 @@
     .span16
       - if @person.events_in(@conference).size > 0
         %h3=t("cfp.events_submitted") 
-        %table.zebra-striped
-          %thead
-            %tr
-              %th= t("activerecord.attributes.event.title") 
-              %th= t("activerecord.attributes.event.state")
-              %th= t(:actions)
-          %tbody
-            - @person.events_in(@conference).each do |event|
-              %tr
-                %td= event.title
-                %td= event.state
-                %td
-                  = link_to t("edit"), edit_cfp_event_path(event), :class => "btn small"
-                  - if event.state == "unconfirmed"
-                    = link_to t("cfp.confirm"), confirm_cfp_event_path(event), :method => :put, :class => "btn success small"
-                  - if event.state != "withdrawn"
-                    = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation"), :class => "btn danger small"
+        = render "table", :collection => @person.events_as_presenter_in(@conference)
+
+:javascript
+  $(document).ready(function(){
+    $(".rating").each(function(index) {
+      $(this).raty({
+        readOnly: true,
+        path: "",
+        starOn: '#{raty_icon_path("on")}',
+        starHalf: '#{raty_icon_path("half")}',
+        starOff: '#{raty_icon_path("off")}',
+        half: true,
+        start: $(this).data('rating')
+      });
+    });
+  });

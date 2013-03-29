@@ -3,19 +3,21 @@ class Cfp::AvailabilitiesController < ApplicationController
   layout 'cfp'
 
   before_filter :authenticate_user!
-  before_filter :require_submitter
 
   def new
+    authorize! :create, current_user.person
     @availabilities = Availability.build_for(@conference)
   end
 
   def edit
+    authorize! :edit, current_user.person
     @availabilities = current_user.person.availabilities_in(@conference)
   end
 
   def update
-    current_user.person.update_attributes(params[:person])
-    redirect_to cfp_root_path, :notice => t("cfp.update_availability_notice") 
+    authorize! :update, current_user.person
+    current_user.person.update_attributes_from_slider_form(params[:person])
+    redirect_to cfp_root_path, notice: t("cfp.update_availability_notice") 
   end
 
 end

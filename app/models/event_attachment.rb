@@ -4,6 +4,8 @@ class EventAttachment < ActiveRecord::Base
 
   has_attached_file :attachment
 
-  has_paper_trail :meta => {:associated_id => :event_id, :associated_type => "Event"}
+  has_paper_trail meta: {associated_id: :event_id, associated_type: "Event"}
+
+  scope :public, where(public: true)
 
 end

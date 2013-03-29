@@ -67,8 +67,6 @@ en:
     links: "Links"
     languages_spoken: "Languages spoken"
     contact_data: "Contact data"
-    remove_im_account: "remove IM account"
-    remove_phone_number: "remove phone number"
     edit_event_headline: "Editing event"
     create_event_headline: "Create a new event"
     basic_information: "Basic information"

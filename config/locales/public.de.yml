@@ -1,0 +1,69 @@
+de:
+  time:
+    formats:
+      time: "%H:%M Uhr"
+
+  public:
+    schedule:
+      title: "Programm %{title}"
+
+      nav:
+        index: "Übersicht"
+        day: "Tag %{index}"
+        schedule: "Zeitplan"
+        speakers: "Referenten"
+        events: "Veranstaltungen"
+
+      index:
+        schedule_index: "Programmübersicht"
+        day: "Tag %{index} – %{label}"
+        schedule: "Zeitplan – %{label}"
+        speakers: "Referenten"
+        events: "Veranstaltungen"
+
+      day:
+        schedule_for_day: "Zeitplan für Tag %{index} – %{label}"
+        schedule: "Zeitplan – %{label}"
+
+      speakers:
+        speakers: "Referenten"
+        name: "Name"
+        events: "Veranstaltungen"
+
+      events:
+        events: "Veranstaltungen"
+        title: "Titel"
+        track: "Track"
+        speakers: "Referenten"
+
+      event:
+        info: "Info"
+        day: "Tag"
+        start_time: "Anfang"
+        duration: "Dauer"
+        track: "Track"
+        links: "Links"
+        files: "Dateien"
+        feedback: "Feedback"
+        feedback_link: "Uns interessiert deine Meinung! Wie fandest du diese Veranstaltung?"
+        speakers: "Referenten"
+
+      speaker:
+        speaker: "Referent"
+        contact: "Kontakt"
+        email: "E-Mail"
+        links: "Links"
+        events_in_this_conference: "Veranstaltungen auf dieser Konferenz"
+
+    feedback:
+      new:
+        feedback_for: "Feedback zu: %{title}"
+        please_let_us_know: "Uns interessiert deine Meinung!"
+        how_would_you_rate: "Wie fandest du diese Veranstaltung? 5 ist die beste Bewertung und 1 die schlechteste."
+        what_did_you_like: "Was hat dir gefallen? Was nicht? Wie könnte man die Veranstaltung verbessern?"
+        submit_feedback: "Feedback abschicken"
+
+      thank_you:
+        thank_you: "Danke!"
+        thank_you_for_helping_us: "Danke für deine Hilfe bei der Verbesserung unserer Veranstaltungen. Bitte bewerte so viele Veranstaltungen, auf denen du warst, wie möglich."
+        return: "Zurück zum Zeitplan"

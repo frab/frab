@@ -1,8 +1,16 @@
 module EventsHelper
 
+  def fix_http_proto(url)
+    if url.start_with?('https') or url.start_with?('http') or url.start_with?('ftp')
+      url
+    else
+      "http://#{url}"
+    end
+  end
+
   def timeslots
     slots = Array.new
-    @conference.max_timeslots.times do |i|
+    (@conference.max_timeslots+1).times do |i|
       slots << [format_time_slots(i), i]
     end
     slots
@@ -10,17 +18,13 @@ module EventsHelper
 
   def start_times
     times = Array.new
-    date = @conference.first_day
-    while date <= @conference.last_day
-      time = date.to_time_in_current_zone
-      time = time.since(7.hours)
-      end_time = time.since(16.hours)
-      while time <= end_time
+    @conference.days.each { |day|
+      time = day.start_date
+      while time <= day.end_date
         times << [time.strftime("%Y-%m-%d %H:%M"), time]
         time = time.since(@conference.timeslot_duration.minutes)
       end
-      date = date.tomorrow
-    end
+    }
     times
   end
 

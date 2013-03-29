@@ -3,6 +3,14 @@ body {
   background-color: #eeeeee;
 }
 
+.topbar .fill {
+  padding: 0 1em;
+}
+
+.topbar .container {
+  width: 100%;
+}
+
 .main-content {
   background-color: #fff;
   border-radius: 0 0 6px 6px;
@@ -28,6 +36,8 @@ section {
   width: 32px;
   height: 32px;
 }
+
+p.small{ font-size: 8px; }
 
 .image.large {
   width: 128px;
@@ -105,8 +115,17 @@ table.room tr.even {background: #EEEEEE;}
 
 span.right { float: right; }
 
-td.buttons { width: 160px; }
+td.buttons { white-space: nowrap; }
 
 a.assoc {
   margin-left: 150px;
+}
+
+textarea { height: auto; width: 420px; }
+
+ul#unscheduled-events { 
+  height: 400px;
+} 
+div#add-event-modal {
+  overflow: auto; 
 }

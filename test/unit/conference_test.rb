@@ -17,10 +17,9 @@ class ConferenceTest < ActiveSupport::TestCase
   end
 
   test "returns the correct days" do
-    conference = FactoryGirl.create(:conference, :first_day => Date.today, :last_day => Date.today.since(2.days).to_date)
-    days = conference.days
-    assert_equal 3, days.size
-    assert_equal Date.today.since(2.days).to_date, days.last
+    conference = FactoryGirl.create(:three_day_conference)
+    assert_equal 3, conference.days.size
+    assert_equal Date.today.since(3.days).since(10.hours), conference.days.last.start_date
   end
 
 end

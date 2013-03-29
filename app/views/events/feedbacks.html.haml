@@ -1,0 +1,54 @@
+%section
+  .page-header
+    %h1 Event Feedbacks
+  %ul.tabs
+    %li= link_to "All Events", events_path
+    %li= link_to "My Events", my_events_path
+    %li= link_to "Event Ratings", ratings_events_path
+    %li.active= link_to "Event Feedbacks", feedbacks_events_path
+  - unless @conference.feedback_enabled
+    .row
+      .span16
+        .blank-slate
+          %p
+            The feedback system is not enabled.
+  - else
+    .row
+      .span16
+        %table.zebra-striped
+          %thead
+            %tr
+              %th
+              %th= sort_link @search, :title, :term => params[:term]
+              %th Speakers
+              %th= sort_link @search, :track_name, 'Track', :term => params[:term]
+              %th= sort_link @search, :average_feedback, :term => params[:term]
+              %th= sort_link @search, :event_feedbacks_count, :term => params[:term]
+          %tbody
+            - @events.each do |event|
+              %tr
+                %td= link_to (image_box event.logo, :small), event
+                %td= link_to event.title, event_event_feedbacks_path(event)
+                %td= event.speakers.map{ |p| link_to p.full_public_name, p}.join(", ").html_safe
+                %td= event.track.try(:name)
+                %td
+                  - if event.average_feedback
+                    .rating{:id => "event_rating_#{event.id}", :"data-rating" => event.average_feedback}
+                %td= event.event_feedbacks_count
+        = actions_bar do
+          = will_paginate @events
+
+:javascript
+  $(document).ready(function(){
+    $(".rating").each(function(index) {
+      $(this).raty({
+        readOnly: true,
+        path: "",
+        starOn: '#{raty_icon_path("on")}',
+        starHalf: '#{raty_icon_path("half")}',
+        starOff: '#{raty_icon_path("off")}',
+        half: true,
+        start: $(this).data('rating')
+      });
+    });
+  });

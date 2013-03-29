@@ -3,7 +3,8 @@
     = f.input :email
     = f.input :password
     = f.input :password_confirmation
-    = f.input :role, :as => :radio, :collection => User::ROLES
+    - if can? :assign_roles, User
+      = f.input :role, :as => :radio, :collection => User::ROLES
   = f.buttons do
     = f.commit_button :button_html => {:class => "btn primary"}
     = link_to "Cancel", :back, :class => "btn"

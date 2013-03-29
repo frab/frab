@@ -6,18 +6,29 @@ prawn_document(
 ) do |pdf|
 
   pdf.font_families.update("BitStream Vera" => {
-    :normal => File.join(Rails.root, "vendor", "fonts", "vera.ttf"),
-    :bold => File.join(Rails.root, "vendor", "fonts", "verabd.ttf"),
-    :italic => File.join(Rails.root, "vendor", "fonts", "verait.ttf")
+    :normal => Rails.root.join("vendor", "fonts", "vera.ttf"),
+    :bold => Rails.root.join("vendor", "fonts", "verabd.ttf"),
+    :italic => Rails.root.join("vendor", "fonts", "verait.ttf")
   })
   pdf.font "BitStream Vera"
 
+  # determine borders by page size, because all timeslots need to fit
+  # on one page
+  margin_width = 1.5.cm
+  margin_height = 1.cm
+  if Prawn::Document::PageGeometry::SIZES["A4"].inject(:*) < Prawn::Document::PageGeometry::SIZES[@page_size].inject(:*)
+    margin_height = 2.cm
+  end
+
+  header_height = 0.8.cm
+
   number_of_columns = @rooms.size < 5 ? @rooms.size : 5 
   number_of_pages = (@rooms.size / number_of_columns.to_f).ceil.to_i
-  column_width = ((pdf.bounds.width - 1.5.cm) / number_of_columns)
-  timeslot_height = (pdf.bounds.height - 1.cm) / number_of_timeslots
-  row_height = (pdf.bounds.height - 1.cm) / number_of_rows
+  column_width = (pdf.bounds.width - margin_width) / number_of_columns
+  timeslot_height = (pdf.bounds.height - margin_height - header_height) / number_of_timeslots
 
+  # A page contains the full time range. New pages will
+  # contain further rooms.
   number_of_pages.times do |current_page|
   
     offset = current_page * number_of_columns
@@ -25,32 +36,24 @@ prawn_document(
 
     table_data = Array.new
 
-    all_rooms = [""] + rooms.map(&:name)
+    table_data << [""] + rooms.map(&:name)
 
-    all_rooms.each do |r|
-      if r.match( /^\w\d{2,}(\/).*$/)
-        r.gsub!( "#{r.scan(/^\w\d{1,}(\/.*).*$/).join}", '')
-      end
-    end
-
-    table_data << all_rooms
-
-    each_15_minutes do |time|
+    each_timeslot do |time|
       row = []
-      row << time.to_s(:time)
+      row << time.strftime("%H:%M")
       rooms.size.times { row << "" }
       table_data << row
     end
 
     table = pdf.make_table(table_data) do |t|
       t.cells.style(:border_width => 1.pt, :border_color => "cccccc")
-      t.row(0).height = 1.cm - 1
+      t.row(0).height = header_height
       t.row(0).align = :center
       t.row(0).font_style = :bold
       t.row(0).style(:size => 10)
-      t.column(0).width = 1.5.cm - 1
+      t.column(0).width = margin_width - 1
       t.rows(1..-1).style(:size => 4)
-      t.rows(1..-1).height = row_height
+      t.rows(1..-1).height = timeslot_height
       t.rows(1..-1).padding = 3
       t.rows(1..-1).align = :right
       t.columns(1..-1).width = column_width

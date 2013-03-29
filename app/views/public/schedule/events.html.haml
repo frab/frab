@@ -1,17 +1,22 @@
-%h2.title Events 
+- no_tracks = @conference.tracks.empty?
+
+%h2.title= t '.events'
 
 %table.list
   %thead
-    %th &nbsp;
-    %th Title
-    %th Track
-    %th Speakers
+    %tr
+      %th &nbsp;
+      %th= t '.title'
+      - unless no_tracks
+        %th= t '.track'
+      %th= t '.speakers'
   %tbody
     - @events.each do |event|
       %tr
         %td= link_to image_box(event.logo, :small), public_event_path(:id => event.id)
         %td= link_to event.title, public_event_path(:id => event.id)
-        %td= event.track.try(:name)
+        - unless no_tracks
+          %td= event.track.try(:name)
         %td
           %ul
             - event.speakers.each do |speaker|

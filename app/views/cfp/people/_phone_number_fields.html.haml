@@ -2,4 +2,4 @@
   = f.inputs do
     = f.input :phone_type, :as => :select, :collection => translated_options(PhoneNumber::TYPES)
     = f.input :phone_number
-    = remove_association_link t("cfp.remove_phone_number"), f
+    = remove_association_link :phone_number, f

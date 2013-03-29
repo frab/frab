@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110930110209) do
+ActiveRecord::Schema.define(:version => 20130323201244) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
     t.integer  "conference_id"
-    t.date     "day"
-    t.time     "start_time"
-    t.time     "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "day_id"
   end
 
   create_table "call_for_papers", :force => true do |t|
@@ -36,21 +36,20 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
   end
 
   create_table "conferences", :force => true do |t|
-    t.string   "acronym",                                                    :null => false
-    t.string   "title",                                                      :null => false
-    t.string   "timezone",                :default => "Berlin",              :null => false
-    t.integer  "timeslot_duration",       :default => 15,                    :null => false
-    t.integer  "default_timeslots",       :default => 4,                     :null => false
-    t.integer  "max_timeslots",           :default => 20,                    :null => false
-    t.date     "first_day",                                                  :null => false
-    t.date     "last_day",                                                   :null => false
-    t.boolean  "feedback_enabled",        :default => false,                 :null => false
+    t.string   "acronym",                                    :null => false
+    t.string   "title",                                      :null => false
+    t.string   "timezone",                                   :null => false
+    t.integer  "timeslot_duration",                          :null => false
+    t.integer  "default_timeslots",                          :null => false
+    t.integer  "max_timeslots",                              :null => false
+    t.integer  "feedback_enabled",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
     t.string   "program_export_base_url"
-    t.time     "day_start",               :default => '2000-01-01 08:00:00', :null => false
-    t.time     "day_end",                 :default => '2000-01-01 20:00:00', :null => false
+    t.string   "schedule_version"
+    t.boolean  "schedule_public",         :default => false, :null => false
+    t.string   "color"
   end
 
   create_table "conflicts", :force => true do |t|
@@ -63,15 +62,22 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
     t.datetime "updated_at"
   end
 
+  create_table "days", :force => true do |t|
+    t.integer  "conference_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+  end
+
   create_table "event_attachments", :force => true do |t|
-    t.integer  "event_id",                :null => false
-    t.string   "title",                   :null => false
+    t.integer  "event_id",                                  :null => false
+    t.string   "title",                                     :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "public",                  :default => true
   end
 
   create_table "event_feedbacks", :force => true do |t|
@@ -83,9 +89,9 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
   end
 
   create_table "event_people", :force => true do |t|
-    t.integer  "event_id",                                    :null => false
-    t.integer  "person_id",                                   :null => false
-    t.string   "event_role",         :default => "submitter", :null => false
+    t.integer  "event_id",           :null => false
+    t.integer  "person_id",          :null => false
+    t.string   "event_role",         :null => false
     t.string   "role_state"
     t.string   "comment"
     t.datetime "created_at"
@@ -103,17 +109,17 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "conference_id",                           :null => false
-    t.string   "title",                                   :null => false
+    t.integer  "conference_id",         :null => false
+    t.string   "title",                 :null => false
     t.string   "subtitle"
-    t.string   "event_type",          :default => "talk"
+    t.string   "event_type"
     t.integer  "time_slots"
-    t.string   "state",               :default => "new",  :null => false
+    t.string   "state",                 :null => false
     t.string   "language"
     t.datetime "start_time"
     t.text     "abstract"
     t.text     "description"
-    t.boolean  "public",              :default => true
+    t.integer  "public"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
@@ -123,7 +129,12 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "average_rating"
-    t.integer  "event_ratings_count", :default => 0
+    t.integer  "event_ratings_count"
+    t.text     "note"
+    t.text     "submission_note"
+    t.integer  "speaker_count"
+    t.integer  "event_feedbacks_count"
+    t.float    "average_feedback"
   end
 
   create_table "im_accounts", :force => true do |t|
@@ -151,20 +162,12 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
     t.datetime "updated_at"
   end
 
-  create_table "ordered_products", :force => true do |t|
-    t.integer  "attendee_id"
-    t.integer  "product_type_id"
-    t.integer  "amount",          :default => 1
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "people", :force => true do |t|
-    t.string   "first_name",          :null => false
-    t.string   "last_name",           :null => false
-    t.string   "public_name"
-    t.string   "email",               :null => false
-    t.boolean  "email_public"
+    t.string   "first_name",          :default => ""
+    t.string   "last_name",           :default => ""
+    t.string   "public_name",                            :null => false
+    t.string   "email",                                  :null => false
+    t.integer  "email_public"
     t.string   "gender"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -175,6 +178,8 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.text     "note"
+    t.boolean  "include_in_mailings", :default => false, :null => false
   end
 
   create_table "phone_numbers", :force => true do |t|
@@ -185,46 +190,48 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
     t.datetime "updated_at"
   end
 
-  create_table "product_types", :force => true do |t|
-    t.string   "type"
-    t.integer  "attendee_registration_id"
-    t.string   "name"
-    t.decimal  "price",                    :precision => 7, :scale => 2
-    t.decimal  "vat",                      :precision => 4, :scale => 2
-    t.boolean  "includes_vat"
-    t.date     "available_until"
-    t.integer  "amount_available"
-    t.boolean  "needs_invoice_address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "currency"
-  end
-
   create_table "rooms", :force => true do |t|
-    t.integer  "conference_id",                   :null => false
-    t.string   "name",                            :null => false
+    t.integer  "conference_id", :null => false
+    t.string   "name",          :null => false
     t.integer  "size"
-    t.boolean  "public",        :default => true
+    t.integer  "public"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rank"
   end
 
-  create_table "tracks", :force => true do |t|
-    t.integer  "conference_id"
-    t.string   "name",                                :null => false
+  create_table "ticket_servers", :force => true do |t|
+    t.integer  "conference_id", :null => false
+    t.string   "url"
+    t.string   "user"
+    t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "color",         :default => "fefd7f"
+    t.string   "queue"
+  end
+
+  create_table "tickets", :force => true do |t|
+    t.integer  "event_id",         :null => false
+    t.string   "remote_ticket_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tracks", :force => true do |t|
+    t.integer  "conference_id"
+    t.string   "name",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "color"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",          :null => false
-    t.string   "password_digest",      :limit => 128, :default => "",          :null => false
+    t.string   "email",                               :null => false
+    t.string   "password_digest",      :limit => 128, :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -234,15 +241,11 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
     t.datetime "confirmation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role",                                :default => "submitter"
+    t.string   "role"
     t.string   "pentabarf_salt"
     t.string   "pentabarf_password"
     t.integer  "call_for_papers_id"
   end
-
-  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",       :null => false
@@ -256,7 +259,5 @@ ActiveRecord::Schema.define(:version => 20110930110209) do
     t.string   "associated_type"
     t.text     "object_changes"
   end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

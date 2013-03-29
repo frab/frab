@@ -7,6 +7,7 @@
     %li= link_to "All Events", events_path
     %li= link_to "My Events", my_events_path
     %li.active= link_to "Event Ratings", ratings_events_path
+    %li= link_to "Event Feedbacks", feedbacks_events_path
   - if @events.all.empty?
     .row
       .span16
@@ -26,10 +27,13 @@
           %b Total number of events:
           = @events_total
           %br/
+          %b Total number of events without review:
+          = @events_no_review_total
+          %br/
           %b Events you have reviewed:
           = @events_reviewed
           %br/
-          %b Events without review:
+          %b Events you haven't reviewed:
           = @events_no_review
     .row
       .span16

@@ -6,8 +6,18 @@ class EventPerson < ActiveRecord::Base
 
   belongs_to :event
   belongs_to :person
+  after_save :update_speaker_count
+  after_destroy :update_speaker_count
 
-  has_paper_trail :meta => {:associated_id => :event_id, :associated_type => "Event"}
+  has_paper_trail meta: {associated_id: :event_id, associated_type: "Event"}
+
+  scope :presenter, where(event_role: ["speaker", "moderator"])
+
+  def update_speaker_count
+    event = Event.find(self.event_id)
+    event.speaker_count = EventPerson.where(event_id: event.id, event_role: [:moderator, :speaker]).count
+    event.save
+  end
 
   def confirm!
     self.role_state = "confirmed"
@@ -24,13 +34,9 @@ class EventPerson < ActiveRecord::Base
   end
 
   def available_between?(start_time, end_time)
-    availability = self.person.availabilities.where(:conference_id => self.event.conference.id, :day => start_time.to_date).first
-    if availability
-      unless (availability.within_range?(start_time) and availability.within_range?(end_time))
-        return false
-      end
-    end
-    true
+    return unless start_time and end_time
+    self.person.availabilities.any? { |a| a.within_range? (start_time) and
+                                         a.within_range? (end_time) }
   end
 
   def to_s

@@ -1,10 +1,10 @@
-%h2.title Feedback for: #{@event.title}
+%h2.title= t '.feedback_for', :title => @event.title
 
-%p Please let us know how you liked this event:
+%p= t '.please_let_us_know'
 
 = semantic_form_for(@feedback, :url => public_event_feedback_path(:event_id => @event.id)) do |f|
   = f.inputs do
-    = f.input :rating, :as => :radio, :collection => 1..5, :hint => "How would you rate this event? 5 is the best rating and 1 is the worst."
-    = f.input :comment, :input_html => {:rows => 4}, :hint => "What did you like? What did you not like? How could this event be improved? Please share your thoughts."
+    = f.input :rating, :as => :radio, :collection => 1..5, :hint => t('.how_would_you_rate')
+    = f.input :comment, :input_html => {:rows => 4}, :hint => t('.what_did_you_like')
   = f.buttons do
-    = f.commit_button "Submit feedback"
+    = f.commit_button t('.submit_feedback')

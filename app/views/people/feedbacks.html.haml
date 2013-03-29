@@ -1,0 +1,60 @@
+%section
+  .page-header
+    .pull-right
+      - if can? :manage, @person
+        = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+      - if can? :control, Person
+        = action_button "add", "Add person", new_person_path, :title => "Add a new person."
+    %h1 Person: #{@person.full_name} 
+  %ul.tabs
+    %li= link_to "Profile", @person
+    - if can? :manage, @user
+      %li= link_to "User account", person_user_path(@person)
+    - if @person.availabilities_in(@conference).count == 0
+      %li= link_to "Availability", new_person_availability_path(@person)
+    - else
+      %li= link_to "Availability", edit_person_availability_path(@person)
+    %li.active= link_to "Feedback", feedbacks_people_path(:id => @person.id)
+  .row 
+    .span16
+      %h2 Basic information
+  .row 
+    .span8
+      %p
+        %b Ful name:
+        = @person.first_name
+        = @person.last_name
+      %p
+        %b Public name:
+        = @person.public_name
+    .span4
+      %p
+        %b Email:
+        = mail_to @person.email
+        (#{@person.email_public? ? "public" : "non-public"})
+    .span4
+      = image_box @person.avatar, :large
+%section
+  .row
+    .span16
+      - unless @current_events.empty?
+        %h2 Events in current conference
+        = render "feedback_table", :collection => @current_events
+      - unless @other_events.empty?
+        %h2 Events in other conferences
+        = render "feedback_table", :collection => @other_events
+
+:javascript
+  $(document).ready(function(){
+    $("td .rating").each(function(index) {
+      $(this).raty({
+        readOnly: true,
+        path: "",
+        starOn: '#{raty_icon_path("on")}',
+        starHalf: '#{raty_icon_path("half")}',
+        starOff: '#{raty_icon_path("off")}',
+        half: true,
+        start: $(this).data('rating')
+      });
+    });
+  });

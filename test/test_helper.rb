@@ -3,6 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
 
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
@@ -15,8 +16,8 @@ class ActiveSupport::TestCase
   def login_as(role)
     user = FactoryGirl.create(
       :user, 
-      :person => FactoryGirl.create(:person),
-      :role => role.to_s
+      person: FactoryGirl.create(:person),
+      role: role.to_s
     )
     session[:user_id] = user.id
     user

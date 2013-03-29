@@ -1,28 +1,27 @@
-%h2 Schedule for Day #{@day_index} - #{@day}
+%h2
+  - if @conference.days.length > 1
+    = t '.schedule_for_day', :index => @day_index+1, :label => l(@day.date)
+  - else
+    = t '.schedule', :label => l(@day.date)
 %br.clear/
-#pagination
 #main-table
-  %table#time-line
-    %tr
-      %td#top-left
-    - each_timeslot do |time| 
-      %tr.cell-height1
-        / %td.cell.cell-height1
-        %td.cell
-          - if time.min % 15 == 0
-            %p= time.to_s(:time)
   #conference-rooms
-    %table.rooms-table{:style => "width: #{@rooms.size * 200}px;"}
+    %table.rooms-table
       %thead
-        - @rooms.each do |room|
-          %th= room.name
+        %tr
+          %th.cell-time
+          - @rooms.each do |room|
+            %th= room.name
       %tbody
         - each_timeslot do |time|
           %tr.cell-height1
+            %td.cell-time
+              - if time.min % 15 == 0
+                %p= time.strftime("%H:%M")
             - @rooms.each do |room|
               - @skip_row[room] -= 1
               - next if @skip_row[room] > 0
-              - if not @events[room].empty? and @events[room].first.start_time == day_at(@day, time)
+              - if not @events[room].empty? and @events[room].first.start_time == time
                 - event = @events[room].shift
                 - @skip_row[room] = event.time_slots 
                 %td{:rowspan => event.time_slots, :class => "cell-height#{event.time_slots}"}
@@ -31,9 +30,8 @@
                       .event-header
                         %h2= link_to event.title, public_event_path(:id => event.id)
                       .event-details
-                        %p
-                          .subtitle= event.subtitle
-                          .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
+                        .subtitle= event.subtitle
+                        .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
               - else
                 %td &nbsp;
 = javascript_include_tag "public_schedule"

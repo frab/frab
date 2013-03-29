@@ -12,9 +12,7 @@
     %li= link_to "Feedback", event_event_feedbacks_path(@event)
   .row
     .span16
-      %h2 
-        Title: #{@event.title}
-        %small= link_to_function "Toggle Description >>", "$('#full_description').toggle();"
+      %small= link_to_function "Toggle Description >>", "$('#full_description').toggle();"
   #full_description{:style => "display:none;"}
     .row
       .span16
@@ -62,11 +60,11 @@
             - @event.links.each do |link|
               = link_to link.title, link.url
               %br/
-        - unless @event.event_attachments.empty?
+        - unless @event.event_attachments.public.empty?
           %p
             %b Attachments:
             %br/
-            - @event.event_attachments.each do |attachment|
+            - @event.event_attachments.public.each do |attachment|
               = link_to attachment.title, attachment.attachment.url
               %br/
       .span10
@@ -86,7 +84,7 @@
   .row
     .span16
       %h2 All ratings
-      - if @event.event_ratings.count == 0
+      - if @event_ratings.nil? or @event_ratings.count == 0
         .blank-slate
           %p
             No one has entered a rating for this event yet. Be the first
@@ -95,21 +93,23 @@
         %p
           %b Total:  
           %span#total_rating{:"data-rating" => @event.average_rating}
-        %table.zebra-striped
-          %thead
-            %tr
-              %th
-              %th User
-              %th Rating
-              %th Comment
-          %tbody
-            - @event.event_ratings.each do |event_rating|
+        - if @event_ratings.count > 1
+          %table.zebra-striped
+            %thead
               %tr
-                %td=image_box event_rating.person.avatar, :small
-                %td=event_rating.person.full_name
-                %td
-                  .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
-                %td=event_rating.comment
+                %th
+                %th User
+                %th Rating
+                %th Comment
+            %tbody
+              - @event_ratings.each do |event_rating|
+                - event_rating.person = Person.new if event_rating.person.nil?
+                %tr
+                  %td=image_box event_rating.person.avatar, :small
+                  %td=event_rating.person.full_name
+                  %td
+                    .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
+                  %td=event_rating.comment
 
 :javascript
   $(document).ready(function() {

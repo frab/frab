@@ -1,82 +1,100 @@
 class PeopleController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  after_filter :restrict_people
 
   # GET /people
   # GET /people.xml
   def index
-    if params[:term]
-      @people = Person.involved_in(@conference).with_query(params[:term]).paginate :page => params[:page]
+    authorize! :control, Person
+    if params.has_key?(:term) and not params[:term].empty?
+      @search = Person.involved_in(@conference).with_query(params[:term]).search(params[:q])
     else
-      @people = Person.involved_in(@conference).paginate :page => params[:page]
+      @search = Person.involved_in(@conference).search(params[:q])
     end
+    @people = @search.result.paginate page: params[:page]
   end
 
   def speakers
+    authorize! :control, Person
+    @people = Person.speaking_at(@conference).accessible_by(current_ability)
+
     respond_to do |format|
       format.html do
-        if params[:term]
-          @people = Person.speaking_at(@conference).with_query(params[:term]).paginate :page => params[:page]
+        if params.has_key?(:term) and not params[:term].empty?
+          @search = @people.involved_in(@conference).with_query(params[:term]).search(params[:q])
         else
-          @people = Person.speaking_at(@conference).paginate :page => params[:page]
+          @search = @people.involved_in(@conference).search(params[:q])
         end
+        @people = @search.result.paginate page: params[:page]
       end
       format.text do
-        @people = Person.speaking_at(@conference)
-        render :text => @people.map(&:email).join("\n")
+        render text: @people.map(&:email).join("\n")
       end
     end
   end
 
   def all
-    if params[:term]
-      @people = Person.with_query(params[:term]).paginate :page => params[:page]
+    authorize! :control, Person
+    if params.has_key?(:term) and not params[:term].empty?
+      @search = Person.with_query(params[:term]).search(params[:q])
     else
-      @people = Person.paginate :page => params[:page]
+      @search = Person.search(params[:q])
     end
+    @people = @search.result.paginate page: params[:page]
   end
 
   # GET /people/1
   # GET /people/1.xml
   def show
     @person = Person.find(params[:id])
-    @current_events = @person.events.where(:conference_id => @conference.id).all
-    @other_events = @person.events.where(Event.arel_table[:conference_id].not_eq(@conference.id)).all
+    authorize! :read, @person
+    @current_events = @person.events_as_presenter_in(@conference)
+    @other_events = @person.events_as_presenter_not_in(@conference)
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @person }
+      format.xml  { render xml: @person }
     end
+  end
+
+  def feedbacks
+    @person = Person.find(params[:id])
+    authorize! :manage, @person
+    @current_events = @person.events_as_presenter_in(@conference)
+    @other_events = @person.events_as_presenter_not_in(@conference)
   end
 
   # GET /people/new
   # GET /people/new.xml
   def new
     @person = Person.new
+    authorize! :manage, @person
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @person }
+      format.xml  { render xml: @person }
     end
   end
 
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    authorize! :manage, @person
   end
 
   # POST /people
   # POST /people.xml
   def create
     @person = Person.new(params[:person])
+    authorize! :manage, @person
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to(@person, :notice => 'Person was successfully created.') }
-        format.xml  { render :xml => @person, :status => :created, :location => @person }
+        format.html { redirect_to(@person, notice: 'Person was successfully created.') }
+        format.xml  { render xml: @person, status: :created, location: @person }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -85,14 +103,15 @@ class PeopleController < ApplicationController
   # PUT /people/1.xml
   def update
     @person = Person.find(params[:id])
+    authorize! :manage, @person
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to(@person, :notice => 'Person was successfully updated.') }
+        format.html { redirect_to(@person, notice: 'Person was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -101,6 +120,7 @@ class PeopleController < ApplicationController
   # DELETE /people/1.xml
   def destroy
     @person = Person.find(params[:id])
+    authorize! :manage, @person
     @person.destroy
 
     respond_to do |format|
@@ -108,4 +128,13 @@ class PeopleController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def restrict_people
+    unless @people.nil?
+      @people = @people.accessible_by(current_ability)
+    end
+  end
+
 end

@@ -1,13 +1,14 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit", edit_call_for_papers_path, :hint => "Edit this call for paper's data."
+      - if can? :manage, CallForPapers
+        = action_button "primary", "Edit", edit_call_for_papers_path, :hint => "Edit this call for paper's data."
     %h1 Call for Papers
   .row
     .span16
       %p
         The interface for submitters is available at:
-        = cfp_root_url
+        = new_cfp_session_url
   .row
     .span16
       #submission_graph{:style => "width: 800px; height: 300px;"}

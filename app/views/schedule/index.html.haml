@@ -7,7 +7,7 @@
   %ul.tabs
     - @conference.days.each_with_index do |day, index|
       %li{:class => day_active?(index)}
-        = link_to day.to_s, schedule_path(:day => index)
+        = link_to day.label, schedule_path(:day => index)
   - if @conference.rooms.empty?
     .row
       .span16
@@ -27,6 +27,15 @@
             or launch a call for papers to gather events.
             Once you have events, you can schedule them
             here.
+  - elsif @conference.days.count == 0
+    .row
+      .span16
+        .blank-slate
+          %p
+            Before you can schedule any events, you need
+            to have at least one day defined for this
+            conference. Go to <em>Conference Settings</em>
+            above to enter a day.
   - else
     .row
       .span16
@@ -45,12 +54,12 @@
               %tr
                 %th= room.name
             %tbody
-              - time = @conference.day_start
-              - while time < @conference.day_end
+              - time = @day.start_date
+              - while time < @day.end_date
                 %tr{:class => cycle('odd', 'even')}
-                  %td{:"data-time" => day_at(@day, time).to_s(:rfc822)}
+                  %td{:"data-time" => time.to_s(:rfc822)}
                     - if time.min == 0
-                      = time.to_s(:time)
+                      = time.strftime("%H:%M")
                 - time = time.since(@conference.timeslot_duration.minutes)
         .clear
         #event-pane

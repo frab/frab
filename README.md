@@ -1,12 +1,12 @@
 # frab - conference management system
 
-frab is a web-based conference planning and management system. 
-It helps to collect submissions, to manage talks and speakers 
+frab is a web-based conference planning and management system.
+It helps to collect submissions, to manage talks and speakers
 and to create a schedule.
 
 ## Background
 
-frab was created for the organization of FrOSCon 2011 (http://www.froscon.de).
+frab was originally created for the organization of FrOSCon 2011 (http://www.froscon.de).
 FrOSCon has previously used pentabarf (http://pentabarf.org), and although
 frab is a completely new implementation, it borrows heavily from pentabarf.
 
@@ -26,16 +26,16 @@ than 5 parallel tracks (plus devrooms) over 2 days.
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 3.1) application. 
+frab is a pretty standard Ruby on Rails (version 3.2) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
-Basically, to get started you need git, ruby (>= 1.9.2) and bundler 
+Basically, to get started you need git, ruby (>= 1.9.3) and bundler
 and follow these steps:
 
 1) Clone the repository
 
-    git clone git://github.com/oneiros/frab.git
+    git clone git://github.com/frab/frab.git
 
 2) cd into the directory:
 
@@ -45,35 +45,42 @@ and follow these steps:
 
     bundle install
 
-4) Install Imagemagick:
+4) Install nodejs:
+
+frab needs a javascript runtime. You should use
+nodejs, as it is easier to install than v8.
+
+    apt-get install nodejs
+
+5) Install Imagemagick:
 
 This is a dependency of the paperclip gem. Imagemagick
 tools need to be installed to identify and resize images.
 
 Imagemagick should be easy to install using your OS's
 preferred package manager (apt-get, yum, brew etc.).
- 
-5) Create (and possibly modify) the database configuration:
+
+6) Create (and possibly modify) the database configuration:
 
     cp config/database.yml.template config/database.yml
 
-frab bundles all three built-in rails database drivers. 
-And it should work with all three, although it is best tested 
-with MySQL and SQLite3 (for development). 
+frab bundles all three built-in rails database drivers.
+And it should work with all three, although it is best tested
+with MySQL and SQLite3 (for development).
 
-6) Create and modify settings:
+7) Create and modify settings:
 
     cp config/settings.yml.template config/settings.yml
 
-7) Create and setup the database
+8) Create and setup the database
 
     rake db:setup
 
-8) Precompile assets (only needed for production)
+9) Precompile assets (only needed for production)
 
     rake assets:precompile
 
-9) Start the server
+10) Start the server
 
 To start frab in the development environment simply run
 
@@ -88,7 +95,7 @@ did not skip step 8 and run:
 probably do not want to use this script, but rather something
 like unicorn or passenger.)
 
-Navigate to http://localhost:3000/ and login as 
+Navigate to http://localhost:3000/ and login as
 "admin@example.org" with password "test123".
 
 ## Migrating from pentabarf
@@ -107,6 +114,47 @@ and will most probably not work. If you still want to try it
 out, checkout the code at the revision the script was last
 changed at and upgrade the code and migrate the database
 from there.
+
+## Ticket Server
+
+This fork supports OTRS and RT ticket servers. Instead of sending
+event acceptance/rejection mails directly to submitters, frab adds
+a ticket to a request tracker.
+
+The ticket server type can be configured in
+
+    config/initializers/ticket_server_type.rb
+
+## Vagrant Server
+
+frab can more easily be tested by using vagrant. First install the
+vagrant gem:
+
+    gem install vagrant
+
+Afterwards setup your virtualbox machine, install chef inside and
+let vagrant run the frab chef recipes.
+Simply run the following command directly inside the frab checkout
+directory:
+
+    vagrant up
+
+
+Sometimes vagrant runs into timing problems, reload the vm:
+
+    vagrant reload
+
+And you can always re-deploy
+
+    vagrant provision
+
+You can now ssh into the box and start the rails app
+
+    vagrant ssh
+    cd /srv/frab
+    rails server
+
+Visit http://localhost:3000/ to log in to frab.
 
 ## License
 

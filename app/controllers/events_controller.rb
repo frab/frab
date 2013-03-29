@@ -1,36 +1,39 @@
 class EventsController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :require_admin
+  after_filter :restrict_events
   
   # GET /events
   # GET /events.xml
   def index
-    if params[:term]
-      @search = @conference.events.with_query(params[:term]).search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
+    authorize! :read, Event
+    if params.has_key?(:term) and not params[:term].empty?
+      @search = @conference.events.with_query(params[:term]).includes(:track).search(params[:q])
     else
-      @search = @conference.events.search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
+      @search = @conference.events.includes(:track).search(params[:q])
     end
+    @events = @search.result.paginate page: params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @events }
+      format.xml  { render xml: @events }
     end
   end
 
+  # current_users events
   def my
-    if params[:term]
+    authorize! :read, Event
+    if params.has_key?(:term) and not params[:term].empty?
       @search = @conference.events.associated_with(current_user.person).with_query(params[:term]).search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
     else
       @search = @conference.events.associated_with(current_user.person).search(params[:q])
-      @events = @search.result.paginate :page => params[:page]
     end
+    @events = @search.result.paginate page: params[:page]
   end
 
+  # events as pdf
   def cards
+    authorize! :read, Event
     if params[:accepted]
       @events = @conference.events.accepted
     else
@@ -42,21 +45,38 @@ class EventsController < ApplicationController
     end
   end
 
+  # show event ratings
   def ratings
+    authorize! :read, EventRating
     @search = @conference.events.search(params[:q])
-    @events = @search.result.paginate :page => params[:page]
+    @events = @search.result.paginate page: params[:page]
+
+    # total ratings:
     @events_total = @conference.events.count
+    @events_reviewed_total = @conference.events.select{|e| e.event_ratings_count != nil and e.event_ratings_count > 0 }.count
+    @events_no_review_total = @events_total - @events_reviewed_total
+
+    # current_user rated:
     @events_reviewed = @conference.events.joins(:event_ratings).where("event_ratings.person_id" => current_user.person.id).count
-    @events_no_review = @events_total - @conference.events.joins(:event_ratings).count
+    @events_no_review = @events_total - @events_reviewed
   end
 
+  # show event feedbacks
+  def feedbacks
+    authorize! :read, EventFeedback
+    @search = @conference.events.accepted.search(params[:q])
+    @events = @search.result.paginate page: params[:page]
+  end
+
+  # start batch event review
   def start_review
+    authorize! :create, EventRating
     ids = Event.ids_by_least_reviewed(@conference, current_user.person)
     if ids.empty?
-      redirect_to :action => "ratings", :notice => "You have already reviewed all events:"
+      redirect_to action: "ratings", notice: "You have already reviewed all events:"
     else
       session[:review_ids] = ids
-      redirect_to event_event_rating_path(:event_id => ids.first)
+      redirect_to event_event_rating_path(event_id: ids.first)
     end
   end
 
@@ -64,35 +84,44 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     @event = Event.find(params[:id])
+    authorize! :read, @event
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @event }
+      format.xml  { render xml: @event }
     end
   end
 
+  # people tab of event detail page, the rating and
+  # feedback tabs are handled in routes.rb
+  # GET /events/2/people
   def people
     @event = Event.find(params[:id])
+    authorize! :read, @event
   end
   
   # GET /events/new
   # GET /events/new.xml
   def new
+    authorize! :manage, Event
     @event = Event.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @event }
+      format.xml  { render xml: @event }
     end
   end
 
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    authorize! :manage, @event
   end
 
+  # GET /events/2/edit_people
   def edit_people
     @event = Event.find(params[:id])
+    authorize! :manage, @event
   end
 
   # POST /events
@@ -100,14 +129,15 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.conference = @conference
+    authorize! :manage, @event
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to(@event, :notice => 'Event was successfully created.') }
-        format.xml  { render :xml => @event, :status => :created, :location => @event }
+        format.html { redirect_to(@event, notice: 'Event was successfully created.') }
+        format.xml  { render xml: @event, status: :created, location: @event }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -116,33 +146,39 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
+    authorize! :manage, @event
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to(@event, :notice => 'Event was successfully updated.') }
+        format.html { redirect_to(@event, notice: 'Event was successfully updated.') }
         format.xml  { head :ok }
         format.js   { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @event.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  # update event state
+  # GET /events/2/update_state?transition=cancel
   def update_state
     @event = Event.find(params[:id])
+    authorize! :manage, @event
+
     if params[:send_mail]
-      redirect_to(@event, :alert => "Cannot send mails: Please specify an email address for this conference.") and return unless @conference.email
-      redirect_to(@event, :alert => "Cannot send mails: Not all speakers have email addresses.") and return unless @event.speakers.all?{|s| s.email}
+      redirect_to(@event, alert: "Cannot send mails: Please specify an email address for this conference.") and return unless @conference.email
+      redirect_to(@event, alert: "Cannot send mails: Not all speakers have email addresses.") and return unless @event.speakers.all?{|s| s.email}
     end
-    @event.send(:"#{params[:transition]}!", :send_mail => params[:send_mail], :coordinator => current_user.person)
-    redirect_to @event, :notice => 'Event was successfully updated.' 
+    @event.send(:"#{params[:transition]}!", send_mail: params[:send_mail], coordinator: current_user.person)
+    redirect_to @event, notice: 'Event was successfully updated.' 
   end
 
   # DELETE /events/1
   # DELETE /events/1.xml
   def destroy
     @event = Event.find(params[:id])
+    authorize! :manage, @event
     @event.destroy
 
     respond_to do |format|
@@ -150,4 +186,13 @@ class EventsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def restrict_events
+    unless @events.nil?
+      @events = @events.accessible_by(current_ability)
+    end
+  end
+
 end

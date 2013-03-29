@@ -11,18 +11,52 @@
 %>
 <% @conference.max_timeslots.times do |i| %>
   .cell-height<%= i + 1 -%> { 
-    height: <%= base_size * (i + 1) - (i > 0 ? 2 : 0)-%>px;
+    height: <%= base_size * (i + 1) - (i > 0 ? 3 : 0)-%>px;
   }
 <% end %>
 
+<% if @conference.color.blank?
+    conference_bg_color = '555'
+  else
+    conference_bg_color = @conference.color
+  end
+
+  conference_fg_color = color_dark?(conference_bg_color) ? 'fff' : '000'
+%>
+
+.event.track-default {
+  background-color: #<%= conference_bg_color -%>;
+  border-color: #<%= conference_bg_color -%>;
+}
+.event.track-default div.event-header {
+  background-color: #<%= conference_bg_color -%>;
+}
+.event.track-default div.event-header a {
+  color: #<%= conference_fg_color -%>;
+}
+.conference-background {
+  background-color: #<%= conference_bg_color -%>;
+}
+
 <% @conference.tracks.each do |track| %>
-  <% unless track.color.blank? %>
-    .event.track-<%= track.name.parameterize -%> {
-      background-color: #<%= track.color -%>;
-      border-color: #<%= track.color -%>;
-    }
-    .event.track-<%= track.name.parameterize -%> div.event-header {
-      background-color: #<%= track.color -%>;
-    }
-  <% end %>
+  <% if track.color.blank?
+      bg_color = conference_bg_color
+      fg_color = conference_fg_color
+    else
+      bg_color = track.color
+      fg_color = color_dark?(bg_color) ? 'fff' : '000'
+    end
+
+  %>
+
+  .event.track-<%= track.name.parameterize -%> {
+    background-color: #<%= bg_color -%>;
+    border-color: #<%= bg_color -%>;
+  }
+  .event.track-<%= track.name.parameterize -%> div.event-header {
+    background-color: #<%= bg_color -%>;
+  }
+  .event.track-<%= track.name.parameterize -%> div.event-header a {
+    color: #<%= fg_color -%>;
+  }
 <% end %>

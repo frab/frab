@@ -8,37 +8,21 @@
 * { margin: 0; padding: 0; }
 
 body {
-  font:normal 12px verdana;
+  font:normal 12px verdana, sans-serif;
   background: #ffffff;
 }
 
 #wrapper { width: 100%; }
 
-#header {
-  height: 79px;
-  width: 100%;
-  margin:2px 0 0 0;
-  border-bottom:5px solid #000;
-}
-
 #header h1 {
   padding: 15px 26px;
-  float: left;
-}
-
-#top-navigation {
-  width: 60%;
-  float: left;
-  margin: 42px 0 0 0;
 }
 
 #main-content p.release {
-  left: 1030px;
-  position: relative;
+  float: right;
 
-  background-color: #48B7E4;
-  color: white;
-  float: left;
+  background-color: #C7C8C6;
+  color: black;
   font-size: 100%;
 
   margin-bottom: 10px;
@@ -52,34 +36,36 @@ body {
   padding-top: 5px;
 }
 
-ul.horizontal-navigation {
-  width: 100%;
-  height: 35px;
+#main-content > ul {
+  margin-left: 20px;
 }
 
-ul.horizontal-navigation li {
-  background: #00afeb;
-  width: auto;
-  list-style: none;
+#horizontal-navigation {
   float: left;
-  margin: 5px 1px 0 0;
-  height:32px;
+  padding: 8em 0.7em 1em 2em;
+  vertical-align: top;
 }
 
-ul.horizontal-navigation li a {
-  color: #fff;
+#horizontal-navigation ul {
+  margin: 0;
+  min-width: 135px;
+}
+
+#horizontal-navigation ul li {
+  background-color: #E1E1E1;
+  border: solid 1px #C7C8C6;
+  list-style: none;
+  margin: 5px 1px 0 0;
+}
+
+#horizontal-navigation ul li a {
+  color: #666;
   padding: 10px 25px;
   text-align: center;
   display:block; 
-  font: bold 12px verdana;
+  font: bold 12px verdana, sans-serif;
   text-decoration: none;
-  line-height:11px;
-}
-
-ul.horizontal-navigation li.selected {
-  background: #000;
-  height: 35px;
-  font-size: 15px;
+  line-height: 125%;
 }
 
 .clear {
@@ -89,96 +75,79 @@ ul.horizontal-navigation li.selected {
 }
 
 #main-content {
-  padding: 26px;
-  padding-top: 0px;
-  padding-bottom: 15px;
-  width: 96%;
+  overflow: hidden;
+  margin: 1em 2em 1em 0;
+  padding-left: 1em;
   height: auto;
-  display: table;
+  border-style: solid;
+  border-width: 5px 1px 1px;
+  border-color: #C7C8C6;
+  background-color: #FEFEFE;
 }
 
 #main-content > h2 {
   font-size: 24px;
   padding-top: 15px;
+  margin-bottom: 10px;
 }
-
-.small-font{ font-size: 8px; }
 
 #main-table {
-  margin: 10px auto;
+  margin: 10px 20px;
   width: auto;
-  border: 1px solid #bababa;
   height: auto;
   overflow: visible;
-  position: absolute;
-}
-
-table#time-line {
-  border-spacing: 0;
-  width: 45px;
-  border: 1px solid #9d9d9d;
-  height: auto;
-  background: #5d5e5d;
-  font: bold 12px verdana;
-  color:#fff;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-
-#time-line td {
-  vertical-align: middle;
-  text-align: center;
 }
 
 td#top-left {
-  background: #5d5e5d;
-  height: 36px;
-  border-bottom: 1px solid #9D9D9D;
+  border-top: none;
+  height: 25px;
 }
 
 #conference-rooms {
-  position: absolute;
   left: 45px;
   top: 0px;
 }
 
 table.rooms-table {
-  table-layout: fixed;
   border-spacing: 0;
   background: #e4e4e4;
   position: relative;
 }
 
-table.rooms-table td {
-  border: 1px solid #9d9d9d;
-  border-left: 1px solid #ececec;
-  vertical-align: top;
-}
-
 table.rooms-table th {
-  height: 36px;
-  border: 1px solid #9d9d9d;
-  border-left: 1px solid #ececec;
+  height: 25px;
+  padding: 3px;
+  border: 1px solid #fff;
   text-align: center;
   color: #fff;
   margin: 0;
-  border-bottom: 1px solid #9D9D9D;
   font-weight: bold;
-  background: rgb(75,77,74); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(75,77,74,1) 0%, rgba(77,79,76,1) 16%, rgba(119,119,119,1) 51%, rgba(93,93,93,1) 58%, rgba(94,94,94,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(75,77,74,1)), color-stop(16%,rgba(77,79,76,1)), color-stop(51%,rgba(119,119,119,1)), color-stop(58%,rgba(93,93,93,1)), color-stop(100%,rgba(94,94,94,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(75,77,74,1) 0%,rgba(77,79,76,1) 16%,rgba(119,119,119,1) 51%,rgba(93,93,93,1) 58%,rgba(94,94,94,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(75,77,74,1) 0%,rgba(77,79,76,1) 16%,rgba(119,119,119,1) 51%,rgba(93,93,93,1) 58%,rgba(94,94,94,1) 100%); /* Opera11.10+ */
-  background: -ms-linear-gradient(top, rgba(75,77,74,1) 0%,rgba(77,79,76,1) 16%,rgba(119,119,119,1) 51%,rgba(93,93,93,1) 58%,rgba(94,94,94,1) 100%); /* IE10+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4b4d4a', endColorstr='#5e5e5e',GradientType=0 ); /* IE6-9 */
-  background: linear-gradient(top, rgba(75,77,74,1) 0%,rgba(77,79,76,1) 16%,rgba(119,119,119,1) 51%,rgba(93,93,93,1) 58%,rgba(94,94,94,1) 100%); /* W3C */
+  background: #666;
+}
+
+table.rooms-table td {
+  border: 1px solid white;
+  border-top: none;
+  vertical-align: top;
+  width: 200px;
+}
+
+table.rooms-table td.cell-time, table.rooms-table th.cell-time {
+  width: 45px;
+  padding: 0px;
+  border-bottom: 1px solid #9D9D9D;
+  vertical-align: middle;
+  text-align: center;
+  font: bold 12px verdana, sans-serif;
+  color:#666;
+  background: #fff;
 }
 
 .event {
   width: 98%;
-  height: 98%;
+  height: 100%;
   border:1px solid;
+  margin: 0 auto;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -189,19 +158,20 @@ table.rooms-table th {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background: -moz-linear-gradient(top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.6) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.2)), color-stop(100%,rgba(255,255,255,0.6))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* Opera11.10+ */
-  background: -ms-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* IE10+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#66ffffff',GradientType=0 ); /* IE6-9 */
-  background: linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.6) 100%); /* W3C */
+  background: -moz-linear-gradient(top, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.7) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.3)), color-stop(100%,rgba(255,255,255,0.7))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.7) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.7) 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.7) 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4dffffff', endColorstr='#b2ffffff',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.7) 100%); /* W3C */
+  overflow: auto;
 }
 
 .event-header {
   position: relative;
   width: 100%;
-  height:auto;
+  height: auto;
 }
 
 .event-header h2 {
@@ -210,10 +180,8 @@ table.rooms-table th {
 }
 
 .event-details {
-  overflow: auto;
-  width: 100%;
-  height: 67%;
   font-size: 11px;
+  padding: 2px;
 }
 
 .event-details p { margin: 5px; }
@@ -223,18 +191,10 @@ table.rooms-table th {
   border-bottom: 1px solid #9D9D9D;
 }
 
-div.event.track-default {
-  background-color: #fefd7f;
-  border-color: #fefd7f;
-}
-
-div.event.track-default div.event-header {
-  background-color: #fefd7f;
-}
-
 div.subtitle {
   font-style: italic;
   display: block;
+  margin-top: 3px;
   margin-bottom: 10px;
 }
 
@@ -291,7 +251,7 @@ h3.title {
 .column h3,
 .column p,
 .column ul {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .column.left {
@@ -355,4 +315,23 @@ span#pages {
 
 .column a {
   text-decoration: underline;
+}
+
+
+.event_feedback li.choice {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.event_feedback fieldset.inputs {
+  margin-top: 1em;
+}
+
+.event_feedback fieldset.inputs ul.choices-group {
+  float: none;
+}
+
+.event_feedback fieldset.inputs .help-block {
+  display: block;
+  padding-top: 0.5em;
 }

@@ -1,11 +1,20 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+      - if can? :manage, @person
+        = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+      - if can? :control, Person
+        = action_button "add", "Add person", new_person_path, :title => "Add a new person."
     %h1 Person: #{@person.full_name} 
   %ul.tabs
     %li.active= link_to "Profile", @person
-    %li= link_to "User account", person_user_path(@person)
+    - if can? :manage, @user or can? :manage, User
+      %li= link_to "User account", person_user_path(@person)
+    - if @person.availabilities_in(@conference).count == 0
+      %li= link_to "Availability", new_person_availability_path(@person)
+    - else
+      %li= link_to "Availability", edit_person_availability_path(@person)
+    %li= link_to "Feedback", feedbacks_people_path(:id => @person.id)
   .row 
     .span6 
       %h2 Basic information
@@ -21,23 +30,24 @@
       %p
         %b Gender:
         = @person.gender
-    .span6 
-      %h2 Contact information
-      %p
-        %b Email:
-        = mail_to @person.email
-        (#{@person.email_public ? "public" : "non-public"})
-      - @person.phone_numbers.each do |phone_number|
+    - if can? :manage, Person
+      .span6 
+        %h2 Contact information
         %p
-          %b
-            Phone number (#{phone_number.phone_type}):
-          = phone_number.phone_number
-      - @person.im_accounts.each do |im_account|
-        %p
-          %b
-            = im_account.im_type
-            \:
-          = im_account.im_address
+          %b Email:
+          = mail_to @person.email
+          (#{@person.email_public? ? "public" : "non-public"})
+        - @person.phone_numbers.each do |phone_number|
+          %p
+            %b
+              Phone number (#{phone_number.phone_type}):
+            = phone_number.phone_number
+        - @person.im_accounts.each do |im_account|
+          %p
+            %b
+              = im_account.im_type
+              \:
+            = im_account.im_address
     .span4
       = image_box @person.avatar, :large
 %section
@@ -59,12 +69,16 @@
       %p
         %b Description:
         = simple_format @person.description
+    .span10
+      %p
+        %b Notes(admin):
+        = simple_format @person.note
 %section
   .row
     .span16
       - unless @current_events.empty?
         %h2 Events in current conference
-        = render "events/table", :events => @current_events
+        = render "events/table", :collection => @current_events
       - unless @other_events.empty?
         %h2 Events in other conferences
-        = render "events/table", :events => @other_events
+        = render "events_in_other_conferences_table", :collection => @other_events
