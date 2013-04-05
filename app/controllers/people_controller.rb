@@ -51,6 +51,8 @@ class PeopleController < ApplicationController
     authorize! :read, @person
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
+    @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render xml: @person }
