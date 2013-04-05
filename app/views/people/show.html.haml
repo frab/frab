@@ -30,6 +30,14 @@
       %p
         %b Gender:
         = @person.gender
+
+      - unless @availabilities.nil?
+        %p.availability
+          %b Availability:
+          - @availabilities.each do |availability|
+            %span= "#{availability.start_date.strftime("%d.%m. %H:%M")} - #{availability.end_date.strftime("%H:%M")}"
+
+
     - if can? :manage, Person
       .span6 
         %h2 Contact information
