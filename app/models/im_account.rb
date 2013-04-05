@@ -1,6 +1,6 @@
 class ImAccount < ActiveRecord::Base
 
-  TYPES = %w(aim icq jabber msn yahoo)
+  TYPES = %w(aim icq jabber msn yahoo skype)
 
   belongs_to :person
 
