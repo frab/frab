@@ -42,7 +42,10 @@
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
           %b Ticket:
-          = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), :target => "_blank"
+          -if @conference.ticket_server.nil?
+            = @event.ticket.remote_ticket_id
+          -else
+            = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), :target => "_blank"
       %p
         %b Language:
         = @event.language
