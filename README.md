@@ -125,6 +125,8 @@ The ticket server type can be configured in
 
     config/initializers/ticket_server_type.rb
 
+The iPHoneHandle support needs to be installed in OTRS.
+
 ## Vagrant Server
 
 frab can more easily be tested by using vagrant. First install the
