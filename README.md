@@ -121,9 +121,7 @@ This fork supports OTRS and RT ticket servers. Instead of sending
 event acceptance/rejection mails directly to submitters, frab adds
 a ticket to a request tracker.
 
-The ticket server type can be configured in
-
-    config/initializers/ticket_server_type.rb
+The ticket server type can be configured for every conference.
 
 The iPHoneHandle support needs to be installed in OTRS.
 

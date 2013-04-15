@@ -76,11 +76,11 @@ module OtrsTickets
 
   end
 
-  def create_ticket_title( prefix, event )
+  def OtrsTickets.create_ticket_title( prefix, event )
     "#{prefix} '#{event.title.truncate(30)}'"
   end
 
-  def create_ticket_requestors( people )
+  def OtrsTickets.create_ticket_requestors( people )
     people.collect { |p|
       name = "#{p.first_name} #{p.last_name}"
       name.gsub!(/,/, '')
@@ -91,13 +91,14 @@ module OtrsTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def create_remote_ticket( args = {} )
+  def OtrsTickets.create_remote_ticket( args = {} )
     args.reverse_update(body: '', test_only: false)
     @conference = args[:conference]
 
     otrs = OtrsAdapter.new( @conference, Rails.logger )
     otrs.test_only = args[:test_only]
 
+    # FIXME iphonehandle no longer whitelists UserObject in Kernel/Config/Files/iPhone.xml
     data = otrs.connect( 'UserObject', 'GetUserData', { User: @conference.ticket_server.user })
     user_data = Hash[*data]
 
@@ -136,6 +137,5 @@ module OtrsTickets
 
     remote_ticket_id
   end
-
 
 end

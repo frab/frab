@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323201244) do
+ActiveRecord::Schema.define(:version => 20130415214732) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130323201244) do
     t.string   "schedule_version"
     t.boolean  "schedule_public",         :default => false, :null => false
     t.string   "color"
+    t.string   "ticket_type"
   end
 
   create_table "conflicts", :force => true do |t|
