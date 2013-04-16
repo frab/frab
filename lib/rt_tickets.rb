@@ -3,9 +3,9 @@ module RTTickets
   # Rails Views
   #
   module Helper
-    def get_ticket_view_url( remote_id='0' )
-      return if @conference.ticket_server.nil?
-      uri = URI.parse(@conference.ticket_server.url)
+    def Helper.get_ticket_view_url( conference, remote_id='0' )
+      return if conference.ticket_server.nil?
+      uri = URI.parse(conference.ticket_server.url)
       uri.path += 'Ticket/Display.html'
       uri.query = "id=#{remote_id}"
       uri.to_s
