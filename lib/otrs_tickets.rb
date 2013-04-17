@@ -17,8 +17,9 @@ module OtrsTickets
   # Otrs Server
   #
   class OtrsAdapter
-    require 'uri'
-    require 'net/http'
+    require 'savon'
+    NAMESPACE = "urn:frab"
+    ENDPOINT = 'nph-genericinterface.pl/Webservice/frab'
 
     def initialize(c, l)
       @conference = c
@@ -27,58 +28,75 @@ module OtrsTickets
     end
     attr_accessor :test_only
 
-    def get_ticket_json_uri
+    def get_endpoint
       uri = URI(@conference.ticket_server.url)
-      uri.path += 'json.pl'
+      uri.path += ENDPOINT
       uri
     end
 
-    def connect(object, method, data)
-      # see https://github.com/cpuguy83/rails_otrs
-      uri = get_ticket_json_uri
+    def connect
+      uri = get_endpoint
 
       # credentials
       user = URI.encode @conference.ticket_server.user
       password = URI.encode @conference.ticket_server.password
-      uri.query = "User=#{user}"
-      uri.query += "&Password=#{password}"
 
-      # otrs api
-      uri.query += "&Object=#{object}"
-      uri.query += "&Method=#{method}"
-      data = URI.encode(data.to_json)
-      data = URI.escape(data, '=\',\\/+-&?#.;')
-      uri.query += "&Data=#{data}"
-
-      if $DEBUG
-        @logger.info "[ === ] #{object}::#{method}"
-        @logger.info uri.to_s 
+      # soap connection
+      @client = Savon.client do
+        endpoint uri
+        namespace NAMESPACE
+        # FIXME still needs wsdl with configured endpoint, I don't want a tempfile :(
+        #wsdl 'config/otrs.wsdl'
+        ssl_verify_mode :none
+        soap_version 2
+        log_level :info
       end
 
       if @test_only
-        @logger.info uri.request_uri
-        return Array.new
+        @logger.info @client.to_yaml
+        return
       end
 
-      # https connection
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-
-      unless response.is_a?(Net::HTTPSuccess)
-        @logger.info response
-        raise "OTRS Connection Error: #{response.code} #{response.message}"
+      begin
+        response = @client.call(:session_create, soap_action: "SessionCreate") do
+          message 'UserLogin' => USER, 'Password' => PW
+        end
+      rescue => ex
+        @client = nil
+        raise "OTRS ERROR: #{ex.message}"
       end
 
-      result = ActiveSupport::JSON::decode(response.body.gsub(/"/, '"'))
-      if result["Result"] == 'successful'
-          result["Data"]
-      else
-        @logger.info response.to_json
-        raise "OTRS Error:#{result["Result"]} #{result["Data"]} #{result["Message"]}"
+      unless response.http.code == 200
+        raise "OTRS Connection Error: #{response.http.code}"
       end
+
+      unless response.hash[:envelope][:body][:session_create_response].has_key?(:session_id)
+        raise response.hash[:envelope][:body][:session_create_response][:error][:error_message]
+      end
+      @session_id = response.hash[:envelope][:body][:session_create_response][:session_id]
+    end
+
+    def call(method, data)
+
+      if @test_only
+        @logger.info method, data
+        return
+      end
+
+      begin
+        response = client.call(method) do
+          message data
+        end
+      rescue => ex
+        @client = nil
+        raise "OTRS ERROR: #{ex.message}"
+      end
+
+      unless response.http.code == 200
+        raise "OTRS Connection Error: #{response.http.code}"
+      end
+
+      response.hash[:envelope][:body]
     end
 
   end
@@ -105,45 +123,50 @@ module OtrsTickets
     otrs = OtrsAdapter.new( @conference, Rails.logger )
     otrs.test_only = args[:test_only]
 
-    # FIXME iphonehandle no longer whitelists UserObject in Kernel/Config/Files/iPhone.xml
-    # data = otrs.connect( 'UserObject', 'GetUserData', { User: @conference.ticket_server.user })
-    # user_data = Hash[*data]
-    data = otrs.connect( 'CustomObject', 'VersionGet', { UserID: 1 })
-
-    # data = otrs.connect( 'UserObject', 'GetUserData', { UserEmail: args[:owner_email] })
-    # owner_data = Hash[*data]
+    # create session
+    otrs.connect
 
     from = args[:owner_email]
+    to = from
     unless args[:requestors].empty?
       from = args[:requestors].collect { |r| "#{r[:name]} <#{r[:email]}>" }.join(', ')
     end
 
-    remote_ticket_id = otrs.connect( 'TicketObject', 'TicketCreate', {
-        Title: args[:title],
-        Queue: @conference.ticket_server.queue,
-        Lock: 'unlock',
-        Priority: '3 normal',
-        State: 'new',
-        CustomerUser: from,
-        UserID: 1,
-        OwnerID: 1,
-    }).first
 
-    remote_article_id = otrs.connect( 'TicketObject', 'ArticleCreate', {
-      TicketID: remote_ticket_id,
-      ArticleType: 'webrequest',
-      SenderType: 'customer',
-      HistoryType: "WebRequestCustomer",
-      HistoryComment: "created from frab",
-      From: from,
-      Subject: args[:title],
-      ContentType: 'text/plain; charset=ISO-8859-1',
-      Body: args[:body],
-      UserID: 1,
-      Loop: 0,
-    }).first
+    ticket = {
+      'Title' => args[:title],
+      'Queue' => @conference.ticket_server.queue,
+      'Lock' => 'unlock',
+      'Priority' => '3 normal',
+      'State' => 'new',
+      'CustomerUser' => from,
+      'OwnerID' => 1,
+      'From' => from,
+      'To' => to,
+    }
 
-    remote_ticket_id
+    article = {
+      'ArticleType' => 'webrequest',
+      #
+      'SenderType' => 'customer',
+      'Loop' => 0,
+      'NoAgentNotify'    => 0,
+      'AutoResponseType' => 'auto reply',
+      #
+      'HistoryType' => "WebRequestCustomer",
+      'HistoryComment' => "created from frab",
+      'ContentType' => 'text/plain; charset=ISO-8859-1',
+      'Subject' => args[:title],
+      'Body' => args[:body],
+      'From' => from,
+      'To' => to,
+    }
+
+    response = otrs.call(:ticket_create, 
+              { 'SessionID' => @session_id, 'Ticket' => ticket, 'Article' => article })
+
+    # FIXME extract ticket id from hash
+    response[:ticket_create_response]
   end
 
 end

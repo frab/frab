@@ -1,0 +1,48 @@
+# OTRS Setup for frab
+
+## Import the Webservice Configuration in OTRS.
+
+    ---
+    Debugger:
+      DebugThreshold: debug
+      TestMode: 0
+    Description: Ticket Connector Sample
+    FrameworkVersion: 3.1.x CVS
+    Provider:
+      Operation:
+        SessionCreate:
+          Description: Creates a Session
+          MappingInbound: {}
+          MappingOutbound: {}
+          Type: Session::SessionCreate
+        TicketCreate:
+          Description: Creates a Ticket
+          MappingInbound: {}
+          MappingOutbound: {}
+          Type: Ticket::TicketCreate
+        TicketUpdate:
+          Description: Updates a Ticket
+          MappingInbound: {}
+          MappingOutbound: {}
+          Type: Ticket::TicketUpdate
+        TicketGet:
+          Description: Retrieve Ticket data
+          MappingInbound: {}
+          MappingOutbound: {}
+          Type: Ticket::TicketGet
+        TicketSearch:
+          Description: Search for Tickets
+          MappingInbound: {}
+          MappingOutbound: {}
+          Type: Ticket::TicketSearch
+      Transport:
+        Config:
+          MaxLength: 100000000
+          NameSpace: urn:frab
+        Type: HTTP::SOAP
+    RemoteSystem: ''
+    Requester:
+      Transport:
+        Type: ''
+
+## Configure a SOAP User        

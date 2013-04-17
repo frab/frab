@@ -27,6 +27,7 @@ gem 'prawn'
 gem 'prawn_rails'
 gem 'ransack'
 gem 'ri_cal'
+gem 'savon'
 gem 'settingslogic'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'twitter-bootstrap-rails', :git => "git://github.com/frab/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
