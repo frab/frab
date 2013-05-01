@@ -26,9 +26,12 @@ class ApplicationController < ActionController::Base
     if params[:conference_acronym]
       @conference = Conference.find_by_acronym(params[:conference_acronym])
       raise ActionController::RoutingError.new("Not found") unless @conference
+    elsif session.has_key?(:conference_acronym)
+      @conference = Conference.find_by_acronym(session[:conference_acronym])
     elsif Conference.count > 0
       @conference = Conference.current
     end
+    session[:conference_acronym] = @conference.acronym
     Time.zone = @conference.timezone if @conference
   end
 
