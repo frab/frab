@@ -20,12 +20,7 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events/1.xml
   def show
     authorize! :submit, Event
-    @event = current_user.person.events.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render xml: @event }
-    end
+    redirect_to(edit_cfp_event_path)
   end
 
   # GET /cfp/events/new
