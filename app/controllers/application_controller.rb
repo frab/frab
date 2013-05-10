@@ -8,7 +8,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |ex|
     Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}" 
-    redirect_to :back, :notice => t(:"ability.denied")
+    begin
+      redirect_to :back, :notice => t(:"ability.denied")
+    rescue ActionController::RedirectBackError
+      redirect_to root_path
+    end
   end
 
   protected
