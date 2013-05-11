@@ -53,7 +53,8 @@ class ImportExportHelper
     @mappings = {
       conference: {}, tracks: {}, cfp: {}, rooms: {}, days: {},
       people: {}, users: {},
-      events: {}
+      events: {},
+      people_user: {}
     }
 
     ActiveRecord::Base.transaction do
@@ -80,6 +81,22 @@ class ImportExportHelper
 
     restore_conference_data
 
+    restore_multiple("people", Person) do |id, obj|
+      person = Person.find_by_email(obj.email)
+      if person
+        # don't create a new person
+        @mappings[:people][id] = person.id
+        @mappings[:people_user][person.user_id] = person
+      else
+        if (file = import_file("avatars", id, obj.avatar_file_name))
+          obj.avatar = file
+        end
+        obj.save!
+        @mappings[:people][id] = obj.id
+        @mappings[:people_user][obj.user_id] = obj
+      end
+    end
+
     restore_users do |id, yaml, obj|
       user = User.find_by_email(obj.email)
       if user
@@ -96,23 +113,9 @@ class ImportExportHelper
         }
         obj.call_for_papers_id = @mappings[:cfp][obj.call_for_papers_id]
         obj.confirmed_at ||= Time.now
+        obj.person = @mappings[:people_user][id]
         obj.save!
         @mappings[:users][id] = obj.id
-      end
-    end
-
-    restore_multiple("people", Person) do |id, obj|
-      person = Person.find_by_email(obj.email)
-      if person
-        # don't create a new person
-        @mappings[:people][id] = person.id
-      else
-        obj.user_id = @mappings[:users][obj.user_id]
-        if (file = import_file("avatars", id, obj.avatar_file_name))
-          obj.avatar = file
-        end
-        obj.save!
-        @mappings[:people][id] = obj.id
       end
     end
 
