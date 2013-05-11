@@ -265,6 +265,7 @@ class ImportExportHelper
   end
 
   def dump(name,obj)
+    return if obj.nil?
     File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f| 
       if obj.respond_to?("collect")
         f.puts obj.collect {|record| record.attributes}.to_yaml
