@@ -14,7 +14,7 @@ Both FrOSCon and frab owe a lot to pentabarf. But sadly, pentabarf seems to
 be abandoned. And several problems make it hard to maintain. Thus we decided
 to create a new system.
 
-## Current status
+## Current Status
 
 frab is under heavy development. There is no stable release yet.
 You may want to try to use frab regardless, but be warned, that it may
@@ -117,13 +117,24 @@ from there.
 
 ## Ticket Server
 
-This fork supports OTRS and RT ticket servers. Instead of sending
+Frab supports OTRS and RT ticket servers. Instead of sending
 event acceptance/rejection mails directly to submitters, frab adds
 a ticket to a request tracker.
 
 The ticket server type can be configured for every conference.
 
 The iPHoneHandle support needs to be installed in OTRS.
+
+## Export / Import conferences
+
+Creates a folder under tmp/frab\_export containing serialized data and
+all attachments:
+
+    RAILS_ENV=production CONFERENCE=sigint13 rake frab:conference_export
+
+Import a conference into another frab:    
+
+    RAILS_ENV=production rake frab:conference_import
 
 ## Vagrant Server
 
