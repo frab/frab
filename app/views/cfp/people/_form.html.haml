@@ -8,7 +8,7 @@
     = dynamic_association :languages, t("cfp.languages_spoken"), f
   = f.inputs :name => t("cfp.contact_data") do
     = f.input :email, :hint => t("cfp.email_hint")
-    = f.input :email_public, :hint => t("cfp.email_public_hint")
+    = f.input :email_public, :as => :boolean, :hint => t("cfp.email_public_hint")
     = dynamic_association :phone_numbers, t("cfp.phone_numbers"), f
     = dynamic_association :im_accounts, t("cfp.im_accounts"), f
   = f.inputs :name => t("cfp.bio") do
