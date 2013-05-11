@@ -15,7 +15,7 @@
         - if @conference.is_ticket_server_enabled? 
           - if @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
             = action_button "primary", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
-    %h1 Event: #{@event.title}
+    %h1 #{@event.title}
   %ul.tabs
     %li.active= link_to "Event Details", @event 
     %li= link_to "People", people_event_path(@event)
