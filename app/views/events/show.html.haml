@@ -15,7 +15,8 @@
         - if @conference.is_ticket_server_enabled? 
           - if @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
             = action_button "primary", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
-    %h1 #{@event.title}
+    %h1 Event
+    %h2 #{@event.title}
   %ul.tabs
     %li.active= link_to "Event Details", @event 
     %li= link_to "People", people_event_path(@event)
@@ -57,6 +58,8 @@
         %b Average audience feedback:
         = number_with_precision @event.average_feedback, :precision => 1
     .span6
+      %h2 People
+      %p= @event.speakers.map{ |p| link_to p.try(:full_public_name), p}.join(", ").html_safe
       %h2 Scheduling
       %p
         %b Time slots:
@@ -97,11 +100,15 @@
           %ul
             - @event.event_attachments.each do |attachment|
               %li= link_to attachment.title, attachment.attachment.url
-    .span10
+  .row
+    .span16
+      %h2 Notes
+  .row
+    .span8
       %p
         %b Notes(admin):
         = simple_format @event.note
-    .span10
+    .span8
       %p
         %b Submission Notes(user and admin):
         = simple_format @event.submission_note
