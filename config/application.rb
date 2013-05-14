@@ -52,6 +52,7 @@ module Frab
     # smaller whitelist of allowed tags
     config.after_initialize do
       ActionView::Base.sanitized_allowed_tags.delete 'img'
+      ActionView::Base.sanitized_allowed_protocols.delete 'urn'
     end
   end
 end
