@@ -35,7 +35,11 @@ class ApplicationController < ActionController::Base
     elsif Conference.count > 0
       @conference = Conference.current
     end
-    session[:conference_acronym] = @conference.acronym
+
+    unless @conference.nil?
+      session[:conference_acronym] = @conference.acronym
+    end
+
     Time.zone = @conference.timezone if @conference
   end
 
