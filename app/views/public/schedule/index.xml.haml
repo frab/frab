@@ -4,8 +4,9 @@
     %version= @conference.schedule_version
   %conference
     %title= @conference.title
-    %start= @conference.first_day.start_date.strftime('%Y-%m-%d')
-    %end= @conference.last_day.end_date.strftime('%Y-%m-%d') 
+    - if @conference.days.length > 0
+      %start= @conference.first_day.start_date.strftime('%Y-%m-%d')
+      %end= @conference.last_day.end_date.strftime('%Y-%m-%d') 
     %days= @conference.days.length
     %timeslot_duration= duration_to_time(@conference.timeslot_duration)
   - @conference.days.each_with_index do |day, index|

@@ -1,5 +1,7 @@
 class Cfp::SessionsController < SessionsController
 
+  layout 'signup'
+
   before_filter :check_cfp_open
 
   protected
