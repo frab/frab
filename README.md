@@ -80,7 +80,12 @@ with MySQL and SQLite3 (for development).
 
     rake assets:precompile
 
-10) Start the server
+10) Generate secret token and add the generated token into `config/initializers/secret_token.rb`
+
+    rake secret
+    cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+
+11) Start the server
 
 To start frab in the development environment simply run
 

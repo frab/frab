@@ -1,6 +1,7 @@
 .bundle
 config/database.yml
 config/settings.yml
+config/initializers/secret_token.rb
 db/*.sqlite3
 log/*.log
 tmp/*
