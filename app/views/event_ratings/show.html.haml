@@ -93,7 +93,7 @@
         %p
           %b Total:  
           %span#total_rating{:"data-rating" => @event.average_rating}
-        - if @event_ratings.count > 1
+        - if @event_ratings.count >= 1
           %table.zebra-striped
             %thead
               %tr

@@ -17,30 +17,32 @@ class ImportExportHelper
 
     FileUtils.mkdir_p(@export_dir)
 
-    dump "conference", @conference
-    dump "conference_tracks", @conference.tracks
-    dump "conference_cfp", @conference.call_for_papers
-    dump "conference_ticket_server", @conference.ticket_server
-    dump "conference_rooms", @conference.rooms
-    dump "conference_days", @conference.days
-    dump "conference_languages", @conference.languages
-    events = dump "events", @conference.events
-    dump_has_many "tickets", @conference.events, 'ticket'
-    dump_has_many "event_people", @conference.events, 'event_people'
-    dump_has_many "event_feedbacks", @conference.events, 'event_feedbacks'
-    people = dump_has_many "people", @conference.events, 'people'
-    dump_has_many "event_links", @conference.events, 'links'
-    attachments = dump_has_many "event_attachments", @conference.events, 'event_attachments'
-    dump_has_many "event_ratings", @conference.events, 'event_ratings'
-    dump_has_many "conflicts", @conference.events, 'conflicts'
-    #dump_has_many "conflicts_as_conflicting", @conference.events, 'conflicts_as_conflicting'
-    dump_has_many "people_phone_numbers", people, 'phone_numbers'
-    dump_has_many "people_im_accounts", people, 'im_accounts'
-    dump_has_many "people_links", people, 'links'
-    dump_has_many "people_languages", people, 'languages'
-    dump_has_many "people_availabilities", people, 'availabilities'
-    dump_has_many "users", people, 'user'
-    export_paperclip_files(events, people, attachments)
+    ActiveRecord::Base.transaction do
+      dump "conference", @conference
+      dump "conference_tracks", @conference.tracks
+      dump "conference_cfp", @conference.call_for_papers
+      dump "conference_ticket_server", @conference.ticket_server
+      dump "conference_rooms", @conference.rooms
+      dump "conference_days", @conference.days
+      dump "conference_languages", @conference.languages
+      events = dump "events", @conference.events
+      dump_has_many "tickets", @conference.events, 'ticket'
+      dump_has_many "event_people", @conference.events, 'event_people'
+      dump_has_many "event_feedbacks", @conference.events, 'event_feedbacks'
+      people = dump_has_many "people", @conference.events, 'people'
+      dump_has_many "event_links", @conference.events, 'links'
+      attachments = dump_has_many "event_attachments", @conference.events, 'event_attachments'
+      dump_has_many "event_ratings", @conference.events, 'event_ratings'
+      dump_has_many "conflicts", @conference.events, 'conflicts'
+      #dump_has_many "conflicts_as_conflicting", @conference.events, 'conflicts_as_conflicting'
+      dump_has_many "people_phone_numbers", people, 'phone_numbers'
+      dump_has_many "people_im_accounts", people, 'im_accounts'
+      dump_has_many "people_links", people, 'links'
+      dump_has_many "people_languages", people, 'languages'
+      dump_has_many "people_availabilities", people, 'availabilities'
+      dump_has_many "users", people, 'user'
+      export_paperclip_files(events, people, attachments)
+    end
   end
 
   def run_import(export_dir=EXPORT_DIR)
@@ -51,11 +53,20 @@ class ImportExportHelper
     @mappings = {
       conference: {}, tracks: {}, cfp: {}, rooms: {}, days: {},
       people: {}, users: {},
-      events: {}
+      events: {},
+      people_user: {}
     }
 
-    unpack_paperclip_files
+    ActiveRecord::Base.transaction do
+      unpack_paperclip_files
+      restore_all_data
+    end
 
+  end
+
+  private
+   
+  def restore_all_data
     restore("conference", Conference) do |id, c|
       test = Conference.find_by_acronym(c.acronym)
       if test
@@ -70,6 +81,22 @@ class ImportExportHelper
 
     restore_conference_data
 
+    restore_multiple("people", Person) do |id, obj|
+      person = Person.find_by_email(obj.email)
+      if person
+        # don't create a new person
+        @mappings[:people][id] = person.id
+        @mappings[:people_user][person.user_id] = person
+      else
+        if (file = import_file("avatars", id, obj.avatar_file_name))
+          obj.avatar = file
+        end
+        obj.save!
+        @mappings[:people][id] = obj.id
+        @mappings[:people_user][obj.user_id] = obj
+      end
+    end
+
     restore_users do |id, yaml, obj|
       user = User.find_by_email(obj.email)
       if user
@@ -77,32 +104,18 @@ class ImportExportHelper
         @mappings[:users][id] = user.id
       else
         %w{ confirmation_sent_at confirmation_token confirmed_at created_at
-            current_sign_in_at current_sign_in_ip last_sign_in_at
-            last_sign_in_ip password_digest pentabarf_password
-            pentabarf_salt remember_created_at remember_token
-            reset_password_token role sign_in_count updated_at
+              current_sign_in_at current_sign_in_ip last_sign_in_at
+              last_sign_in_ip password_digest pentabarf_password
+              pentabarf_salt remember_created_at remember_token
+              reset_password_token role sign_in_count updated_at
         }.each { |var|
           obj.send("#{var}=",yaml[var])
         }
         obj.call_for_papers_id = @mappings[:cfp][obj.call_for_papers_id]
         obj.confirmed_at ||= Time.now
+        obj.person = @mappings[:people_user][id]
         obj.save!
         @mappings[:users][id] = obj.id
-      end
-    end
-
-    restore_multiple("people", Person) do |id, obj|
-      person = Person.find_by_email(obj.email)
-      if person
-        # don't create a new person
-        @mappings[:people][id] = person.id
-      else
-        obj.user_id = @mappings[:users][obj.user_id]
-        if (file = import_file("avatars", id, obj.avatar_file_name))
-            obj.avatar = file
-        end
-        obj.save!
-        @mappings[:people][id] = obj.id
       end
     end
 
@@ -111,7 +124,7 @@ class ImportExportHelper
       obj.track_id = @mappings[:tracks][obj.track_id]
       obj.room_id = @mappings[:rooms][obj.room_id]
       if (file = import_file("logos", id, obj.logo_file_name))
-          obj.logo = file
+        obj.logo = file
       end
       obj.save!
       @mappings[:events][id] = obj.id
@@ -122,13 +135,12 @@ class ImportExportHelper
 
     # uses mappings: people, days
     restore_people_data
-  
+
     update_counters
     # TODO update_conflicts
+
   end
 
-  private
-   
   def restore_conference_data
     restore_multiple("conference_tracks", Track) do |id, obj|
       obj.conference_id =  @conference_id
@@ -265,6 +277,7 @@ class ImportExportHelper
   end
 
   def dump(name,obj)
+    return if obj.nil?
     File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f| 
       if obj.respond_to?("collect")
         f.puts obj.collect {|record| record.attributes}.to_yaml

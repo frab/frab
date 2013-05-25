@@ -1,5 +1,7 @@
 class Conference < ActiveRecord::Base
 
+  TICKET_TYPES = ["otrs", "rt", "integrated"]
+
   has_one :call_for_papers, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
   has_many :events, dependent: :destroy
@@ -114,6 +116,20 @@ class Conference < ActiveRecord::Base
     return false if self.days.nil? or self.days.empty?
     return false if Time.now < self.days.last.end_date
     return true
+  end
+
+  def is_ticket_server_enabled?
+    return false if self.ticket_type.nil?
+    return false if self.ticket_type == 'integrated'
+    return true
+  end
+
+  def get_ticket_module
+    if self.ticket_type == 'otrs'
+      return OtrsTickets
+    else
+      return RTTickets
+    end
   end
 
   def to_s

@@ -48,5 +48,11 @@ module Frab
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # smaller whitelist of allowed tags
+    config.after_initialize do
+      ActionView::Base.sanitized_allowed_tags.delete 'img'
+      ActionView::Base.sanitized_allowed_protocols.delete 'urn'
+    end
   end
 end

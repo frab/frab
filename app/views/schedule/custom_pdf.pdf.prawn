@@ -6,9 +6,9 @@ prawn_document(
 ) do |pdf|
 
   pdf.font_families.update("BitStream Vera" => {
-    :normal => Rails.root.join("vendor", "fonts", "vera.ttf"),
-    :bold => Rails.root.join("vendor", "fonts", "verabd.ttf"),
-    :italic => Rails.root.join("vendor", "fonts", "verait.ttf")
+    :normal => Rails.root.join("vendor", "fonts", "vera.ttf").to_s,
+    :bold => Rails.root.join("vendor", "fonts", "verabd.ttf").to_s,
+    :italic => Rails.root.join("vendor", "fonts", "verait.ttf").to_s
   })
   pdf.font "BitStream Vera"
 

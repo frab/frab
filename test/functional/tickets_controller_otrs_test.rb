@@ -10,7 +10,7 @@ class TicketsControllerTest < ActionController::TestCase
     FactoryGirl.create(:event_person, event: @event, person: @person, 
                        event_role: "speaker")
 
-    Rails.configuration.ticket_server_type= 'otrs_ticket'
+    @conference.ticket_type = 'otrs'
     @url = 'https://localhost/otrs/'
     @conference.ticket_server = TicketServer.new(conference: @conference, 
                                                  url: @url, 

@@ -5,8 +5,9 @@ class StaticProgramExport
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
     @session.host = Settings.host
     @session.https! if Settings['protocol'] == "https"
+    unlock_schedule unless @conference.schedule_public
     @asset_paths = [] 
-    @base_directory = Rails.root.join("public", "schedule")
+    @base_directory = Rails.root.join("public", "schedule", @conference.acronym)
     @base_url = @conference.program_export_base_url
     @base_url = URI.parse(@base_url).path
     unless @base_url.end_with?('/')
@@ -40,7 +41,6 @@ class StaticProgramExport
 
     # write files
     paths.each { |p| save_response("#{path_prefix}/#{p[:source]}", p[:target]) }
-    #save_response("#{path_prefix}/#{paths[1][:source]}", paths[1][:target])
 
     # copy all assets we detected earlier (jquery, ...)
     @asset_paths.uniq.each do |asset_path|
@@ -56,9 +56,11 @@ class StaticProgramExport
 
     # create index.html
     schedule_file = File.join(@base_directory, 'schedule.html')
-    if File.exist?  schedule_file 
+    if File.exist? schedule_file 
       FileUtils.cp(schedule_file, File.join(@base_directory, 'index.html'))
     end
+
+    lock_schedule unless @original_schedule_public
   end
 
   private
@@ -143,6 +145,17 @@ class StaticProgramExport
   def setup_directories
     FileUtils.rm_r(@base_directory, secure: true) if File.exist? @base_directory
     FileUtils.mkdir_p(@base_directory)
+  end
+
+  def unlock_schedule
+    @original_schedule_public = @conference.schedule_public
+    @conference.schedule_public = true
+    @conference.save!
+  end
+
+  def lock_schedule
+    @conference.schedule_public = @original_schedule_public
+    @conference.save!
   end
 
 end

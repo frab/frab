@@ -3,8 +3,10 @@ module OtrsTickets
   #  Rails Views
   #
   module Helper
-    def get_ticket_view_url( remote_id='0' )
-      uri = URI.parse(@conference.ticket_server.url)
+    def Helper.get_ticket_view_url( conference, remote_id='0' )
+      return if conference.ticket_server.nil?
+      return unless remote_id.is_a? Fixnum
+      uri = URI.parse(conference.ticket_server.url)
       uri.path += 'index.pl'
       uri.query = "Action=AgentTicketZoom;TicketID=#{remote_id}"
       uri.to_s
@@ -64,7 +66,13 @@ module OtrsTickets
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
-      result = ActiveSupport::JSON::decode(response.body)
+
+      unless response.is_a?(Net::HTTPSuccess)
+        @logger.info response
+        raise "OTRS Connection Error: #{response.code} #{response.message}"
+      end
+
+      result = ActiveSupport::JSON::decode(response.body.gsub(/"/, '"'))
       if result["Result"] == 'successful'
           result["Data"]
       else
@@ -75,11 +83,11 @@ module OtrsTickets
 
   end
 
-  def create_ticket_title( prefix, event )
+  def OtrsTickets.create_ticket_title( prefix, event )
     "#{prefix} '#{event.title.truncate(30)}'"
   end
 
-  def create_ticket_requestors( people )
+  def OtrsTickets.create_ticket_requestors( people )
     people.collect { |p|
       name = "#{p.first_name} #{p.last_name}"
       name.gsub!(/,/, '')
@@ -90,18 +98,20 @@ module OtrsTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def create_remote_ticket( args = {} )
+  def OtrsTickets.create_remote_ticket( args = {} )
     args.reverse_update(body: '', test_only: false)
     @conference = args[:conference]
 
     otrs = OtrsAdapter.new( @conference, Rails.logger )
     otrs.test_only = args[:test_only]
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { User: @conference.ticket_server.user })
-    user_data = Hash[*data]
+    # FIXME iphonehandle no longer whitelists UserObject in Kernel/Config/Files/iPhone.xml
+    # data = otrs.connect( 'UserObject', 'GetUserData', { User: @conference.ticket_server.user })
+    # user_data = Hash[*data]
+    data = otrs.connect( 'CustomObject', 'VersionGet', { UserID: 1 })
 
-    data = otrs.connect( 'UserObject', 'GetUserData', { UserEmail: args[:owner_email] })
-    owner_data = Hash[*data]
+    # data = otrs.connect( 'UserObject', 'GetUserData', { UserEmail: args[:owner_email] })
+    # owner_data = Hash[*data]
 
     from = args[:owner_email]
     unless args[:requestors].empty?
@@ -115,8 +125,8 @@ module OtrsTickets
         Priority: '3 normal',
         State: 'new',
         CustomerUser: from,
-        OwnerID: owner_data['UserID'],
-        UserID: user_data['UserID']
+        UserID: 1,
+        OwnerID: 1,
     }).first
 
     remote_article_id = otrs.connect( 'TicketObject', 'ArticleCreate', {
@@ -129,12 +139,11 @@ module OtrsTickets
       Subject: args[:title],
       ContentType: 'text/plain; charset=ISO-8859-1',
       Body: args[:body],
-      UserID: user_data['UserID'],
+      UserID: 1,
       Loop: 0,
     }).first
 
     remote_ticket_id
   end
-
 
 end

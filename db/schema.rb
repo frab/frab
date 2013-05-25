@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323201244) do
+ActiveRecord::Schema.define(:version => 20130525102656) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130323201244) do
     t.string   "schedule_version"
     t.boolean  "schedule_public",         :default => false, :null => false
     t.string   "color"
+    t.string   "ticket_type"
   end
 
   create_table "conflicts", :force => true do |t|
@@ -162,6 +163,26 @@ ActiveRecord::Schema.define(:version => 20130323201244) do
     t.datetime "updated_at"
   end
 
+  create_table "notification_translations", :force => true do |t|
+    t.integer  "notification_id"
+    t.string   "locale"
+    t.string   "accept_subject"
+    t.string   "reject_subject"
+    t.text     "accept_body"
+    t.text     "reject_body"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "notification_translations", ["locale"], :name => "index_notification_translations_on_locale"
+  add_index "notification_translations", ["notification_id"], :name => "index_notification_translations_on_notification_id"
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "call_for_papers_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "people", :force => true do |t|
     t.string   "first_name",          :default => ""
     t.string   "last_name",           :default => ""
@@ -199,6 +220,16 @@ ActiveRecord::Schema.define(:version => 20130323201244) do
     t.datetime "updated_at"
     t.integer  "rank"
   end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "ticket_servers", :force => true do |t|
     t.integer  "conference_id", :null => false

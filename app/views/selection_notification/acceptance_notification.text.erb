@@ -1,9 +1,2 @@
-<%= t("emails.event_acceptance.greeting", :locale => @locale, :name => @person.first_name) %>
-
-<%= t("emails.event_acceptance.accepted_event", :locale => @locale, :title => @event.title) %>
-
-<%= t("emails.event_acceptance.confirmation", :locale => @locale, :link => cfp_event_confirm_by_token_url(:conference_acronym => @conference.acronym, :id => @event.id, :token => @token, :locale => @locale)) %>
-
-<%= t("emails.event_acceptance.check_data", :locale => @locale) %>
-
-<%= t("emails.event_acceptance.goodbye", :locale => @locale, :title => @conference.title) %>
+<%- I18n.locale = @locale %>
+<%= @notification.accept_body.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{forename}', @person.first_name).gsub('%{surname}', @person.last_name).gsub('%{public_name}', @person.public_name).gsub('%{link}', cfp_event_confirm_by_token_url( conference_acronym: @conference.acronym, id: @event.id, token: @token, locale: @locale )) %>

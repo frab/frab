@@ -4,8 +4,10 @@
     <% end %>
     "conference": {
       "title": "<%= @conference.title %>",
+      <% if @conference.days.length > 0 %>
       "start": "<%= @conference.first_day.start_date.strftime('%Y-%m-%d') %>",
       "end": "<%= @conference.last_day.end_date.strftime('%Y-%m-%d') %>",
+      <% end %>
       "days": "<%= @conference.days.length %>",
       "timeslot_duration": "<%= duration_to_time(@conference.timeslot_duration) %>",
       "days": [

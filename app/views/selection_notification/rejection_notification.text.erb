@@ -1,5 +1,2 @@
-<%= t("emails.event_rejection.greeting", :locale => @locale, :name => @person.first_name) %>
-
-<%= t("emails.event_rejection.rejection", :locale => @locale, :title => @event.title) %>
-
-<%= t("emails.event_rejection.goodbye", :locale => @locale, :title => @conference.title) %>
+<%- I18n.locale = @locale %>
+<%= @notification.reject_body.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{surname}', @person.last_name).gsub('%{forename}', @person.first_name).gsub('%{public_name}', @person.public_name) %>

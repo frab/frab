@@ -7,18 +7,19 @@
 #   Mayor.create(name: 'Daley', city: cities.first)
 PaperTrail.enabled = false
 
-admin = User.new(
-  email: "admin@example.org", 
-  password: "test123", 
-  password_confirmation: "test123"
-)
-admin.role = "admin"
-admin.confirmed_at = Time.now
-admin.save!
-Person.create!(
-  user: admin,
-  email: admin.email,
-  first_name: "admin", 
+person = Person.create!(
+  email: "admin@example.org",
+  first_name: "admin",
   last_name: "admin",
   public_name: "admin_127"
 )
+
+admin = User.new(
+  email: person.email,
+  password: "test123",
+  password_confirmation: "test123"
+)
+admin.person = person
+admin.role = "admin"
+admin.confirmed_at = Time.now
+admin.save!

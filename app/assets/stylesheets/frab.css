@@ -136,3 +136,28 @@ p.availability span {
     margin-right: 140px;
     display: block;
 }
+
+.dl-horizontal {
+    clear: both;
+}
+.dl-horizontal, .dl-horizontal {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+
+.dl-horizontal dt {
+    clear: left;
+    float: left;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 160px;
+}
+
+
+.dl-horizontal dd {
+    margin-left: 180px;
+}

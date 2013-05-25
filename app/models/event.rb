@@ -98,9 +98,10 @@ class Event < ActiveRecord::Base
 
   def feedback_standard_deviation
     arr = self.event_feedbacks.map(&:rating)
-    return if arr.empty?
+    return if arr.count < 1
+
     n = arr.count
-    m = arr.inject(0){|sum,item| sum + item}.to_f/n
+    m = arr.reduce(:+).to_f/n
     "%02.02f" % Math.sqrt(arr.inject(0){|sum,item| sum + (item - m)**2  }/(n-1))
   end
 

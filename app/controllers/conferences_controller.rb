@@ -89,7 +89,9 @@ class ConferencesController < ApplicationController
 
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
-      next unless name.index("_attributes") > 0
+      attribs = name.index("_attributes") 
+      next if attribs.nil?
+      next unless attribs > 0
       test = name.gsub("_attributes", '')
       return "edit_#{test}"
     }

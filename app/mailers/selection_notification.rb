@@ -8,10 +8,12 @@ class SelectionNotification < ActionMailer::Base
     @conference = @event.conference
     @locale = @person.locale_for_mailing(@conference)
     @token = event_person.confirmation_token
+    @notification = @conference.call_for_papers.notification
+
     mail(
       reply_to: @conference.email,
       to: event_person.person.email,
-      subject: t("emails.event_acceptance.subject", locale: @locale, title: @conference.title)
+      subject: @notification.accept_subject.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{forename}', @person.first_name).gsub('%{surname}', @person.last_name).gsub('%{public_name}', @person.public_name), locale: @locale, title: @conference.title
     )
   end
 
@@ -20,10 +22,12 @@ class SelectionNotification < ActionMailer::Base
     @event = event_person.event
     @conference = @event.conference
     @locale = @person.locale_for_mailing(@conference)
+    @notification = @conference.call_for_papers.notification
+
     mail(
       reply_to: @conference.email,
       to: @person.email,
-      subject: t("emails.event_rejection.subject", locale: @locale, title: @conference.title)
+      subject: @notification.accept_subject.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{forename}', @person.first_name).gsub('%{surname}', @person.last_name).gsub('%{public_name}', @person.public_name), locale: @locale, title: @conference.title
     )
   end
 

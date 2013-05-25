@@ -3,8 +3,9 @@ module RTTickets
   # Rails Views
   #
   module Helper
-    def get_ticket_view_url( remote_id='0' )
-      uri = URI.parse(@conference.ticket_server.url)
+    def Helper.get_ticket_view_url( conference, remote_id='0' )
+      return if conference.ticket_server.nil?
+      uri = URI.parse(conference.ticket_server.url)
       uri.path += 'Ticket/Display.html'
       uri.query = "id=#{remote_id}"
       uri.to_s
@@ -85,11 +86,11 @@ module RTTickets
     end
   end
 
-  def create_ticket_title( prefix, event )
+  def RTTickets.create_ticket_title( prefix, event )
     "#{prefix} '#{event.title.truncate(30)}'"
   end
 
-  def create_ticket_requestors( people )
+  def RTTickets.create_ticket_requestors( people )
     people.collect { |p|
       name = "#{p.first_name} #{p.last_name}"
       name.gsub!(/,/, '')
@@ -100,7 +101,7 @@ module RTTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def create_remote_ticket( args = {} )
+  def RTTickets.create_remote_ticket( args = {} )
     args.reverse_update(body: '', test_only: false)
     @conference = args[:conference]
 

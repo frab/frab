@@ -17,8 +17,8 @@
     = f.input :start_time, :as => :select, :collection => start_times
     = f.input :room, :collection => @conference.rooms
   = f.inputs :name => "Detailed description" do
-    = f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event."
-    = f.input :description,:input_html => {:rows => 4}, :hint => "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website."
+    = f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event. (HTML)"
+    = f.input :description,:input_html => {:rows => 4}, :hint => "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website. (HTML)"
   = f.inputs :name => "Notes" do
     = f.input :note, :input_html => {:rows => 2}, :hint => "visibility: admin only."
     = f.input :submission_note, :input_html => {:rows => 2}, :hint => "visibiliy: admin and user; additional information."

@@ -1,12 +1,15 @@
 class SessionsController < ApplicationController
 
-  layout 'signup'
+  layout 'team_signup'
 
   before_filter :authenticate_user!, only: :destroy
   before_filter :check_pentabarf_credentials, only: :create
 
   def new
     @user = User.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create

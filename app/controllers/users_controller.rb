@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = @person.user
-    authorize! :manage, @user
+    can_manage_user!
 
     redirect_to new_person_user_path(@person) unless @user
   end
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new.xml
   def new
     @user = User.new
-    authorize! :manage, @user
+    can_manage_user!
 
     respond_to do |format|
       format.html # new.html.erb
@@ -27,14 +27,15 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = @person.user 
-    authorize! :manage, @user
+    can_manage_user!
   end
 
   # POST /users
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-    authorize! :manage, @user
+    can_manage_user!
+
     @user.role = params[:user][:role]
     @user.person = @person
     @user.call_for_papers = @conference.call_for_papers
@@ -55,7 +56,7 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = @person.user 
-    authorize! :manage, @user
+    can_manage_user!
 
     [:password, :password_confirmation].each do |password_key|
       params[:user].delete(password_key) if params[:user][password_key].blank?
@@ -82,6 +83,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def can_manage_user!
+    if @user.nil?
+      authorize! :manage, @user
+    else
+      authorize! :manage, User
+    end
+  end
 
   def find_person
     @person = Person.find(params[:person_id])

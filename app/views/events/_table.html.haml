@@ -4,8 +4,10 @@
       %th.first
       - if @search
         %th= sort_link @search, :title, 'Title', :term => params[:term]
-        %th= sort_link @search, :track_name, "Track", :term => params[:term]
-        %th= sort_link @search, :event_type, :term => params[:term]
+        - if @conference.is_ticket_server_enabled? 
+          %th= sort_link @search, :ticket_id, 'Ticket', :term => params[:term]
+        %th= sort_link @search, :track_name, 'Track', :term => params[:term]
+        %th= sort_link @search, :event_type, 'Type', :term => params[:term]
         %th= sort_link @search, :state, 'State', :term => params[:term]
         %th= sort_link @search, :created_at, :term => params[:term]
       - else
@@ -24,6 +26,13 @@
           %p.small
             by
             = event.speakers.map{ |p| link_to p.try(:full_public_name), p}.join(", ").html_safe
+        - if @conference.is_ticket_server_enabled? 
+          %td
+            - unless event.ticket.nil? or event.ticket.remote_ticket_id.nil?
+              -if @conference.ticket_server.nil?
+                = event.ticket.remote_ticket_id
+              -else
+                = link_to event.ticket.remote_ticket_id, get_ticket_view_url( event.ticket.remote_ticket_id ), :target => "_blank"
         %td= event.track.try(:name)
         %td= event.event_type
         %td= event.state

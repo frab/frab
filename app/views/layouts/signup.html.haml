@@ -2,11 +2,8 @@
 %html
   %head
     %title
-      - if request.path =~ /\/cfp/
-        = @conference.title
-        \- Call for Papers
-      - else
-        frab
+      = @conference.title
+      \- Call for Papers
     = stylesheet_link_tag "application"
     = csrf_meta_tags
   %body

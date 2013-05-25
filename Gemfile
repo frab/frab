@@ -32,6 +32,7 @@ gem 'settingslogic'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'twitter-bootstrap-rails', :git => "git://github.com/frab/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
 gem 'will_paginate'
+gem 'globalize3'
 
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
@@ -52,6 +53,7 @@ group :development do
   gem 'hpricot'
   gem 'shotgun'
   gem 'yaml_db'
+  gem 'pry-rails'
 end
 
 group :assets do
