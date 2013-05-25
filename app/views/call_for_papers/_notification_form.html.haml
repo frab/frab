@@ -1,0 +1,10 @@
+= semantic_form_for @notification, url: call_for_papers_path do |notification_form|
+  - @call_for_papers.conference.languages.each do |lang|
+    %h2= t("languages.#{lang.code}")
+    = notification_form.input "accept_subject_#{lang.code}", label: 'Accept subject', locale: lang.code
+    = notification_form.input "accept_body_#{lang.code}",    label: 'Accept body',    locale: lang.code, as: :text
+    = notification_form.input "reject_subject_#{lang.code}", label: 'Reject subject', locale: lang.code
+    = notification_form.input "reject_body_#{lang.code}",    label: 'Reject body',    locale: lang.code, as: :text
+
+  = notification_form.buttons do
+    = notification_form.commit_button :button_html => {:class => "btn primary"}

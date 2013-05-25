@@ -72,6 +72,7 @@ GEM
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.1.2)
+    coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -90,6 +91,10 @@ GEM
       railties (>= 3.0.0)
     formtastic (2.1.1)
       actionpack (~> 3.0)
+    globalize3 (0.3.0)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      paper_trail (~> 2)
     gravatar-ultimate (1.0.3)
     haml (4.0.1)
       tilt
@@ -110,6 +115,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.1)
     mime-types (1.21)
     minitest (4.7.0)
     multi_json (1.7.2)
@@ -138,6 +144,12 @@ GEM
     prawn_rails (0.0.11)
       prawn (>= 0.11.1)
       railties (>= 3.0.0)
+    pry (0.9.12)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-rails (0.2.2)
+      pry (>= 0.9.10)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -193,6 +205,7 @@ GEM
     settingslogic (2.0.9)
     shotgun (0.9)
       rack (>= 1.0)
+    slop (3.4.4)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -231,6 +244,7 @@ DEPENDENCIES
   factory_girl_rails (~> 1.2.0)
   formtastic (~> 2.1.0)
   formtastic-bootstrap!
+  globalize3
   gravatar-ultimate
   haml
   hpricot
@@ -245,6 +259,7 @@ DEPENDENCIES
   pg
   prawn
   prawn_rails
+  pry-rails
   rails (~> 3.2.13)
   ransack
   ri_cal

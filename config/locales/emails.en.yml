@@ -1,12 +1,12 @@
 en:
   emails:
     event_acceptance:
-      subject: "Your submission to %{title}"
-      greeting: "Dear %{name},"
+      subject: "Your submission to %{conference}"
+      greeting: "Dear %{forename},"
       accepted_event: |
         We are very happy to tell you that we accepted your submission
         
-        %{title}
+        %{event}
       confirmation: |
         Please quickly reconfirm that you will be present and deliver
         your talk, using the following link:
@@ -22,10 +22,10 @@ en:
       goodbye: |
         Kind regards
 
-        The %{title} team
+        The %{conference} team
     event_rejection:
-      subject: "Your submission to %{title}"
-      greeting: "Dear %{name},"
+      subject: "Your submission to %{conference}"
+      greeting: "Dear %{forename},"
       rejection: |
         we would like to thank you very much for your submission. We were
         surprised and overwhelmed by the sheer amount of the high quality
@@ -34,11 +34,11 @@ en:
         After an extensive selection process we unfortunately had to reject your
         submission
 
-        %{title}
+        %{event}
         
         We can assure you that this was not an easy decision to make.
         We hope we can still  welcome you at the conference.
       goodbye: |
         Kind regards
 
-        The %{title} team
+        The %{conference} team
