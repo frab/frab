@@ -61,6 +61,8 @@ class ReportsController < ApplicationController
       r = conference_people.speaking_at(@conference)
     when 'people_with_a_note'
       r = conference_people.involved_in(@conference).where(Person.arel_table[:note].not_eq(""))
+    when 'people_with_more_then_one'
+      r = conference_people.involved_in(@conference).where("event_people.event_role" => ["submitter"]).group('event_people.person_id').having('count(*) > 1')
     end
 
     unless r.nil? or r.empty?
