@@ -72,6 +72,11 @@ class Conference < ActiveRecord::Base
     ]
   end
 
+  def event_duration_sum(events)
+     durations = events.accepted.map { |e| e.time_slots * self.timeslot_duration }
+     duration_to_time durations.sum
+  end
+
   def language_breakdown(accepted_only = false)
     result = Array.new
     if accepted_only
@@ -159,6 +164,12 @@ class Conference < ActiveRecord::Base
         self.errors.add(:days, "day #{day} overlaps with day before") 
       end
     }
+  end
+
+  def duration_to_time(duration_in_minutes)
+    minutes = sprintf("%02d", duration_in_minutes % 60)
+    hours = sprintf("%02d", duration_in_minutes / 60)
+    "#{hours}:#{minutes}h"
   end
 
 end
