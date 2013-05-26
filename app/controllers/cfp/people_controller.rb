@@ -10,7 +10,7 @@ class Cfp::PeopleController < ApplicationController
 
     redirect_to :action => "new" unless @person
     if @person.public_name == current_user.email
-      flash[:alert] = "Please change your public name"
+      flash[:alert] = "Your email address is not a valid public name, please change it."
       redirect_to :action => "edit"
     end
   end
