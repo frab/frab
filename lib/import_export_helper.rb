@@ -345,6 +345,7 @@ class ImportExportHelper
   def disable_callbacks
     EventPerson.skip_callback(:save, :after, :update_speaker_count)
     Event.skip_callback(:save, :after, :update_conflicts)
+    Availability.skip_callback(:save, :after, :update_event_conflicts)
     EventRating.skip_callback(:save, :after, :update_average)
     EventFeedback.skip_callback(:save, :after, :update_average)
   end
