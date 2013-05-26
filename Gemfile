@@ -34,9 +34,6 @@ gem 'twitter-bootstrap-rails', :git => "git://github.com/frab/twitter-bootstrap-
 gem 'will_paginate'
 gem 'globalize3'
 
-gem 'execjs'
-gem 'therubyracer', :platforms => :ruby
-
 group :development, :test do
   gem 'bullet'
   gem 'ruby-debug', :platforms => :mri_18
