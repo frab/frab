@@ -4,10 +4,12 @@ class EventTest < ActiveSupport::TestCase
 
   setup do
     ActionMailer::Base.deliveries = []
-    @event = FactoryGirl.create(:event, state: "unconfirmed")
+    @notification = FactoryGirl.create(:notification)
+    @event = FactoryGirl.create(:event, conference: @notification.call_for_papers.conference)
     @speaker = FactoryGirl.create(:person)
     FactoryGirl.create(:event_person, event: @event, person: @speaker, event_role: "speaker")
     @coordinator = FactoryGirl.create(:person)
+
   end
 
   test "acceptance processing sends email if asked to" do
