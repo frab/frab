@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |ex|
     Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}" 
     begin
-      redirect_to :back, :notice => t(:"ability.denied")
+      if current_user.role == "submitter"
+        redirect_to cfp_root_path, :notice => t(:"ability.denied")
+      else
+        redirect_to :back, :notice => t(:"ability.denied")
+      end
     rescue ActionController::RedirectBackError
       redirect_to root_path
     end
