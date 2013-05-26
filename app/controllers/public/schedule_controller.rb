@@ -20,7 +20,12 @@ class Public::ScheduleController < ApplicationController
 
   def day
     @day_index = params[:day].to_i ||= 0
+    if @conference.days.count <= @day_index
+      redirect_to public_schedule_index_path, :alert => "Failed to find day for id #{@day_index}"
+      return
+    end
     @day = @conference.days[@day_index]
+
     @all_rooms = @conference.rooms.public.all
     @rooms = Array.new
     @events = Hash.new

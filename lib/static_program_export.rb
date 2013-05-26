@@ -7,7 +7,7 @@ class StaticProgramExport
     @session.https! if Settings['protocol'] == "https"
     unlock_schedule unless @conference.schedule_public
     @asset_paths = [] 
-    @base_directory = Rails.root.join("public", "schedule", @conference.acronym)
+    @base_directory = Rails.root.join("public", "export", @conference.acronym)
     @base_url = @conference.program_export_base_url
     @base_url = URI.parse(@base_url).path
     unless @base_url.end_with?('/')
@@ -29,8 +29,8 @@ class StaticProgramExport
       { source: "schedule.xml", target: "schedule.xml" },
     ]
     @conference.days.each do |day|
-      paths << { source: "schedule/#{day}", target: "schedule/#{day}.html" }
-      paths << { source: "schedule/#{day}.pdf", target: "schedule/#{day}.pdf" }
+      paths << { source: "schedule/#{day.id}", target: "schedule/#{day.id}.html" }
+      paths << { source: "schedule/#{day.id}.pdf", target: "schedule/#{day.id}.pdf" }
     end
     @conference.events.confirmed.public.each do |event|
       paths << { source: "events/#{event.id}", target: "events/#{event.id}.html" }
@@ -148,6 +148,7 @@ class StaticProgramExport
   end
 
   def unlock_schedule
+    Conference.paper_trail_off
     @original_schedule_public = @conference.schedule_public
     @conference.schedule_public = true
     @conference.save!
@@ -156,6 +157,7 @@ class StaticProgramExport
   def lock_schedule
     @conference.schedule_public = @original_schedule_public
     @conference.save!
+    Conference.paper_trail_on
   end
 
 end
