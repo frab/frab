@@ -58,7 +58,7 @@
         = @event.language
       %p
         %b Public:
-        = check_box_tag :public, @event.public, @event.public != 0, :disabled => true
+        = check_box_tag :public, @event.public, @event.public, :disabled => true
       %p
         %b Average audience feedback:
         = number_with_precision @event.average_feedback, :precision => 1
