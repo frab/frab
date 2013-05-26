@@ -84,5 +84,6 @@ de:
     person_updated_notice: "Profil erfolgreich bearbeitet."
     save_availability: "Verfügbarkeit speichern"
     event_confirmed: "Event bestätigt"
+    no_confirmation_token: "Kein Bestätigungsschlüssel gefunden. Vermutlich haben Sie den Schlüssel bereits erfolgreich zuvor verwendet. Bitte loggen Sie sich ein und prüfen Sie den Status Ihrer Einreichung."
     thanks_for_confirmation: "Vielen Dank, dass Sie Ihre Teilnahme bestätigt haben."
     confirm: "bestätigen"

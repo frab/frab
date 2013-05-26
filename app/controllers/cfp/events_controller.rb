@@ -88,6 +88,12 @@ class Cfp::EventsController < ApplicationController
   def confirm
     if params[:token]
       event_person = EventPerson.find_by_confirmation_token(params[:token])
+
+      # Catch undefined method `person' for nil:NilClass exception if no confirmation token is found.
+      if event_person.nil?
+        return redirect_to cfp_root_path, flash:{ error: t('cfp.no_confirmation_token') }
+      end
+
       event_people = event_person.person.event_people.find_all_by_event_id(params[:id])
       login_as(event_person.person.user) if event_person.person.user
     else
