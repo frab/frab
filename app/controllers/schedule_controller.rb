@@ -48,4 +48,10 @@ class ScheduleController < ApplicationController
     end
   end
 
+  def static_export
+    ENV['CONFERENCE'] = @conference.acronym
+    `rake frab:static_program_export`
+    redirect_to schedule_path, notice: "Exported static program to /export/#{@conference.acronym}"
+  end
+
 end

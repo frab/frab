@@ -65,6 +65,7 @@ Frab::Application.routes.draw do
       match "/schedule/update_track" => "schedule#update_track", as: "schedule_update_track"
       match "/schedule/update_event" => "schedule#update_event", as: "schedule_update_event"
       match "/schedule/new_pdf" => "schedule#new_pdf", as: "new_schedule_pdf"
+      match "/schedule/static_export" => "schedule#static_export"
 
       match "/statistics/events_by_state" => "statistics#events_by_state", as: "events_by_state_statistics"
       match "/statistics/language_breakdown" => "statistics#language_breakdown", as: "language_breakdown_statistics"
