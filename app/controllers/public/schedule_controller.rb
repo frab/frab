@@ -38,6 +38,10 @@ class Public::ScheduleController < ApplicationController
         @rooms << room
       end
     end
+    if @rooms.empty?
+      redirect_to public_schedule_index_path, :notice => "No events are scheduled."
+      return
+    end
 
     respond_to do |format|
       format.html

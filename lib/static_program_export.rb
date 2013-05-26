@@ -28,10 +28,14 @@ class StaticProgramExport
       { source: "schedule.json", target: "schedule.json" },
       { source: "schedule.xml", target: "schedule.xml" },
     ]
+
+    day_index = 0
     @conference.days.each do |day|
-      paths << { source: "schedule/#{day.id}", target: "schedule/#{day.id}.html" }
-      paths << { source: "schedule/#{day.id}.pdf", target: "schedule/#{day.id}.pdf" }
+      paths << { source: "schedule/#{day_index}", target: "schedule/#{day_index}.html" }
+      paths << { source: "schedule/#{day_index}.pdf", target: "schedule/#{day_index}.pdf" }
+      day_index +=  1
     end
+
     @conference.events.confirmed.public.each do |event|
       paths << { source: "events/#{event.id}", target: "events/#{event.id}.html" }
     end
