@@ -1,9 +1,0 @@
-<IfModule passenger_module>
-  PassengerRoot <%= gempath %>/passenger-<%= version %>
-  PassengerRuby <%= rvm_prefix %>rvm/wrappers/<%= ruby_version %>/ruby
-  PassengerMaxPoolSize <%= maxpoolsize %>
-  PassengerPoolIdleTime <%= poolidletime %>
-  PassengerMinInstances <%= mininstances %>
-  PassengerMaxInstancesPerApp <%= maxinstancesperapp %>
-  PassengerSpawnMethod <%= spawnmethod %>
-</IfModule>

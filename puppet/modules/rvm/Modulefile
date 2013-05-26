@@ -1,6 +1,0 @@
-name 'puppet-rvm'
-version '1.0.0'
-summary 'A puppet module for installing and using RVM (Ruby Version Manager)'
-author 'Brandon Turner <bt@brandonturner.net>'
-project_page 'https://github.com/blt04/puppet-rvm'
-license 'Modified BSD License'
