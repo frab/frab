@@ -3,7 +3,7 @@ module OtrsTickets
   #  Rails Views
   #
   module Helper
-    def Helper.get_ticket_view_url( conference, remote_id='0' )
+    def Helper.get_ticket_view_url( conference, remote_id=0 )
       return if conference.ticket_server.nil?
       return unless remote_id.is_a? Fixnum
       uri = URI.parse(conference.ticket_server.url)
