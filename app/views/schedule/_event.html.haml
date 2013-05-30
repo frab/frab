@@ -6,8 +6,7 @@
         :"data-time" => event.start_time ? event.start_time.to_s(:rfc822) : nil }
   = link_to event.title, event
   %p.small
-    by
-    = event.speakers.map{ |p| link_to p.full_public_name, p}.join(", ").html_safe
+    = by_speakers(event)
     (
     = event.track.try(:name)
     \/
