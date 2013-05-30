@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
 
   def create
     @event = Event.find(params[:event_id])

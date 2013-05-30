@@ -1,6 +1,7 @@
 class StatisticsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
 
   def events_by_state
     authorize! :read, @conference

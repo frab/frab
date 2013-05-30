@@ -1,6 +1,7 @@
 class EventRatingsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
   before_filter :find_event
 
   def show

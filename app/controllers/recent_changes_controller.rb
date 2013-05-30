@@ -1,6 +1,7 @@
 class RecentChangesController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
   load_and_authorize_resource :conference, parent: false
 
   def index

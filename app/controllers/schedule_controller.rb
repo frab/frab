@@ -1,6 +1,7 @@
 class ScheduleController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
 
   def index
     authorize! :read, Event

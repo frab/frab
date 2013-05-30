@@ -4,6 +4,7 @@ class ConferencesController < ApplicationController
   skip_before_filter :load_conference, only: [:new, :index]
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
   load_and_authorize_resource
 
   # GET /conferences

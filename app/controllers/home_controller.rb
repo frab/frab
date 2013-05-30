@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
 
   def index
     if Conference.count == 0

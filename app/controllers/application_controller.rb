@@ -73,6 +73,11 @@ class ApplicationController < ActionController::Base
     redirect_to scoped_sign_in_path unless current_user
   end
 
+  def not_submitter!
+    return unless current_user 
+    redirect_to cfp_root_path, alert: "This action is not allowed" if current_user.is_submitter
+  end
+
   def login_as(user)
     session[:user_id] = user.id
     @current_user = user

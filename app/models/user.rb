@@ -20,6 +20,11 @@ class User < ActiveRecord::Base
     self.sign_in_count ||= 0
   end
 
+  def is_submitter
+    return true if self.role == "submitter"
+    false
+  end
+
   scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
   validates_presence_of :person
   validates_presence_of :email

@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :not_submitter!
   after_filter :restrict_events
   
   # GET /events
