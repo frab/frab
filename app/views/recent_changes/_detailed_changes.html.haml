@@ -5,13 +5,13 @@
       - if change.is_a? Array
         changed from
         %em
-          "#{change[0]}"
+          = sanitize(change[0].to_s, tags: [])
         to
         = succeed "." do
           %em
-            "#{change[1]}"
+            = sanitize(change[1].to_s, tags: [])
       - else
         set to
         %em
-          "#{change}"
+          = sanitize(change.to_s, tags: [])
   - end if version.object_changes
