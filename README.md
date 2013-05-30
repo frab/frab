@@ -108,11 +108,11 @@ Navigate to http://localhost:3000/ and login as
 If you are running frab in a production environment you have to
 take additional steps to build a secure and stable site.
 
-0) Change the password of the inital admin account
-1) Change the initial secret token
-2) Add a content disposition header, so attachments get downloaded and 
+0. Change the password of the inital admin account
+1. Change the initial secret token
+2. Add a content disposition header, so attachments get downloaded and 
 are not displayed in the browser. See `./public/system/attachments/.htaccess` for an example.
-3) Add a gem like `exception_notification` to get emails in case of errors.
+3. Add a gem like `exception_notification` to get emails in case of errors.
 
 ## Migrating from pentabarf
 
