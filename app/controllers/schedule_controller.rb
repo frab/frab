@@ -48,10 +48,16 @@ class ScheduleController < ApplicationController
     end
   end
 
+  require 'static_program_export'
   def static_export
+    authorize! :manage, @conference
+
     ENV['CONFERENCE'] = @conference.acronym
     `rake frab:static_program_export`
-    redirect_to schedule_path, notice: "Exported static program to /export/#{@conference.acronym}"
+
+    out_path = StaticProgramExport.create_tarball(@conference)
+
+    send_file out_path, type: "application/x-tar-gz"
   end
 
 end
