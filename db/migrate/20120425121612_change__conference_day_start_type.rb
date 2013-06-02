@@ -5,6 +5,7 @@ class ChangeConferenceDayStartType < ActiveRecord::Migration
     # try conversion
     Conference.all.each do |conference|
       conference.day_start = Time.at(conference.day_start).hour
+      conference.day_end = Time.at(conference.day_end).hour
     end
   end
 
