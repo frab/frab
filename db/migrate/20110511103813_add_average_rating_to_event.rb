@@ -1,7 +1,7 @@
 class AddAverageRatingToEvent < ActiveRecord::Migration
   def self.up
     add_column :events, :average_rating, :float
-    Event.disable_auditing
+    # Undefined method? Event.disable_auditing
     Event.joins(:event_ratings).readonly(false).all.each {|e| e.recalculate_average_rating!}
   end
 
