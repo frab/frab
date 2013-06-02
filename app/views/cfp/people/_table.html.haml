@@ -1,7 +1,8 @@
 %table.zebra-striped
   %thead
     %tr
-      %th.first= t("activerecord.attributes.event.title") 
+      %th.first
+      %th= t("activerecord.attributes.event.title")
       %th= t("activerecord.attributes.event.state")
       - if @conference.feedback_enabled
         %th
@@ -10,6 +11,7 @@
   %tbody
     - collection.each do |event|
       %tr
+        %td= image_box event.logo, :small
         %td= event.title
         %td= event.state
         - if @conference.feedback_enabled
