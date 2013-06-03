@@ -21,6 +21,10 @@
     - unless @event.track.blank?
       %b #{t '.track'}:
       = @event.track.try(:name)
+    %br/
+    - if @conference.languages.count > 1
+      %b #{t '.language'}:
+      = @event.language
   - if @event.links.any?
     %h3 #{t '.links'}:
     %ul

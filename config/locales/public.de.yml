@@ -40,6 +40,7 @@ de:
         info: "Info"
         day: "Tag"
         start_time: "Anfang"
+        language: "Sprache"
         duration: "Dauer"
         track: "Track"
         links: "Links"

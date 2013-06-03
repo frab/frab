@@ -30,7 +30,10 @@
                       .event-header
                         %h2= link_to event.title, public_event_path(:id => event.id)
                       .event-details
-                        .subtitle= event.subtitle
+                        .subtitle
+                          = event.subtitle
+                          - if @conference.languages.count > 1
+                            = "(#{event.language})"
                         .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
               - else
                 %td &nbsp;
