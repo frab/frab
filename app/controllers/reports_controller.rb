@@ -23,6 +23,8 @@ class ReportsController < ApplicationController
       r = conference_events.with_speaker.where(event_type: :lecture)
     when 'lectures_not_confirmed'
       r = conference_events.with_speaker.where(event_type: :lecture, state: [:new,:review] )
+      when 'events_not_public'
+      r = conference_events.where(public: false)
     when 'events_that_are_workshops'
       r = conference_events.where(Event.arel_table[:event_type].eq(:workshop))
     when 'event_timeslot_deviation'
