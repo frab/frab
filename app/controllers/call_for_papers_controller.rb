@@ -50,8 +50,8 @@ class CallForPapersController < ApplicationController
     @call_for_papers = @conference.call_for_papers
     @notification    = @conference.call_for_papers.notification
 
-    if @call_for_papers.update_attributes(params[:call_for_papers]) |
-        @notification.update_attributes(params[:notification])
+    if @call_for_papers.update_attributes(params[:call_for_papers])
+      @notification.update_attributes(params[:notification]) unless @notification.nil?
       redirect_to call_for_papers_path, notice: "Changes saved successfully!"
     else
       render action: "edit"
