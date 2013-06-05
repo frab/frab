@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   layout 'team_signup'
 
   before_filter :authenticate_user!, only: :destroy
-  before_filter :not_submitter!
+  before_filter :not_submitter!, except: :destroy
   before_filter :check_pentabarf_credentials, only: :create
 
   def new
