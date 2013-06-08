@@ -35,4 +35,16 @@ class ConferencesControllerTest < ActionController::TestCase
     assert_redirected_to edit_conference_path(conference_acronym: new_acronym)
   end
 
+  test "should get edit days" do
+    get :edit_days, conference_acronym: @conference.acronym
+    assert_response :success
+  end
+
+  test "should add conference_day" do
+    assert_difference('Day.count') do
+      @conference.days << FactoryGirl.create(:day)
+      put :update, conference: @conference.attributes, conference_acronym: @conference.acronym
+    end
+  end
+
 end
