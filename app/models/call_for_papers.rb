@@ -1,7 +1,9 @@
 class CallForPapers < ActiveRecord::Base
 
   belongs_to :conference
-  has_one :notification
+  has_many :notifications
+
+  accepts_nested_attributes_for :notifications
 
   validates_presence_of :start_date, :end_date
 

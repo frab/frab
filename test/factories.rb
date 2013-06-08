@@ -91,6 +91,7 @@ FactoryGirl.define do
     reject_subject "rejected subject"
     accept_body "accept body text"
     accept_subject "accepted subject"
+    locale "DE"
     call_for_papers
   end
 

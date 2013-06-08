@@ -16,13 +16,6 @@ class CallForPapersController < ApplicationController
     @call_for_papers = CallForPapers.new(params[:call_for_papers])
     @call_for_papers.conference = @conference
 
-    if @call_for_papers.notification.nil?
-      notification = Notification.new
-      notification.setting_default_text(@conference.languages)
-
-      @call_for_papers.notification = notification
-    end
-    
     if @call_for_papers.save
       redirect_to call_for_papers_path, notice: "Launched Call for Papers."
     else
@@ -31,27 +24,13 @@ class CallForPapersController < ApplicationController
   end
 
   def edit
-    @call_for_papers = @conference.call_for_papers 
-  end
-
-  def edit_notification
     @call_for_papers = @conference.call_for_papers
-
-    if @call_for_papers.notification.nil?
-      notification = Notification.new
-      notification.setting_default_text( @call_for_papers.conference.languages )
-
-      @call_for_papers.notification = notification
-    end
-      @notification = @conference.call_for_papers.notification
   end
 
   def update
     @call_for_papers = @conference.call_for_papers
-    @notification    = @conference.call_for_papers.notification
 
     if @call_for_papers.update_attributes(params[:call_for_papers])
-      @notification.update_attributes(params[:notification]) unless @notification.nil?
       redirect_to call_for_papers_path, notice: "Changes saved successfully!"
     else
       render action: "edit"
