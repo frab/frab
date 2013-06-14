@@ -133,13 +133,14 @@ class StaticProgramExport
     
     # <a>
     document.css("a").each do |link|
-      if link.attributes["href"].value.start_with?("/")
-        if link.attributes["href"].value =~ /\?\d+$/
+      href = link.attributes["href"] 
+      if href and href.value.start_with?("/")
+        if href.value =~ /\?\d+$/
           strip_asset_path(link, "href")
         else
-          path = @base_url + strip_path(link.attributes["href"].value)
+          path = @base_url + strip_path(href.value)
           path += ".html" unless path =~ /\.\w+$/
-          link.attributes["href"].value = path
+          href.value = path
         end
       end
     end
