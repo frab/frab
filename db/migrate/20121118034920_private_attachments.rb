@@ -8,6 +8,6 @@ class PrivateAttachments < ActiveRecord::Migration
   end
 
   def down
-    remove_columnt :event_attachments, :public
+    remove_column :event_attachments, :public
   end
 end
