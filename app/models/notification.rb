@@ -1,7 +1,7 @@
 class Notification < ActiveRecord::Base
   translates :reject_subject, :reject_body, :accept_body, :accept_subject
 
-  belongs_to :call_for_papers
+  belongs_to :call_for_participation
 
   validates :reject_subject, presence: true
   validates :reject_body,    presence: true
@@ -22,8 +22,8 @@ class Notification < ActiveRecord::Base
   #
   # Example:
   #
-  #   call_for_papers_notification.reject_subject_en = 'Your submission to %{title}'
-  #   call_for_papers_notification.event_state.reject_body_en
+  #   call_for_participation_notification.reject_subject_en = 'Your submission to %{title}'
+  #   call_for_participation_notification.event_state.reject_body_en
   translated_attribute_names.each do |attribute|
     I18n.available_locales.each do |locale|
       define_method "#{attribute}_#{locale}" do

@@ -8,7 +8,7 @@ class SelectionNotification < ActionMailer::Base
     @conference = @event.conference
     @locale = @person.locale_for_mailing(@conference)
     @token = event_person.confirmation_token
-    @notification = @conference.call_for_papers.notification
+    @notification = @conference.call_for_participation.notification
 
     mail(
       reply_to: @conference.email,
@@ -22,7 +22,7 @@ class SelectionNotification < ActionMailer::Base
     @event = event_person.event
     @conference = @event.conference
     @locale = @person.locale_for_mailing(@conference)
-    @notification = @conference.call_for_papers.notification
+    @notification = @conference.call_for_participation.notification
 
     mail(
       reply_to: @conference.email,

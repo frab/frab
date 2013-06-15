@@ -4,14 +4,14 @@ class User < ActiveRecord::Base
   ROLES = ["submitter", "reviewer", "coordinator", "orga", "admin"]
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
-  belongs_to :call_for_papers
+  belongs_to :call_for_participation
   has_one :person
  
   has_secure_password
   
   attr_accessor :remember_me
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_participation_id
 
   after_initialize :check_default_values
 
@@ -65,9 +65,9 @@ class User < ActiveRecord::Base
     UserMailer.confirmation_instructions(self).deliver
   end
 
-  def send_password_reset_instructions(call_for_papers = nil)
-    if call_for_papers
-      self.call_for_papers = call_for_papers
+  def send_password_reset_instructions(call_for_participation = nil)
+    if call_for_participation
+      self.call_for_participation = call_for_participation
     end
     generate_password_reset_token!
     UserMailer.password_reset_instructions(self).deliver

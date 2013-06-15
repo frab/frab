@@ -77,7 +77,7 @@ Frab::Application.routes.draw do
         get :edit_ticket_server
       end
 
-      resource :call_for_papers do
+      resource :call_for_participation do
         get :edit_notification
       end
 

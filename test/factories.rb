@@ -79,7 +79,7 @@ FactoryGirl.define do
     factory :three_day_conference, traits: [:three_days]
   end
 
-  factory :call_for_papers do
+  factory :call_for_participation do
     start_date { Date.today.ago(1.days) }
     end_date { Date.today.since(6.days) }
     conference
@@ -91,7 +91,7 @@ FactoryGirl.define do
     reject_subject "rejected subject"
     accept_body "accept body text"
     accept_subject "accepted subject"
-    call_for_papers
+    call_for_participation
   end
 
   factory :availability do

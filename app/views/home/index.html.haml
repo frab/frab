@@ -11,7 +11,7 @@
             to the <em>Conference Settings</em> tab above
             and add a room to this conference. This will
             be needed to schedule your program.
-      - if @conference.events.count == 0 and @conference.call_for_papers.nil?
+      - if @conference.events.count == 0 and @conference.call_for_participation.nil?
         .blank-slate
           %p
             This conference does not yet have any events.
@@ -23,7 +23,7 @@
           %p
             Start adding events by clicking on the 
             <em>Events</em> tab above. Or start a call for 
-            papers, to allow others to submit events for
+            participation, to allow others to submit events for
             you to review.
   .row
     .span16
@@ -36,7 +36,7 @@
             Once you, or others start creating data for this
             conference, you will find who changed what here.
             This is especially interesting if you conduct a
-            call for papers. In this case, this area allows
+            call for participation. In this case, this area allows
             you to quickly see if new submissions came in.
       - else
         = render "recent_changes/table"
@@ -48,7 +48,7 @@
         .blank-slate
           %p
             Once you created some events for this conference,
-            or gathered submissions through a call for papers,
+            or gathered submissions through a call for participation,
             you will find some statistics about them here.
       - else
         %h4 Events by state

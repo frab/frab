@@ -3,7 +3,7 @@ class Conference < ActiveRecord::Base
   TICKET_TYPES = ["otrs", "rt", "integrated"]
   EXPORT_PATH = 'export'
 
-  has_one :call_for_papers, dependent: :destroy
+  has_one :call_for_participation, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :days, dependent: :destroy

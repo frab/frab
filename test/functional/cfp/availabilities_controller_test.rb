@@ -3,8 +3,8 @@ require 'test_helper'
 class Cfp::AvailabilitiesControllerTest < ActionController::TestCase
 
   setup do
-    @call_for_papers = FactoryGirl.create(:call_for_papers)
-    @conference = @call_for_papers.conference
+    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @conference = @call_for_participation.conference
     login_as(:submitter)
   end
 

@@ -3,8 +3,8 @@ require 'test_helper'
 class Cfp::UsersControllerTest < ActionController::TestCase
 
   setup do
-    @call_for_papers = FactoryGirl.create(:call_for_papers)
-    @conference = @call_for_papers.conference
+    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @conference = @call_for_participation.conference
   end
 
   test "shows registration form" do
@@ -18,7 +18,7 @@ class Cfp::UsersControllerTest < ActionController::TestCase
     end
     assert_response :redirect
     assert_not_nil assigns(:user)
-    assert_equal @call_for_papers.id, assigns(:user).call_for_papers_id
+    assert_equal @call_for_participation.id, assigns(:user).call_for_participation_id
     assert_not_nil assigns(:user).confirmation_token
   end
 

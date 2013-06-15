@@ -25,10 +25,10 @@
               %li= link_to t("events", :default => "Events"), events_path
               %li= link_to t("reports", :default => "Reports"), reports_path
               %li
-                - if @conference.call_for_papers
-                  = link_to t(:call_for_papers, :default => "Call for Papers"), call_for_papers_path
+                - if @conference.call_for_participation
+                  = link_to t(:call_for_participation, :default => "Call for Papers"), call_for_participation_path
                 - elsif can? :manage, Conference
-                  = link_to t(:launch_call_for_papers, :default => "Launch Call for Papers"), new_call_for_papers_path
+                  = link_to t(:launch_call_for_participation, :default => "Launch Call for Papers"), new_call_for_participation_path
               %li= link_to t("schedule", :default => "Schedule"), schedule_path
               - if can? :manage, Conference
                 %li= link_to t("settings", :default => "Settings"), edit_conference_path(@conference)
