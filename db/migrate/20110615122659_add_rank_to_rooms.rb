@@ -2,7 +2,7 @@ class AddRankToRooms < ActiveRecord::Migration
   def self.up
     add_column :rooms, :rank, :integer
     Room.reset_column_information
-    Room.disable_auditing
+    # Undefined method? Room.disable_auditing
     Conference.all.each do |conference|
       i = 1
       conference.rooms.each do |room|
