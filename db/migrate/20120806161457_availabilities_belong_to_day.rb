@@ -41,8 +41,8 @@ class AvailabilitiesBelongToDay < ActiveRecord::Migration
     remove_column :availabilities, :start_date, :datetime
     remove_column :availabilities, :end_date, :datetime
     remove_column :availabilities, :day_id, :integer
-    add_column :availabilities, :start_time
-    add_column :availabilities, :end_time
-    add_column :availabilities, :day
+    add_column :availabilities, :start_time, :datetime
+    add_column :availabilities, :end_time, :datetime
+    add_column :availabilities, :day, :integer
   end
 end

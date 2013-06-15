@@ -21,5 +21,10 @@ class CreateConferenceDateConversions < ActiveRecord::Migration
   end
 
   def down
+    # TODO: fill in supposed values?
+    add_column :conferences, :day_start, :time, default: '2000-01-01 08:00:00', null: false
+    add_column :conferences, :day_end, :time, default: '2000-01-01 20:00:00', null: false
+    add_column :conferences, :first_day, :time, default: '2000-01-01 08:00:00', null: false
+    add_column :conferences, :last_day, :time, default: '2000-01-01 20:00:00', null: false
   end
 end
