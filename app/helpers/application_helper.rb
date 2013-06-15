@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def active_class?(*paths)
+    active = false
+    paths.each { |path| active ||= current_page?(path) }
+    active ? 'active' : nil
+  end
 
   def image_box(image, size)
     content_tag(:div, class: "image #{size}") do

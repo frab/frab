@@ -3,14 +3,7 @@
     .pull-right
       = action_button "primary", "Edit user account", edit_person_user_path(@person), :title => "Edit this user account."
     %h1 Person: #{@person.full_name}
-  %ul.tabs
-    %li= link_to "Profile", @person
-    %li.active= link_to "User account", person_user_path(@person)
-    - if @person.availabilities_in(@conference).count == 0
-      %li= link_to "Availability", new_person_availability_path(@person)
-    - else
-      %li= link_to "Availability", edit_person_availability_path(@person)
-    %li= link_to "Feedback", feedbacks_people_path(:id => @person.id)
+  = render 'shared/people_tabs'
   .row
     .span16
       %p
