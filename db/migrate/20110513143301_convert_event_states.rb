@@ -1,6 +1,6 @@
 class ConvertEventStates < ActiveRecord::Migration
   def self.up
-    Event.disable_auditing
+    # Undefined method? Event.disable_auditing
     Event.all.each do |event|
       event.state = event.progress unless event.state == "rejected"
       event.state = "confirmed" if event.state == "reconfirmed"
@@ -14,7 +14,7 @@ class ConvertEventStates < ActiveRecord::Migration
   def self.down
     add_column :events, :progress, :string, default: "new", null: false
     Event.reset_column_information
-    Event.disable_auditing
+    # Undefined method? Event.disable_auditing
     Event.all.each do |event|
       event.progress = event.state
       case event.progress
