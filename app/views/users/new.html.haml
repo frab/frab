@@ -1,11 +1,10 @@
-= block do
-  %ul.tabs
-    %li.first= link_to "Profile", @person
-    %li.active= link_to "User account", person_user_path(@person)
+%section
+  .page-header
+    %h1 Create account for #{@person.full_name}
+  = render 'shared/people_tabs'
   .row
     .span16
       = content do
-        %h2 Create account for #{@person.full_name}
         = inner do
           %p
             #{@person.full_name} does not currently have a user account and thus cannot login.

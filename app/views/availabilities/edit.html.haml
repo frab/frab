@@ -2,12 +2,7 @@
   .page-header
     .pull-right
     %h1 Person: #{@person.full_name}
-  %ul.tabs
-    %li= link_to "Profile", @person
-    - if can? :manage, @user
-      %li= link_to "User account", person_user_path(@person)
-    %li.active= link_to "Availability", person_availability_path(@person)
-    %li= link_to "Feedback", feedbacks_people_path(:id => @person.id)
+  = render 'shared/people_tabs'
   .row
     .span16
       = render 'form'
