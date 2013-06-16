@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525102656) do
+ActiveRecord::Schema.define(:version => 20130615133836) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
     t.integer  "day_id"
   end
 
-  create_table "call_for_papers", :force => true do |t|
+  create_table "call_for_participations", :force => true do |t|
     t.date     "start_date",    :null => false
     t.date     "end_date",      :null => false
     t.date     "hard_deadline"
@@ -33,6 +33,12 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
     t.datetime "updated_at"
     t.string   "info_url"
     t.string   "contact_email"
+  end
+
+  create_table "conference_roles", :force => true do |t|
+    t.integer "user_id"
+    t.integer "conference_id"
+    t.string  "role"
   end
 
   create_table "conferences", :force => true do |t|
@@ -178,9 +184,17 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
   add_index "notification_translations", ["notification_id"], :name => "index_notification_translations_on_notification_id"
 
   create_table "notifications", :force => true do |t|
-    t.integer  "call_for_papers_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.integer  "call_for_participation_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "ordered_products", :force => true do |t|
+    t.integer  "attendee_id"
+    t.integer  "product_type_id"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "people", :force => true do |t|
@@ -209,6 +223,21 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "product_types", :force => true do |t|
+    t.string   "type"
+    t.integer  "attendee_registration_id"
+    t.string   "name"
+    t.decimal  "price",                    :precision => 7, :scale => 2
+    t.decimal  "vat",                      :precision => 4, :scale => 2
+    t.integer  "includes_vat"
+    t.date     "available_until"
+    t.integer  "amount_available"
+    t.integer  "needs_invoice_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "currency"
   end
 
   create_table "rooms", :force => true do |t|
@@ -257,8 +286,8 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :null => false
-    t.string   "password_digest",      :limit => 128, :null => false
+    t.string   "email",                                    :null => false
+    t.string   "password_digest",           :limit => 128, :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
@@ -275,7 +304,9 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
     t.string   "role"
     t.string   "pentabarf_salt"
     t.string   "pentabarf_password"
-    t.integer  "call_for_papers_id"
+    t.integer  "call_for_participation_id"
+    t.boolean  "has_extra_roles"
+    t.boolean  "has_conference_roles"
   end
 
   create_table "versions", :force => true do |t|

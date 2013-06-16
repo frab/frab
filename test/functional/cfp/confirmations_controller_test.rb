@@ -3,8 +3,8 @@ require 'test_helper'
 class Cfp::ConfirmationsControllerTest < ActionController::TestCase
   
   setup do
-    @call_for_papers = FactoryGirl.create(:call_for_papers)
-    @conference = @call_for_papers.conference
+    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @conference = @call_for_participation.conference
   end
 
   test "displays resend confirmation instructions form" do
@@ -13,7 +13,7 @@ class Cfp::ConfirmationsControllerTest < ActionController::TestCase
   end
 
   test "resends confirmation instructions" do
-    user = FactoryGirl.create(:user, confirmed_at: nil, call_for_papers: @call_for_papers)
+    user = FactoryGirl.create(:user, confirmed_at: nil, call_for_participation: @call_for_participation)
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :create, conference_acronym: @conference.acronym, user: {email: user.email}
     end
@@ -21,7 +21,7 @@ class Cfp::ConfirmationsControllerTest < ActionController::TestCase
   end
 
   test "performs confirmation" do
-    user = FactoryGirl.create(:user, confirmed_at: nil, call_for_papers: @call_for_papers)
+    user = FactoryGirl.create(:user, confirmed_at: nil, call_for_participation: @call_for_participation)
     get :show, conference_acronym: @conference.acronym, confirmation_token: user.confirmation_token 
     assert_response :redirect
     assert_not_nil assigns(:current_user)

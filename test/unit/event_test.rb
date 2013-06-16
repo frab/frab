@@ -5,7 +5,7 @@ class EventTest < ActiveSupport::TestCase
   setup do
     ActionMailer::Base.deliveries = []
     @notification = FactoryGirl.create(:notification)
-    @event = FactoryGirl.create(:event, conference: @notification.call_for_papers.conference)
+    @event = FactoryGirl.create(:event, conference: @notification.call_for_participation.conference)
     @speaker = FactoryGirl.create(:person)
     FactoryGirl.create(:event_person, event: @event, person: @speaker, event_role: "speaker")
     @coordinator = FactoryGirl.create(:person)

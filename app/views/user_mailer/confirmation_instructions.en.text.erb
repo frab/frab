@@ -2,4 +2,4 @@ Welcome <%= @user.email %>!
 
 You can confirm your account through the link below:
 
-<%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @user.confirmation_token, :conference_acronym => @user.call_for_papers.conference.acronym) %>
+<%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @user.confirmation_token, :conference_acronym => @user.call_for_participation.conference.acronym) %>

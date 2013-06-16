@@ -170,8 +170,8 @@ class EventsController < ApplicationController
     if params[:send_mail]
 
       # If integrated mailing is used, take care that a notification text is present.
-      if @event.conference.call_for_papers.notification.nil?
-        return redirect_to edit_notification_call_for_papers_path, alert: 'No notification text present. Please change the default text for your needs, before accepting/ rejecting events.'
+      if @event.conference.call_for_participation.notification.nil?
+        return redirect_to edit_notification_call_for_participation_path, alert: 'No notification text present. Please change the default text for your needs, before accepting/ rejecting events.'
       end
 
       redirect_to(@event, alert: "Cannot send mails: Please specify an email address for this conference.") and return unless @conference.email

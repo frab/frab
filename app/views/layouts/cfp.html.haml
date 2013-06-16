@@ -12,7 +12,7 @@
       .topbar
         .fill
           .container
-            - if @conference.call_for_papers.nil?
+            - if @conference.call_for_participation.nil?
               = link_to @conference.title + " - Call for Papers", new_cfp_session_path, :class => "brand"
             - else
               = link_to @conference.title + " - Call for Papers", cfp_root_path, :class => "brand"

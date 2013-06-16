@@ -22,7 +22,7 @@ class Ability
       can :manage, :all
 
     when /orga/
-      can :manage, CallForPapers
+      can :manage, CallForParticipation
       can :manage, Conference
       can :manage, Event
       can :manage, EventFeedback
@@ -35,8 +35,8 @@ class Ability
     when /coordinator/
       # coordinates speakers and their events
       # everything from reviewer
-      can :manage, CallForPapers
-      cannot :destroy, CallForPapers
+      can :manage, CallForParticipation
+      cannot :destroy, CallForParticipation
       can :read, Conference
       can :manage, Event
       can :read, EventFeedback
@@ -51,7 +51,7 @@ class Ability
 
       # reviews events prior to conference schedule release
       # everything from submitter
-      can :read, CallForPapers
+      can :read, CallForParticipation
       can :read, Conference
       can :read, Event
       can :submit, Event

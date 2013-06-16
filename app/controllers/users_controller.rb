@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
     @user.role = params[:user][:role]
     @user.person = @person
-    @user.call_for_papers = @conference.call_for_papers
+    @user.call_for_participation = @conference.call_for_participation
     @user.skip_confirmation!
 
     respond_to do |format|

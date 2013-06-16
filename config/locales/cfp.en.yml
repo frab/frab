@@ -85,7 +85,7 @@ en:
     person_updated_notice: "Profile was successfully updated."
     save_availability: "Save availability"
     event_confirmed: "Event confirmed"
-    no_confirmation_token: "Your confirmation key is not valid. Please check your event status in the call for papers interface."
+    no_confirmation_token: "Your confirmation key is not valid. Please check your event status in the call for participation interface."
     thanks_for_confirmation: "Thank you for confirming your participation."
     confirm: "confirm"
 
