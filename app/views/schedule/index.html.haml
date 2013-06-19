@@ -4,7 +4,7 @@
       = action_button "", "View public schedule", public_schedule_index_path, :hint => "View the public live version of your schedule just like any attendee might see it."
       = action_button "", "Create custom PDF export", new_schedule_pdf_path, :hint => "Create a PDF version of your program schedule that can easily be printed."
       - if can? :manange, @conference
-        = action_button "", "Create static schedule export", schedule_static_export_path, :hint => "Create a static HTML export of your program schedule at #{@conference.export_url}."
+        = action_button "", "Create static schedule export", schedule_static_export_path, :hint => "Download a static HTML export of your program schedule."
     %h1 Schedule
   %ul.tabs
     - @conference.days.each_with_index do |day, index|

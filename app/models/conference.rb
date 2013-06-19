@@ -1,7 +1,6 @@
 class Conference < ActiveRecord::Base
 
   TICKET_TYPES = ["otrs", "rt", "integrated"]
-  EXPORT_PATH = 'export'
 
   has_one :call_for_papers, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
@@ -76,10 +75,6 @@ class Conference < ActiveRecord::Base
   def event_duration_sum(events)
      durations = events.accepted.map { |e| e.time_slots * self.timeslot_duration }
      duration_to_time durations.sum
-  end
-
-  def export_path
-    Rails.root.join("public", EXPORT_PATH, self.acronym)
   end
 
   def export_url

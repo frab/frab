@@ -1,5 +1,7 @@
 class StaticProgramExport
 
+  EXPORT_PATH = Rails.root.join("tmp", "static_export")
+
   def initialize(conference)
     @conference = conference
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
@@ -7,7 +9,7 @@ class StaticProgramExport
     @session.https! if Settings['protocol'] == "https"
     unlock_schedule unless @conference.schedule_public
     @asset_paths = [] 
-    @base_directory = @conference.export_path
+    @base_directory = EXPORT_PATH.join(@conference.acronym)
     @base_url = @conference.program_export_base_url
     @base_url = URI.parse(@base_url).path
     unless @base_url.end_with?('/')
@@ -16,12 +18,11 @@ class StaticProgramExport
   end
 
   def self.create_tarball(conference)
-    base_export_path = Rails.root.join("public", Conference::EXPORT_PATH)
-    out_file = base_export_path.join(conference.acronym + ".tar.gz")
+    out_file = EXPORT_PATH.join(conference.acronym + ".tar.gz")
     if File.exist? out_file
       File.unlink out_file
     end
-    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', base_export_path.to_s, conference.acronym].flatten )
+    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', EXPORT_PATH.to_s, conference.acronym].flatten )
     out_file
   end
 
