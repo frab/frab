@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">id</Data></Cell>
+        <Cell><Data ss:Type="String">title</Data></Cell>
+        <Cell><Data ss:Type="String">day</Data></Cell>
+        <Cell><Data ss:Type="String">start_time</Data></Cell>
+        <Cell><Data ss:Type="String">duration</Data></Cell>
+        <Cell><Data ss:Type="String">track</Data></Cell>
+        <Cell><Data ss:Type="String">speakers</Data></Cell>
+        <Cell><Data ss:Type="String">event_type</Data></Cell>
+        <Cell><Data ss:Type="String">abstract</Data></Cell>
+        <Cell><Data ss:Type="String">description</Data></Cell>
+        <Cell><Data ss:Type="String">room</Data></Cell>
+      </Row>
+    <%- @events.each do |event| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= event.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.title %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @conference.day_at(event.start_time) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.start_time %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.time_slots*event.conference.timeslot_duration %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.track.name unless event.track.nil? %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.speakers.map{ |s| s.public_name.to_s }.join('!$!') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.event_type %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.abstract %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.description %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= event.room.name %></Data></Cell>
+      </Row>
+    <%- end %>
+    </Table>
+  </Worksheet>
+</Workbook>

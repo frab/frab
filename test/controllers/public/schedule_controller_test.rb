@@ -40,7 +40,7 @@ class Public::ScheduleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'displays events list' do
+  test 'display first day' do
     get :day, day: 0, conference_acronym: @conference.acronym, format: 'pdf'
     assert_response :success
   end
@@ -50,8 +50,17 @@ class Public::ScheduleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'displays speakers list' do
+  test 'displays events list' do
     get :events, conference_acronym: @conference.acronym
+    assert_response :success
+    get :events, conference_acronym: @conference.acronym, format: :xls
+    assert_response :success
+  end
+
+  test 'displays speakers list' do
+    get :speakers, conference_acronym: @conference.acronym
+    assert_response :success
+    get :speakers, conference_acronym: @conference.acronym, format: :xls
     assert_response :success
   end
 

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">id</Data></Cell>
+        <Cell><Data ss:Type="String">first_name</Data></Cell>
+        <Cell><Data ss:Type="String">last_name</Data></Cell>
+        <Cell><Data ss:Type="String">public_name</Data></Cell>
+        <Cell><Data ss:Type="String">links</Data></Cell>
+        <Cell><Data ss:Type="String">event_count</Data></Cell>
+        <Cell><Data ss:Type="String">event_ids</Data></Cell>
+        <Cell><Data ss:Type="String">speaker_abstracts</Data></Cell>
+        <Cell><Data ss:Type="String">speaker_descriptions</Data></Cell>
+      </Row>
+    <%- @speakers.each do |speaker| %>
+      <%- speaker_events = speaker.public_and_accepted_events_as_speaker_in(@conference) %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= speaker.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= speaker.first_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= speaker.last_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= speaker.public_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= speaker.links.map{ |l| l.url.to_s }.join(' ') %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= speaker_events.count %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= speaker_events.map{ |e| e.id }.join(' ') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= speaker.abstract %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= speaker.description %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

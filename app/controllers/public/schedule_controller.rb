@@ -52,9 +52,14 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events.is_public.confirmed.scheduled.sort {|a, b|
+    @events = @conference.events.is_public.confirmed.scheduled.sort { |a, b|
       a.to_sortable <=> b.to_sortable
     }
+    respond_to do |format|
+      format.html
+      format.json
+      format.xls { render file: 'public/schedule/events.xls.erb', content_type: 'application/xls' }
+    end
   end
 
   def event
@@ -71,6 +76,7 @@ class Public::ScheduleController < ApplicationController
     respond_to do |format|
       format.html
       format.json
+      format.xls { render file: 'public/schedule/speakers.xls.erb', content_type: 'application/xls' }
     end
   end
 
