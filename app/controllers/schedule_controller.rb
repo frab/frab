@@ -54,11 +54,23 @@ class ScheduleController < ApplicationController
     authorize! :manage, @conference
 
     ENV['CONFERENCE'] = @conference.acronym
+    # TODO accept valid locale via parameter
+    ENV['CONFERENCE_LOCALE'] = check_conference_locale
     `rake frab:static_program_export`
 
     out_path = StaticProgramExport.create_tarball(@conference)
 
     send_file out_path, type: "application/x-tar-gz"
+  end
+
+  private
+
+  def check_conference_locale
+    if @conference.language_codes.includes?("en")
+      return "en"
+    else
+      return @conference.language_codes.first
+    end
   end
 
 end

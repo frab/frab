@@ -2,8 +2,9 @@ class StaticProgramExport
 
   EXPORT_PATH = Rails.root.join("tmp", "static_export")
 
-  def initialize(conference)
+  def initialize(conference, locale = nil)
     @conference = conference
+    @locale = locale
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
     @session.host = Settings.host
     @session.https! if Settings['protocol'] == "https"
@@ -29,6 +30,9 @@ class StaticProgramExport
   def run_export
     setup_directories
     path_prefix = "/#{@conference.acronym}/public"
+    unless @locale.nil?
+      path_prefix = "/#{@locale}" + path_prefix
+    end
     paths = [
       { source: "schedule", target: "schedule.html" },
       { source: "events", target: "events.html" },
