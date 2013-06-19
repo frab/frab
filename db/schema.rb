@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525102656) do
+ActiveRecord::Schema.define(:version => 20130615150810) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
     t.datetime "start_time"
     t.text     "abstract"
     t.text     "description"
-    t.boolean  "public",                :default => true
+    t.boolean  "public",                :default => false
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
@@ -188,7 +188,7 @@ ActiveRecord::Schema.define(:version => 20130525102656) do
     t.string   "last_name",           :default => ""
     t.string   "public_name",                            :null => false
     t.string   "email",                                  :null => false
-    t.boolean  "email_public"
+    t.boolean  "email_public",        :default => true
     t.string   "gender"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
