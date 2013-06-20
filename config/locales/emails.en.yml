@@ -27,7 +27,7 @@ en:
       subject: "Your submission to %{conference}"
       greeting: "Dear %{forename},"
       rejection: |
-        we would like to thank you very much for your submission. We were
+        We would like to thank you very much for your submission. We were
         surprised and overwhelmed by the sheer amount of the high quality
         submissions that we received.
 
