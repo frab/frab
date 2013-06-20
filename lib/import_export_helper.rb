@@ -290,7 +290,9 @@ class ImportExportHelper
 
   def restore(name, obj)
     puts "[ ] restore #{name}" if DEBUG
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    file = File.join(@export_dir, name) + '.yaml'
+    return unless File.readable? file
+    records = YAML.load_file(file)
     tmp = obj.new(records)
     yield records['id'], tmp
   end
