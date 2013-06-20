@@ -162,8 +162,9 @@ class Conference < ActiveRecord::Base
   # if a conference has multiple days, they sould not overlap
   def days_do_not_overlap
     return if self.days.count < 2
-    yesterday = self.days[0]
-    self.days[1..-1].each { |day|
+    days = self.days.sort { |a,b| a.start_date <=> b.start_date }
+    yesterday = days[0]
+    days[1..-1].each { |day|
       if day.start_date < yesterday.end_date
         self.errors.add(:days, "day #{day} overlaps with day before") 
       end
