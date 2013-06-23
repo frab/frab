@@ -12,6 +12,8 @@
         %th= sort_link @search, :created_at, :term => params[:term]
       - else
         %th Title
+        - if @conference.is_ticket_server_enabled? 
+          %th Ticket
         %th Track
         %th Event type
         %th State
