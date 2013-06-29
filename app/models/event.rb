@@ -166,18 +166,8 @@ class Event < ActiveRecord::Base
     self.conflicts.delete_all
     self.conflicts_as_conflicting.delete_all
     if self.accepted? and self.room and self.start_time and self.time_slots
-      conflicting_event_candidates = self.class.accepted.where(room_id: self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
-      conflicting_event_candidates.each do |conflicting_event|
-        if self.overlap?(conflicting_event)
-          Conflict.create(event: self, conflicting_event: conflicting_event, conflict_type: "events_overlap", severity: "fatal")
-          Conflict.create(event: conflicting_event, conflicting_event: self, conflict_type: "events_overlap", severity: "fatal")
-        end
-      end
-      self.event_people.presenter.group(:person_id,:id).each do |event_person|
-        unless event_person.available_between?(self.start_time, self.end_time)
-          Conflict.create(event: self, person: event_person.person, conflict_type: "person_unavailable", severity: "warning")
-        end
-      end
+      update_event_conflicts
+      update_people_conflicts
     end
   end
 
@@ -225,6 +215,29 @@ class Event < ActiveRecord::Base
       return nil
     else
       return result.to_f / rating_count
+    end
+  end
+
+  def update_event_conflicts
+      conflicting_event_candidates = self.class.accepted.where(room_id: self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
+      conflicting_event_candidates.each do |conflicting_event|
+        if self.overlap?(conflicting_event)
+          Conflict.create(event: self, conflicting_event: conflicting_event, conflict_type: "events_overlap", severity: "fatal")
+          Conflict.create(event: conflicting_event, conflicting_event: self, conflict_type: "events_overlap", severity: "fatal")
+        end
+      end
+  end
+
+  def update_people_conflicts
+    self.event_people.presenter.group(:person_id,:id).each do |event_person|
+      if event_person.person.availabilities.empty?
+        Conflict.create(event: self, person: event_person.person, conflict_type: "person_has_no_availability", severity: "warning")
+        return
+      end
+
+      unless event_person.available_between?(self.start_time, self.end_time)
+        Conflict.create(event: self, person: event_person.person, conflict_type: "person_unavailable", severity: "warning")
+      end
     end
   end
 

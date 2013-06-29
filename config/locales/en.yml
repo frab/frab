@@ -30,6 +30,11 @@ en:
   ability:
     denied: "This action is not allowed."
 
+  conflict:
+    events_overlap: "overlaps with"
+    has_no_availability: "has not entered any availability yet."
+    person_unavailable: "is not available at the scheduled time."
+
   options:
     lecture: "lecture"
     workshop: "workshop"
