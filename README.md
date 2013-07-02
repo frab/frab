@@ -114,7 +114,34 @@ take additional steps to build a secure and stable site.
 are not displayed in the browser. See `./public/system/attachments/.htaccess` for an example.
 3. Add a gem like `exception_notification` to get emails in case of errors.
 
-## Migrating from pentabarf
+## Ticket Server
+
+Frab supports OTRS and RT ticket servers. Instead of sending
+event acceptance/rejection mails directly to submitters, frab adds
+a ticket to a request tracker.
+
+The ticket server type can be configured for every conference.
+
+The iPHoneHandle support needs to be installed in OTRS.
+
+## Rake Tasks
+
+### Export / Import conferences
+
+Creates a folder under tmp/frab\_export containing serialized data and
+all attachments:
+
+    RAILS_ENV=production CONFERENCE=acronym rake frab:conference_export
+
+Import a conference into another frab:    
+
+    RAILS_ENV=production rake frab:conference_import
+
+### Sending Mails
+
+    RAILS_ENV=production rake frab:bulk_mailer subject="Conference Invite" from=conference@example.org emails=emails.lst body=body.txt.erb
+
+### Migrating from pentabarf
 
 frab comes with a script that offers limited capabilities of
 migrating data from pentabarf. For it to work, you need access
@@ -131,26 +158,6 @@ out, checkout the code at the revision the script was last
 changed at and upgrade the code and migrate the database
 from there.
 
-## Ticket Server
-
-Frab supports OTRS and RT ticket servers. Instead of sending
-event acceptance/rejection mails directly to submitters, frab adds
-a ticket to a request tracker.
-
-The ticket server type can be configured for every conference.
-
-The iPHoneHandle support needs to be installed in OTRS.
-
-## Export / Import conferences
-
-Creates a folder under tmp/frab\_export containing serialized data and
-all attachments:
-
-    RAILS_ENV=production CONFERENCE=sigint13 rake frab:conference_export
-
-Import a conference into another frab:    
-
-    RAILS_ENV=production rake frab:conference_import
 
 ## Vagrant Server
 
