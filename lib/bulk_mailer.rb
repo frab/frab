@@ -1,8 +1,9 @@
 class BulkMailer
 
-  def initialize(subject, from, mail_file, body_file)
+  def initialize(subject, from, mail_file, body_file, force=false)
     @subject = subject
     @from_email = from
+    @force = force
     @emails = File.readlines(mail_file).collect { |l| l.chomp }
     @body = File.read(body_file)
 
@@ -29,11 +30,15 @@ class BulkMailer
 
     if (p.nil?)
       email_address_with_name = email
-    elsif (p.include_in_mailings?)
-      email_address_with_name = "#{p.public_name} <#{email}>"
     else
-      puts "skipped due to settings: #{email}"
-      return
+      email_address_with_name = "#{p.public_name} <#{email}>"
+    end
+
+    unless @force
+      unless (p.include_in_mailings?)
+        puts "skipped due to settings: #{email}"
+        return
+      end
     end
 
     args = {:subject => @subject, :to => email_address_with_name, :from => @from_email} 

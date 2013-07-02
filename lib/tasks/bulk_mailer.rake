@@ -11,7 +11,7 @@ namespace :frab do
 
     if File.readable?(ENV['emails']) and File.readable?(ENV['body'])
       require "bulk_mailer.rb"
-      BulkMailer.new(ENV['subject'], ENV['from'], ENV['emails'], ENV['body'])
+      BulkMailer.new(ENV['subject'], ENV['from'], ENV['emails'], ENV['body'], ENV['force'])
     else
       puts "Failed to open files."
       exit
