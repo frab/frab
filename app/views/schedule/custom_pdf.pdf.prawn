@@ -62,12 +62,29 @@ prawn_document(
     table.draw
     offset = pdf.bounds.height - table.height
 
+    events = @events[rooms[0]]
+    events.each do |event|
+        y = (timeslots_between(event.start_time, @day.end_date) - 1) * timeslot_height
+        y += offset
+        coord = [ 0, y ]
+        pdf.bounding_box(coord,
+                         :width => margin_width - 1,
+                         :height => event.time_slots * timeslot_height - 1) do
+          pdf.rounded_rectangle(pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3)
+          pdf.fill_color = "ffffff"
+          pdf.fill_and_stroke
+          pdf.fill_color = "000000"
+          pdf.text_box event.start_time.strftime("%H:%M"), :size => 8, :at => [pdf.bounds.left + 2, pdf.bounds.top - 2]
+        end
+    end
+
     rooms.size.times do |i|
       events = @events[rooms[i]]
       events.each do |event|
-        pdf.bounding_box(event_coordinates(i, event, column_width, timeslot_height, offset), 
-                         :width => column_width, 
-                         :height => event.time_slots * timeslot_height) do
+        coord = event_coordinates(i, event, column_width, timeslot_height, offset)
+        pdf.bounding_box(coord, 
+                         :width => column_width-1, 
+                         :height => event.time_slots * timeslot_height-1) do
           pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3 
           pdf.fill_color = "ffffff"
           pdf.fill_and_stroke
