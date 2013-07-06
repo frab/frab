@@ -18,6 +18,9 @@
     %b #{t '.duration'}:
     = format_time_slots(@event.time_slots)
     %br/
+    %b #{t '.room'}:
+    = @event.room.try(:name)
+    %br/
     - unless @event.track.blank?
       %b #{t '.track'}:
       = @event.track.try(:name)
