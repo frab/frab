@@ -11,8 +11,9 @@
           = f.input :remember_me, :as => :boolean
         = f.buttons do
           = f.commit_button "Sign in", :button_html => {:class => "btn primary"}
-    .span8
-      %h2=t("cfp.forgot_password_headline")
-      %p=t("cfp.forgot_password_description")
-      = action_button "", t("cfp.forgot_password_button"), new_cfp_user_password_path
+    - if @conference
+      .span8
+        %h2=t("cfp.forgot_password_headline")
+        %p=t("cfp.forgot_password_description")
+        = action_button "", t("cfp.forgot_password_button"), new_cfp_user_password_path
 

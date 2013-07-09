@@ -70,6 +70,12 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to root_path, conference_acronym: @last_conference.acronym
   end
 
+  test "login page works if no conferences are known" do
+    Conference.all.each { |c| c.destroy }
+    get :new
+    assert_response :success
+  end
+
   private
 
   def user_param(user, password="frab123")

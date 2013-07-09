@@ -13,7 +13,7 @@
             - if @conference
               = link_to @conference.title + " - Conference Management", new_cfp_session_path, :class => "brand"
             - else
-              Conference Management
+              = link_to 'Conference Management', '#', :class => 'brand'
             %ul.nav.secondary-nav.pull-right
               - if current_user
                 %li= link_to t("web-app-theme.logout", :default => "Logout"), cfp_session_path, :method => :delete
