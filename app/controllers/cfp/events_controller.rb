@@ -11,7 +11,7 @@ class Cfp::EventsController < ApplicationController
     @events = current_user.person.events.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { redirect_to cfp_person_path }
       format.xml  { render xml: @events }
     end
   end
