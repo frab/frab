@@ -1,7 +1,7 @@
 class ConferencesController < ApplicationController
 
   # these methods don't need a conference
-  skip_before_filter :load_conference, only: [:new, :index]
+  skip_before_filter :load_conference, only: [:new, :index, :create]
 
   before_filter :authenticate_user!
   before_filter :not_submitter!
