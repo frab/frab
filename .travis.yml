@@ -1,0 +1,9 @@
+language: ruby
+before_install:
+  - gem update --system
+  - gem --version
+  - cp config/database.yml.template config/database.yml
+  - cp config/settings.yml.template config/settings.yml
+script:
+  - rake db:setup
+  - rake test
