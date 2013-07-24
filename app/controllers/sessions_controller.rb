@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
   before_filter :authenticate_user!, only: :destroy
   before_filter :not_submitter!, except: :destroy
+  before_filter :check_user_params, only: :create
   before_filter :check_pentabarf_credentials, only: :create
 
   def new
@@ -42,6 +43,18 @@ class SessionsController < ApplicationController
 
   def check_pentabarf_credentials
     User.check_pentabarf_credentials(params[:user][:email], params[:user][:password])
+  end
+
+  def check_user_params
+    if params.has_key?(:user)
+      user = params[:user]
+      return true if user.has_key?(:email) and user.has_key?(:password)
+    end
+
+    @user = User.new
+    flash[:alert] = t(:error_signing_in) 
+    # abort processing
+    render action: "new"
   end
 
 end

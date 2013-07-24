@@ -76,6 +76,12 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "does not return error code if parameters are missing" do
+    post :create, whatever: 'foooo'
+    assert_nil assigns(:current_user)
+    assert_response :success
+  end
+
   private
 
   def user_param(user, password="frab123")
