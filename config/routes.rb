@@ -1,5 +1,8 @@
 Frab::Application.routes.draw do
 
+  resources :videos
+
+
   scope "(:locale)" do
 
     resource :session

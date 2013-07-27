@@ -289,4 +289,14 @@ ActiveRecord::Schema.define(:version => 20130727152400) do
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
+  create_table "videos", :force => true do |t|
+    t.integer  "event_id"
+    t.string   "url"
+    t.string   "mimetype"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "videos", ["event_id"], :name => "index_videos_on_event_id"
+
 end

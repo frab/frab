@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
   has_many :event_ratings, dependent: :destroy
   has_many :conflicts, dependent: :destroy
   has_many :conflicts_as_conflicting, class_name: "Conflict", foreign_key: "conflicting_event_id", dependent: :destroy
+  has_many :videos, dependent: :destroy
 
   belongs_to :conference
   belongs_to :track
