@@ -17,6 +17,16 @@ class EventTest < ActiveSupport::TestCase
     assert !ActionMailer::Base.deliveries.empty?
   end
 
+  test "acceptance processing sends german email if asked to" do
+    @speaker.languages << Language.new(code: 'de')
+    @event.conference.languages << Language.new(code: 'de')
+    notification = FactoryGirl.create(:notification, locale: 'de')
+    @notification.call_for_papers.notifications << notification
+
+    @event.process_acceptance(send_mail: true)
+    assert !ActionMailer::Base.deliveries.empty?
+  end
+
   test "acceptance processing does not send email by default" do
     @event.process_acceptance(send_mail: false)
     assert ActionMailer::Base.deliveries.empty?

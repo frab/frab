@@ -27,6 +27,8 @@ en:
   rooms: "Rooms"
   ticket_server: "Ticket Server"
 
+  notifications: Notifications
+
   ability:
     denied: "This action is not allowed."
 
@@ -60,6 +62,7 @@ en:
       event_person: "person"
       language: "language"
       link: "link"
+      notification: "Notification"
       im_account: "IM account"
       phone_number: "phone number"
       event_attachment: "file"
