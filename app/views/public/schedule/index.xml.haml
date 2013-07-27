@@ -14,7 +14,7 @@
       - @conference.rooms.public.each do |room|
         %room{:name => room.name}
           - room.events.public.accepted.scheduled_on(day).order(:start_time).each do |event|
-            %event{:id=>event.id} 
+            %event{:id=>event.id, :guid=>event.guid} 
               %start= event.start_time.strftime('%H:%M')
               %duration= format_time_slots(event.time_slots)
               %room= room.name

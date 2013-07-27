@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726231929) do
+ActiveRecord::Schema.define(:version => 20130727152400) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20130726231929) do
     t.integer  "speaker_count",         :default => 0
     t.integer  "event_feedbacks_count", :default => 0
     t.float    "average_feedback"
+    t.string   "guid"
   end
 
   create_table "im_accounts", :force => true do |t|

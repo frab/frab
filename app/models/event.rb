@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
   include ActiveRecord::Transitions
 
+  before_create :generate_guid
+
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
 
   has_one :ticket, dependent: :destroy
@@ -201,6 +203,10 @@ class Event < ActiveRecord::Base
   end
 
   private
+
+  def generate_guid
+    self.guid = SecureRandom.urlsafe_base64(nil, false)
+  end
 
   def average(rating_type)
     result = 0
