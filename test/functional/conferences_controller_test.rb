@@ -47,4 +47,10 @@ class ConferencesControllerTest < ActionController::TestCase
     end
   end
 
+  test "should create conference with feedback disabled" do
+    assert_difference('Conference.count') do
+      post :create, conference: FactoryGirl.build(:conference, feedback_enabled: false).attributes
+    end
+  end
+
 end
