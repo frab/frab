@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615150810) do
+ActiveRecord::Schema.define(:version => 20130726231929) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -163,24 +163,15 @@ ActiveRecord::Schema.define(:version => 20130615150810) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "notification_translations", :force => true do |t|
-    t.integer  "notification_id"
+  create_table "notifications", :force => true do |t|
+    t.integer  "call_for_papers_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "locale"
     t.string   "accept_subject"
     t.string   "reject_subject"
     t.text     "accept_body"
     t.text     "reject_body"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "notification_translations", ["locale"], :name => "index_notification_translations_on_locale"
-  add_index "notification_translations", ["notification_id"], :name => "index_notification_translations_on_notification_id"
-
-  create_table "notifications", :force => true do |t|
-    t.integer  "call_for_papers_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
   end
 
   create_table "people", :force => true do |t|

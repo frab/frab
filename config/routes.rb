@@ -78,8 +78,9 @@ Frab::Application.routes.draw do
       end
 
       resource :call_for_papers do
-        get :edit_notification
+        get :edit_notifications
       end
+      match "/call_for_papers/default_notifications" => "call_for_papers#default_notifications", as: "call_for_papers_default_notifications"
 
       resources :people do
         resource :user
