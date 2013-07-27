@@ -1,6 +1,7 @@
 class Notification < ActiveRecord::Base
   belongs_to :call_for_papers
 
+  validates :locale, presence: true
   validates :reject_subject, presence: true
   validates :reject_body,    presence: true
   validates :accept_body,    presence: true
@@ -20,7 +21,7 @@ class Notification < ActiveRecord::Base
   # FIXME move to view helper
   # Setting default text current event notification is nil.
   def set_default_text( language )
-    I18n.locale = language.code
+    I18n.locale = language
 
     self.reject_subject = I18n.t('emails.event_rejection.subject')
     self.reject_body = <<-BODY
@@ -48,7 +49,7 @@ class Notification < ActiveRecord::Base
   def uniq_locale
     return if self.call_for_papers.nil?
     self.call_for_papers.notifications.each { |n|
-      self.errors.add(:locale, "Locale #{n.locale} already added to this cfp") if self.locale == n.locale
+      self.errors.add(:locale, "#{n.locale} already added to this cfp") if self.locale == n.locale
     }
   end
 

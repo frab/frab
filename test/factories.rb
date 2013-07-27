@@ -83,7 +83,6 @@ FactoryGirl.define do
     start_date { Date.today.ago(1.days) }
     end_date { Date.today.since(6.days) }
     conference
-
   end
 
   factory :notification do
