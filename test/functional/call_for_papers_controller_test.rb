@@ -37,15 +37,19 @@ class CallForPapersControllerTest < ActionController::TestCase
   end
 
   test "should get edit notification" do
-    get :edit_notification, conference_acronym: @conference.acronym
+    get :edit_notifications, conference_acronym: @conference.acronym
     assert_response :success
   end
 
   test "should add cfp notification" do
     assert_difference('Notification.count') do
-      @call_for_papers.notification = FactoryGirl.create(:notification)
+      @call_for_papers.notifications << FactoryGirl.create(:notification)
       put :update, call_for_papers: @call_for_papers.attributes, conference_acronym: @conference.acronym
     end
   end
 
+  test "get default notification texts as json" do
+    get :default_notifications, format: :json, code: "en", conference_acronym: @conference.acronym
+    assert_response :success
+  end
 end

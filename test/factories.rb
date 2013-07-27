@@ -83,7 +83,6 @@ FactoryGirl.define do
     start_date { Date.today.ago(1.days) }
     end_date { Date.today.since(6.days) }
     conference
-
   end
 
   factory :notification do
@@ -91,6 +90,7 @@ FactoryGirl.define do
     reject_subject "rejected subject"
     accept_body "accept body text"
     accept_subject "accepted subject"
+    locale "en"
     call_for_papers
   end
 

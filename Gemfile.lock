@@ -91,10 +91,6 @@ GEM
       railties (>= 3.0.0)
     formtastic (2.1.1)
       actionpack (~> 3.0)
-    globalize3 (0.3.0)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      paper_trail (~> 2)
     gravatar-ultimate (1.0.3)
     haml (4.0.1)
       tilt
@@ -244,7 +240,6 @@ DEPENDENCIES
   factory_girl_rails (~> 1.2.0)
   formtastic (~> 2.1.0)
   formtastic-bootstrap!
-  globalize3
   gravatar-ultimate
   haml
   hpricot
