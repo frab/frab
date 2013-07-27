@@ -51,3 +51,9 @@
         %tr
           %td= image_box speaker.avatar, :small
           %td= link_to speaker.full_public_name, public_speaker_path(:id => speaker.id)
+
+.span16
+  - if @event.videos.count > 0
+    %video{ class: 'video', controls: "controls" }
+      %source{ type: @event.videos.first.mimetype, src: @event.videos.first.url }
+

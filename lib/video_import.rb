@@ -16,8 +16,13 @@ class VideoImport
       items = @xml.search('//item')
       items.each { |item|
         id = item.search('identifier').first
+        event = find_event(id.text)
+
         enclosure = item.search('enclosure').first
-        add_video(id.text, enclosure)
+        add_video(event, enclosure)
+        
+        link = item.search('link').first
+        add_link(event, link.text)
       }
 
     end
@@ -26,12 +31,19 @@ class VideoImport
 
   protected
 
-  def add_video(id, enclosure)
+  def find_event(id)
     event = Event.find(id)
     if event and event.conference == @conference
-      video = Video.new(url: enclosure['url'], mimetype: enclosure['type'])
-      event.videos << video
+      event
     end
+  end
+
+  def add_video(event, enclosure)
+    event.videos << Video.new(url: enclosure['url'], mimetype: enclosure['type'])
+  end
+
+  def add_link(event, link)
+    event.links << Link.new(title: "Video Recording", url: link)
   end
 
   def fetch_remote
