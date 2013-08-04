@@ -8,6 +8,7 @@ class Conference < ActiveRecord::Base
   has_many :days, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :tracks, dependent: :destroy
+  has_many :availabilities, dependent: :destroy
   has_many :languages, as: :attachable, dependent: :destroy
 
   acts_as_indexed fields: [:title, :acronym ]
