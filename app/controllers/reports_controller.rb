@@ -88,7 +88,7 @@ class ReportsController < ApplicationController
     when 'events_by_track'
       @data = []
       row = []
-      @labels = Track.all.collect { |t| t.name }
+      @labels = @conference.tracks.collect { |t| t.name }
       @labels.each { |track|
         row << @conference.events.confirmed.joins(:track).where(tracks: { name: track}).count
       }
