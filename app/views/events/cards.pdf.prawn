@@ -16,18 +16,23 @@ prawn_document(:page_layout => :landscape) do |pdf|
       if event = @events.pop
         pdf.grid(coords[0], coords[1]).bounding_box do
           title = "[#{event.id}] #{event.title.truncate(90)}"
-          avg_rating = "\n\nRating: #{event.average_rating.round(2).to_s}"
           pdf.text(title, :size => 16, :style => :bold, :skip_encoding => true)
           subtitle = (event.subtitle || "").truncate(40)
           pdf.text(subtitle, :size => 14, :style => :italic)
+
           speakers = event.speakers.map{|p| p.full_name}
-          pdf.formatted_text_box(
-            [{:text => "Speakers:\n", :styles => [:bold], :size => 12},
-             {:text => speakers.join("\n"), :size => 12},
-             {:text => avg_rating, :size => 12}],
+          avg_rating = ""
+          unless event.average_rating.nil?
+            avg_rating = "\n\nRating: #{event.average_rating.round(2).to_s}"
+          end
+          columns = [{:text => "Speakers:\n", :styles => [:bold], :size => 12},
+                 {:text => speakers.join("\n"), :size => 12},
+                 {:text => avg_rating, :size => 12}]
+          pdf.formatted_text_box(columns,
             :at => [0,200],
             :width => 100
           )
+
           abstract = (event.abstract || event.description || "").gsub(/(\r\n|\n)/, " ").truncate(180)
           logger.info("ABSTRACT: #{abstract}")
           pdf.formatted_text_box(
