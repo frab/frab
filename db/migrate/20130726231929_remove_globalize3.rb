@@ -15,6 +15,9 @@ class RemoveGlobalize3 < ActiveRecord::Migration
       #t.references :call_for_papers, index: true
     end
 
+    unless ActiveRecord::Base.connection.table_exists? 'notification_translations'
+      return
+    end
 
     # migrate data
     migrated = {}
