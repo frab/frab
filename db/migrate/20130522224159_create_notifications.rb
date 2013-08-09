@@ -5,15 +5,19 @@ class CreateNotifications < ActiveRecord::Migration
       t.timestamps
     end
 
-    Notification.create_translation_table! :accept_subject => :string,
+    if defined? Notification.create_translation_table!
+      Notification.create_translation_table! :accept_subject => :string,
                                            :reject_subject => :string,
                                            :accept_body    => :text,
                                            :reject_body    => :text
+    end
   end
 
   def down
     drop_table :notifications
 
-    Notification.drop_translation_table!
+    if defined? Notification.drop_translation_table!
+      Notification.drop_translation_table!
+    end
   end
 end
