@@ -225,6 +225,7 @@ class Event < ActiveRecord::Base
     end
   end
 
+  # check if room has been assigned multiple times for the same slot
   def update_event_conflicts
       conflicting_event_candidates = self.class.accepted.where(room_id: self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
       conflicting_event_candidates.each do |conflicting_event|
@@ -235,6 +236,7 @@ class Event < ActiveRecord::Base
       end
   end
 
+  # check wether person has availability and is available at scheduled time
   def update_people_conflicts
     self.event_people.presenter.group(:person_id,:id).each do |event_person|
       if event_person.person.availabilities.empty?
