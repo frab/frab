@@ -13,10 +13,11 @@
           - @rooms.each do |room|
             %th= room.name
       %tbody
+        - slot = 0
         - each_timeslot do |time|
           %tr.cell-height1
             %td.cell-time
-              - if time.min % 15 == 0
+              - if slot % @conference.default_timeslots == 0
                 %p= time.strftime("%H:%M")
             - @rooms.each do |room|
               - @skip_row[room] -= 1
@@ -37,4 +38,5 @@
                         .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
               - else
                 %td &nbsp;
+          - slot += 1
 = javascript_include_tag "public_schedule"
