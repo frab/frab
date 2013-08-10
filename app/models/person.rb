@@ -62,6 +62,22 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def involved_in?(conference)
+    found = Person.joins(events: :conference)
+                  .where(:"conferences.id" => conference.id)
+                  .where(id: self.id).count
+    found > 0
+  end
+
+  def active_in_any_conference?
+    found = Conference.joins(events: [{event_people: :person}])
+                      .where(Event.arel_table[:state].in(["confirmed", "unconfirmed"]))
+                      .where(EventPerson.arel_table[:event_role].in(["speaker","moderator"]))
+                      .where(Person.arel_table[:id].eq(self.id)).count
+    found > 0
+  end
+
+
   def events_in(conference)
     self.events.where(conference_id: conference.id).all
   end
