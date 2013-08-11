@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809213538) do
+ActiveRecord::Schema.define(:version => 20130811103746) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -22,6 +22,9 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "end_date"
     t.integer  "day_id"
   end
+
+  add_index "availabilities", ["conference_id"], :name => "index_availabilities_on_conference_id"
+  add_index "availabilities", ["person_id"], :name => "index_availabilities_on_person_id"
 
   create_table "call_for_papers", :force => true do |t|
     t.date     "start_date",    :null => false
@@ -34,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.string   "info_url"
     t.string   "contact_email"
   end
+
+  add_index "call_for_papers", ["start_date", "end_date"], :name => "index_call_for_papers_on_dates"
 
   create_table "conferences", :force => true do |t|
     t.string   "acronym",                                       :null => false
@@ -53,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.string   "ticket_type"
   end
 
+  add_index "conferences", ["acronym"], :name => "index_conferences_on_acronym"
+
   create_table "conflicts", :force => true do |t|
     t.integer  "event_id"
     t.integer  "conflicting_event_id"
@@ -63,11 +70,16 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "updated_at",           :null => false
   end
 
+  add_index "conflicts", ["event_id", "conflicting_event_id"], :name => "index_conflicts_on_event_id"
+  add_index "conflicts", ["person_id"], :name => "index_conflicts_on_person_id"
+
   create_table "days", :force => true do |t|
     t.integer  "conference_id"
     t.datetime "start_date"
     t.datetime "end_date"
   end
+
+  add_index "days", ["conference_id"], :name => "index_days_on_conference"
 
   create_table "event_attachments", :force => true do |t|
     t.integer  "event_id",                                  :null => false
@@ -81,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.boolean  "public",                  :default => true
   end
 
+  add_index "event_attachments", ["event_id"], :name => "index_event_attachments_on_event_id"
+
   create_table "event_feedbacks", :force => true do |t|
     t.integer  "event_id"
     t.float    "rating"
@@ -88,6 +102,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "event_feedbacks", ["event_id"], :name => "index_event_feedbacks_on_event_id"
 
   create_table "event_people", :force => true do |t|
     t.integer  "event_id",                                    :null => false
@@ -100,6 +116,9 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.string   "confirmation_token"
   end
 
+  add_index "event_people", ["event_id"], :name => "index_event_people_on_event_id"
+  add_index "event_people", ["person_id"], :name => "index_event_people_on_person_id"
+
   create_table "event_ratings", :force => true do |t|
     t.integer  "event_id"
     t.integer  "person_id"
@@ -108,6 +127,9 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "event_ratings", ["event_id"], :name => "index_event_ratings_on_event_id"
+  add_index "event_ratings", ["person_id"], :name => "index_event_ratings_on_person_id"
 
   create_table "events", :force => true do |t|
     t.integer  "conference_id",                             :null => false
@@ -139,6 +161,11 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.string   "guid"
   end
 
+  add_index "events", ["conference_id"], :name => "index_events_on_conference_id"
+  add_index "events", ["event_type"], :name => "index_events_on_type"
+  add_index "events", ["guid"], :name => "index_events_on_guid", :unique => true
+  add_index "events", ["state"], :name => "index_events_on_state"
+
   create_table "im_accounts", :force => true do |t|
     t.integer  "person_id"
     t.string   "im_type"
@@ -146,6 +173,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "im_accounts", ["person_id"], :name => "index_im_accounts_on_person_id"
 
   create_table "languages", :force => true do |t|
     t.string   "code"
@@ -155,6 +184,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "updated_at",      :null => false
   end
 
+  add_index "languages", ["attachable_id"], :name => "index_languages_on_attachable_id"
+
   create_table "links", :force => true do |t|
     t.string   "title",         :null => false
     t.string   "url",           :null => false
@@ -163,6 +194,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "links", ["linkable_id"], :name => "index_links_on_linkable_id"
 
   create_table "notifications", :force => true do |t|
     t.integer  "call_for_papers_id"
@@ -195,6 +228,9 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.boolean  "include_in_mailings", :default => false, :null => false
   end
 
+  add_index "people", ["email"], :name => "index_people_on_email"
+  add_index "people", ["user_id"], :name => "index_people_on_user_id"
+
   create_table "phone_numbers", :force => true do |t|
     t.integer  "person_id"
     t.string   "phone_type"
@@ -202,6 +238,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "phone_numbers", ["person_id"], :name => "index_phone_numbers_on_person_id"
 
   create_table "rooms", :force => true do |t|
     t.integer  "conference_id",                   :null => false
@@ -212,6 +250,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "updated_at",                      :null => false
     t.integer  "rank"
   end
+
+  add_index "rooms", ["conference_id"], :name => "index_rooms_on_conference_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -240,6 +280,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "updated_at",       :null => false
   end
 
+  add_index "tickets", ["event_id"], :name => "index_tickets_on_event_id"
+
   create_table "tracks", :force => true do |t|
     t.integer  "conference_id"
     t.string   "name",                                :null => false
@@ -247,6 +289,8 @@ ActiveRecord::Schema.define(:version => 20130809213538) do
     t.datetime "updated_at",                          :null => false
     t.string   "color",         :default => "fefd7f"
   end
+
+  add_index "tracks", ["conference_id"], :name => "index_tracks_on_conference_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                :default => "",          :null => false
