@@ -39,7 +39,7 @@
                     ],
                     "links": [
                       <% event.links.each do |link| %>
-                        {"url": "<%= link.url %>", "title": "<%= link.title%>"}
+                        {"url": "<%= link.url %>", "title": "<%= link.title%>"}<% if event.links.last.id != link.id %>,<% end %>
                       <% end %>
                     ]
                   }<% if room.events.public.accepted.scheduled_on(day).order(:start_time).last.id != event.id %>,<% end %>
