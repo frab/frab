@@ -56,13 +56,13 @@
               %tr
                 %th= room.name
             %tbody
-              - time = @day.start_date
-              - while time < @day.end_date
+              - slot = 0
+              - each_timeslot do  |time|
                 %tr{:class => cycle('odd', 'even')}
                   %td{:"data-time" => time.to_s(:rfc822)}
-                    - if time.min == 0
+                    - if slot % @conference.default_timeslots == 0
                       = time.strftime("%H:%M")
-                - time = time.since(@conference.timeslot_duration.minutes)
+                - slot += 1
         .clear
         #event-pane
           - @scheduled_events.each do |event|
