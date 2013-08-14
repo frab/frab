@@ -46,6 +46,8 @@ class Event < ActiveRecord::Base
   scope :public, where(public: true)
   scope :confirmed, where(state: :confirmed)
 
+  scope :no_conflicts, includes(:conflicts).where(:"conflicts.event_id" => nil)
+
   acts_as_indexed fields: [:title, :subtitle, :event_type, :abstract, :description, :track_name]
 
   has_paper_trail 

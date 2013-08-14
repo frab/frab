@@ -31,7 +31,7 @@ class Public::ScheduleController < ApplicationController
     @events = Hash.new
     @skip_row = Hash.new
     @all_rooms.each do |room|
-      events = room.events.confirmed.public.scheduled_on(@day).order(:start_time).all
+      events = room.events.confirmed.no_conflicts.public.scheduled_on(@day).order(:start_time).all
       unless events.empty?
         @events[room] = events 
         @skip_row[room] = 0
