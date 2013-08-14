@@ -41,12 +41,19 @@ class ImportExportHelper
       dump_has_many "people_languages", people, 'languages'
       dump_has_many "people_availabilities", people, 'availabilities'
       dump_has_many "users", people, 'user'
+      # TODO languages
+      # TODO videos
+      # TODO notifications
       export_paperclip_files(events, people, attachments)
     end
   end
 
   def run_import(export_dir=EXPORT_DIR)
     @export_dir = export_dir
+    unless File.directory? @export_dir
+      puts "Directory #{@export_dir} does not exist!"
+      exit
+    end
     disable_callbacks
 
     # old => new
