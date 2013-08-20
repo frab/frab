@@ -44,7 +44,6 @@ group :test do
 end
 
 group :development do
-  gem 'hpricot'
   gem 'shotgun'
   gem 'yaml_db'
   gem 'pry-rails'

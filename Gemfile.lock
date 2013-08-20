@@ -96,7 +96,6 @@ GEM
       tilt
     hashery (2.1.0)
     hike (1.2.1)
-    hpricot (0.8.6)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (1.0.19)
@@ -242,7 +241,6 @@ DEPENDENCIES
   formtastic-bootstrap!
   gravatar-ultimate
   haml
-  hpricot
   jquery-rails (~> 1.0.19)
   json
   localized_language_select (= 0.2.0)!
