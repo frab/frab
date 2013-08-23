@@ -98,7 +98,8 @@ did not skip step 8 and run:
 
 (Note that for a "real" production environment you
 probably do not want to use this script, but rather something
-like unicorn or passenger.)
+like unicorn or passenger. Note that under Apache 2.x
+mod_header is needed.)
 
 Navigate to http://localhost:3000/ and login as
 "admin@example.org" with password "test123".
