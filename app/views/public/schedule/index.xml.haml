@@ -3,6 +3,7 @@
   - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
     %version= @conference.schedule_version
   %conference
+    %acronym= @conference.acronym
     %title= @conference.title
     - if @conference.days.length > 0
       %start= @conference.first_day.start_date.strftime('%Y-%m-%d')
