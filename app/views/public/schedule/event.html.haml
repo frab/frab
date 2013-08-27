@@ -1,4 +1,4 @@
-%h2 #{t "options.#{@event.event_type}"}: #{@event.title}
+%h2 #{t "options.#{@event.event_type ? @event.event_type : 'other' }"}: #{@event.title}
 %h3.title= @event.subtitle
 
 .column.left#basic
