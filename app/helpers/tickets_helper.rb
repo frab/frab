@@ -6,7 +6,7 @@ module TicketsHelper
         OtrsTickets::Helper.get_ticket_view_url(@conference, remote_id.to_i)
       end
     elsif @conference.ticket_type == 'rt'
-      RTTickets::Helper.get_ticket_view_url(remote_id)
+      RTTickets::Helper.get_ticket_view_url(@conference, remote_id)
     end
   end
 
