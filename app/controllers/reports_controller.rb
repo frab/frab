@@ -85,12 +85,22 @@ class ReportsController < ApplicationController
     @search_count = 0
 
     case @report_type
-    when 'events_by_track'
+    when 'confirmed_events_by_track'
       @data = []
       row = []
       @labels = @conference.tracks.collect { |t| t.name }
       @labels.each { |track|
         row << @conference.events.confirmed.joins(:track).where(tracks: { name: track}).count
+      }
+      @data << row
+      @search_count = row.inject(:+)
+
+    when 'events_by_track'
+      @data = []
+      row = []
+      @labels = @conference.tracks.collect { |t| t.name }
+      @labels.each { |track|
+        row << @conference.events.candidates.joins(:track).where(tracks: { name: track}).count
       }
       @data << row
       @search_count = row.inject(:+)
