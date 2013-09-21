@@ -24,16 +24,17 @@ class AbilitiesTest < ActiveSupport::TestCase
     # User
     @other_user = FactoryGirl.create(:user)
 
-    @coordinator_user = FactoryGirl.create(:coordinator_user)
-    @reviewer_user = FactoryGirl.create(:reviewer_user)
+    @orga_user = FactoryGirl.create(:conference_orga, conference: @conference).user
+    @coordinator_user = FactoryGirl.create(:conference_coordinator, conference: @conference).user
+    @reviewer_user = FactoryGirl.create(:conference_reviewer, conference: @conference).user
+
     @submitter_user = FactoryGirl.create(:user)
     @guest_user = FactoryGirl.create(:user)
     @guest_user.role = nil
   end
 
   test "orga has full access on everything" do
-    user = FactoryGirl.create(:orga_user)
-    ability = Ability.new(user)
+    ability = Ability.new(@orga_user)
 
     # full access on everything
     assert ability.can?(:manage, CallForPapers)
@@ -52,7 +53,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:control, User)
     assert ability.can?(:manage, @other_user)
     assert ability.can?(:assign_roles, User)
-    assert ability.can?(:assign_roles, user)
+    assert ability.can?(:assign_roles, @orga_user)
     assert ability.can?(:assign_roles, @other_user)
   end
 
@@ -141,9 +142,8 @@ class AbilitiesTest < ActiveSupport::TestCase
   end
 
   test "reviewer without person can still only read and submit events" do
-    user= FactoryGirl.create(:reviewer_user)
-    user.person = nil
-    ability = Ability.new(user)
+    @reviewer_user.person = nil
+    ability = Ability.new(@reviewer_user)
     assert ability.can?(:read, Event)
     assert ability.can?(:read, @event)
     assert ability.can?(:submit, Event)

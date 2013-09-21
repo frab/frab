@@ -16,9 +16,14 @@ class Ability
     # Whenever authorization against a class is needed, for which a limited instance rule 
     # exists, a new verb, like 'control' is introduced. This avoids the ambiguity of checking
     # classes versus instances.
+    #
 
-    # Attention: User.role vs. EventPerson.role
-    case user.role
+    role = user.role
+    if user.role == 'crew' 
+      role = get_conference_role(user)
+    end
+
+    case role
     when /admin/
       can :manage, :all
 
@@ -92,6 +97,20 @@ class Ability
       cannot :control, User
       cannot :assign_roles, User
     end
+  end
+
+  private
+
+  def get_conference_role(user)
+    if @conference.nil? and user.conference_users.size > 0
+      @conference = user.conference_users.last.conference
+    end
+    unless @conference.nil?
+      #raise "this user is missing a conference user" if @conference.nil?
+      cu = ConferenceUser.where(user_id: user, conference_id: @conference).first
+      return cu.role unless cu.nil?
+    end
+    return user.role
   end
 
   def fix_missing_person(user)

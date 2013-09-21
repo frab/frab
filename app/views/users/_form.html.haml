@@ -1,10 +1,12 @@
-= semantic_form_for(@user, :url => person_user_path(@person)) do |f|
+= semantic_form_for(@user, url: person_user_path(@person)) do |f|
   = f.inputs do
     = f.input :email
     = f.input :password
     = f.input :password_confirmation
     - if can? :assign_roles, User
       = f.input :role, :as => :radio, :collection => User::ROLES
+      - if @user.is_crew
+        = dynamic_association :conference_users, t(:conference_user), f
   = f.buttons do
     = f.commit_button :button_html => {:class => "btn primary"}
     = link_to "Cancel", :back, :class => "btn"

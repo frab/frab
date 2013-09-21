@@ -17,23 +17,9 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "admin", user.role
   end
 
-  test "create orga user" do
-    user = FactoryGirl.create(:orga_user)
-    assert_equal "orga", user.role
+  test "create crew user" do
+    user = FactoryGirl.create(:crew_user)
+    assert_equal "crew", user.role
   end
 
-  test "create coordinator user" do
-    user = FactoryGirl.create(:coordinator_user)
-    assert_equal "coordinator", user.role
-  end
-
-  test "create reviewer user" do
-    user = FactoryGirl.create(:reviewer_user)
-    assert_equal "reviewer", user.role
-  end
-
-  test "create submitter user" do
-    user = FactoryGirl.create(:user)
-    assert_equal "submitter", user.role
-  end
 end

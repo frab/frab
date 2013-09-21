@@ -3,6 +3,7 @@ class Conference < ActiveRecord::Base
   TICKET_TYPES = %w{otrs rt integrated}
 
   has_many :availabilities, dependent: :destroy
+  has_many :conference_users, dependent: :destroy
   has_many :days, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :languages, as: :attachable, dependent: :destroy

@@ -20,15 +20,19 @@ FactoryGirl.define do
     role "admin"
   end
 
-  trait :orga_role do
+  trait :crew_role do
+    role "crew"
+  end
+
+  trait :conference_orga_role do
     role "orga"
   end
 
-  trait :coordinator_role do
+  trait :conference_coordinator_role do
     role "coordinator"
   end
 
-  trait :reviewer_role do
+  trait :conference_reviewer_role do
     role "reviewer"
   end
 
@@ -81,9 +85,21 @@ FactoryGirl.define do
     confirmed_at { Time.now }
 
     factory :admin_user, traits: [:admin_role]
-    factory :orga_user, traits: [:orga_role]
-    factory :coordinator_user, traits: [:coordinator_role]
-    factory :reviewer_user, traits: [:reviewer_role]
+    factory :crew_user, traits: [:crew_role]
+
+  end
+
+  factory :conference_user do
+    conference
+    after_build do |cu|
+      user = FactoryGirl.build(:crew_user)
+      user.conference_users << cu
+      cu.user = user
+    end
+
+    factory :conference_orga, traits: [:conference_orga_role]
+    factory :conference_coordinator, traits: [:conference_coordinator_role]
+    factory :conference_reviewer, traits: [:conference_reviewer_role]
   end
 
   factory :person do

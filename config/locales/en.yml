@@ -61,6 +61,7 @@ en:
   activerecord:
     models:
       conference: "conference"
+      conference_user: "conference user"
       day: "day"
       event: "event"
       person: "profile"

@@ -12,6 +12,10 @@
       %p
         %b Role:
         = @user.role
+      -if @user.is_crew
+        %ul
+          - @user.conference_users.each do |cu|
+            %li= cu.conference.acronym + " - " + cu.role
       %p
         %b Last login:
         = @user.last_sign_in_at

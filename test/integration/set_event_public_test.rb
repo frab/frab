@@ -4,8 +4,8 @@ class SetEventPublicTest < ActionDispatch::IntegrationTest
   setup do
     @conference = create :three_day_conference
     @event = create :event, conference: @conference
-    @user = create :orga_user
-    post "/session", user: {email: @user.email, password: "frab23"}
+    @conference_user = FactoryGirl.create :conference_orga, conference: @conference
+    post "/session", user: {email: @conference_user.user.email, password: "frab23"}
   end
 
   test "can set event to public" do
