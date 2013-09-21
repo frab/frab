@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(:version => 20131013164530) do
 
   add_index "call_for_papers", ["start_date", "end_date"], :name => "index_call_for_papers_on_dates"
 
+  create_table "conference_users", :force => true do |t|
+    t.string   "role"
+    t.integer  "user_id"
+    t.integer  "conference_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "conference_users", ["conference_id"], :name => "index_conference_users_on_conference_id"
+  add_index "conference_users", ["user_id"], :name => "index_conference_users_on_user_id"
+
   create_table "conferences", :force => true do |t|
     t.string   "acronym",                                       :null => false
     t.string   "title",                                         :null => false
