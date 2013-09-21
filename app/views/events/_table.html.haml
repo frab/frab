@@ -10,6 +10,8 @@
         %th= sort_link @search, :event_type, 'Type', :term => params[:term]
         %th= sort_link @search, :state, 'State', :term => params[:term]
         %th= sort_link @search, :created_at, :term => params[:term]
+        %th= sort_link @search, :average_rating, :term => params[:term]
+        %th= sort_link @search, :ratings_count, :term => params[:term]
       - else
         %th Title
         - if @conference.is_ticket_server_enabled? 
@@ -18,6 +20,8 @@
         %th Event type
         %th State
         %th Created at
+        %th Average Rating
+        %th Ratings Count
       %th.last
   %tbody
     - collection.each do |event|
@@ -38,6 +42,11 @@
         %td= event.event_type
         %td= event.state
         %td= l(event.created_at.to_date)
+        - if event.average_rating.nil?
+          %td= ""
+        - else
+          %td= event.average_rating.round(2).to_s
+        %td= event.event_ratings_count
         %td.buttons
           = action_button "small", 'Show', event
           - if can? :manage, event
