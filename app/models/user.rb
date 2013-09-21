@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include UniqueToken
 
-  ROLES = ["submitter", "reviewer", "coordinator", "orga", "admin"]
+  ROLES = %w{submitter reviewer coordinator orga admin}
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   belongs_to :call_for_papers
@@ -14,6 +14,16 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id
 
   after_initialize :check_default_values
+  before_create :generate_confirmation_token, unless: :confirmed_at
+  after_create :send_confirmation_instructions, unless: :confirmed_at
+
+  validates_presence_of :person
+  validates_presence_of :email
+  validates_format_of :email, with: EMAIL_REGEXP
+  validates_uniqueness_of :email, :case_sensitive => false
+  validates_length_of :password, minimum: 6, allow_nil: true
+
+  scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
 
   def check_default_values
     self.role ||= 'submitter'
@@ -24,16 +34,6 @@ class User < ActiveRecord::Base
     return true if self.role == "submitter"
     false
   end
-
-  scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
-  validates_presence_of :person
-  validates_presence_of :email
-  validates_format_of :email, with: EMAIL_REGEXP
-  validates_uniqueness_of :email, :case_sensitive => false
-  validates_length_of :password, minimum: 6, allow_nil: true
-
-  before_create :generate_confirmation_token, unless: :confirmed_at
-  after_create :send_confirmation_instructions, unless: :confirmed_at
 
   def self.check_pentabarf_credentials(email, password)
     user = User.find_by_email(email)

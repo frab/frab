@@ -1,15 +1,15 @@
 class Conference < ActiveRecord::Base
 
-  TICKET_TYPES = ["otrs", "rt", "integrated"]
+  TICKET_TYPES = %w{otrs rt integrated}
 
-  has_one :call_for_papers, dependent: :destroy
-  has_one :ticket_server, dependent: :destroy
-  has_many :events, dependent: :destroy
+  has_many :availabilities, dependent: :destroy
   has_many :days, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :languages, as: :attachable, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :tracks, dependent: :destroy
-  has_many :availabilities, dependent: :destroy
-  has_many :languages, as: :attachable, dependent: :destroy
+  has_one :call_for_papers, dependent: :destroy
+  has_one :ticket_server, dependent: :destroy
 
   acts_as_indexed fields: [:title, :acronym ]
 

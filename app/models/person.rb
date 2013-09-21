@@ -1,21 +1,21 @@
 class Person < ActiveRecord::Base
 
-  GENDERS = ["male", "female"]
+  GENDERS = %w{male female}
 
-  has_many :event_people, dependent: :destroy
-  has_many :phone_numbers, dependent: :destroy
-  has_many :im_accounts, dependent: :destroy
-  has_many :events, through: :event_people, uniq: true
-  has_many :links, as: :linkable, dependent: :destroy
-  has_many :languages, as: :attachable, dependent: :destroy
   has_many :availabilities, dependent: :destroy
+  has_many :event_people, dependent: :destroy
   has_many :event_ratings, dependent: :destroy
+  has_many :events, through: :event_people, uniq: true
+  has_many :im_accounts, dependent: :destroy
+  has_many :languages, as: :attachable, dependent: :destroy
+  has_many :links, as: :linkable, dependent: :destroy
+  has_many :phone_numbers, dependent: :destroy
 
-  accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :im_accounts, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank
+  accepts_nested_attributes_for :im_accounts, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :user, dependent: :destroy
 

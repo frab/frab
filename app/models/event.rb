@@ -6,14 +6,14 @@ class Event < ActiveRecord::Base
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
 
   has_one :ticket, dependent: :destroy
-  has_many :event_people, dependent: :destroy
-  has_many :event_feedbacks, dependent: :destroy
-  has_many :people, through: :event_people
-  has_many :links, as: :linkable, dependent: :destroy
-  has_many :event_attachments, dependent: :destroy
-  has_many :event_ratings, dependent: :destroy
-  has_many :conflicts, dependent: :destroy
   has_many :conflicts_as_conflicting, class_name: "Conflict", foreign_key: "conflicting_event_id", dependent: :destroy
+  has_many :conflicts, dependent: :destroy
+  has_many :event_attachments, dependent: :destroy
+  has_many :event_feedbacks, dependent: :destroy
+  has_many :event_people, dependent: :destroy
+  has_many :event_ratings, dependent: :destroy
+  has_many :links, as: :linkable, dependent: :destroy
+  has_many :people, through: :event_people
   has_many :videos, dependent: :destroy
 
   belongs_to :conference
@@ -35,19 +35,17 @@ class Event < ActiveRecord::Base
 
   after_save :update_conflicts
 
-  scope :with_speaker, where("speaker_count > 0")
-  scope :without_speaker, where("speaker_count = 0")
-
+  scope :accepted, where(self.arel_table[:state].in(%w{confirmed unconfirmed}))
   scope :associated_with, lambda {|person| joins(:event_people).where(:"event_people.person_id" => person.id)}
+  scope :candidates, where(state: %w{new review unconfirmed confirmed})
+  scope :confirmed, where(state: :confirmed)
+  scope :no_conflicts, includes(:conflicts).where(:"conflicts.event_id" => nil)
+  scope :public, where(public: true)
   scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gteq(day.start_date.to_datetime)).where(self.arel_table[:start_time].lteq(day.end_date.to_datetime)).where(self.arel_table[:room_id].not_eq(nil)) }
   scope :scheduled, where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil))) 
   scope :unscheduled, where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) 
-  scope :candidates, where(state: %w{new review unconfirmed confirmed})
-  scope :accepted, where(self.arel_table[:state].in(%w{confirmed unconfirmed}))
-  scope :public, where(public: true)
-  scope :confirmed, where(state: :confirmed)
-
-  scope :no_conflicts, includes(:conflicts).where(:"conflicts.event_id" => nil)
+  scope :without_speaker, where("speaker_count = 0")
+  scope :with_speaker, where("speaker_count > 0")
 
   acts_as_indexed fields: [:title, :subtitle, :event_type, :abstract, :description, :track_name]
 
