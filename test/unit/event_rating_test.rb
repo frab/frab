@@ -15,4 +15,15 @@ class EventRatingTest < ActiveSupport::TestCase
     assert_equal 3.0, event.average_rating
   end
 
+  test "person can only submit one rating per event" do
+    event = FactoryGirl.create(:event)
+    person = FactoryGirl.create(:person)
+
+    er = EventRating.new event: event, person: person, rating: 4.0
+    assert er.save
+
+    er = EventRating.new event: event, person: person, rating: 4.0
+    assert !er.save
+  end
+
 end
