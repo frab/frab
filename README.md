@@ -189,6 +189,13 @@ You can now ssh into the box and start the rails app
     rails server
 
 Visit http://localhost:3000/ to log in to frab.
+    - if @conference.feedback_enabled
+
+## Contact    
+
+For updates and discussions around frab, please join our mailinglist 
+
+    frab (at) librelist.com - to subscribe just send a mail to it
 
 ## License
 
