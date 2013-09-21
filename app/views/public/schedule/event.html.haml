@@ -42,6 +42,14 @@
     %h3= t '.feedback'
     %p
       = link_to t('.feedback_link'), new_public_event_feedback_url(:event_id => @event)
+  - unless @concurrent_events.blank?
+    #concurrent_events.column.left
+      %h3 Concurrent events
+      %dl.dl-horizontal
+        - @concurrent_events.each do |event|
+          - next if event.id == @event.id
+          %dt= Room.find(event.room_id).name
+          %dd= link_to event.title, public_event_path( id: event.id )
 
 .column.right#sidebar
   %h3= t '.speakers'
