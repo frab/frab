@@ -5,17 +5,16 @@ class StaticProgramExport
   def initialize(conference, locale = nil)
     @conference = conference
     @locale = locale
+
+    @asset_paths = []
+    @base_directory = EXPORT_PATH.join(@conference.acronym)
+    @base_url = URI.parse(@conference.program_export_base_url).path
+    @base_url += '/' unless @base_url.end_with?('/')
+    @original_schedule_public = @conference.schedule_public
+
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
     @session.host = Settings.host
     @session.https! if Settings['protocol'] == "https"
-    unlock_schedule unless @conference.schedule_public
-    @asset_paths = [] 
-    @base_directory = EXPORT_PATH.join(@conference.acronym)
-    @base_url = @conference.program_export_base_url
-    @base_url = URI.parse(@base_url).path
-    unless @base_url.end_with?('/')
-      @base_url += '/'
-    end
   end
 
   def self.create_tarball(conference)
@@ -28,40 +27,35 @@ class StaticProgramExport
   end
 
   def run_export
-    setup_directories
+    ActiveRecord::Base.transaction do
+      unlock_schedule unless @original_schedule_public
+
+      setup_directories
+      download_pages
+      copy_stripped_assets
+      create_index_page
+
+      lock_schedule unless @original_schedule_public
+    end
+  end
+
+  private
+
+  def setup_directories
+    FileUtils.rm_r(@base_directory, secure: true) if File.exist? @base_directory
+    FileUtils.mkdir_p(@base_directory)
+  end
+
+  def download_pages
+    paths = get_query_paths
     path_prefix = "/#{@conference.acronym}/public"
     unless @locale.nil?
       path_prefix = "/#{@locale}" + path_prefix
     end
-    paths = [
-      { source: "schedule", target: "schedule.html" },
-      { source: "events", target: "events.html" },
-      { source: "speakers", target: "speakers.html" },
-      { source: "schedule/style.css", target: "style.css" },
-      { source: "schedule.ics", target: "schedule.ics" },
-      { source: "schedule.xcal", target: "schedule.xcal" },
-      { source: "schedule.json", target: "schedule.json" },
-      { source: "schedule.xml", target: "schedule.xml" },
-    ]
-
-    day_index = 0
-    @conference.days.each do |day|
-      paths << { source: "schedule/#{day_index}", target: "schedule/#{day_index}.html" }
-      paths << { source: "schedule/#{day_index}.pdf", target: "schedule/#{day_index}.pdf" }
-      day_index +=  1
-    end
-
-    @conference.events.confirmed.public.each do |event|
-      paths << { source: "events/#{event.id}", target: "events/#{event.id}.html" }
-    end
-    Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
-      paths << { source: "speakers/#{speaker.id}", target: "speakers/#{speaker.id}.html" }
-    end
-
-    # write files
     paths.each { |p| save_response("#{path_prefix}/#{p[:source]}", p[:target]) }
+  end
 
-    # copy all assets we detected earlier (jquery, ...)
+  def copy_stripped_assets
     @asset_paths.uniq.each do |asset_path|
       original_path = File.join(Rails.root, "public", URI.unescape(asset_path))
       if File.exist? original_path
@@ -72,17 +66,42 @@ class StaticProgramExport
         STDERR.puts '?? We might be missing "%s"' % original_path
       end
     end
-
-    # create index.html
-    schedule_file = File.join(@base_directory, 'schedule.html')
-    if File.exist? schedule_file 
-      FileUtils.cp(schedule_file, File.join(@base_directory, 'index.html'))
-    end
-
-    lock_schedule unless @original_schedule_public
   end
 
-  private
+  def create_index_page
+    schedule_file = File.join(@base_directory, 'schedule.html')
+    if File.exist? schedule_file
+      FileUtils.cp(schedule_file, File.join(@base_directory, 'index.html'))
+    end
+  end
+
+  def get_query_paths
+    paths = [
+        {source: "schedule", target: "schedule.html"},
+        {source: "events", target: "events.html"},
+        {source: "speakers", target: "speakers.html"},
+        {source: "schedule/style.css", target: "style.css"},
+        {source: "schedule.ics", target: "schedule.ics"},
+        {source: "schedule.xcal", target: "schedule.xcal"},
+        {source: "schedule.json", target: "schedule.json"},
+        {source: "schedule.xml", target: "schedule.xml"},
+    ]
+
+    day_index = 0
+    @conference.days.each do |day|
+      paths << {source: "schedule/#{day_index}", target: "schedule/#{day_index}.html"}
+      paths << {source: "schedule/#{day_index}.pdf", target: "schedule/#{day_index}.pdf"}
+      day_index += 1
+    end
+
+    @conference.events.public.confirmed.scheduled.each do |event|
+      paths << {source: "events/#{event.id}", target: "events/#{event.id}.html"}
+    end
+    Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
+      paths << {source: "speakers/#{speaker.id}", target: "speakers/#{speaker.id}.html"}
+    end
+    paths
+  end
 
   def save_response(source, filename)
     status_code = @session.get(source)
@@ -162,14 +181,8 @@ class StaticProgramExport
     path.gsub(/^\//, "").gsub(/^(?:en|de)?\/?#{@conference.acronym}\/public\//, "").gsub(/\?(?:body=)?\d+$/, "")
   end
 
-  def setup_directories
-    FileUtils.rm_r(@base_directory, secure: true) if File.exist? @base_directory
-    FileUtils.mkdir_p(@base_directory)
-  end
-
   def unlock_schedule
     Conference.paper_trail_off
-    @original_schedule_public = @conference.schedule_public
     @conference.schedule_public = true
     @conference.save!
   end

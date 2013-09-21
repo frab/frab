@@ -56,6 +56,7 @@ class ScheduleController < ApplicationController
     ENV['CONFERENCE'] = @conference.acronym
     # TODO accept valid locale via parameter
     ENV['CONFERENCE_LOCALE'] = check_conference_locale
+    # TODO run as delayed job
     `rake frab:static_program_export`
 
     out_path = StaticProgramExport.create_tarball(@conference)
