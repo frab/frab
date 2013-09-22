@@ -7,6 +7,7 @@ class EventRatingTest < ActiveSupport::TestCase
     id = event.id
 
     FactoryGirl.create(:event_rating, event: event, rating: 8.0)
+    update_average(id)
     assert_equal 8.0, Event.find(id).average_rating
 
     FactoryGirl.create(:event_rating, event: event, rating: 4.0)

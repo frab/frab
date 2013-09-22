@@ -54,8 +54,10 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     person.phone_numbers << PhoneNumber.new
     person.im_accounts << ImAccount.new
     person.note = TEXT
+    person.save!
 
     @scrubber.send(:scrub_person, person)
+    person.reload
     assert_equal person.email, DUMMY_MAIL
     assert_blank person.phone_numbers
     assert_blank person.im_accounts
@@ -72,12 +74,10 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
   end
 
   test "should clear persons biographical data" do
-    person =  FactoryGirl.create(:person)
-    person.abstract = TEXT
-    person.description = TEXT
-
+    person =  FactoryGirl.create(:person, abstract: TEXT, description: TEXT)
     @scrubber = ConferenceScrubber.new(@conference)
     @scrubber.send(:scrub_person, person)
+    person.reload
     assert_nil person.abstract
     assert_nil person.description
   end
