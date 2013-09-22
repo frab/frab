@@ -204,7 +204,7 @@ class ImportExportHelper
     restore_multiple("event_ratings", EventRating) do |id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.person_id = @mappings[:people][obj.person_id]
-      obj.save!
+      obj.save! if obj.valid?
     end
 
     restore_multiple("event_links", Link) do |id, obj|
