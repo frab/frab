@@ -7,6 +7,7 @@ class ConferenceScrubber
     @conference = conference
     @dry_run = dry_run
     @current_conferences = get_last_years_conferences
+    PaperTrail.enabled = false
   end
 
   def scrub!
