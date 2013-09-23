@@ -16,6 +16,7 @@ class EventRatingsController < ApplicationController
     @rating = EventRating.new(params[:event_rating])
     @rating.event = @event
     @rating.person = current_user.person
+    @rating.rating = 0 if @rating.rating.nil?
     authorize! :manage, @rating
     @rating.save
     redirect_to event_event_rating_path, notice: "Rating saved successfully."
