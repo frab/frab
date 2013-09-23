@@ -15,6 +15,7 @@ class EventsController < ApplicationController
     end
     @events = @search.result.paginate page: params[:page]
 
+    clean_events_attributes
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render xml: @events }
@@ -52,6 +53,7 @@ class EventsController < ApplicationController
     authorize! :manage, EventRating
     @search = @conference.events.search(params[:q])
     @events = @search.result.paginate page: params[:page]
+    clean_events_attributes
 
     # total ratings:
     @events_total = @conference.events.count
@@ -88,6 +90,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     authorize! :read, @event
 
+    clean_events_attributes
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render xml: @event }
@@ -208,6 +211,23 @@ class EventsController < ApplicationController
     unless @events.nil?
       @events = @events.accessible_by(current_ability)
     end
+  end
+
+  def clean_events_attributes
+    return if can? :manage, Event
+    unless @event.nil?
+      @event = clean_event_attributes(@event)
+    end
+    unless @events.nil?
+      @events.map { |event| clean_event_attributes(event) } 
+    end
+  end
+
+  def clean_event_attributes(event)
+    event.start_time = nil
+    event.state = ''
+    event.note = ''
+    event
   end
 
 end
