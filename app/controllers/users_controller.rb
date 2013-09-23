@@ -89,7 +89,7 @@ class UsersController < ApplicationController
     if @user.nil?
       authorize! :manage, @user
     else
-      authorize! :manage, User
+      authorize! :control, User
     end
   end
 

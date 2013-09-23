@@ -13,8 +13,9 @@ class Ability
     # only :manage @event_rating if it belongs to her.
     # Take a look how these abilities are used across controllers, before changing them.
     #
-    # Whenever authorization against a class is needed, for which a limited instance rule exists,
-    # a new verb is introduced. This avoids the ambiguity of checking classes versus instances.
+    # Whenever authorization against a class is needed, for which a limited instance rule 
+    # exists, a new verb, like 'control' is introduced. This avoids the ambiguity of checking
+    # classes versus instances.
 
     # Attention: User.role vs. EventPerson.role
     case user.role
@@ -29,6 +30,7 @@ class Ability
       can :manage, EventRating
       can :manage, Person
       can :control, Person
+      can :control, User
       can :manage, User
       can :assign_roles, User
 
@@ -44,6 +46,7 @@ class Ability
       can :manage, Person
       can :control, Person
       can :manage, User, :id => user.id
+      cannot :control, User
       cannot :assign_roles, User
 
     when /reviewer/
@@ -62,6 +65,7 @@ class Ability
       can :read, Person
       cannot :control, Person
       can :manage, User, :id => user.id
+      cannot :control, User
       cannot :assign_roles, User
 
     when /submitter/
@@ -76,6 +80,7 @@ class Ability
       can :manage, Person, :id => user.person.id
       cannot :control, Person
       can :manage, User, :id => user.id
+      cannot :control, User
       cannot :assign_roles, User
 
     else
@@ -84,6 +89,7 @@ class Ability
       # guest can view the published schedule 
       # guest can give feedback on events
       can :create, EventFeedback
+      cannot :control, User
       cannot :assign_roles, User
     end
   end

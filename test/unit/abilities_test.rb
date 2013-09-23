@@ -49,7 +49,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:control, Person)
     assert ability.can?(:manage, Person)
     assert ability.can?(:manage, @person)
-    assert ability.can?(:manage, User)
+    assert ability.can?(:control, User)
     assert ability.can?(:manage, @other_user)
     assert ability.can?(:assign_roles, User)
     assert ability.can?(:assign_roles, user)
@@ -96,6 +96,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     ability = Ability.new(@coordinator_user)
     assert ability.can?(:manage, @coordinator_user)
     assert ability.cannot?(:manage, @other_user)
+    assert ability.cannot?(:control, User)
   end
 
   test "coordinator cannot assign roles to users" do
@@ -174,6 +175,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:manage, @reviewer_user)
     assert ability.cannot?(:read, @other_user)
     assert ability.cannot?(:manage, @other_user)
+    assert ability.cannot?(:control, User)
   end
 
   test "reviewer cannot assign roles to users" do
@@ -242,6 +244,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:manage, @submitter_user)
     assert ability.cannot?(:read, @other_user)
     assert ability.cannot?(:manage, @other_user)
+    assert ability.cannot?(:control, User)
   end
 
   test "submitter cannot assign roles to users" do
@@ -310,6 +313,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot?(:read, @guest_user)
     assert ability.cannot?(:manage, @guest_user)
     assert ability.cannot?(:manage, @other_user)
+    assert ability.cannot?(:control, User)
   end
 
   test "guest cannot assign roles to users" do
