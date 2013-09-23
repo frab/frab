@@ -25,22 +25,23 @@
             <em>Events</em> tab above. Or start a call for 
             papers, to allow others to submit events for
             you to review.
-  .row
-    .span16
-      %h2 
-        Recent changes
-        %small= link_to "more >>", recent_changes_path
-      - if @versions.empty?
-        .blank-slate
+  - if can? :manage, CallForPapers           
+    .row
+      .span16
+        %h2 
+          Recent changes
+          %small= link_to "more >>", recent_changes_path
+        - if @versions.empty?
+          .blank-slate
+            %p
+              Once you, or others start creating data for this
+              conference, you will find who changed what here.
+              This is especially interesting if you conduct a
+              call for papers. In this case, this area allows
+              you to quickly see if new submissions came in.
+        - else
+          = render "recent_changes/table"
           %p
-            Once you, or others start creating data for this
-            conference, you will find who changed what here.
-            This is especially interesting if you conduct a
-            call for papers. In this case, this area allows
-            you to quickly see if new submissions came in.
-      - else
-        = render "recent_changes/table"
-        %p
   .row
     .span16
       %h2 Statistics

@@ -29,12 +29,13 @@ class EventsController < ApplicationController
     else
       @search = @conference.events.associated_with(current_user.person).search(params[:q])
     end
+    clean_events_attributes
     @events = @search.result.paginate page: params[:page]
   end
 
   # events as pdf
   def cards
-    authorize! :read, Event
+    authorize! :manage, Event
     if params[:accepted]
       @events = @conference.events.accepted
     else
@@ -48,7 +49,7 @@ class EventsController < ApplicationController
 
   # show event ratings
   def ratings
-    authorize! :read, EventRating
+    authorize! :manage, EventRating
     @search = @conference.events.search(params[:q])
     @events = @search.result.paginate page: params[:page]
 

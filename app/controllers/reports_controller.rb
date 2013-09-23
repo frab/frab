@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   end
 
   def show_events
-    authorize! :show, @conference
+    authorize! :manage, CallForPapers
 
     @report_type = params[:id]
     @events = []
@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
   end
 
   def show_people
-    authorize! :show, @conference
+    authorize! :manage, CallForPapers
 
     @report_type = params[:id]
     @people = []
@@ -79,7 +79,7 @@ class ReportsController < ApplicationController
   end
 
   def show_statistics
-    authorize! :show, @conference
+    authorize! :manage, CallForPapers
 
     @report_type = params[:id]
     @search_count = 0

@@ -43,9 +43,10 @@
       %p
         %b Event type:
         = @event.event_type
-      %p
-        %b State:
-        = @event.state
+      - if can? :manage, Event
+        %p
+          %b State:
+          = @event.state
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
           %b Ticket:
@@ -69,9 +70,10 @@
       %p
         %b Time slots:
         = format_time_slots @event.time_slots
-      %p
-        %b Start time:
-        = @event.start_time
+      - if can? :manage, Event
+        %p
+          %b Start time:
+          = @event.start_time
       %p
         %b Room:
         = @event.room.try(:name)
@@ -109,10 +111,11 @@
     .span16
       %h2 Notes
   .row
-    .span8
-      %p
-        %b Notes(admin):
-        = @event.note
+    - if can? :manage, @event 
+      .span8
+        %p
+          %b Notes(admin):
+          = @event.note
     .span8
       %p
         %b Submission Notes(user and admin):

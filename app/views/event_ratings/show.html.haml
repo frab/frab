@@ -103,13 +103,14 @@
                 %th Comment
             %tbody
               - @event_ratings.each do |event_rating|
-                - event_rating.person = Person.new if event_rating.person.nil?
-                %tr
-                  %td=image_box event_rating.person.avatar, :small
-                  %td=event_rating.person.full_name
-                  %td
-                    .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
-                  %td=event_rating.comment
+                - if can? :manage, event_rating
+                  - event_rating.person = Person.new if event_rating.person.nil?
+                  %tr
+                    %td=image_box event_rating.person.avatar, :small
+                    %td=event_rating.person.full_name
+                    %td
+                      .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
+                    %td=event_rating.comment
 
 :javascript
   $(document).ready(function() {

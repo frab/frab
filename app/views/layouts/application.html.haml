@@ -21,15 +21,18 @@
             = link_to "Welcome to frab", root_path, :class => "brand"
           %ul.nav
             - if @conference and not @conference.new_record?
-              %li= link_to t("people", :default => "People"), url_for(:action => 'index', :controller => 'people')
+              - if can? :control, Person
+                %li= link_to t("people", :default => "People"), url_for(:action => 'index', :controller => 'people')
               %li= link_to t("events", :default => "Events"), events_path
-              %li= link_to t("reports", :default => "Reports"), reports_path
+              - if can? :manage, CallForPapers
+                %li= link_to t("reports", :default => "Reports"), reports_path
               %li
                 - if @conference.call_for_papers
                   = link_to t(:call_for_papers, :default => "Call for Papers"), call_for_papers_path
                 - elsif can? :manage, Conference
                   = link_to t(:launch_call_for_papers, :default => "Launch Call for Papers"), new_call_for_papers_path
-              %li= link_to t("schedule", :default => "Schedule"), schedule_path
+              - if can? :manage, CallForPapers
+                %li= link_to t("schedule", :default => "Schedule"), schedule_path
               - if can? :manage, Conference
                 %li= link_to t("settings", :default => "Settings"), edit_conference_path(@conference)
           %ul.nav.secondary-nav.pull-right
