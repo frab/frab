@@ -26,8 +26,9 @@ class EventRatingTest < ActiveSupport::TestCase
     er = EventRating.new event: event, person: person, rating: 4.0
     assert er.save
 
-    er = EventRating.new event: event, person: person, rating: 4.0
-    assert !er.save
+    er = EventRating.new event: event, person: person, rating: 5.0
+    assert er.save
+    assert_equal 5.0, EventRating.find(er.id).rating
   end
 
   private
