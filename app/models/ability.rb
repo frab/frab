@@ -35,8 +35,6 @@ class Ability
       can :manage, :all
 
     when /submitter|crew/
-      fix_missing_person
-
       # submits events to conferences
       # edits own events
       # manage his account
@@ -113,13 +111,6 @@ class Ability
       return cu.role unless cu.nil?
     end
     return
-  end
-
-  def fix_missing_person
-    if @user.person.nil?
-      @user.person ||= Person.new(email: @user.email, public_name: @user.email)
-      Rails.logger.info "[ !!! ] Missing person object on #{@user.email} was created"
-    end
   end
 
 end
