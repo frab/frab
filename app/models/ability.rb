@@ -1,8 +1,9 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    user ||= User.new
+  def initialize(user, conference)
+    @user = user || User.new
+    @conference = conference
 
     #
     # Attention
@@ -18,63 +19,23 @@ class Ability
     # classes versus instances.
     #
 
-    role = user.role
-    if user.role == 'crew' 
-      role = get_conference_role(user)
-    end
+    #role = user.role
+    setup_user_abilities
 
-    case role
+    if user.role == 'crew' 
+      setup_crew_user_abilities
+    end
+  end
+
+  protected
+
+  def setup_user_abilities
+    case @user.role
     when /admin/
       can :manage, :all
 
-    when /orga/
-      can :manage, CallForPapers
-      can :manage, Conference
-      can :manage, Event
-      can :manage, EventFeedback
-      can :manage, EventRating
-      can :manage, Person
-      can :control, Person
-      can :control, User
-      can :manage, User
-      can :assign_roles, User
-
-    when /coordinator/
-      # coordinates speakers and their events
-      # everything from reviewer
-      can :manage, CallForPapers
-      cannot :destroy, CallForPapers
-      can :read, Conference
-      can :manage, Event
-      can :read, EventFeedback
-      can :manage, EventRating
-      can :manage, Person
-      can :control, Person
-      can :manage, User, :id => user.id
-      cannot :control, User
-      cannot :assign_roles, User
-
-    when /reviewer/
-      fix_missing_person(user)
-
-      # reviews events prior to conference schedule release
-      # everything from submitter
-      can :read, CallForPapers
-      can :read, Conference
-      can :read, Event
-      can :submit, Event
-      can :read, EventFeedback
-      can :manage, EventRating, :person_id => user.person.id
-      can :read, EventRating
-      can :manage, Person, :id => user.person.id
-      can :read, Person
-      cannot :control, Person
-      can :manage, User, :id => user.id
-      cannot :control, User
-      cannot :assign_roles, User
-
-    when /submitter/
-      fix_missing_person(user)
+    when /submitter|crew/
+      fix_missing_person
 
       # submits events to conferences
       # edits own events
@@ -82,9 +43,10 @@ class Ability
       # everything from guest
       can :submit, Event
       can :create, EventFeedback
-      can :manage, Person, :id => user.person.id
+
+      can :manage, Person, :id => @user.person.id
       cannot :control, Person
-      can :manage, User, :id => user.id
+      can :manage, User, :id => @user.id
       cannot :control, User
       cannot :assign_roles, User
 
@@ -99,24 +61,64 @@ class Ability
     end
   end
 
-  private
+  def setup_crew_user_abilities
+    crew_role = get_conference_role
+    case crew_role
+    when /orga/
+      can :manage, CallForPapers
+      can :manage, Conference
+      can :manage, Event
+      can :manage, EventFeedback
+      can :manage, EventRating
+      can :manage, Person
+      can :control, Person
+      can :control, User
+      can :manage, User
+      can :assign_roles, User # FIXME for conference
 
-  def get_conference_role(user)
-    if @conference.nil? and user.conference_users.size > 0
-      @conference = user.conference_users.last.conference
+    when /coordinator/
+      # coordinates speakers and their events
+      # everything from reviewer
+      can :manage, CallForPapers
+      cannot :destroy, CallForPapers
+      can :read, Conference
+      can :manage, Event
+      can :read, EventFeedback
+      can :manage, EventRating
+      can :manage, Person
+      can :control, Person
+
+    when /reviewer/
+      # reviews events prior to conference schedule release
+      # everything from submitter
+      can :read, CallForPapers
+      can :read, Conference
+      can :read, Event
+      can :submit, Event
+      can :read, EventFeedback
+      can :manage, EventRating, :person_id => @user.person.id
+      can :read, EventRating
+      can :read, Person
+
+    end
+  end
+
+  def get_conference_role
+    if @conference.nil? and @user.conference_users.size > 0
+      @conference = @user.conference_users.last.conference
     end
     unless @conference.nil?
       #raise "this user is missing a conference user" if @conference.nil?
-      cu = ConferenceUser.where(user_id: user, conference_id: @conference).first
+      cu = ConferenceUser.where(user_id: @user, conference_id: @conference).first
       return cu.role unless cu.nil?
     end
-    return user.role
+    return
   end
 
-  def fix_missing_person(user)
-    if (user.person.nil?)
-      user.person ||= Person.new(email: user.email, public_name: user.email)
-      Rails.logger.info "[ !!! ] Missing person object on #{user.email} was created"
+  def fix_missing_person
+    if @user.person.nil?
+      @user.person ||= Person.new(email: @user.email, public_name: @user.email)
+      Rails.logger.info "[ !!! ] Missing person object on #{@user.email} was created"
     end
   end
 

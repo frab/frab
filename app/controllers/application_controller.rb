@@ -69,6 +69,10 @@ class ApplicationController < ActionController::Base
     @current_user ||= user
   end
 
+  def current_ability
+    @current_ability ||= Ability.new(current_user, @conference)
+  end
+
   def authenticate_user!
     redirect_to scoped_sign_in_path unless current_user
   end

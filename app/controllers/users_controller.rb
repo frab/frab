@@ -87,9 +87,9 @@ class UsersController < ApplicationController
 
   def can_manage_user!
     if @user.nil?
-      authorize! :manage, @user
-    else
       authorize! :control, User
+    else
+      authorize! :manage, @user
     end
   end
 
