@@ -47,6 +47,7 @@ class Ability
       can :manage, User, :id => @user.id
       cannot :control, User
       cannot :assign_roles, User
+      cannot :assign_user_roles, User
 
     else
       # guest can visit the cfp page 
@@ -56,6 +57,7 @@ class Ability
       can :create, EventFeedback
       cannot :control, User
       cannot :assign_roles, User
+      cannot :assign_user_roles, User
     end
   end
 
@@ -71,8 +73,9 @@ class Ability
       can :manage, Person
       can :control, Person
       can :control, User
-      can :manage, User
-      can :assign_roles, User # FIXME for conference
+      can :manage, User  # submitters and own crew
+      can :assign_user_roles, User
+      cannot :assign_roles, User
 
     when /coordinator/
       # coordinates speakers and their events
