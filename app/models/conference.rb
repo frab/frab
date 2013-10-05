@@ -42,6 +42,10 @@ class Conference < ActiveRecord::Base
 
   scope :creation_order, order("conferences.created_at DESC")
 
+  scope :accessible_by_crew, lambda { |user| 
+    joins(:conference_users).where(conference_users: {user_id: user})
+  }
+
   def self.current
     self.order("created_at DESC").first
   end

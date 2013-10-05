@@ -65,7 +65,7 @@ class Ability
     when /orga/
       can :manage, CallForPapers
       can :manage, Conference
-      can :manage, Event
+      can :manage, Event, :conference_id => @conference.id
       can :manage, EventFeedback
       can :manage, EventRating
       can :manage, Person
@@ -80,7 +80,7 @@ class Ability
       can :manage, CallForPapers
       cannot :destroy, CallForPapers
       can :read, Conference
-      can :manage, Event
+      can :manage, Event, :conference_id => @conference.id
       can :read, EventFeedback
       can :manage, EventRating
       can :manage, Person
@@ -91,7 +91,7 @@ class Ability
       # everything from submitter
       can :read, CallForPapers
       can :read, Conference
-      can :read, Event
+      can :read, Event, conference_id: @conference.id
       can :submit, Event
       can :read, EventFeedback
       can :manage, EventRating, :person_id => @user.person.id

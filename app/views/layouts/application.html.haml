@@ -40,7 +40,10 @@
               %li.dropdown
                 = link_to t("switch_conference", :default => "Switch conference"), "#", :class => "dropdown-toggle"
                 %ul.dropdown-menu
-                  - conferences = Conference.order("created_at DESC")
+                  - if current_user.role == 'crew'
+                    - conferences = Conference.accessible_by_crew(current_user).order("created_at DESC")
+                  - else
+                    - conferences = Conference.order("created_at DESC")
                   - unless conferences.nil?
                     - conferences[0..19].each do |conference|
                       - unless @conference == conference
