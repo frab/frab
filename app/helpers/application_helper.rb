@@ -1,4 +1,15 @@
 module ApplicationHelper
+
+  def accessible_conferences
+    conferencs = []
+    if current_user.role == 'crew'
+      conferences = Conference.accessible_by_crew(current_user).order("created_at DESC")
+    else
+      conferences = Conference.order("created_at DESC")
+    end
+    conferences
+  end
+
   def active_class?(*paths)
     active = false
     paths.each { |path| active ||= current_page?(path) }
