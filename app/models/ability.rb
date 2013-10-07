@@ -16,7 +16,9 @@ class Ability
     #
     # Whenever authorization against a class is needed, for which a limited instance rule 
     # exists, a new verb, like 'control' is introduced. This avoids the ambiguity of checking
-    # classes versus instances.
+    # classes versus instances. 
+    # However :manage matches all rules, if a custom rule exists and shall not be matched
+    # by :manage, then :crud can be used instead of :manage.
     #
 
     #role = user.role
@@ -42,9 +44,10 @@ class Ability
       can :submit, Event
       can :create, EventFeedback
 
-      can :manage, Person, :id => @user.person.id
+      can :crud, Person, :id => @user.person.id
       cannot :control, Person
-      can :manage, User, :id => @user.id
+
+      can :crud, User, :id => @user.id
       cannot :control, User
       cannot :assign_roles, User
       cannot :assign_user_roles, User
