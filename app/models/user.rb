@@ -46,6 +46,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def is_crew_of?(conference)
+    self.is_crew? and self.conference_users.include?(conference)
+  end
+
   def self.check_pentabarf_credentials(email, password)
     user = User.find_by_email(email)
     return unless user and user.pentabarf_password and user.pentabarf_salt

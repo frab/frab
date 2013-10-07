@@ -73,7 +73,9 @@ class Ability
       can :manage, Person
       can :control, Person
       can :control, User
-      can :manage, User  # submitters and own crew
+      can [:read, :create, :update], User do |user|
+        (user.is_submitter? and user.person.involved_in @conference) or user.is_crew_of?(@conference)
+      end
       can :assign_user_roles, User
       cannot :assign_roles, User
 
