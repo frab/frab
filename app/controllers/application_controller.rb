@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
 
   def not_submitter!
     return unless current_user 
-    redirect_to cfp_root_path, alert: "This action is not allowed" if current_user.is_submitter
+    redirect_to cfp_root_path, alert: "This action is not allowed" if current_user.is_submitter?
   end
 
   def login_as(user)

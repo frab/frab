@@ -6,7 +6,7 @@
     - if can? :assign_roles, User
       = f.input :role, :as => :radio, :collection => User::ROLES
     - if can? :assign_user_roles, User
-      - if @user.is_crew
+      - if @user.is_crew?
         = dynamic_association :conference_users, t(:conference_user), f
   = f.buttons do
     = f.commit_button :button_html => {:class => "btn primary"}

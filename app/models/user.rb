@@ -36,12 +36,12 @@ class User < ActiveRecord::Base
     self.sign_in_count ||= 0
   end
 
-  def is_submitter
+  def is_submitter?
     return true if self.role == "submitter"
     false
   end
 
-  def is_crew
+  def is_crew?
     return true if self.role == "crew"
     false
   end
