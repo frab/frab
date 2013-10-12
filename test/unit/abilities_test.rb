@@ -43,7 +43,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:manage, @conference)
     assert ability.can?(:manage, Event)
     assert ability.can?(:manage, @event)
-    assert ability.can?(:manage, EventFeedback)
+    assert ability.can?(:control, :event_feedback)
     assert ability.can?(:manage, @feedback)
     assert ability.can?(:manage, EventRating)
     assert ability.can?(:manage, @rating)
@@ -87,9 +87,9 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "coordinator can only read feedback" do
     ability = Ability.new(@coordinator_user)
-    assert ability.can?(:read, EventFeedback)
+    assert ability.can?(:access, :event_feedback)
     assert ability.can?(:read, @feedback)
-    assert ability.cannot?(:manage, EventFeedback)
+    assert ability.cannot?(:control, :event_feedback)
     assert ability.cannot?(:manage, @feedback)
   end
 
@@ -126,10 +126,9 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "reviewer can only read event feedback" do
     ability = Ability.new(@reviewer_user)
-    assert ability.can?(:read, EventFeedback)
+    assert ability.can?(:access, :event_feedback)
     assert ability.can?(:read, @feedback)
-    assert ability.cannot?(:manage, EventFeedback)
-    assert ability.cannot?(:manage, @feedback)
+    assert ability.cannot?(:control, :event_feedback)
   end
 
   test "reviewer can only read and submit events" do
@@ -204,10 +203,10 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "submitter can only create event feedback" do
     ability = Ability.new(@submitter_user)
-    assert ability.can?(:create, EventFeedback)
+    assert ability.can?(:make, :event_feedback)
     assert ability.cannot?(:read, @feedback)
     assert ability.cannot?(:read, @feedback)
-    assert ability.cannot?(:manage, EventFeedback)
+    assert ability.cannot?(:control, :event_feedback)
     assert ability.cannot?(:manage, @feedback)
   end
 
@@ -273,10 +272,10 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "guest can only create event feedback" do
     ability = Ability.new(@guest_user)
-    assert ability.can?(:create, EventFeedback)
+    assert ability.can?(:make, :event_feedback)
     assert ability.cannot?(:read, @feedback)
     assert ability.cannot?(:read, @feedback)
-    assert ability.cannot?(:manage, EventFeedback)
+    assert ability.cannot?(:control, :event_feedback)
     assert ability.cannot?(:manage, @feedback)
   end
 

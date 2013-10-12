@@ -66,7 +66,7 @@ class PeopleController < ApplicationController
 
   def feedbacks
     @person = Person.find(params[:id])
-    authorize! :read, EventFeedback
+    authorize! :access, :event_feedback
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
   end

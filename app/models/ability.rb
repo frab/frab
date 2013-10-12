@@ -20,6 +20,11 @@ class Ability
     # However :manage matches all rules, if a custom rule exists and shall not be matched
     # by :manage, then :crud can be used instead of :manage.
     #
+    # TODO get rid of 'class' syntax
+    #   Not sure if subject class can be arbirtrary: it can! :read, :logs
+    # TODO Instead: If it ain't CRUD don't crud!
+    #  Person, User, Event, EventRating
+    #  but manage is a wildcard...
 
     #role = user.role
     setup_user_abilities
@@ -42,7 +47,7 @@ class Ability
       # manage his account
       # everything from guest
       can :submit, Event
-      can :create, EventFeedback
+      can [:access, :make], :event_feedback
 
       can :crud, Person, :id => @user.person.id
       cannot :control, Person
@@ -57,7 +62,7 @@ class Ability
       # guest can create/confirm an account
       # guest can view the published schedule 
       # guest can give feedback on events
-      can :create, EventFeedback
+      can [:access, :make], :event_feedback
       cannot :control, User
       cannot :assign_roles, User
       cannot :assign_user_roles, User
@@ -68,13 +73,13 @@ class Ability
     crew_role = get_conference_role
     case crew_role
     when /orga/
-      can :manage, CallForPapers
-      can :manage, Conference
+      can :control, CallForPapers
+      can :control, Conference
       can :manage, Event, :conference_id => @conference.id
-      can :manage, EventFeedback
+      can [:access, :make, :control], :event_feedback
       can :manage, EventRating
       can :manage, Person
-      can :control, Person
+      #can :control, Person # dupe
       can :control, User
       can [:read, :create, :update], User do |user|
         (user.is_submitter? and user.person.involved_in @conference) or user.is_crew_of?(@conference)
@@ -85,14 +90,14 @@ class Ability
     when /coordinator/
       # coordinates speakers and their events
       # everything from reviewer
-      can :manage, CallForPapers
+      can :control, CallForPapers
       cannot :destroy, CallForPapers
       can :read, Conference
       can :manage, Event, :conference_id => @conference.id
-      can :read, EventFeedback
+      can :access, :event_feedback
       can :manage, EventRating
       can :manage, Person
-      can :control, Person
+      #can :control, Person # dupe
 
     when /reviewer/
       # reviews events prior to conference schedule release
@@ -101,7 +106,7 @@ class Ability
       can :read, Conference
       can :read, Event, conference_id: @conference.id
       can :submit, Event
-      can :read, EventFeedback
+      can :access, :event_feedback
       can :manage, EventRating, :person_id => @user.person.id
       can :read, EventRating
       can :read, Person

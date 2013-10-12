@@ -67,7 +67,7 @@ class EventsController < ApplicationController
 
   # show event feedbacks
   def feedbacks
-    authorize! :read, EventFeedback
+    authorize! :access, :event_feedback
     @search = @conference.events.accepted.search(params[:q])
     @events = @search.result.paginate page: params[:page]
   end
