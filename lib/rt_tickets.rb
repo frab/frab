@@ -22,37 +22,14 @@ module RTTickets
     def initialize(c, l)
       @conference = c
       @logger = l
-      @cookie = nil
       @test_only = false
     end
     attr_accessor :test_only
 
-    def login
+    def create(data)
       @uri = URI.parse(@conference.ticket_server.url)
       @user = URI.encode @conference.ticket_server.user
       @password = URI.encode @conference.ticket_server.password
-
-      if @test_only
-        @logger.info @uri.path
-        @logger.info "user => #{@user}, pass => 'XXX'"
-        return
-      end
-
-      request = Net::HTTP::Post.new(@uri.path)
-      request.set_form_data( { 'user' => @user, 'pass' => @password } )
-
-      response = Net::HTTP.start(@uri.host, @uri.port) {|http| http.request(request) }
-      case response
-      when Net::HTTPSuccess
-        @cookie = response['set-cookie'].split(/;/).first
-      else
-        @logger.info response.to_json
-        raise "RT Login Failed: #{response.error!}"
-      end
-    end
-
-    def create(data)
-      @uri = URI.parse(@conference.ticket_server.url)
       @uri.path += 'REST/1.0/ticket/new'
 
       if @test_only
@@ -62,15 +39,10 @@ module RTTickets
       end
 
       request = Net::HTTP::Post.new(@uri.path)
-      request.add_field('Cookie', @cookie)
-      request.set_form_data({ 'content' => data })
+      request.set_form_data( { 'user' => @user, 'pass' => @password, 'content' => data })
+      http = get_http(@uri)
+      response = http.request(request) 
 
-      response = Net::HTTP.start(@uri.host, @uri.port) {|http| 
-        # SSL
-        #http.use_ssl = true
-        #http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        http.request(request) 
-      }
       case response
       when Net::HTTPSuccess
         if response.body.match(/200 Ok/) and m = response.body.match(/Ticket (\d+) created./)
@@ -84,6 +56,18 @@ module RTTickets
         raise "RT HTTP Error: #{response.error!}"
       end
     end
+
+    protected
+
+    def get_http(uri)
+      http = Net::HTTP.new(uri.host, uri.port)
+      if uri.is_a? URI::HTTPS
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      end
+      http
+    end
+
   end
 
   def RTTickets.create_ticket_title( prefix, event )
@@ -107,7 +91,6 @@ module RTTickets
 
     ticket_system = RTAdapter.new( @conference, Rails.logger )
     ticket_system.test_only = args[:test_only]
-    ticket_system.login
 
     data = <<-EOF
 id: ticket/new
@@ -123,7 +106,6 @@ Requestor: #{args[:owner_email]}
     remote_ticket_id = ticket_system.create( data ) 
     remote_ticket_id
   end
-
 
 end
 
