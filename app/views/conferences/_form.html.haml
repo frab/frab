@@ -11,6 +11,7 @@
     = f.input :max_timeslots, :as => :select, :collection => 1..100, :hint => "What is the maximum length of a single event (e.g. a single talk)?"
     = f.input :schedule_version, :hint => "What is the current schedule version?"
     = f.input :schedule_public, :hint => "Is the dynamic schedule public? You can still create static exports regardless of this setting."
+    = f.input :event_state_visible, :as => :boolean, :hint => "If you enable this, speakers will be able to look up the state of their submission in the cfp interface and confirm their attendance by pressing the confirm button."
   = dynamic_association :languages, t(:event_languages), f, :hint => "Choose which languages events in this conference can be held in."
   = f.inputs t(:static_program_export) do
     = f.input :program_export_base_url, :hint => "If you want to use the static program export, enter the URL where you want to put the files under here. All references will be generated using this as a prefix."
