@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131013145045) do
+ActiveRecord::Schema.define(:version => 20131013164530) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(:version => 20131013145045) do
     t.integer  "event_feedbacks_count", :default => 0
     t.float    "average_feedback"
     t.string   "guid"
+    t.boolean  "do_not_record",         :default => false
+    t.string   "recording_license"
   end
 
   add_index "events", ["conference_id"], :name => "index_events_on_conference_id"
