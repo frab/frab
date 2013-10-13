@@ -120,6 +120,24 @@ class ReportsController < ApplicationController
       events = @conference.events.where(event_type: :workshops)
       row << @conference.event_duration_sum(events)
       @data << row
+      @search_count = nil
+
+    when 'people_speaking_by_day'
+      @data = []
+      row = []
+      @labels = %w{Day FullName PublicName Email Event Role State} # TODO translate
+
+      @conference.days.each do |day|
+        @conference.events.confirmed.no_conflicts.public.scheduled_on(day).order(:start_time).each do |event|
+          event.event_people.presenter.each do |event_person|
+            person = event_person.person
+            row = [ l(day.date), person.full_name, person.public_name, person.email, event.title, event_person.event_role, event_person.role_state ]
+            @data << row
+          end
+        end
+      end
+
+      @search_count = nil
     end
 
     render :show

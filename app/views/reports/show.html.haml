@@ -3,10 +3,12 @@
     %h1 Available Reports
   = render 'report_menu'
   %h2 Results
-  = render 'shared/simple_search', :path => request.path
-  Found 
-  = @search_count
-  results.
+  - if @people or @events
+    = render 'shared/simple_search', :path => request.path
+  - unless @search_count.nil?
+    Found 
+    = @search_count
+    results.
   - if not @people.nil? and not @people.empty?
     .row
       .span16

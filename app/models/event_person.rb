@@ -2,7 +2,7 @@ class EventPerson < ActiveRecord::Base
   include UniqueToken
 
   ROLES = [:coordinator, :submitter, :speaker, :moderator]
-  STATES = [:canceled, :confirmed, :declined, :idea, :offer, :unclear]
+  STATES = [:canceled, :confirmed, :declined, :idea, :offer, :unclear, :attending]
 
   belongs_to :event
   belongs_to :person
