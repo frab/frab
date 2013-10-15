@@ -33,6 +33,14 @@ class Conference < ActiveRecord::Base
 
   has_paper_trail 
 
+  scope :has_submission, lambda { |person|
+    joins(events: [{event_people: :person}])
+    .where(EventPerson.arel_table[:event_role].in(["speaker","moderator"]))
+    .where(Person.arel_table[:id].eq(person.id)).group(:"conferences.id")
+  }
+
+  scope :creation_order, order("conferences.created_at DESC")
+
   def self.current
     self.order("created_at DESC").first
   end

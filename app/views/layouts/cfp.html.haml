@@ -17,6 +17,14 @@
             - else
               = link_to @conference.title + " - Call for Papers", cfp_root_path, :class => "brand"
             %ul.nav.secondary-nav.pull-right
+              - conferences = Conference.creation_order.has_submission(current_user.person).all
+              - if conferences.count > 1
+                %li.dropdown
+                  = link_to t("switch_conference", :default => "Switch conference"), "#", :class => "dropdown-toggle"
+                  %ul.dropdown-menu
+                    - conferences.each do |conference|
+                      - unless @conference == conference
+                        %li= link_to conference.acronym, cfp_root_path(:conference_acronym => conference.acronym)
               - if current_user
                 %li= link_to t("web-app-theme.logout", :default => "Logout"), cfp_session_path, :method => :delete
     .container
