@@ -216,18 +216,11 @@ class EventsController < ApplicationController
   def clean_events_attributes
     return if can? :manage, Event
     unless @event.nil?
-      @event = clean_event_attributes(@event)
+      @event.clean_event_attributes!
     end
     unless @events.nil?
-      @events.map { |event| clean_event_attributes(event) } 
+      @events.map { |event| event.clean_event_attributes! } 
     end
-  end
-
-  def clean_event_attributes(event)
-    event.start_time = nil
-    event.state = ''
-    event.note = ''
-    event
   end
 
 end

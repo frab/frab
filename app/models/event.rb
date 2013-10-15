@@ -204,6 +204,13 @@ class Event < ActiveRecord::Base
     "#{self.conference.program_export_base_url}events/#{self.id}.html"
   end
 
+  def clean_event_attributes!
+    self.start_time = nil
+    self.state = ''
+    self.note = ''
+    self
+  end
+
   private
 
   def generate_guid

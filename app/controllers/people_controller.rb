@@ -52,6 +52,10 @@ class PeopleController < ApplicationController
     authorize! :read, @person
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
+    if cannot? :manage, Event
+      @current_events.map { |event| event.clean_event_attributes! }
+      @other_events.map { |event| event.clean_event_attributes! }
+    end
     @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
 
     respond_to do |format|
