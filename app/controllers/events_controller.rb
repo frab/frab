@@ -178,15 +178,15 @@ class EventsController < ApplicationController
         return redirect_to edit_call_for_papers_path, alert: 'No notification text present. Please change the default text for your needs, before accepting/ rejecting events.'
       end
 
-      redirect_to(@event, alert: "Cannot send mails: Please specify an email address for this conference.") and return unless @conference.email
+      return redirect_to(@event, alert: "Cannot send mails: Please specify an email address for this conference.") unless @conference.email
 
-      redirect_to(@event, alert: "Cannot send mails: Not all speakers have email addresses.") and return unless @event.speakers.all?{|s| s.email}
+      return redirect_to(@event, alert: "Cannot send mails: Not all speakers have email addresses.") unless @event.speakers.all?{|s| s.email}
     end
 
     begin
       @event.send(:"#{params[:transition]}!", send_mail: params[:send_mail], coordinator: current_user.person)
     rescue => ex
-      redirect_to(@event, alert: "Cannot send mails: #{ex}.") and return
+      return redirect_to(@event, alert: "Cannot send mails: #{ex}.")
     end
 
     redirect_to @event, notice: 'Event was successfully updated.' 

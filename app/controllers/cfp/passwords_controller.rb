@@ -29,7 +29,7 @@ class Cfp::PasswordsController < ApplicationController
     @user = User.find_by_reset_password_token(params[:user][:reset_password_token])
     unless @user
       flash[:alert] = t(:"cfp.problem_sending_password_reset_instructions")
-      redirect_to new_cfp_user_password_path
+      return redirect_to new_cfp_user_password_path
     end
 
     if @user.reset_password(params[:user])

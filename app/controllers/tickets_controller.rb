@@ -8,8 +8,7 @@ class TicketsController < ApplicationController
     authorize! :manage, @event
 
     if not @conference.is_ticket_server_enabled? or @conference.ticket_server.nil?
-      redirect_to edit_conference_path(conference_acronym: @conference.acronym), alert: "No ticket server configured"
-      return
+      return redirect_to edit_conference_path(conference_acronym: @conference.acronym), alert: "No ticket server configured"
     end
     server = @conference.get_ticket_module
 
@@ -22,13 +21,11 @@ class TicketsController < ApplicationController
                                      owner_email: current_user.email,
                                      test_only: params[:test_only])
     rescue => ex
-      redirect_to event_path(id: params[:event_id], method: :get), alert: "Failed to create ticket: #{ex.message}"
-      return
+      return redirect_to event_path(id: params[:event_id], method: :get), alert: "Failed to create ticket: #{ex.message}"
     end
 
     if remote_id.nil?
-      redirect_to event_path(id: params[:event_id], method: :get) , alert: "Failed to receive remote id"
-      return
+      return redirect_to event_path(id: params[:event_id], method: :get) , alert: "Failed to receive remote id"
     end
 
     @event.ticket = Ticket.new if @event.ticket.nil?
