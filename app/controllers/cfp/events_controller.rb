@@ -8,7 +8,11 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events.xml
   def index
     authorize! :submit, Event
+
     @events = current_user.person.events.all
+    unless @events.nil?
+      @events.map { |event| event.clean_event_attributes! } 
+    end
 
     respond_to do |format|
       format.html { redirect_to cfp_person_path }
@@ -17,7 +21,6 @@ class Cfp::EventsController < ApplicationController
   end
 
   # GET /cfp/events/1
-  # GET /cfp/events/1.xml
   def show
     authorize! :submit, Event
     redirect_to(edit_cfp_event_path)
