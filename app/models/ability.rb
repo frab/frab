@@ -2,17 +2,22 @@
 #
 #   can :manage, EventRating, person_id: user.person.id
 #
-# This means a user can do every  action on EventRating, but may 
+# This means a user can do every action on EventRating, but may 
 # only :manage @event_rating if it belongs to her.
-# Take a look how these abilities are used across controllers, before changing them.
+# see: https://github.com/ryanb/cancan/wiki/Checking-Abilities
+#
+#   "Important: If a block or hash of conditions exist they will be ignored 
+#   when checking on a class, and it will return true."
+#
 #
 # Whenever a conditional permissions exists and  both forms are needed
 #   * authorization against a class
 #   * authorization against an instance of this class
 # a new verb, like 'administrate' is introduced. This avoids the ambiguity of checking
-# classes versus instances. 
+# classes versus instances. Instead of manage, crud is used for the hash condition.
 #
 # Example:
+#  can :crud, Confernence, id: 1
 #  can :administrate Conference
 #  can :read @conference
 #
@@ -34,6 +39,7 @@ class Ability
     @user = user || User.new
     @conference = conference
 
+    alias_action :create, :read, :update, :destroy, :to => :crud
 
     setup_user_abilities
 
@@ -106,12 +112,12 @@ class Ability
     when /reviewer/
       # reviews events prior to conference schedule release
       # everything from submitter
+      # edit own event rating
       can :read, CallForPapers
       can :read, Conference
       can :read, Event, conference_id: @conference.id
       can :submit, Event
-      can :manage, EventRating, :person_id => @user.person.id
-      can :read, EventRating
+      can :crud, EventRating, :person_id => @user.person.id
       can :read, Person
 
     end

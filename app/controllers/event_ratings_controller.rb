@@ -21,7 +21,7 @@ class EventRatingsController < ApplicationController
     @rating = EventRating.new(params[:event_rating])
     @rating.event = @event
     @rating.person = current_user.person
-    authorize! :manage, @rating
+    authorize! :create, @rating
 
     if @rating.save
       redirect_to event_event_rating_path, notice: "Rating saved successfully."
@@ -33,7 +33,7 @@ class EventRatingsController < ApplicationController
 
   def update
     @rating = @event.event_ratings.find_by_person_id(current_user.person.id)
-    authorize! :manage, @rating
+    authorize! :update, @rating
 
     if @rating.update_attributes(params[:event_rating])
       redirect_to event_event_rating_path, notice: "Rating updated successfully."

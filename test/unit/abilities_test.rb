@@ -43,7 +43,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:access, :event_feedback)
     assert ability.can?(:manage, @feedback)
     assert ability.can?(:manage, EventRating)
-    assert ability.can?(:manage, @rating)
+    assert ability.can?(:crud, @rating)
     assert ability.can?(:administrate, Person)
     assert ability.can?(:manage, Person)
     assert ability.can?(:manage, @person)
@@ -59,7 +59,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:manage, Event)
     assert ability.can?(:manage, @event)
     assert ability.can?(:manage, EventRating)
-    assert ability.can?(:manage, @rating)
+    assert ability.can?(:crud, @rating)
     assert ability.can?(:administrate, Person)
     assert ability.can?(:manage, Person)
     assert ability.can?(:manage, @person)
@@ -148,9 +148,10 @@ class AbilitiesTest < ActiveSupport::TestCase
     my_rating = FactoryGirl.create(:event_rating, person: @reviewer_user.person)
     ability = Ability.new(@reviewer_user)
     assert ability.can?(:create, my_rating)
-    assert ability.can?(:manage, my_rating)
+    assert ability.can?(:crud, my_rating)
     assert ability.can?(:read, @rating)
-    assert ability.cannot?(:manage, @rating)
+    assert ability.cannot?(:crud, @rating)
+    assert ability.cannot?(:manage, EventRating)
   end
 
   test "reviewer can read all persons, but only manage self" do
@@ -217,7 +218,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot?(:manage, my_rating)
     assert ability.cannot?(:read, EventRating)
     assert ability.cannot?(:read, @rating)
-    assert ability.cannot?(:manage, @rating)
+    assert ability.cannot?(:crud, @rating)
     assert ability.cannot?(:manage, EventRating)
   end
 
@@ -283,7 +284,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot?(:manage, my_rating)
     assert ability.cannot?(:read, EventRating)
     assert ability.cannot?(:read, @rating)
-    assert ability.cannot?(:manage, @rating)
+    assert ability.cannot?(:crud, @rating)
     assert ability.cannot?(:manage, EventRating)
   end
 
