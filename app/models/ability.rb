@@ -87,10 +87,9 @@ class Ability
     when /orga/
       can :administrate, CallForPapers
       can :administrate, Conference
-      can :manage, Event, :conference_id => @conference.id
+      can :crud, Event, :conference_id => @conference.id
       can :manage, EventRating
       can :manage, Person
-      #can :administrate, Person # dupe
       can :administrate, User
       can [:read, :create, :update], User do |user|
         (user.is_submitter? and user.person.involved_in @conference) or user.is_crew_of?(@conference)
@@ -104,7 +103,7 @@ class Ability
       can :administrate, CallForPapers
       cannot :destroy, CallForPapers
       can :read, Conference
-      can :manage, Event, :conference_id => @conference.id
+      can :crud, Event, :conference_id => @conference.id
       can :manage, EventRating
       can :manage, Person
       #can :administrate, Person # dupe

@@ -38,8 +38,8 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:manage, @cfp)
     assert ability.can?(:manage, Conference)
     assert ability.can?(:manage, @conference)
-    assert ability.can?(:manage, Event)
-    assert ability.can?(:manage, @event)
+    assert ability.can?(:crud, Event)
+    assert ability.can?(:crud, @event)
     assert ability.can?(:access, :event_feedback)
     assert ability.can?(:manage, @feedback)
     assert ability.can?(:manage, EventRating)
@@ -56,8 +56,8 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "coordinator has full access on events, ratings and persons" do
     ability = Ability.new(@coordinator_user)
-    assert ability.can?(:manage, Event)
-    assert ability.can?(:manage, @event)
+    assert ability.can?(:crud, Event)
+    assert ability.can?(:crud, @event)
     assert ability.can?(:manage, EventRating)
     assert ability.can?(:crud, @rating)
     assert ability.can?(:administrate, Person)
@@ -130,8 +130,8 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:read, Event)
     assert ability.can?(:read, @event)
     assert ability.can?(:submit, Event)
-    assert ability.cannot?(:manage, Event)
-    assert ability.cannot?(:manage, @event)
+    assert ability.cannot?(:crud, Event)
+    assert ability.cannot?(:crud, @event)
   end
 
   test "reviewer without person can still only read and submit events" do
@@ -140,8 +140,8 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:read, Event)
     assert ability.can?(:read, @event)
     assert ability.can?(:submit, Event)
-    assert ability.cannot?(:manage, Event)
-    assert ability.cannot?(:manage, @event)
+    assert ability.cannot?(:crud, Event)
+    assert ability.cannot?(:crud, @event)
   end
 
   test "reviewer can read all event ratings, but only manage self" do
@@ -207,8 +207,8 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:submit, Event)
     assert ability.cannot?(:read, Event)
     assert ability.cannot?(:read, @event)
-    assert ability.cannot?(:manage, Event)
-    assert ability.cannot?(:manage, @event)
+    assert ability.cannot?(:crud, Event)
+    assert ability.cannot?(:crud, @event)
   end
 
   test "submitter has no access to event ratings" do
@@ -273,8 +273,8 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot?(:submit, Event)
     assert ability.cannot?(:read, Event)
     assert ability.cannot?(:read, @event)
-    assert ability.cannot?(:manage, Event)
-    assert ability.cannot?(:manage, @event)
+    assert ability.cannot?(:crud, Event)
+    assert ability.cannot?(:crud, @event)
   end
 
   test "guest has no access to event ratings" do

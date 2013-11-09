@@ -36,7 +36,7 @@ class EventsController < ApplicationController
 
   # events as pdf
   def cards
-    authorize! :manage, Event
+    authorize! :crud, Event
     if params[:accepted]
       @events = @conference.events.accepted
     else
@@ -108,7 +108,7 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.xml
   def new
-    authorize! :manage, Event
+    authorize! :crud, Event
     @event = Event.new
 
     respond_to do |format|
@@ -120,7 +120,7 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    authorize! :manage, @event
+    authorize! :edit, @event
   end
 
   # GET /events/2/edit_people
@@ -134,7 +134,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.conference = @conference
-    authorize! :manage, @event
+    authorize! :create, @event
 
     respond_to do |format|
       if @event.save
@@ -151,7 +151,7 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
-    authorize! :manage, @event
+    authorize! :update, @event
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
@@ -169,7 +169,7 @@ class EventsController < ApplicationController
   # GET /events/2/update_state?transition=cancel
   def update_state
     @event = Event.find(params[:id])
-    authorize! :manage, @event
+    authorize! :update, @event
 
     if params[:send_mail]
 
@@ -196,7 +196,7 @@ class EventsController < ApplicationController
   # DELETE /events/1.xml
   def destroy
     @event = Event.find(params[:id])
-    authorize! :manage, @event
+    authorize! :destroy, @event
     @event.destroy
 
     respond_to do |format|
@@ -214,7 +214,7 @@ class EventsController < ApplicationController
   end
 
   def clean_events_attributes
-    return if can? :manage, Event
+    return if can? :crud, Event
     unless @event.nil?
       @event.clean_event_attributes!
     end

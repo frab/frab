@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      - if can? :manage, Event
+      - if can? :crud, Event
         = action_button "primary", "Add event", new_event_path, :hint => "Add a new event."
         = action_button "", "Print cards", cards_events_path(:format => :pdf), :hint => "Download a PDF with all events as cards (four cards per page). Print this out to take your planning offline."
         = action_button "", "Print cards (accepted only)", cards_events_path(:accepted => true, :format => :pdf), :hint => "Download a PDF with only the accepted events as cards (four cards per page). Especially useful to plan your program schedule offline."

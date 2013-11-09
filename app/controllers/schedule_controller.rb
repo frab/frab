@@ -14,7 +14,7 @@ class ScheduleController < ApplicationController
   end
 
   def update_track
-    authorize! :manage, Event
+    authorize! :crud, Event
     if params[:track_id] and params[:track_id] =~ /\d+/
       @unscheduled_events = @conference.events.accepted.unscheduled.where(track_id: params[:track_id])
     else
@@ -24,7 +24,7 @@ class ScheduleController < ApplicationController
   end
 
   def update_event
-    authorize! :manage, Event
+    authorize! :crud, Event
     event = @conference.events.find(params[:id])
     affected_event_ids = event.update_attributes_and_return_affected_ids(params[:event])
     @affected_events = @conference.events.find(affected_event_ids)

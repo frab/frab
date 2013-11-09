@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      - if can? :manage, @event 
+      - if can? :crud, @event 
         = action_button "primary", "Edit event", edit_event_path(@event), :hint => "Edit this event's data."
         = action_button "primary", "Edit people", edit_people_event_path(@event), :hint => "Edit this event's data."
         - if @conference.ticket_type == 'integrated'
@@ -43,7 +43,7 @@
       %p
         %b Event type:
         = @event.event_type
-      - if can? :manage, Event
+      - if can? :crud, Event
         %p
           %b State:
           = @event.state
@@ -70,7 +70,7 @@
       %p
         %b Time slots:
         = format_time_slots @event.time_slots
-      - if can? :manage, Event
+      - if can? :crud, Event
         %p
           %b Start time:
           = @event.start_time
@@ -111,7 +111,7 @@
     .span16
       %h2 Notes
   .row
-    - if can? :manage, @event 
+    - if can? :crud, @event 
       .span8
         %p
           %b Notes(admin):

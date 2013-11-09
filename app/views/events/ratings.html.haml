@@ -45,7 +45,7 @@
               %th= sort_link @search, :title, :term => params[:term]
               %th= sort_link @search, :track_name, "Track", :term => params[:term]
               %th= sort_link @search, :event_type, :term => params[:term]
-              - if can? :manage, Event
+              - if can? :crud, Event
                 %th= sort_link @search, :state, :term => params[:term]
               %th= sort_link @search, :average_rating, :term => params[:term]
               %th= sort_link @search, :event_ratings_count, :term => params[:term]
@@ -60,7 +60,7 @@
                     = by_speakers(event)
                 %td= event.track.try(:name)
                 %td= event.event_type
-                - if can? :manage, Event
+                - if can? :crud, Event
                   %td= event.state
                 %td
                   - if event.average_rating
