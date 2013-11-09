@@ -55,7 +55,6 @@ class Ability
       # manage his account
       # everything from guest
       can :submit, Event
-      can [:access, :make], :event_feedback
 
       can :crud, Person, :id => @user.person.id
       cannot :control, Person
@@ -70,7 +69,6 @@ class Ability
       # guest can create/confirm an account
       # guest can view the published schedule 
       # guest can give feedback on events
-      can [:access, :make], :event_feedback
       cannot :control, User
       cannot :assign_roles, User
       cannot :assign_user_roles, User
@@ -84,7 +82,6 @@ class Ability
       can :control, CallForPapers
       can :control, Conference
       can :manage, Event, :conference_id => @conference.id
-      can [:access, :make, :control], :event_feedback
       can :manage, EventRating
       can :manage, Person
       #can :control, Person # dupe
@@ -114,12 +111,13 @@ class Ability
       can :read, Conference
       can :read, Event, conference_id: @conference.id
       can :submit, Event
-      can :access, :event_feedback
       can :manage, EventRating, :person_id => @user.person.id
       can :read, EventRating
       can :read, Person
 
     end
+
+    can :access, :event_feedback
   end
 
   def get_conference_role

@@ -18,9 +18,6 @@ class AbilitiesTest < ActiveSupport::TestCase
     # EventRating
     @rating = FactoryGirl.create(:event_rating, :event => @event, :rating => 4.0)
 
-    # EventFeedback
-    @feedback = FactoryGirl.create(:event_feedback, :event => @event, :rating => 4.0)
-
     # User
     @other_user = FactoryGirl.create(:user)
 
@@ -43,7 +40,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can?(:manage, @conference)
     assert ability.can?(:manage, Event)
     assert ability.can?(:manage, @event)
-    assert ability.can?(:control, :event_feedback)
+    assert ability.can?(:access, :event_feedback)
     assert ability.can?(:manage, @feedback)
     assert ability.can?(:manage, EventRating)
     assert ability.can?(:manage, @rating)
@@ -88,9 +85,7 @@ class AbilitiesTest < ActiveSupport::TestCase
   test "coordinator can only read feedback" do
     ability = Ability.new(@coordinator_user)
     assert ability.can?(:access, :event_feedback)
-    assert ability.can?(:read, @feedback)
-    assert ability.cannot?(:control, :event_feedback)
-    assert ability.cannot?(:manage, @feedback)
+    assert ability.cannot?(:manage, :event_feedback)
   end
 
   test "coordinator can read all users, but only manage self" do
@@ -127,8 +122,7 @@ class AbilitiesTest < ActiveSupport::TestCase
   test "reviewer can only read event feedback" do
     ability = Ability.new(@reviewer_user)
     assert ability.can?(:access, :event_feedback)
-    assert ability.can?(:read, @feedback)
-    assert ability.cannot?(:control, :event_feedback)
+    assert ability.cannot?(:manage, :event_feedback)
   end
 
   test "reviewer can only read and submit events" do
@@ -203,11 +197,8 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "submitter can only create event feedback" do
     ability = Ability.new(@submitter_user)
-    assert ability.can?(:make, :event_feedback)
-    assert ability.cannot?(:read, @feedback)
-    assert ability.cannot?(:read, @feedback)
-    assert ability.cannot?(:control, :event_feedback)
-    assert ability.cannot?(:manage, @feedback)
+    assert ability.cannot?(:access, :event_feedback)
+    assert ability.cannot?(:manage, :event_feedback)
   end
 
   test "submitter can only submit events" do
@@ -272,11 +263,8 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "guest can only create event feedback" do
     ability = Ability.new(@guest_user)
-    assert ability.can?(:make, :event_feedback)
-    assert ability.cannot?(:read, @feedback)
-    assert ability.cannot?(:read, @feedback)
-    assert ability.cannot?(:control, :event_feedback)
-    assert ability.cannot?(:manage, @feedback)
+    assert ability.cannot?(:access, :event_feedback)
+    assert ability.cannot?(:manage, :event_feedback)
   end
 
   test "guest has no access to events" do
