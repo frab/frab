@@ -73,11 +73,10 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot?(:destroy, @cfp)
   end
 
-  test "coordinator can only read and show conferences" do
+  test "coordinator can only read conferences" do
     ability = Ability.new(@coordinator_user)
     assert ability.can?(:read, Conference)
-    assert ability.can?(:show, Conference)
-    assert ability.can?(:show, @conference)
+    assert ability.can?(:read, @conference)
     assert ability.cannot?(:manage, @conference)
     assert ability.cannot?(:manage, Conference)
   end
@@ -105,8 +104,7 @@ class AbilitiesTest < ActiveSupport::TestCase
   test "reviewer can only read conferences" do
     ability = Ability.new(@reviewer_user)
     assert ability.can?(:read, Conference)
-    assert ability.can?(:show, Conference)
-    assert ability.can?(:show, @conference)
+    assert ability.can?(:read, @conference)
     assert ability.cannot?(:manage, Conference)
     assert ability.cannot?(:manage, @conference)
   end
@@ -157,10 +155,11 @@ class AbilitiesTest < ActiveSupport::TestCase
   test "reviewer can read all persons, but only manage self" do
     ability = Ability.new(@reviewer_user)
     assert ability.cannot?(:administrate, Person)
-    assert ability.can?(:manage, Person)
+    assert ability.cannot?(:manage, Person)
+    assert ability.can?(:read, Person)
     assert ability.can?(:manage, @reviewer_user.person)
     assert ability.can?(:read, @person)
-    assert ability.cannot?(:manage, @person)
+    assert ability.cannot?(:update, @person)
   end
 
   test "reviewer can only read and manage own user" do
@@ -182,8 +181,7 @@ class AbilitiesTest < ActiveSupport::TestCase
   test "submitter has no access to conferences" do
     ability = Ability.new(@submitter_user)
     assert ability.cannot?(:read, Conference)
-    assert ability.cannot?(:show, Conference)
-    assert ability.cannot?(:show, @conference)
+    assert ability.cannot?(:read, @conference)
     assert ability.cannot?(:manage, Conference)
     assert ability.cannot?(:manage, @conference)
   end
@@ -248,8 +246,6 @@ class AbilitiesTest < ActiveSupport::TestCase
   test "guest has no access to conferences" do
     ability = Ability.new(@guest_user)
     assert ability.cannot?(:read, Conference)
-    assert ability.cannot?(:show, Conference)
-    assert ability.cannot?(:show, @conference)
     assert ability.cannot?(:manage, Conference)
     assert ability.cannot?(:manage, @conference)
   end
@@ -291,9 +287,9 @@ class AbilitiesTest < ActiveSupport::TestCase
   test "guest has no access to person" do
     ability = Ability.new(@guest_user)
     assert ability.cannot?(:administrate, Person)
-    assert ability.cannot?(:manage, @guest_user.person)
+    assert ability.cannot?(:update, @guest_user.person)
     assert ability.cannot?(:manage, Person)
-    assert ability.cannot?(:manage, @person)
+    assert ability.cannot?(:update, @person)
   end
 
   test "guest has no access to user" do

@@ -9,29 +9,20 @@
 #   "Important: If a block or hash of conditions exist they will be ignored 
 #   when checking on a class, and it will return true."
 #
-#
-# Whenever a conditional permissions exists and  both forms are needed
-#   * authorization against a class
-#   * authorization against an instance of this class
-# a new verb, like 'administrate' is introduced. This avoids the ambiguity of checking
-# classes versus instances. Instead of manage, crud is used for the hash condition.
+# As a solution, instead of manage, crud is used for the hash condition.
 #
 # Example:
-#  can :crud, Confernence, id: 1
-#  can :administrate Conference
-#  can :read @conference
+#  can :crud, Conference, id: 1
+#  can? :manage, Conference          => false
+#  can? :administrate, Conference    => false
+#  can? :create, Conference          => true
+#  can? :read, @conference           => true
 #
 # = Wildcard Matching
 #
 # :manage matches all rules, if a custom rule exists and shall not be matched
 # by :manage, then :crud can be used instead of :manage.
 #
-# TODO get rid of 'class' syntax
-#   subject class can be arbirtrary: it can! :read, :logs
-#
-# TODO Instead: If it ain't CRUD don't crud!
-#  Person, User, Event, EventRating
-#  but manage is a wildcard...
 class Ability
   include CanCan::Ability
 
@@ -63,33 +54,29 @@ class Ability
       can :submit, Event
 
       can :crud, Person, :id => @user.person.id
-      cannot :administrate, Person
 
       can :crud, User, :id => @user.id
-      cannot :administrate, User
-      cannot :assign_roles, User
-      cannot :assign_user_roles, User
 
-    else
-      # guest can visit the cfp page 
-      # guest can create/confirm an account
-      # guest can view the published schedule 
-      # guest can give feedback on events
-      cannot :administrate, User
-      cannot :assign_roles, User
-      cannot :assign_user_roles, User
     end
+
+    # when /guest/
+    #   can visit the cfp page 
+    #   can create/confirm an account
+    #   can view the published schedule 
+    #   can give feedback on events
   end
 
   def setup_crew_user_abilities
     crew_role = get_conference_role
     case crew_role
     when /orga/
-      can :administrate, CallForPapers
-      can :administrate, Conference
+      can :manage, CallForPapers
+      can :manage, Conference
+
       can :crud, Event, :conference_id => @conference.id
       can :manage, EventRating
       can :manage, Person
+
       can :administrate, User
       can [:read, :create, :update], User do |user|
         (user.is_submitter? and user.person.involved_in @conference) or user.is_crew_of?(@conference)
@@ -100,13 +87,12 @@ class Ability
     when /coordinator/
       # coordinates speakers and their events
       # everything from reviewer
-      can :administrate, CallForPapers
-      cannot :destroy, CallForPapers
+      can [:create, :read, :update], CallForPapers
       can :read, Conference
+
       can :crud, Event, :conference_id => @conference.id
       can :manage, EventRating
       can :manage, Person
-      #can :administrate, Person # dupe
 
     when /reviewer/
       # reviews events prior to conference schedule release
@@ -114,6 +100,7 @@ class Ability
       # edit own event rating
       can :read, CallForPapers
       can :read, Conference
+
       can :read, Event, conference_id: @conference.id
       can :submit, Event
       can :crud, EventRating, :person_id => @user.person.id
