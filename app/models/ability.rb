@@ -78,8 +78,8 @@ class Ability
       can :manage, Person
 
       can :administrate, User
-      can [:read, :create, :update], User do |user|
-        (user.is_submitter? and user.person.involved_in @conference) or user.is_crew_of?(@conference)
+      can [:create, :read, :update], User do |user|
+        (user.is_submitter? and user.person.involved_in? @conference) or user.is_crew_of? @conference
       end
       can :assign_user_roles, User
       cannot :assign_roles, User
@@ -104,6 +104,7 @@ class Ability
       can :read, Event, conference_id: @conference.id
       can :submit, Event
       can :crud, EventRating, :person_id => @user.person.id
+      can :read, EventRating
       can :read, Person
 
     end

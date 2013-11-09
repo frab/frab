@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   end
 
   def is_crew_of?(conference)
-    self.is_crew? and self.conference_users.include?(conference)
+    self.is_crew? and self.conference_users.select { |cu| cu.conference_id == conference.id }.any?
   end
 
   def self.check_pentabarf_credentials(email, password)
