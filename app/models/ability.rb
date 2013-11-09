@@ -1,3 +1,32 @@
+# = Attention: Conditional Abilities
+#
+#   can :manage, EventRating, person_id: user.person.id
+#
+# This means a user can do every  action on EventRating, but may 
+# only :manage @event_rating if it belongs to her.
+# Take a look how these abilities are used across controllers, before changing them.
+#
+# Whenever a conditional permissions exists and  both forms are needed
+#   * authorization against a class
+#   * authorization against an instance of this class
+# a new verb, like 'administrate' is introduced. This avoids the ambiguity of checking
+# classes versus instances. 
+#
+# Example:
+#  can :administrate Conference
+#  can :read @conference
+#
+# = Wildcard Matching
+#
+# :manage matches all rules, if a custom rule exists and shall not be matched
+# by :manage, then :crud can be used instead of :manage.
+#
+# TODO get rid of 'class' syntax
+#   subject class can be arbirtrary: it can! :read, :logs
+#
+# TODO Instead: If it ain't CRUD don't crud!
+#  Person, User, Event, EventRating
+#  but manage is a wildcard...
 class Ability
   include CanCan::Ability
 
@@ -5,28 +34,7 @@ class Ability
     @user = user || User.new
     @conference = conference
 
-    #
-    # Attention
-    #
-    #   can :manage, EventRating, person_id: user.person.id
-    #
-    # This means a user can [:manage,:read] EventRating, but may 
-    # only :manage @event_rating if it belongs to her.
-    # Take a look how these abilities are used across controllers, before changing them.
-    #
-    # Whenever authorization against a class is needed, for which a limited instance rule 
-    # exists, a new verb, like 'control' is introduced. This avoids the ambiguity of checking
-    # classes versus instances. 
-    # However :manage matches all rules, if a custom rule exists and shall not be matched
-    # by :manage, then :crud can be used instead of :manage.
-    #
-    # TODO get rid of 'class' syntax
-    #   Not sure if subject class can be arbirtrary: it can! :read, :logs
-    # TODO Instead: If it ain't CRUD don't crud!
-    #  Person, User, Event, EventRating
-    #  but manage is a wildcard...
 
-    #role = user.role
     setup_user_abilities
 
     if user.role == 'crew' 
