@@ -57,10 +57,10 @@ class Ability
       can :submit, Event
 
       can :crud, Person, :id => @user.person.id
-      cannot :control, Person
+      cannot :administrate, Person
 
       can :crud, User, :id => @user.id
-      cannot :control, User
+      cannot :administrate, User
       cannot :assign_roles, User
       cannot :assign_user_roles, User
 
@@ -69,7 +69,7 @@ class Ability
       # guest can create/confirm an account
       # guest can view the published schedule 
       # guest can give feedback on events
-      cannot :control, User
+      cannot :administrate, User
       cannot :assign_roles, User
       cannot :assign_user_roles, User
     end
@@ -79,13 +79,13 @@ class Ability
     crew_role = get_conference_role
     case crew_role
     when /orga/
-      can :control, CallForPapers
-      can :control, Conference
+      can :administrate, CallForPapers
+      can :administrate, Conference
       can :manage, Event, :conference_id => @conference.id
       can :manage, EventRating
       can :manage, Person
-      #can :control, Person # dupe
-      can :control, User
+      #can :administrate, Person # dupe
+      can :administrate, User
       can [:read, :create, :update], User do |user|
         (user.is_submitter? and user.person.involved_in @conference) or user.is_crew_of?(@conference)
       end
@@ -95,14 +95,13 @@ class Ability
     when /coordinator/
       # coordinates speakers and their events
       # everything from reviewer
-      can :control, CallForPapers
+      can :administrate, CallForPapers
       cannot :destroy, CallForPapers
       can :read, Conference
       can :manage, Event, :conference_id => @conference.id
-      can :access, :event_feedback
       can :manage, EventRating
       can :manage, Person
-      #can :control, Person # dupe
+      #can :administrate, Person # dupe
 
     when /reviewer/
       # reviews events prior to conference schedule release

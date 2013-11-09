@@ -7,7 +7,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.xml
   def index
-    authorize! :control, Person
+    authorize! :administrate, Person
     if params.has_key?(:term) and not params[:term].empty?
       @search = Person.involved_in(@conference).with_query(params[:term]).search(params[:q])
     else
@@ -17,7 +17,7 @@ class PeopleController < ApplicationController
   end
 
   def speakers
-    authorize! :control, Person
+    authorize! :administrate, Person
     @people = Person.speaking_at(@conference).accessible_by(current_ability)
 
     respond_to do |format|
@@ -36,7 +36,7 @@ class PeopleController < ApplicationController
   end
 
   def all
-    authorize! :control, Person
+    authorize! :administrate, Person
     if params.has_key?(:term) and not params[:term].empty?
       @search = Person.with_query(params[:term]).search(params[:q])
     else

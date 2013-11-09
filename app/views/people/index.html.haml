@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      - if can? :control, Person
+      - if can? :administrate, Person
         = action_button "primary", "Add person", new_person_path, :title => "Add a new person."
     %h1 List of people
   %ul.tabs

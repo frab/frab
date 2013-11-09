@@ -21,7 +21,7 @@
             = link_to "Welcome to frab", root_path, :class => "brand"
           %ul.nav
             - if @conference and not @conference.new_record?
-              - if can? :control, Person
+              - if can? :administrate, Person
                 %li= link_to t("people", :default => "People"), url_for(:action => 'index', :controller => 'people')
               %li= link_to t("events", :default => "Events"), events_path
               - if can? :manage, CallForPapers
