@@ -86,6 +86,10 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    if @person.nil?
+      flash[:alert] = "Not a valid person"
+      return redirect_to action: :index
+    end
     authorize! :manage, @person
   end
 

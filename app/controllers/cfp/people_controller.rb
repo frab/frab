@@ -26,6 +26,10 @@ class Cfp::PeopleController < ApplicationController
 
   def edit
     @person = current_user.person 
+    if @person.nil?
+      flash[:alert] = "Not a valid person"
+      return redirect_to action: :index
+    end
   end
 
   def create

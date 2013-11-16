@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   ROLES = %w{submitter reviewer coordinator orga admin}
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
+  # TODO: users should have several cfps, refactor into has_many relation
   belongs_to :call_for_papers
   has_one :person
  
@@ -20,7 +21,7 @@ class User < ActiveRecord::Base
   validates_presence_of :person
   validates_presence_of :email
   validates_format_of :email, with: EMAIL_REGEXP
-  validates_uniqueness_of :email, :case_sensitive => false
+  validates_uniqueness_of :email, case_sensitive: false
   validates_length_of :password, minimum: 6, allow_nil: true
 
   scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
@@ -65,12 +66,21 @@ class User < ActiveRecord::Base
     UserMailer.confirmation_instructions(self).deliver
   end
 
+  # update users call for papers and sends mail
   def send_password_reset_instructions(call_for_papers = nil)
     if call_for_papers
       self.call_for_papers = call_for_papers
     end
     generate_password_reset_token!
     UserMailer.password_reset_instructions(self).deliver
+  end
+
+  def try_call_for_papers
+    if self.call_for_papers
+     self.call_for_papers 
+    else
+      CallForPapers.last
+    end
   end
 
   def reset_password(params)
