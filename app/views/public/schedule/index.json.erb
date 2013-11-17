@@ -30,8 +30,8 @@
                     "track": "<%= event.track.try(:name) %>",
                     "type": "<%= event.event_type %>",
                     "language": "<%= event.language %>",
-                    "abstract": "<%= event.abstract %>",
-                    "description": "<%= event.description %>",
+                    "abstract": "<%= event.abstract.to_json %>",
+                    "description": "<%= event.description.to_json %>",
                     "persons": [
                       <% event.speakers.each do |speaker| %>
                         {"id": "<%= speaker.id %>",  "full_public_name": "<%= speaker.full_public_name %>"}<% if event.speakers.last.id != speaker.id %>,<% end %>
