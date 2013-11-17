@@ -36,26 +36,28 @@ prawn_document(page_layout: :landscape) do |pdf|
             cell_style: {align: :center}
           )
 
-          top = 200 - info_table.height
 
           # Speakers Column
-          speakers = event.speakers.map{ |p| p.full_name }
-          availabilities = event.speakers.map{ |p| 
-            p.availabilities_in(@conference).map { |a| 
+          top = 200 - info_table.height
+          conference_days = @conference.days.map { |day| day.humanized_date_range }
+          columns = [{text: "Speakers:\n", styles: [:bold], size: 12}]
+
+          speakers = event.speakers.each do |p| 
+            columns << {text: p.full_name + "\n", size: 12}
+            availabilities = p.availabilities_in(@conference).map { |a| 
               a.humanized_date_range 
             } 
-          }.flatten.sort.uniq
-          availabilities = availabilities - @conference.days.map { |day| day.humanized_date_range }
-          @conference.days.each { |d| d }
-          avg_rating = ""
-          unless event.average_rating.nil?
-            avg_rating = "\n\nRating: #{event.average_rating.round(2).to_s}"
+            availabilities = availabilities - conference_days
+            columns << {text: availabilities.join("\n")+"\n", size: 9}
           end
-          columns = [{text: "Speakers:\n", styles: [:bold], size: 12},
-                 {text: speakers.join("\n"), size: 12},
-                 {text: "\n" + availabilities.join("\n"), size: 9},
-                 {text: avg_rating, size: 12}]
-          pdf.formatted_text_box(columns,
+
+          unless event.average_rating.nil?
+            avg_rating = "\nRating: #{event.average_rating.round(2).to_s}\n"
+            columns << {text: avg_rating, size: 12}
+          end
+
+          pdf.formatted_text_box(
+            columns,
             at: [0,top],
             width: 100,
             overflow: :shrink_to_fit
@@ -68,6 +70,7 @@ prawn_document(page_layout: :landscape) do |pdf|
              {text: abstract, size: 12}],
             at: [100,top],
             width: 200,
+            align: :justify,
             overflow: :shrink_to_fit,
             skip_encoding: true
           )
