@@ -166,6 +166,10 @@ class Event < ActiveRecord::Base
     self.state == "unconfirmed" or self.state == "confirmed"
   end
 
+  def has_remote_ticket?
+    ticket.present? and ticket.remote_ticket_id.present?
+  end
+
   def update_conflicts
     self.conflicts.delete_all
     self.conflicts_as_conflicting.delete_all

@@ -31,7 +31,7 @@
             = by_speakers(event)
         - if @conference.is_ticket_server_enabled? 
           %td
-            - unless event.ticket.nil? or event.ticket.remote_ticket_id.nil?
+            - if event.has_remote_ticket?
               -if @conference.ticket_server.nil?
                 = event.ticket.remote_ticket_id
               -else
