@@ -48,4 +48,16 @@ class EventsControllerTest < ActionController::TestCase
 
     assert_redirected_to events_path
   end
+
+  test "should get cards pdf" do
+    conference = FactoryGirl.create :three_day_conference_with_events
+    get :cards, conference_acronym: conference.acronym, format: 'pdf'
+    assert_response :success
+  end
+
+  test "should get accepted cards pdf" do
+    conference = FactoryGirl.create :three_day_conference_with_events
+    get :cards, accepted: true, conference_acronym: conference.acronym, format: 'pdf'
+    assert_response :success
+  end
 end
