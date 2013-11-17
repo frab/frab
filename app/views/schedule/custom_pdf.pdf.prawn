@@ -5,7 +5,7 @@ def get_table_data(rooms)
   table_data << [""] + rooms.map(&:name)
   each_timeslot do |time|
     row = []
-    row << time.strftime("%H:%M")
+    row << l(time, :time)
     rooms.size.times { row << "" }
     table_data << row
   end

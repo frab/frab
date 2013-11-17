@@ -36,7 +36,11 @@ en:
     events_overlap: "overlaps with"
     has_no_availability: "has not entered any availability yet."
     person_unavailable: "is not available at the scheduled time."
-
+  time:
+    formats:
+      pretty_datetime: "%Y-%m-%d %H:%M"
+      short_datetime: '%d. %H:%M'
+    time_range_seperator: ' to '
   options:
     lecture: "lecture"
     workshop: "workshop"
@@ -79,6 +83,3 @@ en:
     user_mailer:
       confirmation_instructions: "Account Activation"
       password_reset_instructions: "Reset Password"
-  time:
-    formats:
-      pretty_datetime: "%Y-%m-%d %H:%M"

@@ -1,4 +1,5 @@
 class Day < ActiveRecord::Base
+  include HumanizedDateRange
 
   belongs_to :conference
   # TODO a new day should search matching availabilities without a day:

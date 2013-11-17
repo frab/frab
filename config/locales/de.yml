@@ -79,13 +79,16 @@ de:
   
   time:
     formats:
-      default: "%A, %d. %B %Y, %H:%M Uhr"
-      short: "%d. %B, %H:%M Uhr"
-      long: "%A, %d. %B %Y, %H:%M Uhr"
-      time: "%H:%M"
+      default: '%A, %d. %B %Y, %H:%M Uhr'
+      short: '%d. %B, %H:%M Uhr'
+      long: '%A, %d. %B %Y, %H:%M Uhr'
+      time: '%H:%M'
+      pretty_datetime: '%Y-%m-%d %H:%M'
+      short_datetime: '%d. %H:%M'
+    time_range_seperator: ' bis '
 
-    am: "vormittags"
-    pm: "nachmittags"
+    am: 'vormittags'
+    pm: 'nachmittags'
       
   datetime:
     distance_in_words:
@@ -337,6 +340,3 @@ de:
     actions:
       create: "%{model} anlegen" 
       update: "Änderungen an %{model} speichern"
-  time:
-    formats:
-      pretty_datetime: "%Y-%m-%d %H:%M"
