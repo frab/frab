@@ -85,6 +85,7 @@ de:
       time: '%H:%M'
       pretty_datetime: '%Y-%m-%d %H:%M'
       short_datetime: '%d. %H:%M'
+      month_datetime: '%d. %b %H:%M'
     time_range_seperator: ' bis '
 
     am: 'vormittags'

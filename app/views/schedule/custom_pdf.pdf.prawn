@@ -5,7 +5,7 @@ def get_table_data(rooms)
   table_data << [""] + rooms.map(&:name)
   each_timeslot do |time|
     row = []
-    row << l(time, :time)
+    row << l(time, format: :time)
     rooms.size.times { row << "" }
     table_data << row
   end
@@ -13,12 +13,8 @@ def get_table_data(rooms)
   table_data
 end
 
-def time_str(time)
-  time.strftime("%Y-%m-%d %H:%M")
-end
-
 def get_header_left
-  time_str(@day.start_date) + " - " + time_str(@day.end_date)
+  @day.humanized_date_range(:month_datetime)
 end
 
 def get_header_center

@@ -8,6 +8,10 @@ FactoryGirl.define do
     "frabcon#{n}"
   end
 
+  sequence :room_names do |n|
+    "Room #{n}"
+  end
+
   sequence :event_title do |n|
     "Introducing frap part #{n}"
   end
@@ -30,15 +34,41 @@ FactoryGirl.define do
 
   trait :three_days do
     after_create do |conference|
-      conference.days << FactoryGirl.create(:day, 
+      conference.days << FactoryGirl.create(:day, conference: conference,
                                             start_date: Date.today.since(1.days).since(11.hours),
                                             end_date: Date.today.since(1.days).since(23.hours))
-      conference.days << FactoryGirl.create(:day,
+      conference.days << FactoryGirl.create(:day, conference: conference,
                                             start_date: Date.today.since(2.days).since(10.hours),
                                             end_date: Date.today.since(2.days).since(24.hours))
-      conference.days << FactoryGirl.create(:day,
+      conference.days << FactoryGirl.create(:day, conference: conference,
                                             start_date: Date.today.since(3.days).since(10.hours),
                                             end_date: Date.today.since(3.days).since(17.hours))
+    end
+  end
+
+  trait :with_rooms do
+    after_create do |conference|
+      conference.rooms << FactoryGirl.create(:room, conference: conference)
+    end
+  end
+
+  trait :with_events do
+    after_create do |conference|
+      conference.events << FactoryGirl.create(:event, conference: conference,
+                                              room: conference.rooms.first, 
+                                              state: 'confirmed',
+                                              public: true,
+                                              start_time: Date.today.since(1.days).since(11.hours))
+      conference.events << FactoryGirl.create(:event, conference: conference,
+                                              room: conference.rooms.first, 
+                                              state: 'confirmed',
+                                              public: true,
+                                              start_time: Date.today.since(1.days).since(15.hours))
+      conference.events << FactoryGirl.create(:event, conference: conference,
+                                              room: conference.rooms.first, 
+                                              state: 'confirmed',
+                                              public: true,
+                                              start_time: Date.today.since(3.days).since(11.hours))
     end
   end
 
@@ -66,6 +96,11 @@ FactoryGirl.define do
     end_date { Date.today.since(1.days).since(23.hours) }
   end
 
+  factory :room do
+    name { Factory.next(:room_names) }
+    public true
+  end
+
   factory :conference do
     title "FrabCon"
     acronym { Factory.next(:conference_acronym) }
@@ -77,6 +112,7 @@ FactoryGirl.define do
     timezone "Berlin"
 
     factory :three_day_conference, traits: [:three_days]
+    factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events]
   end
 
   factory :call_for_papers do
