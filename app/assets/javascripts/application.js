@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui-timepicker-addon
-//= require jquery.dateFormat
 //= require bootstrap-alerts
 //= require bootstrap-dropdown
 //= require bootstrap-modal

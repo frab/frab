@@ -1,3 +1,5 @@
+= javascript_include_tag "moment.min"
+
 = semantic_form_for(person, :url => url) do |f|
   = f.inputs do
     - conference.days.each do |day|
@@ -15,6 +17,7 @@
       initialize: function(options) {
         var id                = options.id;
         var model_id          = options.id - 1;
+        this.utc_offset       = options.utc_offset / 60 * -1;
         var checkbox          = $('span#day_'+id+' input[type="checkbox"].cbx')
         var time_range_slider = $('span#day_'+id+' .time_range_slider');
 
@@ -61,8 +64,8 @@
       },
 
       get_date_string: function(unix) {
-        var date_format = 'yyyy-MM-dd HH:mm';
-        return $.format.date(new Date(unix*1000), date_format)
+        var date_format = 'YYYY-MM-DD HH:mm';
+        return moment.utc(unix * 1000).zone(this.utc_offset).format(date_format);
       },
 
       update_date_labels: function(id,values) {
@@ -124,5 +127,5 @@
 - conference.days.each do |day|
   :javascript
     $(function() {
-      SliderForm.initialize({ id: #{day.id} });
+      SliderForm.initialize({ id: #{day.id}, utc_offset: #{day.start_date.utc_offset} });
     });
