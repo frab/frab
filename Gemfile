@@ -47,6 +47,9 @@ group :development do
   gem 'shotgun'
   gem 'yaml_db'
   gem 'pry-rails'
+  gem 'redcarpet'
+  gem 'github-markdown'
+  gem 'yard'
 end
 
 group :assets do

@@ -20,3 +20,4 @@ gems/
 specifications/
 *~
 .vagrant
+doc/

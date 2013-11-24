@@ -91,6 +91,7 @@ GEM
       railties (>= 3.0.0)
     formtastic (2.1.1)
       actionpack (~> 3.0)
+    github-markdown (0.6.3)
     gravatar-ultimate (1.0.3)
     haml (4.0.1)
       tilt
@@ -175,6 +176,7 @@ GEM
     rbx-require-relative (0.0.9)
     rdoc (3.12.2)
       json (~> 1.4)
+    redcarpet (3.0.0)
     ri_cal (0.8.8)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
@@ -223,6 +225,7 @@ GEM
     uniform_notifier (1.2.0)
     will_paginate (3.0.4)
     yaml_db (0.2.3)
+    yard (0.8.5.2)
 
 PLATFORMS
   ruby
@@ -239,6 +242,7 @@ DEPENDENCIES
   factory_girl_rails (~> 1.2.0)
   formtastic (~> 2.1.0)
   formtastic-bootstrap!
+  github-markdown
   gravatar-ultimate
   haml
   jquery-rails (~> 1.0.19)
@@ -255,6 +259,7 @@ DEPENDENCIES
   pry-rails
   rails (~> 3.2.13)
   ransack
+  redcarpet
   ri_cal
   ruby-debug
   ruby-debug19
@@ -268,3 +273,4 @@ DEPENDENCIES
   uglifier
   will_paginate
   yaml_db
+  yard
