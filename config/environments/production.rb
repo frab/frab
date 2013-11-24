@@ -18,7 +18,7 @@ Frab::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
-  config.assets.precompile += ['admin.css', 'admin.js', 'schedule.js', 'public_schedule.css', 'public_schedule_print.css', 'public_schedule.js']
+  config.assets.precompile += ['admin.css', 'admin.js', 'schedule.js', 'public_schedule.css', 'public_schedule_print.css', 'public_schedule.js', 'moment.min.js']
 
   # Generate digests for assets URLs
   config.assets.digest = true
