@@ -44,12 +44,15 @@ group :test do
 end
 
 group :development do
+  gem 'quiet_assets' # silence asset requests
   gem 'shotgun'
   gem 'yaml_db'
   gem 'pry-rails'
-  gem 'redcarpet'
-  gem 'github-markdown'
-  gem 'yard'
+  gem 'redcarpet'       # documentation
+  gem 'github-markdown' # documentation
+  gem 'yard'            # documentation
+  #gem 'rails-erd'      # graph
+  #gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
 end
 
 group :assets do
