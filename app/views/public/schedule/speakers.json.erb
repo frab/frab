@@ -1,0 +1,28 @@
+{ "schedule_speakers": {
+    <% unless @conference.schedule_version.nil? or @conference.schedule_version.empty? %>
+    "version": "<%= @conference.schedule_version%>",
+    <% end %>
+    "speakers": [
+      <% @speakers.each do |person| %>
+        {
+          "id": "<%= person.id %>",
+          "image": "<% if person.avatar.present? %><%= person.avatar %><% end %>",
+          "full_public_name": "<%= person.full_public_name %>",
+          "abstract": "<%= person.abstract.to_json %>",
+          "description": "<%= person.description.to_json %>",
+          "links": [
+            <% person.links.each do |link| %>
+              {"url": "<%= link.url %>", "title": "<%= link.title%>"}<% if person.links.last.id != link.id %>,<% end %>
+            <% end %>
+          ],
+          "events": [
+            <% events = person.public_and_accepted_events_as_speaker_in(@conference) %>
+            <% events.each do |event| %>
+              {"id": "<%= event.id %>", "logo": "<% if event.logo.present? %><%= event.logo %><% end %>", "title": "<%= event.title %>"}<% if events.last.id != event.id %>,<% end %>
+            <% end %>
+          ]
+        }<% if @speakers.last.id != person.id %>,<% end %>
+      <% end %>
+    ]
+  }
+}

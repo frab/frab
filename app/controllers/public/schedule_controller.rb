@@ -63,6 +63,10 @@ class Public::ScheduleController < ApplicationController
 
   def speakers
     @speakers = Person.publicly_speaking_at(@conference).confirmed(@conference).order(:public_name, :first_name, :last_name)
+    respond_to do |format|
+      format.html
+      format.json { render file: "public/schedule/speakers.json.erb", content_type: 'application/json' }
+    end
   end
 
   def speaker
