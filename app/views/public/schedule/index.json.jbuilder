@@ -6,7 +6,7 @@ json.schedule do
         json.start @conference.first_day.start_date.strftime('%Y-%m-%d')
         json.end @conference.last_day.end_date.strftime('%Y-%m-%d')
       end
-      json.days @conference.days.length
+      json.daysCount @conference.days.length
       json.timeslot_duration duration_to_time(@conference.timeslot_duration)
       index = 0
       json.days @conference.days do |day|
