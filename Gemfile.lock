@@ -98,6 +98,9 @@ GEM
     hashery (2.1.0)
     hike (1.2.1)
     i18n (0.6.1)
+    jbuilder (1.5.0)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.2.0)
     journey (1.0.4)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -247,6 +250,7 @@ DEPENDENCIES
   github-markdown
   gravatar-ultimate
   haml
+  jbuilder
   jquery-rails (~> 1.0.19)
   json
   localized_language_select (= 0.2.0)!

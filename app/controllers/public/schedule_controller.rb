@@ -11,7 +11,7 @@ class Public::ScheduleController < ApplicationController
       format.xml
       format.xcal
       format.ics
-      format.json { render file: "public/schedule/index.json.erb", content_type: 'application/json' }
+      format.json
     end
   end
 
@@ -65,7 +65,7 @@ class Public::ScheduleController < ApplicationController
     @speakers = Person.publicly_speaking_at(@conference).confirmed(@conference).order(:public_name, :first_name, :last_name)
     respond_to do |format|
       format.html
-      format.json { render file: "public/schedule/speakers.json.erb", content_type: 'application/json' }
+      format.json
     end
   end
 

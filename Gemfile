@@ -18,6 +18,7 @@ gem 'gravatar-ultimate'
 gem 'haml'
 gem 'jquery-rails', '~> 1.0.19'
 gem 'json'
+gem 'jbuilder'
 gem 'localized_language_select', '0.2.0', :git => "git://github.com/frab/localized_language_select.git"
 gem 'nokogiri'
 gem 'paperclip', '< 3.0'
