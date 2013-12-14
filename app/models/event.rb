@@ -210,7 +210,7 @@ class Event < ActiveRecord::Base
   end
 
   def static_url
-    "#{self.conference.program_export_base_url}events/#{self.id}.html"
+    File.join self.conference.program_export_base_url, "events/#{self.id}.html"
   end
 
   def clean_event_attributes!
