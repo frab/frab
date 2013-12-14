@@ -28,11 +28,11 @@
     - if @conference.languages.count > 1
       %b #{t '.language'}:
       = @event.language
-  - if @event.links.any?
-    %h3 #{t '.links'}:
-    %ul
-      - @event.links.each do |link|
-        %li= link_to link.title, link.url
+  %h3 #{t '.links'}:
+  %ul
+    %li= link_to "iCalendar", public_event_path(id: @event.id, format: :ics)
+    - @event.links.each do |link|
+      %li= link_to link.title, link.url
   - if @event.event_attachments.public.any?
     %h3= t '.files'
     %ul
