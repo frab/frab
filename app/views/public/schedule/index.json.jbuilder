@@ -13,6 +13,8 @@ json.schedule do
         json.index index
         index += 1
         json.date day.start_date.strftime('%Y-%m-%d')
+        json.day_start day.start_date.iso8601
+        json.day_end day.end_date.iso8601
         json.rooms do
           @conference.rooms.public.each do |room|
             json.set! room.name, room.events.public.accepted.scheduled_on(day).order(:start_time) do |event|
