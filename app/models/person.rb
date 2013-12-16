@@ -62,6 +62,12 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def avatar_path(size = :medium)
+    if self.avatar.present?
+      self.avatar(size)
+    end
+  end
+
   def involved_in?(conference)
     found = Person.joins(events: :conference)
                   .where(:"conferences.id" => conference.id)

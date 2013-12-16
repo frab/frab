@@ -213,6 +213,12 @@ class Event < ActiveRecord::Base
     File.join self.conference.program_export_base_url, "events/#{self.id}.html"
   end
 
+  def logo_path(size = :medium)
+    if self.logo.present?
+      self.logo(size)
+    end
+  end
+
   def clean_event_attributes!
     self.start_time = nil
     self.state = ''
