@@ -201,11 +201,14 @@ class Event < ActiveRecord::Base
   end
 
   def slug
-    [ self.room.try(:name).try(:parameterize, "_"), 
+    [ 
+      self.conference.acronym,
+      self.id,
+      self.language,
+      self.room.try(:name).try(:parameterize, "_"), 
       self.start_time.strftime("%Y%m%d%H%M"), 
       self.title.parameterize("_"), 
       self.speakers.map{|p| p.full_public_name.parameterize("_")},
-      self.id
     ].flatten.join("_-_")
   end
 
