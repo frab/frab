@@ -61,7 +61,7 @@ de:
         feedback_for: "Feedback zu: %{title}"
         please_let_us_know: "Uns interessiert deine Meinung!"
         how_would_you_rate: "Wie fandest du diese Veranstaltung? 5 ist die beste Bewertung und 1 die schlechteste."
-        what_did_you_like: "Was hat dir gefallen? Was nicht? Wie könnte man die Veranstaltung verbessern?"
+        what_did_you_like: "Was hat dir gefallen? Was nicht? Wie könnte man die Veranstaltung verbessern? War der Stream gut gemacht?"
         submit_feedback: "Feedback abschicken"
 
       thank_you:
