@@ -97,7 +97,7 @@ class StaticProgramExport
 
     @conference.events.public.confirmed.scheduled.each do |event|
       paths << {source: "events/#{event.id}", target: "events/#{event.id}.html"}
-      paths << {source: "events/#{event.id}", target: "events/#{event.id}.ics"}
+      paths << {source: "events/#{event.id}.ics", target: "events/#{event.id}.ics"}
     end
     Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
       paths << {source: "speakers/#{speaker.id}", target: "speakers/#{speaker.id}.html"}
