@@ -12,7 +12,7 @@
   %li= link_to "list all lectures with non default timeslots", report_on_events_path('event_timeslot_deviation')
 %p Query Speakers  
 %ul
-  %li= link_to "speakers talking in the next 4 hours", report_on_people_path("expected_speakers")
+  %li= link_to "missing speakers for the next 4 hours", report_on_people_path("expected_speakers")
   %li= link_to "confirmed people speaking at conference", report_on_people_path("people_speaking_at")
   %li= link_to "people with a note in their submission", report_on_people_path("people_with_a_note")
   %li= link_to "people with more than one submission", report_on_people_path("people_with_more_than_one")
