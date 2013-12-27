@@ -100,6 +100,17 @@ class Person < ActiveRecord::Base
     self.events.public.accepted.where(:"event_people.event_role" => ["speaker", "moderator"], conference_id: conference.id).all
   end
 
+  def role_state(conference)
+    self.event_people.select { |ep| ep.event.conference == conference }.map { |ep| ep.role_state }.uniq.join ', '
+  end
+
+  def set_role_state(conference, state)
+    self.event_people.select { |ep| ep.event.conference == conference }.each do |ep| 
+      ep.role_state = state 
+      ep.save!
+    end
+  end
+
   def availabilities_in(conference)
     availabilities = self.availabilities.where(conference_id: conference.id)
     availabilities.each { |a|

@@ -71,6 +71,12 @@ class PeopleController < ApplicationController
     @other_events = @person.events_as_presenter_not_in(@conference)
   end
 
+  def attend
+    @person = Person.find(params[:id])
+    @person.set_role_state(@conference, 'attending')
+    return redirect_to action: :show
+  end
+
   # GET /people/new
   # GET /people/new.xml
   def new

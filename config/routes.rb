@@ -11,6 +11,9 @@ Frab::Application.routes.draw do
 
     resources :people do
       resource :user
+      member do
+        put :attend
+      end
     end
 
     scope path: "/:conference_acronym" do
