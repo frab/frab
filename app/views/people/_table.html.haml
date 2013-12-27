@@ -18,10 +18,10 @@
     - collection.each do |person|
       %tr
         %td= image_box person.avatar, :small
-        %td= person.first_name
-        %td= person.last_name
-        %td= person.public_name
-        %td= person.email
+        %td= link_to person.first_name, person
+        %td= link_to person.last_name, person
+        %td= link_to person.public_name, person
+        %td= link_to person.email, person
         %td.buttons
           = action_button "small", 'Show', person
           - if can? :manage, person
