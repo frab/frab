@@ -101,11 +101,11 @@ class Person < ActiveRecord::Base
   end
 
   def role_state(conference)
-    self.event_people.select { |ep| ep.event.conference == conference }.map { |ep| ep.role_state }.uniq.join ', '
+    speaker_role_state(conference).map { |ep| ep.role_state }.uniq.join ', '
   end
 
   def set_role_state(conference, state)
-    self.event_people.select { |ep| ep.event.conference == conference }.each do |ep| 
+    speaker_role_state(conference).each do |ep| 
       ep.role_state = state 
       ep.save!
     end
@@ -157,6 +157,12 @@ class Person < ActiveRecord::Base
 
   def to_s
     "Person: #{self.full_name}"
+  end
+
+  private 
+
+  def speaker_role_state(conference)
+    self.event_people.select { |ep| ep.event.conference == conference }.select { |ep| ['speaker', 'moderator'].include? ep.event_role }
   end
 
 end
