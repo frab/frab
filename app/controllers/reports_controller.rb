@@ -62,6 +62,14 @@ class ReportsController < ApplicationController
     end
 
     case @report_type
+    when 'expected_speakers'
+      r = Person.joins(events: :conference).
+        where(:"conferences.id" => @conference.id).
+        where(:"event_people.event_role" => ["speaker", "moderator"]).
+        where(:"events.public" => true).
+        where("events.start_time > ?", Time.now).
+        where("events.start_time < ?", Time.now.since(4.hours)).
+        where(:"events.state" => ["unconfirmed", "confirmed"]).group(:"people.id")
     when 'people_speaking_at'
       r = conference_people.speaking_at(@conference)
     when 'people_with_a_note'
