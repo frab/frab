@@ -89,11 +89,14 @@ class ImportExportHelper
     restore_conference_data
 
     restore_multiple("people", Person) do |id, obj|
-      person = Person.find_by_email(obj.email)
+      # TODO could be the wrong person if persons share email addresses!?
+      persons = Person.where(email: obj.email, public_name: obj.public_name)
+      person = persons.first
+
       if person
         # don't create a new person
         @mappings[:people][id] = person.id
-        @mappings[:people_user][person.user_id] = person
+        @mappings[:people_user][obj.user_id] = person
       else
         if (file = import_file("avatars", id, obj.avatar_file_name))
           obj.avatar = file
@@ -121,8 +124,14 @@ class ImportExportHelper
         obj.call_for_papers_id = @mappings[:cfp][obj.call_for_papers_id]
         obj.confirmed_at ||= Time.now
         obj.person = @mappings[:people_user][id]
-        obj.save!
-        @mappings[:users][id] = obj.id
+        unless obj.valid?
+          STDERR.puts "invalid user: #{id}"
+          p obj
+          p obj.errors.messages
+        else
+          obj.save!
+          @mappings[:users][id] = obj.id
+        end
       end
     end
 
