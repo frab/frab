@@ -1,4 +1,5 @@
 .bundle
+.ruby-version
 config/database.yml
 config/settings.yml
 config/initializers/secret_token.rb
@@ -21,3 +22,4 @@ specifications/
 *~
 .vagrant
 doc/
+tags
