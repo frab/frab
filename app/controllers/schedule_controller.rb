@@ -51,7 +51,7 @@ class ScheduleController < ApplicationController
 
   require 'static_program_export'
   def static_export
-    authorize! :manage, @conference
+    authorize! :read, @conference
 
     ENV['CONFERENCE'] = @conference.acronym
     # TODO accept valid locale via parameter

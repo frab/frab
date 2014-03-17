@@ -2,7 +2,7 @@
 #
 #   can :manage, EventRating, person_id: user.person.id
 #
-# This means a user can do every action on EventRating, but may 
+# This means a user passes every check for EventRating the class, but may 
 # only :manage @event_rating if it belongs to her.
 # see: https://github.com/ryanb/cancan/wiki/Checking-Abilities
 #
@@ -18,7 +18,7 @@
 #  can? :create, Conference          => true
 #  can? :read, @conference           => true
 #
-# = Wildcard Matching
+# = Wildcard Matching with :manage
 #
 # :manage matches all rules, if a custom rule exists and shall not be matched
 # by :manage, then :crud can be used instead of :manage.
@@ -30,7 +30,7 @@ class Ability
     @user = user || User.new
     @conference = conference
 
-    alias_action :create, :read, :update, :destroy, :to => :crud
+    alias_action :create, :read, :update, :destroy, to: :crud
 
     setup_user_abilities
 
@@ -53,9 +53,9 @@ class Ability
       # everything from guest
       can :submit, Event
 
-      can :crud, Person, :id => @user.person.id
+      can :crud, Person, id: @user.person.id
 
-      can :crud, User, :id => @user.id
+      can :crud, User, id: @user.id
 
     end
 
@@ -71,9 +71,10 @@ class Ability
     case crew_role
     when /orga/
       can :manage, CallForPapers
-      can :manage, Conference
 
-      can :crud, Event, :conference_id => @conference.id
+      can [:read, :update], Conference, id: @conference.id
+
+      can :crud, Event, conference_id: @conference.id
       can :manage, EventRating
       can :manage, Person
 
@@ -90,7 +91,7 @@ class Ability
       can [:create, :read, :update], CallForPapers
       can :read, Conference
 
-      can :crud, Event, :conference_id => @conference.id
+      can :crud, Event, conference_id: @conference.id
       can :manage, EventRating
       can :manage, Person
 
@@ -102,8 +103,7 @@ class Ability
       can :read, Conference
 
       can :read, Event, conference_id: @conference.id
-      can :submit, Event
-      can :crud, EventRating, :person_id => @user.person.id
+      can :crud, EventRating, person_id: @user.person.id
       can :read, EventRating
       can :read, Person
 

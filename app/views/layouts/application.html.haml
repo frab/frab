@@ -29,22 +29,21 @@
               %li
                 - if @conference.call_for_papers
                   = link_to t(:call_for_papers, :default => "Call for Papers"), call_for_papers_path
-                - elsif can? :manage, Conference
+                - elsif can? :manage, CallForPapers
                   = link_to t(:launch_call_for_papers, :default => "Launch Call for Papers"), new_call_for_papers_path
               - if can? :manage, CallForPapers
                 %li= link_to t("schedule", :default => "Schedule"), schedule_path
-              - if can? :manage, Conference
+              - if can? :update, @conference
                 %li= link_to t("settings", :default => "Settings"), edit_conference_path(@conference)
           %ul.nav.secondary-nav.pull-right
-            - if Conference.count > 1
+            - conferences = accessible_conferences
+            - if conferences.present? and conferences.count > 1
               %li.dropdown
                 = link_to t("switch_conference", :default => "Switch conference"), "#", :class => "dropdown-toggle"
                 %ul.dropdown-menu
-                  - conferences = accessible_conferences
-                  - unless conferences.nil?
-                    - conferences[0..19].each do |conference|
-                      - unless @conference == conference
-                        %li= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
+                  - conferences[0..19].each do |conference|
+                    - unless @conference == conference
+                      %li= link_to conference.acronym, conference_home_path(:conference_acronym => conference.acronym)
                   %li.divider/
                   - if conferences.count > 1
                     %li= link_to t(:conferences, :default => "more"), conference_index_path

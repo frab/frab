@@ -39,8 +39,9 @@ class AbilitiesTest < ActiveSupport::TestCase
     # full access on everything
     assert ability.can? :manage, CallForPapers
     assert ability.can? :manage, @cfp
-    assert ability.can? :manage, Conference
-    assert ability.can? :manage, @conference
+    assert ability.cannot? :manage, Conference
+    assert ability.can? :read, @conference
+    assert ability.can? :update, @conference
     assert ability.can? :crud, Event
     assert ability.can? :crud, @event
     assert ability.can? :access, :event_feedback
