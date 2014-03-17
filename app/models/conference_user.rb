@@ -3,11 +3,9 @@ class ConferenceUser < ActiveRecord::Base
 
   belongs_to :conference
   belongs_to :user
-  attr_accessible :role, :conference_id
+  attr_accessible :role, :conference_id, :user_id
 
-  validates :conference, presence: true
-  validates :user, presence: true
-  validates_presence_of :role
+  validates :conference, :user, :role, presence: true
   validate :user_role_is_crew
   validate :role_is_valid
 
