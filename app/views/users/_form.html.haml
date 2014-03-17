@@ -8,6 +8,8 @@
     - if can? :assign_user_roles, User
       - if @user.is_crew?
         = dynamic_association :conference_users, t(:conference_user), f
+      - else
+        %p.inline-hint You need to save before adding conferences to a crew member.
   = f.buttons do
     = f.commit_button :button_html => {:class => "btn primary"}
     = link_to "Cancel", :back, :class => "btn"
