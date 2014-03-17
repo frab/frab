@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def accessible_conferences
     conferencs = []
-    if current_user.role == 'crew'
+    if current_user.is_crew?
       conferences = Conference.accessible_by_crew(current_user).order("created_at DESC")
     else
       conferences = Conference.order("created_at DESC")

@@ -37,7 +37,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     can_manage_user!
 
-    @user.role = params[:user][:role]
+    if can? :assign_roles, User
+      @user.role = params[:user][:role]
+    else
+      @user.role = 'submitter'
+    end
     @user.person = @person
     @user.call_for_papers = @conference.call_for_papers
     @user.skip_confirmation!
@@ -62,10 +66,21 @@ class UsersController < ApplicationController
     [:password, :password_confirmation].each do |password_key|
       params[:user].delete(password_key) if params[:user][password_key].blank?
     end
+
     if can? :assign_roles, User
       @user.role = params[:user][:role]
+    elsif can_only_manage_crew_roles
+      role = params[:user][:role] 
+      @user.role = role if User::USER_ROLES.include? role
     end
     params[:user].delete(:role)
+
+    if can_only_manage_crew_roles and params[:user][:conference_user].present?
+        conference = params[:user][:conference_user][:conference]
+        unless Conference.accessible_by_crew(current_user).include? conference
+          return redirect_to person_user_path(@person)
+        end
+    end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -86,11 +101,15 @@ class UsersController < ApplicationController
   private
 
   def can_manage_user!
-    if @user.nil?
+    if @user.nil? or @user.id.nil?
       authorize! :administrate, User
     else
       authorize! :crud, @user
     end
+  end
+
+  def can_only_manage_crew_roles
+    cannot? :assign_roles, User and can? :assign_user_roles, User
   end
 
   def find_person

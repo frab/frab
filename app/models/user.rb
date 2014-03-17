@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include UniqueToken
 
   ROLES = %w{submitter crew admin}
+  USER_ROLES = %w{submitter crew}
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   # TODO: users should have several cfps, refactor into has_many relation

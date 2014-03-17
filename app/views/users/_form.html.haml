@@ -5,6 +5,8 @@
     = f.input :password_confirmation
     - if can? :assign_roles, User
       = f.input :role, :as => :radio, :collection => User::ROLES
+    - elsif cannot? :assign_roles, User and can? :assign_user_roles, User
+      = f.input :role, :as => :radio, :collection => User::USER_ROLES
     - if can? :assign_user_roles, User
       - if @user.is_crew?
         = dynamic_association :conference_users, t(:conference_user), f

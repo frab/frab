@@ -9,6 +9,11 @@
         = action_button "attend", "Attending", attend_person_path, title: "Mark person as present.", method: 'PUT'
     %h1 Person: #{@person.full_name}
   = render 'shared/people_tabs'
+  - if can? :manage, Person and @person.user.nil?
+    .row
+      .span16
+        %p.message
+          Person has no user account yet and cannot login. Click on the user tab to create an account.
   .row
     .span6 
       %h2 Basic information

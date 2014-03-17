@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
   protected
 
   def successful_sign_in_path
-    if current_user.role == "submitter"
+    if current_user.is_submitter?
       cfp_person_path
     else
       root_path

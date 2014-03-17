@@ -16,7 +16,7 @@ class ConferenceUser < ActiveRecord::Base
   end
 
   def user_role_is_crew
-    self.errors.add(:role, "User role is not crew") if self.user.role != 'crew'
+    self.errors.add(:role, "User role is not crew") unless self.user.is_crew?
   end
 
 end
