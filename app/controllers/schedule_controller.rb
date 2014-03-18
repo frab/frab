@@ -49,28 +49,35 @@ class ScheduleController < ApplicationController
     end
   end
 
-  require 'static_program_export'
+  def html_exports
+    authorize! :read, @conference
+  end
+
   def static_export
     authorize! :read, @conference
 
-    ENV['CONFERENCE'] = @conference.acronym
-    # TODO accept valid locale via parameter
-    ENV['CONFERENCE_LOCALE'] = check_conference_locale
-    # TODO run as delayed job
-    `rake frab:static_program_export`
+    StaticProgramExportJob.new.async.perform @conference, check_conference_locale(params[:export_locale])
+    redirect_to schedule_path, notice: 'Static schedule export started. Please reload this page after a minute.'
+  end
 
-    out_path = StaticProgramExport.create_tarball(@conference)
+  def download_static_export
+    authorize! :read, @conference
 
-    send_file out_path, type: "application/x-tar-gz"
+    out_path = StaticProgramExport.filename @conference, check_conference_locale(params[:export_locale])
+    if File.readable? out_path
+      send_file out_path, type: "application/x-tar-gz"
+    end
   end
 
   private
 
-  def check_conference_locale
-    if @conference.language_codes.include?("en")
-      return "en"
+  def check_conference_locale(locale='en')
+    if @conference.language_codes.include?(locale)
+      locale
+    elsif @conference.language_codes.present?
+      @conference.language_codes.first
     else
-      return @conference.language_codes.first
+      'en'
     end
   end
 

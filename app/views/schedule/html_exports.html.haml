@@ -1,0 +1,22 @@
+%section
+  .page-header
+    %h1 HTML Exports
+  - if can? :read, @conference
+    .row
+      .span8
+        %table.zebra-striped
+          %thead
+            %tr
+              %th Create static schedule export
+              %th Download static schedule export
+          %tbody
+            - @conference.language_codes.each do |locale|
+              - filename = StaticProgramExport.filename(@conference, locale)
+              %tr
+                %td
+                  = action_button '', "create #{locale}", schedule_static_export_path(export_locale: locale), :hint => "Create a static HTML export of your program schedule."
+                %td
+                  - if File.readable? filename
+                    - date = l(File.ctime(filename), :format => :pretty_datetime)
+                    = link_to "#{date} - #{locale}", schedule_download_static_export_path(export_locale: locale)
+

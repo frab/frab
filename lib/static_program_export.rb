@@ -2,7 +2,7 @@ class StaticProgramExport
 
   EXPORT_PATH = Rails.root.join("tmp", "static_export")
 
-  def initialize(conference, locale = nil)
+  def initialize(conference, locale = 'en')
     @conference = conference
     @locale = locale
 
@@ -17,13 +17,16 @@ class StaticProgramExport
     @session.https! if Settings['protocol'] == "https"
   end
 
-  def self.create_tarball(conference)
-    out_file = EXPORT_PATH.join(conference.acronym + ".tar.gz")
+  def self.filename(conference, locale = 'en')
+    EXPORT_PATH.join("#{conference.acronym}-#{locale}.tar.gz")
+  end
+
+  def create_tarball
+    out_file = StaticProgramExport.filename(@conference, @locale)
     if File.exist? out_file
       File.unlink out_file
     end
-    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', EXPORT_PATH.to_s, conference.acronym].flatten )
-    out_file
+    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', EXPORT_PATH.to_s, @conference.acronym].flatten )
   end
 
   def run_export

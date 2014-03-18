@@ -110,7 +110,9 @@ class Conference < ActiveRecord::Base
   end
 
   def language_codes
-    self.languages.map{|l| l.code.downcase}
+    codes = self.languages.map{|l| l.code.downcase}
+    codes = %w{en} if codes.empty?
+    codes
   end
 
   def first_day

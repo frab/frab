@@ -3,9 +3,9 @@
     .pull-right
       = action_button "", "View public schedule", public_schedule_index_path, :hint => "View the public live version of your schedule just like any attendee might see it."
       = action_button "", "Create custom PDF export", new_schedule_pdf_path, :hint => "Create a PDF version of your program schedule that can easily be printed."
-      - if can? :read, @conference
-        = action_button "", "Create static schedule export", schedule_static_export_path, :hint => "Download a static HTML export of your program schedule."
+      = action_button "", "Create static HTML export", schedule_html_exports_path, :hint => "Create a HTML version of your program schedule that can be copied to another web server."
     %h1 Schedule
+
   %ul.tabs
     - @conference.days.each_with_index do |day, index|
       %li{:class => day_active?(index)}
