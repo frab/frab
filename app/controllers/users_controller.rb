@@ -77,7 +77,7 @@ class UsersController < ApplicationController
 
     if can_only_manage_crew_roles and params[:user][:conference_user].present?
         conference = params[:user][:conference_user][:conference]
-        unless Conference.accessible_by_crew(current_user).include? conference
+        unless Conference.accessible_by_orga(current_user).include? conference
           return redirect_to person_user_path(@person)
         end
     end

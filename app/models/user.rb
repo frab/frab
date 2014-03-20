@@ -37,6 +37,11 @@ class User < ActiveRecord::Base
     self.sign_in_count ||= 0
   end
 
+  def is_admin?
+    return true if self.role == "admin"
+    false
+  end
+
   def is_submitter?
     return true if self.role == "submitter"
     false

@@ -84,14 +84,7 @@ class Ability
 
       can :administrate, User
       can :crud, User do |user|
-        # new user, probably created by crew, not through cfp signup
-        (user.is_submitter? and user.call_for_papers == @conference.call_for_papers) or 
-        # user with a submission in this conference
-        (user.is_submitter? and user.person.involved_in? @conference) or
-        # user is a new crew member
-        user.is_crew? and user.conference_users.empty? or
-        # user is a crew member
-        user.is_crew_of? @conference
+        not user.is_admin?
       end
       can :assign_user_roles, User
       cannot :assign_roles, User
