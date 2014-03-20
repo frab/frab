@@ -32,6 +32,10 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
+    # nested conference resources alias, these actions only show the form, the
+    # actual update is handled by :update
+    alias_action :edit_rooms, :edit_tracks, :edit_days, to: :read_nested_conference
+
     setup_user_abilities
 
     if user.is_crew?
@@ -72,7 +76,7 @@ class Ability
     when /orga/
       can :manage, CallForPapers
 
-      can [:read, :update], Conference, id: @conference.id
+      can [:read, :read_nested_conference, :edit_ticket_server, :update], Conference, id: @conference.id
 
       can :crud, Event, conference_id: @conference.id
       can :manage, EventRating
@@ -96,7 +100,7 @@ class Ability
       # coordinates speakers and their events
       # everything from reviewer
       can [:create, :read, :update], CallForPapers
-      can :read, Conference
+      can [:read, :read_nested_conference], Conference
 
       can :crud, Event, conference_id: @conference.id
       can :manage, EventRating
@@ -107,7 +111,7 @@ class Ability
       # everything from submitter
       # edit own event rating
       can :read, CallForPapers
-      can :read, Conference
+      can [:read, :read_nested_conference], Conference
 
       can :read, Event, conference_id: @conference.id
       can :crud, EventRating, person_id: @user.person.id
