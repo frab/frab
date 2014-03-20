@@ -4,6 +4,12 @@
     %title
       - if @conference and @conference.title
         = @conference.title
+        - if @event.present?
+          \-
+          = @event.title
+        - elsif @person.present?
+          \-
+          = @person.full_name
       - else
         frab
       \- Conference Management
