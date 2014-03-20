@@ -87,6 +87,11 @@ class Ability
         not user.is_admin?
       end
       can :assign_user_roles, User
+      can :assign_user_roles, Conference do |conference|
+        @user.conference_users.any? { |cu|
+          cu.conference == conference and cu.role == 'orga'
+        }
+      end
       cannot :assign_roles, User
 
     when /coordinator/

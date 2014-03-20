@@ -1,9 +1,19 @@
 module ApplicationHelper
 
   def accessible_conferences
-    conferencs = []
+    conferences = []
     if current_user.is_crew?
       conferences = Conference.accessible_by_crew(current_user).order("created_at DESC")
+    else
+      conferences = Conference.order("created_at DESC")
+    end
+    conferences
+  end
+
+  def manageable_conferences
+    conferences = []
+    if current_user.is_crew?
+      conferences = Conference.accessible_by_orga(current_user).order("created_at DESC")
     else
       conferences = Conference.order("created_at DESC")
     end

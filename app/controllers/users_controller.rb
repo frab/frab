@@ -29,6 +29,10 @@ class UsersController < ApplicationController
   def edit
     @user = @person.user 
     can_manage_user!
+
+    @user.conference_users.select! { |cu|
+      can? :assign_user_roles, cu.conference
+    }
   end
 
   # POST /users
@@ -67,6 +71,7 @@ class UsersController < ApplicationController
       params[:user].delete(password_key) if params[:user][password_key].blank?
     end
 
+    # user.role
     if can? :assign_roles, User
       @user.role = params[:user][:role]
     elsif can_only_manage_crew_roles
@@ -75,11 +80,9 @@ class UsersController < ApplicationController
     end
     params[:user].delete(:role)
 
-    if can_only_manage_crew_roles and params[:user][:conference_user].present?
-        conference = params[:user][:conference_user][:conference]
-        unless Conference.accessible_by_orga(current_user).include? conference
-          return redirect_to person_user_path(@person)
-        end
+    # user.conference_users
+    if can_only_manage_crew_roles and params[:user][:conference_users_attributes].present?
+      filter_conference_users(params[:user][:conference_users_attributes])
     end
 
     respond_to do |format|
@@ -114,6 +117,20 @@ class UsersController < ApplicationController
 
   def find_person
     @person = Person.find(params[:person_id])
+  end
+
+  def filter_conference_users(conference_users)
+    delete = []
+    conference_users.each do |id, conference_user|
+      if conference_user.has_key?(:conference_id) and conference_user[:conference_id].present?
+        conference = Conference.find conference_user[:conference_id]
+        delete << id unless can? :assign_user_roles, conference
+      else
+        delete << id
+      end
+    end
+
+    delete.each { |p| conference_users.delete(p) }
   end
 
 end
