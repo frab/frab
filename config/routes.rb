@@ -78,6 +78,7 @@ Frab::Application.routes.draw do
       resource :conference, except: [:new, :create] do
         get :edit_tracks
         get :edit_days
+        get :edit_schedule
         get :edit_rooms
         get :edit_ticket_server
       end

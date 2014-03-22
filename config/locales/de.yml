@@ -28,9 +28,11 @@ de:
   edit_conference_days: "Konferenz-Tage bearbeiten"
   edit_conference_tracks: "Konferenz-Tracks bearbeiten"
   edit_conference_rooms: "Konferenz-Räume bearbeiten"
+  edit_conference_rooms: "Zeitplan bearbeiten"
   edit_ticket_server: "Ticket-Server bearbeiten"
 
   basic_information: "Grundlegende Informationen"
+  timeslot_configuration: "Konfiguration der Zeiteinheiten"
   schedule_configuration: "Konfiguration des Zeitplans"
   event_languages: "Veranstaltungssprachen"
   static_program_export: "Statischer Programm-Export"

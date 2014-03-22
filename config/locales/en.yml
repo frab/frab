@@ -18,6 +18,7 @@ en:
   edit_conference_days: "Edit conference days"
   edit_conference_tracks: "Edit conference tracks"
   edit_conference_rooms: "Edit conference rooms"
+  edit_conference_schedule: "Edit conference schedule"
   edit_ticket_server: "Edit ticket server"
 
   basic_information: "Basic information"

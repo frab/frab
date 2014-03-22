@@ -34,7 +34,7 @@ class Ability
 
     # nested conference resources alias, these actions only show the form, the
     # actual update is handled by :update
-    alias_action :edit_rooms, :edit_tracks, :edit_days, to: :read_nested_conference
+    alias_action :edit_rooms, :edit_tracks, :edit_days, :edit_schedule, to: :read_nested_conference
 
     setup_user_abilities
 
