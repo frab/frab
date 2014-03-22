@@ -16,6 +16,9 @@ class Public::ScheduleController < ApplicationController
   end
 
   def style
+    respond_to do |format|
+      format.css
+    end
   end
 
   def day

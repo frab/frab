@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131013164530) do
+ActiveRecord::Schema.define(:version => 20140322185641) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -52,22 +52,23 @@ ActiveRecord::Schema.define(:version => 20131013164530) do
   add_index "conference_users", ["user_id"], :name => "index_conference_users_on_user_id"
 
   create_table "conferences", :force => true do |t|
-    t.string   "acronym",                                       :null => false
-    t.string   "title",                                         :null => false
-    t.string   "timezone",                :default => "Berlin", :null => false
-    t.integer  "timeslot_duration",       :default => 15,       :null => false
-    t.integer  "default_timeslots",       :default => 4,        :null => false
-    t.integer  "max_timeslots",           :default => 20,       :null => false
-    t.boolean  "feedback_enabled",        :default => false,    :null => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.string   "acronym",                                                          :null => false
+    t.string   "title",                                                            :null => false
+    t.string   "timezone",                                   :default => "Berlin", :null => false
+    t.integer  "timeslot_duration",                          :default => 15,       :null => false
+    t.integer  "default_timeslots",                          :default => 4,        :null => false
+    t.integer  "max_timeslots",                              :default => 20,       :null => false
+    t.boolean  "feedback_enabled",                           :default => false,    :null => false
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
     t.string   "email"
     t.string   "program_export_base_url"
     t.string   "schedule_version"
-    t.boolean  "schedule_public",         :default => false,    :null => false
+    t.boolean  "schedule_public",                            :default => false,    :null => false
     t.string   "color"
     t.string   "ticket_type"
-    t.boolean  "event_state_visible",     :default => true
+    t.boolean  "event_state_visible",                        :default => true
+    t.text     "schedule_custom_css",     :limit => 2097152
   end
 
   add_index "conferences", ["acronym"], :name => "index_conferences_on_acronym"
