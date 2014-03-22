@@ -3,6 +3,14 @@
     = t '.schedule_for_day', :index => @day_index+1, :label => l(@day.date)
   - else
     = t '.schedule', :label => l(@day.date)
+- if different_track_colors?    
+  #colorkeys
+    %ul
+      - @conference.tracks.each do |track|
+        %li{class: "track-#{track.name.parameterize}"}
+          %div
+            %a{href: '#'}
+              %p.small-font= track.name
 %br.clear/
 #main-table
   #conference-rooms

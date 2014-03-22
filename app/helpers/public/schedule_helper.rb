@@ -26,6 +26,11 @@ module Public::ScheduleHelper
     end
   end
 
+  def different_track_colors?
+    colors = @conference.tracks.map { |t| t.color }
+    colors.uniq.size > 1
+  end
+
   def selected(regex)
     "selected" if request.path =~ regex
   end
