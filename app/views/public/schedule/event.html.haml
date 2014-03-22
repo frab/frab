@@ -37,7 +37,7 @@
     %h3= t '.files'
     %ul
       - @event.event_attachments.public.each do |attachment|
-        %li= link_to attachment.title, attachment.attachment.url
+        %li= link_to attachment.link_title, attachment.attachment.url
   - if @conference.feedback_enabled?
     %h3= t '.feedback'
     %p

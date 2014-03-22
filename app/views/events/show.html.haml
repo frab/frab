@@ -103,10 +103,10 @@
             %br/
       %p
         - if @event.event_attachments.any?
-          %b Files
+          %b #{t('public.schedule.event.files')}:
           %ul
             - @event.event_attachments.each do |attachment|
-              %li= link_to attachment.title, attachment.attachment.url
+              %li= link_to attachment.link_title, attachment.attachment.url
   .row
     .span16
       %h2 Notes
