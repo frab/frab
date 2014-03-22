@@ -1,5 +1,14 @@
 module RecentChangesHelper
 
+  def yaml_load_version(version)
+    begin
+      YAML.load(version.object_changes)
+    rescue
+      Rails.logger.error "Invalid YAML in recent changes version #{version.id}"
+      []
+    end
+  end
+
   def associated_link_for(version)
     begin
       associated = version.associated_type.constantize.find(version.associated_id)

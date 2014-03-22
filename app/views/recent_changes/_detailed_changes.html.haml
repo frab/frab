@@ -1,5 +1,5 @@
 %ul
-  - YAML.load(version.object_changes).each do |attribute, change|
+  - yaml_load_version(version).each do |attribute, change|
     %li
       %em= attribute
       - if change.is_a? Array
