@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140322185641) do
+ActiveRecord::Schema.define(:version => 20140322190529) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20140322185641) do
     t.string   "ticket_type"
     t.boolean  "event_state_visible",                        :default => true
     t.text     "schedule_custom_css",     :limit => 2097152
+    t.text     "schedule_html_intro",     :limit => 2097152
   end
 
   add_index "conferences", ["acronym"], :name => "index_conferences_on_acronym"

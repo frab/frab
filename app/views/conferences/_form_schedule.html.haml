@@ -5,5 +5,6 @@
     = f.inputs t(:static_program_export) do
       = f.input :program_export_base_url, :hint => "If you want to use the static program export, enter the URL where you want to put the files under here. All references will be generated using this as a prefix."
       = f.input :schedule_custom_css, :input_html => {:rows => 4}, :hint => "Custom CSS added to the HTML export. (CSS)"
+      = f.input :schedule_html_intro, :input_html => {:rows => 4}, :hint => "Intro text for the HTML export. (HTML)"
   = f.buttons do
     = f.commit_button :button_html => {:class => "btn primary", :icon => "tick"}
