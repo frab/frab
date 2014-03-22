@@ -3,7 +3,17 @@
     .pull-right
       - if can? :manage, CallForPapers
         = action_button "primary", "Edit", edit_call_for_papers_path, :hint => "Edit this call for paper's data."
+        - if @conference.ticket_type == 'integrated'
+          = action_button "primary", "Edit Notifications", edit_notifications_call_for_papers_path, :hint => "Edit email notififaction templates."
     %h1 Call for Papers
+  - if @conference.call_for_papers.welcome_text
+    .row
+      .span16
+        %p!= @conference.call_for_papers.welcome_text
+  - if @conference.call_for_papers.start_date
+    .row
+      .span16
+        %p The call for papers starts at #{l(@conference.call_for_papers.start_date)} and ends at #{l(@conference.call_for_papers.end_date)}.
   .row
     .span16
       %p
