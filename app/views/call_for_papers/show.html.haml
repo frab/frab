@@ -9,7 +9,8 @@
   - if @conference.call_for_papers.welcome_text
     .row
       .span16
-        %p!= @conference.call_for_papers.welcome_text
+        %p
+          = simple_format @conference.call_for_papers.welcome_text
   - if @conference.call_for_papers.start_date
     .row
       .span16
