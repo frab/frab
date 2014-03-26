@@ -55,7 +55,7 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     acts_as_commentable (4.0.0)
-    acts_as_indexed (0.8.2)
+    acts_as_indexed (0.8.3)
     afm (0.2.0)
     ansi (1.4.3)
     archive-tar-minitar (0.5.2)

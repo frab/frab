@@ -19,7 +19,7 @@ class Person < ActiveRecord::Base
 
   belongs_to :user, dependent: :destroy
 
-  acts_as_indexed fields: [:first_name, :last_name, :public_name, :email, :abstract, :description]
+  acts_as_indexed fields: [:first_name, :last_name, :public_name, :email, :abstract, :description, :user_email]
 
   has_paper_trail 
 
@@ -60,6 +60,10 @@ class Person < ActiveRecord::Base
     else
       public_name
     end
+  end
+
+  def user_email
+    self.user.email if self.user.present?
   end
 
   def avatar_path(size = :medium)
