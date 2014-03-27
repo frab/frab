@@ -33,8 +33,6 @@ class ImportExportHelper
       dump_has_many "event_links", @conference.events, 'links'
       attachments = dump_has_many "event_attachments", @conference.events, 'event_attachments'
       dump_has_many "event_ratings", @conference.events, 'event_ratings'
-      dump_has_many "conflicts", @conference.events, 'conflicts'
-      #dump_has_many "conflicts_as_conflicting", @conference.events, 'conflicts_as_conflicting'
       dump_has_many "people_phone_numbers", people, 'phone_numbers'
       dump_has_many "people_im_accounts", people, 'im_accounts'
       dump_has_many "people_links", people, 'links'
@@ -153,8 +151,7 @@ class ImportExportHelper
     restore_people_data
 
     update_counters
-    # TODO update_conflicts
-
+    Event.all.each { |e| e.update_conflicts } 
   end
 
   def restore_conference_data
@@ -229,13 +226,6 @@ class ImportExportHelper
       obj.save!
     end
 
-    restore_multiple("conflicts", Conflict) do |id, obj|
-      obj.event_id = @mappings[:events][obj.event_id]
-      if obj.conflicting_event_id
-        obj.conflicting_event_id = @mappings[:events][obj.conflicting_event_id]
-      end
-      obj.save!
-    end
   end
 
   def restore_people_data
