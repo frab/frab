@@ -66,6 +66,8 @@ class ScheduleController < ApplicationController
     out_path = StaticProgramExport.filename @conference, check_conference_locale(params[:export_locale])
     if File.readable? out_path
       send_file out_path, type: "application/x-tar-gz"
+    else
+      redirect_to schedule_path, notice: 'No export found to download.'
     end
   end
 
