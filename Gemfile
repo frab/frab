@@ -9,7 +9,7 @@ gem 'sqlite3'
 gem 'acts_as_commentable'
 gem 'acts_as_indexed'
 gem 'barista'
-gem 'bcrypt-ruby'
+gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'cancan'
 gem 'cocoon'
 gem 'formtastic', '~> 2.1.0'
@@ -23,7 +23,7 @@ gem 'localized_language_select', '0.2.0', :git => "git://github.com/frab/localiz
 gem 'nokogiri'
 gem 'paperclip', '< 3.0'
 gem 'paper_trail', '2.3.3'
-gem 'prawn'
+gem 'prawn', '< 1.0'
 gem 'prawn_rails'
 gem 'ransack'
 gem 'ri_cal'
@@ -40,7 +40,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '1.2.0'
   gem 'minitest'
   gem 'turn', :require => false
 end
