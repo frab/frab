@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140322223731) do
+ActiveRecord::Schema.define(:version => 20140329001424) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(:version => 20140322223731) do
   end
 
   add_index "call_for_papers", ["start_date", "end_date"], :name => "index_call_for_papers_on_dates"
+
+  create_table "conference_exports", :force => true do |t|
+    t.string   "locale"
+    t.integer  "conference_id"
+    t.string   "tarball_file_name"
+    t.string   "tarball_content_type"
+    t.integer  "tarball_file_size"
+    t.datetime "tarball_updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "conference_exports", ["conference_id"], :name => "index_conference_exports_on_conference_id"
 
   create_table "conference_users", :force => true do |t|
     t.string   "role"

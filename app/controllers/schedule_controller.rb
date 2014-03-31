@@ -57,15 +57,15 @@ class ScheduleController < ApplicationController
     authorize! :read, @conference
 
     StaticProgramExportJob.new.async.perform @conference, check_conference_locale(params[:export_locale])
-    redirect_to schedule_path, notice: 'Static schedule export started. Please reload this page after a minute.'
+    redirect_to schedule_static_export_path, notice: 'Static schedule export started. Please reload this page after a minute.'
   end
 
   def download_static_export
     authorize! :read, @conference
 
-    out_path = StaticProgramExport.filename @conference, check_conference_locale(params[:export_locale])
-    if File.readable? out_path
-      send_file out_path, type: "application/x-tar-gz"
+    conference_export = @conference.conference_export(check_conference_locale(params[:export_locale]))
+    if conference_export.present? and File.readable? conference_export.tarball.path
+      send_file conference_export.tarball.path, type: "application/x-tar-gz"
     else
       redirect_to schedule_path, notice: 'No export found to download.'
     end

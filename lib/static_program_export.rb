@@ -5,31 +5,29 @@ class StaticProgramExport
   def initialize(conference, locale = 'en')
     @conference = conference
     @locale = locale
+  end
+
+  def create_tarball
+    out_file = filename(@conference, @locale)
+    if File.exist? out_file
+      File.unlink out_file
+    end
+    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', EXPORT_PATH.to_s, @conference.acronym].flatten )
+    out_file.to_s
+  end
+
+  # only run by rake task, cannot run in the same thread as rails
+  def run_export
+    fail "No conference found!" if @conference.nil?
 
     @asset_paths = []
     @base_directory = EXPORT_PATH.join(@conference.acronym)
-    @base_url = URI.parse(@conference.program_export_base_url).path
-    @base_url += '/' unless @base_url.end_with?('/')
+    @base_url = get_base_url
     @original_schedule_public = @conference.schedule_public
 
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
     @session.host = Settings.host
     @session.https! if Settings['protocol'] == "https"
-  end
-
-  def self.filename(conference, locale = 'en')
-    EXPORT_PATH.join("#{conference.acronym}-#{locale}.tar.gz")
-  end
-
-  def create_tarball
-    out_file = StaticProgramExport.filename(@conference, @locale)
-    if File.exist? out_file
-      File.unlink out_file
-    end
-    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', EXPORT_PATH.to_s, @conference.acronym].flatten )
-  end
-
-  def run_export
     ActiveRecord::Base.transaction do
       unlock_schedule unless @original_schedule_public
 
@@ -43,6 +41,20 @@ class StaticProgramExport
   end
 
   private
+
+  def get_base_url
+    if @conference.program_export_base_url.present?
+      base_url = URI.parse(@conference.program_export_base_url).path
+      base_url += '/' unless @base_url.end_with?('/')
+      base_url
+    else 
+      "/"
+    end
+  end
+
+  def filename(conference, locale = 'en')
+    EXPORT_PATH.join("#{@conference.acronym}-#{@locale}.tar.gz")
+  end
 
   def setup_directories
     FileUtils.rm_r(@base_directory, secure: true) if File.exist? @base_directory

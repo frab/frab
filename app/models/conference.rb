@@ -9,6 +9,7 @@ class Conference < ActiveRecord::Base
   has_many :languages, as: :attachable, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :tracks, dependent: :destroy
+  has_many :conference_exports, dependent: :destroy
   has_one :call_for_papers, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
 
@@ -97,6 +98,10 @@ class Conference < ActiveRecord::Base
 
   def export_url
     "/#{EXPORT_PATH}/#{self.acronym}"
+  end
+
+  def conference_export(locale='en')
+    ConferenceExport.where(conference_id: self.id, locale: locale).try(:first)
   end
 
   def language_breakdown(accepted_only = false)

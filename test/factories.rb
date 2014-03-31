@@ -102,6 +102,12 @@ FactoryGirl.define do
     factory :conference_reviewer, traits: [:conference_reviewer_role]
   end
 
+  factory :conference_export do
+    conference
+    locale 'en'
+    tarball { File.open(File.join(Rails.root, 'test', 'fixtures', 'tarball.tar.gz')) }
+  end
+
   factory :person do
     email { Factory.next(:email) }
     public_name "Fred Besen"
