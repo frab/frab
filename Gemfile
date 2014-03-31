@@ -40,7 +40,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_girl_rails', '1.2.0'
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'minitest'
   gem 'turn', :require => false
 end

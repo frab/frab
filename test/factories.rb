@@ -37,38 +37,38 @@ FactoryGirl.define do
   end
 
   trait :three_days do
-    after_create do |conference|
-      conference.days << FactoryGirl.create(:day, conference: conference,
+    after :create do |conference|
+      conference.days << create(:day, conference: conference,
                                             start_date: Date.today.since(1.days).since(11.hours),
                                             end_date: Date.today.since(1.days).since(23.hours))
-      conference.days << FactoryGirl.create(:day, conference: conference,
+      conference.days << create(:day, conference: conference,
                                             start_date: Date.today.since(2.days).since(10.hours),
                                             end_date: Date.today.since(2.days).since(24.hours))
-      conference.days << FactoryGirl.create(:day, conference: conference,
+      conference.days << create(:day, conference: conference,
                                             start_date: Date.today.since(3.days).since(10.hours),
                                             end_date: Date.today.since(3.days).since(17.hours))
     end
   end
 
   trait :with_rooms do
-    after_create do |conference|
-      conference.rooms << FactoryGirl.create(:room, conference: conference)
+    after :create do |conference|
+      conference.rooms << create(:room, conference: conference)
     end
   end
 
   trait :with_events do
-    after_create do |conference|
-      conference.events << FactoryGirl.create(:event, conference: conference,
+    after :create do |conference|
+      conference.events << create(:event, conference: conference,
                                               room: conference.rooms.first, 
                                               state: 'confirmed',
                                               public: true,
                                               start_time: Date.today.since(1.days).since(11.hours))
-      conference.events << FactoryGirl.create(:event, conference: conference,
+      conference.events << create(:event, conference: conference,
                                               room: conference.rooms.first, 
                                               state: 'confirmed',
                                               public: true,
                                               start_time: Date.today.since(1.days).since(15.hours))
-      conference.events << FactoryGirl.create(:event, conference: conference,
+      conference.events << create(:event, conference: conference,
                                               room: conference.rooms.first, 
                                               state: 'confirmed',
                                               public: true,
@@ -78,7 +78,7 @@ FactoryGirl.define do
 
   factory :user do
     person
-    email { Factory.next(:email) }
+    email { generate(:email) }
     password "frab23"
     password_confirmation { password }
     sign_in_count 0
@@ -91,8 +91,8 @@ FactoryGirl.define do
 
   factory :conference_user do
     conference
-    after_build do |cu|
-      user = FactoryGirl.build(:crew_user)
+    after :build do |cu|
+      user = build(:crew_user)
       user.conference_users << cu
       cu.user = user
     end
@@ -109,7 +109,7 @@ FactoryGirl.define do
   end
 
   factory :person do
-    email { Factory.next(:email) }
+    email { generate(:email) }
     public_name "Fred Besen"
   end
 
@@ -119,13 +119,13 @@ FactoryGirl.define do
   end
 
   factory :room do
-    name { Factory.next(:room_names) }
+    name { generate(:room_names) }
     public true
   end
 
   factory :conference do
     title "FrabCon"
-    acronym { Factory.next(:conference_acronym) }
+    acronym { generate(:conference_acronym) }
     timeslot_duration 15
     default_timeslots 4
     max_timeslots 20
@@ -171,11 +171,11 @@ FactoryGirl.define do
   end
 
   factory :event do
-    title { Factory.next(:event_title) }
+    title { generate(:event_title) }
     subtitle "Getting started organizing your conference"
     time_slots 4
     start_time "10:00"
-    conference { Factory.create(:three_day_conference) }
+    conference { create(:three_day_conference) }
   end
 
   factory :event_person do
