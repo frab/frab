@@ -53,11 +53,11 @@ class ScheduleController < ApplicationController
     authorize! :read, @conference
   end
 
-  def static_export
+  def create_static_export
     authorize! :read, @conference
 
     StaticProgramExportJob.new.async.perform @conference, check_conference_locale(params[:export_locale])
-    redirect_to schedule_static_export_path, notice: 'Static schedule export started. Please reload this page after a minute.'
+    redirect_to schedule_html_exports_path, notice: 'Static schedule export started. Please reload this page after a minute.'
   end
 
   def download_static_export
