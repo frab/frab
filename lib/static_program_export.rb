@@ -1,27 +1,36 @@
 class StaticProgramExport
 
-  EXPORT_PATH = Rails.root.join("tmp", "static_export")
+  EXPORT_PATH = Rails.root.join("tmp", "static_export").to_s
 
-  def initialize(conference, locale = 'en')
+  # Export a static html version of the conference program.
+  #
+  # @param conference [Conference] conference to export
+  # @param locale [String] export conference in supported locale
+  # @param destination [String] export into this directory
+  def initialize(conference, locale: 'en', destination: EXPORT_PATH)
     @conference = conference
     @locale = locale
+    @destination = destination || EXPORT_PATH
   end
 
+  # create a tarball from the conference export directory
   def create_tarball
     out_file = filename(@conference, @locale)
     if File.exist? out_file
       File.unlink out_file
     end
-    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', EXPORT_PATH.to_s, @conference.acronym].flatten )
+    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', @destination, @conference.acronym].flatten )
     out_file.to_s
   end
 
+  # export the conference to disk
+  #
   # only run by rake task, cannot run in the same thread as rails
   def run_export
     fail "No conference found!" if @conference.nil?
 
     @asset_paths = []
-    @base_directory = EXPORT_PATH.join(@conference.acronym)
+    @base_directory = File.join(@destination, @conference.acronym)
     @base_url = get_base_url
     @original_schedule_public = @conference.schedule_public
 
@@ -45,7 +54,7 @@ class StaticProgramExport
   def get_base_url
     if @conference.program_export_base_url.present?
       base_url = URI.parse(@conference.program_export_base_url).path
-      base_url += '/' unless @base_url.end_with?('/')
+      base_url += '/' unless base_url.end_with?('/')
       base_url
     else 
       "/"
@@ -53,7 +62,7 @@ class StaticProgramExport
   end
 
   def filename(conference, locale = 'en')
-    EXPORT_PATH.join("#{@conference.acronym}-#{@locale}.tar.gz")
+    File.join(@destination, "#{@conference.acronym}-#{@locale}.tar.gz")
   end
 
   def setup_directories

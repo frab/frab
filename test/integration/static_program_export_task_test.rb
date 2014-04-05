@@ -4,7 +4,7 @@ class StaticProgramExportTask < ActionDispatch::IntegrationTest
 
   setup do
     @conference = create(:three_day_conference)
-    @target_dir = File.join(Rails.root, 'tmp', 'static_export', @conference.acronym)
+    @target_dir = File.join(Rails.root, 'tmp', 'static_export')
   end
 
   test "can run program export task" do
@@ -14,13 +14,14 @@ class StaticProgramExportTask < ActionDispatch::IntegrationTest
     Rake::Task.define_task(:environment)
     ENV['CONFERENCE'] = @conference.acronym
     ENV['CONFERENCE_LOCALE'] = locale
+    ENV['CONFERENCE_DIR'] = @target_dir
     ENV['RAILS_ENV'] = Rails.env
     Rake.application.invoke_task "frab:static_program_export"
 
-    assert File.directory? @target_dir
+    assert File.directory? File.join(@target_dir, @conference.acronym)
   end
 
   teardown do
-    FileUtils.remove_dir @target_dir
+    FileUtils.remove_dir File.join(@target_dir, @conference.acronym)
   end
 end

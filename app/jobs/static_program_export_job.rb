@@ -1,18 +1,25 @@
 class StaticProgramExportJob
-  require "static_program_export"
+  require 'static_program_export'
+  require 'tempfile'
   include SuckerPunch::Job
 
   def perform(conference, locale='en')
-    ENV['CONFERENCE'] = conference.acronym
-    ENV['CONFERENCE_LOCALE'] = locale
-    ENV['RAILS_ENV'] = Rails.env
-    `rake frab:static_program_export`
+    Dir.mktmpdir('static_export') do |dir|
+      Rails.logger.info "Create static export for #{conference} in #{dir}"
 
-    exporter = StaticProgramExport.new(conference, locale)
-    file = exporter.create_tarball
+      ENV['CONFERENCE'] = conference.acronym
+      ENV['CONFERENCE_LOCALE'] = locale
+      ENV['CONFERENCE_DIR'] = dir
+      ENV['RAILS_ENV'] = Rails.env
+      `rake frab:static_program_export`
 
-    conference_export = ConferenceExport.where(conference_id: conference.id, locale: locale).first_or_create
-    conference_export.update_attributes tarball: File.open(file)
+      exporter = StaticProgramExport.new(conference, locale: locale, destination: dir)
+      file = exporter.create_tarball
+
+      Rails.logger.info "Attach static export tarball #{file}"
+      conference_export = ConferenceExport.where(conference_id: conference.id, locale: locale).first_or_create
+      conference_export.update_attributes tarball: File.open(file)
+    end
   end
 
 end
