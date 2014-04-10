@@ -120,13 +120,13 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    authorize! :edit, @event
+    authorize! :update, @event
   end
 
   # GET /events/2/edit_people
   def edit_people
     @event = Event.find(params[:id])
-    authorize! :manage, @event
+    authorize! :update, @event
   end
 
   # POST /events
