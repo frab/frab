@@ -12,7 +12,7 @@ namespace :frab do
     conference_dir ||= ENV['CONFERENCE_DIR']
 
     require 'static_program_export'
-    StaticProgramExport.new(conference, locale: locale, destination: conference_dir).run_export
+    StaticProgramExport.new(conference, locale, conference_dir).run_export
   end
 
 end

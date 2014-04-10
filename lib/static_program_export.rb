@@ -7,7 +7,7 @@ class StaticProgramExport
   # @param conference [Conference] conference to export
   # @param locale [String] export conference in supported locale
   # @param destination [String] export into this directory
-  def initialize(conference, locale: 'en', destination: EXPORT_PATH)
+  def initialize(conference, locale = 'en', destination = EXPORT_PATH)
     @conference = conference
     @locale = locale
     @destination = destination || EXPORT_PATH

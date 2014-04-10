@@ -13,7 +13,7 @@ class StaticProgramExportJob
       ENV['RAILS_ENV'] = Rails.env
       `rake frab:static_program_export`
 
-      exporter = StaticProgramExport.new(conference, locale: locale, destination: dir)
+      exporter = StaticProgramExport.new(conference, locale, dir)
       file = exporter.create_tarball
 
       Rails.logger.info "Attach static export tarball #{file}"
