@@ -86,10 +86,9 @@ with MySQL and SQLite3 (for development).
 
     rake assets:precompile
 
-10) Generate secret token and add the generated token into `config/initializers/secret_token.rb`
+10) Generate secret token and export it for production servers
 
-    rake secret
-    cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+    export SECRET_KEY_BASE=`rake secret`
 
 11) Start the server
 

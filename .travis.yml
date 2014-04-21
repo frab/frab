@@ -4,7 +4,6 @@ rvm:
   - 2.2.2
 bundler_args: --without mysql postgresql
 before_install:
-  - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - cp config/database.yml.template config/database.yml
   - cp config/settings.yml.template config/settings.yml
 script:
