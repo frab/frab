@@ -2,6 +2,7 @@
  *= require formtastic-bootstrap
  *= require bootstrap
  *= require formtastic_changes
- *= require jquery-ui-bootstrap 
+ *= require jquery-ui-bootstrap
  *= require frab
+ *= require_self
 */
