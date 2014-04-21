@@ -120,7 +120,7 @@ class StaticProgramExport
       day_index += 1
     end
 
-    @conference.events.public.confirmed.scheduled.each do |event|
+    @conference.events.is_public.confirmed.scheduled.each do |event|
       paths << {source: "events/#{event.id}", target: "events/#{event.id}.html"}
       paths << {source: "events/#{event.id}.ics", target: "events/#{event.id}.ics"}
     end

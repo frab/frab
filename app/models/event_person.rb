@@ -11,7 +11,7 @@ class EventPerson < ActiveRecord::Base
 
   has_paper_trail meta: {associated_id: :event_id, associated_type: "Event"}
 
-  scope :presenter, where(event_role: ["speaker", "moderator"])
+  scope :presenter, -> { where(event_role: ["speaker", "moderator"]) }
 
   def update_speaker_count
     event = Event.find(self.event_id)

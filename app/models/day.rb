@@ -17,7 +17,7 @@ class Day < ActiveRecord::Base
 
   has_paper_trail meta: {associated_id: :conference_id, associated_type: "Conference"}
 
-  default_scope order(:start_date)
+  default_scope { order(start_date: :asc) }
 
   validates_presence_of :start_date, message: "missing start date"
   validates_presence_of :end_date, message: "missing end date"

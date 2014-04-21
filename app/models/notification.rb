@@ -10,7 +10,7 @@ class Notification < ActiveRecord::Base
   # TODO
   #validate :locale_is_valid
 
-  scope :with_locale, lambda { |code| where(self.arel_table[:locale].eq(code)) }
+  scope :with_locale, ->(code) { where(self.arel_table[:locale].eq(code)) }
 
   VARIABLES = {
       'conference'  => 'Conference name',

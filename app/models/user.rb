@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   validate :conference_user_valid
   validate :only_one_role_per_conference
 
-  scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
+  scope :confirmed, -> { where(arel_table[:confirmed_at].not_eq(nil)) }
 
   def check_default_values
     self.role ||= 'submitter'

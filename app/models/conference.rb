@@ -26,26 +26,26 @@ class Conference < ActiveRecord::Base
     :timezone
   validates_inclusion_of :feedback_enabled, :in => [true, false]
   validates_uniqueness_of :acronym
-  validates_format_of :acronym, with: /^[a-zA-Z0-9_-]*$/
+  validates_format_of :acronym, with: /\A[a-zA-Z0-9_-]*\z/
   validate :days_do_not_overlap
 
   after_update :update_timeslots
 
   has_paper_trail
 
-  scope :has_submission, lambda { |person|
+  scope :has_submission, ->(person) {
     joins(events: [{event_people: :person}])
     .where(EventPerson.arel_table[:event_role].in(["speaker","moderator"]))
     .where(Person.arel_table[:id].eq(person.id)).group(:"conferences.id")
   }
 
-  scope :creation_order, order("conferences.created_at DESC")
+  scope :creation_order, -> { order("conferences.created_at DESC") }
 
-  scope :accessible_by_crew, lambda { |user|
+  scope :accessible_by_crew, ->(user) {
     joins(:conference_users).where(conference_users: {user_id: user})
   }
 
-  scope :accessible_by_orga, lambda { |user|
+  scope :accessible_by_orga, ->(user) {
     joins(:conference_users).where(conference_users: {user_id: user, role: 'orga'})
   }
 

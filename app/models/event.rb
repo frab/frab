@@ -36,19 +36,19 @@ class Event < ActiveRecord::Base
 
   after_save :update_conflicts
 
-  scope :accepted, where(self.arel_table[:state].in(%w{confirmed unconfirmed}))
-  scope :associated_with, lambda {|person| joins(:event_people).where(:"event_people.person_id" => person.id)}
-  scope :candidates, where(state: %w{new review unconfirmed confirmed})
-  scope :confirmed, where(state: :confirmed)
-  scope :no_conflicts, includes(:conflicts).where(:"conflicts.event_id" => nil)
-  scope :public, where(public: true)
-  scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gteq(day.start_date.to_datetime)).where(self.arel_table[:start_time].lteq(day.end_date.to_datetime)).where(self.arel_table[:room_id].not_eq(nil)) }
-  scope :scheduled, where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil)))
-  scope :unscheduled, where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil)))
-  scope :without_speaker, where("speaker_count = 0")
-  scope :with_speaker, where("speaker_count > 0")
+  scope :accepted, -> { where(self.arel_table[:state].in(%w{confirmed unconfirmed})) }
+  scope :associated_with, ->(person) { joins(:event_people).where(:"event_people.person_id" => person.id) }
+  scope :candidates, -> { where(state: %w{new review unconfirmed confirmed}) }
+  scope :confirmed, -> { where(state: :confirmed) }
+  scope :no_conflicts, -> { includes(:conflicts).where(:"conflicts.event_id" => nil) }
+  scope :is_public, -> { where(public: true) }
+  scope :scheduled_on, ->(day) { where(self.arel_table[:start_time].gteq(day.start_date.to_datetime)).where(self.arel_table[:start_time].lteq(day.end_date.to_datetime)).where(self.arel_table[:room_id].not_eq(nil)) }
+  scope :scheduled, -> { where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil))) }
+  scope :unscheduled, -> { where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) }
+  scope :without_speaker, -> { where("speaker_count = 0") }
+  scope :with_speaker, -> { where("speaker_count > 0") }
 
-  has_paper_trail 
+  has_paper_trail
 
   state_machine do
     state :new
