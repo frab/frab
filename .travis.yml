@@ -1,9 +1,11 @@
 language: ruby
+rvm:
+  - 1.9.3
+  - 2.1.1
 before_install:
-  - gem update --system
-  - gem --version
+  - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - cp config/database.yml.template config/database.yml
   - cp config/settings.yml.template config/settings.yml
 script:
-  - rake db:setup
-  - rake test
+  - bundle exec rake db:setup
+  - bundle exec rake
