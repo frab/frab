@@ -126,6 +126,7 @@ class Person < ActiveRecord::Base
 
   def update_attributes_from_slider_form(params)
     # remove empty availabilities
+    return unless params.has_key? 'availabilities_attributes'
     params['availabilities_attributes'].each { |k,v| 
       Availability.delete(v['id']) if v['start_date'].to_i == -1
     }
