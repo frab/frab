@@ -1,7 +1,7 @@
 <div class="nested-fields">
   <%= f.inputs do %>
-    <%= f.input :start_date, :hint => "yyyy-mm-dd hh:mm", :as => :datetime %>
-    <%= f.input :end_date, :hint => "yyyy-mm-dd hh:mm", :as => :datetime %>
+    <%= f.input :start_date, :hint => "yyyy-mm-dd hh:mm", :as => :datetime_select %>
+    <%= f.input :end_date, :hint => "yyyy-mm-dd hh:mm", :as => :datetime_select %>
     <%= remove_association_link :day, f %>
   <% end %>
 </div>
