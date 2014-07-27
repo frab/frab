@@ -29,7 +29,7 @@ than 5 parallel tracks (plus devrooms) over 2 days.
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 3.2) application.
+frab is a pretty standard Ruby on Rails (version 4.2) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
