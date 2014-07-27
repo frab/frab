@@ -103,11 +103,11 @@ class Cfp::EventsController < ApplicationController
         return redirect_to cfp_root_path, flash:{ error: t('cfp.no_confirmation_token') }
       end
 
-      event_people = event_person.person.event_people.find_all_by_event_id(params[:id])
+      event_people = event_person.person.event_people.where(event_id: params[:id])
       login_as(event_person.person.user) if event_person.person.user
     else
       raise "Unauthenticated" unless current_user
-      event_people = current_user.person.event_people.find_all_by_event_id(params[:id])
+      event_people = current_user.person.event_people.where(event_id: params[:id])
     end
     event_people.each do |event_person|
       event_person.confirm!
