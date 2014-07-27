@@ -59,8 +59,8 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     @scrubber.send(:scrub_person, person)
     person.reload
     assert_equal person.email, DUMMY_MAIL
-    assert_blank person.phone_numbers
-    assert_blank person.im_accounts
+    assert person.phone_numbers.blank?
+    assert person.im_accounts.blank?
     assert_nil person.note
   end
 
@@ -93,7 +93,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
 
     # reload
     event.reload
-    assert_blank event.event_ratings
+    assert event.event_ratings.blank?
   end
 
 end
