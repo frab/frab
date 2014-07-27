@@ -60,11 +60,11 @@
             - @event.links.each do |link|
               = link_to link.title, link.url
               %br/
-        - unless @event.event_attachments.public.empty?
+        - unless @event.event_attachments.is_public.empty?
           %p
             %b #{t('publich.schedule.files')}:
             %br/
-            - @event.event_attachments.public.each do |attachment|
+            - @event.event_attachments.is_public.each do |attachment|
               = link_to attachment.link_title, attachment.attachment.url
               %br/
       .span10

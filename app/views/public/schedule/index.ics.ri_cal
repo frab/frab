@@ -1,4 +1,4 @@
-@conference.events.public.accepted.order(:title).each do |event|
+@conference.events.is_public.accepted.order(:title).each do |event|
   next if event.start_time.nil?
   cal.event do |e|
     e.dtstamp = event.updated_at

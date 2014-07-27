@@ -8,7 +8,7 @@ class EventAttachment < ActiveRecord::Base
 
   has_paper_trail meta: {associated_id: :event_id, associated_type: "Event"}
 
-  scope :public, -> { where(public: true) }
+  scope :is_public, -> { where(public: true) }
 
   def link_title
     if self.title.present? 

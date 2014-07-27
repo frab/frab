@@ -28,12 +28,12 @@ class Public::ScheduleController < ApplicationController
     end
     @day = @conference.days[@day_index]
 
-    @all_rooms = @conference.rooms.public.all
+    @all_rooms = @conference.rooms.is_public.all
     @rooms = Array.new
     @events = Hash.new
     @skip_row = Hash.new
     @all_rooms.each do |room|
-      events = room.events.confirmed.no_conflicts.public.scheduled_on(@day).order(:start_time).all
+      events = room.events.confirmed.no_conflicts.is_public.scheduled_on(@day).order(:start_time).all
       unless events.empty?
         @events[room] = events 
         @skip_row[room] = 0
@@ -54,14 +54,14 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events.public.confirmed.scheduled.sort {|a,b|
+    @events = @conference.events.is_public.confirmed.scheduled.sort {|a,b|
       a.to_sortable <=> b.to_sortable
     }
   end
 
   def event
-    @event = @conference.events.public.confirmed.scheduled.find(params[:id])
-    @concurrent_events = @conference.events.public.confirmed.scheduled.where( start_time: @event.start_time )
+    @event = @conference.events.is_public.confirmed.scheduled.find(params[:id])
+    @concurrent_events = @conference.events.is_public.confirmed.scheduled.where( start_time: @event.start_time )
     respond_to do |format|
       format.html
       format.ics

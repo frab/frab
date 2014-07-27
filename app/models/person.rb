@@ -101,7 +101,7 @@ class Person < ActiveRecord::Base
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    self.events.public.accepted.where(:"events.state" => :confirmed, :"event_people.event_role" => ["speaker", "moderator"], conference_id: conference.id).all
+    self.events.is_public.accepted.where(:"events.state" => :confirmed, :"event_people.event_role" => ["speaker", "moderator"], conference_id: conference.id).all
   end
 
   def role_state(conference)

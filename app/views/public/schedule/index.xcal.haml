@@ -6,7 +6,7 @@
     %x-wr-caldesc= "#{@conference.acronym} Schedule"
     %x-wr-calname= "#{@conference.acronym} Schedule"
   
-    - @conference.events.accepted.public.each do |event|
+    - @conference.events.accepted.is_public.each do |event|
       - next unless event.start_time
       %vevent 
         %method= "PUBLISH"

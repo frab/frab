@@ -139,7 +139,7 @@ class ReportsController < ApplicationController
       @labels = %w{Day FullName PublicName Email Event Role State} # TODO translate
 
       @conference.days.each do |day|
-        @conference.events.confirmed.no_conflicts.public.scheduled_on(day).order(:start_time).each do |event|
+        @conference.events.confirmed.no_conflicts.is_public.scheduled_on(day).order(:start_time).each do |event|
           event.event_people.presenter.each do |event_person|
             person = event_person.person
             row = [ l(day.date), person.full_name, person.public_name, person.email, event.title, event_person.event_role, event_person.role_state ]
