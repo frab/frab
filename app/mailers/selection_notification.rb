@@ -29,7 +29,7 @@ class SelectionNotification < ActionMailer::Base
     mail(
       reply_to: @conference.email,
       to: @person.email,
-      subject: @notification.accept_subject.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{forename}', @person.first_name).gsub('%{surname}', @person.last_name).gsub('%{public_name}', @person.public_name), locale: @locale, title: @conference.title
+      subject: @notification.reject_subject.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{forename}', @person.first_name).gsub('%{surname}', @person.last_name).gsub('%{public_name}', @person.public_name), locale: @locale, title: @conference.title
     )
   end
 
