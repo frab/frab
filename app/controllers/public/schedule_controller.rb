@@ -60,7 +60,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def event
-    @event = @conference.events.public.confirmed.scheduled.find(params[:id])
+    @event = @conference.events.public.confirmed.find(params[:id])
     @concurrent_events = @conference.events.public.confirmed.scheduled.where( start_time: @event.start_time )
     respond_to do |format|
       format.html
