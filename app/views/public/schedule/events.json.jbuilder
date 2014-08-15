@@ -5,6 +5,14 @@ json.conference_events do
     json.title event.title
     json.logo event.logo_path
     json.type event.event_type
+    if event.start_time and event.room
+      json.start_time event.start_time
+      json.end_time event.end_time
+      json.room do
+        json.name event.room.name
+        json.id event.room.id
+      end
+    end
     json.abstract event.abstract
     json.speakers event.speakers do |person|
       json.id person.id
