@@ -19,6 +19,7 @@ json.schedule do
           @conference.rooms.public.each do |room|
             json.set! room.name, room.events.public.accepted.scheduled_on(day).order(:start_time) do |event|
               json.id event.id
+              json.guid event.guid
               json.logo event.logo_path
               json.date event.start_time.iso8601
               json.start event.start_time.strftime('%H:%M')

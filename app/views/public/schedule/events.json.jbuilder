@@ -2,6 +2,7 @@ json.conference_events do
   json.version @conference.schedule_version if @conference.schedule_version.present?
   json.events @events do |event|
     json.id event.id
+    json.guid event.guid
     json.title event.title
     json.logo event.logo_path
     json.type event.event_type
