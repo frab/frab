@@ -14,6 +14,7 @@ json.schedule_speakers do
       json.id event.id
       json.title event.title
       json.logo event.logo_path
+      json.type event.event_type
     end
   end
 end

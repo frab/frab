@@ -9,12 +9,13 @@
 .column.left#details
   %h3= t '.info'
   %p
-    %b #{t '.day'}:
-    = link_to l(@event.start_time.to_date), public_schedule_path(:day => @conference.day_at(@event.start_time))
-    %br/
-    %b #{t '.start_time'}:
-    = l @event.start_time, :format => :time
-    %br/
+    - if @event.start_time
+      %b #{t '.day'}:
+      = link_to l(@event.start_time.to_date), public_schedule_path(:day => @conference.day_at(@event.start_time))
+      %br/
+      %b #{t '.start_time'}:
+      = l @event.start_time, :format => :time
+      %br/
     %b #{t '.duration'}:
     = format_time_slots(@event.time_slots)
     %br/
@@ -30,7 +31,8 @@
       = @event.language
   %h3 #{t '.links'}:
   %ul
-    %li= link_to "iCalendar", public_event_path(id: @event.id, format: :ics)
+    - if @event.start_time
+      %li= link_to "iCalendar", public_event_path(id: @event.id, format: :ics)
     - @event.links.each do |link|
       %li= link_to link.title, link.url
   - if @event.event_attachments.public.any?

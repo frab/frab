@@ -54,13 +54,13 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events.public.confirmed.scheduled.sort {|a,b|
+    @events = @conference.events.public.confirmed.sort {|a,b|
       a.to_sortable <=> b.to_sortable
     }
   end
 
   def event
-    @event = @conference.events.public.confirmed.scheduled.find(params[:id])
+    @event = @conference.events.public.confirmed.find(params[:id])
     @concurrent_events = @conference.events.public.confirmed.scheduled.where( start_time: @event.start_time )
     respond_to do |format|
       format.html
