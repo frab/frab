@@ -14,4 +14,5 @@
         %td
           %ul
             - speaker.public_and_accepted_events_as_speaker_in(@conference).each do |event|
-              %li= link_to event.title, public_event_path(:id => event.id)
+              - if event.state == 'confirmed'
+                %li= link_to event.title, public_event_path(:id => event.id)
