@@ -233,7 +233,7 @@ class Event < ActiveRecord::Base
   private
 
   def generate_guid
-    self.guid = SecureRandom.urlsafe_base64(nil, false)
+    self.guid = SecureRandom.hex(12)
   end
 
   def average(rating_type)
