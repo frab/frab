@@ -104,6 +104,7 @@ class StaticProgramExport
         {source: "schedule", target: "schedule.html"},
         {source: "events", target: "events.html"},
         {source: "speakers", target: "speakers.html"},
+        {source: "events.json", target: "events.json"},
         {source: "speakers.json", target: "speakers.json"},
         {source: "schedule/style.css", target: "style.css"},
         {source: "schedule.ics", target: "schedule.ics"},
