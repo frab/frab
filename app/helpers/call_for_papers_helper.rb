@@ -7,7 +7,7 @@ module CallForPapersHelper
   end
 
   def get_uuid
-    SecureRandom.hex(8)
+    SecureRandom.uuid
   end
 
 end

@@ -3,7 +3,7 @@ class AddGuidToEvents < ActiveRecord::Migration
     add_column :events, :guid, :string
     Event.reset_column_information
     Event.all.each { |e|
-      e.guid = SecureRandom.urlsafe_base64(nil, false)
+      e.guid = SecureRandom.uuid
       e.save(validate: false)
     }
   end
