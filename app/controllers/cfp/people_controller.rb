@@ -8,6 +8,10 @@ class Cfp::PeopleController < ApplicationController
   def show
     @person = current_user.person
 
+    if not @conference.in_the_past and @person.events_in(@conference).size > 0 and @person.availabilities_in(@conference).count == 0
+      flash[:alert] = t("cfp.specify_availability") 
+    end
+
     return redirect_to :action => "new" unless @person
     if @person.public_name == current_user.email
       flash[:alert] = "Your email address is not a valid public name, please change it."

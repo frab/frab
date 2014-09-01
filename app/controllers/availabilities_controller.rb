@@ -6,6 +6,7 @@ class AvailabilitiesController < ApplicationController
 
   def new
     @availabilities = Availability.build_for(@conference)
+    flash[:alert] = "#{@person.full_name} does not currently have any availabilities."
   end
 
   def edit
