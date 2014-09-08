@@ -11,8 +11,8 @@
     = f.input :abstract, :input_html => {:rows => 4}, :hint => t("cfp.event_abstract_hint") 
     = f.input :description, :hint => t("cfp.event_description_hint") 
     = f.input :submission_note, :hint => "visible for admins and users, contains additional information."
-    = f.input :do_not_record, :as => :boolean, :hint => "If the conference records talks and there is an opt-out: do you want your talk recorded?"
-    = f.input :recording_license, hint: "If the conference allows speakers to choose the talks recordings license, which license should apply?"
+    = f.input :do_not_record, :as => :boolean, :hint => "If the conference records talks and there is an opt-out: do you want your talk recorded?", input_html: deny_accepted(@event)
+    = f.input :recording_license, hint: "If the conference allows speakers to choose the talks recordings license, which license should apply?", input_html: deny_accepted(@event)
     = dynamic_association :links, t("cfp.links"), f
     = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
   = f.buttons  do

@@ -69,6 +69,10 @@ class Cfp::EventsController < ApplicationController
   def update
     authorize! :submit, Event
     @event = current_user.person.events.find(params[:id], readonly: false)
+    if @event.accepted?
+      params[:event].delete('recording_license')
+      params[:event].delete('do_not_record')
+    end
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
