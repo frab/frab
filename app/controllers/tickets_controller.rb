@@ -5,7 +5,7 @@ class TicketsController < ApplicationController
 
   def create
     @event = Event.find(params[:event_id])
-    authorize! :manage, @event
+    authorize! :crud, @event
 
     if not @conference.is_ticket_server_enabled? or @conference.ticket_server.nil?
       return redirect_to edit_conference_path(conference_acronym: @conference.acronym), alert: "No ticket server configured"
