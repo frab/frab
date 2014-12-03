@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   has_one :person
 
   accepts_nested_attributes_for :conference_users, allow_destroy: true
- 
+
   has_secure_password
-  
+
   attr_accessor :remember_me
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id, :conference_users_attributes
@@ -38,18 +38,15 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    return true if self.role == "admin"
-    false
+    self.role == "admin"
   end
 
   def is_submitter?
-    return true if self.role == "submitter"
-    false
+    self.role == "submitter"
   end
 
   def is_crew?
-    return true if self.role == "crew"
-    false
+    self.role == "crew"
   end
 
   def is_crew_of?(conference)
@@ -60,7 +57,7 @@ class User < ActiveRecord::Base
     user = User.find_by_email(email)
     return unless user and user.pentabarf_password and user.pentabarf_salt
     salt = [user.pentabarf_salt.to_i( 16 )].pack("Q").reverse
-    
+
     if Digest::MD5.hexdigest( salt + password ) == user.pentabarf_password
       user.password = password
       user.password_confirmation = password
@@ -97,7 +94,7 @@ class User < ActiveRecord::Base
 
   def try_call_for_papers
     if self.call_for_papers
-     self.call_for_papers 
+     self.call_for_papers
     else
       CallForPapers.last
     end
@@ -123,9 +120,7 @@ class User < ActiveRecord::Base
   end
 
   def record_login!
-    self.last_sign_in_at = Time.now
-    self.sign_in_count += 1
-    save(validate: false)
+    update_attributes({last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1}, without_protection: true)
   end
 
   private
@@ -140,7 +135,7 @@ class User < ActiveRecord::Base
 
   def only_one_role_per_conference
     seen = {}
-    self.conference_users.each { |cu| 
+    self.conference_users.each { |cu|
       next if cu.conference.nil?
       if seen.has_key? cu.conference.id
         self.errors.add(:role, "User cannot have multiple roles in one conference")
