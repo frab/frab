@@ -120,9 +120,7 @@ class User < ActiveRecord::Base
   end
 
   def record_login!
-    self.last_sign_in_at = Time.now
-    self.sign_in_count += 1
-    save(validate: false)
+    update_attributes({last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1}, without_protection: true)
   end
 
   private
