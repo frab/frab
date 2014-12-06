@@ -165,35 +165,11 @@ from there.
 
 ## Vagrant Server
 
-frab can more easily be tested by using vagrant. First install the
-vagrant gem:
+frab can more easily be tested by using vagrant with chef recipes taking care of the installation process.
+More information can be found in these github projects:
 
-    gem install vagrant
-
-Afterwards setup your virtualbox machine, install chef inside and
-let vagrant run the frab chef recipes.
-Simply run the following command directly inside the frab checkout
-directory:
-
-    vagrant up
-
-
-Sometimes vagrant runs into timing problems, reload the vm:
-
-    vagrant reload
-
-And you can always re-deploy
-
-    vagrant provision
-
-You can now ssh into the box and start the rails app
-
-    vagrant ssh
-    cd /srv/frab
-    rails server
-
-Visit http://localhost:3000/ to log in to frab.
-    - if @conference.feedback_enabled
+* [frab/vagrant-frab](https://github.com/frab/vagrant-frab)
+* [frab/chef-frab](https://github.com/frab/chef-frab)
 
 ## Contact    
 
