@@ -4,8 +4,8 @@ class NotificationTest < ActiveSupport::TestCase
 
   setup do
     @cfp = FactoryGirl.create(:call_for_papers)
-    FactoryGirl.create(:notification, call_for_papers: @cfp, locale: "EN")
-    FactoryGirl.create(:notification, call_for_papers: @cfp, locale: "DE")
+    FactoryGirl.create(:notification, call_for_papers: @cfp, locale: "en")
+    FactoryGirl.create(:notification, call_for_papers: @cfp, locale: "de")
     @cfp.reload
   end
 
@@ -14,8 +14,8 @@ class NotificationTest < ActiveSupport::TestCase
   end
 
   test "cannot add same language twice" do
-      notification = Notification.new(call_for_papers: @cfp, locale: "EN")
-      notification.set_default_text "EN"
+      notification = Notification.new(call_for_papers: @cfp, locale: "en")
+      notification.set_default_text "en"
       assert !notification.valid?
   end
 
