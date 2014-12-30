@@ -53,4 +53,10 @@ class ConferencesControllerTest < ActionController::TestCase
     end
   end
 
+  test "should save comma delimited" do
+    put :update, id: @conference.to_param, conference: @conference.attributes.merge(default_im_types: ["icq","jabber","irc"]), conference_acronym: @conference.acronym
+    updated_conference = Conference.where("acronym = ?", @conference.acronym).first
+    assert updated_conference.default_im_types = 'icq,jabber,irc"'
+  end
+
 end

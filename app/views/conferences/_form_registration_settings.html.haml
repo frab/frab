@@ -1,0 +1,17 @@
+= semantic_form_for(@conference, :url => @conference.new_record? ? create_conference_path : conference_path) do |f|
+  = f.inputs t(:conferences), :name => "Registration Settings" do
+    = f.input :default_im_types,
+                  collection: ImAccount::TYPES,
+                  input_html: { class: 'chosen-select' },
+                  multiple: "multiple",
+                  hint: "On sign-up, the user will be encouraged to enter details for these selected IM account types"
+  = f.buttons do
+    = f.commit_button :button_html => {:class => "btn primary"}
+
+:coffeescript
+  $ ->
+  # enable chosen js
+  $('.chosen-select').chosen
+    allow_single_deselect: false
+    no_results_text: 'No results matched'
+    width: '200px'

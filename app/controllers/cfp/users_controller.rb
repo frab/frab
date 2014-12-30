@@ -14,6 +14,14 @@ class Cfp::UsersController < ApplicationController
     @user.person = Person.new(email: @user.email, public_name: @user.email)
 
     if @user.save
+      if @conference.default_im_types.present?
+        @conference.default_im_types.split(', ').each do |type|
+          if type.length > 0
+            ImAccount.new({:person_id => @user.person.id, :im_type => type, :im_address => ''}).save
+          end
+        end
+      end
+
       redirect_to new_cfp_session_path, notice: t(:"cfp.signed_up")
     else
       render action: "new"
