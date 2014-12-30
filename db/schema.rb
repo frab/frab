@@ -256,6 +256,7 @@ ActiveRecord::Schema.define(:version => 20141230135008) do
     t.integer  "user_id"
     t.text     "note"
     t.boolean  "include_in_mailings", :default => false, :null => false
+    t.string   "irc_nick"
   end
 
   add_index "people", ["email"], :name => "index_people_on_email"
