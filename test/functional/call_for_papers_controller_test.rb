@@ -36,6 +36,12 @@ class CallForPapersControllerTest < ActionController::TestCase
     assert_redirected_to call_for_papers_path(conference_acronym: @conference.acronym)
   end
 
+  test "should parse welcome text as markdown" do
+    put :update, call_for_papers: @call_for_papers.attributes.merge(welcome_text: "# welcome"), conference_acronym: @conference.acronym
+    get :show, conference_acronym: @conference.acronym
+    assert response.body.include? "<h1>welcome</h1>";
+  end
+
   test "should get edit notification" do
     get :edit_notifications, conference_acronym: @conference.acronym
     assert_response :success
