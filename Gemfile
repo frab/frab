@@ -32,6 +32,7 @@ gem 'settingslogic'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'twitter-bootstrap-rails', :git => "git://github.com/frab/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
 gem 'will_paginate'
+gem 'redcarpet'
 
 group :development, :test do
   gem 'bullet'
@@ -50,7 +51,6 @@ group :development do
   gem 'shotgun'
   gem 'yaml_db'
   gem 'pry-rails'
-  gem 'redcarpet'       # documentation
   gem 'github-markdown' # documentation
   gem 'yard'            # documentation
   #gem 'rails-erd'      # graph
@@ -59,6 +59,6 @@ end
 
 group :assets do
   gem 'coffee-rails', " ~> 3.2.0"
-  gem 'sass-rails', " ~> 3.2.0"  
-  gem 'uglifier'  
+  gem 'sass-rails', " ~> 3.2.0"
+  gem 'uglifier'
 end 
