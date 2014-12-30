@@ -1,0 +1,35 @@
+%section
+  .page-header
+    %h1= t :edit_conference_registration_settings
+  %ul.tabs
+    %li= link_to t(:settings), edit_conference_path
+    %li= link_to t(:days), edit_days_conference_path
+    %li= link_to t(:tracks), edit_tracks_conference_path
+    %li= link_to t(:rooms), edit_rooms_conference_path
+    %li= link_to t(:schedule), edit_schedule_conference_path
+    %li.active= link_to t(:registration_settings), edit_registration_settings_conference_path
+    - if @conference.is_ticket_server_enabled?
+      %li= link_to t(:ticket_server), edit_ticket_server_conference_path
+  .row
+    .span16
+      .blank-slate
+        %p
+          Each conference can have its own individual configuration. Lorum Ipsom meh...
+  .row
+    .span16
+      = render 'form_registration_settings'
+
+:coffeescript
+  addColorPickers = ->
+    $('input.color').ColorPicker(
+      onSubmit: (hsb, hex, rgb, el) ->
+        $(el).val(hex)
+        $(el).ColorPickerHide()
+      onBeforeShow: ->
+        $(this).ColorPickerSetColor(this.value)
+    )
+  $ ->
+    $("a.add_fields").data("insertion-callback", (node) ->
+      addColorPickers()
+    )
+    addColorPickers()

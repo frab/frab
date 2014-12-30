@@ -3,5 +3,6 @@
  *= require bootstrap
  *= require formtastic_changes
  *= require jquery-ui-bootstrap 
+ *= require chosen
  *= require frab
 */

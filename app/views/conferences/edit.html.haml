@@ -7,6 +7,7 @@
     %li= link_to t(:tracks), edit_tracks_conference_path
     %li= link_to t(:rooms), edit_rooms_conference_path
     %li= link_to t(:schedule), edit_schedule_conference_path
+    %li= link_to t(:registration_settings), edit_registration_settings_conference_path
     - if @conference.is_ticket_server_enabled?
       %li= link_to t(:ticket_server), edit_ticket_server_conference_path
   .row

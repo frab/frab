@@ -48,6 +48,11 @@ class ConferencesController < ApplicationController
   def edit
   end
 
+  # GET /conferences/1/edit_registration_settings
+  def edit_registration_settings
+    @conference.default_im_types = @conference.default_im_types.split(", ")
+  end
+
   # POST /conferences
   # POST /conferences.xml
   def create
@@ -66,6 +71,11 @@ class ConferencesController < ApplicationController
   # PUT /conferences/1.xml
   def update
     respond_to do |format|
+      # We store default IM types as comma delimited
+      if params[:conference].present? && params[:conference][:default_im_types].class == Array
+        params[:conference][:default_im_types] = params[:conference][:default_im_types].join(", ")
+      end
+      
       if @conference.update_attributes(params[:conference])
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
       else

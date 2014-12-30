@@ -81,6 +81,7 @@ Frab::Application.routes.draw do
         get :edit_schedule
         get :edit_rooms
         get :edit_ticket_server
+        get :edit_registration_settings
       end
 
       resource :call_for_papers do
