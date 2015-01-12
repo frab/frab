@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   include ActiveRecord::Transitions
+  include ActionView::Helpers::TextHelper
 
   before_create :generate_guid
 
@@ -202,15 +203,17 @@ class Event < ActiveRecord::Base
   end
 
   def slug
-    [ 
-      self.conference.acronym,
-      self.id,
-      self.language,
-      self.room.try(:name).try(:parameterize, "_"), 
-      self.start_time.strftime("%Y%m%d%H%M"), 
-      self.title.parameterize("_"), 
-      self.speakers.map{|p| p.full_public_name.parameterize("_")},
-    ].flatten.join("_-_")
+    truncate(
+      [ 
+        self.conference.acronym,
+        self.id,
+        self.title.parameterize("_")
+      ].flatten.join("-"),
+      escape: false,
+      length: 240,
+      separator: "_",
+      omission: ""
+    ).to_str
   end
 
   def static_url
