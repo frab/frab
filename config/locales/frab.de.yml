@@ -46,14 +46,18 @@ de:
 
   options:
     business: "Geschäftlich"
+    concert: "Konzert"
+    djset: "DJ-Set"
     fax: "Fax"
     female: "weiblich"
+    film: "Film"
     lecture: "Vortrag"
     lightning_talk: "Lightning Talk"
     male: "männlich"
     meeting: "Meeting"
     mobile: "Mobil"
     other: "Andere"
+    performance: "Theater/Performance"
     phone: "Telefon"
     podium: "Podiumsdiskussion"
     private: "Privat"
