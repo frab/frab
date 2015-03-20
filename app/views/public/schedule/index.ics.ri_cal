@@ -2,7 +2,7 @@
   next if event.start_time.nil?
   cal.event do |e|
     e.dtstamp = event.updated_at
-    e.uid = "#{event.guid}@#{Settings.host}"
+    e.uid = "#{event.guid}@#{ENV.fetch('FRAB_HOST')}"
     e.organizer = @conference.acronym
     e.dtstart = event.start_time
     e.dtend = event.end_time

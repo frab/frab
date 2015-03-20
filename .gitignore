@@ -1,7 +1,8 @@
 .bundle
+.env.local
+.env.production
 .ruby-version
 config/database.yml
-config/settings.yml
 db/*.sqlite3
 log/*.log
 tmp/*

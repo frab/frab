@@ -48,7 +48,7 @@ and follow these steps:
 
     bundle install
 
-Hint. To avoid installing database drivers you don't wanna use, exclude
+Hint. To avoid installing database drivers you don't want to use, exclude
 drivers with `bundle install --without="postgresql mysql"`.
 
 4) Install nodejs:
@@ -70,13 +70,11 @@ preferred package manager (apt-get, yum, brew etc.).
 
     cp config/database.yml.template config/database.yml
 
-frab bundles all three built-in rails database drivers.
-And it should work with all three, although it is best tested
-with MySQL and SQLite3 (for development).
+7) Modify settings:
 
-7) Create and modify settings:
-
-    cp config/settings.yml.template config/settings.yml
+Settings are defined via environment variables. Frab uses dotenv files to
+set these variables. The variables for development mode are set in `.env.development`.
+You can also use .env.local for local overrides.
 
 8) Create and setup the database
 
@@ -86,25 +84,11 @@ with MySQL and SQLite3 (for development).
 
     rake assets:precompile
 
-10) Generate secret token and export it for production servers
-
-    export SECRET_KEY_BASE=`rake secret`
-
-11) Start the server
+10) Start the server
 
 To start frab in the development environment simply run
 
     rails server
-
-To start frab in the production environment make sure you
-did not skip step 8 and run:
-
-    rails server -e production
-
-(Note that for a "real" production environment you
-probably do not want to use this script, but rather something
-like unicorn or passenger. Note that under Apache 2.x
-mod_header is needed.)
 
 Navigate to http://localhost:3000/ and login as
 "admin@example.org" with password "test123".
@@ -114,11 +98,18 @@ Navigate to http://localhost:3000/ and login as
 If you are running frab in a production environment you have to
 take additional steps to build a secure and stable site.
 
-0. Change the password of the inital admin account
-1. Change the initial secret token
-2. Add a content disposition header, so attachments get downloaded and
+* Change the password of the inital admin account
+* Change the initial secret token
+* Add a content disposition header, so attachments get downloaded and
 are not displayed in the browser. See `./public/system/attachments/.htaccess` for an example.
-3. Add a gem like `exception_notification` to get emails in case of errors.
+* Add a gem like `exception_notification` to get emails in case of errors.
+
+In Production make sure the config variables are set, copy and edit the file
+`env.example` to `.env`.
+
+To start frab in the production environment run
+
+    RACK_ENV=production bundle rails s
 
 ## Ticket Server
 

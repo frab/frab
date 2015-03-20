@@ -5,7 +5,6 @@ rvm:
 bundler_args: --without mysql postgresql
 before_install:
   - cp config/database.yml.template config/database.yml
-  - cp config/settings.yml.template config/settings.yml
 script:
   - bundle exec rake db:setup
   - bundle exec rake

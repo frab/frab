@@ -16,9 +16,6 @@ Dir.chdir APP_ROOT do
   unless File.exist?("config/database.yml")
     system "cp config/database.yml.template config/database.yml"
   end
-  unless File.exist?("config/settings.yml")
-    system "cp config/settings.yml.template config/settings.yml"
-  end
 
   puts "\n== Preparing database =="
   system "bin/rake db:setup"

@@ -72,6 +72,10 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     erubis (2.7.0)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -184,7 +188,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    settingslogic (2.0.9)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -224,6 +227,7 @@ DEPENDENCIES
   cancancan
   cocoon
   coffee-rails (~> 4.1.0)
+  dotenv-rails
   factory_girl_rails (~> 4.0)
   github-markdown
   haml
@@ -247,7 +251,6 @@ DEPENDENCIES
   redcarpet
   ri_cal
   sass-rails (~> 5.0)
-  settingslogic
   simple_form
   sqlite3
   sucker_punch

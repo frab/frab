@@ -28,6 +28,7 @@ gem 'acts_as_commentable'
 gem 'bcrypt-ruby'
 gem 'cancancan'
 gem 'cocoon'
+gem "dotenv-rails"
 gem 'haml'
 gem 'localized_language_select', github: "frab/localized_language_select", branch: 'master'
 gem 'nokogiri'
@@ -39,7 +40,6 @@ gem 'ransack'
 gem 'ri_cal'
 gem 'simple_form'
 gem 'sucker_punch'
-gem 'settingslogic'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'will_paginate'
 

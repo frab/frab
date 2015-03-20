@@ -1,7 +1,7 @@
 cal.event do |e|
   e.dtstamp = @event.updated_at
   e.organizer = @conference.acronym
-  e.uid = "#{@event.guid}@#{Settings.host}"
+  e.uid = "#{@event.guid}@#{ENV.fetch('FRAB_HOST')}"
   e.dtstart = @event.start_time
   e.dtend = @event.end_time
   e.summary = @event.title

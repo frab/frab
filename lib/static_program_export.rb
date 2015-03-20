@@ -34,8 +34,8 @@ class StaticProgramExport
     @original_schedule_public = @conference.schedule_public
 
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
-    @session.host = Settings.host
-    @session.https! if Settings['protocol'] == "https"
+    @session.host = ENV.fetch('FRAB_HOST')
+    @session.https! if ENV.fetch('FRAB_PROTOCOL') == "https"
     ActiveRecord::Base.transaction do
       unlock_schedule unless @original_schedule_public
 

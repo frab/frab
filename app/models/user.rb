@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def authenticate(password_entered)
-    if super(password_entered) or (Settings['devise_pepper'] and super(password_entered + Settings['devise_pepper']))
+    if super(password_entered) or (ENV["DEVISE_PEPPER"] and super(password_entered + ENV["DEVISE_PEPPER"]))
       self
     else
       false
