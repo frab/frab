@@ -35,8 +35,8 @@ class StaticProgramExport
     @original_schedule_public = @conference.schedule_public
 
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
-    @session.host = Settings.host
-    @session.https! if Settings['protocol'] == "https"
+    @session.host = ENV.fetch("FRAB_HOST")
+    @session.https! if ENV.fetch("FRAB_PROTOCOL") == "https"
     ActiveRecord::Base.transaction do
       unlock_schedule unless @original_schedule_public
 
@@ -56,7 +56,7 @@ class StaticProgramExport
       base_url = URI.parse(@conference.program_export_base_url).path
       base_url += '/' unless base_url.end_with?('/')
       base_url
-    else 
+    else
       "/"
     end
   end
@@ -134,7 +134,7 @@ class StaticProgramExport
     status_code = @session.get(source)
     unless status_code == 200
       STDERR.puts '!! Failed to fetch "%s" as "%s" with error code %d' % [ source, filename, status_code ]
-      return 
+      return
     end
 
     file_path = File.join(@base_directory, URI.decode(filename))
@@ -142,18 +142,18 @@ class StaticProgramExport
 
     if filename =~ /\.html$/
       document = modify_response_html(filename)
-      File.open(file_path, "w") do |f| 
+      File.open(file_path, "w") do |f|
         # FIXME corrupts events and speakers?
         #document.write_html_to(f, encoding: "UTF-8")
         f.puts(document.to_html)
       end
     elsif filename =~ /\.pdf$/
-      File.open(file_path, "wb") do |f| 
+      File.open(file_path, "wb") do |f|
         f.write(@session.response.body)
       end
     else
       # CSS,...
-      File.open(file_path, "w:utf-8") do |f| 
+      File.open(file_path, "w:utf-8") do |f|
         f.write(@session.response.body.encode("UTF-8", invalid: :replace, undef: :replace, replace: "?"))
       end
     end
@@ -161,7 +161,7 @@ class StaticProgramExport
 
   def modify_response_html(filename)
     document = Nokogiri::HTML(@session.response.body, nil, "UTF-8")
-    
+
     # <link>
     document.css("link").each do |link|
       href_attr = link.attributes["href"]
@@ -176,15 +176,15 @@ class StaticProgramExport
     document.css("script").each do |script|
       strip_asset_path(script, "src") if script.attributes["src"]
     end
-    
+
     # <img>
     document.css("img").each do |image|
       strip_asset_path(image, "src")
     end
-    
+
     # <a>
     document.css("a").each do |link|
-      href = link.attributes["href"] 
+      href = link.attributes["href"]
       if href and href.value.start_with?("/")
         if href.value =~ /\?\d+$/
           strip_asset_path(link, "href")

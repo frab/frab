@@ -6,4 +6,4 @@
 # no regular words or you'll be exposed to dictionary attacks.
 
 # You can generate one with "rake secret"
-Frab::Application.config.secret_token = 'iforgottochangetheexampletokenandnowvisitorscanexecutecodeonmyserver'
+Frab::Application.config.secret_token = ENV.fetch("SECRET_TOKEN")

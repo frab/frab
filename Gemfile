@@ -28,7 +28,6 @@ gem 'prawn_rails'
 gem 'ransack'
 gem 'ri_cal'
 gem 'sucker_punch', '~> 1.0'
-gem 'settingslogic'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'twitter-bootstrap-rails', :git => "git://github.com/frab/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
 gem 'will_paginate'
@@ -59,6 +58,6 @@ end
 
 group :assets do
   gem 'coffee-rails', " ~> 3.2.0"
-  gem 'sass-rails', " ~> 3.2.0"  
-  gem 'uglifier'  
-end 
+  gem 'sass-rails', " ~> 3.2.0"
+  gem 'uglifier'
+end
