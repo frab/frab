@@ -7,6 +7,8 @@ gem 'mysql2', group: :mysql
 gem 'pg', group: :postgresql
 gem 'sqlite3', group: :sqlite3
 
+gem "puma", group: :puma
+
 gem 'acts_as_commentable'
 gem 'acts_as_indexed'
 gem 'barista'
@@ -66,5 +68,3 @@ end
 group :production do
   gem "rails_12factor"
 end
-
-gem "puma", group: :puma
