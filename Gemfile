@@ -62,3 +62,7 @@ group :assets do
   gem 'sass-rails', " ~> 3.2.0"
   gem 'uglifier'
 end
+
+group :production do
+  gem "rails_12factor"
+end
