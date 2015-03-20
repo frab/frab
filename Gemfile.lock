@@ -91,6 +91,9 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     columnize (0.3.6)
+    dotenv (2.0.0)
+    dotenv-rails (2.0.0)
+      dotenv (= 2.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.4.0)
@@ -263,6 +266,7 @@ DEPENDENCIES
   cancan
   cocoon
   coffee-rails (~> 3.2.0)
+  dotenv-rails
   factory_girl_rails (~> 4.0)
   formtastic (~> 2.1.0)
   formtastic-bootstrap!

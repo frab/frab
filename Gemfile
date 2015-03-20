@@ -16,6 +16,7 @@ gem 'barista'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'cancan'
 gem 'cocoon'
+gem "dotenv-rails"
 gem 'formtastic', '~> 2.1.0'
 gem 'formtastic-bootstrap', :git => "git://github.com/frab/formtastic-bootstrap.git"
 gem 'gravatar-ultimate'
