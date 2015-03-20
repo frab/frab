@@ -1,11 +1,12 @@
 language: ruby
 rvm:
   - 1.9.3
-  - 2.1.1
+  - 2.1.5
+bundler_args: --without production mysql postgresql puma
+env:
+  - CUSTOM_RUBY_VERSION=`ruby -e "puts RUBY_VERSION"`
 before_install:
-  - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - cp config/database.yml.template config/database.yml
-  - cp config/settings.yml.template config/settings.yml
 script:
   - bundle exec rake db:setup
   - bundle exec rake
