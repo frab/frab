@@ -11,6 +11,7 @@ gem "puma", group: :puma
 
 gem 'acts_as_commentable'
 gem 'acts_as_indexed'
+gem "aws-sdk"
 gem 'barista'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'cancan'
