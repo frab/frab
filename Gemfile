@@ -3,9 +3,9 @@ ruby "2.1.5"
 
 gem 'rails', '~> 3.2.16'
 
-gem 'mysql2'
-gem 'pg'
-gem 'sqlite3'
+gem 'mysql2', group: :mysql
+gem 'pg', group: :postgresql
+gem 'sqlite3', group: :sqlite3
 
 gem 'acts_as_commentable'
 gem 'acts_as_indexed'
