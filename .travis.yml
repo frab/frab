@@ -2,9 +2,8 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.1.5
+  - 2.2.1
 bundler_args: --without production mysql postgresql puma
-env:
-  - CUSTOM_RUBY_VERSION=`ruby -e "puts RUBY_VERSION"`
 before_install:
   - cp config/database.yml.template config/database.yml
 script:
