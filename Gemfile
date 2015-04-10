@@ -2,16 +2,20 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 3.2.16'
 
-gem 'mysql2'
-gem 'pg'
-gem 'sqlite3'
+gem 'mysql2', group: :mysql
+gem 'pg', group: :postgresql
+gem 'sqlite3', group: :sqlite3
+
+gem "puma", group: :puma
 
 gem 'acts_as_commentable'
 gem 'acts_as_indexed'
+gem "aws-sdk"
 gem 'barista'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'cancan'
 gem 'cocoon'
+gem "dotenv-rails"
 gem 'formtastic', '~> 2.1.0'
 gem 'formtastic-bootstrap', :git => "git://github.com/frab/formtastic-bootstrap.git"
 gem 'gravatar-ultimate'
@@ -28,7 +32,6 @@ gem 'prawn_rails'
 gem 'ransack'
 gem 'ri_cal'
 gem 'sucker_punch', '~> 1.0'
-gem 'settingslogic'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'twitter-bootstrap-rails', :git => "git://github.com/frab/twitter-bootstrap-rails.git", :ref => "5e62b21c8f258010af7f5bc858b89a24f16936a9"
 gem 'will_paginate'
@@ -59,6 +62,10 @@ end
 
 group :assets do
   gem 'coffee-rails', " ~> 3.2.0"
-  gem 'sass-rails', " ~> 3.2.0"  
-  gem 'uglifier'  
-end 
+  gem 'sass-rails', " ~> 3.2.0"
+  gem 'uglifier'
+end
+
+group :production do
+  gem "rails_12factor"
+end

@@ -48,6 +48,9 @@ and follow these steps:
 
     bundle install
 
+Hint. To avoid installing database drivers you don't wanna use, exclude
+drivers with `bundle install --without="postgresql mysql"`.
+
 4) Install nodejs:
 
 frab needs a javascript runtime. You should use
@@ -71,9 +74,14 @@ frab bundles all three built-in rails database drivers.
 And it should work with all three, although it is best tested
 with MySQL and SQLite3 (for development).
 
-7) Create and modify settings:
+7) Modify settings:
 
-    cp config/settings.yml.template config/settings.yml
+Settings are defined via environment variables. We use dotenv as helper for
+local development. See file `env.example` and `.env.development` for
+development configuration.
+
+In Production make sure these config variables are set or copy the file
+`env.example` to `.env`.
 
 8) Create and setup the database
 
@@ -82,11 +90,6 @@ with MySQL and SQLite3 (for development).
 9) Precompile assets (only needed for production)
 
     rake assets:precompile
-
-10) Generate secret token and add the generated token into `config/initializers/secret_token.rb`
-
-    rake secret
-    cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
 
 11) Start the server
 
@@ -97,12 +100,7 @@ To start frab in the development environment simply run
 To start frab in the production environment make sure you
 did not skip step 8 and run:
 
-    rails server -e production
-
-(Note that for a "real" production environment you
-probably do not want to use this script, but rather something
-like unicorn or passenger. Note that under Apache 2.x
-mod_header is needed.)
+    RACK_ENV=production bundle exec puma -C config/puma.rb
 
 Navigate to http://localhost:3000/ and login as
 "admin@example.org" with password "test123".
@@ -114,8 +112,10 @@ take additional steps to build a secure and stable site.
 
 0. Change the password of the inital admin account
 1. Change the initial secret token
-2. Add a content disposition header, so attachments get downloaded and 
+2. Add a content disposition header, so attachments get downloaded and
 are not displayed in the browser. See `./public/system/attachments/.htaccess` for an example.
+3. In addition to local storage for uploads you can use amazon s3 storage.
+See `env.example` for settings.
 3. Add a gem like `exception_notification` to get emails in case of errors.
 
 ## Ticket Server
@@ -137,7 +137,7 @@ all attachments:
 
     RAILS_ENV=production CONFERENCE=acronym rake frab:conference_export
 
-Import a conference into another frab:    
+Import a conference into another frab:
 
     RAILS_ENV=production rake frab:conference_import
 
@@ -171,9 +171,9 @@ More information can be found in these github projects:
 * [frab/vagrant-frab](https://github.com/frab/vagrant-frab)
 * [frab/chef-frab](https://github.com/frab/chef-frab)
 
-## Contact    
+## Contact
 
-For updates and discussions around frab, please join our mailinglist 
+For updates and discussions around frab, please join our mailinglist
 
     frab (at) librelist.com - to subscribe just send a mail to it
 

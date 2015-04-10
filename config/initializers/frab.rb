@@ -1,6 +1,13 @@
-ActionMailer::Base.default_url_options = { host: Settings.host, protocol: Settings.protocol }
-if Settings['smtp_settings']
+ActionMailer::Base.default_url_options = {
+  host: ENV.fetch("FRAB_HOST"),
+  protocol: ENV.fetch("FRAB_PROTOCOL")
+}
+if ENV["SMTP_ADDRESS"]
   smtp_settings = Hash.new
-  Settings.smtp_settings.each {|k, v| smtp_settings[k.to_sym] = v }
+  %w(ADDRESS PORT DOMAIN USER_NAME PASSWORD).each do |setting|
+    if ENV["SMTP_#{setting}"].present?
+      smtp_settings.merge!({setting.downcase => ENV["SMTP_#{setting}"]})
+    end
+  end
   ActionMailer::Base.smtp_settings = smtp_settings
 end

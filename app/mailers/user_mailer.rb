@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
 
-  default from: Settings['from_email']
+  default from: ENV.fetch("FROM_EMAIL")
 
   def password_reset_instructions(user)
     @user = user

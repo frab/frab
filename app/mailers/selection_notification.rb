@@ -1,7 +1,7 @@
 class SelectionNotification < ActionMailer::Base
- 
-  default from: Settings['from_email']
-  
+
+  default from: ENV.fetch("FROM_EMAIL")
+
   def acceptance_notification(event_person)
     @person = event_person.person
     @event = event_person.event
