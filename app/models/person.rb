@@ -21,9 +21,9 @@ class Person < ActiveRecord::Base
 
   acts_as_indexed fields: [:first_name, :last_name, :public_name, :email, :abstract, :description, :user_email]
 
-  has_paper_trail 
+  has_paper_trail
 
-  has_attached_file :avatar, 
+  has_attached_file :avatar,
     styles: {tiny: "16x16>", small: "32x32>", large: "128x128>"},
     default_url: "person_:style.png"
 
@@ -109,8 +109,8 @@ class Person < ActiveRecord::Base
   end
 
   def set_role_state(conference, state)
-    speaker_role_state(conference).each do |ep| 
-      ep.role_state = state 
+    speaker_role_state(conference).each do |ep|
+      ep.role_state = state
       ep.save!
     end
   end
@@ -120,14 +120,14 @@ class Person < ActiveRecord::Base
     availabilities.each { |a|
       a.start_date = a.start_date.in_time_zone
       a.end_date = a.end_date.in_time_zone
-    } 
+    }
     availabilities
   end
 
   def update_attributes_from_slider_form(params)
     # remove empty availabilities
-    return unless params.has_key? 'availabilities_attributes'
-    params['availabilities_attributes'].each { |k,v| 
+    return unless params and params.has_key? 'availabilities_attributes'
+    params['availabilities_attributes'].each { |k,v|
       Availability.delete(v['id']) if v['start_date'].to_i == -1
     }
     params['availabilities_attributes'].select! { |k,v| v['start_date'].to_i > 0 }
@@ -164,7 +164,7 @@ class Person < ActiveRecord::Base
     "Person: #{self.full_name}"
   end
 
-  private 
+  private
 
   def speaker_role_state(conference)
     self.event_people.select { |ep| ep.event.conference == conference }.select { |ep| ['speaker', 'moderator'].include? ep.event_role }
