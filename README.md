@@ -48,6 +48,9 @@ and follow these steps:
 
     bundle install
 
+Hint. To avoid installing database drivers you don't wanna use, exclude
+drivers with `bundle install --without="postgresql mysql"`.
+
 4) Install nodejs:
 
 frab needs a javascript runtime. You should use
@@ -114,7 +117,7 @@ take additional steps to build a secure and stable site.
 
 0. Change the password of the inital admin account
 1. Change the initial secret token
-2. Add a content disposition header, so attachments get downloaded and 
+2. Add a content disposition header, so attachments get downloaded and
 are not displayed in the browser. See `./public/system/attachments/.htaccess` for an example.
 3. Add a gem like `exception_notification` to get emails in case of errors.
 
@@ -137,7 +140,7 @@ all attachments:
 
     RAILS_ENV=production CONFERENCE=acronym rake frab:conference_export
 
-Import a conference into another frab:    
+Import a conference into another frab:
 
     RAILS_ENV=production rake frab:conference_import
 
@@ -171,9 +174,9 @@ More information can be found in these github projects:
 * [frab/vagrant-frab](https://github.com/frab/vagrant-frab)
 * [frab/chef-frab](https://github.com/frab/chef-frab)
 
-## Contact    
+## Contact
 
-For updates and discussions around frab, please join our mailinglist 
+For updates and discussions around frab, please join our mailinglist
 
     frab (at) librelist.com - to subscribe just send a mail to it
 
