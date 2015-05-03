@@ -226,6 +226,7 @@ class Event < ActiveRecord::Base
     self.start_time = nil
     self.state = ''
     self.note = ''
+    self.tech_rider = ''
     self
   end
 
