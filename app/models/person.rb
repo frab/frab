@@ -9,12 +9,14 @@ class Person < ActiveRecord::Base
   has_many :languages, as: :attachable, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :phone_numbers, dependent: :destroy
+  has_many :expenses, dependent: :destroy
 
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank
   accepts_nested_attributes_for :im_accounts, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :expenses, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :user, dependent: :destroy
 
@@ -146,6 +148,10 @@ class Person < ActiveRecord::Base
     conference_locales = conference.languages.all.map { |l| l.code.downcase.to_sym }
     return :en if own_locales.include? :en or own_locales.empty? or (own_locales & conference_locales).empty?
     (own_locales & conference_locales).first
+  end
+
+  def sum_of_expenses(conference, reimbursed)
+    self.expenses.where(:conference_id => conference.id, :reimbursed => reimbursed).sum(:value)
   end
 
   def to_s
