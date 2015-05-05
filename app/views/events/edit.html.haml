@@ -9,3 +9,12 @@
   .row
     .span16
       = render 'form'
+  - if @other_conferences.any?
+    = simple_form_for(@event, url: copy_to_conference_event_path, method: :put) do |f|
+      %fieldset.inputs
+        %legend Copy this event to another conference
+        .row
+          .span8
+            = f.input :conference_id, as: :select, collection: @other_conferences
+          .span8
+            = f.button :submit, "Copy event", class: "secondary"
