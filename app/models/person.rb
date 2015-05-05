@@ -19,6 +19,8 @@ class Person < ActiveRecord::Base
 
   belongs_to :user, dependent: :destroy
 
+  before_save :nilify_empty
+
   acts_as_indexed fields: [:first_name, :last_name, :public_name, :email, :abstract, :description, :user_email]
 
   has_paper_trail
@@ -168,6 +170,10 @@ class Person < ActiveRecord::Base
 
   def speaker_role_state(conference)
     self.event_people.select { |ep| ep.event.conference == conference }.select { |ep| ['speaker', 'moderator'].include? ep.event_role }
+  end
+
+  def nilify_empty
+    self.gender = nil if self.gender and self.gender.empty?
   end
 
 end
