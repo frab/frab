@@ -31,3 +31,7 @@
     .row
       .span16
         = render 'statistics_table', data: @data
+  - if not @transport_needs.nil? and not @transport_needs.empty?
+    .row
+      .span16
+        = render 'transport_needs_table', transport_needs: @transport_needs

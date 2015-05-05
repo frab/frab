@@ -28,3 +28,8 @@
   %li= link_to "confirmed event numbers by track", report_on_statistics_path("confirmed_events_by_track")
   %li= link_to "event numbers by track", report_on_statistics_path("events_by_track")
   %li= link_to "confirmed speakers by day with attendance status", report_on_statistics_path("people_speaking_by_day")
+
+- if @conference.transport_needs_enabled?
+  %p Transport needs
+  %ul
+    %li= link_to "overview on transport needs", report_on_transport_needs_path("all")
