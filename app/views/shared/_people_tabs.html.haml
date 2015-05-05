@@ -12,4 +12,6 @@
       %li{class: active_class?(edit_person_availability_path(@person))}= link_to "Availability", edit_person_availability_path(@person)
   -if @conference.expenses_enabled? and can? :administrate, User
     %li{class: active_class?(person_expenses_path(@person))}= link_to "Expenses", person_expenses_path(@person)
+  -if @conference.transport_needs_enabled? and can? :administrate, User
+    %li{class: active_class?(person_transport_needs_path(@person))}= link_to "Transport needs", person_transport_needs_path(@person)
   %li{class: active_class?(feedbacks_people_path)}= link_to "Feedback", feedbacks_people_path(id: @person.id)

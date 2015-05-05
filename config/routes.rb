@@ -87,6 +87,7 @@ Frab::Application.routes.draw do
         resource :user
         resource :availability
         resources :expenses
+        resources :transport_needs
         collection do
           get :all
           get :feedbacks

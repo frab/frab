@@ -73,6 +73,12 @@ module ApplicationHelper
     result
   end
 
+  def t_boolean(b)
+    b ?
+      t("simple_form.yes") :
+      t("simple_form.no")
+  end
+
   def available_conference_locales
     conference_locales = @conference.language_codes.map(&:to_sym)
     I18n.available_locales & conference_locales

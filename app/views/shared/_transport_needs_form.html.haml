@@ -1,0 +1,18 @@
+= simple_form_for [person, transport_need] do |f|
+  %fieldset.inputs
+    = f.input :at, html5: true, as: :datetime, hint: "yyyy-mm-dd hh:mm"
+    = f.input :transport_type, as: :select, collection: TransportNeed::TYPES, hint: "What type of transportation is needed?"
+    = f.input :seats, hint: "How many seats are needed?"
+    = f.input :booked, as: :inline_boolean, hint: "Has this transportation been booked?"
+    = f.input :note
+  .actions
+    - if can? :administrate, person
+      = f.button :submit, class: 'primary'
+
+:javascript
+  $(function() {
+    $('div.datetime input').datetimepicker({
+        dateFormat: "yy-mm-dd",
+        timeFormat: "hh:mm"
+    });
+  })

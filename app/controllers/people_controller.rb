@@ -55,6 +55,8 @@ class PeopleController < ApplicationController
     @expenses_sum_reimbursed = @person.sum_of_expenses(@conference, true)
     @expenses_sum_non_reimbursed = @person.sum_of_expenses(@conference, false)
 
+    @transport_needs = @person.transport_needs.where(:conference_id => @conference.id)
+
     respond_to do |format|
       format.html
       format.xml { render xml: @person }
