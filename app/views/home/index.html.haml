@@ -91,6 +91,14 @@
           = link_to "Accepted only", "#", :id => "languages_accepted_events_only"
         #event_language_graph(style="width:400px;height:300px;")
 
+      - if @conference.gender_breakdown.count > 1
+        %h4 Events by gender
+        %p
+          = link_to "All", "#", :id => "gender_all_events"
+          |
+          = link_to "Accepted only", "#", :id => "gender_accepted_events_only"
+        #event_gender_graph(style="width:400px;height:300px;")
+
 :coffeescript
   update_languages_breakdown = (accepted_only = false) ->
     if accepted_only
@@ -106,6 +114,20 @@
         $.plot($("#event_language_graph"), data, {series: {pie: {show: true}}})
     )
     
+  update_gender_breakdown = (accepted_only = false) ->
+    if accepted_only
+      params = {"accepted_only": 1}
+    else
+      params = {}
+    $.ajax(
+      url: "#{gender_breakdown_statistics_path}",
+      type: "GET",
+      dataType: "json",
+      data: params,
+      success: (data) ->
+        $.plot($("#event_gender_graph"), data, {series: {pie: {show: true}}})
+    )
+
   update_events_breakdown = (type = "") ->
     if type
       params = {"type": type}
@@ -145,4 +167,12 @@
       update_languages_breakdown(true)
       event.preventDefault()
     update_languages_breakdown()
+
+    $("#gender_all_events").click (event) ->
+      update_gender_breakdown()
+      event.preventDefault()
+    $("#gender_accepted_events_only").click (event) ->
+      update_gender_breakdown(true)
+      event.preventDefault()
+    update_gender_breakdown()
 
