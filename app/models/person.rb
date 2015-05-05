@@ -1,6 +1,6 @@
 class Person < ActiveRecord::Base
 
-  GENDERS = %w{male female}
+  GENDERS = %w{male female other}
 
   has_many :availabilities, dependent: :destroy
   has_many :event_people, dependent: :destroy
