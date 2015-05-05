@@ -74,6 +74,7 @@ Frab::Application.routes.draw do
 
       match "/statistics/events_by_state" => "statistics#events_by_state", as: "events_by_state_statistics"
       match "/statistics/language_breakdown" => "statistics#language_breakdown", as: "language_breakdown_statistics"
+      match "/statistics/gender_breakdown" => "statistics#gender_breakdown", as: "gender_breakdown_statistics"
 
       resource :conference, except: [:new, :create] do
         get :edit_tracks
