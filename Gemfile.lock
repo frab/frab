@@ -12,7 +12,6 @@ GIT
   specs:
     localized_language_select (0.2.0)
       rails (>= 2.3.5)
-      rails (>= 2.3.5)
 
 GIT
   remote: git://github.com/frab/twitter-bootstrap-rails.git
@@ -264,7 +263,7 @@ DEPENDENCIES
   prawn_rails
   pry-rails
   quiet_assets
-  rails (~> 3.2.16)
+  rails (~> 3.2.21)
   ransack
   redcarpet
   ri_cal
