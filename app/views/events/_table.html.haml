@@ -28,6 +28,8 @@
         %td
           = link_to event.title, event
           %p.small
+            = event.subtitle
+          %p.small
             = by_speakers(event)
         - if @conference.ticket_server_enabled?
           %td
