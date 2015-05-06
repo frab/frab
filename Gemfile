@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.16'
+gem 'rails', '~> 3.2.21'
 
 gem 'mysql2', group: :mysql
 gem 'pg', group: :postgresql
@@ -59,6 +59,6 @@ end
 
 group :assets do
   gem 'coffee-rails', " ~> 3.2.0"
-  gem 'sass-rails', " ~> 3.2.0"  
-  gem 'uglifier'  
-end 
+  gem 'sass-rails', " ~> 3.2.0"
+  gem 'uglifier'
+end

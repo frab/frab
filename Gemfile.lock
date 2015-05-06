@@ -264,7 +264,7 @@ DEPENDENCIES
   prawn_rails
   pry-rails
   quiet_assets
-  rails (~> 3.2.16)
+  rails (~> 3.2.21)
   ransack
   redcarpet
   ri_cal
