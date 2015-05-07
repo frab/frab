@@ -8,12 +8,9 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     authorize! :read, Event
-    if params.has_key?(:term) and not params[:term].empty?
-      @search = @conference.events.with_query(params[:term]).includes(:track).search(params[:q])
-    else
-      @search = @conference.events.includes(:track).search(params[:q])
-    end
-    @events = @search.result.paginate page: page_param
+
+    result = search @conference.events.includes(:track), params
+    @events = result.paginate page: page_param
 
     clean_events_attributes
     respond_to do |format|
@@ -25,13 +22,10 @@ class EventsController < ApplicationController
   # current_users events
   def my
     authorize! :read, Event
-    if params.has_key?(:term) and not params[:term].empty?
-      @search = @conference.events.associated_with(current_user.person).with_query(params[:term]).search(params[:q])
-    else
-      @search = @conference.events.associated_with(current_user.person).search(params[:q])
-    end
+
+    result = search @conference.events.associated_with(current_user.person), params
     clean_events_attributes
-    @events = @search.result.paginate page: page_param
+    @events = result.paginate page: page_param
   end
 
   # events as pdf
@@ -51,8 +45,9 @@ class EventsController < ApplicationController
   # show event ratings
   def ratings
     authorize! :create, EventRating
-    @search = @conference.events.search(params[:q])
-    @events = @search.result.paginate page: page_param
+
+    result = search @conference.events, params
+    @events = result.paginate page: page_param
     clean_events_attributes
 
     # total ratings:
@@ -68,8 +63,8 @@ class EventsController < ApplicationController
   # show event feedbacks
   def feedbacks
     authorize! :access, :event_feedback
-    @search = @conference.events.accepted.search(params[:q])
-    @events = @search.result.paginate page: page_param
+    result = search @conference.events.accepted, params
+    @events = result.paginate page: page_param
   end
 
   # start batch event review
@@ -221,6 +216,24 @@ class EventsController < ApplicationController
     unless @events.nil?
       @events.map { |event| event.clean_event_attributes! }
     end
+  end
+
+  def search(events, params)
+    if params.has_key?(:term) and not params[:term].empty?
+      term = params[:term]
+      sort = params[:q][:s] rescue nil
+      @search = events.ransack(title_cont: term,
+                               description_cont: term,
+                               abstract_cont: term,
+                               track_name_cont: term,
+                               event_type_is: term,
+                               m: 'or',
+                               s: sort)
+    else
+      @search = events.ransack(params[:q])
+    end
+
+    @search.result(distinct: true)
   end
 
   def event_params
