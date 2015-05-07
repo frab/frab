@@ -8,12 +8,8 @@ class PeopleController < ApplicationController
   # GET /people.xml
   def index
     authorize! :administrate, Person
-    if params.has_key?(:term) and not params[:term].empty?
-      @search = Person.involved_in(@conference).with_query(params[:term]).search(params[:q])
-    else
-      @search = Person.involved_in(@conference).search(params[:q])
-    end
-    @people = @search.result.paginate page: params[:page]
+    result = search Person.involved_in(@conference), params
+    @people = result.paginate page: params[:page]
   end
 
   def speakers
@@ -22,12 +18,8 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if params.has_key?(:term) and not params[:term].empty?
-          @search = @people.involved_in(@conference).with_query(params[:term]).search(params[:q])
-        else
-          @search = @people.involved_in(@conference).search(params[:q])
-        end
-        @people = @search.result.paginate page: params[:page]
+        result = search Person.involved_in(@conference), params
+        @people = result.paginate page: params[:page]
       end
       format.text do
         render text: @people.map(&:email).join("\n")
@@ -37,12 +29,8 @@ class PeopleController < ApplicationController
 
   def all
     authorize! :administrate, Person
-    if params.has_key?(:term) and not params[:term].empty?
-      @search = Person.with_query(params[:term]).search(params[:q])
-    else
-      @search = Person.search(params[:q])
-    end
-    @people = @search.result.paginate page: params[:page]
+    result = search Person, params
+    @people = result.paginate page: params[:page]
   end
 
   # GET /people/1
@@ -152,6 +140,26 @@ class PeopleController < ApplicationController
     unless @people.nil?
       @people = @people.accessible_by(current_ability)
     end
+  end
+
+  def search(people, params)
+    if params.has_key?(:term) and not params[:term].empty?
+      term = params[:term]
+      sort = params[:q][:s] rescue nil
+      @search = people.ransack(first_name_cont: term,
+                               last_name_cont: term,
+                               public_name_cont: term,
+                               email_cont: term,
+                               abstract_cont: term,
+                               description_cont: term,
+                               user_email_cont: term,
+                               m: 'or',
+                               s: sort)
+    else
+      @search = people.ransack(params[:q])
+    end
+
+    @search.result(distinct: true)
   end
 
 end
