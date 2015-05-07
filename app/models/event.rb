@@ -48,9 +48,7 @@ class Event < ActiveRecord::Base
   scope :without_speaker, where("speaker_count = 0")
   scope :with_speaker, where("speaker_count > 0")
 
-  acts_as_indexed fields: [:title, :subtitle, :event_type, :abstract, :description, :track_name]
-
-  has_paper_trail
+  has_paper_trail 
 
   state_machine do
     state :new
