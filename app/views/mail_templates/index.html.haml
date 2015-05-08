@@ -1,0 +1,7 @@
+%section
+  .page-header
+    .pull-right
+      - if can? :crud, MailTemplate
+        = action_button "primary", "Add mail template", new_mail_template_path, :hint => "Add a new mail template."
+    %h1 List of mail templates
+  = render 'shared/search_and_table', :collection => @mail_templates

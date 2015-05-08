@@ -1,0 +1,16 @@
+%p
+  The following place holders may be used in the
+  %code content
+  section of each template.
+  %ul
+    %li #first_name
+    %li #last_name
+    %li #public_name
+
+= simple_form_for @mail_template do |f|
+  %fieldset.inputs
+    = f.input :name
+    = f.input :subject, :input_html => { :size => 100 }
+    = f.input :content, as: :text, :input_html => { :rows => 20 }
+  .actions
+    = f.button :submit, class: 'primary'
