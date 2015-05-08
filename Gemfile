@@ -47,6 +47,7 @@ group :development, :test do
   gem 'bullet'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'letter_opener'
 end
 
 group :test do
