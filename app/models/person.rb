@@ -19,8 +19,6 @@ class Person < ActiveRecord::Base
 
   belongs_to :user, dependent: :destroy
 
-  acts_as_indexed fields: [:first_name, :last_name, :public_name, :email, :abstract, :description, :user_email]
-
   has_paper_trail
 
   has_attached_file :avatar,

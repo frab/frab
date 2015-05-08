@@ -10,12 +10,8 @@ class ConferencesController < ApplicationController
   # GET /conferences
   # GET /conferences.xml
   def index
-    if params.has_key?(:term) and not params[:term].empty?
-      @search = Conference.with_query(params[:term]).search(params[:q])
-    else
-      @search = Conference.search(params[:q])
-    end
-    @conferences = @search.result.paginate page: params[:page]
+    result = search Conference, params
+    @conferences = result.paginate page: params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -98,6 +94,21 @@ class ConferencesController < ApplicationController
       return "edit_#{test}"
     }
     return "edit"
+  end
+
+  def search(conferences, params)
+    if params.has_key?(:term) and not params[:term].empty?
+      term = params[:term]
+      sort = params[:q][:s] rescue nil
+      @search = events.ransack(title_cont: term,
+                               acronym_cont: term,
+                               m: 'or',
+                               s: sort)
+    else
+      @search = conferences.ransack(params[:q])
+    end
+
+    @search.result(distinct: true)
   end
 
 end
