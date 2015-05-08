@@ -128,6 +128,12 @@ Frab::Application.routes.draw do
         end
       end
 
+      resources :mail_templates do
+        member do
+          put :send_mail
+        end
+      end
+
     end # scope path: "/:conference_acronym"
 
     get "/:conference_acronym" => "home#index", as: "conference_home"

@@ -26,6 +26,7 @@ de:
   rooms: "Räume"
   schedule: "Zeitplan"
   schedule_configuration: "Konfiguration des Zeitplans"
+  mail_templates: "Mailvorlagen"
   settings: "Einstellungen"
   sign_in_successful: "Erfolgreich eingeloggt."
   static_program_export: "Statischer Programm-Export"
