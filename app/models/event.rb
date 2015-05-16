@@ -47,6 +47,7 @@ class Event < ActiveRecord::Base
   scope :unscheduled, -> { where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) }
   scope :without_speaker, -> { where("speaker_count = 0") }
   scope :with_speaker, -> { where("speaker_count > 0") }
+  scope :with_more_than_one_speaker, -> { where("speaker_count > 1") }
 
   has_paper_trail
 
