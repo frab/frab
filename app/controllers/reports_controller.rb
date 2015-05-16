@@ -36,6 +36,8 @@ class ReportsController < ApplicationController
       r = conference_events.where(Event.arel_table[:event_type].not_eq(:lecture).and(Event.arel_table[:event_type].not_eq(:workshop)))
     when 'events_without_speaker'
       r = conference_events.without_speaker
+    when 'events_with_more_than_one_speaker'
+      r = conference_events.with_more_than_one_speaker
     when 'events_without_abstract'
       r = conference_events.where(Event.arel_table[:abstract].eq(""))
     when 'unconfirmed_events'
