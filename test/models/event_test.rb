@@ -106,4 +106,31 @@ class EventTest < ActiveSupport::TestCase
     availability.update(start_date: conference.days.last.start_date)
     refute_empty first_event.reload.conflicts
   end
+
+  test 'possible start times for event' do
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+    day = conference.days.first
+
+    event_person_a = create(:event_person, event: event)
+    person_a = event_person_a.person
+    availability = create(:availability, person: person_a, conference: conference,
+                                         start_date: day.start_date,
+                                         end_date: day.start_date + 2.hours)
+
+    event_person_b = create(:event_person, event: event)
+    person_b = event_person_b.person
+    availability = create(:availability, person: person_b, conference: conference,
+                                         start_date: day.start_date + 1.hours,
+                                         end_date: day.start_date + 3.hours)
+
+    possible = event.possible_start_times
+    possible_days = possible.keys
+    assert possible_days.count == 1
+
+    possible_times = possible[possible_days.first]
+
+    # 5 possible time slots, plus 1 extra for the one the event is currently scheduled on
+    assert possible_times.count == 6
+  end
 end

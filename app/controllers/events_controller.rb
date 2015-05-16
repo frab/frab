@@ -124,6 +124,7 @@ class EventsController < ApplicationController
   def new
     authorize! :crud, Event
     @event = Event.new
+    @start_time_options = @conference.days.map { |day| [ day.to_s, day.start_times ] }
 
     respond_to do |format|
       format.html # new.html.erb
@@ -134,6 +135,8 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     authorize! :update, @event
+
+    @start_time_options = @event.possible_start_times
   end
 
   # GET /events/2/edit_people
@@ -156,6 +159,7 @@ class EventsController < ApplicationController
       if @event.save
         format.html { redirect_to(@event, notice: 'Event was successfully created.') }
       else
+        @start_time_options = @conference.days.map { |day| [ day.to_s, day.start_times ] }
         format.html { render action: 'new' }
       end
     end
@@ -171,6 +175,7 @@ class EventsController < ApplicationController
         format.html { redirect_to(@event, notice: 'Event was successfully updated.') }
         format.js   { head :ok }
       else
+        @start_time_options = @event.possible_start_times
         format.html { render action: 'edit' }
         format.js { render json: @event.errors, status: :unprocessable_entity }
       end
