@@ -14,7 +14,7 @@
   = f.inputs :name => "State" do
     = f.input :state, :collection => Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
   = f.inputs :name => "Time and place" do
-    = f.input :start_time, :as => :select, :collection => start_times
+    = f.input :start_time, :as => :select, :collection => format_start_times(@event.available_start_times(@conference))
     = f.input :room, :collection => @conference.rooms
   = f.inputs :name => "Detailed description" do
     = f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event. (HTML)"
