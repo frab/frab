@@ -48,6 +48,7 @@ en:
         feedback: "Feedback"
         feedback_link: "Click here to let us know how you liked this event."
         speakers: "Speakers"
+        no_recording: "This event is not going to be recorded"
 
       speaker:
         speaker: "Speaker"

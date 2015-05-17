@@ -48,6 +48,7 @@ de:
         feedback: "Feedback"
         feedback_link: "Uns interessiert deine Meinung! Wie fandest du diese Veranstaltung?"
         speakers: "Referenten"
+        no_recording: "Diese Veranstaltung wird nicht aufgezeichnet"
 
       speaker:
         speaker: "Referent"
