@@ -103,5 +103,5 @@
 /* Custom Conference CSS */
 
 <% if @conference.schedule_custom_css.present? %>
-  <%= @conference.schedule_custom_css.gsub(/\{([^}]*)\}/m){ '{' + sanitize_css($1) + '}'; } %>
+  <%= @conference.schedule_custom_css %>
 <% end %>
