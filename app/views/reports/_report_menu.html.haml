@@ -22,6 +22,7 @@
   %li= link_to "people with more than one submission", report_on_people_path("people_with_more_than_one")
   - if @conference.expenses_enabled?
     %li= link_to "people with non-reimbursed expenses", report_on_people_path("people_with_non_reimbursed_expenses")
+  %li= link_to "non-attending speakers for the next 2 hours", report_on_people_path("non_attending_speakers")
 %p Statistics
 %ul
   %li= link_to "used timeslots (hours)", report_on_statistics_path("event_timeslot_sum")
