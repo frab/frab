@@ -3,6 +3,9 @@
 
 .column.left#basic
   = image_box(@event.logo, :large)
+  - if @event.do_not_record
+    %p
+      %b #{t '.no_recording'}
   = simple_format @event.abstract, :class => "abstract"
   = simple_format @event.description, :class => "description"
 
