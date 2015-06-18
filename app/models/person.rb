@@ -1,6 +1,6 @@
 class Person < ActiveRecord::Base
 
-  GENDERS = %w{male female}
+  GENDERS = %w{male female other}
 
   has_many :availabilities, dependent: :destroy
   has_many :event_people, dependent: :destroy
@@ -18,6 +18,8 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :user, dependent: :destroy
+
+  before_save :nilify_empty
 
   acts_as_indexed fields: [:first_name, :last_name, :public_name, :email, :abstract, :description, :user_email]
 
@@ -168,6 +170,10 @@ class Person < ActiveRecord::Base
 
   def speaker_role_state(conference)
     self.event_people.select { |ep| ep.event.conference == conference }.select { |ep| ['speaker', 'moderator'].include? ep.event_role }
+  end
+
+  def nilify_empty
+    self.gender = nil if self.gender and self.gender.empty?
   end
 
 end

@@ -118,6 +118,25 @@ class Conference < ActiveRecord::Base
     result
   end
 
+  def gender_breakdown(accepted_only = false)
+    result = Array.new
+    ep = Person.joins(events: :conference)
+               .where(:"conferences.id" => self.id)
+               .where(:"event_people.event_role" => ["speaker", "moderator"])
+               .where(:"events.public" => true)
+
+    if accepted_only
+      ep = ep.where(:"events.state" => "confirmed")
+    end
+
+    ep.group(:gender).count.each do |k,v|
+      k = "unknown" if k.nil?
+      result << { label: k, data: v }
+    end
+
+    result
+  end
+
   def language_codes
     codes = self.languages.map{|l| l.code.downcase}
     codes = %w{en} if codes.empty?
