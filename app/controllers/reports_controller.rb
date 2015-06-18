@@ -39,6 +39,8 @@ class ReportsController < ApplicationController
       r = conference_events.where(Event.arel_table[:note].not_eq("").or(Event.arel_table[:submission_note].not_eq("")))
     when 'events_with_unusual_state_speakers'
       r = conference_events.joins(:event_people).where(event_people: { role_state: [:canceled, :declined, :idea, :offer, :unclear], event_role: [:moderator, :speaker] } )
+    when 'do_not_record_events'
+      r = conference_events.where(:do_not_record => true)
     end
 
     unless r.nil? or r.empty?
