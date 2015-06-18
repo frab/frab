@@ -11,7 +11,7 @@ class Cfp::EventsController < ApplicationController
 
     @events = current_user.person.events.all
     unless @events.nil?
-      @events.map { |event| event.clean_event_attributes! } 
+      @events.map { |event| event.clean_event_attributes! }
     end
 
     respond_to do |format|
@@ -31,6 +31,7 @@ class Cfp::EventsController < ApplicationController
   def new
     authorize! :submit, Event
     @event = Event.new(time_slots: @conference.default_timeslots)
+    @event.recording_license = @conference.default_recording_license
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,7 +49,7 @@ class Cfp::EventsController < ApplicationController
   # POST /cfp/events.xml
   def create
     authorize! :submit, Event
-    @event = Event.new(params[:event])
+    @event = Event.new(params[:event].merge(recording_license: @conference.default_recording_license))
     @event.conference = @conference
     @event.event_people << EventPerson.new(person: current_user.person, event_role: "submitter")
     @event.event_people << EventPerson.new(person: current_user.person, event_role: "speaker")
@@ -69,8 +70,10 @@ class Cfp::EventsController < ApplicationController
   def update
     authorize! :submit, Event
     @event = current_user.person.events.find(params[:id], readonly: false)
+    # TODO strong params needed
+    params[:event].delete('recording_license')
+    @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
     if @event.accepted?
-      params[:event].delete('recording_license')
       params[:event].delete('do_not_record')
     end
 

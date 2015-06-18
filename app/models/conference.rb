@@ -20,8 +20,8 @@ class Conference < ActiveRecord::Base
   accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ticket_server
-  validates_presence_of :title, 
-    :acronym, 
+  validates_presence_of :title,
+    :acronym,
     :default_timeslots,
     :max_timeslots,
     :timeslot_duration,
@@ -33,7 +33,7 @@ class Conference < ActiveRecord::Base
 
   after_update :update_timeslots
 
-  has_paper_trail 
+  has_paper_trail
 
   scope :has_submission, lambda { |person|
     joins(events: [{event_people: :person}])
@@ -43,11 +43,11 @@ class Conference < ActiveRecord::Base
 
   scope :creation_order, order("conferences.created_at DESC")
 
-  scope :accessible_by_crew, lambda { |user| 
+  scope :accessible_by_crew, lambda { |user|
     joins(:conference_users).where(conference_users: {user_id: user})
   }
 
-  scope :accessible_by_orga, lambda { |user| 
+  scope :accessible_by_orga, lambda { |user|
     joins(:conference_users).where(conference_users: {user_id: user, role: 'orga'})
   }
 
@@ -210,7 +210,7 @@ class Conference < ActiveRecord::Base
     yesterday = days[0]
     days[1..-1].each { |day|
       if day.start_date < yesterday.end_date
-        self.errors.add(:days, "day #{day} overlaps with day before") 
+        self.errors.add(:days, "day #{day} overlaps with day before")
       end
     }
   end
