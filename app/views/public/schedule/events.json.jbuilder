@@ -6,6 +6,7 @@ json.conference_events do
     json.title event.title
     json.logo event.logo_path
     json.type event.event_type
+    json.do_not_record event.do_not_record
     if event.start_time and event.room
       json.start_time event.start_time
       json.end_time event.end_time
