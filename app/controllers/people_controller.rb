@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
     else
       @search = Person.involved_in(@conference).search(params[:q])
     end
-    @people = @search.result.paginate page: params[:page]
+    @people = @search.result.paginate page: page_param
   end
 
   def speakers
@@ -27,7 +27,7 @@ class PeopleController < ApplicationController
         else
           @search = @people.involved_in(@conference).search(params[:q])
         end
-        @people = @search.result.paginate page: params[:page]
+        @people = @search.result.paginate page: page_param
       end
       format.text do
         render text: @people.map(&:email).join("\n")
@@ -42,7 +42,7 @@ class PeopleController < ApplicationController
     else
       @search = Person.search(params[:q])
     end
-    @people = @search.result.paginate page: params[:page]
+    @people = @search.result.paginate page: page_param
   end
 
   # GET /people/1

@@ -15,7 +15,7 @@ class ConferencesController < ApplicationController
     else
       @search = Conference.search(params[:q])
     end
-    @conferences = @search.result.paginate page: params[:page]
+    @conferences = @search.result.paginate page: page_param
 
     respond_to do |format|
       format.html # index.html.erb
@@ -90,7 +90,7 @@ class ConferencesController < ApplicationController
 
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
-      attribs = name.index("_attributes") 
+      attribs = name.index("_attributes")
       next if attribs.nil?
       next unless attribs > 0
       test = name.gsub("_attributes", '')

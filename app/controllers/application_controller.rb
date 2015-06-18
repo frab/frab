@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   rescue_from CanCan::AccessDenied do |ex|
-    Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}" 
+    Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}"
     begin
       if current_user.is_submitter?
         redirect_to cfp_root_path, :notice => t(:"ability.denied")
@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def page_param
+    page = params[:page].to_i
+    return page if page > 0
+    1
+  end
 
   def set_locale
     if %w{en de}.include?( params[:locale] )
@@ -78,7 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_submitter!
-    return unless current_user 
+    return unless current_user
     redirect_to cfp_root_path, alert: "This action is not allowed" if current_user.is_submitter?
   end
 
@@ -98,9 +104,9 @@ class ApplicationController < ActionController::Base
 
   def check_cfp_open
     if @conference.call_for_papers.nil?
-      redirect_to cfp_not_existing_path 
+      redirect_to cfp_not_existing_path
     elsif @conference.call_for_papers.start_date > Date.today
-      redirect_to cfp_open_soon_path 
+      redirect_to cfp_open_soon_path
     end
   end
 end

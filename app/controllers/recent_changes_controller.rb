@@ -7,7 +7,7 @@ class RecentChangesController < ApplicationController
     authorize! :manage, CallForPapers
     @all_versions = Version.where(conference_id: @conference.id).order("created_at DESC")
     @versions = @all_versions.paginate(
-      page: params[:page],
+      page: page_param,
       per_page: 25
     )
     respond_to do |format|
