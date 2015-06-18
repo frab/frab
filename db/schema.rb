@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140329001424) do
+ActiveRecord::Schema.define(:version => 20150618200026) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "person_id"
@@ -65,24 +65,25 @@ ActiveRecord::Schema.define(:version => 20140329001424) do
   add_index "conference_users", ["user_id"], :name => "index_conference_users_on_user_id"
 
   create_table "conferences", :force => true do |t|
-    t.string   "acronym",                                                          :null => false
-    t.string   "title",                                                            :null => false
-    t.string   "timezone",                                   :default => "Berlin", :null => false
-    t.integer  "timeslot_duration",                          :default => 15,       :null => false
-    t.integer  "default_timeslots",                          :default => 4,        :null => false
-    t.integer  "max_timeslots",                              :default => 20,       :null => false
-    t.boolean  "feedback_enabled",                           :default => false,    :null => false
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
+    t.string   "acronym",                                                                :null => false
+    t.string   "title",                                                                  :null => false
+    t.string   "timezone",                                     :default => "Berlin",     :null => false
+    t.integer  "timeslot_duration",                            :default => 15,           :null => false
+    t.integer  "default_timeslots",                            :default => 3,            :null => false
+    t.integer  "max_timeslots",                                :default => 20,           :null => false
+    t.boolean  "feedback_enabled",                             :default => false,        :null => false
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
     t.string   "email"
     t.string   "program_export_base_url"
     t.string   "schedule_version"
-    t.boolean  "schedule_public",                            :default => false,    :null => false
+    t.boolean  "schedule_public",                              :default => false,        :null => false
     t.string   "color"
-    t.string   "ticket_type"
-    t.boolean  "event_state_visible",                        :default => true
-    t.text     "schedule_custom_css",     :limit => 2097152
-    t.text     "schedule_html_intro",     :limit => 2097152
+    t.string   "ticket_type",                                  :default => "integrated"
+    t.boolean  "event_state_visible",                          :default => true
+    t.text     "schedule_custom_css",       :limit => 2097152
+    t.text     "schedule_html_intro",       :limit => 2097152
+    t.string   "default_recording_license"
   end
 
   add_index "conferences", ["acronym"], :name => "index_conferences_on_acronym"
@@ -159,35 +160,41 @@ ActiveRecord::Schema.define(:version => 20140329001424) do
   add_index "event_ratings", ["person_id"], :name => "index_event_ratings_on_person_id"
 
   create_table "events", :force => true do |t|
-    t.integer  "conference_id",                             :null => false
-    t.string   "title",                                     :null => false
+    t.integer  "conference_id",                                       :null => false
+    t.string   "title",                                               :null => false
     t.string   "subtitle"
-    t.string   "event_type",            :default => "talk"
+    t.string   "event_type",                      :default => "talk"
     t.integer  "time_slots"
-    t.string   "state",                 :default => "new",  :null => false
+    t.string   "state",                           :default => "new",  :null => false
     t.string   "language"
     t.datetime "start_time"
     t.text     "abstract"
     t.text     "description"
-    t.boolean  "public",                :default => false
+    t.boolean  "public",                          :default => false
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.integer  "track_id"
     t.integer  "room_id"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.float    "average_rating"
-    t.integer  "event_ratings_count",   :default => 0
+    t.integer  "event_ratings_count",             :default => 0
     t.text     "note"
     t.text     "submission_note"
-    t.integer  "speaker_count",         :default => 0
-    t.integer  "event_feedbacks_count", :default => 0
+    t.integer  "speaker_count",                   :default => 0
+    t.integer  "event_feedbacks_count",           :default => 0
     t.float    "average_feedback"
     t.string   "guid"
-    t.boolean  "do_not_record",         :default => false
+    t.boolean  "do_not_record",                   :default => false
     t.string   "recording_license"
+    t.integer  "number_of_repeats",               :default => 1
+    t.text     "other_locations"
+    t.text     "methods"
+    t.text     "resources"
+    t.text     "target_audience_experience"
+    t.text     "target_audience_experience_text"
   end
 
   add_index "events", ["conference_id"], :name => "index_events_on_conference_id"
