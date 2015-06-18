@@ -12,6 +12,7 @@
   = dynamic_association :languages, t(:event_languages), f, :hint => "Choose which languages events in this conference can be held in."
   = f.inputs t(:submission_configuration) do
     = f.input :event_state_visible, :as => :boolean, :hint => "If you enable this, speakers will be able to look up the state of their submission in the cfp interface and confirm their attendance by pressing the confirm button."
+    = f.input :default_recording_license, :hint => "Default recording license for all talks"
   = f.inputs t(:feedback_system) do
     = f.input :feedback_enabled, :as => :boolean, :hint => "If you enable this, your program export will include links to a feedback form where attendees can rate an event."
   = f.inputs t(:ticket_server) do
