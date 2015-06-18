@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: git://github.com/frab/localized_language_select.git
-  revision: 12aba5fb945cf50ea3919b3ae774d9205a6cfcc4
+  revision: d21eb6da90c98a5910634202bcb1469fe3d75c80
+  branch: rails3
   specs:
     localized_language_select (0.2.0)
-      rails (>= 2.3.5)
       rails (>= 2.3.5)
 
 GIT
@@ -253,7 +253,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails (~> 1.0.19)
   json
-  localized_language_select (= 0.2.0)!
+  localized_language_select!
   minitest
   mysql2
   nokogiri

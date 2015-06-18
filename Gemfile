@@ -19,7 +19,7 @@ gem 'haml'
 gem 'jquery-rails', '~> 1.0.19'
 gem 'json'
 gem 'jbuilder'
-gem 'localized_language_select', '0.2.0', :git => "git://github.com/frab/localized_language_select.git"
+gem 'localized_language_select', git: "git://github.com/frab/localized_language_select.git", branch: 'rails3'
 gem 'nokogiri'
 gem 'paperclip', '< 3.0'
 gem 'paper_trail', '2.3.3'
