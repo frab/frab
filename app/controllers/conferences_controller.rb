@@ -51,7 +51,7 @@ class ConferencesController < ApplicationController
   # POST /conferences
   # POST /conferences.xml
   def create
-    @conference = Conference.new(params[:conference])
+    @conference = Conference.new(conference_params)
 
     respond_to do |format|
       if @conference.save
@@ -66,11 +66,11 @@ class ConferencesController < ApplicationController
   # PUT /conferences/1.xml
   def update
     respond_to do |format|
-      if @conference.update_attributes(params[:conference])
+      if @conference.update_attributes(conference_params)
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
       else
         # redirect to the right nested form page
-        format.html { render action: get_previous_nested_form(params[:conference]) }
+        format.html { render action: get_previous_nested_form(conference_params) }
       end
     end
   end
@@ -98,6 +98,17 @@ class ConferencesController < ApplicationController
       return "edit_#{test}"
     }
     return "edit"
+  end
+
+  def conference_params
+    params.require(:conference).permit(
+      :acronym, :title, :timezone, :timeslot_duration, :default_timeslots, :max_timeslots, :feedback_enabled, :email, :program_export_base_url, :schedule_version, :schedule_public, :color, :ticket_type, :event_state_visible, :schedule_custom_css, :schedule_html_intro, :default_recording_license,
+      rooms_attributes: %i(name size public rank _destroy id),
+      days_attributes: %i(start_date end_date _destroy id),
+      tracks_attributes: %i(name color _destroy id),
+      languages_attributes: %i(language_id code _destroy id),
+      ticket_server_attributes: %i(url user password queue _destroy id)
+    )
   end
 
 end

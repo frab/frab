@@ -15,10 +15,10 @@ class EventRatingsController < ApplicationController
   def create
     # only one rating allowed, if one exists update instead
     if @event.event_ratings.find_by_person_id(current_user.person.id)
-      update 
+      update
       return
     end
-    @rating = EventRating.new(params[:event_rating])
+    @rating = EventRating.new(event_rating_params)
     @rating.event = @event
     @rating.person = current_user.person
     authorize! :create, @rating
@@ -35,7 +35,7 @@ class EventRatingsController < ApplicationController
     @rating = @event.event_ratings.find_by_person_id(current_user.person.id)
     authorize! :update, @rating
 
-    if @rating.update_attributes(params[:event_rating])
+    if @rating.update_attributes(event_rating_params)
       redirect_to event_event_rating_path, notice: "Rating updated successfully."
     else
       flash[:alert] = "Failed to update event rating"
@@ -51,6 +51,10 @@ class EventRatingsController < ApplicationController
     if @event_ratings.nil?
       @event_ratings = @event.event_ratings.accessible_by(current_ability)
     end
+  end
+
+  def event_rating_params
+    params.require(:event_rating).permit(:rating, :comment, :text)
   end
 
 end

@@ -21,11 +21,11 @@ class Event < ActiveRecord::Base
   belongs_to :track
   belongs_to :room
 
-  has_attached_file :logo, 
+  has_attached_file :logo,
     styles: {tiny: "16x16>", small: "32x32>", large: "128x128>"},
     default_url: "event_:style.png"
 
-  accepts_nested_attributes_for :event_people, allow_destroy: true, reject_if: Proc.new {|attr| attr[:person_id].blank?} 
+  accepts_nested_attributes_for :event_people, allow_destroy: true, reject_if: Proc.new {|attr| attr[:person_id].blank?}
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :event_attachments, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :ticket, allow_destroy: true, reject_if: :all_blank
@@ -43,14 +43,14 @@ class Event < ActiveRecord::Base
   scope :no_conflicts, includes(:conflicts).where(:"conflicts.event_id" => nil)
   scope :public, where(public: true)
   scope :scheduled_on, lambda {|day| where(self.arel_table[:start_time].gteq(day.start_date.to_datetime)).where(self.arel_table[:start_time].lteq(day.end_date.to_datetime)).where(self.arel_table[:room_id].not_eq(nil)) }
-  scope :scheduled, where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil))) 
-  scope :unscheduled, where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) 
+  scope :scheduled, where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil)))
+  scope :unscheduled, where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil)))
   scope :without_speaker, where("speaker_count = 0")
   scope :with_speaker, where("speaker_count > 0")
 
   acts_as_indexed fields: [:title, :subtitle, :event_type, :abstract, :description, :track_name]
 
-  has_paper_trail 
+  has_paper_trail
 
   state_machine do
     state :new
@@ -204,7 +204,7 @@ class Event < ActiveRecord::Base
 
   def slug
     truncate(
-      [ 
+      [
         self.conference.acronym,
         self.id,
         self.title.parameterize("_")

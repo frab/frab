@@ -16,8 +16,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :remember_me
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :call_for_papers_id, :conference_users_attributes
-
   after_initialize :check_default_values
   before_create :generate_confirmation_token, unless: :confirmed_at
   after_create :send_confirmation_instructions, unless: :confirmed_at

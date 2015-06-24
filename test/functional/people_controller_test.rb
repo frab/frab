@@ -7,6 +7,10 @@ class PeopleControllerTest < ActionController::TestCase
     login_as(:admin)
   end
 
+  def person_params
+    @person.attributes.except(*%w(id avatar_content_type avatar_file_size avatar_updated_at created_at updated_at user_id))
+  end
+
   test "should get index" do
     get :index, conference_acronym: @conference.acronym
     assert_response :success
@@ -20,7 +24,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   test "should create person" do
     assert_difference('Person.count') do
-      post :create, person: @person.attributes, conference_acronym: @conference.acronym
+      post :create, person: person_params, conference_acronym: @conference.acronym
     end
 
     assert_redirected_to person_path(assigns(:person))
@@ -37,7 +41,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   test "should update person" do
-    put :update, id: @person.to_param, person: @person.attributes, conference_acronym: @conference.acronym
+    put :update, id: @person.to_param, person: person_params, conference_acronym: @conference.acronym
     assert_redirected_to person_path(assigns(:person))
   end
 

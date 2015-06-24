@@ -9,7 +9,7 @@ class Cfp::PeopleController < ApplicationController
     @person = current_user.person
 
     if not @conference.in_the_past and @person.events_in(@conference).size > 0 and @person.availabilities_in(@conference).count == 0
-      flash[:alert] = t("cfp.specify_availability") 
+      flash[:alert] = t("cfp.specify_availability")
     end
 
     return redirect_to :action => "new" unless @person
@@ -29,7 +29,7 @@ class Cfp::PeopleController < ApplicationController
   end
 
   def edit
-    @person = current_user.person 
+    @person = current_user.person
     if @person.nil?
       flash[:alert] = "Not a valid person"
       return redirect_to action: :index
@@ -37,9 +37,9 @@ class Cfp::PeopleController < ApplicationController
   end
 
   def create
-    @person = current_user.person 
+    @person = current_user.person
     if @person.nil?
-      @person = Person.new(params[:person])
+      @person = Person.new(person_params)
       @person.user = current_user
     end
 
@@ -55,10 +55,10 @@ class Cfp::PeopleController < ApplicationController
   end
 
   def update
-    @person = current_user.person 
+    @person = current_user.person
 
     respond_to do |format|
-      if @person.update_attributes(params[:person])
+      if @person.update_attributes(person_params)
         format.html { redirect_to(cfp_person_path, notice: t("cfp.person_updated_notice")) }
         format.xml  { head :ok }
       else
@@ -66,6 +66,18 @@ class Cfp::PeopleController < ApplicationController
         format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  private
+
+  def person_params
+    params.require(:person).permit(
+      :first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar, :abstract, :description, :include_in_mailings,
+      im_accounts_attributes: %i(id im_type im_address _destroy),
+      languages_attributes: %i(id code _destroy),
+      links_attributes: %i(id title url _destroy),
+      phone_numbers_attributes: %i(id phone_type phone_number _destroy)
+    )
   end
 
 end

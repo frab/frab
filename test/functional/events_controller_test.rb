@@ -7,6 +7,11 @@ class EventsControllerTest < ActionController::TestCase
     login_as(:admin)
   end
 
+  def event_params
+    # TODO easier way?
+    @event.attributes.except(*%w(id created_at updated_at conference_id logo_file_name logo_content_type logo_file_size logo_updated_at average_rating event_ratings_count speaker_count event_feedbacks_count average_feedback guid number_of_repeats other_locations methods resources target_audience_experience target_audience_experience_text))
+  end
+
   test "should get index" do
     get :index, conference_acronym: @conference.acronym
     assert_response :success
@@ -20,7 +25,7 @@ class EventsControllerTest < ActionController::TestCase
 
   test "should create event" do
     assert_difference('Event.count') do
-      post :create, event: @event.attributes, conference_acronym: @conference.acronym
+      post :create, event: event_params, conference_acronym: @conference.acronym
     end
 
     assert_redirected_to event_path(assigns(:event))
@@ -37,13 +42,13 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "should update event" do
-    put :update, id: @event.to_param, event: @event.attributes, conference_acronym: @conference.acronym
+    put :update, id: @event.to_param, event: event_params, conference_acronym: @conference.acronym
     assert_redirected_to event_path(assigns(:event))
   end
 
   test "should destroy event" do
     assert_difference('Event.count', -1) do
-      delete :destroy, id: @event.to_param, conference_acronym: @conference.acronym 
+      delete :destroy, id: @event.to_param, conference_acronym: @conference.acronym
     end
 
     assert_redirected_to events_path

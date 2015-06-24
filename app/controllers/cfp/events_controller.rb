@@ -49,7 +49,7 @@ class Cfp::EventsController < ApplicationController
   # POST /cfp/events.xml
   def create
     authorize! :submit, Event
-    @event = Event.new(params[:event].merge(recording_license: @conference.default_recording_license))
+    @event = Event.new(event_params.merge(recording_license: @conference.default_recording_license))
     @event.conference = @conference
     @event.event_people << EventPerson.new(person: current_user.person, event_role: "submitter")
     @event.event_people << EventPerson.new(person: current_user.person, event_role: "speaker")
@@ -70,7 +70,6 @@ class Cfp::EventsController < ApplicationController
   def update
     authorize! :submit, Event
     @event = current_user.person.events.find(params[:id], readonly: false)
-    # TODO strong params needed
     params[:event].delete('recording_license')
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
     if @event.accepted?
@@ -78,7 +77,7 @@ class Cfp::EventsController < ApplicationController
     end
 
     respond_to do |format|
-      if @event.update_attributes(params[:event])
+      if @event.update_attributes(event_params)
         format.html { redirect_to(cfp_person_path, notice: t("cfp.event_updated_notice")) }
         format.xml  { head :ok }
       else
@@ -118,6 +117,16 @@ class Cfp::EventsController < ApplicationController
     else
       render layout: "signup"
     end
+  end
+
+  private
+
+  def event_params
+    params.require(:event).permit(
+      :title, :subtitle, :event_type, :time_slots, :language, :abstract, :description, :logo, :track_id, :submission_note, :do_not_record,
+      event_attachments_attributes: %i(id title attachment public _destroy),
+      links_attributes: %i(id title url _destroy)
+    )
   end
 
 end

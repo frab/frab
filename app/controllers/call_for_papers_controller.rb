@@ -5,7 +5,7 @@ class CallForPapersController < ApplicationController
   load_and_authorize_resource
 
   def show
-    @call_for_papers = @conference.call_for_papers 
+    @call_for_papers = @conference.call_for_papers
   end
 
   def new
@@ -13,7 +13,7 @@ class CallForPapersController < ApplicationController
   end
 
   def create
-    @call_for_papers = CallForPapers.new(params[:call_for_papers])
+    @call_for_papers = CallForPapers.new(call_for_papers_params)
     @call_for_papers.conference = @conference
 
     if @call_for_papers.save
@@ -33,7 +33,7 @@ class CallForPapersController < ApplicationController
 
   def update
     @call_for_papers = @conference.call_for_papers
-    if @call_for_papers.update_attributes(params[:call_for_papers])
+    if @call_for_papers.update_attributes(call_for_papers_params)
       redirect_to call_for_papers_path, notice: "Changes saved successfully!"
     else
       flash[:alert] = "Failed to update notifications"
@@ -50,5 +50,11 @@ class CallForPapersController < ApplicationController
     respond_to do |format|
       format.json { render json: notification.to_json }
     end
+  end
+
+  private
+
+  def call_for_papers_params
+    params.require(:call_for_papers).permit(:start_date, :end_date, :hard_deadline, :welcome_text, :info_url, :contact_email, notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body _destroy))
   end
 end

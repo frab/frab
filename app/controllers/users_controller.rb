@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = @person.user 
+    @user = @person.user
     can_manage_user!
 
     @user.conference_users.select! { |cu|
@@ -38,11 +38,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     can_manage_user!
 
     if can? :assign_roles, User
-      @user.role = params[:user][:role]
+      @user.role = user_params[:role]
     else
       @user.role = 'submitter'
     end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    @user = @person.user 
+    @user = @person.user
     can_manage_user!
 
     [:password, :password_confirmation].each do |password_key|
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
     if can? :assign_roles, User
       @user.role = params[:user][:role]
     elsif can_only_manage_crew_roles
-      role = params[:user][:role] 
+      role = params[:user][:role]
       @user.role = role if User::USER_ROLES.include? role
     end
     params[:user].delete(:role)
@@ -86,7 +86,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         format.html { redirect_to(person_user_path(@person), notice: 'User was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -102,6 +102,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:id, :role, :email, :password, :password_confirmation,
+                                conference_users_attributes: %i(role conference_id))
+  end
 
   def can_manage_user!
     if @user.nil? or @user.id.nil?

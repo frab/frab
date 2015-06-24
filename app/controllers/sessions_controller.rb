@@ -15,20 +15,20 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.confirmed.find_by_email(params[:user][:email])
+    @user = User.confirmed.find_by_email(user_params[:email])
     if @user and @user.authenticate(params[:user][:password])
       login_as @user
       redirect_to successful_sign_in_path, notice: t(:sign_in_successful)
     else
       @user = User.new
-      flash[:alert] = t(:error_signing_in) 
+      flash[:alert] = t(:error_signing_in)
       render action: "new"
     end
   end
 
   def destroy
     reset_session
-    redirect_to scoped_sign_in_path 
+    redirect_to scoped_sign_in_path
   end
 
   protected
@@ -42,19 +42,25 @@ class SessionsController < ApplicationController
   end
 
   def check_pentabarf_credentials
-    User.check_pentabarf_credentials(params[:user][:email], params[:user][:password])
+    User.check_pentabarf_credentials(user_params[:email], user_params[:password])
   end
 
   def check_user_params
     if params.has_key?(:user)
       user = params[:user]
-      return true if user.has_key?(:email) and user.has_key?(:password)
+      return true if user.key?(:email) and user.key?(:password)
     end
 
     @user = User.new
-    flash[:alert] = t(:error_signing_in) 
+    flash[:alert] = t(:error_signing_in)
     # abort processing
     render action: "new"
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:password, :email, :remember_me)
   end
 
 end

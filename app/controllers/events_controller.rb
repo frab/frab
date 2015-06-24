@@ -132,7 +132,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
-    @event = Event.new(params[:event])
+    @event = Event.new(event_params)
     @event.conference = @conference
     authorize! :create, @event
 
@@ -154,7 +154,7 @@ class EventsController < ApplicationController
     authorize! :update, @event
 
     respond_to do |format|
-      if @event.update_attributes(params[:event])
+      if @event.update_attributes(event_params)
         format.html { redirect_to(@event, notice: 'Event was successfully updated.') }
         format.xml  { head :ok }
         format.js   { head :ok }
@@ -221,6 +221,14 @@ class EventsController < ApplicationController
     unless @events.nil?
       @events.map { |event| event.clean_event_attributes! }
     end
+  end
+
+  def event_params
+    params.require(:event).permit(
+      :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license,
+      ticket_attributes: %i(id remote_ticket_id),
+      links_attributes: %i(id title url _destroy)
+    )
   end
 
 end

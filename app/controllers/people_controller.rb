@@ -102,7 +102,7 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.xml
   def create
-    @person = Person.new(params[:person])
+    @person = Person.new(person_params)
     authorize! :manage, @person
 
     respond_to do |format|
@@ -123,7 +123,7 @@ class PeopleController < ApplicationController
     authorize! :manage, @person
 
     respond_to do |format|
-      if @person.update_attributes(params[:person])
+      if @person.update_attributes(person_params)
         format.html { redirect_to(@person, notice: 'Person was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -152,6 +152,10 @@ class PeopleController < ApplicationController
     unless @people.nil?
       @people = @people.accessible_by(current_ability)
     end
+  end
+
+  def person_params
+    params.require(:person).permit(:first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar_file_name, :abstract, :description, :include_in_mailings, :note)
   end
 
 end

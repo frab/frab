@@ -10,13 +10,19 @@ class Public::FeedbackController < ApplicationController
 
   def create
     @event = @conference.events.find(params[:event_id])
-    @feedback = @event.event_feedbacks.new(params[:event_feedback])
-    
+    @feedback = @event.event_feedbacks.new(event_feedback_params)
+
     if @feedback.save
       render action: "thank_you"
     else
       render action: "new"
     end
+  end
+
+  private
+
+  def event_feedback_params
+    params.require(:event_feedback).permit(:rating, :comment)
   end
 
 end

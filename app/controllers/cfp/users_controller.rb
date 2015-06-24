@@ -9,7 +9,7 @@ class Cfp::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     @user.call_for_papers = @conference.call_for_papers
     @user.person = Person.new(email: @user.email, public_name: @user.email)
 
@@ -27,11 +27,17 @@ class Cfp::UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.save
+    if @user.update_attributes(user_params)
       redirect_to cfp_person_path, notice: t(:"cfp.updated")
     else
       render action: "new"
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
 end
