@@ -10,7 +10,7 @@ gem 'acts_as_commentable'
 gem 'acts_as_indexed'
 gem 'barista'
 gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'cancan'
+gem 'cancancan'
 gem 'cocoon'
 gem 'formtastic', '~> 2.1.0'
 gem 'formtastic-bootstrap', :git => "git://github.com/frab/formtastic-bootstrap.git"

@@ -67,7 +67,7 @@ GEM
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
-    cancan (1.6.10)
+    cancancan (1.12.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     climate_control (0.0.3)
@@ -227,7 +227,7 @@ DEPENDENCIES
   barista
   bcrypt-ruby (~> 3.0.0)
   bullet
-  cancan
+  cancancan
   cocoon
   coffee-rails (~> 3.2.0)
   factory_girl_rails (~> 4.0)
