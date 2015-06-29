@@ -35,8 +35,8 @@ gem 'will_paginate'
 
 group :development, :test do
   gem 'bullet'
-  gem 'ruby-debug', :platforms => :mri_18
-  gem 'ruby-debug19', :platforms => :mri_19
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -49,7 +49,6 @@ group :development do
   gem 'quiet_assets' # silence asset requests
   gem 'shotgun'
   gem 'yaml_db'
-  gem 'pry-rails'
   gem 'redcarpet'       # documentation
   gem 'github-markdown' # documentation
   gem 'yard'            # documentation
