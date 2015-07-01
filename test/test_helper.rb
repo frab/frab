@@ -15,12 +15,16 @@ class ActiveSupport::TestCase
 
   def login_as(role)
     user = FactoryGirl.create(
-      :user, 
+      :user,
       person: FactoryGirl.create(:person),
       role: role.to_s
     )
     session[:user_id] = user.id
     user
+  end
+
+  def sign_in(user)
+    post "/session", user: { email: user.email, password: user.password }
   end
 
 end
