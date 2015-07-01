@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:id, :role, :email, :password, :password_confirmation,
-                                conference_users_attributes: %i(role conference_id))
+                                conference_users_attributes: %i(id role conference_id _destroy))
   end
 
   def can_manage_user!
