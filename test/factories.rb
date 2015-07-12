@@ -111,6 +111,13 @@ FactoryGirl.define do
     public_name "Fred Besen"
   end
 
+  factory :expense do
+    name "Kiste Bier"
+    value 22.5
+    person
+    conference
+  end
+
   factory :day do
     start_date { Date.today.since(1.days).since(11.hours) }
     end_date { Date.today.since(1.days).since(23.hours) }
