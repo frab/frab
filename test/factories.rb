@@ -205,4 +205,12 @@ FactoryGirl.define do
     event
     remote_ticket_id "1234"
   end
+
+  factory :mail_template do
+    conference
+    name "template one"
+    subject "subject one"
+    content "|first_name #first_name| |last_name #last_name| |public_name #public_name|"
+  end
+
 end
