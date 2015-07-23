@@ -43,6 +43,7 @@ end
 group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'minitest'
+  gem 'test-unit', '~> 3.0'
   gem 'turn', :require => false
 end
 

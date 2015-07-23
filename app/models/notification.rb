@@ -17,7 +17,6 @@ class Notification < ActiveRecord::Base
       'public_name' => 'Speaker public name',
       'forename'    => 'Speaker forename',
       'surname'     => 'Speaker surname',
-      'public_name' => 'Speaker public name',
       'event'       => 'Event title',
       'link'        => 'Confirmation link',
   }
@@ -53,7 +52,7 @@ BODY
     return if self.call_for_papers.nil?
     self.call_for_papers.notifications.each { |n|
       if n.id != self.id and n.locale == self.locale
-        self.errors.add(:locale, "#{n.locale} already added to this cfp") 
+        self.errors.add(:locale, "#{n.locale} already added to this cfp")
       end
     }
   end
