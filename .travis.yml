@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - 2.1.1
-  - 2.1.2
+  - 2.2.2
 bundler_args: --without mysql postgresql
 before_install:
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
