@@ -26,6 +26,6 @@ class AvailabilitiesController < ApplicationController
   end
 
   def person_params
-    params.require(:person).permit(:first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar_file_name, :abstract, :description, :include_in_mailings, availabilities_attributes: %i(id start_date end_date conference_id day_id))
+    params.require(:person).permit(:first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar, :abstract, :description, :include_in_mailings, availabilities_attributes: %i(id start_date end_date conference_id day_id))
   end
 end

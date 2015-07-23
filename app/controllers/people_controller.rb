@@ -164,7 +164,7 @@ class PeopleController < ApplicationController
 
   def person_params
     params.require(:person).permit(
-      :first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar_file_name, :abstract, :description, :include_in_mailings, :note,
+      :first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar, :abstract, :description, :include_in_mailings, :note,
       im_accounts_attributes: %i(id im_type im_address _destroy),
       languages_attributes: %i(id code _destroy),
       links_attributes: %i(id title url _destroy),
