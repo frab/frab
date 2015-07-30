@@ -15,6 +15,6 @@ class HomeController < ApplicationController
       end
       return redirect_to cfp_root_path
     end
-    @versions = Version.where(conference_id: @conference.id).includes(:item).order("created_at DESC").limit(5)
+    @versions = PaperTrail::Version.where(conference_id: @conference.id).includes(:item).order("created_at DESC").limit(5)
   end
 end

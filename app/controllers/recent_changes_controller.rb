@@ -5,7 +5,7 @@ class RecentChangesController < ApplicationController
 
   def index
     authorize! :manage, CallForPapers
-    @all_versions = Version.where(conference_id: @conference.id).order("created_at DESC")
+    @all_versions = PaperTrail::Version.where(conference_id: @conference.id).order("created_at DESC")
     @versions = @all_versions.paginate(
       page: page_param,
       per_page: 25
@@ -18,7 +18,7 @@ class RecentChangesController < ApplicationController
 
   def show
     authorize! :manage, CallForPapers
-    @version = Version.where(conference_id: @conference.id, id: params[:id]).first
+    @version = PaperTrail::Version.where(conference_id: @conference.id, id: params[:id]).first
   end
 
 end

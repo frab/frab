@@ -209,7 +209,7 @@ class StaticProgramExport
   end
 
   def unlock_schedule
-    Conference.paper_trail_off
+    Conference.paper_trail_off!
     @conference.schedule_public = true
     @conference.save!
   end
@@ -217,7 +217,7 @@ class StaticProgramExport
   def lock_schedule
     @conference.schedule_public = @original_schedule_public
     @conference.save!
-    Conference.paper_trail_on
+    Conference.paper_trail_on!
   end
 
 end
