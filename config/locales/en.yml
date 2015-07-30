@@ -1,34 +1,29 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  add_association: "Add %{name}"
-  remove_association: "Remove %{name}"
-  your_submission: "Your Submission"
-  edit: "edit"
   actions: "Actions"
-  error_signing_in: "Invalid email or password."
-  sign_in_successful: "Successfully signed in."
-
-  settings: "Settings"
-
+  add_association: "Add %{name}"
+  basic_information: "Basic information"
+  call_for_papers: "Call for Papers"
+  create_new_conference: "Create new conference"
   create_your_first_conference: "Create your first conference"
-  new_conference: "New conference"
+  days: "Days"
+  edit: "edit"
   edit_conference: "Edit conference"
   edit_conference_days: "Edit conference days"
-  edit_conference_tracks: "Edit conference tracks"
   edit_conference_rooms: "Edit conference rooms"
   edit_conference_schedule: "Edit conference schedule"
+  edit_conference_tracks: "Edit conference tracks"
   edit_ticket_server: "Edit ticket server"
-
-  basic_information: "Basic information"
+  error_signing_in: "Invalid email or password."
   event_languages: "Event languages"
-  days: "Days"
-  tracks: "Tracks"
-  rooms: "Rooms"
-  ticket_server: "Ticket Server"
-
+  new_conference: "New conference"
   notifications: Notifications
+  remove_association: "Remove %{name}"
+  rooms: "Rooms"
+  settings: "Settings"
+  sign_in_successful: "Successfully signed in."
+  ticket_server: "Ticket Server"
+  tracks: "Tracks"
+  your_submission: "Your Submission"
 
   ability:
     denied: "This action is not allowed."
@@ -39,6 +34,10 @@ en:
     person_unavailable: "is not available at the scheduled time."
   time:
     formats:
+      default: '%A, %d. %B %Y, %H:%M'
+      short: '%d. %B, %H:%M'
+      long: '%A, %d. %B %Y, %H:%M'
+      time: '%H:%M'
       pretty_datetime: "%Y-%m-%d %H:%M"
       short_datetime: '%d. %H:%M'
       month_datetime: '%d. %b %H:%M'
