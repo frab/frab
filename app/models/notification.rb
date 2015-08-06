@@ -6,7 +6,7 @@ class Notification < ActiveRecord::Base
   validates :reject_body,    presence: true
   validates :accept_body,    presence: true
   validates :accept_subject, presence: true
-  validate :uniq_locale, message: "this locale already exists for this call for papers"
+  validate :uniq_locale
   # TODO
   #validate :locale_is_valid
 

@@ -4,7 +4,7 @@ class EventFeedback < ActiveRecord::Base
 
   after_save :update_average
 
-  validates_presence_of :rating, message: "please select a value"
+  validates_presence_of :rating
 
   protected
 

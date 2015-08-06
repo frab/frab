@@ -5,7 +5,7 @@ class EventRating < ActiveRecord::Base
 
   after_save :update_average
 
-  validates_presence_of :rating, message: "rating score was missing"
+  validates_presence_of :rating
 
   validates :event, presence: true
   validates :person, presence: true
