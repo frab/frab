@@ -39,9 +39,9 @@ class ScheduleController < ApplicationController
     @page_size = params[:page_size]
     @day = @conference.days.find(params[:date_id])
     @rooms = @conference.rooms.is_public.find(params[:room_ids])
-    @events = Hash.new
+    @events = {}
     @rooms.each do |room|
-      @events[room] = room.events.accepted.is_public.scheduled_on(@day).order(:start_time).all
+      @events[room] = room.events.accepted.is_public.scheduled_on(@day).order(:start_time)
     end
 
     respond_to do |format|

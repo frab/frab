@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
   end
 
   def record_login!
-    update_attributes({last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1}, without_protection: true)
+    update_attributes(last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1)
   end
 
   private

@@ -28,14 +28,14 @@ class Public::ScheduleController < ApplicationController
     end
     @day = @conference.days[@day_index]
 
-    @all_rooms = @conference.rooms.is_public.all
-    @rooms = Array.new
-    @events = Hash.new
-    @skip_row = Hash.new
+    @all_rooms = @conference.rooms.is_public
+    @rooms = []
+    @events = {}
+    @skip_row = {}
     @all_rooms.each do |room|
-      events = room.events.confirmed.no_conflicts.is_public.scheduled_on(@day).order(:start_time).all
+      events = room.events.confirmed.no_conflicts.is_public.scheduled_on(@day).order(:start_time).to_a
       unless events.empty?
-        @events[room] = events 
+        @events[room] = events
         @skip_row[room] = 0
         @rooms << room
       end
@@ -48,7 +48,7 @@ class Public::ScheduleController < ApplicationController
       format.html
       format.pdf do
         @page_size = "A4"
-        render template: "schedule/custom_pdf" 
+        render template: "schedule/custom_pdf"
       end
     end
   end

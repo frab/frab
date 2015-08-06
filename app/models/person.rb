@@ -89,19 +89,19 @@ class Person < ActiveRecord::Base
 
 
   def events_in(conference)
-    self.events.where(conference_id: conference.id).all
+    self.events.where(conference_id: conference.id)
   end
 
   def events_as_presenter_in(conference)
-    self.events.where(:"event_people.event_role" => ["speaker", "moderator"], conference_id: conference.id).all
+    self.events.where(:"event_people.event_role" => ["speaker", "moderator"], conference_id: conference.id)
   end
 
   def events_as_presenter_not_in(conference)
-    self.events.where(:"event_people.event_role" => ["speaker", "moderator"]).where("conference_id != ?", conference.id).all
+    self.events.where(:"event_people.event_role" => ["speaker", "moderator"]).where("conference_id != ?", conference.id)
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    self.events.is_public.accepted.where(:"events.state" => :confirmed, :"event_people.event_role" => ["speaker", "moderator"], conference_id: conference.id).all
+    self.events.is_public.accepted.where(:"events.state" => :confirmed, :"event_people.event_role" => ["speaker", "moderator"], conference_id: conference.id)
   end
 
   def role_state(conference)

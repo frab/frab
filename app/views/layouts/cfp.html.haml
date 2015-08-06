@@ -18,8 +18,8 @@
               = link_to @conference.title + " - Call for Papers", cfp_root_path, class: "brand"
             - if current_user and current_user.person
               %ul.nav.secondary-nav.pull-right
-                - conferences = Conference.creation_order.has_submission(current_user.person).all
-                - if conferences.count > 1
+                - conferences = Conference.creation_order.has_submission(current_user.person)
+                - if conferences.any?
                   %li.dropdown
                     = link_to t("switch_conference", default: "Switch conference"), "#", class: "dropdown-toggle"
                     %ul.dropdown-menu

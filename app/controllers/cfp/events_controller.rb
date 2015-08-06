@@ -9,7 +9,7 @@ class Cfp::EventsController < ApplicationController
   def index
     authorize! :submit, Event
 
-    @events = current_user.person.events.all
+    @events = current_user.person.events
     unless @events.nil?
       @events.map { |event| event.clean_event_attributes! }
     end
@@ -69,7 +69,7 @@ class Cfp::EventsController < ApplicationController
   # PUT /cfp/events/1.xml
   def update
     authorize! :submit, Event
-    @event = current_user.person.events.find(params[:id], readonly: false)
+    @event = current_user.person.events.readonly(false).find(params[:id])
     params[:event].delete('recording_license')
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
     if @event.accepted?

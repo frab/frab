@@ -44,7 +44,7 @@ class ConferenceScrubber
 
   def scrub_person(person)
     # get a writable record
-    person = Person.find person
+    person = Person.find person.id
 
     unless person.email_public or person.include_in_mailings
       person.email = DUMMY_MAIL

@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = @person.user
     can_manage_user!
 
-    @user.conference_users.select! { |cu|
+    @user.conference_users.to_a.select! { |cu|
       can? :assign_user_roles, cu.conference
     }
   end
