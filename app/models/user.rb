@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   def send_confirmation_instructions
     return false if confirmed_at
     generate_confirmation_token! unless self.confirmation_token
-    UserMailer.confirmation_instructions(self).deliver
+    UserMailer.confirmation_instructions(self).deliver_now
   end
 
   # update users call for papers and sends mail
@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
       self.call_for_papers = call_for_papers
     end
     generate_password_reset_token!
-    UserMailer.password_reset_instructions(self).deliver
+    UserMailer.password_reset_instructions(self).deliver_now
   end
 
   def try_call_for_papers

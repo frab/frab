@@ -137,7 +137,7 @@ class Event < ActiveRecord::Base
     if options[:send_mail]
       self.event_people.presenter.each do |event_person|
         event_person.generate_token!
-        SelectionNotification.acceptance_notification(event_person).deliver
+        SelectionNotification.acceptance_notification(event_person).deliver_now
       end
     end
     if options[:coordinator]
@@ -148,7 +148,7 @@ class Event < ActiveRecord::Base
   def process_rejection(options)
     if options[:send_mail]
       self.event_people.presenter.each do |event_person|
-        SelectionNotification.rejection_notification(event_person).deliver
+        SelectionNotification.rejection_notification(event_person).deliver_now
       end
     end
     if options[:coordinator]
