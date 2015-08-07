@@ -1,19 +1,21 @@
-= semantic_form_for([:cfp, @event], :html => {:multipart => true}) do |f|
-  = f.inputs :name => t("cfp.basic_information") do
+= simple_form_for([:cfp, @event], :html => {:multipart => true}) do |f|
+  %fieldset.inputs
+    %legend= t("cfp.basic_information")
     = f.input :title
     = f.input :subtitle
     = f.input :event_type, :collection => translated_options(Event::TYPES)
-    = f.input :track, :collection => @conference.tracks
+    = f.association :track
     = f.input :time_slots, :as => :select, :collection => timeslots, :hint => t("cfp.event_time_slots_hint")
-    = f.input :language, :as => :bootstrap_language, :only => @conference.language_codes, :include_blank => ""
+    = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
     = f.input :logo
-  = f.inputs :name => t("cfp.detailed_description") do
+  %fieldset.inputs
+    %legend= t("cfp.detailed_description")
     = f.input :abstract, :input_html => {:rows => 4}, :hint => t("cfp.event_abstract_hint")
     = f.input :description, :hint => t("cfp.event_description_hint")
     = f.input :submission_note, :hint => "visible for admins and users, contains additional information."
-    = f.input :do_not_record, :as => :boolean, :hint => "If the conference records talks and there is an opt-out: do you want your talk recorded?", input_html: deny_accepted(@event)
+    = f.input :do_not_record, as: :inline_boolean, :hint => "If the conference records talks and there is an opt-out: do you want your talk recorded?", input_html: deny_accepted(@event)
     = f.input :recording_license, hint: "Please contact the conference crew, if you want another license.", input_html: { readonly: true, disabled: true }
     = dynamic_association :links, t("cfp.links"), f
     = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
-  = f.buttons  do
-    = f.commit_button :button_html => {:class => "btn primary"}
+  .actions
+    = f.button :submit, class: 'primary'

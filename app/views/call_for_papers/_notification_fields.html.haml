@@ -1,6 +1,6 @@
 - uuid = "nf#{get_uuid}"
 %div{ :id => uuid }
-  = f.inputs do
+  %fieldset.inputs
     = link_to "use default text", "#", style: 'float:right', data: { function: 'notification-defaults', args: "#{uuid}" }
     = f.input :locale, as: :select, collection: available_locales(@conference), hint: "Available locales for this conference and its speakers"
     = f.input "accept_subject", label: 'Accept subject'

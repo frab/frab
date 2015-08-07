@@ -34,14 +34,13 @@ class Public::ScheduleController < ApplicationController
     @skip_row = {}
     @all_rooms.each do |room|
       events = room.events.confirmed.no_conflicts.is_public.scheduled_on(@day).order(:start_time).to_a
-      unless events.empty?
-        @events[room] = events
-        @skip_row[room] = 0
-        @rooms << room
-      end
+      next if events.empty?
+      @events[room] = events
+      @skip_row[room] = 0
+      @rooms << room
     end
     if @rooms.empty?
-      return redirect_to public_schedule_index_path, :notice => "No events are scheduled."
+      return redirect_to public_schedule_index_path, :notice => "No events are public and scheduled."
     end
 
     respond_to do |format|

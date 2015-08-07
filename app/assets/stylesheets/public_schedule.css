@@ -1,6 +1,4 @@
 /*
- *= require formtastic
- *= require formtastic_changes
  *= require_self
  *
  */
@@ -62,7 +60,7 @@ body {
   color: #666;
   padding: 10px 25px;
   text-align: center;
-  display:block; 
+  display:block;
   font: bold 12px verdana, sans-serif;
   text-decoration: none;
   line-height: 125%;

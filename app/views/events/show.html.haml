@@ -73,7 +73,7 @@
       - if can? :crud, Event
         %p
           %b Start time:
-          = @event.start_time
+          = l(@event.start_time, format: :pretty_datetime)
       %p
         %b Room:
         = @event.room.try(:name)

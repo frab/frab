@@ -1,24 +1,29 @@
-= semantic_form_for(@conference, :url => @conference.new_record? ? create_conference_path : conference_path) do |f|
-  = f.inputs t(:basic_information) do
+= simple_form_for(@conference, url: @conference.new_record? ? create_conference_path : conference_path) do |f|
+  %fieldset.inputs
+    %legend= t(:basic_information)
     = f.input :title, :hint => "The name of your conference as it shall appear throughout the site. Example: 'FrOSCon'"
     = f.input :acronym, :hint => "A short and unique handle for your conference, using only lower-case letters, numbers and underscores. This will be used to identify your conference in URLs etc. Example: 'froscon2011'"
     = f.input :email, :hint => "Contact email address for your conference. Will be used as reply-to address in emails sent out by the system."
     = f.input :color, :hint => "You may define a color for your conference."
-  = f.inputs t(:timeslot_configuration) do
+  %fieldset.inputs
+    %legend= t(:timeslot_configuration)
     = f.input :timezone, :as => :time_zone, :hint => "Please select in what time zone your conference will take place. This is needed to correctly display times for your events."
     = f.input :timeslot_duration, :as => :select, :collection => timeslot_durations(@conference), :hint => "How long do you want the smallest timeslots to be? This essentially defines the grid on which you can plan your program. WARNING: This one is tricky and cannot be easily changed later, so give this some thought. In general, larger timeslots make things a lot simpler, but smaller ones make you more flexible. Example: If all you need is to schedule 30 minute talks that perfectly align with full and half hours, choose 30 minutes as slot size. If you have 1 hour long talks and 15 minute breaks between them, 15 minutes is the perfect slot size. Note that you can make the slot size smaller later on, as long as the old slot size is a multiple of the new one. So going from 15 minutes down to 5 is fine, while going down to 10 minutes will not work."
     = f.input :default_timeslots, :as => :select, :collection => 1..20, :hint => "What is the default length of your events? Example: If you chose a timeslot duration of 15 minutes to account for breaks, but your talks are usually 1 hour long, select 4, because 4 times 15 minutes is one hour."
     = f.input :max_timeslots, :as => :select, :collection => 1..100, :hint => "What is the maximum length of a single event (e.g. a single talk)?"
   = dynamic_association :languages, t(:event_languages), f, :hint => "Choose which languages events in this conference can be held in."
-  = f.inputs t(:submission_configuration) do
-    = f.input :event_state_visible, :as => :boolean, :hint => "If you enable this, speakers will be able to look up the state of their submission in the cfp interface and confirm their attendance by pressing the confirm button."
+  %fieldset.inputs
+    %legend= t(:submission_configuration)
+    = f.input :event_state_visible, as: :inline_boolean, :hint => "If you enable this, speakers will be able to look up the state of their submission in the cfp interface and confirm their attendance by pressing the confirm button."
     = f.input :default_recording_license, :hint => "Default recording license for all talks"
-  = f.inputs t(:feedback_system) do
-    = f.input :feedback_enabled, :as => :boolean, :hint => "If you enable this, your program export will include links to a feedback form where attendees can rate an event."
-  = f.inputs t(:ticket_server) do
-    = f.input :ticket_type, :as => :radio, :collection => Conference::TICKET_TYPES
-  = f.buttons do
-    = f.commit_button :button_html => {:class => "btn primary"}
+  %fieldset.inputs
+    %legend= t(:feedback_system)
+    = f.input :feedback_enabled, as: :inline_boolean, :hint => "If you enable this, your program export will include links to a feedback form where attendees can rate an event."
+  %fieldset.inputs
+    %legend= t(:ticket_server)
+    = f.input :ticket_type, :as => :radio_buttons, :collection => Conference::TICKET_TYPES
+  .actions
+    = f.button :submit, class: 'primary'
 
 :coffeescript
   addColorPickers = ->

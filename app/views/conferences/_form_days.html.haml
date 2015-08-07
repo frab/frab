@@ -1,4 +1,4 @@
-= semantic_form_for(@conference, :url => conference_path) do |f|
+= simple_form_for(@conference, url: conference_path) do |f|
   = dynamic_association :days, t(:days), f
-  = f.buttons do
-    = f.commit_button :button_html => {:class => "btn primary"}
+  .actions
+    = f.button :submit, class: 'primary'

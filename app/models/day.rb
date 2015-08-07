@@ -26,9 +26,20 @@ class Day < ActiveRecord::Base
     }
   end
 
+  def start_times
+    times = []
+    time = start_date
+    while time <= end_date
+      times << I18n.l(time, format: :pretty_datetime)
+      time = time.since(conference.timeslot_duration.minutes)
+    end
+    times
+  end
+
   def label
     self.start_date.strftime('%Y-%m-%d')
   end
+  alias_method :to_label, :label
 
   def date
     self.start_date.to_date

@@ -1,5 +1,5 @@
 - call_for_papers = @conference.call_for_papers
-= semantic_form_for(call_for_papers, url: call_for_papers_path) do |f|
+= simple_form_for(call_for_papers, url: call_for_papers_path) do |f|
   = dynamic_association :notifications, t(:notifications), f
-  = f.buttons do
-    = f.commit_button :button_html => {:class => "btn primary"}
+  .actions
+    = f.button :submit, class: 'primary'

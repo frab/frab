@@ -130,7 +130,7 @@ class Event < ActiveRecord::Base
   end
 
   def to_sortable
-    self.title.gsub(/[^\d\w]/, '').upcase
+    self.title.gsub(/[^\w]/, '').upcase
   end
 
   def process_acceptance(options)

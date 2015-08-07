@@ -75,12 +75,12 @@
   .row
     .span16
       %h2 My rating
-      = semantic_form_for @rating, :url => event_event_rating_path do |f|
-        = f.inputs do
+      = simple_form_for @rating, url: event_event_rating_path do |f|
+        %fieldset.inputs
           = f.input :rating, :as => :rating
           = f.input :comment, :input_html => {:rows => 3}
-        = f.buttons do
-          = f.commit_button :button_html => {:class => "btn primary"}
+        .actions
+          = f.button :submit, class: 'primary'
   .row
     .span16
       %h2 All ratings

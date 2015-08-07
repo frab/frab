@@ -1,14 +1,14 @@
 = javascript_include_tag "moment.min"
 
-= semantic_form_for(person, :url => url) do |f|
-  = f.inputs do
+= simple_form_for(person, url: url) do |f|
+  %fieldset.inputs
     - conference.days.each do |day|
       - availability = availabilities.select{ |a| a.day == day }.first
       - availability.nil? and availability = Availability.new(:day => day, :conference => conference)
       = render(:partial => 'shared/availabilities_slider', :locals => { :f => f, :day => day, :availability => availability })
-  = f.buttons do
+  .actions
     - if can? :crud, person
-      = f.commit_button t("cfp.save_availability"), :button_html => {:class => "btn primary"}
+      = f.button :submit, t("cfp.save_availability"), class: 'primary'
 
 :javascript
   $(function() {

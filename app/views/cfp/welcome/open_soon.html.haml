@@ -24,14 +24,14 @@
       %h2=t("cfp.login_existing_headline")
       %p
       %p=t("cfp.login_existing_description")
-      = semantic_form_for @user, :url => cfp_session_path do |f|
-        = f.inputs do
+      = simple_form_for @user, url: cfp_session_path do |f|
+        %fieldset.inputs
           = f.input :email
           = f.input :password
           - if false 
-            = f.input :remember_me, :as => :boolean
-        = f.buttons do
-          = f.commit_button t("cfp.sign_in"), :button_html => {:class => "btn primary"}
+            = f.input :remember_me, as: :inline_boolean
+        .actions
+          = f.button :submit, t("cfp.sign_in"), class: 'primary'
     .span8
       %h2=t("cfp.sign_up_headline") 
       %p=t("cfp.sign_up_description", :title => @conference.title)

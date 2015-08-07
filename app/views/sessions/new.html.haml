@@ -4,13 +4,13 @@
   .row
     .span8
       = render "shared/flash", :flash => flash
-      = semantic_form_for @user, :url => session_path do |f|
-        = f.inputs do
+      = simple_form_for @user, url: session_path do |f|
+        %fieldset.inputs
           = f.input :email
           = f.input :password
-          = f.input :remember_me, :as => :boolean
-        = f.buttons do
-          = f.commit_button "Sign in", :button_html => {:class => "btn primary"}
+          = f.input :remember_me, as: :inline_boolean
+        .actions
+          = f.button :button, "Sign in", class: 'primary'
     - if @conference
       .span8
         %h2=t("cfp.forgot_password_headline")

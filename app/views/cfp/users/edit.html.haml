@@ -3,11 +3,11 @@
     %h1=t("cfp.edit_account") 
   .row
     .span16
-      = semantic_form_for(@user, :url => cfp_user_path, :html => { :method => :put }) do |f|
-        = f.inputs do
+      = simple_form_for(@user, url: cfp_user_path, :html => { :method => :put }) do |f|
+        %fieldset.inputs
           = f.input :email
           = f.input :password, :hint => t("cfp.password_hint") 
           = f.input :password_confirmation
-        = f.buttons do
-          = f.commit_button t("cfp.update"), :button_html => {:class => "btn primary"}
+        .actions
+          = f.button :submit, t("cfp.update"), class: 'primary'
           = link_to t("cfp.back"), :back, :class => "btn"
