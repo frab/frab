@@ -17,7 +17,7 @@
               = link_to 'Call for Papers', '#', :class => 'brand'
             %ul.nav.secondary-nav.pull-right
               - if current_user
-                %li= link_to t("web-app-theme.logout", :default => "Logout"), cfp_session_path, :method => :delete
+                %li= link_to t("logout", :default => "Logout"), cfp_session_path, :method => :delete
     .container
       .main-content
         = yield

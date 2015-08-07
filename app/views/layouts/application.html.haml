@@ -62,7 +62,7 @@
               %ul.dropdown-menu
                 - if @conference
                   %li= link_to t("user_settings", :default => "Settings"), person_user_path(current_user.person)
-                %li= link_to t("web-app-theme.logout", :default => "Logout"), session_path, :method => :delete
+                %li= link_to t("logout", :default => "Logout"), session_path, :method => :delete
     .container
       .main-content
         = render 'shared/flash', :flash => flash
