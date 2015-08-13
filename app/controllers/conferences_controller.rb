@@ -10,7 +10,7 @@ class ConferencesController < ApplicationController
   # GET /conferences
   # GET /conferences.xml
   def index
-    result = search Conference, params
+    result = search params
     @conferences = result.paginate page: page_param
 
     respond_to do |format|
@@ -96,16 +96,16 @@ class ConferencesController < ApplicationController
     return "edit"
   end
 
-  def search(conferences, params)
+  def search(params)
     if params.has_key?(:term) and not params[:term].empty?
       term = params[:term]
       sort = params[:q][:s] rescue nil
-      @search = events.ransack(title_cont: term,
+      @search = Event.ransack(title_cont: term,
                                acronym_cont: term,
                                m: 'or',
                                s: sort)
     else
-      @search = conferences.ransack(params[:q])
+      @search = Conference.ransack(params[:q])
     end
 
     @search.result(distinct: true)
