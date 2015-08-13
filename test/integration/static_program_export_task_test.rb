@@ -3,13 +3,13 @@ require 'test_helper'
 class StaticProgramExportTask < ActionDispatch::IntegrationTest
 
   setup do
-    @conference = create(:three_day_conference)
+    @conference = create(:three_day_conference_with_events)
     @target_dir = File.join(Rails.root, 'tmp', 'static_export')
   end
 
   test "can run program export task" do
     locale = 'en'
-    
+
     load File.join(Rails.root, 'lib', 'tasks', 'static_program_export.rake')
     Rake::Task.define_task(:environment)
     ENV['CONFERENCE'] = @conference.acronym

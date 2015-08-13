@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  
+
   sequence :email do |n|
     "test#{n}@example.com"
   end
@@ -59,17 +59,17 @@ FactoryGirl.define do
   trait :with_events do
     after :create do |conference|
       conference.events << create(:event, conference: conference,
-                                              room: conference.rooms.first, 
+                                              room: conference.rooms.first,
                                               state: 'confirmed',
                                               public: true,
                                               start_time: Date.today.since(1.days).since(11.hours))
       conference.events << create(:event, conference: conference,
-                                              room: conference.rooms.first, 
+                                              room: conference.rooms.first,
                                               state: 'confirmed',
                                               public: true,
-                                              start_time: Date.today.since(1.days).since(15.hours))
+                                              start_time: Date.today.since(2.days).since(15.hours))
       conference.events << create(:event, conference: conference,
-                                              room: conference.rooms.first, 
+                                              room: conference.rooms.first,
                                               state: 'confirmed',
                                               public: true,
                                               start_time: Date.today.since(3.days).since(11.hours))
@@ -162,7 +162,7 @@ FactoryGirl.define do
 
   factory :language do
     code "EN"
-    
+
     factory :english_language do
     end
     factory :german_language do
@@ -180,7 +180,7 @@ FactoryGirl.define do
 
   factory :event_person do
     person
-    event 
+    event
     event_role "speaker"
   end
 

@@ -9,17 +9,18 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     @conference = FactoryGirl.create(:conference)
     add_day(@conference, 2.years)
     @event_person = add_event_with_speaker(@conference)
+    ENV['QUIET'] = '1'
   end
 
   def add_day(conference, time)
-    conference.days << FactoryGirl.create(:day, 
+    conference.days << FactoryGirl.create(:day,
       start_date: Date.today.ago(time).since(11.hours),
       end_date: Date.today.ago(time).since(23.hours))
   end
 
   def add_event_with_speaker(conference)
     event = FactoryGirl.create(:event, conference: conference, state: "confirmed")
-    event_person = FactoryGirl.create(:event_person, event: event)
+    FactoryGirl.create(:event_person, event: event)
   end
 
   test "should find last years conferences" do
