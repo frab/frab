@@ -162,7 +162,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-perftest (0.0.6)
     railties (4.2.3)
       actionpack (= 4.2.3)
       activesupport (= 4.2.3)
@@ -178,7 +177,6 @@ GEM
     redcarpet (3.3.2)
     request_store (1.2.0)
     ri_cal (0.8.8)
-    ruby-prof (0.15.8)
     sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -245,11 +243,9 @@ DEPENDENCIES
   pry-rails
   puma
   rails (~> 4.2)
-  rails-perftest
   ransack
   redcarpet
   ri_cal
-  ruby-prof
   sass-rails (~> 5.0)
   settingslogic
   simple_form
