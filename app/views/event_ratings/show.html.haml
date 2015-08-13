@@ -3,10 +3,10 @@
     .pull-right
       - if @next_event
         = actions_block do
-          = action_button "primary", "Rate next event", event_event_rating_path(@next_event), :hint => "Proceed to rate the next event." 
+          = action_button "primary", "Rate next event", event_event_rating_path(@next_event), :hint => "Proceed to rate the next event."
     %h1 Event: #{@event.title}
   %ul.tabs
-    %li= link_to "Event Details", @event 
+    %li= link_to "Event Details", @event
     %li= link_to "People", people_event_path(@event)
     %li.active= link_to "Ratings", event_event_rating_path(@event)
     %li= link_to "Feedback", event_event_feedbacks_path(@event)
@@ -28,8 +28,8 @@
                 %tr
                   %td= image_box person.avatar, :small
                   %td= link_to person.full_name, person
-                  %td 
-                    %b Average feedback as speaker: 
+                  %td
+                    %b Average feedback as speaker:
                     - if average_feedback = person.average_feedback_as_speaker
                       = sprintf("%.2f / 5.0", average_feedback)
                     - else
@@ -53,7 +53,7 @@
           %b Abstract:
           %br/
           = simple_format @event.abstract
-        - unless @event.links.empty?
+        - if @event.links
           %p
             %b Links:
             %br/
@@ -91,7 +91,7 @@
             and rate the event using the form above.
       - else
         %p
-          %b Total:  
+          %b Total:
           %span#total_rating{:"data-rating" => @event.average_rating}
         - if @event_ratings.count >= 1
           %table.zebra-striped
