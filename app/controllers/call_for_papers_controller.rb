@@ -43,13 +43,8 @@ class CallForPapersController < ApplicationController
 
   def default_notifications
     locale = params[:code]
-
-    notification = Notification.new(locale: locale)
-    notification.set_default_text(locale)
-
-    respond_to do |format|
-      format.json { render json: notification.to_json }
-    end
+    @notification = Notification.new(locale: locale)
+    @notification.set_default_text(locale)
   end
 
   private
