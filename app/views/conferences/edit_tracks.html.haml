@@ -27,16 +27,7 @@
       = render 'form_tracks'
 
 :coffeescript
-  addColorPickers = ->
-    $('input.color').ColorPicker(
-      onSubmit: (hsb, hex, rgb, el) ->
-        $(el).val(hex)
-        $(el).ColorPickerHide()
-      onBeforeShow: ->
-        $(this).ColorPickerSetColor(this.value)
-    )
   $ ->
     $("a.add_fields").data("insertion-callback", (node) ->
       addColorPickers()
     )
-    addColorPickers()

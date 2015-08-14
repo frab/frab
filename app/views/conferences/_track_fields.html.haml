@@ -3,15 +3,3 @@
     = f.input :name
     = f.input :color, input_html: {:size => 6, :class => "color"}
     = remove_association_link :track, f
-
-:coffeescript
-  addColorPickers = ->
-    $('input.color').ColorPicker(
-      onSubmit: (hsb, hex, rgb, el) ->
-        $(el).val(hex)
-        $(el).ColorPickerHide()
-      onBeforeShow: ->
-        $(this).ColorPickerSetColor(this.value)
-    )
-  $ ->
-    addColorPickers()

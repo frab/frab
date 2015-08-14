@@ -4,7 +4,7 @@
     = f.input :title, :hint => "The name of your conference as it shall appear throughout the site. Example: 'FrOSCon'"
     = f.input :acronym, :hint => "A short and unique handle for your conference, using only lower-case letters, numbers and underscores. This will be used to identify your conference in URLs etc. Example: 'froscon2011'"
     = f.input :email, :hint => "Contact email address for your conference. Will be used as reply-to address in emails sent out by the system."
-    = f.input :color, :hint => "You may define a color for your conference."
+    = f.input :color, :hint => "You may define a color for your conference.", input_html: { class: 'color' }
   %fieldset.inputs
     %legend= t(:timeslot_configuration)
     = f.input :timezone, :as => :time_zone, :hint => "Please select in what time zone your conference will take place. This is needed to correctly display times for your events."
@@ -24,15 +24,3 @@
     = f.input :ticket_type, :as => :radio_buttons, :collection => Conference::TICKET_TYPES
   .actions
     = f.button :submit, class: 'primary'
-
-:coffeescript
-  addColorPickers = ->
-    $('input#conference_color').ColorPicker(
-      onSubmit: (hsb, hex, rgb, el) ->
-        $(el).val(hex)
-        $(el).ColorPickerHide()
-      onBeforeShow: ->
-        $(this).ColorPickerSetColor(this.value)
-    )
-  $ ->
-    addColorPickers()
