@@ -19,7 +19,7 @@
             - if current_user and current_user.person
               %ul.nav.secondary-nav.pull-right
                 - conferences = Conference.creation_order.has_submission(current_user.person)
-                - if conferences.any?
+                - if conferences.to_a.count > 1
                   %li.dropdown
                     = link_to t("switch_conference", default: "Switch conference"), "#", class: "dropdown-toggle"
                     %ul.dropdown-menu
