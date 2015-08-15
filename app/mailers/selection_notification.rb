@@ -1,14 +1,14 @@
 class SelectionNotification < ActionMailer::Base
- 
+
   default from: Settings['from_email']
-  
+
   def acceptance_notification(event_person)
     @person = event_person.person
     @event = event_person.event
     @conference = @event.conference
     @token = event_person.confirmation_token
     @locale = @person.locale_for_mailing(@conference)
-    @notification = @conference.call_for_papers.notifications.with_locale(@locale).first
+    @notification = @conference.notifications.with_locale(@locale).first
     raise "Notification for #{@locale} not found" if @notification.nil?
 
     mail(
@@ -23,7 +23,7 @@ class SelectionNotification < ActionMailer::Base
     @event = event_person.event
     @conference = @event.conference
     @locale = @person.locale_for_mailing(@conference)
-    @notification = @conference.call_for_papers.notifications.with_locale(@locale).first
+    @notification = @conference.notifications.with_locale(@locale).first
     raise "Notification for #{@locale} not found" if @notification.nil?
 
     mail(

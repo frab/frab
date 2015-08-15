@@ -1,11 +1,7 @@
 %section
   .page-header
     %h1 Edit Call for Papers
-
-  - if @conference.ticket_type == 'integrated'
-    %ul.tabs
-      %li= link_to "General", edit_call_for_papers_path
-      %li.active= link_to "Notification text", edit_notifications_call_for_papers_path
+  = render partial: 'tabs', locals: { active: :notifications }
 
   .row
     .span6

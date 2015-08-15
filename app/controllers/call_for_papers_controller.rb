@@ -27,29 +27,19 @@ class CallForPapersController < ApplicationController
     @call_for_papers = @conference.call_for_papers
   end
 
-  def edit_notifications
-    @call_for_papers = @conference.call_for_papers
-  end
-
   def update
     @call_for_papers = @conference.call_for_papers
     if @call_for_papers.update_attributes(call_for_papers_params)
       redirect_to call_for_papers_path, notice: "Changes saved successfully!"
     else
-      flash[:alert] = "Failed to update notifications"
+      flash[:alert] = "Failed to update"
       render action: "edit"
     end
-  end
-
-  def default_notifications
-    locale = params[:code]
-    @notification = Notification.new(locale: locale)
-    @notification.set_default_text(locale)
   end
 
   private
 
   def call_for_papers_params
-    params.require(:call_for_papers).permit(:start_date, :end_date, :hard_deadline, :welcome_text, :info_url, :contact_email, notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body _destroy))
+    params.require(:call_for_papers).permit(:start_date, :end_date, :hard_deadline, :welcome_text, :info_url, :contact_email)
   end
 end

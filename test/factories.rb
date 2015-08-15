@@ -149,7 +149,7 @@ FactoryGirl.define do
     accept_body "accept body text"
     accept_subject "accepted subject"
     locale "en"
-    call_for_papers
+    conference
   end
 
   factory :availability do

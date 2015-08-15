@@ -1,5 +1,5 @@
 class Notification < ActiveRecord::Base
-  belongs_to :call_for_papers
+  belongs_to :conference
 
   validates :locale, presence: true
   validates :reject_subject, presence: true
@@ -49,8 +49,8 @@ BODY
   private
 
   def uniq_locale
-    return if self.call_for_papers.nil?
-    self.call_for_papers.notifications.each { |n|
+    return if self.conference.nil?
+    self.conference.notifications.each { |n|
       if n.id != self.id and n.locale == self.locale
         self.errors.add(:locale, "#{n.locale} already added to this cfp")
       end

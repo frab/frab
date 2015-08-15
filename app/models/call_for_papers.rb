@@ -1,9 +1,6 @@
 class CallForPapers < ActiveRecord::Base
 
   belongs_to :conference
-  has_many :notifications, dependent: :destroy
-
-  accepts_nested_attributes_for :notifications, allow_destroy: true
 
   validates_presence_of :start_date, :end_date
 

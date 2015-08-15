@@ -1,6 +1,6 @@
 .notification
   %fieldset.inputs
-    = link_to "use default text", "#", style: 'float:right', data: { function: 'notification-defaults', args: { url: "#{ call_for_papers_default_notifications_path(conference_acronym: @conference.acronym) }" } }
+    = link_to "use default text", "#", style: 'float:right', data: { function: 'notification-defaults', args: { url: "#{ conferences_default_notifications_path(conference_acronym: @conference.acronym) }" } }
     = f.input :locale, as: :select, collection: available_locales(@conference), hint: "Available locales for this conference and its speakers"
     = f.input "accept_subject", label: 'Accept subject'
     = f.input "accept_body",    label: 'Accept body', as: :text

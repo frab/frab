@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815143628) do
+ActiveRecord::Schema.define(version: 20150815181454) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -234,14 +234,14 @@ ActiveRecord::Schema.define(version: 20150815143628) do
   add_index "links", ["linkable_id"], name: "index_links_on_linkable_id"
 
   create_table "notifications", force: :cascade do |t|
-    t.integer  "call_for_papers_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "locale",             limit: 255
-    t.string   "accept_subject",     limit: 255
-    t.string   "reject_subject",     limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "locale",         limit: 255
+    t.string   "accept_subject", limit: 255
+    t.string   "reject_subject", limit: 255
     t.text     "accept_body"
     t.text     "reject_body"
+    t.integer  "conference_id"
   end
 
   create_table "people", force: :cascade do |t|

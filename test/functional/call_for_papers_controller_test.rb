@@ -50,34 +50,4 @@ class CallForPapersControllerTest < ActionController::TestCase
     assert_redirected_to call_for_papers_path(conference_acronym: @conference.acronym)
   end
 
-  test "should get edit notification" do
-    get :edit_notifications, conference_acronym: @conference.acronym
-    assert_response :success
-  end
-
-  test "should add cfp notification" do
-    params = {
-      conference_acronym: @conference.acronym,
-      call_for_papers: call_for_papers_params.merge(
-        welcome_text: "welcome",
-        notifications_attributes: {
-          "0" => {
-            reject_body: 'reject body text',
-            reject_subject: 'rejected subject',
-            accept_body: 'accept body text',
-            accept_subject: 'accepted subject',
-            locale: 'en'
-          }
-        }
-      )
-    }
-    assert_difference('Notification.count') do
-      put :update, params
-    end
-  end
-
-  test "get default notification texts as json" do
-    get :default_notifications, format: :json, code: "en", conference_acronym: @conference.acronym
-    assert_response :success
-  end
 end

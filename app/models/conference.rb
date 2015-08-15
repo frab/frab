@@ -7,6 +7,7 @@ class Conference < ActiveRecord::Base
   has_many :days, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :languages, as: :attachable, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :tracks, dependent: :destroy
   has_many :conference_exports, dependent: :destroy
@@ -15,9 +16,11 @@ class Conference < ActiveRecord::Base
 
   accepts_nested_attributes_for :rooms, reject_if: proc {|r| r["name"].blank?}, allow_destroy: true
   accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :notifications, allow_destroy: true
   accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ticket_server
+
   validates_presence_of :title,
     :acronym,
     :default_timeslots,

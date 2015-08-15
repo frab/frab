@@ -82,12 +82,11 @@ Frab::Application.routes.draw do
         get :edit_schedule
         get :edit_rooms
         get :edit_ticket_server
-      end
-
-      resource :call_for_papers do
         get :edit_notifications
       end
-      get "/call_for_papers/default_notifications" => "call_for_papers#default_notifications", as: "call_for_papers_default_notifications"
+      get "/conferences/default_notifications" => "conferences#default_notifications", as: "conferences_default_notifications"
+
+      resource :call_for_papers
 
       resources :people do
         resource :user

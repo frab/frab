@@ -44,6 +44,9 @@ class ConferencesController < ApplicationController
   def edit
   end
 
+  def edit_notifications
+  end
+
   # POST /conferences
   # POST /conferences.xml
   def create
@@ -69,6 +72,12 @@ class ConferencesController < ApplicationController
         format.html { render action: get_previous_nested_form(conference_params) }
       end
     end
+  end
+
+  def default_notifications
+    locale = params[:code]
+    @notification = Notification.new(locale: locale)
+    @notification.set_default_text(locale)
   end
 
   # DELETE /conferences/1
@@ -118,7 +127,8 @@ class ConferencesController < ApplicationController
       days_attributes: %i(start_date end_date _destroy id),
       tracks_attributes: %i(name color _destroy id),
       languages_attributes: %i(language_id code _destroy id),
-      ticket_server_attributes: %i(url user password queue _destroy id)
+      ticket_server_attributes: %i(url user password queue _destroy id),
+      notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body _destroy)
     )
   end
 
