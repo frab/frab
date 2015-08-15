@@ -2,8 +2,8 @@ Willkommen <%= @user.email %>!
 
 Sie können Ihren Account durch folgenden Link bestätigen:
 
-<% if @user.call_for_papers.present? %>
-  <%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @user.confirmation_token, :conference_acronym => @user.call_for_papers.conference.acronym) %>
+<% if @conference %>
+  <%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @user.confirmation_token, :conference_acronym => @conference.acronym) %>
 <% else %>
   <%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @user.confirmation_token, :conference_acronym => Conference.current.acronym) %>
 <% end %>

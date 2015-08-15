@@ -18,12 +18,11 @@ class Cfp::UsersControllerTest < ActionController::TestCase
     end
     assert_response :redirect
     assert_not_nil assigns(:user)
-    assert_equal @call_for_papers.id, assigns(:user).call_for_papers_id
     assert_not_nil assigns(:user).confirmation_token
   end
 
   test "shows password editing form" do
-    user = login_as(:submitter)
+    login_as(:submitter)
     get :edit, conference_acronym: @conference.acronym
     assert_response :success
   end

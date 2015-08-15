@@ -47,7 +47,6 @@ class UsersController < ApplicationController
       @user.role = 'submitter'
     end
     @user.person = @person
-    @user.call_for_papers = @conference.call_for_papers
     @user.skip_confirmation!
 
     respond_to do |format|

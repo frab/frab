@@ -5,8 +5,6 @@ class User < ActiveRecord::Base
   USER_ROLES = %w{submitter crew}
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
-  # TODO: users should have several cfps, refactor into has_many relation
-  belongs_to :call_for_papers
   has_many :conference_users, dependent: :destroy
   has_one :person
 
@@ -18,7 +16,6 @@ class User < ActiveRecord::Base
 
   after_initialize :check_default_values
   before_create :generate_confirmation_token, unless: :confirmed_at
-  after_create :send_confirmation_instructions, unless: :confirmed_at
 
   validates_presence_of :person
   validates_presence_of :email
@@ -75,27 +72,16 @@ class User < ActiveRecord::Base
     user
   end
 
-  def send_confirmation_instructions
+  def send_confirmation_instructions(conference=nil)
     return false if confirmed_at
     generate_confirmation_token! unless self.confirmation_token
-    UserMailer.confirmation_instructions(self).deliver_now
+    UserMailer.confirmation_instructions(self, conference).deliver_now
   end
 
   # update users call for papers and sends mail
-  def send_password_reset_instructions(call_for_papers = nil)
-    if call_for_papers
-      self.call_for_papers = call_for_papers
-    end
+  def send_password_reset_instructions(conference)
     generate_password_reset_token!
-    UserMailer.password_reset_instructions(self).deliver_now
-  end
-
-  def try_call_for_papers
-    if self.call_for_papers
-     self.call_for_papers
-    else
-      CallForPapers.last
-    end
+    UserMailer.password_reset_instructions(self, conference).deliver_now
   end
 
   def reset_password(params)
