@@ -1,4 +1,4 @@
-pt_BR:
+pt-BR:
   emails:
     event_acceptance:
       subject: "Sua submissão para %{title}"

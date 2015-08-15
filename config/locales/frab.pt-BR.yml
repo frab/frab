@@ -1,0 +1,193 @@
+pt-BR:
+  actions: "Ações"
+  add_association: "adicionar %{name}"
+  basic_information: "Informações básicas"
+  call_for_papers: "Chamada de Trabalhos"
+  create_new_conference: "Criar nova conferência"
+  create_your_first_conference: "Crie a sua primeira conferência"
+  days: "Dias"
+  edit: "editar"
+  edit_conference: "Editar conferência"
+  edit_conference_days: "Editar dias de conferência"
+  edit_conference_rooms: "Editar salas da conferência"
+  edit_conference_tracks: "Editar trilhas da conferência"
+  edit_ticket_server: "Editar servidor de tíquetes"
+  error_signing_in: "E-mail ou senha inválidos."
+  event_languages: "Línguagens do evento"
+  events: "Eventos"
+  feedback_system: "Sistema de Feedback"
+  launch_call_for_papers: "Iniciar Chamada de Trabalhos"
+  new_conference: "Nova conferência"
+  people: "Pessoas"
+  remove_association: "Remover %{name}"
+  reports: "Relatórios"
+  rooms: "Salas"
+  schedule: "Programação"
+  schedule_configuration: "Configurando a programação"
+  settings: "Configurações"
+  sign_in_successful: "Logado com sucesso."
+  static_program_export: "Programa de exportação estática"
+  submission_configuration: "Submission Configuration"
+  switch_conference: "Alternar conferência"
+  ticket_server: "Servidor de Tíquetes"
+  timeslot_configuration: "Timeslot configuration"
+  tracks: "Trilhas"
+  your_submission: "Sua submissão"
+
+  ability:
+    denied: "Esta ação não é permitida."
+
+  options:
+    business: "trabalho"
+    fax: "fax"
+    female: "mulher"
+    lecture: "palestra"
+    lightning_talk: "lightning talk"
+    male: "homem"
+    meeting: "reunião"
+    mobile: "celular"
+    other: "outros"
+    phone: "telefone"
+    podium: "podium"
+    private: "privado"
+    secretary: "secretário"
+    skype: "skype"
+    workshop: "oficina"
+
+  time:
+    formats:
+      month_datetime: '%d. %b %H:%M'
+      pretty_datetime: "%d-%m-%Y %H:%M"
+      short_datetime: '%d. %H:%M'
+      time: '%H:%M'
+
+  date:
+    formats:
+      only_day: "%e"
+    day_names: [Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado]
+
+  number:
+    human:
+      decimal_units:
+        units:
+          million: Milhão
+          billion:
+            one: Bilhão
+            others: Bilhões
+          trillion: Trilhões
+          quadrillion:
+            one: Quatrilhão
+            others: Quatrilhões
+
+  support:
+    select:
+      prompt: "Favor selecionar um:"
+
+  activemodel:
+    errors:
+      template:
+        header:
+          one: "Não foi possível gravar %{model}: 1 erro"
+          other: "Não foi possível gravar %{model}: %{count} erros."
+        body: "Por favor, verifique os seguintes campos:"
+
+  errors:
+    messages:
+      confirmation: "não está de acordo com a confirmação"
+
+  activerecord:
+    errors:
+      template:
+        body: "Por favor, verifique o(s) seguinte(s) campo(s):"
+      messages:
+        taken: "já está em uso"
+        record_invalid: "A validação falhou: %{errors}"
+      full_messages:
+        format: "%{attribute}%{message}"
+    models:
+      conference: "conferência"
+      event: "Evento"
+      person: "Perfil"
+      event_person: "Pessoa"
+      day: "dia"
+      link: "Link"
+      im_account: "Conta IM"
+      phone_number: "Número de telefone"
+      event_attachment: "Arquivo"
+      language: "Linguagem"
+      track: "Trilha"
+      room: "Sala"
+
+    attributes:
+      conference:
+        title: "Título"
+        acronym: "Acrônimo"
+        email: "E-Mail"
+        color: "Cor"
+        timezone: "Fuso Horário"
+        timeslot_duration: "Duração dos Slots"
+        default_timeslots: "Duração Padrão dos Slots"
+        max_timeslots: "Duração Máxima dos Slots"
+        schedule_version: "Versão da Programação"
+        schedule_public: "Programação pública"
+        feedback_enabled: "Comentários habilitados"
+      day:
+        start_date: "Data de Início"
+        end_date: "Data Final"
+      track:
+        name: "Nome"
+        color: "Cor"
+      room:
+        name: "Nome"
+        size: "Tamanho"
+        rank: "Posição"
+        public: "Público"
+      event:
+        title: "Título"
+        subtitle: "Subtítulo"
+        event_type: "Tipo de evento"
+        track: "Trilha"
+        time_slots: "Duração"
+        language: "Linguagem"
+        logo: "Logo"
+        abstract: "Abstract"
+        description: "Descrição"
+        state: "Estado"
+      link:
+        title: "Título"
+        url: "URL"
+      event_attachment:
+        title: "Título"
+        attachment: "Anexo"
+      person:
+        first_name: "Nome"
+        last_name: "Sobrenome"
+        public_name: "Nome público"
+        gender: "Sexo"
+        avatar: "Avatar"
+        email: "E-mail"
+        email_public: "Publicar e-mail?"
+        abstract: "Abstract"
+        description: "Descrição"
+      language:
+        language: "Linguagem"
+      phone_number:
+        phone_type: "Tipo"
+        phone_number: "Telefone"
+      im_account:
+        im_type: "Tipo"
+        im_address: "Nome de usuário"
+      user:
+        email: "E-Mail"
+        password: "Senha"
+        password_confirmation: "Confirmação de Senha"
+        current_password: "Senha Atual"
+        remember_me: "Lembrar de mim neste computador"
+      event_feedback:
+        rating: "Avaliação"
+        comment: "Comentar"
+
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Ativação de Conta"
+      password_reset_instructions: "Redefinir Senha"

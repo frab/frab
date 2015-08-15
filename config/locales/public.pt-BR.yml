@@ -1,58 +1,69 @@
-pt_BR:
+pt-BR:
   time:
     formats:
       time: "%H:%M"
+
   public:
     schedule:
       title: "Horário %{title}"
+
       nav:
-        index: "Índice"
         day: "Dia %{index}"
+        events: "Eventos"
+        index: "Índice"
         schedule: "Programação"
         speakers: "Palestrantes"
-        events: "Eventos"
+
       index:
-        schedule_index: "Índice da programação"
         day: "Dia %{index} – %{label}"
-        schedule: "Programação – %{label}"
-        speakers: "Palestrantes"
         events: "Eventos"
+        schedule: "Programação – %{label}"
+        schedule_index: "Índice da programação"
+        speakers: "Palestrantes"
+
       day:
         schedule_for_day: "Programação do dia %{index} – %{label}"
         schedule: "Programação – %{label}"
+
       speakers:
-        speakers: "Palestrantes"
-        name: "Nome"
         events: "Eventos"
+        name: "Nome"
+        speakers: "Palestrantes"
+
       events:
         events: "Eventos"
+        speakers: "Palestrantes"
         title: "Título"
         track: "Trilha"
-        speakers: "Palestrantes"
+
       event:
-        info: "Info"
         day: "Dia"
-        start_time: "Hora de início"
         duration: "Duração"
-        track: "Trilha"
-        links: "Links"
-        files: "Arquivos"
         feedback: "Comentários"
         feedback_link: "Estamos interessados ​​na sua opinião! Por favor, deixe-nos saber se você gostou deste evento?"
+        files: "Arquivos"
+        info: "Info"
+        links: "Links"
+        room: "Room"
         speakers: "Palestrantes"
+        start_time: "Hora de início"
+        track: "Trilha"
+
       speaker:
         speaker: "Palestrante"
         contact: "Contato"
         email: "E-Mail"
         links: "Links"
         events_in_this_conference: "Eventos nesta conferência"
+
     feedback:
       new:
         feedback_for: "Comentários para: %{title}"
-        please_let_us_know: "Por favor, deixe-nos saber se você gostou deste evento:"
         how_would_you_rate: "Como você avalia este evento? 5 é a melhor classificação e 1 é o pior."
-        what_did_you_like: "Do que você gostou? Do que não gostou? Como poderia este evento pode ser melhorado? Por favor, compartilhe seus pensamentos."
+        please_let_us_know: "Por favor, deixe-nos saber se você gostou deste evento:"
         submit_feedback: "Enviar comentários"
+        what_did_you_like: "Do que você gostou? Do que não gostou? Como poderia este evento pode ser melhorado? Por favor, compartilhe seus pensamentos."
+
       thank_you:
         thank_you: "Obrigado!"
         thank_you_for_helping_us: "Thanks for helping us improve our events. Please rate as many events that you attended as possible.\n\nObrigado por nos ajudar a melhorar nossos eventos. Por favor, na medida do possível,  avalie tantos eventos que você assistiu."

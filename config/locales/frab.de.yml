@@ -1,0 +1,253 @@
+de:
+  actions: "Aktionen"
+  add_association: "%{name} hinzufügen"
+  basic_information: "Grundlegende Informationen"
+  call_for_papers: "Call for Papers"
+  create_new_conference: "Neue Konferenz erstellen"
+  create_your_first_conference: "Erste Konferenz erstellen"
+  days: "Tage"
+  edit: "Bearbeiten"
+  edit_conference: "Konferenz bearbeiten"
+  edit_conference_days: "Konferenz-Tage bearbeiten"
+  edit_conference_rooms: "Konferenz-Räume bearbeiten"
+  edit_conference_schedule: "Zeitplan bearbeiten"
+  edit_conference_tracks: "Konferenz-Tracks bearbeiten"
+  edit_ticket_server: "Ticket-Server bearbeiten"
+  error_signing_in: "E-Mailadresse oder Passwort ungültig."
+  event_languages: "Veranstaltungssprachen"
+  events: "Veranstaltungen"
+  feedback_system: "Feedback-System"
+  launch_call_for_papers: "Call for Papers starten"
+  new_conference: "Neue Konferenz"
+  people: "Personen"
+  remove_association: "%{name} entfernen"
+  reports: "Berichte"
+  rooms: "Räume"
+  schedule: "Zeitplan"
+  schedule_configuration: "Konfiguration des Zeitplans"
+  settings: "Einstellungen"
+  sign_in_successful: "Erfolgreich eingeloggt."
+  static_program_export: "Statischer Programm-Export"
+  submission_configuration: "Konfiguration Einreichungen"
+  switch_conference: "Konferenz wechseln"
+  ticket_server: "Ticket-Server"
+  timeslot_configuration: "Konfiguration der Zeiteinheiten"
+  tracks: "Tracks"
+  your_submission: "Dein Vortrag"
+
+  ability:
+    denied: "Der Vorgang ist nicht erlaubt."
+
+  conflict:
+    events_overlap: "überschneidet sich mit"
+    has_no_availability: "hat bisher keine Angaben zur Verfügbarkeit gemacht."
+    person_unavailable: "ist nicht verfügbar zu dieser Zeit."
+
+  options:
+    business: "Geschäftlich"
+    fax: "Fax"
+    female: "weiblich"
+    lecture: "Vortrag"
+    lightning_talk: "Lightning Talk"
+    male: "männlich"
+    meeting: "Meeting"
+    mobile: "Mobil"
+    other: "Andere"
+    phone: "Telefon"
+    podium: "Podiumsdiskussion"
+    private: "Privat"
+    secretary: "Sekretärin/Vorzimmer"
+    skype: "Skype"
+    talk: "Vortrag"
+    work: "Arbeit"
+    workshop: "Workshop"
+
+  time:
+    formats:
+      month_datetime: '%d. %b %H:%M'
+      pretty_datetime: '%Y-%m-%d %H:%M'
+      short_datetime: '%d. %H:%M'
+      time: '%H:%M'
+    time_range_seperator: ' bis '
+      
+  date:
+    formats:
+      only_day: "%e"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: 'eine halbe Minute'
+      less_than_x_seconds:
+        one: 'weniger als eine Sekunde'
+        other: 'weniger als %{count} Sekunden'
+      x_seconds:
+        one: 'eine Sekunde'
+        other: '%{count} Sekunden'
+      less_than_x_minutes:
+        one: 'weniger als eine Minute'
+        other: 'weniger als %{count} Minuten'
+      x_minutes:
+        one: 'eine Minute'
+        other: '%{count} Minuten'
+      about_x_hours:
+        one: 'etwa eine Stunde'
+        other: 'etwa %{count} Stunden'
+      x_days:
+        one: 'ein Tag'
+        other: '%{count} Tage'
+      about_x_months:
+        one: 'etwa ein Monat'
+        other: 'etwa %{count} Monate'
+      x_months:
+        one: 'ein Monat'
+        other: '%{count} Monate'
+      almost_x_years:
+        one: 'fast ein Jahr'
+        other: 'fast %{count} Jahre'
+      about_x_years:
+        one: 'etwa ein Jahr'
+        other: 'etwa %{count} Jahre'
+      over_x_years:
+        one: 'mehr als ein Jahr'
+        other: 'mehr als %{count} Jahre'
+    prompts:
+      second: "Sekunden"
+      minute: "Minuten"
+      year: "Jahr"
+
+  number:
+    currency:
+      format:
+        format: '%n%u'
+        delimiter: ""
+    human:
+      format:
+        precision: 1
+      decimal_units:
+        units:
+          billion: 
+            others: Milliarden
+          quadrillion: 
+            others: Billiarden
+
+  support:
+    select:
+      prompt: "Bitte wählen:"
+
+  activemodel:
+    errors:
+      template:
+        header:
+          one:    "Konnte %{model} nicht speichern: ein Fehler."
+          other:  "Konnte %{model} nicht speichern: %{count} Fehler."
+        body: "Bitte überprüfen Sie die folgenden Felder:"
+
+  errors:
+    messages: &errors_messages
+      confirmation: "stimmt nicht mit der Bestätigung überein"
+      too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
+      too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
+      wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
+      
+  activerecord:
+    errors:
+      template:
+        header:
+          one:    "Konnte %{model} nicht speichern: ein Fehler."
+          other:  "Konnte %{model} nicht speichern: %{count} Fehler."
+        body: "Bitte überprüfen Sie die folgenden Felder:"
+
+      messages:        
+        taken: "ist bereits vergeben"
+        record_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute}%{message}"
+    models:
+      conference: "Konferenz"
+      event: "Einreichung"
+      person: "Profil"
+      event_person: "Person"
+      day: "Tag"
+      link: "Link"
+      im_account: "IM-Account"
+      phone_number: "Telefonnummer"
+      event_attachment: "Datei"
+      language: "Sprache"
+      track: "Track"
+      room: "Raum"
+
+    attributes:
+      conference:
+        title: "Titel"
+        acronym: "Kürzel"
+        email: "E-Mail"
+        color: "Farbe"
+        timezone: "Zeitzone"
+        timeslot_duration: "Dauer der Zeitslots"
+        default_timeslots: "Standard-Anzahl Zeitslots"
+        max_timeslots: "Maximale Anzahl Zeitslots"
+        schedule_version: "Version des Zeitplans"
+        schedule_public: "Zeitplan öffentlich"
+        feedback_enabled: "Feedback aktiviert"
+      day:
+        start_date: "Anfang"
+        end_date: "Ende"
+      track:
+        name: "Name"
+        color: "Farbe"
+      room:
+        name: "Name"
+        size: "Größe"
+        rank: "Rang"
+        public: "Öffentlich"
+      event:
+        title: "Titel"
+        subtitle: "Untertitel"
+        event_type: "Art der Veranstaltung"
+        track: "Track"
+        time_slots: "Dauer"
+        language: "Sprache"
+        logo: "Logo"
+        abstract: "Abstract"
+        description: "Beschreibung"
+        state: "Status"
+      link:
+        title: "Titel"
+        url: "URL"
+      event_attachment:
+        title: "Titel"
+        attachment: "Datei"
+      person:
+        first_name: "Vorname"
+        last_name: "Nachname"
+        public_name: "Öffentlicher Name"
+        gender: "Geschlecht"
+        avatar: "Profilbild"
+        email: "E-Mail"
+        email_public: "E-Mail öffentlich?"
+        abstract: "Abstract"
+        description: "Beschreibung"
+      language:
+        language: "Sprache"
+      phone_number:
+        phone_type: "Typ"
+        phone_number: "Nummer"
+      im_account:
+        im_type: "Typ"
+        im_address: "Adresse/Username"
+      user:
+        email: "E-Mail"
+        password: "Passwort"
+        password_confirmation: "Passwort wiederholen"
+        current_password: "Aktuelles Passwort"
+        remember_me: "An diesem Computer eingeloggt bleiben"
+      event_feedback:
+        rating: "Bewertung"
+        comment: "Kommentar"
+
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Account aktivieren"
+      password_reset_instructions: "Password zurücksetzen"

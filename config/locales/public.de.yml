@@ -8,54 +8,55 @@ de:
       title: "Programm %{title}"
 
       nav:
-        index: "Übersicht"
         day: "Tag %{index}"
+        events: "Veranstaltungen"
+        index: "Übersicht"
         schedule: "Zeitplan"
         speakers: "Referenten"
-        events: "Veranstaltungen"
 
       index:
-        schedule_index: "Programmübersicht"
         day: "Tag %{index} – %{label}"
-        schedule: "Zeitplan – %{label}"
-        speakers: "Referenten"
         events: "Veranstaltungen"
+        schedule: "Zeitplan – %{label}"
+        schedule_index: "Programmübersicht"
+        speakers: "Referenten"
 
       day:
         schedule_for_day: "Zeitplan für Tag %{index} – %{label}"
         schedule: "Zeitplan – %{label}"
 
       speakers:
-        speakers: "Referenten"
-        name: "Name"
         events: "Veranstaltungen"
+        name: "Name"
+        speakers: "Referenten"
 
       events:
         events: "Veranstaltungen"
+        speakers: "Referenten"
         title: "Titel"
         track: "Track"
-        speakers: "Referenten"
 
       event:
-        info: "Info"
         day: "Tag"
-        start_time: "Anfang"
-        language: "Sprache"
         duration: "Dauer"
-        track: "Track"
-        links: "Links"
-        files: "Dateien"
         feedback: "Feedback"
         feedback_link: "Uns interessiert deine Meinung! Wie fandest du diese Veranstaltung?"
-        speakers: "Referenten"
+        files: "Dateien"
+        info: "Info"
+        language: "Sprache"
+        links: "Links"
         no_recording: "Diese Veranstaltung wird nicht aufgezeichnet"
+        room: "Raum"
+        speakers: "Referenten"
+        start_time: "Anfang"
+        track: "Track"
 
       speaker:
-        speaker: "Referent"
         contact: "Kontakt"
         email: "E-Mail"
-        links: "Links"
         events_in_this_conference: "Veranstaltungen auf dieser Konferenz"
+        links: "Links"
+        speaker: "Referent"
 
     feedback:
       new:
