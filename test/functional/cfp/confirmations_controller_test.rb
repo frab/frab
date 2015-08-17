@@ -3,8 +3,8 @@ require 'test_helper'
 class Cfp::ConfirmationsControllerTest < ActionController::TestCase
 
   setup do
-    @call_for_papers = FactoryGirl.create(:call_for_papers)
-    @conference = @call_for_papers.conference
+    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @conference = @call_for_participation.conference
   end
 
   test "displays resend confirmation instructions form" do

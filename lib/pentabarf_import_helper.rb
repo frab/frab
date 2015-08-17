@@ -90,7 +90,7 @@ class PentabarfImportHelper
       end
 
       # create a dummy cfp for this conference
-      cfp = CallForPapers.new
+      cfp = CallForParticipation.new
       cfp.conference = new_conference
       cfp.start_date = fake_days.first.to_datetime.ago(3.month)
       cfp.end_date = fake_days.first.to_datetime.ago(1.month)

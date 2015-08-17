@@ -30,14 +30,14 @@
               - if can? :administrate, Person
                 %li= link_to t("people", :default => "People"), url_for(:action => 'index', :controller => 'people')
               %li= link_to t("events", :default => "Events"), events_path
-              - if can? :manage, CallForPapers
+              - if can? :manage, CallForParticipation
                 %li= link_to t("reports", :default => "Reports"), reports_path
               %li
-                - if @conference.call_for_papers
-                  = link_to t(:call_for_papers, :default => "Call for Papers"), call_for_papers_path
-                - elsif can? :manage, CallForPapers
-                  = link_to t(:launch_call_for_papers, :default => "Launch Call for Papers"), new_call_for_papers_path
-              - if can? :manage, CallForPapers
+                - if @conference.call_for_participation
+                  = link_to t(:call_for_participation, :default => "Call for Participation"), call_for_participation_path
+                - elsif can? :manage, CallForParticipation
+                  = link_to t(:launch_call_for_participation, :default => "Launch Call for Participation"), new_call_for_participation_path
+              - if can? :manage, CallForParticipation
                 %li= link_to t("schedule", :default => "Schedule"), schedule_path
               - if can? :update, @conference
                 %li= link_to t("settings", :default => "Settings"), edit_conference_path(@conference)

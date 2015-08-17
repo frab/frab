@@ -2,7 +2,7 @@ en:
   actions: "Actions"
   add_association: "Add %{name}"
   basic_information: "Basic information"
-  call_for_papers: "Call for Papers"
+  call_for_participation: "Call for Participation"
   create_new_conference: "Create new conference"
   create_your_first_conference: "Create your first conference"
   days: "Days"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815181454) do
+ActiveRecord::Schema.define(version: 20150817065210) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150815181454) do
   add_index "availabilities", ["conference_id"], name: "index_availabilities_on_conference_id"
   add_index "availabilities", ["person_id"], name: "index_availabilities_on_person_id"
 
-  create_table "call_for_papers", force: :cascade do |t|
+  create_table "call_for_participations", force: :cascade do |t|
     t.date     "start_date",                null: false
     t.date     "end_date",                  null: false
     t.date     "hard_deadline"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150815181454) do
     t.string   "contact_email", limit: 255
   end
 
-  add_index "call_for_papers", ["start_date", "end_date"], name: "index_call_for_papers_on_dates"
+  add_index "call_for_participations", ["start_date", "end_date"], name: "index_call_for_papers_on_dates"
 
   create_table "conference_exports", force: :cascade do |t|
     t.string   "locale",               limit: 255

@@ -2,11 +2,11 @@
 #
 #   can :manage, EventRating, person_id: user.person.id
 #
-# This means a user passes every check for EventRating the class, but may 
+# This means a user passes every check for EventRating the class, but may
 # only :manage @event_rating if it belongs to her.
 # see: https://github.com/ryanb/cancan/wiki/Checking-Abilities
 #
-#   "Important: If a block or hash of conditions exist they will be ignored 
+#   "Important: If a block or hash of conditions exist they will be ignored
 #   when checking on a class, and it will return true."
 #
 # As a solution, instead of manage, crud is used for the hash condition.
@@ -64,9 +64,9 @@ class Ability
     end
 
     # when /guest/
-    #   can visit the cfp page 
+    #   can visit the cfp page
     #   can create/confirm an account
-    #   can view the published schedule 
+    #   can view the published schedule
     #   can give feedback on events
   end
 
@@ -74,7 +74,7 @@ class Ability
     crew_role = get_conference_role
     case crew_role
     when /orga/
-      can :manage, CallForPapers
+      can :manage, CallForParticipation
 
       can [:read, :read_nested_conference, :edit_ticket_server, :update], Conference, id: @conference.id
 
@@ -97,7 +97,7 @@ class Ability
     when /coordinator/
       # coordinates speakers and their events
       # everything from reviewer
-      can [:create, :read, :update], CallForPapers
+      can [:create, :read, :update], CallForParticipation
       can [:read, :read_nested_conference], Conference
 
       can :crud, Event, conference_id: @conference.id
@@ -108,7 +108,7 @@ class Ability
       # reviews events prior to conference schedule release
       # everything from submitter
       # edit own event rating
-      can :read, CallForPapers
+      can :read, CallForParticipation
       can [:read, :read_nested_conference], Conference
 
       can :read, Event, conference_id: @conference.id

@@ -9,8 +9,8 @@ class AbilitiesTest < ActiveSupport::TestCase
     # Conference
     @conference = @event.conference
 
-    # CallForPapers
-    @cfp = FactoryGirl.create :call_for_papers, :conference => @conference
+    # CallForParticipation
+    @cfp = FactoryGirl.create :call_for_participation, :conference => @conference
 
     # Person
     @person = FactoryGirl.create :person
@@ -37,7 +37,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     ability = Ability.new @orga_user, @conference
 
     # full access on everything
-    assert ability.can? :manage, CallForPapers
+    assert ability.can? :manage, CallForParticipation
     assert ability.can? :manage, @cfp
     assert ability.cannot? :manage, Conference
     assert ability.can? :read, @conference
@@ -83,13 +83,13 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "coordinator may manage call for papers, but not destroy them" do
     ability = Ability.new @coordinator_user, @conference
-    assert ability.can? :create, CallForPapers
-    assert ability.can? :read, CallForPapers
-    assert ability.can? :update, CallForPapers
+    assert ability.can? :create, CallForParticipation
+    assert ability.can? :read, CallForParticipation
+    assert ability.can? :update, CallForParticipation
     assert ability.can? :create, @cfp
     assert ability.can? :read, @cfp
     assert ability.can? :update, @cfp
-    assert ability.cannot? :destroy, CallForPapers
+    assert ability.cannot? :destroy, CallForParticipation
     assert ability.cannot? :destroy, @cfp
   end
 
@@ -131,9 +131,9 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "reviewer can only read call for papers" do
     ability = Ability.new @reviewer_user, @conference
-    assert ability.can? :read, CallForPapers
+    assert ability.can? :read, CallForParticipation
     assert ability.can? :read, @cfp
-    assert ability.cannot? :manage, CallForPapers
+    assert ability.cannot? :manage, CallForParticipation
     assert ability.cannot? :manage, @cfp
   end
 
@@ -196,9 +196,9 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "submitter has no access to call for papers" do
     ability = Ability.new @submitter_user, @conference
-    assert ability.cannot? :read, CallForPapers
+    assert ability.cannot? :read, CallForParticipation
     assert ability.cannot? :read, @cfp
-    assert ability.cannot? :destroy, CallForPapers
+    assert ability.cannot? :destroy, CallForParticipation
     assert ability.cannot? :destroy, @cfp
   end
 
@@ -259,9 +259,9 @@ class AbilitiesTest < ActiveSupport::TestCase
 
   test "guest has no access to call for papers" do
     ability = Ability.new @guest_user, @conference
-    assert ability.cannot? :read, CallForPapers
+    assert ability.cannot? :read, CallForParticipation
     assert ability.cannot? :read, @cfp
-    assert ability.cannot? :destroy, CallForPapers
+    assert ability.cannot? :destroy, CallForParticipation
     assert ability.cannot? :destroy, @cfp
   end
 

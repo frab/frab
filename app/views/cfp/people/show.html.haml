@@ -31,14 +31,14 @@
         = action_button "success", t("cfp.edit_profile"), edit_cfp_person_path
     .span8
       %h2=t("cfp.information_headline") 
-      - unless @conference.call_for_papers.info_url.blank?
-        %p=t("cfp.info_url_description_html", :link => link_to(@conference.call_for_papers.info_url, @conference.call_for_papers.info_url))
+      - unless @conference.call_for_participation.info_url.blank?
+        %p=t("cfp.info_url_description_html", :link => link_to(@conference.call_for_participation.info_url, @conference.call_for_participation.info_url))
       %p
         =t("cfp.deadline_description") 
-        %b= l(@conference.call_for_papers.end_date)
-      - unless @conference.call_for_papers.contact_email.blank?
+        %b= l(@conference.call_for_participation.end_date)
+      - unless @conference.call_for_participation.contact_email.blank?
         %h2=t("cfp.contact_headline")
-        %p=t("cfp.contact_description_html", :mail_to => mail_to(@conference.call_for_papers.contact_email))
+        %p=t("cfp.contact_description_html", :mail_to => mail_to(@conference.call_for_participation.contact_email))
   .row
     .span16
       - if @person.events_in(@conference).size > 0

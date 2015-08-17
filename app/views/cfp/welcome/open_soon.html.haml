@@ -8,12 +8,12 @@
           %p
             Thank you for your interest in participating in #{@conference.title}.
           %p
-            Unfortunately, the Call for Papers has not yet started. Please bear with us
+            Unfortunately, the Call for Participation has not yet started. Please bear with us
             and leave us a little more time for our preparations.
       %p
-        The Call for Papers will start on
+        The Call for Participation will start on
         = succeed "." do
-          %b= @conference.call_for_papers.start_date
+          %b= @conference.call_for_participation.start_date
         Please return
         at or after this date. We are looking forward to your submission.
   .row

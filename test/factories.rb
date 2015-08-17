@@ -137,7 +137,7 @@ FactoryGirl.define do
     factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events]
   end
 
-  factory :call_for_papers do
+  factory :call_for_participation do
     start_date { Date.today.ago(1.days) }
     end_date { Date.today.since(6.days) }
     conference

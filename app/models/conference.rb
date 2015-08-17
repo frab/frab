@@ -11,7 +11,7 @@ class Conference < ActiveRecord::Base
   has_many :rooms, dependent: :destroy
   has_many :tracks, dependent: :destroy
   has_many :conference_exports, dependent: :destroy
-  has_one :call_for_papers, dependent: :destroy
+  has_one :call_for_participation, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
 
   accepts_nested_attributes_for :rooms, reject_if: proc {|r| r["name"].blank?}, allow_destroy: true

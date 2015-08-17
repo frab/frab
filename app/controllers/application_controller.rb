@@ -103,9 +103,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_cfp_open
-    if @conference.call_for_papers.nil?
+    if @conference.call_for_participation.nil?
       redirect_to cfp_not_existing_path
-    elsif @conference.call_for_papers.start_date > Date.today
+    elsif @conference.call_for_participation.start_date > Date.today
       redirect_to cfp_open_soon_path
     end
   end

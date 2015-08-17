@@ -1,18 +1,18 @@
 %section
   .page-header
     .pull-right
-      - if can? :manage, CallForPapers
-        = action_button "primary", "Edit", edit_call_for_papers_path, :hint => "Edit this call for paper's data."
-    %h1 Call for Papers
-  - if @conference.call_for_papers.welcome_text
+      - if can? :manage, CallForParticipation
+        = action_button "primary", "Edit", edit_call_for_participation_path, :hint => "Edit this call for paper's data."
+    %h1 Call for Participation
+  - if @conference.call_for_participation.welcome_text
     .row
       .span16
         %p
-          = simple_format @conference.call_for_papers.welcome_text
-  - if @conference.call_for_papers.start_date
+          = simple_format @conference.call_for_participation.welcome_text
+  - if @conference.call_for_participation.start_date
     .row
       .span16
-        %p The call for papers starts at #{l(@conference.call_for_papers.start_date)} and ends at #{l(@conference.call_for_papers.end_date)}.
+        %p The call for papers starts at #{l(@conference.call_for_participation.start_date)} and ends at #{l(@conference.call_for_participation.end_date)}.
   .row
     .span16
       %p

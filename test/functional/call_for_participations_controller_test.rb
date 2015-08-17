@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class CallForPapersControllerTest < ActionController::TestCase
+class CallForParticipationsControllerTest < ActionController::TestCase
 
   setup do
-    @call_for_papers = FactoryGirl.create(:call_for_papers)
-    @conference = @call_for_papers.conference
+    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @conference = @call_for_participation.conference
     login_as(:admin)
   end
 
-  def call_for_papers_params
+  def call_for_participation_params
     {
       start_date: Date.today.ago(1.days).strftime('%Y-%m-%d'),
       end_date: Date.today.since(6.days).strftime('%Y-%m-%d')
@@ -28,10 +28,10 @@ class CallForPapersControllerTest < ActionController::TestCase
   test "should create cfp" do
     new_conference = FactoryGirl.create(:conference)
     params = {
-      call_for_papers: call_for_papers_params,
+      call_for_participation: call_for_participation_params,
       conference_acronym: new_conference.acronym
     }
-    assert_difference('CallForPapers.count') do
+    assert_difference('CallForParticipation.count') do
       post :create, params
     end
   end
@@ -43,11 +43,11 @@ class CallForPapersControllerTest < ActionController::TestCase
 
   test "should update cfp" do
     params = {
-      call_for_papers: call_for_papers_params.merge(welcome_text: "welcome"),
+      call_for_participation: call_for_participation_params.merge(welcome_text: "welcome"),
       conference_acronym: @conference.acronym
     }
     put :update, params
-    assert_redirected_to call_for_papers_path(conference_acronym: @conference.acronym)
+    assert_redirected_to call_for_participation_path(conference_acronym: @conference.acronym)
   end
 
 end

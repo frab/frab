@@ -20,7 +20,7 @@ class ImportExportHelper
     ActiveRecord::Base.transaction do
       dump "conference", @conference
       dump "conference_tracks", @conference.tracks
-      dump "conference_cfp", @conference.call_for_papers
+      dump "conference_cfp", @conference.call_for_participation
       dump "conference_ticket_server", @conference.ticket_server
       dump "conference_rooms", @conference.rooms
       dump "conference_days", @conference.days
@@ -119,7 +119,7 @@ class ImportExportHelper
         }.each { |var|
           obj.send("#{var}=",yaml[var])
         }
-        obj.call_for_papers_id = @mappings[:cfp][obj.call_for_papers_id]
+        obj.call_for_participation_id = @mappings[:cfp][obj.call_for_participation_id]
         obj.confirmed_at ||= Time.now
         obj.person = @mappings[:people_user][id]
         unless obj.valid?
@@ -161,7 +161,7 @@ class ImportExportHelper
       @mappings[:tracks][id] = obj.id
     end
 
-    restore("conference_cfp", CallForPapers) do |id, obj|
+    restore("conference_cfp", CallForParticipation) do |id, obj|
       obj.conference_id =  @conference_id
       obj.save!
       @mappings[:cfp][id] = obj.id
