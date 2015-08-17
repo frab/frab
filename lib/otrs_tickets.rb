@@ -3,7 +3,7 @@ module OtrsTickets
   #  Rails Views
   #
   module Helper
-    def Helper.get_ticket_view_url( conference, remote_id=0 )
+    def self.get_ticket_view_url(conference, remote_id = 0)
       return if conference.ticket_server.nil?
       return unless remote_id.is_a? Fixnum
       uri = URI.parse(conference.ticket_server.url)
@@ -27,7 +27,7 @@ module OtrsTickets
     end
     attr_accessor :test_only
 
-    def get_ticket_json_uri
+    def ticket_json_uri
       uri = URI(@conference.ticket_server.url)
       uri.path += 'json.pl'
       uri
@@ -35,7 +35,7 @@ module OtrsTickets
 
     def connect(object, method, data)
       # see https://github.com/cpuguy83/rails_otrs
-      uri = get_ticket_json_uri
+      uri = ticket_json_uri
 
       # credentials
       user = URI.encode @conference.ticket_server.user
@@ -52,12 +52,12 @@ module OtrsTickets
 
       if $DEBUG
         @logger.info "[ === ] #{object}::#{method}"
-        @logger.info uri.to_s 
+        @logger.info uri.to_s
       end
 
       if @test_only
         @logger.info uri.request_uri
-        return Array.new
+        return []
       end
 
       # https connection
@@ -69,28 +69,27 @@ module OtrsTickets
 
       unless response.is_a?(Net::HTTPSuccess)
         @logger.info response
-        raise "OTRS Connection Error: #{response.code} #{response.message}"
+        fail "OTRS Connection Error: #{response.code} #{response.message}"
       end
 
-      result = ActiveSupport::JSON::decode(response.body.gsub(/"/, '"'))
+      result = ActiveSupport::JSON.decode(response.body.tr("\"", "\""))
       if result["Result"] == 'successful'
-          result["Data"]
+        result["Data"]
       else
         @logger.info response.to_json
-        raise "OTRS Error:#{result["Result"]} #{result["Data"]} #{result["Message"]}"
+        fail "OTRS Error:#{result['Result']} #{result['Data']} #{result['Message']}"
       end
     end
-
   end
 
-  def OtrsTickets.create_ticket_title( prefix, event )
+  def self.create_ticket_title(prefix, event)
     "#{prefix} '#{event.title.truncate(30)}'"
   end
 
-  def OtrsTickets.create_ticket_requestors( people )
+  def self.create_ticket_requestors(people)
     people.collect { |p|
       name = "#{p.first_name} #{p.last_name}"
-      name.gsub!(/,/, '')
+      name.delete!(',')
       { name: name, email: p.email }
     }
   end
@@ -98,17 +97,17 @@ module OtrsTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def OtrsTickets.create_remote_ticket( args = {} )
+  def self.create_remote_ticket(args = {})
     args.reverse_update(body: '', test_only: false)
     @conference = args[:conference]
 
-    otrs = OtrsAdapter.new( @conference, Rails.logger )
+    otrs = OtrsAdapter.new(@conference, Rails.logger)
     otrs.test_only = args[:test_only]
 
     # FIXME iphonehandle no longer whitelists UserObject in Kernel/Config/Files/iPhone.xml
     # data = otrs.connect( 'UserObject', 'GetUserData', { User: @conference.ticket_server.user })
     # user_data = Hash[*data]
-    data = otrs.connect( 'CustomObject', 'VersionGet', { UserID: 1 })
+    data = otrs.connect('CustomObject', 'VersionGet', UserID: 1)
 
     # data = otrs.connect( 'UserObject', 'GetUserData', { UserEmail: args[:owner_email] })
     # owner_data = Hash[*data]
@@ -118,32 +117,27 @@ module OtrsTickets
       from = args[:requestors].collect { |r| "#{r[:name]} <#{r[:email]}>" }.join(', ')
     end
 
-    remote_ticket_id = otrs.connect( 'TicketObject', 'TicketCreate', {
-        Title: args[:title],
-        Queue: @conference.ticket_server.queue,
-        Lock: 'unlock',
-        Priority: '3 normal',
-        State: 'new',
-        CustomerUser: from,
-        UserID: 1,
-        OwnerID: 1,
-    }).first
+    remote_ticket_id = otrs.connect('TicketObject', 'TicketCreate',         Title: args[:title],
+                                                                            Queue: @conference.ticket_server.queue,
+                                                                            Lock: 'unlock',
+                                                                            Priority: '3 normal',
+                                                                            State: 'new',
+                                                                            CustomerUser: from,
+                                                                            UserID: 1,
+                                                                            OwnerID: 1).first
 
-    remote_article_id = otrs.connect( 'TicketObject', 'ArticleCreate', {
-      TicketID: remote_ticket_id,
-      ArticleType: 'webrequest',
-      SenderType: 'customer',
-      HistoryType: "WebRequestCustomer",
-      HistoryComment: "created from frab",
-      From: from,
-      Subject: args[:title],
-      ContentType: 'text/plain; charset=ISO-8859-1',
-      Body: args[:body],
-      UserID: 1,
-      Loop: 0,
-    }).first
+    remote_article_id = otrs.connect('TicketObject', 'ArticleCreate',       TicketID: remote_ticket_id,
+                                                                            ArticleType: 'webrequest',
+                                                                            SenderType: 'customer',
+                                                                            HistoryType: "WebRequestCustomer",
+                                                                            HistoryComment: "created from frab",
+                                                                            From: from,
+                                                                            Subject: args[:title],
+                                                                            ContentType: 'text/plain; charset=ISO-8859-1',
+                                                                            Body: args[:body],
+                                                                            UserID: 1,
+                                                                            Loop: 0).first
 
     remote_ticket_id
   end
-
 end

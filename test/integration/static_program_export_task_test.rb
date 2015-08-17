@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class StaticProgramExportTask < ActionDispatch::IntegrationTest
-
   setup do
     @conference = create(:three_day_conference_with_events)
     @target_dir = File.join(Rails.root, 'tmp', 'static_export')

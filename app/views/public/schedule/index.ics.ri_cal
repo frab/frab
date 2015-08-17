@@ -12,7 +12,7 @@
     if @conference.program_export_base_url.blank?
       e.url = public_event_url(:id => event.id)
     else
-      e.url = event.static_url 
+      e.url = event.static_url
     end
   end
 end

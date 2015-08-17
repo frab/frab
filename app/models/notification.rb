@@ -8,20 +8,20 @@ class Notification < ActiveRecord::Base
   validates :accept_subject, presence: true
   validate :uniq_locale
   # TODO
-  #validate :locale_is_valid
+  # validate :locale_is_valid
 
   scope :with_locale, ->(code) { where(self.arel_table[:locale].eq(code)) }
 
   VARIABLES = {
-      'conference'  => 'Conference name',
-      'public_name' => 'Speaker public name',
-      'forename'    => 'Speaker forename',
-      'surname'     => 'Speaker surname',
-      'event'       => 'Event title',
-      'link'        => 'Confirmation link',
+    'conference'  => 'Conference name',
+    'public_name' => 'Speaker public name',
+    'forename'    => 'Speaker forename',
+    'surname'     => 'Speaker surname',
+    'event'       => 'Event title',
+    'link'        => 'Confirmation link'
   }
 
-  def set_default_text(locale=self.locale)
+  def default_text=(locale = self.locale)
     return if locale.nil?
     I18n.locale = locale
 
@@ -56,5 +56,4 @@ BODY
       end
     }
   end
-
 end

@@ -1,5 +1,4 @@
 class CallForParticipation < ActiveRecord::Base
-
   belongs_to :conference
 
   validates_presence_of :start_date, :end_date
@@ -9,5 +8,4 @@ class CallForParticipation < ActiveRecord::Base
   def to_s
     "Call for Participation: #{self.conference.title}"
   end
-
 end

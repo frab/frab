@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def accessible_conferences
     conferences = []
     if current_user.is_crew?
@@ -67,7 +66,7 @@ module ApplicationHelper
   end
 
   def translated_options(collection)
-    result = Array.new
+    result = []
     collection.each do |element|
       result << [t("options.#{element}"), element]
     end
@@ -75,14 +74,14 @@ module ApplicationHelper
   end
 
   def available_conference_locales
-    conference_locales = @conference.language_codes.map {|c| c.to_sym}
+    conference_locales = @conference.language_codes.map(&:to_sym)
     I18n.available_locales & conference_locales
   end
 
   def by_speakers(event)
-    speakers = event.speakers.map{ |p| link_to p.try(:full_public_name), p}
-    if (not speakers.empty?)
-      "by #{speakers.join(", ")}".html_safe
+    speakers = event.speakers.map { |p| link_to p.try(:full_public_name), p }
+    if not speakers.empty?
+      "by #{speakers.join(', ')}".html_safe
     else
       ""
     end

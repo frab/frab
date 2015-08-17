@@ -1,5 +1,4 @@
 class EventFeedback < ActiveRecord::Base
-
   belongs_to :event, counter_cache: true
 
   after_save :update_average
@@ -11,5 +10,4 @@ class EventFeedback < ActiveRecord::Base
   def update_average
     self.event.recalculate_average_feedback!
   end
-
 end

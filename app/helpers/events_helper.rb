@@ -1,5 +1,4 @@
 module EventsHelper
-
   def fix_http_proto(url)
     if url.start_with?('https') or url.start_with?('http') or url.start_with?('ftp')
       url
@@ -14,8 +13,8 @@ module EventsHelper
   end
 
   def timeslots
-    slots = Array.new
-    (@conference.max_timeslots+1).times do |i|
+    slots = []
+    (@conference.max_timeslots + 1).times do |i|
       slots << [format_time_slots(i), i]
     end
     slots
@@ -25,5 +24,4 @@ module EventsHelper
     duration_in_minutes = number_of_time_slots * @conference.timeslot_duration
     duration_to_time(duration_in_minutes)
   end
-
 end

@@ -8,7 +8,7 @@ class UsersControllerTest < ActionController::TestCase
     login_as(:admin)
   end
 
-  def user_params(user_type=:user)
+  def user_params(user_type = :user)
     user_params = FactoryGirl.attributes_for(user_type).merge(password: "frab123", password_confirmation: "frab123")
     user_params.delete(:confirmed_at)
     user_params.delete(:sign_in_count)
@@ -68,5 +68,4 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert_redirected_to person_user_path(@user.person)
   end
-
 end

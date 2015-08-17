@@ -38,9 +38,7 @@ class Ability
 
     setup_user_abilities
 
-    if user.is_crew?
-      setup_crew_user_abilities
-    end
+    setup_crew_user_abilities if user.is_crew?
   end
 
   protected
@@ -126,11 +124,9 @@ class Ability
       @conference = @user.conference_users.last.conference
     end
     unless @conference.nil?
-      #raise "this user is missing a conference user" if @conference.nil?
-      cu = ConferenceUser.where(user_id: @user, conference_id: @conference).first
+      cu = ConferenceUser.find_by(user_id: @user, conference_id: @conference)
       return cu.role unless cu.nil?
     end
-    return
+    nil
   end
-
 end

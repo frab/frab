@@ -1,0 +1,57 @@
+# old ruby style syntax may still be needed
+Style/HashSyntax:
+  Enabled: false
+
+# never break line due to length, except in data
+# vim: set wrap
+Metrics/LineLength:
+  Max: 1024
+
+# use and/or for flow control, but not in boolean assignments
+# http://devblog.avdi.org/2010/08/02/using-and-and-or-in-ruby/
+Style/AndOr:
+  Enabled: false
+
+# use not with .select and flow control
+Style/Not:
+  Enabled: false
+
+# use self for clarity (args?)
+Style/RedundantSelf:
+  Enabled: false
+
+# Good cop, but to spammy
+Style/StringLiterals:
+  Enabled: false
+
+# use { only for single line blocks, but allow block content on its own line to keep line length short
+# each { |l|
+#   l.apply_long_method_name
+# }
+Style/BlockDelimiters:
+  Enabled: false
+
+# Do not use lambda
+Style/Lambda:
+  Enabled: false
+
+# allow TODO instead of requiring TODO:
+Style/CommentAnnotation:
+  Enabled: false
+
+# Can't decide on alignment, vim prefers fixed indent
+Style/AlignParameters:
+  Enabled: false
+  EnforcedStyle: with_fixed_indentation
+
+# Do not write 1234 as 1_234 
+Style/NumericLiterals:
+  Enabled: false
+
+# Relax for controllers with multiple formats
+Metrics/AbcSize:
+  Max: 40
+
+# to spammy
+Style/Documentation:
+  Enabled: false

@@ -1,7 +1,6 @@
 class CallForParticipationsController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
+  before_action :authenticate_user!
+  before_action :not_submitter!
   load_and_authorize_resource
 
   def show

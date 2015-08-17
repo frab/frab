@@ -3,17 +3,15 @@ class ConferenceScrubber
 
   DUMMY_MAIL = "root@localhost.localdomain"
 
-  def initialize(conference,dry_run=false)
+  def initialize(conference, dry_run = false)
     @conference = conference
     @dry_run = dry_run
-    @current_conferences = get_last_years_conferences
+    @current_conferences = last_years_conferences
     PaperTrail.enabled = false
   end
 
   def scrub!
-    if @dry_run
-      log "dry run, won't change anything!"
-    end
+    log "dry run, won't change anything!" if @dry_run
     ActiveRecord::Base.transaction do
       scrub_people
       scrub_event_ratings
@@ -31,7 +29,7 @@ class ConferenceScrubber
     }
   end
 
-  def get_last_years_conferences
+  def last_years_conferences
     Conference.all.select { |c| c.first_day.date.since(1.year) > Time.now }
   end
 
@@ -39,7 +37,7 @@ class ConferenceScrubber
     @current_conferences.each { |c|
       return true if person.involved_in?(c)
     }
-    return false
+    false
   end
 
   def scrub_person(person)
@@ -70,5 +68,4 @@ class ConferenceScrubber
     EventRating.skip_callback(:save, :after, :update_average)
     EventRating.joins(:event).where(Event.arel_table[:conference_id].eq(@conference.id)).destroy_all
   end
-
 end

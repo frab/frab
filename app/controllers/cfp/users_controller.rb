@@ -1,8 +1,7 @@
 class Cfp::UsersController < ApplicationController
-
   layout 'signup'
 
-  before_filter :authenticate_user!, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -40,5 +39,4 @@ class Cfp::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
-
 end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Public::ScheduleControllerTest < ActionController::TestCase
-
   setup do
     @conference = FactoryGirl.create(:three_day_conference_with_events)
   end
@@ -60,5 +59,4 @@ class Public::ScheduleControllerTest < ActionController::TestCase
     get :speakers, id: 1, conference_acronym: @conference.acronym
     assert_response :success
   end
-
 end

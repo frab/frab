@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class AbilitiesTest < ActiveSupport::TestCase
-
   setup do
     # Event
     @event = FactoryGirl.create :event

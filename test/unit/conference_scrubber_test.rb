@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ConferenceScrubberTest < ActiveSupport::TestCase
-
   TEXT = "text message"
   DUMMY_MAIL = "root@localhost.localdomain"
 
@@ -28,7 +27,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     add_day(c_new, 1.days)
 
     @scrubber = ConferenceScrubber.new(@conference)
-    last_years = @scrubber.send(:get_last_years_conferences)
+    last_years = @scrubber.send(:last_years_conferences)
     assert_equal 1, last_years.count
   end
 
@@ -66,7 +65,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
   end
 
   test "should recognize person not active in any conference" do
-    person =  FactoryGirl.create(:person)
+    person = FactoryGirl.create(:person)
     assert !person.active_in_any_conference?
   end
 
@@ -96,5 +95,4 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     event.reload
     assert event.event_ratings.blank?
   end
-
 end

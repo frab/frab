@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Cfp::ConfirmationsControllerTest < ActionController::TestCase
-
   setup do
     @call_for_participation = FactoryGirl.create(:call_for_participation)
     @conference = @call_for_participation.conference
@@ -15,7 +14,7 @@ class Cfp::ConfirmationsControllerTest < ActionController::TestCase
   test "resends confirmation instructions" do
     user = FactoryGirl.create(:user, confirmed_at: nil)
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      post :create, conference_acronym: @conference.acronym, user: {email: user.email}
+      post :create, conference_acronym: @conference.acronym, user: { email: user.email }
     end
     assert_response :redirect
   end
@@ -29,5 +28,4 @@ class Cfp::ConfirmationsControllerTest < ActionController::TestCase
     assert_not_nil user.confirmed_at
     assert_nil user.confirmation_token
   end
-
 end

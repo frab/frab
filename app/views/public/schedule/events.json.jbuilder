@@ -29,4 +29,3 @@ json.conference_events do
     end
   end
 end
-

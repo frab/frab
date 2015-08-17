@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-
   setup do
     ActionMailer::Base.deliveries = []
     @notification = FactoryGirl.create(:notification)
@@ -9,7 +8,6 @@ class EventTest < ActiveSupport::TestCase
     @speaker = FactoryGirl.create(:person)
     FactoryGirl.create(:event_person, event: @event, person: @speaker, event_role: "speaker")
     @coordinator = FactoryGirl.create(:person)
-
   end
 
   test "acceptance processing sends email if asked to" do
@@ -61,5 +59,4 @@ class EventTest < ActiveSupport::TestCase
     other_event.start_time = @event.start_time.ago(1.hour)
     assert !@event.overlap?(other_event)
   end
-
 end

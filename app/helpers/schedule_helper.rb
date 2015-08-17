@@ -1,5 +1,4 @@
 module ScheduleHelper
-
   def day_active?(index)
     "active" if params[:day].to_i == index
   end
@@ -21,7 +20,7 @@ module ScheduleHelper
     [x, y]
   end
 
-  def each_minutes(minutes, &block)
+  def each_minutes(minutes)
     time = @day.start_date
     while time < @day.end_date
       yield time
@@ -36,5 +35,4 @@ module ScheduleHelper
   def timeslots_between(start_date, end_date)
     ((end_date - start_date) / 60 / @conference.timeslot_duration).to_i + 1
   end
-
 end

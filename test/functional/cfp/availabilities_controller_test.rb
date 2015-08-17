@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Cfp::AvailabilitiesControllerTest < ActionController::TestCase
-
   setup do
     @call_for_participation = FactoryGirl.create(:call_for_participation)
     @conference = @call_for_participation.conference
@@ -12,5 +11,4 @@ class Cfp::AvailabilitiesControllerTest < ActionController::TestCase
     get :new, conference_acronym: @conference.acronym
     assert_response :success
   end
-
 end

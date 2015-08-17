@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   include UniqueToken
 
-  ROLES = %w{submitter crew admin}
-  USER_ROLES = %w{submitter crew}
+  ROLES = %w(submitter crew admin)
+  USER_ROLES = %w(submitter crew)
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   has_many :conference_users, dependent: :destroy
@@ -51,9 +51,9 @@ class User < ActiveRecord::Base
   def self.check_pentabarf_credentials(email, password)
     user = User.find_by_email(email)
     return unless user and user.pentabarf_password and user.pentabarf_salt
-    salt = [user.pentabarf_salt.to_i( 16 )].pack("Q").reverse
+    salt = [user.pentabarf_salt.to_i(16)].pack("Q").reverse
 
-    if Digest::MD5.hexdigest( salt + password ) == user.pentabarf_password
+    if Digest::MD5.hexdigest(salt + password) == user.pentabarf_password
       user.password = password
       user.password_confirmation = password
       user.pentabarf_password = nil
@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     user
   end
 
-  def send_confirmation_instructions(conference=nil)
+  def send_confirmation_instructions(conference = nil)
     return false if confirmed_at
     generate_confirmation_token! unless self.confirmation_token
     UserMailer.confirmation_instructions(self, conference).deliver_now
@@ -110,18 +110,15 @@ class User < ActiveRecord::Base
   private
 
   def conference_user_valid
-    #empty = self.conference_users.select { |cu| cu.conference.nil? and cu.role.nil? }
-    #self.conference_users.delete empty
-    if self.conference_users.select { |cu| cu.conference.nil? || cu.role.nil? }.count > 0
-       self.errors.add(:role, "Invalid conference user specified")
-    end
+    return unless self.conference_users.count { |cu| cu.conference.nil? || cu.role.nil? } > 0
+    self.errors.add(:role, "Invalid conference user specified")
   end
 
   def only_one_role_per_conference
     seen = {}
     self.conference_users.each { |cu|
       next if cu.conference.nil?
-      if seen.has_key? cu.conference.id
+      if seen.key? cu.conference.id
         self.errors.add(:role, "User cannot have multiple roles in one conference")
         return
       end
@@ -142,5 +139,4 @@ class User < ActiveRecord::Base
     generate_token_for(:reset_password_token)
     save
   end
-
 end

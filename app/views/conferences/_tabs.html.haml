@@ -9,7 +9,7 @@
     = link_to t(:rooms), edit_rooms_conference_path
   - conference_tab(:schedule, active) do
     = link_to t(:schedule), edit_schedule_conference_path
-  - if @conference.is_ticket_server_enabled?
+  - if @conference.ticket_server_enabled?
     - conference_tab(:ticket_server, active) do
       = link_to t(:ticket_server), edit_ticket_server_conference_path
   - if @conference.ticket_type == 'integrated'

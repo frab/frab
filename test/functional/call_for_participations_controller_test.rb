@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class CallForParticipationsControllerTest < ActionController::TestCase
-
   setup do
     @call_for_participation = FactoryGirl.create(:call_for_participation)
     @conference = @call_for_participation.conference
@@ -49,5 +48,4 @@ class CallForParticipationsControllerTest < ActionController::TestCase
     put :update, params
     assert_redirected_to call_for_participation_path(conference_acronym: @conference.acronym)
   end
-
 end

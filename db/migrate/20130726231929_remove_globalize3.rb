@@ -23,14 +23,14 @@ class RemoveGlobalize3 < ActiveRecord::Migration
     migrated = {}
     sql = "select notification_id,locale,accept_subject,reject_subject,accept_body,reject_body from notification_translations;"
     records = ActiveRecord::Base.connection.execute(sql)
-    records.each { |e| 
+    records.each { |e|
       n = Notification.find(e[0].to_i)
       migrated[n.id] = 1
 
       new = Notification.new
       new.call_for_papers_id = n.call_for_papers_id
-      new.locale = e[1] 
-      new.accept_subject = e[2] 
+      new.locale = e[1]
+      new.accept_subject = e[2]
       new.reject_subject = e[3]
       new.accept_body = e[4]
       new.reject_body = e[5]

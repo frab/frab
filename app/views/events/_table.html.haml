@@ -4,7 +4,7 @@
       %th.first
       - if @search
         %th= sort_link @search, :title, 'Title', :term => params[:term]
-        - if @conference.is_ticket_server_enabled? 
+        - if @conference.ticket_server_enabled?
           %th= sort_link @search, :ticket_id, 'Ticket', :term => params[:term]
         %th= sort_link @search, :track_name, 'Track', :term => params[:term]
         %th= sort_link @search, :event_type, 'Type', :term => params[:term]
@@ -13,7 +13,7 @@
         %th= sort_link @search, :created_at, :term => params[:term]
       - else
         %th Title
-        - if @conference.is_ticket_server_enabled? 
+        - if @conference.ticket_server_enabled?
           %th Ticket
         %th Track
         %th Event type
@@ -25,13 +25,13 @@
     - collection.each do |event|
       %tr
         %td= link_to (image_box event.logo, :small), event
-        %td 
+        %td
           = link_to event.title, event
           %p.small
             = by_speakers(event)
-        - if @conference.is_ticket_server_enabled? 
+        - if @conference.ticket_server_enabled?
           %td
-            - if event.has_remote_ticket?
+            - if event.remote_ticket?
               -if @conference.ticket_server.nil?
                 = event.ticket.remote_ticket_id
               -else

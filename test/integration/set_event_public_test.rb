@@ -39,5 +39,4 @@ class SetEventPublicTest < ActionDispatch::IntegrationTest
       assert_select 'input[checked]', false
     end
   end
-
 end

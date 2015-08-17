@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      - if can? :crud, @event 
+      - if can? :crud, @event
         = action_button "primary", "Edit event", edit_event_path(@event), :hint => "Edit this event's data."
         = action_button "primary", "Edit people", edit_people_event_path(@event), :hint => "Edit this event's data."
         - if @conference.ticket_type == 'integrated' and @conference.call_for_participation.present?
@@ -17,13 +17,13 @@
           = action_button "", "Confirm event", update_state_event_path(@event, :transition => :confirm), :method => :put, :hint => "Confirm that the speaker(s) will be present and that the event will actually take place."
         - if @event.transition_possible? :cancel
           = action_button "danger", "Cancel event", update_state_event_path(@event, :transition => :cancel), :method => :put, :hint => "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
-        - if @conference.is_ticket_server_enabled? 
-          - unless @event.has_remote_ticket?
+        - if @conference.ticket_server_enabled?
+          - unless @event.remote_ticket?
             = action_button "primary", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
     %h1 Event
     %h2 #{@event.title}
   %ul.tabs
-    %li.active= link_to "Event Details", @event 
+    %li.active= link_to "Event Details", @event
     %li= link_to "People", people_event_path(@event)
     %li= link_to "Ratings", event_event_rating_path(@event)
     %li= link_to "Feedback", event_event_feedbacks_path(@event)
@@ -111,7 +111,7 @@
     .span16
       %h2 Notes
   .row
-    - if can? :crud, @event 
+    - if can? :crud, @event
       .span8
         %p
           %b Notes(admin):

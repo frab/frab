@@ -25,5 +25,4 @@ class ActiveSupport::TestCase
   def sign_in(user)
     post "/session", user: { email: user.email, password: user.password }
   end
-
 end

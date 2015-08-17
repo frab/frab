@@ -22,7 +22,7 @@
         %td= l(conference.created_at.to_date)
         %td= conference.email
         %td.buttons
-          = action_button "small", 'Show', conference_home_path(:conference_acronym => conference.acronym)      
+          = action_button "small", 'Show', conference_home_path(:conference_acronym => conference.acronym)
           - if can? :update, conference
             = action_button "small", 'Edit', edit_conference_path(:conference_acronym => conference.acronym)
           - if can? :destroy, conference

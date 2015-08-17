@@ -11,7 +11,7 @@
     - collection.each do |event|
       %tr
         %td= link_to (image_box event.logo, :small), event
-        %td 
+        %td
           = link_to event.title, event
           %p.small
             = by_speakers(event)

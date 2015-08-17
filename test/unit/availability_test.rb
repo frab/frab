@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class AvailabilityTest < ActiveSupport::TestCase
-
   setup do
     @conference = FactoryGirl.create(:three_day_conference)
   end
@@ -42,5 +41,4 @@ class AvailabilityTest < ActiveSupport::TestCase
     time = Time.parse("00:00:00").ago(7.hours)
     assert !availability.within_range?(time)
   end
-
 end

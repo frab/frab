@@ -1,8 +1,7 @@
 class Cfp::AvailabilitiesController < ApplicationController
-
   layout 'cfp'
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def new
     authorize! :create, current_user.person
@@ -16,7 +15,7 @@ class Cfp::AvailabilitiesController < ApplicationController
 
   def update
     authorize! :update, current_user.person
-    if params.has_key? :person
+    if params.key? :person
       current_user.person.update_attributes_from_slider_form(person_params)
     end
     redirect_to cfp_root_path, notice: t("cfp.update_availability_notice")
@@ -27,5 +26,4 @@ class Cfp::AvailabilitiesController < ApplicationController
   def person_params
     params.require(:person).permit(:first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar, :abstract, :description, :include_in_mailings, availabilities_attributes: %i(id start_date end_date conference_id day_id))
   end
-
 end

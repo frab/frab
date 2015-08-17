@@ -3,7 +3,7 @@ module RTTickets
   # Rails Views
   #
   module Helper
-    def Helper.get_ticket_view_url( conference, remote_id='0' )
+    def self.get_ticket_view_url(conference, remote_id = '0')
       return if conference.ticket_server.nil?
       uri = URI.parse(conference.ticket_server.url)
       uri.path += 'Ticket/Display.html'
@@ -39,9 +39,9 @@ module RTTickets
       end
 
       request = Net::HTTP::Post.new(@uri.path)
-      request.set_form_data( { 'user' => @user, 'pass' => @password, 'content' => data })
+      request.set_form_data('user' => @user, 'pass' => @password, 'content' => data)
       http = get_http(@uri)
-      response = http.request(request) 
+      response = http.request(request)
 
       case response
       when Net::HTTPSuccess
@@ -49,11 +49,11 @@ module RTTickets
           return m[1]
         else
           @logger.info response.to_json
-          raise "RT Error: #{response.body}"
+          fail "RT Error: #{response.body}"
         end
       else
         @logger.info response.to_json
-        raise "RT HTTP Error: #{response.error!}"
+        fail "RT HTTP Error: #{response.error!}"
       end
     end
 
@@ -67,17 +67,16 @@ module RTTickets
       end
       http
     end
-
   end
 
-  def RTTickets.create_ticket_title( prefix, event )
+  def self.create_ticket_title(prefix, event)
     "#{prefix} '#{event.title.truncate(30)}'"
   end
 
-  def RTTickets.create_ticket_requestors( people )
+  def self.create_ticket_requestors(people)
     people.collect { |p|
       name = "#{p.first_name} #{p.last_name}"
-      name.gsub!(/,/, '')
+      name.delete!(',')
       { name: name, email: p.email }
     }
   end
@@ -85,11 +84,11 @@ module RTTickets
   #
   # connect to a remote ticket system and return remote_id
   #
-  def RTTickets.create_remote_ticket( args = {} )
+  def self.create_remote_ticket(args = {})
     args.reverse_update(body: '', test_only: false)
     @conference = args[:conference]
 
-    ticket_system = RTAdapter.new( @conference, Rails.logger )
+    ticket_system = RTAdapter.new(@conference, Rails.logger)
     ticket_system.test_only = args[:test_only]
 
     data = <<-EOF
@@ -99,13 +98,11 @@ Subject:  #{args[:title]}
 Requestor: #{args[:owner_email]}
     EOF
 
-    args[:requestors].each { |r| 
+    args[:requestors].each { |r|
       data << "Requestor: #{r[:name]} <#{r[:email]}>"
     }
 
-    remote_ticket_id = ticket_system.create( data ) 
+    remote_ticket_id = ticket_system.create(data)
     remote_ticket_id
   end
-
 end
-

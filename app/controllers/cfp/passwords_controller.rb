@@ -1,5 +1,4 @@
 class Cfp::PasswordsController < ApplicationController
-
   layout "signup"
 
   def new
@@ -40,5 +39,4 @@ class Cfp::PasswordsController < ApplicationController
       render action: "edit"
     end
   end
-
 end

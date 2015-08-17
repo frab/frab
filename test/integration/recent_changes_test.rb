@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class RecentChangesTest < ActionDispatch::IntegrationTest
-
   setup do
     @conference = create(:conference)
     @user = create(:user, person: create(:person), role: "admin")
@@ -27,7 +26,7 @@ class RecentChangesTest < ActionDispatch::IntegrationTest
 
   test "home page still displays after initiator of change has been deleted" do
     sign_in(@tmp_user)
-    post "/session", user: {email: @tmp_user.email, password: "frab23"}
+    post "/session", user: { email: @tmp_user.email, password: "frab23" }
     PaperTrail.enabled = true
     event = create(:event, conference: @conference)
     create(:event_person, event: event)

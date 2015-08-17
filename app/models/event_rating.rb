@@ -1,5 +1,4 @@
 class EventRating < ActiveRecord::Base
-
   belongs_to :event, counter_cache: true
   belongs_to :person
 
@@ -15,5 +14,4 @@ class EventRating < ActiveRecord::Base
   def update_average
     self.event.recalculate_average_rating!
   end
-
 end

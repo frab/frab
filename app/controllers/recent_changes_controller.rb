@@ -1,7 +1,6 @@
 class RecentChangesController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
+  before_action :authenticate_user!
+  before_action :not_submitter!
 
   def index
     authorize! :manage, CallForParticipation
@@ -12,7 +11,7 @@ class RecentChangesController < ApplicationController
     )
     respond_to do |format|
       format.html
-      format.xml  { render xml: @all_versions }
+      format.xml { render xml: @all_versions }
     end
   end
 
@@ -20,5 +19,4 @@ class RecentChangesController < ApplicationController
     authorize! :manage, CallForParticipation
     @version = PaperTrail::Version.where(conference_id: @conference.id, id: params[:id]).first
   end
-
 end

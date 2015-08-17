@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
-
   setup do
     @first_conference = FactoryGirl.create(:conference)
     @conference = FactoryGirl.create(:conference)
@@ -22,13 +21,13 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "submitter gets redirected to cfp area from session after login" do
-    session[:conference_acronym] =  @first_conference.acronym
+    session[:conference_acronym] = @first_conference.acronym
     post :create, user: user_param(@submitter)
     assert_redirected_to cfp_person_path(conference_acronym: @first_conference.acronym)
   end
 
   test "nonexistant user cannot login" do
-    post :create, conference_acronym: @conference.acronym, user: {email: "not@exista.nt", password: "frab123"}
+    post :create, conference_acronym: @conference.acronym, user: { email: "not@exista.nt", password: "frab123" }
     assert_nil assigns(:current_user)
     assert_response :success
   end
@@ -54,13 +53,13 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "orga login works with conference acronym from session" do
-    session[:conference_acronym] =  @conference.acronym
+    session[:conference_acronym] = @conference.acronym
     post :create, user: user_param(@orga)
     assert_redirected_to root_path, conference_acronym: @conference.acronym
   end
 
   test "conference parameter takes precedence on team login" do
-    session[:conference_acronym] =  @first_conference.acronym
+    session[:conference_acronym] = @first_conference.acronym
     post :create, conference_acronym: @conference.acronym, user: user_param(@orga)
     assert_redirected_to root_path, conference_acronym: @conference.acronym
   end
@@ -71,7 +70,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "login page works if no conferences are known" do
-    Conference.all.each { |c| c.destroy }
+    Conference.all.each(&:destroy)
     get :new
     assert_response :success
   end
@@ -84,7 +83,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   private
 
-  def user_param(user, password="frab123")
+  def user_param(user, password = "frab123")
     { email: user.email, password: password }
   end
 end

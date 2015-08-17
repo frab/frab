@@ -4,7 +4,7 @@ class Day < ActiveRecord::Base
   belongs_to :conference
   has_many :availabilities
 
-  has_paper_trail meta: {associated_id: :conference_id, associated_type: "Conference"}
+  has_paper_trail meta: { associated_id: :conference_id, associated_type: "Conference" }
 
   default_scope { order(start_date: :asc) }
 
@@ -58,5 +58,4 @@ class Day < ActiveRecord::Base
   def to_s
     "Day: #{self.label}"
   end
-
 end

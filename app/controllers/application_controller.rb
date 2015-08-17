@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :set_locale
+  before_action :set_locale
   prepend_before_filter :load_conference
 
   helper_method :current_user
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    if %w{en de}.include?( params[:locale] )
+    if %w(en de).include?(params[:locale])
       I18n.locale = params[:locale]
     else
       I18n.locale = 'en'
@@ -39,29 +39,25 @@ class ApplicationController < ActionController::Base
   def load_conference
     if params[:conference_acronym]
       @conference = Conference.find_by_acronym(params[:conference_acronym])
-      raise ActionController::RoutingError.new("Not found") unless @conference
-    elsif session.has_key?(:conference_acronym)
+      fail ActionController::RoutingError.new("Not found") unless @conference
+    elsif session.key?(:conference_acronym)
       @conference = Conference.find_by_acronym(session[:conference_acronym])
     elsif Conference.count > 0
       @conference = Conference.current
     end
 
-    unless @conference.nil?
-      session[:conference_acronym] = @conference.acronym
-    end
+    session[:conference_acronym] = @conference.acronym unless @conference.nil?
 
     Time.zone = @conference.timezone if @conference
   end
 
   def info_for_paper_trail
-    {conference_id: @conference.id} if @conference
+    { conference_id: @conference.id } if @conference
   end
 
   def default_url_options
-    result = {locale: params[:locale]}
-    if @conference
-      result.merge!(conference_acronym: @conference.acronym)
-    end
+    result = { locale: params[:locale] }
+    result.merge!(conference_acronym: @conference.acronym) if @conference
     result
   end
 

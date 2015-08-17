@@ -1,20 +1,19 @@
 class StatisticsController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
+  before_action :authenticate_user!
+  before_action :not_submitter!
 
   def events_by_state
     authorize! :read, @conference
     case params[:type]
     when "lectures"
-        result = @conference.events_by_state_and_type(:lecture)
+      result = @conference.events_by_state_and_type(:lecture)
     when "workshops"
-        result = @conference.events_by_state_and_type(:workshop)
+      result = @conference.events_by_state_and_type(:workshop)
     when "others"
-        remaining = Event::TYPES - [:workshop,:lecture]
-        result = @conference.events_by_state_and_type(remaining)
+      remaining = Event::TYPES - [:workshop, :lecture]
+      result = @conference.events_by_state_and_type(remaining)
     else
-        result = @conference.events_by_state
+      result = @conference.events_by_state
     end
 
     respond_to do |format|
@@ -39,5 +38,4 @@ class StatisticsController < ApplicationController
       format.json { render json: result.to_json }
     end
   end
-
 end

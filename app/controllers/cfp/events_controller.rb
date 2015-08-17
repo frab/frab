@@ -1,8 +1,7 @@
 class Cfp::EventsController < ApplicationController
-
   layout "cfp"
 
-  before_filter :authenticate_user!, except: :confirm
+  before_action :authenticate_user!, except: :confirm
 
   # GET /cfp/events
   # GET /cfp/events.xml
@@ -10,9 +9,7 @@ class Cfp::EventsController < ApplicationController
     authorize! :submit, Event
 
     @events = current_user.person.events
-    unless @events.nil?
-      @events.map { |event| event.clean_event_attributes! }
-    end
+    @events.map(&:clean_event_attributes!) unless @events.nil?
 
     respond_to do |format|
       format.html { redirect_to cfp_person_path }
@@ -72,9 +69,7 @@ class Cfp::EventsController < ApplicationController
     @event = current_user.person.events.readonly(false).find(params[:id])
     params[:event].delete('recording_license')
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
-    if @event.accepted?
-      params[:event].delete('do_not_record')
-    end
+    params[:event].delete('do_not_record') if @event.accepted?
 
     respond_to do |format|
       if @event.update_attributes(event_params)
@@ -100,18 +95,16 @@ class Cfp::EventsController < ApplicationController
 
       # Catch undefined method `person' for nil:NilClass exception if no confirmation token is found.
       if event_person.nil?
-        return redirect_to cfp_root_path, flash:{ error: t('cfp.no_confirmation_token') }
+        return redirect_to cfp_root_path, flash: { error: t('cfp.no_confirmation_token') }
       end
 
       event_people = event_person.person.event_people.where(event_id: params[:id])
       login_as(event_person.person.user) if event_person.person.user
     else
-      raise "Unauthenticated" unless current_user
+      fail "Unauthenticated" unless current_user
       event_people = current_user.person.event_people.where(event_id: params[:id])
     end
-    event_people.each do |event_person|
-      event_person.confirm!
-    end
+    event_people.each(&:confirm!)
     if current_user
       redirect_to cfp_person_path, notice: t("cfp.thanks_for_confirmation")
     else
@@ -128,5 +121,4 @@ class Cfp::EventsController < ApplicationController
       links_attributes: %i(id title url _destroy)
     )
   end
-
 end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Cfp::SessionsControllerTest < ActionController::TestCase
-
   setup do
     @first_conference = FactoryGirl.create(:conference)
     FactoryGirl.create(:call_for_participation, conference: @first_conference)
@@ -16,34 +15,34 @@ class Cfp::SessionsControllerTest < ActionController::TestCase
   end
 
   test "submitter can login" do
-    post :create, conference_acronym: @conference.acronym, user: {email: @submitter.email, password: "frab123"}
+    post :create, conference_acronym: @conference.acronym, user: { email: @submitter.email, password: "frab123" }
     assert_not_nil assigns(:current_user)
     assert_response :redirect
   end
 
   test "nonexistant user cannot login" do
-    post :create, conference_acronym: @conference.acronym, user: {email: "not@exista.nt", password: "frab123"}
+    post :create, conference_acronym: @conference.acronym, user: { email: "not@exista.nt", password: "frab123" }
     assert_nil assigns(:current_user)
     assert_response :success
   end
 
   test "cannot login with wrong password" do
-    post :create, conference_acronym: @conference.acronym, user: {email: @submitter.email, password: "wrong"}
+    post :create, conference_acronym: @conference.acronym, user: { email: @submitter.email, password: "wrong" }
     assert_nil assigns(:current_user)
     assert_response :success
   end
 
   test "submitter redirects to conference specified as parameter after login" do
-    post :create, conference_acronym: @conference.acronym, user: {email: @submitter.email, password: "frab123"}
+    post :create, conference_acronym: @conference.acronym, user: { email: @submitter.email, password: "frab123" }
     assert_redirected_to cfp_person_path, conference_acronym: @conference.acronym
   end
 
   test "submitter redirects to conference specified in session after login" do
-    session[:conference_acronym] =  @first_conference.acronym
-    post :create, conference_acronym: @conference.acronym, user: {email: @submitter.email, password: "frab123"}
+    session[:conference_acronym] = @first_conference.acronym
+    post :create, conference_acronym: @conference.acronym, user: { email: @submitter.email, password: "frab123" }
     assert_redirected_to cfp_person_path, conference_acronym: @first_conference.acronym
   end
 
-  #test "submitter gets  no redirect if parameter/session are absent on login" do
-  #end
+  # test "submitter gets  no redirect if parameter/session are absent on login" do
+  # end
 end

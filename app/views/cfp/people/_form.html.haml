@@ -3,7 +3,7 @@
     %legend Basic
     = f.input :first_name
     = f.input :last_name
-    = f.input :public_name, :hint => t("cfp.public_name_hint") 
+    = f.input :public_name, :hint => t("cfp.public_name_hint")
     = f.input :gender, :collection => translated_options(Person::GENDERS)
     = f.input :avatar, :hint => t("cfp.avatar_hint")
     = dynamic_association :languages, t("cfp.languages_spoken"), f
@@ -15,7 +15,7 @@
     = dynamic_association :im_accounts, t("cfp.im_accounts"), f
   %fieldset.inputs
     %legend= t("cfp.bio")
-    = f.input :abstract, :input_html => {:rows => 4}, :hint => t("cfp.abstract_hint") 
+    = f.input :abstract, :input_html => {:rows => 4}, :hint => t("cfp.abstract_hint")
     = f.input :description, :hint => t("cfp.description_hint")
     = dynamic_association :links, t("cfp.links"), f
   .actions

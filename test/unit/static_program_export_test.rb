@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class StaticProgramExportTest < ActiveSupport::TestCase
-
   setup do
     @conference = create(:three_day_conference_with_events)
     @locale = 'en'

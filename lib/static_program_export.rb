@@ -17,10 +17,8 @@ class StaticProgramExport
   # create a tarball from the conference export directory
   def create_tarball
     out_file = filename(@conference, @locale)
-    if File.exist? out_file
-      File.unlink out_file
-    end
-    system( 'tar', *['-cpz', '-f', out_file.to_s, '-C', @destination, @conference.acronym].flatten )
+    File.unlink out_file if File.exist? out_file
+    system('tar', *['-cpz', '-f', out_file.to_s, '-C', @destination, @conference.acronym].flatten)
     out_file.to_s
   end
 
@@ -32,7 +30,7 @@ class StaticProgramExport
 
     @asset_paths = []
     @base_directory = File.join(@destination, @conference.acronym)
-    @base_url = get_base_url
+    @base_url = base_url
     @original_schedule_public = @conference.schedule_public
 
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
@@ -52,7 +50,7 @@ class StaticProgramExport
 
   private
 
-  def get_base_url
+  def base_url
     if @conference.program_export_base_url.present?
       base_url = URI.parse(@conference.program_export_base_url).path
       base_url += '/' unless base_url.end_with?('/')
@@ -62,7 +60,7 @@ class StaticProgramExport
     end
   end
 
-  def filename(conference, locale = 'en')
+  def filename(_conference, _locale = 'en')
     File.join(@destination, "#{@conference.acronym}-#{@locale}.tar.gz")
   end
 
@@ -72,11 +70,9 @@ class StaticProgramExport
   end
 
   def download_pages
-    paths = get_query_paths
+    paths = query_paths
     path_prefix = "/#{@conference.acronym}/public"
-    unless @locale.nil?
-      path_prefix = "/#{@locale}" + path_prefix
-    end
+    path_prefix = "/#{@locale}" + path_prefix unless @locale.nil?
     paths.each { |p| save_response("#{path_prefix}/#{p[:source]}", p[:target]) }
   end
 
@@ -95,38 +91,41 @@ class StaticProgramExport
 
   def create_index_page
     schedule_file = File.join(@base_directory, 'schedule.html')
-    if File.exist? schedule_file
-      FileUtils.cp(schedule_file, File.join(@base_directory, 'index.html'))
-    end
+    return unless File.exist? schedule_file
+    FileUtils.cp(schedule_file, File.join(@base_directory, 'index.html'))
   end
 
-  def get_query_paths
-    paths = [
-        {source: "schedule", target: "schedule.html"},
-        {source: "events", target: "events.html"},
-        {source: "speakers", target: "speakers.html"},
-        {source: "events.json", target: "events.json"},
-        {source: "speakers.json", target: "speakers.json"},
-        {source: "schedule/style.css", target: "style.css"},
-        {source: "schedule.ics", target: "schedule.ics"},
-        {source: "schedule.xcal", target: "schedule.xcal"},
-        {source: "schedule.json", target: "schedule.json"},
-        {source: "schedule.xml", target: "schedule.xml"},
+  def static_query_paths
+    [
+      { source: "schedule", target: "schedule.html" },
+      { source: "events", target: "events.html" },
+      { source: "speakers", target: "speakers.html" },
+      { source: "events.json", target: "events.json" },
+      { source: "speakers.json", target: "speakers.json" },
+      { source: "schedule/style.css", target: "style.css" },
+      { source: "schedule.ics", target: "schedule.ics" },
+      { source: "schedule.xcal", target: "schedule.xcal" },
+      { source: "schedule.json", target: "schedule.json" },
+      { source: "schedule.xml", target: "schedule.xml" }
     ]
+  end
 
+  def query_paths
+    paths = static_query_paths
     day_index = 0
-    @conference.days.each do |day|
-      paths << {source: "schedule/#{day_index}", target: "schedule/#{day_index}.html"}
-      paths << {source: "schedule/#{day_index}.pdf", target: "schedule/#{day_index}.pdf"}
+    @conference.days.each do |_day|
+      paths << { source: "schedule/#{day_index}", target: "schedule/#{day_index}.html" }
+      paths << { source: "schedule/#{day_index}.pdf", target: "schedule/#{day_index}.pdf" }
       day_index += 1
     end
 
     @conference.events.is_public.confirmed.scheduled.each do |event|
-      paths << {source: "events/#{event.id}", target: "events/#{event.id}.html"}
-      paths << {source: "events/#{event.id}.ics", target: "events/#{event.id}.ics"}
+      paths << { source: "events/#{event.id}", target: "events/#{event.id}.html" }
+      paths << { source: "events/#{event.id}.ics", target: "events/#{event.id}.ics" }
     end
+
     Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
-      paths << {source: "speakers/#{speaker.id}", target: "speakers/#{speaker.id}.html"}
+      paths << { source: "speakers/#{speaker.id}", target: "speakers/#{speaker.id}.html" }
     end
     paths
   end
@@ -134,7 +133,7 @@ class StaticProgramExport
   def save_response(source, filename)
     status_code = @session.get(source)
     unless status_code == 200
-      error('!! Failed to fetch "%s" as "%s" with error code %d' % [ source, filename, status_code ])
+      error('!! Failed to fetch "%s" as "%s" with error code %d' % [source, filename, status_code])
       return
     end
 
@@ -145,7 +144,7 @@ class StaticProgramExport
       document = modify_response_html(filename)
       File.open(file_path, "w") do |f|
         # FIXME corrupts events and speakers?
-        #document.write_html_to(f, encoding: "UTF-8")
+        # document.write_html_to(f, encoding: "UTF-8")
         f.puts(document.to_html)
       end
     elsif filename =~ /\.pdf$/
@@ -160,7 +159,7 @@ class StaticProgramExport
     end
   end
 
-  def modify_response_html(filename)
+  def modify_response_html(_filename)
     document = Nokogiri::HTML(@session.response.body, nil, "UTF-8")
 
     # <link>
@@ -220,5 +219,4 @@ class StaticProgramExport
     @conference.save!
     Conference.paper_trail_on!
   end
-
 end

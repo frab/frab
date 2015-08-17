@@ -3,7 +3,7 @@ class StaticProgramExportJob
   require 'tempfile'
   include SuckerPunch::Job
 
-  def perform(conference, locale='en')
+  def perform(conference, locale = 'en')
     Dir.mktmpdir('static_export') do |dir|
       Rails.logger.info "Create static export for #{conference} in #{dir}"
 
@@ -21,6 +21,4 @@ class StaticProgramExportJob
       conference_export.update_attributes tarball: File.open(file)
     end
   end
-
 end
-

@@ -12,7 +12,6 @@ class VideoImport
     @xml.remove_namespaces!
 
     ActiveRecord::Base.transaction do
-
       items = @xml.search('//item')
       items.each { |item|
         id = item.search('identifier').first
@@ -20,22 +19,18 @@ class VideoImport
 
         enclosure = item.search('enclosure').first
         add_video(event, enclosure)
-        
+
         link = item.search('link').first
         add_link(event, link.text)
       }
-
     end
-
   end
 
   protected
 
   def find_event(id)
     event = Event.find(id)
-    if event and event.conference == @conference
-      event
-    end
+    event if event and event.conference == @conference
   end
 
   def add_video(event, enclosure)
@@ -49,5 +44,4 @@ class VideoImport
   def fetch_remote
     Nokogiri::XML(open(@url))
   end
-
 end

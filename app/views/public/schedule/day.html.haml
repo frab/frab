@@ -3,7 +3,7 @@
     = t '.schedule_for_day', :index => @day_index+1, :label => l(@day.date)
   - else
     = t '.schedule', :label => l(@day.date)
-- if different_track_colors?    
+- if different_track_colors?
   #colorkeys
     %ul
       - @conference.tracks.each do |track|
@@ -32,7 +32,7 @@
               - next if @skip_row[room] > 0
               - if not @events[room].empty? and @events[room].first.start_time == time
                 - event = @events[room].shift
-                - @skip_row[room] = event.time_slots 
+                - @skip_row[room] = event.time_slots
                 %td{:rowspan => event.time_slots, :class => "cell-height#{event.time_slots}"}
                   .event{:class => track_class(event)}
                     .event-wrapper

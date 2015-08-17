@@ -1,5 +1,5 @@
 class ConferenceUser < ActiveRecord::Base
-  ROLES = %w{reviewer coordinator orga}
+  ROLES = %w(reviewer coordinator orga)
 
   belongs_to :conference
   belongs_to :user
@@ -9,7 +9,7 @@ class ConferenceUser < ActiveRecord::Base
   validate :role_is_valid
 
   private
-  
+
   def role_is_valid
     self.errors.add(:role, "You need to select a valid role") unless ROLES.include? self.role
   end
@@ -17,5 +17,4 @@ class ConferenceUser < ActiveRecord::Base
   def user_role_is_crew
     self.errors.add(:role, "User role is not crew") unless self.user.is_crew?
   end
-
 end

@@ -1,5 +1,4 @@
 class SelectionNotification < ActionMailer::Base
-
   default from: Settings['from_email']
 
   def acceptance_notification(event_person)
@@ -9,7 +8,7 @@ class SelectionNotification < ActionMailer::Base
     @token = event_person.confirmation_token
     @locale = @person.locale_for_mailing(@conference)
     @notification = @conference.notifications.with_locale(@locale).first
-    raise "Notification for #{@locale} not found" if @notification.nil?
+    fail "Notification for #{@locale} not found" if @notification.nil?
 
     mail(
       reply_to: @conference.email,
@@ -24,7 +23,7 @@ class SelectionNotification < ActionMailer::Base
     @conference = @event.conference
     @locale = @person.locale_for_mailing(@conference)
     @notification = @conference.notifications.with_locale(@locale).first
-    raise "Notification for #{@locale} not found" if @notification.nil?
+    fail "Notification for #{@locale} not found" if @notification.nil?
 
     mail(
       reply_to: @conference.email,
@@ -32,5 +31,4 @@ class SelectionNotification < ActionMailer::Base
       subject: @notification.reject_subject.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{forename}', @person.first_name).gsub('%{surname}', @person.last_name).gsub('%{public_name}', @person.public_name), locale: @locale, title: @conference.title
     )
   end
-
 end

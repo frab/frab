@@ -1,7 +1,6 @@
 class Public::ScheduleController < ApplicationController
-
   layout 'public_schedule'
-  before_filter :maybe_authenticate_user!
+  before_action :maybe_authenticate_user!
 
   def index
     @days = @conference.days
@@ -53,14 +52,14 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events.is_public.confirmed.scheduled.sort {|a,b|
+    @events = @conference.events.is_public.confirmed.scheduled.sort {|a, b|
       a.to_sortable <=> b.to_sortable
     }
   end
 
   def event
     @event = @conference.events.is_public.confirmed.scheduled.find(params[:id])
-    @concurrent_events = @conference.events.is_public.confirmed.scheduled.where( start_time: @event.start_time )
+    @concurrent_events = @conference.events.is_public.confirmed.scheduled.where(start_time: @event.start_time)
     respond_to do |format|
       format.html
       format.ics
@@ -84,5 +83,4 @@ class Public::ScheduleController < ApplicationController
   def maybe_authenticate_user!
     authenticate_user! unless @conference.schedule_public
   end
-
 end

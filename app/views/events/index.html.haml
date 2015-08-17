@@ -5,7 +5,7 @@
         = action_button "primary", "Add event", new_event_path, :hint => "Add a new event."
         = action_button "", "Print cards", cards_events_path(:format => :pdf), :hint => "Download a PDF with all events as cards (four cards per page). Print this out to take your planning offline."
         = action_button "", "Print cards (accepted only)", cards_events_path(:accepted => true, :format => :pdf), :hint => "Download a PDF with only the accepted events as cards (four cards per page). Especially useful to plan your program schedule offline."
-    %h1 List of events 
+    %h1 List of events
   %ul.tabs
     %li.active= link_to "All Events", events_path
     %li= link_to "My Events", my_events_path
@@ -18,8 +18,8 @@
         .blank-slate
           %p
             This conference does not yet have any events.
-            Start adding events by clicking on the 
-            button on the right. Or start a call for 
+            Start adding events by clicking on the
+            button on the right. Or start a call for
             papers, to allow others to submit events for
             you to review.
   - else

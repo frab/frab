@@ -1,9 +1,8 @@
 class Cfp::PeopleController < ApplicationController
-
   layout "cfp"
 
-  before_filter :authenticate_user!
-  before_filter :check_cfp_open
+  before_action :authenticate_user!
+  before_action :check_cfp_open
 
   def show
     @person = current_user.person
@@ -79,5 +78,4 @@ class Cfp::PeopleController < ApplicationController
       phone_numbers_attributes: %i(id phone_type phone_number _destroy)
     )
   end
-
 end

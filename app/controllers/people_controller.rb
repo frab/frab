@@ -1,8 +1,7 @@
 class PeopleController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
-  after_filter :restrict_people
+  before_action :authenticate_user!
+  before_action :not_submitter!
+  after_action :restrict_people
 
   # GET /people
   # GET /people.xml
@@ -41,8 +40,8 @@ class PeopleController < ApplicationController
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
     if cannot? :manage, Event
-      @current_events.map { |event| event.clean_event_attributes! }
-      @other_events.map { |event| event.clean_event_attributes! }
+      @current_events.map(&:clean_event_attributes!)
+      @other_events.map(&:clean_event_attributes!)
     end
     @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
 
@@ -62,7 +61,7 @@ class PeopleController < ApplicationController
   def attend
     @person = Person.find(params[:id])
     @person.set_role_state(@conference, 'attending')
-    return redirect_to action: :show
+    redirect_to action: :show
   end
 
   # GET /people/new
@@ -137,13 +136,11 @@ class PeopleController < ApplicationController
   private
 
   def restrict_people
-    unless @people.nil?
-      @people = @people.accessible_by(current_ability)
-    end
+    @people = @people.accessible_by(current_ability) unless @people.nil?
   end
 
   def search(people, params)
-    if params.has_key?(:term) and not params[:term].empty?
+    if params.key?(:term) and not params[:term].empty?
       term = params[:term]
       sort = params[:q][:s] rescue nil
       @search = people.ransack(first_name_cont: term,
@@ -171,5 +168,4 @@ class PeopleController < ApplicationController
       phone_numbers_attributes: %i(id phone_type phone_number _destroy)
     )
   end
-
 end

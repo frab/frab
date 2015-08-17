@@ -47,7 +47,7 @@ prawn_document(
 
   header_height = 0.8.cm
 
-  number_of_columns = @rooms.size < 5 ? @rooms.size : 5 
+  number_of_columns = @rooms.size < 5 ? @rooms.size : 5
   number_of_pages = (@rooms.size / number_of_columns.to_f).ceil.to_i
   column_width = (pdf.bounds.width - margin_width) / number_of_columns
   timeslot_height = (pdf.bounds.height - margin_height - header_height) / number_of_timeslots
@@ -55,7 +55,7 @@ prawn_document(
   # A page contains the full time range. New pages will
   # contain further rooms.
   number_of_pages.times do |current_page|
-  
+
     offset = current_page * number_of_columns
 
     pdf.draw_text get_header_left, :size => 9, :at => [ pdf.bounds.left, pdf.bounds.top + 0.5.cm ]
@@ -104,18 +104,18 @@ prawn_document(
       events = @events[rooms[i]]
       events.each do |event|
         coord = event_coordinates(i, event, column_width, timeslot_height, offset)
-        pdf.bounding_box(coord, 
-                         :width => column_width-1, 
+        pdf.bounding_box(coord,
+                         :width => column_width-1,
                          :height => event.time_slots * timeslot_height-1) do
-          pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3 
+          pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3
           pdf.fill_color = "ffffff"
           pdf.fill_and_stroke
           pdf.fill_color = "000000"
           pdf.text_box event.title, :size => 8, :at => [pdf.bounds.left + 2, pdf.bounds.top - 2]
-          pdf.text_box event.speakers.map(&:full_public_name).join(", "), 
+          pdf.text_box event.speakers.map(&:full_public_name).join(", "),
             :size => 6,
             :width => pdf.bounds.width - 4,
-            :style => :italic, 
+            :style => :italic,
             :align => :right,
             :at => [pdf.bounds.left + 2, pdf.bounds.bottom + 8]
         end
@@ -123,7 +123,7 @@ prawn_document(
     end
 
     pdf.start_new_page unless current_page == number_of_pages - 1
-  
+
   end
 
 end

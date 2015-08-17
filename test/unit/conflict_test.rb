@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ConflictTest < ActiveSupport::TestCase
-  
   test "creates person conflict" do
     event_person = FactoryGirl.create :event_person
     event = event_person.event
@@ -17,6 +16,4 @@ class ConflictTest < ActiveSupport::TestCase
     assert conflict.valid?
     assert conflict.id
   end
-
-
 end
