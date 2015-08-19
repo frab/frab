@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
 
   before_create :generate_guid
 
-  TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :other]
+  TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :film, :concert, :djset, :performance, :other]
 
   has_one :ticket, dependent: :destroy
   has_many :conflicts_as_conflicting, class_name: "Conflict", foreign_key: "conflicting_event_id", dependent: :destroy
@@ -231,6 +231,20 @@ class Event < ActiveRecord::Base
     self
   end
 
+  def available_start_times(conference)
+    times = []
+
+    conference.days.each do |day|
+      time = day.start_date
+      while time <= day.end_date
+        times << time if all_presenters_available_at(time)
+        time = time.since(conference.timeslot_duration.minutes)
+      end
+    end
+
+    times
+  end
+
   private
 
   def generate_guid
@@ -251,6 +265,16 @@ class Event < ActiveRecord::Base
     else
       return result.to_f / rating_count
     end
+  end
+
+  def all_presenters_available_at(start_time)
+    self.event_people.presenter.group(:person_id,:id).each do |event_person|
+      if event_person.person.availabilities.any? and !event_person.available_between?(start_time, start_time + self.conference.timeslot_duration.minutes)
+        return false
+      end
+    end
+
+    true
   end
 
   # check if room has been assigned multiple times for the same slot

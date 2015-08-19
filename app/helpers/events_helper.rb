@@ -16,16 +16,8 @@ module EventsHelper
     slots
   end
 
-  def start_times
-    times = Array.new
-    @conference.days.each { |day|
-      time = day.start_date
-      while time <= day.end_date
-        times << [time.strftime("%Y-%m-%d %H:%M"), time]
-        time = time.since(@conference.timeslot_duration.minutes)
-      end
-    }
-    times
+  def format_start_times(times)
+    times.map { |t| [t.strftime("%Y-%m-%d %H:%M"), t] }
   end
 
   def format_time_slots(number_of_time_slots)
