@@ -11,9 +11,11 @@
 //= require bootstrap-tabs
 //= require bootstrap-buttons
 //= require cocoon
+//= require chosen-jquery
 
 $(function() {
   $('.topbar').dropdown();
   $('.alert-message').alert();
   $('a[data-original-title]').popover();
+  $('input.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 });
