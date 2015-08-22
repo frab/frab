@@ -7,15 +7,15 @@
     %title= @conference.title
     - if @conference.days.length > 0
       %start= @conference.first_day.start_date.strftime('%Y-%m-%d')
-      %end= @conference.last_day.end_date.strftime('%Y-%m-%d') 
+      %end= @conference.last_day.end_date.strftime('%Y-%m-%d')
     %days= @conference.days.length
     %timeslot_duration= duration_to_time(@conference.timeslot_duration)
   - @conference.days.each_with_index do |day, index|
-    %day{index: (index + 1), date: day.start_date.strftime('%Y-%m-%d'), start: day.start_date.iso8601, end: day.end_date.iso8601} 
-      - @conference.rooms.public.each do |room|
+    %day{index: (index + 1), date: day.start_date.strftime('%Y-%m-%d'), start: day.start_date.iso8601, end: day.end_date.iso8601}
+      - @conference.rooms.is_public.each do |room|
         %room{:name => room.name}
-          - room.events.public.accepted.scheduled_on(day).order(:start_time).each do |event|
-            %event{:id=>event.id, :guid=>event.guid} 
+          - room.events.is_public.accepted.scheduled_on(day).order(:start_time).each do |event|
+            %event{:id=>event.id, :guid=>event.guid}
               %date= event.start_time.iso8601
               %start= event.start_time.strftime('%H:%M')
               %duration= format_time_slots(event.time_slots)
@@ -34,6 +34,6 @@
               %persons
                 - event.speakers.each do |speaker|
                   %person{:id=>speaker.id}= speaker.full_public_name
-              %links 
+              %links
                 - event.links.each do |link|
                   %link{:href=>link.url}= link.title ? link.title : link.url

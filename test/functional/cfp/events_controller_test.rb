@@ -58,5 +58,4 @@ class Cfp::EventsControllerTest < ActionController::TestCase
     @event.reload
     assert_equal "confirmed", @event.state
   end
-
 end

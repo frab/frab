@@ -1,6 +1,0 @@
-<div class="nested-fields">
-  <%= f.inputs do %>
-    <%= f.input :code, :as => :bootstrap_language, :label => t("activerecord.models.language"), :priority_languages => [:en, :es, :de], :include_blank => "" %>
-    <%= remove_association_link :language, f %>
-  <% end %>
-</div>

@@ -2,9 +2,9 @@
 
 %p= t '.please_let_us_know'
 
-= semantic_form_for(@feedback, :url => public_event_feedback_path(:event_id => @event.id)) do |f|
-  = f.inputs do
-    = f.input :rating, :as => :radio, :collection => 1..5, :hint => t('.how_would_you_rate')
+= simple_form_for(@feedback, url: public_event_feedback_path(:event_id => @event.id)) do |f|
+  %fieldset.inputs
+    = f.input :rating, :as => :radio_buttons, :collection => 1..5, :hint => t('.how_would_you_rate')
     = f.input :comment, :input_html => {:rows => 4}, :hint => t('.what_did_you_like')
-  = f.buttons do
-    = f.commit_button t('.submit_feedback')
+  .actions
+    = f.button :submit, t('.submit_feedback')

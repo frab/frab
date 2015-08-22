@@ -1,0 +1,4 @@
+.nested-fields
+  %fieldset.inputs
+    = f.input :code, as: :language_select, priority: %i(de en es)
+    = remove_association_link :language, f

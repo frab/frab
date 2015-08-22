@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class StaticProgramExportTest < ActiveSupport::TestCase
-
   setup do
-    @conference = create(:three_day_conference)
+    @conference = create(:three_day_conference_with_events)
     @locale = 'en'
     @target_dir = File.join(Rails.root, 'tmp', 'static_export')
   end

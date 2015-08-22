@@ -11,7 +11,7 @@
             to the <em>Conference Settings</em> tab above
             and add a room to this conference. This will
             be needed to schedule your program.
-      - if @conference.events.count == 0 and @conference.call_for_papers.nil?
+      - if @conference.events.count == 0 and @conference.call_for_participation.nil?
         .blank-slate
           %p
             This conference does not yet have any events.
@@ -21,14 +21,14 @@
             they are talks, workshops, panels or something
             else entirely).
           %p
-            Start adding events by clicking on the 
-            <em>Events</em> tab above. Or start a call for 
+            Start adding events by clicking on the
+            <em>Events</em> tab above. Or start a call for
             papers, to allow others to submit events for
             you to review.
-  - if can? :manage, CallForPapers           
+  - if can? :manage, CallForParticipation
     .row
       .span16
-        %h2 
+        %h2
           Recent changes
           %small= link_to "more >>", recent_changes_path
         - if @versions.empty?
@@ -113,7 +113,7 @@
       success: (data) ->
         $.plot($("#event_language_graph"), data, {series: {pie: {show: true}}})
     )
-    
+
   update_gender_breakdown = (accepted_only = false) ->
     if accepted_only
       params = {"accepted_only": 1}

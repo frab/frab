@@ -1,8 +1,10 @@
+# Schedule Editor
 update_event_position = (event) ->
   td = $(event).data("slot")
   $(event).css("position", "absolute")
   $(event).css("left", td.offset().left)
   $(event).css("top", td.offset().top)
+  return
 
 update_unscheduled_events = (track_id = "") ->
   $.ajax(
@@ -11,7 +13,9 @@ update_unscheduled_events = (track_id = "") ->
     dataType: "html",
     success: (data) ->
       $("ul#unscheduled-events").html(data)
+      return
   )
+  return
 
 add_event_to_slot = (event, td, update = true) ->
   event = $(event)
@@ -29,10 +33,13 @@ add_event_to_slot = (event, td, update = true) ->
       dataType: "script",
       success: ->
         event.effect('highlight')
+        return
     )
+  return
 
 make_draggable = (element) ->
   element.draggable(revert: "invalid", opacity: 0.4, cursorAt: {left: 5, top: 5})
+  true
 
 $ ->
   $("body").delegate("div.event", "mouseenter", ->
@@ -50,17 +57,24 @@ $ ->
         success: ->
           event_div.remove()
           update_unscheduled_events()
+          return
       )
       click_event.stopPropagation()
       click_event.preventDefault()
+      false
+    return
   )
   $("body").delegate("div.event", "mouseleave", ->
     $(this).find("a.close").remove()
+    return
   )
   $("body").delegate("div.event", "click", (click_event) ->
     click_event.stopPropagation()
     click_event.preventDefault()
+    false
   )
+
+  # Buttons
   for button in $("a.toggle-room")
     $(button).click ->
       current_button = $(this)
@@ -71,19 +85,32 @@ $ ->
         current_button.addClass("success")
       for event in $("table.room div.event")
         update_event_position(event)
+        true
+      preventDefault()
+      false
+    true
+
   $("a#hide-all-rooms").click ->
     $("a.toggle-room").removeClass("success")
     $("table.room").hide()
+    false
+
+  # Track filter
   $("select#track_select").change ->
     update_unscheduled_events($(this).val())
+    true
+
   for timeslot in $("table.room td")
     $(timeslot).droppable(
       hoverClass: "event-hover",
       tolerance: "pointer",
       drop: (event, ui) ->
         add_event_to_slot(ui.draggable, this)
+        true
     )
-  $("#add-event-modal").modal()
+    true
+
+  $("#add-event-modal").modal('hide')
   $("body").delegate("table.room td", "click", (click_event) ->
     td = $(this)
     $("#add-event-modal #current-time").html(td.data("time"))
@@ -102,13 +129,18 @@ $ ->
       li.remove()
       $("#add-event-modal").modal('hide')
       click_event.preventDefault()
+      false
     )
     $("#add-event-modal").modal('show')
     click_event.stopPropagation()
+    false
   )
+
   for event in $("div.event")
     if $(event).data("room") and $(event).data("time")
       starting_cell = $("table[data-room='" + $(event).data("room") + "']").find("td[data-time='" + $(event).data("time") + "']")
       add_event_to_slot(event, starting_cell, false)
     make_draggable($(event))
+    true
 
+  return

@@ -1,0 +1,15 @@
+%section
+  .page-header
+    %h1 Edit Call for Participation
+  = render partial: 'tabs', locals: { active: :notifications }
+
+  .row
+    .span6
+      %h2 Possible variables
+      %dl.dl-horizontal
+        - Notification::VARIABLES.each do |key, desc|
+          %dt= "#{desc}:"
+          %dd= "%{#{key}}"
+
+    .span16
+      = render "form_notifications"

@@ -1,5 +1,4 @@
 class Public::FeedbackController < ApplicationController
-
   layout "public_schedule"
 
   def new
@@ -24,5 +23,4 @@ class Public::FeedbackController < ApplicationController
   def event_feedback_params
     params.require(:event_feedback).permit(:rating, :comment)
   end
-
 end

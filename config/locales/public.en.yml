@@ -8,62 +8,63 @@ en:
       title: "Schedule %{title}"
 
       nav:
-        index: "Index"
         day: "Day %{index}"
+        events: "Events"
+        index: "Index"
         schedule: "Schedule"
         speakers: "Speakers"
-        events: "Events"
 
       index:
-        schedule_index: "Schedule index"
         day: "Day %{index} – %{label}"
-        schedule: "Schedule – %{label}"
-        speakers: "Speakers"
         events: "Events"
+        schedule: "Schedule – %{label}"
+        schedule_index: "Schedule index"
+        speakers: "Speakers"
 
       day:
         schedule_for_day: "Schedule for day %{index} – %{label}"
         schedule: "Schedule – %{label}"
 
       speakers:
-        speakers: "Speakers"
-        name: "Name"
         events: "Events"
+        name: "Name"
+        speakers: "Speakers"
 
       events:
         events: "Events"
+        speakers: "Speakers"
         title: "Title"
         track: "Track"
-        speakers: "Speakers"
 
       event:
-        info: "Info"
         day: "Day"
-        start_time: "Start time"
-        language: "Language"
         duration: "Duration"
-        track: "Track"
-        links: "Links"
-        files: "Files"
         feedback: "Feedback"
         feedback_link: "Click here to let us know how you liked this event."
-        speakers: "Speakers"
+        files: "Files"
+        info: "Info"
+        language: "Language"
+        links: "Links"
         no_recording: "This event is not going to be recorded"
+        room: "Room"
+        speakers: "Speakers"
+        start_time: "Start time"
+        track: "Track"
 
       speaker:
-        speaker: "Speaker"
         contact: "Contact"
         email: "E-Mail"
-        links: "Links"
         events_in_this_conference: "Events in this conference"
+        links: "Links"
+        speaker: "Speaker"
 
     feedback:
       new:
         feedback_for: "Feedback for: %{title}"
-        please_let_us_know: "Please let us know how you liked this event:"
         how_would_you_rate: "How would you rate this event? 5 is the best rating and 1 is the worst."
-        what_did_you_like: "What did you like? What did you not like? How could this event be improved? Please share your thoughts."
+        please_let_us_know: "Please let us know how you liked this event:"
         submit_feedback: "Submit feedback"
+        what_did_you_like: "What did you like? What did you not like? How could this event be improved? Please share your thoughts."
 
       thank_you:
         thank_you: "Thank you!"

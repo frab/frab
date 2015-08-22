@@ -1,13 +1,8 @@
 %section
   .page-header
     %h1= t :edit_ticket_server
-  %ul.tabs
-    %li= link_to t(:settings), edit_conference_path
-    %li= link_to t(:days), edit_days_conference_path
-    %li= link_to t(:tracks), edit_tracks_conference_path
-    %li= link_to t(:rooms), edit_rooms_conference_path
-    %li= link_to t(:schedule), edit_schedule_conference_path
-    %li.active= link_to t(:ticket_server), edit_ticket_server_conference_path
+  = render partial: 'tabs', locals: { active: :ticket_server }
+
   .row
     .span16
       = render 'form_ticket_server'

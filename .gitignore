@@ -1,8 +1,8 @@
 .bundle
+.env.local
+.env.production
 .ruby-version
 config/database.yml
-config/settings.yml
-config/initializers/secret_token.rb
 db/*.sqlite3
 log/*.log
 tmp/*
@@ -14,7 +14,6 @@ rerun.txt
 .sass-cache/
 .idea/
 .redcar/
-bin/
 bundler/
 cache/
 gems/

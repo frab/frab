@@ -2,7 +2,7 @@
   .page-header
     %h1 Event: #{@event.title}
   %ul.tabs
-    %li= link_to "Event Details", @event 
+    %li= link_to "Event Details", @event
     %li= link_to "People", people_event_path(@event)
     %li= link_to "Ratings", event_event_rating_path(@event)
     %li.active= link_to "Feedback", event_event_feedbacks_path(@event)
@@ -20,8 +20,8 @@
   - else
     .row
       .span16
-        %p 
-          %b Average Feedback: 
+        %p
+          %b Average Feedback:
           %b= number_with_precision @event.average_feedback, :precision => 2
           - if @event.event_feedbacks_count
             %br

@@ -1,0 +1,98 @@
+en:
+  actions: "Actions"
+  add_association: "Add %{name}"
+  basic_information: "Basic information"
+  call_for_participation: "Call for Participation"
+  create_new_conference: "Create new conference"
+  create_your_first_conference: "Create your first conference"
+  days: "Days"
+  edit: "edit"
+  edit_conference: "Edit conference"
+  edit_conference_days: "Edit conference days"
+  edit_conference_rooms: "Edit conference rooms"
+  edit_conference_schedule: "Edit conference schedule"
+  edit_conference_tracks: "Edit conference tracks"
+  edit_ticket_server: "Edit ticket server"
+  error_signing_in: "Invalid email or password."
+  event_languages: "Event languages"
+  feedback_system: "Feedback System"
+  new_conference: "New conference"
+  notifications: Notifications
+  remove_association: "Remove %{name}"
+  rooms: "Rooms"
+  schedule: "Schedule"
+  settings: "Settings"
+  sign_in_successful: "Successfully signed in."
+  submission_configuration: "Submission Configuration"
+  ticket_server: "Ticket Server"
+  timeslot_configuration: "Timeslot Configuration"
+  tracks: "Tracks"
+  your_submission: "Your Submission"
+
+  ability:
+    denied: "This action is not allowed."
+
+  conflict:
+    events_overlap: "overlaps with"
+    has_no_availability: "has not entered any availability yet."
+    person_unavailable: "is not available at the scheduled time."
+
+  options:
+    business: "business"
+    fax: "fax"
+    female: "female"
+    lecture: "lecture"
+    lightning_talk: "lightning talk"
+    male: "male"
+    meeting: "meeting"
+    mobile: "mobile"
+    other: "other"
+    phone: "phone"
+    podium: "podium"
+    private: "private"
+    secretary: "secretary"
+    skype: "skype"
+    talk: "Vortrag"
+    work: "work"
+    workshop: "workshop"
+
+  time:
+    formats:
+      default: '%A, %d. %B %Y, %H:%M'
+      long: '%A, %d. %B %Y, %H:%M'
+      month_datetime: '%d. %b %H:%M'
+      pretty_datetime: "%Y-%m-%d %H:%M"
+      short: '%d. %B, %H:%M'
+      short_datetime: '%d. %H:%M'
+      time: '%H:%M'
+    time_range_seperator: ' to '
+
+  activerecord:
+    models:
+      conference: "conference"
+      conference_user: "conference user"
+      day: "day"
+      event: "event"
+      person: "profile"
+      event_person: "person"
+      language: "language"
+      link: "link"
+      notification: "Notification"
+      im_account: "IM account"
+      phone_number: "phone number"
+      event_attachment: "file"
+      language: "language"
+      track: "track"
+      room: "room"
+
+    attributes:
+      conference:
+        email: "E-Mail"
+      event:
+        title: "title"
+        state: "state"
+
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Account Activation"
+      password_reset_instructions: "Reset Password"

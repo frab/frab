@@ -5,7 +5,7 @@
   .span16
     - if collection.empty?
       %p Sorry, but your search yielded no results.
-    - else  
-      = render 'table', :collection => collection 
+    - else
+      = render 'table', :collection => collection
       = actions_bar do
         = will_paginate collection

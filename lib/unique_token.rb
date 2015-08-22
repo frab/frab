@@ -1,7 +1,6 @@
 require "securerandom"
 
 module UniqueToken
-
   def generate_token_for(attribute)
     loop do
       token = SecureRandom.urlsafe_base64(15)
@@ -14,5 +13,4 @@ module UniqueToken
       end
     end
   end
-
 end

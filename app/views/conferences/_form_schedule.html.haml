@@ -1,10 +1,12 @@
-= semantic_form_for(@conference, :url => conference_path) do |f|
-  = f.inputs t(:schedule_configuration) do
+= simple_form_for(@conference, url: conference_path) do |f|
+  %fieldset.inputs
+    %legend= t(:schedule_configuration)
     = f.input :schedule_version, :hint => "What is the current schedule version?"
     = f.input :schedule_public, :hint => "Is the dynamic schedule public? You can still create static exports regardless of this setting."
-    = f.inputs t(:static_program_export) do
+    %fieldset.inputs
+      %legend= t(:static_program_export)
       = f.input :program_export_base_url, :hint => "If you want to use the static program export, enter the URL where you want to put the files under here. All references will be generated using this as a prefix."
       = f.input :schedule_custom_css, :input_html => {:rows => 4}, :hint => "Custom CSS added to the HTML export. (CSS)"
       = f.input :schedule_html_intro, :input_html => {:rows => 4}, :hint => "Intro text for the HTML export. (HTML)"
-  = f.buttons do
-    = f.commit_button :button_html => {:class => "btn primary", :icon => "tick"}
+  .actions
+    = f.button :submit, class: 'primary'

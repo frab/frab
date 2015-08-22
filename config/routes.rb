@@ -4,10 +4,10 @@ Frab::Application.routes.draw do
 
     resource :session
 
-    match "/conferences/new" => "conferences#new", as: "new_conference"
-    match "/conferences" => "conferences#create", as: "create_conference", via: :post
-    match "/conferences" => "conferences#index", as: "conference_index", via: :get
-    match "/conferences" => "conferences#destroy", via: :delete
+    get "/conferences/new" => "conferences#new", as: "new_conference"
+    post "/conferences" => "conferences#create", as: "create_conference"
+    get "/conferences" => "conferences#index", as: "conference_index"
+    delete "/conferences" => "conferences#destroy"
 
     resources :people do
       resource :user
@@ -19,13 +19,13 @@ Frab::Application.routes.draw do
     scope path: "/:conference_acronym" do
 
       namespace :public do
-        match "/schedule" => "schedule#index", as: "schedule_index"
-        match "/schedule/style" => "schedule#style", as: "schedule_style"
-        match "/schedule/:day" => "schedule#day", as: "schedule"
-        match "/events" => "schedule#events", as: "events"
-        match "/events/:id" => "schedule#event", as: "event"
-        match "/speakers" => "schedule#speakers", as: "speakers"
-        match "/speakers/:id" => "schedule#speaker", as: "speaker"
+        get "/schedule" => "schedule#index", as: "schedule_index"
+        get "/schedule/style" => "schedule#style", as: "schedule_style"
+        get "/schedule/:day" => "schedule#day", as: "schedule"
+        get "/events" => "schedule#events", as: "events"
+        get "/events/:id" => "schedule#event", as: "event"
+        get "/speakers" => "schedule#speakers", as: "speakers"
+        get "/speakers/:id" => "schedule#speaker", as: "speaker"
 
         resources :events do
           resource :feedback, controller: :feedback
@@ -36,7 +36,7 @@ Frab::Application.routes.draw do
 
         resource :session
 
-        resource :user do 
+        resource :user do
           resource :password
           resource :confirmation
         end
@@ -45,7 +45,7 @@ Frab::Application.routes.draw do
           resource :availability
         end
 
-        match "/events/:id/confirm/:token" => "events#confirm", as: "event_confirm_by_token"
+        get "/events/:id/confirm/:token" => "events#confirm", as: "event_confirm_by_token"
 
         resources :events do
           member do
@@ -54,27 +54,27 @@ Frab::Application.routes.draw do
           end
         end
 
-        match "/open_soon" => "welcome#open_soon", as: "open_soon"
-        match "/not_existing" => "welcome#not_existing", as: "not_existing"
+        get "/open_soon" => "welcome#open_soon", as: "open_soon"
+        get "/not_existing" => "welcome#not_existing", as: "not_existing"
 
         root to: "people#show"
 
       end # namespace :cfp
 
-      match "/recent_changes" => "recent_changes#index", as: "recent_changes"
+      get "/recent_changes" => "recent_changes#index", as: "recent_changes"
 
-      match "/schedule.pdf" => "schedule#custom_pdf", as: "schedule_custom_pdf", defaults: {format: :pdf}
-      match "/schedule" => "schedule#index", as: "schedule"
-      match "/schedule/update_track" => "schedule#update_track", as: "schedule_update_track"
-      match "/schedule/update_event" => "schedule#update_event", as: "schedule_update_event"
-      match "/schedule/new_pdf" => "schedule#new_pdf", as: "new_schedule_pdf"
-      match "/schedule/html_exports" => "schedule#html_exports"
-      match "/schedule/create_static_export" => "schedule#create_static_export", via: :post
-      match "/schedule/download_static_export" => "schedule#download_static_export"
+      post "/schedule.pdf" => "schedule#custom_pdf", as: "schedule_custom_pdf", defaults: {format: :pdf}
+      get "/schedule" => "schedule#index", as: "schedule"
+      get "/schedule/update_track" => "schedule#update_track", as: "schedule_update_track"
+      put "/schedule/update_event" => "schedule#update_event", as: "schedule_update_event"
+      get "/schedule/new_pdf" => "schedule#new_pdf", as: "new_schedule_pdf"
+      get "/schedule/html_exports" => "schedule#html_exports"
+      post "/schedule/create_static_export" => "schedule#create_static_export"
+      get "/schedule/download_static_export" => "schedule#download_static_export"
 
-      match "/statistics/events_by_state" => "statistics#events_by_state", as: "events_by_state_statistics"
-      match "/statistics/language_breakdown" => "statistics#language_breakdown", as: "language_breakdown_statistics"
-      match "/statistics/gender_breakdown" => "statistics#gender_breakdown", as: "gender_breakdown_statistics"
+      get "/statistics/events_by_state" => "statistics#events_by_state", as: "events_by_state_statistics"
+      get "/statistics/language_breakdown" => "statistics#language_breakdown", as: "language_breakdown_statistics"
+      get "/statistics/gender_breakdown" => "statistics#gender_breakdown", as: "gender_breakdown_statistics"
 
       resource :conference, except: [:new, :create] do
         get :edit_tracks
@@ -82,12 +82,11 @@ Frab::Application.routes.draw do
         get :edit_schedule
         get :edit_rooms
         get :edit_ticket_server
-      end
-
-      resource :call_for_papers do
         get :edit_notifications
       end
-      match "/call_for_papers/default_notifications" => "call_for_papers#default_notifications", as: "call_for_papers_default_notifications"
+      get "/conferences/default_notifications" => "conferences#default_notifications", as: "conferences_default_notifications"
+
+      resource :call_for_participation
 
       resources :people do
         resource :user
@@ -117,10 +116,10 @@ Frab::Application.routes.draw do
         resources :event_feedbacks
       end
 
-      match "/reports" => "reports#index", as: "reports"
-      match "/reports/on_people/:id" => "reports#show_people", as: "report_on_people"
-      match "/reports/on_events/:id" => "reports#show_events", as: "report_on_events"
-      match "/reports/on_statistics/:id" => "reports#show_statistics", as: "report_on_statistics"
+      get "/reports" => "reports#index", as: "reports"
+      get "/reports/on_people/:id" => "reports#show_people", as: "report_on_people"
+      get "/reports/on_events/:id" => "reports#show_events", as: "report_on_events"
+      get "/reports/on_statistics/:id" => "reports#show_statistics", as: "report_on_statistics"
 
       resources :tickets do
         member do
@@ -130,8 +129,7 @@ Frab::Application.routes.draw do
 
     end # scope path: "/:conference_acronym"
 
-    match "/:conference_acronym" => "home#index", as: "conference_home"
-    root to: "home#index"
+    get "/:conference_acronym" => "home#index", as: "conference_home"
 
   end # scope "(:locale)" do
 

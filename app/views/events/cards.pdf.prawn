@@ -3,14 +3,14 @@ def info_table_rows(event)
   room = event.room.try(:name) or ""
   time_str = event.humanized_time_str
   rows = []
-  rows << [event.track.try(:name), event.event_type, 
+  rows << [event.track.try(:name), event.event_type,
            event.language, format_time_slots(event.time_slots)]
   rows << [room, time_str] if room.present? or time_str.present?
   rows
 end
 
 def add_speakers(columns, event)
-  speakers = event.speakers.each do |p| 
+  event.speakers.each do |p|
     columns << {text: p.full_name + "\n", size: 12}
     availabilities_in = p.availabilities_in(@conference)
 
@@ -19,7 +19,7 @@ def add_speakers(columns, event)
       columns << {text: "n/a #{l(d.start_date, format: :short_datetime)}\n", size: 9}
     }
 
-    availabilities = availabilities_in.map { |a| a.humanized_date_range } 
+    availabilities = availabilities_in.map { |a| a.humanized_date_range }
     availabilities = availabilities - @conference_days
     columns << {text: availabilities.join("\n")+"\n", size: 9}
   end
@@ -32,7 +32,7 @@ def add_event_rating(columns, event)
 end
 
 def abstract(event)
-  abstract = (event.abstract || event.description || "").gsub(/(\r\n|\n)/, " ")
+  (event.abstract || event.description || "").gsub(/(\r\n|\n)/, " ")
 end
 
 prawn_document(page_layout: :landscape) do |pdf|
@@ -47,9 +47,10 @@ prawn_document(page_layout: :landscape) do |pdf|
   pdf.define_grid(rows: 2, columns: 2, gutter: 10)
 
   @conference_days = @conference.days.map { |day| day.humanized_date_range }
+  @events = @events.to_a
 
   (@events.size / 4 + 1).times do
-    
+
     [[0,0],[0,1],[1,0],[1,1]].each do |coords|
 
       if event = @events.pop
@@ -99,7 +100,7 @@ prawn_document(page_layout: :landscape) do |pdf|
     end
 
     pdf.start_new_page unless @events.empty?
-  
+
   end
 
 end

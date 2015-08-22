@@ -1,19 +1,17 @@
 class ConferenceScrubber
+  include RakeLogger
 
   DUMMY_MAIL = "root@localhost.localdomain"
-  VERBOSE = true
 
-  def initialize(conference,dry_run=false)
+  def initialize(conference, dry_run = false)
     @conference = conference
     @dry_run = dry_run
-    @current_conferences = get_last_years_conferences
+    @current_conferences = last_years_conferences
     PaperTrail.enabled = false
   end
 
   def scrub!
-    if @dry_run
-      puts "dry run, won't change anything!"
-    end
+    log "dry run, won't change anything!" if @dry_run
     ActiveRecord::Base.transaction do
       scrub_people
       scrub_event_ratings
@@ -25,13 +23,13 @@ class ConferenceScrubber
   def scrub_people
     Person.involved_in(@conference).each { |person|
       unless still_active(person)
-        puts "scrubbing #{person.public_name} <#{person.email}>" if VERBOSE
+        log "scrubbing #{person.public_name} <#{person.email}>"
         scrub_person(person)
       end
     }
   end
 
-  def get_last_years_conferences
+  def last_years_conferences
     Conference.all.select { |c| c.first_day.date.since(1.year) > Time.now }
   end
 
@@ -39,12 +37,12 @@ class ConferenceScrubber
     @current_conferences.each { |c|
       return true if person.involved_in?(c)
     }
-    return false
+    false
   end
 
   def scrub_person(person)
     # get a writable record
-    person = Person.find person
+    person = Person.find person.id
 
     unless person.email_public or person.include_in_mailings
       person.email = DUMMY_MAIL
@@ -54,7 +52,7 @@ class ConferenceScrubber
     person.note = nil
 
     unless person.active_in_any_conference?
-      puts "scrubbing description of #{person.public_name}" if VERBOSE
+      log "scrubbing description of #{person.public_name}"
       person.abstract = nil
       person.description = nil
       person.avatar.destroy unless @dry_run
@@ -65,10 +63,9 @@ class ConferenceScrubber
 
   def scrub_event_ratings
     return if @dry_run
-    puts "scrubbing conference ratings of #{@conference.acronym}" if VERBOSE
+    log "scrubbing conference ratings of #{@conference.acronym}"
     # keeps events average rating for performance reasons
     EventRating.skip_callback(:save, :after, :update_average)
     EventRating.joins(:event).where(Event.arel_table[:conference_id].eq(@conference.id)).destroy_all
   end
-
 end

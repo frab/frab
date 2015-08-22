@@ -1,27 +1,27 @@
 class Notification < ActiveRecord::Base
-  belongs_to :call_for_papers
+  belongs_to :conference
 
   validates :locale, presence: true
   validates :reject_subject, presence: true
   validates :reject_body,    presence: true
   validates :accept_body,    presence: true
   validates :accept_subject, presence: true
-  validate :uniq_locale, message: "this locale already exists for this call for papers"
+  validate :uniq_locale
   # TODO
-  #validate :locale_is_valid
+  # validate :locale_is_valid
 
-  scope :with_locale, lambda { |code| where(self.arel_table[:locale].eq(code)) }
+  scope :with_locale, ->(code) { where(self.arel_table[:locale].eq(code)) }
 
   VARIABLES = {
-      'conference'  => 'Conference name',
-      'public_name' => 'Speaker public name',
-      'forename'    => 'Speaker forename',
-      'surname'     => 'Speaker surname',
-      'event'       => 'Event title',
-      'link'        => 'Confirmation link',
+    'conference'  => 'Conference name',
+    'public_name' => 'Speaker public name',
+    'forename'    => 'Speaker forename',
+    'surname'     => 'Speaker surname',
+    'event'       => 'Event title',
+    'link'        => 'Confirmation link'
   }
 
-  def set_default_text(locale=self.locale)
+  def default_text=(locale = self.locale)
     return if locale.nil?
     I18n.locale = locale
 
@@ -49,12 +49,11 @@ BODY
   private
 
   def uniq_locale
-    return if self.call_for_papers.nil?
-    self.call_for_papers.notifications.each { |n|
+    return if self.conference.nil?
+    self.conference.notifications.each { |n|
       if n.id != self.id and n.locale == self.locale
         self.errors.add(:locale, "#{n.locale} already added to this cfp")
       end
     }
   end
-
 end

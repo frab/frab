@@ -1,15 +1,13 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-
   setup do
     ActionMailer::Base.deliveries = []
     @notification = FactoryGirl.create(:notification)
-    @event = FactoryGirl.create(:event, conference: @notification.call_for_papers.conference)
+    @event = FactoryGirl.create(:event, conference: @notification.conference)
     @speaker = FactoryGirl.create(:person)
     FactoryGirl.create(:event_person, event: @event, person: @speaker, event_role: "speaker")
     @coordinator = FactoryGirl.create(:person)
-
   end
 
   test "acceptance processing sends email if asked to" do
@@ -21,7 +19,7 @@ class EventTest < ActiveSupport::TestCase
     @speaker.languages << Language.new(code: 'de')
     @event.conference.languages << Language.new(code: 'de')
     notification = FactoryGirl.create(:notification, locale: 'de')
-    @notification.call_for_papers.notifications << notification
+    @notification.conference.notifications << notification
 
     @event.process_acceptance(send_mail: true)
     assert !ActionMailer::Base.deliveries.empty?
@@ -61,5 +59,4 @@ class EventTest < ActiveSupport::TestCase
     other_event.start_time = @event.start_time.ago(1.hour)
     assert !@event.overlap?(other_event)
   end
-
 end

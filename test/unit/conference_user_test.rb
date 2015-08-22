@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ConferenceUserTest < ActiveSupport::TestCase
-
   test "create orga user" do
     cu = FactoryGirl.create(:conference_orga)
     assert_equal 1, cu.user.conference_users.size
@@ -28,5 +27,4 @@ class ConferenceUserTest < ActiveSupport::TestCase
     cu.role = nil
     assert_equal false, cu.valid?
   end
-
 end

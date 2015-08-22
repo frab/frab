@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ConferenceTest < ActiveSupport::TestCase
-  
   test "current returns the newest conference" do
     conferences = FactoryGirl.create_list(:conference, 3)
     assert_equal conferences.last.id, Conference.current.id
@@ -21,5 +20,4 @@ class ConferenceTest < ActiveSupport::TestCase
     assert_equal 3, conference.days.size
     assert_equal Date.today.since(3.days).since(10.hours), conference.days.last.start_date
   end
-
 end

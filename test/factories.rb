@@ -1,5 +1,4 @@
 FactoryGirl.define do
-  
   sequence :email do |n|
     "test#{n}@example.com"
   end
@@ -39,14 +38,14 @@ FactoryGirl.define do
   trait :three_days do
     after :create do |conference|
       conference.days << create(:day, conference: conference,
-                                            start_date: Date.today.since(1.days).since(11.hours),
-                                            end_date: Date.today.since(1.days).since(23.hours))
+                                      start_date: Date.today.since(1.days).since(11.hours),
+                                      end_date: Date.today.since(1.days).since(23.hours))
       conference.days << create(:day, conference: conference,
-                                            start_date: Date.today.since(2.days).since(10.hours),
-                                            end_date: Date.today.since(2.days).since(24.hours))
+                                      start_date: Date.today.since(2.days).since(10.hours),
+                                      end_date: Date.today.since(2.days).since(24.hours))
       conference.days << create(:day, conference: conference,
-                                            start_date: Date.today.since(3.days).since(10.hours),
-                                            end_date: Date.today.since(3.days).since(17.hours))
+                                      start_date: Date.today.since(3.days).since(10.hours),
+                                      end_date: Date.today.since(3.days).since(17.hours))
     end
   end
 
@@ -59,20 +58,20 @@ FactoryGirl.define do
   trait :with_events do
     after :create do |conference|
       conference.events << create(:event, conference: conference,
-                                              room: conference.rooms.first, 
-                                              state: 'confirmed',
-                                              public: true,
-                                              start_time: Date.today.since(1.days).since(11.hours))
+                                          room: conference.rooms.first,
+                                          state: 'confirmed',
+                                          public: true,
+                                          start_time: Date.today.since(1.days).since(11.hours))
       conference.events << create(:event, conference: conference,
-                                              room: conference.rooms.first, 
-                                              state: 'confirmed',
-                                              public: true,
-                                              start_time: Date.today.since(1.days).since(15.hours))
+                                          room: conference.rooms.first,
+                                          state: 'confirmed',
+                                          public: true,
+                                          start_time: Date.today.since(2.days).since(15.hours))
       conference.events << create(:event, conference: conference,
-                                              room: conference.rooms.first, 
-                                              state: 'confirmed',
-                                              public: true,
-                                              start_time: Date.today.since(3.days).since(11.hours))
+                                          room: conference.rooms.first,
+                                          state: 'confirmed',
+                                          public: true,
+                                          start_time: Date.today.since(3.days).since(11.hours))
     end
   end
 
@@ -86,7 +85,6 @@ FactoryGirl.define do
 
     factory :admin_user, traits: [:admin_role]
     factory :crew_user, traits: [:crew_role]
-
   end
 
   factory :conference_user do
@@ -137,7 +135,7 @@ FactoryGirl.define do
     factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events]
   end
 
-  factory :call_for_papers do
+  factory :call_for_participation do
     start_date { Date.today.ago(1.days) }
     end_date { Date.today.since(6.days) }
     conference
@@ -149,7 +147,7 @@ FactoryGirl.define do
     accept_body "accept body text"
     accept_subject "accepted subject"
     locale "en"
-    call_for_papers
+    conference
   end
 
   factory :availability do
@@ -162,7 +160,7 @@ FactoryGirl.define do
 
   factory :language do
     code "EN"
-    
+
     factory :english_language do
     end
     factory :german_language do
@@ -180,7 +178,7 @@ FactoryGirl.define do
 
   factory :event_person do
     person
-    event 
+    event
     event_role "speaker"
   end
 
@@ -200,6 +198,4 @@ FactoryGirl.define do
     event
     remote_ticket_id "1234"
   end
-
 end
-

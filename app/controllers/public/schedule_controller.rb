@@ -1,7 +1,6 @@
 class Public::ScheduleController < ApplicationController
-
   layout 'public_schedule'
-  before_filter :maybe_authenticate_user!
+  before_action :maybe_authenticate_user!
 
   def index
     @days = @conference.days
@@ -28,40 +27,39 @@ class Public::ScheduleController < ApplicationController
     end
     @day = @conference.days[@day_index]
 
-    @all_rooms = @conference.rooms.public.all
-    @rooms = Array.new
-    @events = Hash.new
-    @skip_row = Hash.new
+    @all_rooms = @conference.rooms.is_public
+    @rooms = []
+    @events = {}
+    @skip_row = {}
     @all_rooms.each do |room|
-      events = room.events.confirmed.no_conflicts.public.scheduled_on(@day).order(:start_time).all
-      unless events.empty?
-        @events[room] = events 
-        @skip_row[room] = 0
-        @rooms << room
-      end
+      events = room.events.confirmed.no_conflicts.is_public.scheduled_on(@day).order(:start_time).to_a
+      next if events.empty?
+      @events[room] = events
+      @skip_row[room] = 0
+      @rooms << room
     end
     if @rooms.empty?
-      return redirect_to public_schedule_index_path, :notice => "No events are scheduled."
+      return redirect_to public_schedule_index_path, :notice => "No events are public and scheduled."
     end
 
     respond_to do |format|
       format.html
       format.pdf do
         @page_size = "A4"
-        render template: "schedule/custom_pdf" 
+        render template: "schedule/custom_pdf"
       end
     end
   end
 
   def events
-    @events = @conference.events.public.confirmed.scheduled.sort {|a,b|
+    @events = @conference.events.is_public.confirmed.scheduled.sort {|a, b|
       a.to_sortable <=> b.to_sortable
     }
   end
 
   def event
-    @event = @conference.events.public.confirmed.scheduled.find(params[:id])
-    @concurrent_events = @conference.events.public.confirmed.scheduled.where( start_time: @event.start_time )
+    @event = @conference.events.is_public.confirmed.scheduled.find(params[:id])
+    @concurrent_events = @conference.events.is_public.confirmed.scheduled.where(start_time: @event.start_time)
     respond_to do |format|
       format.html
       format.ics
@@ -85,5 +83,4 @@ class Public::ScheduleController < ApplicationController
   def maybe_authenticate_user!
     authenticate_user! unless @conference.schedule_public
   end
-
 end

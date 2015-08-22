@@ -9,7 +9,7 @@ and to create a schedule.
 
 ## Background
 
-frab was originally created for the organization of FrOSCon 2011 (http://www.froscon.de).
+frab was originally created for the organization of [FrOSCon 2011](http://www.froscon.de).
 FrOSCon has previously used pentabarf (http://pentabarf.org), and although
 frab is a completely new implementation, it borrows heavily from pentabarf.
 
@@ -23,42 +23,29 @@ frab is under heavy development. There is no stable release yet.
 You may want to try to use frab regardless, but be warned, that it may
 be a rocky ride.
 
-That being said, frab has been used to organize FrOSCon 2011, a
+That being said, frab has been used to organize FrOSCon since 2011, a
 conference with more than 100 talks (and as many speakers) in more
 than 5 parallel tracks (plus devrooms) over 2 days.
 
+The [frab wiki](https://github.com/frab/frab/wiki) hosts a list of conferences using frab.
+
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 3.2) application.
+frab is a pretty standard Ruby on Rails (version 4.2) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
 Basically, to get started you need git, ruby (>= 2.1) and bundler
 and follow these steps:
 
-1) Clone the repository
-
-    git clone git://github.com/frab/frab.git
-
-2) cd into the directory:
-
-    cd frab
-
-3) Install all necessary gems:
-
-    bundle install
-
-Hint. To avoid installing database drivers you don't wanna use, exclude
-drivers with `bundle install --without="postgresql mysql"`.
-
-4) Install nodejs:
+1) Install nodejs:
 
 frab needs a javascript runtime. You should use
 nodejs, as it is easier to install than v8.
 
     apt-get install nodejs
 
-5) Install Imagemagick:
+2) Install Imagemagick:
 
 This is a dependency of the paperclip gem. Imagemagick
 tools need to be installed to identify and resize images.
@@ -66,64 +53,76 @@ tools need to be installed to identify and resize images.
 Imagemagick should be easy to install using your OS's
 preferred package manager (apt-get, yum, brew etc.).
 
-6) Create (and possibly modify) the database configuration:
+3) Clone the repository
 
-    cp config/database.yml.template config/database.yml
+    git clone git://github.com/frab/frab.git
 
-frab bundles all three built-in rails database drivers.
-And it should work with all three, although it is best tested
-with MySQL and SQLite3 (for development).
+4) cd into the directory:
 
-7) Create and modify settings:
+    cd frab
 
-    cp config/settings.yml.template config/settings.yml
+5) Modify settings:
 
-8) Create and setup the database
+Settings are defined via environment variables. frab uses dotenv files to
+set these variables. The variables for development mode are set in `.env.development`.
+You can also use `.env.local` for local overrides.
 
-    rake db:setup
+6) Run setup
 
-9) Precompile assets (only needed for production)
+    bin/setup
 
-    rake assets:precompile
-
-10) Generate secret token and add the generated token into `config/initializers/secret_token.rb`
-
-    rake secret
-    cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
-
-11) Start the server
+10) Start the server
 
 To start frab in the development environment simply run
 
     rails server
-
-To start frab in the production environment make sure you
-did not skip step 8 and run:
-
-    rails server -e production
-
-(Note that for a "real" production environment you
-probably do not want to use this script, but rather something
-like unicorn or passenger. Note that under Apache 2.x
-mod_header is needed.)
 
 Navigate to http://localhost:3000/ and login as
 "admin@example.org" with password "test123".
 
 ### Production Environments
 
+1) Installing database drivers
+
+Instead of running `bin/setup` you need to run bundle install manually, so
+you can choose your database gems. To avoid installing database drivers you don't 
+want to use, exclude drivers with 
+
+    bundle install --without="postgresql mysql"
+
+2) Create (and possibly modify) the database configuration:
+
+    cp config/database.yml.template config/database.yml
+
+3) Configuration
+
+In Production make sure the config variables are set, copy and edit the file
+`env.example` to `.env.production`.
+
+4) Precompile assets
+
+    rake assets:precompile
+
+5) Security considerations
+
 If you are running frab in a production environment you have to
 take additional steps to build a secure and stable site.
 
-0. Change the password of the inital admin account
-1. Change the initial secret token
-2. Add a content disposition header, so attachments get downloaded and
+* Change the password of the inital admin account
+* Change the initial secret token
+* Add a content disposition header, so attachments get downloaded and
 are not displayed in the browser. See `./public/system/attachments/.htaccess` for an example.
-3. Add a gem like `exception_notification` to get emails in case of errors.
+* Add a gem like `exception_notification` to get emails in case of errors.
+
+6) Start the server
+
+To start frab in the production environment run
+
+    RACK_ENV=production bundle rails s
 
 ## Ticket Server
 
-Frab supports OTRS and RT ticket servers. Instead of sending
+frab supports OTRS and RT ticket servers. Instead of sending
 event acceptance/rejection mails directly to submitters, frab adds
 a ticket to a request tracker.
 

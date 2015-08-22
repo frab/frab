@@ -123,11 +123,11 @@ a.assoc {
 
 textarea { height: auto; width: 420px; }
 
-ul#unscheduled-events { 
+ul#unscheduled-events {
   height: 400px;
-} 
+}
 div#add-event-modal {
-  overflow: auto; 
+  overflow: auto;
 }
 
 p.availability span {

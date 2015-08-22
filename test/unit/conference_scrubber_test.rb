@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ConferenceScrubberTest < ActiveSupport::TestCase
-
   TEXT = "text message"
   DUMMY_MAIL = "root@localhost.localdomain"
 
@@ -9,17 +8,18 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     @conference = FactoryGirl.create(:conference)
     add_day(@conference, 2.years)
     @event_person = add_event_with_speaker(@conference)
+    ENV['QUIET'] = '1'
   end
 
   def add_day(conference, time)
-    conference.days << FactoryGirl.create(:day, 
+    conference.days << FactoryGirl.create(:day,
       start_date: Date.today.ago(time).since(11.hours),
       end_date: Date.today.ago(time).since(23.hours))
   end
 
   def add_event_with_speaker(conference)
     event = FactoryGirl.create(:event, conference: conference, state: "confirmed")
-    event_person = FactoryGirl.create(:event_person, event: event)
+    FactoryGirl.create(:event_person, event: event)
   end
 
   test "should find last years conferences" do
@@ -27,7 +27,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     add_day(c_new, 1.days)
 
     @scrubber = ConferenceScrubber.new(@conference)
-    last_years = @scrubber.send(:get_last_years_conferences)
+    last_years = @scrubber.send(:last_years_conferences)
     assert_equal 1, last_years.count
   end
 
@@ -59,13 +59,13 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     @scrubber.send(:scrub_person, person)
     person.reload
     assert_equal person.email, DUMMY_MAIL
-    assert_blank person.phone_numbers
-    assert_blank person.im_accounts
+    assert person.phone_numbers.blank?
+    assert person.im_accounts.blank?
     assert_nil person.note
   end
 
   test "should recognize person not active in any conference" do
-    person =  FactoryGirl.create(:person)
+    person = FactoryGirl.create(:person)
     assert !person.active_in_any_conference?
   end
 
@@ -93,7 +93,6 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
 
     # reload
     event.reload
-    assert_blank event.event_ratings
+    assert event.event_ratings.blank?
   end
-
 end

@@ -1,0 +1,10 @@
+= simple_form_for @call_for_participation, url: call_for_participation_path do |f|
+  %fieldset.inputs
+    = f.input :start_date, :hint => "Pick a date when your CfP should be open for the public."
+    = f.input :end_date, :hint => "Pick a deadline for paper submission. This deadline will be displayed to the users but not otherwise enforced."
+    = f.input :hard_deadline, :hint => "Pick a hard deadline. No paper submission will be possible after this date. Leave empty if you want to allow submissions indefinitely."
+    = f.input :welcome_text, :hint => "Enter a welcome message or additional instructions you want to display to participants. (HTML)"
+    = f.input :info_url, :hint => "A web page that contains additional information about the Call for Participation. Please enter a full URL including 'http://'"
+    = f.input :contact_email, :hint => "An email address where participants can contact you in case they have any questions."
+  .actions
+    = f.button :submit, class: 'primary'

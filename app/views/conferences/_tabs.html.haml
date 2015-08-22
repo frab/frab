@@ -1,0 +1,17 @@
+%ul.tabs
+  - conference_tab(:settings, active) do
+    = link_to t(:settings), edit_conference_path
+  - conference_tab(:days, active) do
+    = link_to t(:days), edit_days_conference_path
+  - conference_tab(:tracks, active) do
+    = link_to t(:tracks), edit_tracks_conference_path
+  - conference_tab(:rooms, active) do
+    = link_to t(:rooms), edit_rooms_conference_path
+  - conference_tab(:schedule, active) do
+    = link_to t(:schedule), edit_schedule_conference_path
+  - if @conference.ticket_server_enabled?
+    - conference_tab(:ticket_server, active) do
+      = link_to t(:ticket_server), edit_ticket_server_conference_path
+  - if @conference.ticket_type == 'integrated'
+    - conference_tab(:notifications, active) do
+      = link_to "Notifications", edit_notifications_conference_path

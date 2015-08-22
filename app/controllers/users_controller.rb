@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
-  before_filter :find_person
+  before_action :authenticate_user!
+  before_action :not_submitter!
+  before_action :find_person
 
   # GET /users/1
   # GET /users/1.xml
@@ -30,7 +29,7 @@ class UsersController < ApplicationController
     @user = @person.user
     can_manage_user!
 
-    @user.conference_users.select! { |cu|
+    @user.conference_users.to_a.select! { |cu|
       can? :assign_user_roles, cu.conference
     }
   end
@@ -47,7 +46,6 @@ class UsersController < ApplicationController
       @user.role = 'submitter'
     end
     @user.person = @person
-    @user.call_for_papers = @conference.call_for_papers
     @user.skip_confirmation!
 
     respond_to do |format|
@@ -127,7 +125,7 @@ class UsersController < ApplicationController
   def filter_conference_users(conference_users)
     delete = []
     conference_users.each do |id, conference_user|
-      if conference_user.has_key?(:conference_id) and conference_user[:conference_id].present?
+      if conference_user.key?(:conference_id) and conference_user[:conference_id].present?
         conference = Conference.find conference_user[:conference_id]
         delete << id unless can? :assign_user_roles, conference
       else
@@ -137,5 +135,4 @@ class UsersController < ApplicationController
 
     delete.each { |p| conference_users.delete(p) }
   end
-
 end

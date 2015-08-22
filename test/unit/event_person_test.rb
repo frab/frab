@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EventPersonTest < ActiveSupport::TestCase
-
   test "confirmation advances both person's and event's state if possible" do
     event = FactoryGirl.create(:event, state: "unconfirmed")
     person = FactoryGirl.create(:person)
@@ -31,5 +30,4 @@ class EventPersonTest < ActiveSupport::TestCase
     assert !event_person.available_between?(today.to_time.change(hour: 0), today.to_time.change(hour: 11))
     assert !event_person.available_between?(today.to_time.change(hour: 13), today.to_time.change(hour: 24))
   end
-
 end

@@ -5,11 +5,11 @@
       Sign up
   .row
     .span16
-      = semantic_form_for(@user, :url => cfp_user_path) do |f|
-        = f.inputs do
+      = simple_form_for(@user, url: cfp_user_path) do |f|
+        %fieldset.inputs
           = f.input :email
           = f.input :password
           = f.input :password_confirmation
-        = f.buttons do
-          = f.commit_button t("cfp.sign_up"), :button_html => {:class => "btn primary"}
+        .actions
+          = f.button :submit, t("cfp.sign_up"), class: 'primary'
           = link_to t("cfp.back"), new_cfp_session_path, :class => "btn"

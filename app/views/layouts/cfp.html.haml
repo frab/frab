@@ -3,7 +3,7 @@
   %head
     %title
       = @conference.title
-      \- Call for Papers
+      \- Call for Participation
     = stylesheet_link_tag "application"
     = javascript_include_tag "application", "admin"
     = csrf_meta_tags
@@ -12,21 +12,21 @@
       .topbar
         .fill
           .container
-            - if @conference.call_for_papers.nil?
-              = link_to @conference.title + " - Call for Papers", new_cfp_session_path, class: "brand"
+            - if @conference.call_for_participation.nil?
+              = link_to @conference.title + " - Call for Participation", new_cfp_session_path, class: "brand"
             - else
-              = link_to @conference.title + " - Call for Papers", cfp_root_path, class: "brand"
+              = link_to @conference.title + " - Call for Participation", cfp_root_path, class: "brand"
             - if current_user and current_user.person
               %ul.nav.secondary-nav.pull-right
-                - conferences = Conference.creation_order.has_submission(current_user.person).all
-                - if conferences.count > 1
+                - conferences = Conference.creation_order.has_submission(current_user.person)
+                - if conferences.to_a.count > 1
                   %li.dropdown
                     = link_to t("switch_conference", default: "Switch conference"), "#", class: "dropdown-toggle"
                     %ul.dropdown-menu
                       - conferences.each do |conference|
                         - unless @conference == conference
                           %li= link_to conference.acronym, cfp_root_path(conference_acronym: conference.acronym)
-                %li= link_to t("web-app-theme.logout", default: "Logout"), cfp_session_path, method: :delete
+                %li= link_to t("logout", default: "Logout"), cfp_session_path, method: :delete
     .container
       .main-content
         = render 'shared/flash', flash: flash

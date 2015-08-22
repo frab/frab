@@ -1,7 +1,6 @@
 class ScheduleController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
+  before_action :authenticate_user!
+  before_action :not_submitter!
 
   def index
     authorize! :read, Event
@@ -9,8 +8,8 @@ class ScheduleController < ApplicationController
     @schedules_events = []
     @day = @conference.days[params[:day].to_i]
 
-    @scheduled_events = @conference.events.accepted.includes([:track, :room,:conflicts]).scheduled_on(@day).order(:title) if not @day.nil?
-    @unscheduled_events = @conference.events.accepted.includes([:track, :room,:conflicts]).unscheduled.order(:title)
+    @scheduled_events = @conference.events.accepted.includes([:track, :room, :conflicts]).scheduled_on(@day).order(:title) unless @day.nil?
+    @unscheduled_events = @conference.events.accepted.includes([:track, :room, :conflicts]).unscheduled.order(:title)
   end
 
   def update_track
@@ -38,10 +37,10 @@ class ScheduleController < ApplicationController
     authorize! :read, Event
     @page_size = params[:page_size]
     @day = @conference.days.find(params[:date_id])
-    @rooms = @conference.rooms.public.find(params[:room_ids])
-    @events = Hash.new
+    @rooms = @conference.rooms.is_public.find(params[:room_ids])
+    @events = {}
     @rooms.each do |room|
-      @events[room] = room.events.accepted.public.scheduled_on(@day).order(:start_time).all
+      @events[room] = room.events.accepted.is_public.scheduled_on(@day).order(:start_time)
     end
 
     respond_to do |format|
@@ -77,7 +76,7 @@ class ScheduleController < ApplicationController
     params.require(:event).permit(:start_time, :room_id)
   end
 
-  def check_conference_locale(locale='en')
+  def check_conference_locale(locale = 'en')
     if @conference.language_codes.include?(locale)
       locale
     elsif @conference.language_codes.present?
@@ -86,5 +85,4 @@ class ScheduleController < ApplicationController
       'en'
     end
   end
-
 end

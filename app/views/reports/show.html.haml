@@ -6,7 +6,7 @@
   - if @people or @events
     = render 'shared/simple_search', :path => request.path
   - unless @search_count.nil?
-    Found 
+    Found
     = @search_count
     results.
   - if not @people.nil? and not @people.empty?
@@ -14,8 +14,8 @@
       .span16
         - if @people.all.empty?
           %p Sorry, but your search yielded no results.
-        - else  
-          = render 'people_table', :people => @people 
+        - else
+          = render 'people_table', :people => @people
           = actions_bar do
             = will_paginate @people
   - if not @events.nil? and not @events.empty?
@@ -23,11 +23,11 @@
       .span16
         - if @events.all.empty?
           %p Sorry, but your search yielded no results.
-        - else  
-          = render 'events_table', :events => @events 
+        - else
+          = render 'events_table', :events => @events
           = actions_bar do
             = will_paginate @events
   - if not @data.nil? and not @data.empty?
     .row
       .span16
-        = render 'statistics_table', :data => @data 
+        = render 'statistics_table', :data => @data

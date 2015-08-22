@@ -1,8 +1,7 @@
 class EventRatingsController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
-  before_filter :find_event
+  before_action :authenticate_user!
+  before_action :not_submitter!
+  before_action :find_event
 
   def show
     authorize! :read, EventRating
@@ -48,13 +47,11 @@ class EventRatingsController < ApplicationController
   # filter according to users abilities
   def find_event
     @event = Event.find(params[:event_id])
-    if @event_ratings.nil?
-      @event_ratings = @event.event_ratings.accessible_by(current_ability)
-    end
+    return if @event_ratings
+    @event_ratings = @event.event_ratings.accessible_by(current_ability)
   end
 
   def event_rating_params
     params.require(:event_rating).permit(:rating, :comment, :text)
   end
-
 end

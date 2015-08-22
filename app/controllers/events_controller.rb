@@ -1,8 +1,7 @@
 class EventsController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
-  after_filter :restrict_events
+  before_action :authenticate_user!
+  before_action :not_submitter!
+  after_action :restrict_events
 
   # GET /events
   # GET /events.xml
@@ -52,7 +51,7 @@ class EventsController < ApplicationController
 
     # total ratings:
     @events_total = @conference.events.count
-    @events_reviewed_total = @conference.events.select{|e| e.event_ratings_count != nil and e.event_ratings_count > 0 }.count
+    @events_reviewed_total = @conference.events.count { |e| !e.event_ratings_count.nil? and e.event_ratings_count > 0 }
     @events_no_review_total = @events_total - @events_reviewed_total
 
     # current_user rated:
@@ -169,13 +168,13 @@ class EventsController < ApplicationController
     if params[:send_mail]
 
       # If integrated mailing is used, take care that a notification text is present.
-      if @event.conference.call_for_papers.notifications.empty?
-        return redirect_to edit_call_for_papers_path, alert: 'No notification text present. Please change the default text for your needs, before accepting/ rejecting events.'
+      if @event.conference.notifications.empty?
+        return redirect_to edit_conference_path, alert: 'No notification text present. Please change the default text for your needs, before accepting/ rejecting events.'
       end
 
       return redirect_to(@event, alert: "Cannot send mails: Please specify an email address for this conference.") unless @conference.email
 
-      return redirect_to(@event, alert: "Cannot send mails: Not all speakers have email addresses.") unless @event.speakers.all?{|s| s.email}
+      return redirect_to(@event, alert: "Cannot send mails: Not all speakers have email addresses.") unless @event.speakers.all?(&:email)
     end
 
     begin
@@ -203,23 +202,17 @@ class EventsController < ApplicationController
   private
 
   def restrict_events
-    unless @events.nil?
-      @events = @events.accessible_by(current_ability)
-    end
+    @events = @events.accessible_by(current_ability) unless @events.nil?
   end
 
   def clean_events_attributes
     return if can? :crud, Event
-    unless @event.nil?
-      @event.clean_event_attributes!
-    end
-    unless @events.nil?
-      @events.map { |event| event.clean_event_attributes! }
-    end
+    @event.clean_event_attributes! unless @event.nil?
+    @events.map(&:clean_event_attributes!) unless @events.nil?
   end
 
   def search(events, params)
-    if params.has_key?(:term) and not params[:term].empty?
+    if params.key?(:term) and not params[:term].empty?
       term = params[:term]
       sort = params[:q][:s] rescue nil
       @search = events.ransack(title_cont: term,
@@ -245,5 +238,4 @@ class EventsController < ApplicationController
       event_people_attributes: %i(id person_id event_role role_state _destroy)
     )
   end
-
 end

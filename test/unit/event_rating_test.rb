@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EventRatingTest < ActiveSupport::TestCase
-
   test "creating ratings correctly updates average" do
     event = FactoryGirl.create(:event)
     id = event.id

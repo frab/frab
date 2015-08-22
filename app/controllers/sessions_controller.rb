@@ -1,11 +1,10 @@
 class SessionsController < ApplicationController
-
   layout 'team_signup'
 
-  before_filter :authenticate_user!, only: :destroy
-  before_filter :not_submitter!, except: :destroy
-  before_filter :check_user_params, only: :create
-  before_filter :check_pentabarf_credentials, only: :create
+  before_action :authenticate_user!, only: :destroy
+  before_action :not_submitter!, except: :destroy
+  before_action :check_user_params, only: :create
+  before_action :check_pentabarf_credentials, only: :create
 
   def new
     @user = User.new
@@ -46,7 +45,7 @@ class SessionsController < ApplicationController
   end
 
   def check_user_params
-    if params.has_key?(:user)
+    if params.key?(:user)
       user = params[:user]
       return true if user.key?(:email) and user.key?(:password)
     end
@@ -62,5 +61,4 @@ class SessionsController < ApplicationController
   def user_params
     params.require(:user).permit(:password, :email, :remember_me)
   end
-
 end

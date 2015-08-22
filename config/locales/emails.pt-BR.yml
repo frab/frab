@@ -1,0 +1,41 @@
+pt-BR:
+  emails:
+    event_acceptance:
+      subject: "Sua submissão para %{title}"
+      greeting: "Caro %{name},"
+      accepted_event: |
+        Estamos muito felizes de dizer que aceitamos a sua apresentação
+
+        %{title}
+      confirmation: |
+        Pedimos que você reconfirme rapidamente que estará presente
+        para realizar a sua apresentação usando o seguinte link:
+
+        %{link}
+      check_data: "Enquanto você esta fazendo isto: Depois de confirmar usando este\nlink, você vai\
+        \ estar logado no sistema de planejamento da conferencia.\nPedimos que você tome um tempo\
+        \ para checar seus dados lá. Os dados\nserão utilizados na programação oficial da conferencia.\
+        \ Você pode \ntambém especificar sua disponibilidade de horários lá.\nEstaremos considerando\
+        \ sua disponibilidade no momento de planejar a\nprogramação final do evento.\n"
+      goodbye: |
+        Atenciosamente
+
+        Coordenação do %{title}
+    event_rejection:
+      subject: "Sua submissão para %{title}"
+      greeting: "Caro %{name},"
+      rejection: |
+        Gostariamos de agradecer muito a sua submissão. Fomos surpreendidos
+        pela grande quantidade de submissões de qualidade que recebemos.
+
+        Após um processo de seleção extenso infelizmente tivemos que rejeitar
+        sua submissão.
+
+        %{title}
+
+        Podemos garantir que esta não foi uma decisão fácil de tomar.
+        Esperamos poder recebê-lo ainda na conferência.
+      goodbye: |
+        Atenciosamente
+
+        Coordenação do %{title}

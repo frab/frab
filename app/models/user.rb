@@ -1,12 +1,10 @@
 class User < ActiveRecord::Base
   include UniqueToken
 
-  ROLES = %w{submitter crew admin}
-  USER_ROLES = %w{submitter crew}
+  ROLES = %w(submitter crew admin)
+  USER_ROLES = %w(submitter crew)
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
-  # TODO: users should have several cfps, refactor into has_many relation
-  belongs_to :call_for_papers
   has_many :conference_users, dependent: :destroy
   has_one :person
 
@@ -18,7 +16,6 @@ class User < ActiveRecord::Base
 
   after_initialize :check_default_values
   before_create :generate_confirmation_token, unless: :confirmed_at
-  after_create :send_confirmation_instructions, unless: :confirmed_at
 
   validates_presence_of :person
   validates_presence_of :email
@@ -28,7 +25,7 @@ class User < ActiveRecord::Base
   validate :conference_user_valid
   validate :only_one_role_per_conference
 
-  scope :confirmed, where(arel_table[:confirmed_at].not_eq(nil))
+  scope :confirmed, -> { where(arel_table[:confirmed_at].not_eq(nil)) }
 
   def check_default_values
     self.role ||= 'submitter'
@@ -54,9 +51,9 @@ class User < ActiveRecord::Base
   def self.check_pentabarf_credentials(email, password)
     user = User.find_by_email(email)
     return unless user and user.pentabarf_password and user.pentabarf_salt
-    salt = [user.pentabarf_salt.to_i( 16 )].pack("Q").reverse
+    salt = [user.pentabarf_salt.to_i(16)].pack("Q").reverse
 
-    if Digest::MD5.hexdigest( salt + password ) == user.pentabarf_password
+    if Digest::MD5.hexdigest(salt + password) == user.pentabarf_password
       user.password = password
       user.password_confirmation = password
       user.pentabarf_password = nil
@@ -75,27 +72,16 @@ class User < ActiveRecord::Base
     user
   end
 
-  def send_confirmation_instructions
+  def send_confirmation_instructions(conference = nil)
     return false if confirmed_at
     generate_confirmation_token! unless self.confirmation_token
-    UserMailer.confirmation_instructions(self).deliver
+    UserMailer.confirmation_instructions(self, conference).deliver_now
   end
 
   # update users call for papers and sends mail
-  def send_password_reset_instructions(call_for_papers = nil)
-    if call_for_papers
-      self.call_for_papers = call_for_papers
-    end
+  def send_password_reset_instructions(conference)
     generate_password_reset_token!
-    UserMailer.password_reset_instructions(self).deliver
-  end
-
-  def try_call_for_papers
-    if self.call_for_papers
-     self.call_for_papers
-    else
-      CallForPapers.last
-    end
+    UserMailer.password_reset_instructions(self, conference).deliver_now
   end
 
   def reset_password(params)
@@ -110,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def authenticate(password_entered)
-    if super(password_entered) or (Settings['devise_pepper'] and super(password_entered + Settings['devise_pepper']))
+    if super(password_entered) or (ENV["DEVISE_PEPPER"] and super(password_entered + ENV["DEVISE_PEPPER"]))
       self
     else
       false
@@ -118,24 +104,21 @@ class User < ActiveRecord::Base
   end
 
   def record_login!
-    update_attributes({last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1}, without_protection: true)
+    update_attributes(last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1)
   end
 
   private
 
   def conference_user_valid
-    #empty = self.conference_users.select { |cu| cu.conference.nil? and cu.role.nil? }
-    #self.conference_users.delete empty
-    if self.conference_users.select { |cu| cu.conference.nil? || cu.role.nil? }.count > 0
-       self.errors.add(:role, "Invalid conference user specified")
-    end
+    return unless self.conference_users.count { |cu| cu.conference.nil? || cu.role.nil? } > 0
+    self.errors.add(:role, "Invalid conference user specified")
   end
 
   def only_one_role_per_conference
     seen = {}
     self.conference_users.each { |cu|
       next if cu.conference.nil?
-      if seen.has_key? cu.conference.id
+      if seen.key? cu.conference.id
         self.errors.add(:role, "User cannot have multiple roles in one conference")
         return
       end
@@ -156,5 +139,4 @@ class User < ActiveRecord::Base
     generate_token_for(:reset_password_token)
     save
   end
-
 end

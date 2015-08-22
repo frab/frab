@@ -1,14 +1,14 @@
 %section
   .page-header
-    %h1=t("cfp.change_password_headline") 
+    %h1=t("cfp.change_password_headline")
   .row
     .span16
       = render "shared/flash", :flash => flash
-      = semantic_form_for(@user, :url => cfp_user_password_path, :html => { :method => :put }) do |f|
+      = simple_form_for(@user, url: cfp_user_password_path, :html => { :method => :put }) do |f|
         = f.hidden_field :reset_password_token
-        = f.inputs do
+        %fieldset.inputs
           = f.input :password
           = f.input :password_confirmation
-        = f.buttons do
-          = f.commit_button t("cfp.change_password_button"), :button_html => {:class => "btn primary"}
-          = link_to t("cfp.back"), :back, :class => "btn" 
+        .actions
+          = f.button :submit, t("cfp.change_password_button"), class: 'primary'
+          = link_to t("cfp.back"), :back, :class => "btn"

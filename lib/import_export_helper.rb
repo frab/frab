@@ -1,8 +1,8 @@
 class ImportExportHelper
-  DEBUG=true
-  EXPORT_DIR="tmp/frab_export"
+  DEBUG = true
+  EXPORT_DIR = "tmp/frab_export"
 
-  def initialize(conference=nil)
+  def initialize(conference = nil)
     @export_dir = EXPORT_DIR
     @conference = conference
     PaperTrail.enabled = false
@@ -12,7 +12,7 @@ class ImportExportHelper
   def run_export
     if @conference.nil?
       puts "[!] the conference wasn't found."
-      exit 
+      exit
     end
 
     FileUtils.mkdir_p(@export_dir)
@@ -20,7 +20,7 @@ class ImportExportHelper
     ActiveRecord::Base.transaction do
       dump "conference", @conference
       dump "conference_tracks", @conference.tracks
-      dump "conference_cfp", @conference.call_for_papers
+      dump "conference_cfp", @conference.call_for_participation
       dump "conference_ticket_server", @conference.ticket_server
       dump "conference_rooms", @conference.rooms
       dump "conference_days", @conference.days
@@ -46,7 +46,7 @@ class ImportExportHelper
     end
   end
 
-  def run_import(export_dir=EXPORT_DIR)
+  def run_import(export_dir = EXPORT_DIR)
     @export_dir = export_dir
     unless File.directory? @export_dir
       puts "Directory #{@export_dir} does not exist!"
@@ -66,11 +66,10 @@ class ImportExportHelper
       unpack_paperclip_files
       restore_all_data
     end
-
   end
 
   private
-   
+
   def restore_all_data
     restore("conference", Conference) do |id, c|
       test = Conference.find_by_acronym(c.acronym)
@@ -111,15 +110,15 @@ class ImportExportHelper
         # don't create a new user
         @mappings[:users][id] = user.id
       else
-        %w{ confirmation_sent_at confirmation_token confirmed_at created_at
-              current_sign_in_at current_sign_in_ip last_sign_in_at
-              last_sign_in_ip password_digest pentabarf_password
-              pentabarf_salt remember_created_at remember_token
-              reset_password_token role sign_in_count updated_at
-        }.each { |var|
-          obj.send("#{var}=",yaml[var])
+        %w( confirmation_sent_at confirmation_token confirmed_at created_at
+            current_sign_in_at current_sign_in_ip last_sign_in_at
+            last_sign_in_ip password_digest pentabarf_password
+            pentabarf_salt remember_created_at remember_token
+            reset_password_token role sign_in_count updated_at
+        ).each { |var|
+          obj.send("#{var}=", yaml[var])
         }
-        obj.call_for_papers_id = @mappings[:cfp][obj.call_for_papers_id]
+        obj.call_for_participation_id = @mappings[:cfp][obj.call_for_participation_id]
         obj.confirmed_at ||= Time.now
         obj.person = @mappings[:people_user][id]
         unless obj.valid?
@@ -134,7 +133,7 @@ class ImportExportHelper
     end
 
     restore_multiple("events", Event) do |id, obj|
-      obj.conference_id =  @conference_id
+      obj.conference_id = @conference_id
       obj.track_id = @mappings[:tracks][obj.track_id]
       obj.room_id = @mappings[:rooms][obj.room_id]
       if (file = import_file("logos", id, obj.logo_file_name))
@@ -151,69 +150,69 @@ class ImportExportHelper
     restore_people_data
 
     update_counters
-    Event.all.each { |e| e.update_conflicts } 
+    Event.all.each(&:update_conflicts)
   end
 
   def restore_conference_data
     restore_multiple("conference_tracks", Track) do |id, obj|
-      obj.conference_id =  @conference_id
+      obj.conference_id = @conference_id
       obj.save!
       @mappings[:tracks][id] = obj.id
     end
 
-    restore("conference_cfp", CallForPapers) do |id, obj|
-      obj.conference_id =  @conference_id
+    restore("conference_cfp", CallForParticipation) do |id, obj|
+      obj.conference_id = @conference_id
       obj.save!
       @mappings[:cfp][id] = obj.id
     end
 
-    restore("conference_ticket_server", TicketServer) do |id, obj|
-      obj.conference_id =  @conference_id
+    restore("conference_ticket_server", TicketServer) do |_id, obj|
+      obj.conference_id = @conference_id
       obj.save!
     end
 
     restore_multiple("conference_rooms", Room) do |id, obj|
-      obj.conference_id =  @conference_id
+      obj.conference_id = @conference_id
       obj.save!
       @mappings[:rooms][id] = obj.id
     end
 
     restore_multiple("conference_days", Day) do |id, obj|
-      obj.conference_id =  @conference_id
+      obj.conference_id = @conference_id
       obj.save!
       @mappings[:days][id] = obj.id
     end
 
-    restore_multiple("conference_languages", Language) do |id, obj|
-      obj.attachable_id =  @conference_id
+    restore_multiple("conference_languages", Language) do |_id, obj|
+      obj.attachable_id = @conference_id
       obj.save!
     end
   end
 
   def restore_events_data
-    restore_multiple("tickets", Ticket) do |id, obj|
+    restore_multiple("tickets", Ticket) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.save!
     end
 
-    restore_multiple("event_people", EventPerson) do |id, obj|
+    restore_multiple("event_people", EventPerson) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.person_id = @mappings[:people][obj.person_id]
       obj.save!
     end
 
-    restore_multiple("event_feedbacks", EventFeedback) do |id, obj|
+    restore_multiple("event_feedbacks", EventFeedback) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.save!
     end
 
-    restore_multiple("event_ratings", EventRating) do |id, obj|
+    restore_multiple("event_ratings", EventRating) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.person_id = @mappings[:people][obj.person_id]
       obj.save! if obj.valid?
     end
 
-    restore_multiple("event_links", Link) do |id, obj|
+    restore_multiple("event_links", Link) do |_id, obj|
       obj.linkable_id = @mappings[:events][obj.linkable_id]
       obj.save!
     end
@@ -221,15 +220,14 @@ class ImportExportHelper
     restore_multiple("event_attachments", EventAttachment) do |id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       if (file = import_file("attachments", id, obj.attachment_file_name))
-          obj.attachment = file
+        obj.attachment = file
       end
       obj.save!
     end
-
   end
 
   def restore_people_data
-    restore_multiple("people_phone_numbers", PhoneNumber) do |id, obj|
+    restore_multiple("people_phone_numbers", PhoneNumber) do |_id, obj|
       new_id = @mappings[:people][obj.person_id]
       test = PhoneNumber.where(person_id: new_id, phone_number: obj.phone_number)
       unless test
@@ -238,7 +236,7 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("people_im_accounts", ImAccount) do |id, obj|
+    restore_multiple("people_im_accounts", ImAccount) do |_id, obj|
       new_id = @mappings[:people][obj.person_id]
       test = ImAccount.where(person_id: new_id, im_address: obj.im_address)
       unless test
@@ -247,7 +245,7 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("people_links", Link) do |id, obj|
+    restore_multiple("people_links", Link) do |_id, obj|
       new_id = @mappings[:people][obj.linkable_id]
       test = Link.where(linkable_id: new_id, linkable_type: obj.linkable_type,
                         url: obj.url)
@@ -257,17 +255,17 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("people_languages", Language) do |id, obj|
+    restore_multiple("people_languages", Language) do |_id, obj|
       new_id = @mappings[:people][obj.attachable_id]
       test = Language.where(attachable_id: new_id, attachable_type: obj.attachable_type,
-                        code: obj.code)
+                            code: obj.code)
       unless test
         obj.attachable_id = new_id
         obj.save!
       end
     end
 
-    restore_multiple("people_availabilities", Availability) do |id, obj|
+    restore_multiple("people_availabilities", Availability) do |_id, obj|
       next if obj.nil? or obj.start_date.nil? or obj.end_date.nil?
       obj.conference_id = @conference_id
       obj.person_id = @mappings[:people][obj.person_id]
@@ -278,20 +276,20 @@ class ImportExportHelper
 
   def dump_has_many(name, obj, attr)
     arr = obj.collect { |t| t.send(attr) }
-             .flatten.select { |t| not t.nil? }.sort.uniq
+          .flatten.select { |t| not t.nil? }.sort.uniq
     dump name, arr
   end
 
-  def dump(name,obj)
+  def dump(name, obj)
     return if obj.nil?
-    File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f| 
+    File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f|
       if obj.respond_to?("collect")
-        f.puts obj.collect {|record| record.attributes}.to_yaml
+        f.puts obj.collect(&:attributes).to_yaml
       else
         f.puts obj.attributes.to_yaml
       end
     }
-    return obj
+    obj
   end
 
   def restore(name, obj)
@@ -312,7 +310,7 @@ class ImportExportHelper
     end
   end
 
-  def restore_users(name="users", obj=User)
+  def restore_users(name = "users", obj = User)
     puts "[ ] restore all #{name}" if DEBUG
     records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
     records.each do |record|
@@ -321,33 +319,31 @@ class ImportExportHelper
     end
   end
 
-  def export_paperclip_files(events,people,attachments)
+  def export_paperclip_files(events, people, attachments)
     out_path = File.join(@export_dir, 'attachments.tar.gz')
 
     paths = []
-    paths << events.select { |e| not e.logo.path.nil? }.collect { |e| e.logo.path.gsub(/^#{Rails.root}\//,'') }
-    paths << people.select { |e| not e.avatar.path.nil? }.collect { |e| e.avatar.path.gsub(/^#{Rails.root}\//,'') }
-    paths << attachments.select { |e| not e.attachment.path.nil? }.collect { |e| e.attachment.path.gsub(/^#{Rails.root}\//,'') }
+    paths << events.select { |e| not e.logo.path.nil? }.collect { |e| e.logo.path.gsub(/^#{Rails.root}\//, '') }
+    paths << people.select { |e| not e.avatar.path.nil? }.collect { |e| e.avatar.path.gsub(/^#{Rails.root}\//, '') }
+    paths << attachments.select { |e| not e.attachment.path.nil? }.collect { |e| e.attachment.path.gsub(/^#{Rails.root}\//, '') }
     paths.flatten!
 
     # TODO don't use system
-    system( 'tar', *['-cpz', '-f', out_path, paths].flatten )
+    system('tar', *['-cpz', '-f', out_path, paths].flatten)
   end
-  
+
   def import_file(dir, id, file_name)
     return if file_name.nil? or file_name.empty?
 
     path = File.join(@export_dir, 'public/system', dir, id.to_s, 'original', file_name)
-    if (File.readable?(path))
-      return File.open(path, 'r')
-    end
+    return File.open(path, 'r') if File.readable?(path)
 
-    return
+    nil
   end
 
-  def unpack_paperclip_files()
+  def unpack_paperclip_files
     path = File.join(@export_dir, 'attachments.tar.gz')
-    system( 'tar', *['-xz', '-f', path, '-C', @export_dir].flatten )
+    system('tar', *['-xz', '-f', path, '-C', @export_dir].flatten)
   end
 
   def disable_callbacks
@@ -369,5 +365,4 @@ class ImportExportHelper
        SELECT sum(rating)/count(rating)
        FROM #{table} WHERE events.id = #{table}.event_id)"
   end
-
 end

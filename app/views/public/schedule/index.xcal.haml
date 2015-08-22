@@ -1,14 +1,14 @@
 !!! XML
 %iCalendar{:"xmlns:xCal"=>"urn:ietf:params:xml:ns:xcal", :"xmlns:pentabarf"=>"http://pentabarf.org"}
-  %vcalendar 
+  %vcalendar
     %version= "2.0"
     %prodid= "-//Pentabarf//Schedule//EN"
     %x-wr-caldesc= "#{@conference.acronym} Schedule"
     %x-wr-calname= "#{@conference.acronym} Schedule"
-  
-    - @conference.events.accepted.public.each do |event|
+
+    - @conference.events.accepted.is_public.each do |event|
       - next unless event.start_time
-      %vevent 
+      %vevent
         %method= "PUBLISH"
         %uid= "#{event.id}@#{@conference.acronym}@pentabarf.org"
         %pentabarf:event-id= event.id
@@ -23,7 +23,7 @@
         %summary= event.title + ( event.subtitle ? "- #{event.subtitle}" : "" )
         %description= event.abstract
         %class= "PUBLIC"
-        %status= "CONFIRMED" 
+        %status= "CONFIRMED"
         %category= "Lecture"
         - if @conference.program_export_base_url.blank?
           %url= public_event_url(:id => event.id)
@@ -31,4 +31,4 @@
           %url= event.static_url
         %location= event.room.try(:name)
         - event.speakers.each do |speaker|
-          %attendee= speaker.full_public_name 
+          %attendee= speaker.full_public_name

@@ -3,8 +3,8 @@
     %h1 Editing People for "#{@event.title}"
   .row
     .span16
-      = semantic_form_for(@event) do |f|
+      = simple_form_for(@event) do |f|
         = dynamic_association :event_people, nil, f
-        = f.buttons do
-          = f.commit_button :button_html => {:class => "btn primary"}
+        .actions
+          = f.button :submit, class: 'primary'
           = link_to "Cancel", :back, :class => "btn"

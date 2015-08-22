@@ -3,8 +3,8 @@ require 'test_helper'
 class Cfp::PeopleControllerTest < ActionController::TestCase
   setup do
     @cfp_person = FactoryGirl.create(:person)
-    @call_for_papers = FactoryGirl.create(:call_for_papers)
-    @conference = @call_for_papers.conference
+    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @conference = @call_for_participation.conference
     login_as(:submitter)
   end
 
@@ -27,8 +27,8 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
     session[:user_id] = user.id
 
     assert_difference 'Person.count' do
-      post :create, person: {email: @cfp_person.email,
-                    public_name: @cfp_person.public_name},
+      post :create, person: { email: @cfp_person.email,
+                              public_name: @cfp_person.public_name },
                     conference_acronym: @conference.acronym
     end
     assert_response :redirect
@@ -43,5 +43,4 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
     put :update, id: @cfp_person.id, person: cfp_person_params, conference_acronym: @conference.acronym
     assert_response :redirect
   end
-
 end

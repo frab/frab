@@ -1,5 +1,4 @@
 class Cfp::PasswordsController < ApplicationController
-
   layout "signup"
 
   def new
@@ -12,7 +11,7 @@ class Cfp::PasswordsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:user][:email])
-    if @user and @user.send_password_reset_instructions(@conference.call_for_papers)
+    if @user and @user.send_password_reset_instructions(@conference)
       redirect_to new_cfp_session_path, notice: t(:"cfp.sent_password_reset_instructions")
     else
       flash[:alert] = t(:"cfp.problem_sending_password_reset_instructions")
@@ -40,5 +39,4 @@ class Cfp::PasswordsController < ApplicationController
       render action: "edit"
     end
   end
-
 end

@@ -2,7 +2,7 @@
         :style => "height: #{event.time_slots * 20 - 7}px;",
         :class => event.conflict_level,
         :"data-update-url" => schedule_update_event_path(:id => event.id),
-        :"data-room" => event.room ? event.room.name.downcase : nil, 
+        :"data-room" => event.room ? event.room.name.downcase : nil,
         :"data-time" => event.start_time ? event.start_time.to_s(:rfc822) : nil }
   = link_to event.title, event
   %p.small

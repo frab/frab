@@ -1,5 +1,4 @@
 namespace :frab do
-
   task :default => :conference_export
 
   desc "export a frab conference. Optionally set CONFERENCE=acronym to specify which conference to export. Current conference will be exported, when paramter is not set. The conference data is written to tmp/frab_export"
@@ -23,5 +22,4 @@ namespace :frab do
     require "import_export_helper.rb"
     ImportExportHelper.new.run_import(export_path)
   end
-
 end

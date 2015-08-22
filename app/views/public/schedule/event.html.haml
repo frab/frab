@@ -36,10 +36,10 @@
     %li= link_to "iCalendar", public_event_path(id: @event.id, format: :ics)
     - @event.links.each do |link|
       %li= link_to link.title, link.url
-  - if @event.event_attachments.public.any?
+  - if @event.event_attachments.is_public.any?
     %h3= t '.files'
     %ul
-      - @event.event_attachments.public.each do |attachment|
+      - @event.event_attachments.is_public.each do |attachment|
         %li= link_to attachment.link_title, attachment.attachment.url
   - if @conference.feedback_enabled?
     %h3= t '.feedback'

@@ -25,10 +25,10 @@
         %td.buttons
           = action_button "small", 'Show', person
           - if can? :manage, person
-            = action_button "small", 'Edit', edit_person_path(person) 
+            = action_button "small", 'Edit', edit_person_path(person)
             - if can? :crud, person.user or can? :administrate, User
               - if person.user.nil?
-                = action_button "small", 'User', new_person_user_path(person) 
+                = action_button "small", 'User', new_person_user_path(person)
               - else
-                = action_button "small", 'User', edit_person_user_path(person) 
+                = action_button "small", 'User', edit_person_user_path(person)
             = action_button "small danger", 'Destroy', person, :confirm => 'Are you sure?', :method => :delete

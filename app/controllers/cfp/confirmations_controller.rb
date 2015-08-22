@@ -1,5 +1,4 @@
 class Cfp::ConfirmationsController < ApplicationController
-
   layout "signup"
 
   def new
@@ -8,10 +7,13 @@ class Cfp::ConfirmationsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:user][:email])
-    if @user and @user.send_confirmation_instructions
+    @conference = Conference.find_by_acronym(params[:conference_acronym])
+
+    # re-send
+    if @user and @user.send_confirmation_instructions(@conference)
       redirect_to new_cfp_session_path, notice: t(:"cfp.confirmation_instructions_sent")
     else
-      redirect_to new_cfp_user_confirmation_path, flash: {error: t(:"cfp.error_sending_confirmation_instructions")}
+      redirect_to new_cfp_user_confirmation_path, flash: { error: t(:"cfp.error_sending_confirmation_instructions") }
     end
   end
 
@@ -25,5 +27,4 @@ class Cfp::ConfirmationsController < ApplicationController
       redirect_to new_cfp_user_confirmation_path, error: t("cfp.error_confirming")
     end
   end
-
 end

@@ -1,14 +1,14 @@
 = javascript_include_tag "moment.min"
 
-= semantic_form_for(person, :url => url) do |f|
-  = f.inputs do
+= simple_form_for(person, url: url) do |f|
+  %fieldset.inputs
     - conference.days.each do |day|
       - availability = availabilities.select{ |a| a.day == day }.first
       - availability.nil? and availability = Availability.new(:day => day, :conference => conference)
       = render(:partial => 'shared/availabilities_slider', :locals => { :f => f, :day => day, :availability => availability })
-  = f.buttons do
+  .actions
     - if can? :crud, person
-      = f.commit_button t("cfp.save_availability"), :button_html => {:class => "btn primary"}
+      = f.button :submit, t("cfp.save_availability"), class: 'primary'
 
 :javascript
   $(function() {
@@ -38,7 +38,7 @@
       },
 
       _setup_checkbox: function(id) {
-        $('span#day_'+id+' input[type="checkbox"].cbx').change(function() { 
+        $('span#day_'+id+' input[type="checkbox"].cbx').change(function() {
           if( $(this).attr('checked') )
             SliderForm.set_on(id);
           else
@@ -55,7 +55,7 @@
           max: el_slider.data("max"),
           values: [el_slider.data("from"), el_slider.data("to")],
           slide: function(event, ui) {
-            var dates = [SliderForm.get_date_string(ui.values[0]), 
+            var dates = [SliderForm.get_date_string(ui.values[0]),
                          SliderForm.get_date_string(ui.values[1])];
             SliderForm.update_date_labels(id, dates);
             SliderForm.update_hidden_inputs(id, dates);
@@ -100,14 +100,14 @@
           var max = el_slider.data("max");
           // missing values, use min/max as default
           SliderForm.update_slider_values(id, [min,max]);
-          var dates = [SliderForm.get_date_string(min), 
+          var dates = [SliderForm.get_date_string(min),
                        SliderForm.get_date_string(max)];
           SliderForm.update_date_labels(id, dates);
           SliderForm.update_hidden_inputs(id, dates);
         } else {
           var from  = el_slider.data("from");
           var to    = el_slider.data("to");
-          var dates = [SliderForm.get_date_string(from), 
+          var dates = [SliderForm.get_date_string(from),
                        SliderForm.get_date_string(to)];
           SliderForm.update_date_labels(id, dates);
         }
@@ -123,7 +123,7 @@
     };
 
   });
-    
+
 - conference.days.each do |day|
   :javascript
     $(function() {

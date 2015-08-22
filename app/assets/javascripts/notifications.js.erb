@@ -1,0 +1,33 @@
+$(function() {
+
+  NotificationDefaults = {
+
+    fill: function(options) {
+      var topDiv    = options.topDiv;
+      var url    = options.url;
+      NotificationDefaults._fetch(topDiv, url);
+    },
+
+    _fetch: function(topDiv, url) {
+      var code = topDiv.find('select option:selected').text();
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: url,
+        data: {'code':code},
+        success: function(result){
+          var texts = result.notification;
+          var inputs = topDiv.find('input[type=text]');
+          $(inputs.get(0)).val(texts.accept_subject);
+          $(inputs.get(1)).val(texts.reject_subject);
+          inputs = topDiv.find('textarea');
+          $(inputs.get(0)).val(texts.accept_body);
+          $(inputs.get(1)).val(texts.reject_body);
+        }
+      });
+    },
+
+  };
+
+});
+

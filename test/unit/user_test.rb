@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-
   test "logins can be recorded" do
     user = FactoryGirl.create(:user)
     assert_equal 0, user.sign_in_count
@@ -21,5 +20,4 @@ class UserTest < ActiveSupport::TestCase
     user = FactoryGirl.create(:crew_user)
     assert_equal "crew", user.role
   end
-
 end

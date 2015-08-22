@@ -1,19 +1,22 @@
-= semantic_form_for(@person, :url => cfp_person_path, :html => {:multipart => true}) do |f|
-  = f.inputs :name => "Basic" do
+= simple_form_for(@person, url: cfp_person_path, :html => {:multipart => true}) do |f|
+  %fieldset.inputs
+    %legend Basic
     = f.input :first_name
     = f.input :last_name
-    = f.input :public_name, :hint => t("cfp.public_name_hint") 
+    = f.input :public_name, :hint => t("cfp.public_name_hint")
     = f.input :gender, :collection => translated_options(Person::GENDERS)
     = f.input :avatar, :hint => t("cfp.avatar_hint")
     = dynamic_association :languages, t("cfp.languages_spoken"), f
-  = f.inputs :name => t("cfp.contact_data") do
+  %fieldset.inputs
+    %legend= t("cfp.contact_data")
     = f.input :email, :hint => t("cfp.email_hint")
-    = f.input :email_public, :as => :boolean, :hint => t("cfp.email_public_hint")
+    = f.input :email_public, as: :inline_boolean, :hint => t("cfp.email_public_hint")
     = dynamic_association :phone_numbers, t("cfp.phone_numbers"), f
     = dynamic_association :im_accounts, t("cfp.im_accounts"), f
-  = f.inputs :name => t("cfp.bio") do
-    = f.input :abstract, :input_html => {:rows => 4}, :hint => t("cfp.abstract_hint") 
+  %fieldset.inputs
+    %legend= t("cfp.bio")
+    = f.input :abstract, :input_html => {:rows => 4}, :hint => t("cfp.abstract_hint")
     = f.input :description, :hint => t("cfp.description_hint")
     = dynamic_association :links, t("cfp.links"), f
-  = f.buttons do
-    = f.commit_button :button_html => {:class => "btn primary"}
+  .actions
+    = f.button :submit, class: 'primary'

@@ -12,7 +12,7 @@
     %li= link_to "Feedback", event_event_feedbacks_path(@event)
   .row
     .span16
-      %small= link_to_function "Toggle Description >>", "$('#full_description').toggle();"
+      %small= link_to "Toggle Description >>", "#", data: { function: 'notification-defaults' }
   #full_description{:style => "display:none;"}
     .row
       .span16
@@ -60,11 +60,11 @@
             - @event.links.each do |link|
               = link_to link.title, link.url
               %br/
-        - unless @event.event_attachments.public.empty?
+        - unless @event.event_attachments.is_public.empty?
           %p
             %b #{t('publich.schedule.files')}:
             %br/
-            - @event.event_attachments.public.each do |attachment|
+            - @event.event_attachments.is_public.each do |attachment|
               = link_to attachment.link_title, attachment.attachment.url
               %br/
       .span10
@@ -75,12 +75,12 @@
   .row
     .span16
       %h2 My rating
-      = semantic_form_for @rating, :url => event_event_rating_path do |f|
-        = f.inputs do
+      = simple_form_for @rating, url: event_event_rating_path do |f|
+        %fieldset.inputs
           = f.input :rating, :as => :rating
           = f.input :comment, :input_html => {:rows => 3}
-        = f.buttons do
-          = f.commit_button :button_html => {:class => "btn primary"}
+        .actions
+          = f.button :submit, class: 'primary'
   .row
     .span16
       %h2 All ratings
@@ -146,3 +146,4 @@
       });
     });
   });
+

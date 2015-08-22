@@ -1,10 +1,9 @@
 class ConferencesController < ApplicationController
-
   # these methods don't need a conference
-  skip_before_filter :load_conference, only: [:new, :index, :create]
+  skip_before_action :load_conference, only: [:new, :index, :create]
 
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
+  before_action :authenticate_user!
+  before_action :not_submitter!
   load_and_authorize_resource
 
   # GET /conferences
@@ -44,6 +43,9 @@ class ConferencesController < ApplicationController
   def edit
   end
 
+  def edit_notifications
+  end
+
   # POST /conferences
   # POST /conferences.xml
   def create
@@ -71,6 +73,12 @@ class ConferencesController < ApplicationController
     end
   end
 
+  def default_notifications
+    locale = params[:code]
+    @notification = Notification.new(locale: locale)
+    @notification.default_text = locale
+  end
+
   # DELETE /conferences/1
   # DELETE /conferences/1.xml
   def destroy
@@ -90,20 +98,20 @@ class ConferencesController < ApplicationController
       next if attribs.nil?
       next unless attribs > 0
       test = name.gsub("_attributes", '')
-      next unless %w{rooms days schedule tracks ticket_server }.include?(test)
+      next unless %w(rooms days schedule tracks ticket_server ).include?(test)
       return "edit_#{test}"
     }
-    return "edit"
+    "edit"
   end
 
   def search(params)
-    if params.has_key?(:term) and not params[:term].empty?
+    if params.key?(:term) and not params[:term].empty?
       term = params[:term]
       sort = params[:q][:s] rescue nil
       @search = Event.ransack(title_cont: term,
-                               acronym_cont: term,
-                               m: 'or',
-                               s: sort)
+                              acronym_cont: term,
+                              m: 'or',
+                              s: sort)
     else
       @search = Conference.ransack(params[:q])
     end
@@ -118,8 +126,8 @@ class ConferencesController < ApplicationController
       days_attributes: %i(start_date end_date _destroy id),
       tracks_attributes: %i(name color _destroy id),
       languages_attributes: %i(language_id code _destroy id),
-      ticket_server_attributes: %i(url user password queue _destroy id)
+      ticket_server_attributes: %i(url user password queue _destroy id),
+      notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body _destroy)
     )
   end
-
 end
