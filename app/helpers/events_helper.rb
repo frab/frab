@@ -7,11 +7,6 @@ module EventsHelper
     end
   end
 
-  def event_start_time
-    return '' unless @event.start_time
-    I18n.l(@event.start_time, format: :pretty_datetime)
-  end
-
   def timeslots
     slots = []
     (@conference.max_timeslots + 1).times do |i|
