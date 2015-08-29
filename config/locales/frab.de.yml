@@ -6,6 +6,7 @@ de:
   create_new_conference: "Neue Konferenz erstellen"
   create_your_first_conference: "Erste Konferenz erstellen"
   days: "Tage"
+  date_not_set: "noch nicht gesetzt"
   edit: "Bearbeiten"
   edit_conference: "Konferenz bearbeiten"
   edit_conference_days: "Konferenz-Tage bearbeiten"

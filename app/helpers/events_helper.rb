@@ -8,7 +8,7 @@ module EventsHelper
   end
 
   def event_start_time
-    return '' unless @event.start_time
+    return t(:date_not_set) unless @event.start_time
     I18n.l(@event.start_time, format: :pretty_datetime)
   end
 

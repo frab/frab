@@ -6,6 +6,7 @@ en:
   create_new_conference: "Create new conference"
   create_your_first_conference: "Create your first conference"
   days: "Days"
+  date_not_set: "Date not set yet"
   edit: "edit"
   edit_conference: "Edit conference"
   edit_conference_days: "Edit conference days"
