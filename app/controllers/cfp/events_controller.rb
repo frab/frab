@@ -67,9 +67,7 @@ class Cfp::EventsController < ApplicationController
   def update
     authorize! :submit, Event
     @event = current_user.person.events.readonly(false).find(params[:id])
-    params[:event].delete('recording_license')
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
-    params[:event].delete('do_not_record') if @event.accepted?
 
     respond_to do |format|
       if @event.update_attributes(event_params)
@@ -116,7 +114,7 @@ class Cfp::EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(
-      :title, :subtitle, :event_type, :time_slots, :language, :abstract, :description, :logo, :track_id, :submission_note, :do_not_record,
+      :title, :subtitle, :event_type, :time_slots, :language, :abstract, :description, :logo, :track_id, :submission_note,
       event_attachments_attributes: %i(id title attachment public _destroy),
       links_attributes: %i(id title url _destroy)
     )
