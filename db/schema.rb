@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817065210) do
+ActiveRecord::Schema.define(version: 20150913094318) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -170,7 +170,7 @@ ActiveRecord::Schema.define(version: 20150817065210) do
     t.datetime "start_time"
     t.text     "abstract"
     t.text     "description"
-    t.boolean  "public",                                      default: false
+    t.boolean  "public",                                      default: true
     t.string   "logo_file_name",                  limit: 255
     t.string   "logo_content_type",               limit: 255
     t.integer  "logo_file_size"
