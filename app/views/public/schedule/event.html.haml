@@ -61,7 +61,7 @@
       - @event.speakers.each do |speaker|
         %tr
           %td= image_box speaker.avatar, :small
-          %td= link_to speaker.full_public_name, public_speaker_path(:id => speaker.id)
+          %td= link_to speaker.public_name, public_speaker_path(:id => speaker.id)
 
 .span16
   - if @event.videos.count > 0

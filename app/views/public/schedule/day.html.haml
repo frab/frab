@@ -43,7 +43,7 @@
                           = event.subtitle
                           - if @conference.languages.count > 1
                             = "(#{event.language})"
-                        .speakers= event.speakers.map{|p| link_to(h(p.full_public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
+                        .speakers= event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
               - else
                 %td &nbsp;
           - slot += 1

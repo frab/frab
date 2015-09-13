@@ -65,7 +65,7 @@
         = number_with_precision @event.average_feedback, :precision => 1
     .span6
       %h2 People
-      %p= @event.speakers.map{ |p| link_to p.try(:full_public_name), p}.join(", ").html_safe
+      %p= @event.speakers.map{ |p| link_to p.public_name, p}.join(", ").html_safe
       %h2 Scheduling
       %p
         %b Time slots:

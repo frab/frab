@@ -33,7 +33,7 @@
               %description= event.description
               %persons
                 - event.speakers.each do |speaker|
-                  %person{:id=>speaker.id}= speaker.full_public_name
+                  %person{:id=>speaker.id}= speaker.public_name
               %links
                 - event.links.each do |link|
                   %link{:href=>link.url}= link.title ? link.title : link.url

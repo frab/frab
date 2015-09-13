@@ -31,4 +31,4 @@
           %url= event.static_url
         %location= event.room.try(:name)
         - event.speakers.each do |speaker|
-          %attendee= speaker.full_public_name
+          %attendee= speaker.public_name

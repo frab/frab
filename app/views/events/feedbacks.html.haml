@@ -29,7 +29,7 @@
               %tr
                 %td= link_to (image_box event.logo, :small), event
                 %td= link_to event.title, event_event_feedbacks_path(event)
-                %td= event.speakers.map{ |p| link_to p.try(:full_public_name), p}.join(", ").html_safe
+                %td= event.speakers.map{ |p| link_to p.public_name, p}.join(", ").html_safe
                 %td= event.track.try(:name)
                 %td
                   - if event.average_feedback

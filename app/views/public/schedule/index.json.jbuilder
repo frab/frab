@@ -34,7 +34,7 @@ json.schedule do
             json.abstract event.abstract
             json.description event.description
             json.do_not_record event.do_not_record
-            json.persons event.speakers, :id, :full_public_name
+            json.persons event.speakers, :id, :public_name
             json.links event.links do |link|
               json.url url_for(link.url)
               json.title link.title

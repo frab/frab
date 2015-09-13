@@ -10,7 +10,7 @@
     - @speakers.each do |speaker|
       %tr
         %td= link_to image_box(speaker.avatar, :small), public_speaker_path(:id => speaker.id)
-        %td= link_to speaker.full_public_name, public_speaker_path(:id => speaker.id)
+        %td= link_to speaker.public_name, public_speaker_path(:id => speaker.id)
         %td
           %ul
             - speaker.public_and_accepted_events_as_speaker_in(@conference).each do |event|

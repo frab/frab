@@ -46,18 +46,10 @@ class Person < ActiveRecord::Base
   }
 
   def full_name
-    if first_name.blank? or last_name.blank? and not public_name.blank?
+    if first_name.blank? or last_name.blank?
       public_name
     else
       "#{first_name} #{last_name}"
-    end
-  end
-
-  def full_public_name
-    if public_name.blank?
-      full_name
-    else
-      public_name
     end
   end
 
