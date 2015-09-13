@@ -50,8 +50,9 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_girl_rails', '~> 4.0'
   gem 'database_cleaner'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'shoulda'
 end
 
 group :doc do

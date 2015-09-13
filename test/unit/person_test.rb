@@ -1,6 +1,18 @@
 require 'test_helper'
 
 class PersonTest < ActiveSupport::TestCase
+  should validate_presence_of :public_name
+  should validate_presence_of :email
+  should have_many :availabilities
+  should have_many :event_people
+  should have_many :event_ratings
+  should have_many :events
+  should have_many :im_accounts
+  should have_many :languages
+  should have_many :links
+  should have_many :phone_numbers
+  should belong_to :user
+
   test "#full_name" do
     person = build(:person)
     assert_equal "Fred Besen", person.full_name
