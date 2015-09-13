@@ -40,14 +40,18 @@ en:
 
   options:
     business: "business"
+    concert: "concert"
+    djset: "DJ set"
     fax: "fax"
     female: "female"
+    film: "film"
     lecture: "lecture"
     lightning_talk: "lightning talk"
     male: "male"
     meeting: "meeting"
     mobile: "mobile"
     other: "other"
+    performance: "theater/performance"
     phone: "phone"
     podium: "podium"
     private: "private"
