@@ -41,6 +41,10 @@ module ApplicationHelper
     image_tag "icons/#{name}.png"
   end
 
+  def ldate(date, options = {})
+    [Date, DateTime, Time].include?(date.class) ? l(date, options) : t(:date_not_set)
+  end
+
   def action_button(button_type, link_name, path, options = {})
     options[:class] = "btn #{button_type}"
     if options[:hint]
