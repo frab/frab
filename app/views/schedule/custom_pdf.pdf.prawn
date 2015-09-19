@@ -112,7 +112,7 @@ prawn_document(
           pdf.fill_and_stroke
           pdf.fill_color = "000000"
           pdf.text_box event.title, :size => 8, :at => [pdf.bounds.left + 2, pdf.bounds.top - 2]
-          pdf.text_box event.speakers.map(&:full_public_name).join(", "),
+          pdf.text_box event.speakers.map(&:public_name).join(", "),
             :size => 6,
             :width => pdf.bounds.width - 4,
             :style => :italic,

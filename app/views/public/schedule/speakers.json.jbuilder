@@ -3,7 +3,7 @@ json.schedule_speakers do
   json.speakers @speakers do |person|
     json.id person.id
     json.image person.avatar_path
-    json.full_public_name person.full_public_name
+    json.full_public_name person.public_name
     json.abstract person.abstract
     json.description person.description
     json.links person.links do |link|
