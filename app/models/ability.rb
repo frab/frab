@@ -74,7 +74,7 @@ class Ability
     when /orga/
       can :manage, CallForParticipation
 
-      can [:read, :read_nested_conference, :edit_ticket_server, :update], Conference, id: @conference.id
+      can %i(read read_nested_conference edit_ticket_server edit_notifications update), Conference, id: @conference.id
 
       can :crud, Event, conference_id: @conference.id
       can :manage, EventRating

@@ -1,6 +1,6 @@
 .nested-fields
   %fieldset.inputs
     = f.input :role, as: :select, collection: ConferenceUser::ROLES
-    = f.input :conference, as: :select, collection: manageable_conferences
+    = f.input :conference_id, as: :select, collection: manageable_conferences
     = remove_association_link :conference_user, f
     %hr/
