@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913094318) do
+ActiveRecord::Schema.define(version: 20150920130550) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -281,10 +281,10 @@ ActiveRecord::Schema.define(version: 20150913094318) do
     t.integer  "conference_id",                            null: false
     t.string   "name",          limit: 255,                null: false
     t.integer  "size"
-    t.boolean  "public",                    default: true
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.integer  "rank"
+    t.boolean  "public",                    default: true
   end
 
   add_index "rooms", ["conference_id"], name: "index_rooms_on_conference_id"
