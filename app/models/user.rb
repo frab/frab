@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, with: EMAIL_REGEXP
   validates_uniqueness_of :email, case_sensitive: false
   validates_length_of :password, minimum: 6, allow_nil: true
-  validate :conference_user_valid
+  validate :conference_user_fields_present
   validate :only_one_role_per_conference
 
   scope :confirmed, -> { where(arel_table[:confirmed_at].not_eq(nil)) }
@@ -109,9 +109,9 @@ class User < ActiveRecord::Base
 
   private
 
-  def conference_user_valid
-    return unless self.conference_users.count { |cu| cu.conference.nil? || cu.role.nil? } > 0
-    self.errors.add(:role, "Invalid conference user specified")
+  def conference_user_fields_present
+    return if self.conference_users.map { |cu| cu.conference.nil? || cu.role.nil? }.none?
+    self.errors.add(:role, "Missing fields on conference user.")
   end
 
   def only_one_role_per_conference
