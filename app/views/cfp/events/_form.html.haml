@@ -3,8 +3,8 @@
     %legend= t("cfp.basic_information")
     = f.input :title
     = f.input :subtitle
-    = f.input :event_type, :collection => translated_options(Event::TYPES)
-    = f.association :track
+    = f.input :event_type, collection: translated_options(Event::TYPES)
+    = f.association :track, collection: @conference.tracks
     = f.input :time_slots, :as => :select, :collection => timeslots, :hint => t("cfp.event_time_slots_hint")
     = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
     = f.input :logo

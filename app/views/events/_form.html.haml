@@ -7,7 +7,7 @@
     = f.simple_fields_for :ticket do |ticket|
       = ticket.input :remote_ticket_id
     = f.input :event_type, :collection => Event::TYPES
-    = f.association :track
+    = f.association :track, collection: @conference.tracks
     = f.input :time_slots, :as => :select, :collection => timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes
     = f.input :public, as: :inline_boolean, :hint => "Is this event visible in the public schedule?"
@@ -18,7 +18,7 @@
   %fieldset.inputs
     %legend Time and place
     = f.input :start_time, collection: @conference.days, as: :grouped_select, group_method: :start_times, include_blank: true, selected: event_start_time
-    = f.association :room
+    = f.association :room, collection: @conference.rooms
   %fieldset.inputs
     %legend Detailed description
     = f.input :abstract, :input_html => {:rows => 4}, :hint => "One short paragraph that succinctly describes the event. (HTML)"
