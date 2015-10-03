@@ -35,7 +35,7 @@ frab is a pretty standard Ruby on Rails (version 4.2) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
-Basically, to get started you need git, ruby (>= 2.1) and bundler
+Basically, to get started you need git, ruby (>= 2.2) and bundler
 and follow these steps:
 
 1) Install nodejs:
@@ -85,8 +85,8 @@ Navigate to http://localhost:3000/ and login as
 1) Installing database drivers
 
 Instead of running `bin/setup` you need to run bundle install manually, so
-you can choose your database gems. To avoid installing database drivers you don't 
-want to use, exclude drivers with 
+you can choose your database gems. To avoid installing database drivers you don't
+want to use, exclude drivers with
 
     bundle install --without="postgresql mysql"
 
