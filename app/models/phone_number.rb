@@ -1,5 +1,5 @@
 class PhoneNumber < ActiveRecord::Base
-  TYPES = %w(fax mobile phone private secretary skype work)
+  TYPES = %w(fax mobile phone private secretary skype work dect)
 
   belongs_to :person
 

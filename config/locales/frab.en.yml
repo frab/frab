@@ -41,6 +41,7 @@ en:
   options:
     business: "business"
     concert: "concert"
+    dect: "DECT"
     djset: "DJ set"
     fax: "fax"
     female: "female"
