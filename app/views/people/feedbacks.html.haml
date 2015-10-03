@@ -35,18 +35,3 @@
       - unless @other_events.empty?
         %h2 Events in other conferences
         = render "feedback_table", :collection => @other_events
-
-:javascript
-  $(document).ready(function(){
-    $("td .rating").each(function(index) {
-      $(this).raty({
-        readOnly: true,
-        path: "",
-        starOn: '#{raty_icon_path("on")}',
-        starHalf: '#{raty_icon_path("half")}',
-        starOff: '#{raty_icon_path("off")}',
-        half: true,
-        start: $(this).data('rating')
-      });
-    });
-  });

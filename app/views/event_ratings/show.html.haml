@@ -77,7 +77,7 @@
       %h2 My rating
       = simple_form_for @rating, url: event_event_rating_path do |f|
         %fieldset.inputs
-          = f.input :rating, :as => :rating
+          = f.input :rating, as: :rating
           = f.input :comment, :input_html => {:rows => 3}
         .actions
           = f.button :submit, class: 'primary'
@@ -92,7 +92,8 @@
       - else
         %p
           %b Total:
-          %span#total_rating{:"data-rating" => @event.average_rating}
+          %span#total_rating
+            = raty_for("total_rating", @event.average_rating)
         - if @event_ratings.count >= 1
           %table.zebra-striped
             %thead
@@ -109,5 +110,5 @@
                     %td=image_box event_rating.person.avatar, :small
                     %td=event_rating.person.full_name
                     %td
-                      .rating{:id => "event_rating_#{event_rating.id}", :"data-rating" => event_rating.rating}
+                      = raty_for("event_rating_#{event_rating.id}", event_rating.rating)
                     %td=event_rating.comment

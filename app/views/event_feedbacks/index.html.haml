@@ -37,20 +37,5 @@
               - next if feedback.comment.blank?
               %tr
                 %td
-                  .rating{:id => "event_rating_#{feedback.id}", :"data-rating" => feedback.rating}
+                  = raty_for("event_rating_#{feedback.id}", feedback.rating)
                 %td= feedback.comment
-
-:javascript
-  $(document).ready(function(){
-    $(".rating").each(function(index) {
-      $(this).raty({
-        readOnly: true,
-        path: "",
-        starOn: '#{raty_icon_path("on")}',
-        starHalf: '#{raty_icon_path("half")}',
-        starOff: '#{raty_icon_path("off")}',
-        half: true,
-        start: $(this).data('rating')
-      });
-    });
-  });

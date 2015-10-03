@@ -64,24 +64,9 @@
                   %td= event.state
                 %td
                   - if event.average_rating
-                    .rating{:id => "event_rating_#{event.id}", :"data-rating" => event.average_rating}
+                    = raty_for("event_rating_#{event.id}", event.average_rating)
                 %td= event.event_ratings_count
                 %td
                   = link_to 'Show Ratings', event_event_rating_path(event), :class => "btn small"
         = actions_bar do
           = will_paginate @events
-
-:javascript
-  $(document).ready(function(){
-    $(".rating").each(function(index) {
-      $(this).raty({
-        readOnly: true,
-        path: "",
-        starOn: '#{raty_icon_path("on")}',
-        starHalf: '#{raty_icon_path("half")}',
-        starOff: '#{raty_icon_path("off")}',
-        half: true,
-        start: $(this).data('rating')
-      });
-    });
-  });

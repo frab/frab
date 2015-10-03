@@ -27,6 +27,6 @@
         - next if feedback.comment.blank?
         %tr
           %td
-            .rating{:id => "event_rating_#{feedback.id}", :"data-rating" => feedback.rating}
+            = raty_for("event_rating_#{feedback.id}", feedback.rating)
           %td{:colspan=>5}= feedback.comment
 

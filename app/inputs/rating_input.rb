@@ -1,11 +1,7 @@
 class RatingInput < SimpleForm::Inputs::HiddenInput
-  def input(wrapper_options = nil)
-    template.concat super(wrapper_options)
-    template.concat ratings_div
-  end
-
-  def ratings_div
-    template.content_tag(:div, id: 'my_rating') do
-    end
+  def input(_wrapper_options = nil)
+    out = ActiveSupport::SafeBuffer.new
+    out << @builder.hidden_field("#{attribute_name}").html_safe
+    template.raty_for_input('my_rating', '#event_rating_rating', 'event_rating[rating]') { out }
   end
 end

@@ -44,18 +44,3 @@
       - if @person.events_in(@conference).size > 0
         %h3=t("cfp.events_submitted")
         = render "table", :collection => @person.events_as_presenter_in(@conference)
-
-:javascript
-  $(document).ready(function(){
-    $(".rating").each(function(index) {
-      $(this).raty({
-        readOnly: true,
-        path: "",
-        starOn: '#{raty_icon_path("on")}',
-        starHalf: '#{raty_icon_path("half")}',
-        starOff: '#{raty_icon_path("off")}',
-        half: true,
-        start: $(this).data('rating')
-      });
-    });
-  });

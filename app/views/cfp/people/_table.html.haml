@@ -38,6 +38,6 @@
               %td{:colspan=>2}
             - else
               %td
-              .rating{:id => "event_rating_#{event.id}", :"data-rating" => feedback.rating}
+                = raty_for("event_rating_#{event.id}", feedback.rating)
             %td= feedback.comment
             %td
