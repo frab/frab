@@ -1,0 +1,46 @@
+es:
+  emails:
+    event_acceptance:
+      subject: "Su envío a %{title}"
+      greeting: "Estimado %{name},"
+      accepted_event: |
+        Nos complace anunciar que su propuesta ha sido aceptada
+        
+        %{title}
+      confirmation: |
+        Por favor reconfirme que podrá llevar a cabo su presentación usando
+        la siguiente liga:
+        
+        %{link}
+      check_data: |
+        Aprovechando: Tras confirmar su plática usando esta liga, iniciará
+        sesión al sistema de planeación de la conferencia. Por favor tome
+        unos minutos para confirmar sus datos, pues éstos serán usados en el
+        programa oficial al público. También puede indicar su disponibilidad
+        a lo largo del programa. Haremos lo posible por tomarla en
+        consideración al planear el programa final.
+      goodbye: |
+        Saludos afectuosos
+
+        El equipo de %{title}
+    event_rejection:
+      subject: "Su envío a %{title}"
+      greeting: "Estimado %{name},"
+      rejection: |
+        Queremos agradecerle su propuesta:
+        
+        %{title}
+        
+        Nos ha resultado sorpresiva el amplio número de propuestas de altísima
+        calidad que hemos recibido.
+
+        Después de un extenso proceso de selección, nos vimos en la necesidad
+        de rechazar su propuesta.
+
+        Le aseguramos que esta no fue una decisión fácil. Principalmente se
+        debe a las limitaciones de espacio disponible. Esperamos aún poderle
+        dar la bienvenida durante la conferencia.
+      goodbye: |
+        Saludos afectuosos
+
+        El equipo de %{title}
