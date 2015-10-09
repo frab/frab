@@ -108,7 +108,7 @@ class ConferencesController < ApplicationController
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
       sort = params[:q][:s] rescue nil
-      @search = Event.ransack(title_cont: term,
+      @search = Conference.ransack(title_cont: term,
                               acronym_cont: term,
                               m: 'or',
                               s: sort)
