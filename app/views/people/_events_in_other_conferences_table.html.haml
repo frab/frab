@@ -20,9 +20,9 @@
   %tbody
     - collection.each do |event|
       %tr
-        %td= link_to (image_box event.logo, :small), event
+        %td= link_to (image_box event.logo, :small), event_url(id: event.id, conference_acronym: event.conference.acronym)
         %td
-          = link_to event.title, event
+          = link_to event.title, event_url(id: event.id, conference_acronym: event.conference.acronym)
           %p.small
             = by_speakers(event)
         %td= event.track.try(:name)
