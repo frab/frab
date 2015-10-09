@@ -47,7 +47,7 @@
       = link_to t('.feedback_link'), new_public_event_feedback_url(:event_id => @event)
   - unless @concurrent_events.blank?
     #concurrent_events.column.left
-      %h3 Concurrent events
+      %h3 #{t '.concurrent_events'}
       %dl.dl-horizontal
         - @concurrent_events.each do |event|
           - next if event.id == @event.id
