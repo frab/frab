@@ -1,0 +1,345 @@
+es:
+  add_association: "Agregar %{name}"
+  remove_association: "Eliminar %{name}"
+  your_submission: "Tu envío"
+  edit: "editar"
+  actions: "Acciones"
+  error_signing_in: "E-mail o contraseña inválidos"
+  sign_in_successful: "Se inició sesión exitosamente"
+
+  people: "Personas"
+  events: "Eventos"
+  reports: "Reportes"
+  call_for_papers: "Convocatoria"
+  launch_call_for_papers: "Apertura de convocatoria"
+  schedule: "Programa"
+  settings: "Personalización"
+  switch_conference: "Cambiar conferencia"
+  create_new_conference: "Crear conferencia nueva"
+
+  days: "Días"
+  tracks: "Áreas"
+  rooms: "Salas"
+  ticket_server: "Servidor de tickets"
+
+  create_your_first_conference: "Crea tu primera conferencia"
+  new_conference: "Conferencia nueva"
+  edit_conference: "Editar conferencia"
+  edit_conference_days: "Editar días de conferencia"
+  edit_conference_tracks: "Editar las áreas de conferencia"
+  edit_conference_rooms: "Editar las salas de conferencia"
+  edit_conference_schedule: "Editar programa de conferencia"
+  edit_ticket_server: "Editar el servidor de tickets"
+
+  basic_information: "Información básica"
+  timeslot_configuration: "Configuración de tiempos"
+  schedule_configuration: "Configuración de programa"
+  event_languages: "Idiomas del evento"
+  static_program_export: "Exportación de programa estático"
+  feedback_system: "Sistema de retroalimentación"
+
+  ability:
+    denied: "Esta acción no está permitida."
+
+  conflict:
+    events_overlap: "traslapa con"
+    has_no_availability: "aún no indica su disponibilidad."
+    person_unavailable: "no está disponible a la hora programada."
+
+  options:
+    lecture: "presentación"
+    workshop: "taller (hands-on)"
+    podium: "discurso"
+    lightning_talk: "charla relámpago"
+    meeting: "reunión"
+    other: "otra"
+    male: "masculino"
+    female: "femenino"
+    fax: "fax"
+    phone: "teléfono"
+    mobile: "móvil"
+    private: "privado"
+    business: "negocio"
+    skype: "skype"
+    secretary: "asistente"
+
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    abbr_day_names: [Dom, Lun, Mar, Mié, Jue, Vie, Sáb]
+    month_names: [~, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre]
+    abbr_month_names: [~, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic]
+    order:
+      - :day
+      - :month
+      - :year
+  
+  time:
+    formats:
+      default: '%A, %d. %B %Y, %H:%M Uhr'
+      short: '%d. %B, %H:%M Uhr'
+      long: '%A, %d. %B %Y, %H:%M Uhr'
+      time: '%H:%M'
+      pretty_datetime: '%Y-%m-%d %H:%M'
+      short_datetime: '%d. %H:%M'
+      month_datetime: '%d. %b %H:%M'
+    time_range_seperator: ' bis '
+
+    am: 'a. m.'
+    pm: 'p. m.'
+      
+  datetime:
+    distance_in_words:
+      half_a_minute: 'medio minuto'
+      less_than_x_seconds:
+        one: 'menos de un segundo'
+        other: 'menos de %{count} segundos'
+      x_seconds:
+        one: 'un segundo'
+        other: '%{count} segundos'
+      less_than_x_minutes:
+        one: 'menos de un minuto'
+        other: 'menos de %{count} minutos'
+      x_minutes:
+        one: 'un minuto'
+        other: '%{count} minutos'
+      about_x_hours:
+        one: 'alrededor de una hora'
+        other: 'unas %{count} horas'
+      x_days:
+        one: 'un día'
+        other: '%{count} días'
+      about_x_months:
+        one: 'alrededor de un mes'
+        other: 'unos %{count} meses'
+      x_months:
+        one: 'un mes'
+        other: '%{count} meses'
+      almost_x_years:
+        one: 'casi un año'
+        other: 'casi %{count} años'
+      about_x_years:
+        one: 'alrededor de un año'
+        other: 'alrededor de %{count} años'
+      over_x_years:
+        one: 'más de un año'
+        other: 'más de %{count} años'
+    prompts:
+      second: "segundo"
+      minute: "minuto"
+      hour: "hora"
+      day: "día"
+      month: "mes"
+      year: "año"
+
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        unit: '$'
+        format: '%n%u'
+        separator: ","
+        delimiter: ""
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: mil
+          million: millones
+          billion: 
+            one: millardo
+            others: mil millones
+          trillion: billones
+          quadrillion: 
+            one: billardo
+            others: mil billones
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: ", "
+      last_word_connector: " y "
+    select:
+      prompt: "Por favor seleccione:"
+
+  activemodel:
+    errors:
+      template:
+        header:
+          one:    "Error al guardar: 1 %{model}"
+          other:  "Error al guardar: %{count} %{model}."
+        body: "Por favor verifique los siguientes campos:"
+  helpers:
+    select:
+      prompt: "Por favor seleccione:"
+
+    submit:
+      create: 'Crear %{model}'
+      update: 'Actualizar %{model}'
+      submit: 'Enviar %{model}'
+
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "no es un valor válido"
+      exclusion: "no está disponible"
+      invalid: "no es válido"
+      confirmation: "no corresponde con el acuerdo de confirmación"
+      accepted: "debe ser aceptado"
+      empty: "debe llenarse"
+      blank: "debe llenarse"
+      too_long: "está demasiado largo (debe contener máximo %{count} caracteres)"
+      too_short: "está demasiado corto (debe contener al menos %{count} caracteres)"
+      wrong_length: "es de longitud incorrecta (debe contener %{count} caracteres)"
+      not_a_number: "no es un número"
+      greater_than: "debe ser mayor a %{count}"
+      greater_than_or_equal_to: "debe ser mayor o igual a %{count}"
+      equal_to: "debe ser igual a %{count}"
+      less_than: "debe ser menor a %{count}"
+      less_than_or_equal_to: "debe ser menor o igual a %{count}"
+      odd: "debe ser impar"
+      even: "debe ser par"
+      not_an_integer: "debe ser un entero"
+      
+  activerecord:
+    errors:
+      template:
+        header:
+          one:    "Error al guardar: 1 %{model}"
+          other:  "Error al guardar: %{count} %{model}."
+        body: "Por favor verifique los siguientes campos:"
+
+      messages:        
+        taken: "ya está en uso"
+        record_invalid: "Registro inválido: %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute}%{message}"
+    models:
+      conference: "conferencia"
+      event: "evento"
+      person: "perfil"
+      event_person: "persona"
+      day: "día"
+      link: "enlace"
+      im_account: "cuenta de mensajería instantánea"
+      phone_number: "número telefónico"
+      event_attachment: "archivo"
+      language: "idioma"
+      track: "área"
+      room: "sala"
+    attributes:
+      conference:
+        title: "Título"
+        acronym: "Abreviación"
+        email: "E-Mail"
+        color: "Color"
+        timezone: "Huso horario"
+        timeslot_duration: "Duración de intervalo"
+        default_timeslots: "Intervalos por defecto"
+        max_timeslots: "Máximo de intervalos"
+        schedule_version: "Versión de programa"
+        schedule_public: "Programa público"
+        feedback_enabled: "Retroalimentación habilitada"
+      day:
+        start_date: "Fecha de inicio"
+        end_date: "Fecha de finalización"
+      track:
+        name: "Nombre"
+        color: "Color"
+      room:
+        name: "Nombre"
+        size: "Tamaño"
+        rank: "Rango"
+        public: "Público"
+      event:
+        title: "Título"
+        subtitle: "Subtítulo"
+        event_type: "Tipo de evento"
+        track: "Área"
+        time_slots: "Intervalos"
+        language: "Idioma"
+        logo: "Logo"
+        abstract: "Resumen"
+        description: "Descripción"
+        state: "Estado"
+      link:
+        title: "Título"
+        url: "URL"
+      event_attachment:
+        title: "Título"
+        attachment: "Adjunto"
+      person:
+        first_name: "Nombre"
+        last_name: "Apellidos"
+        public_name: "Nombre público"
+        gender: "Género"
+        avatar: "Foto"
+        email: "E-Mail"
+        email_public: "¿Publicar e-mail?"
+        abstract: "Resumen"
+        description: "Descripción"
+      language:
+        language: "Idioma"
+      phone_number:
+        phone_type: "Tipo"
+        phone_number: "Número"
+      im_account:
+        im_type: "Tipo"
+        im_address: "Dirección / identificador"
+      user:
+        email: "E-Mail"
+        password: "Clave"
+        password_confirmation: "Confirmación de clave"
+        current_password: "Clave actual"
+        remember_me: "Recordarme"
+      event_feedback:
+        rating: "Calificación"
+        comment: "Comentario"
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Actvación de cuenta"
+      password_reset_instructions: "Restablecer contraseña"
+  formtastic:
+    actions:
+      create: "Crear %{model}" 
+      update: "Actualizar %{model}"

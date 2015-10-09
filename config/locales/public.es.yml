@@ -1,0 +1,73 @@
+es:
+  time:
+    formats:
+      time: "%H:%M"
+
+  public:
+    schedule:
+      title: "Programa %{title}"
+
+      nav:
+        index: "Índice"
+        day: "Día %{index}"
+        schedule: "Programa"
+        speakers: "Presentadores"
+        events: "Eventos"
+
+      index:
+        schedule_index: "Índice de programa"
+        day: "Día %{index} – %{label}"
+        schedule: "Programa – %{label}"
+        speakers: "Presentadores"
+        events: "Eventos"
+
+      day:
+        schedule_for_day: "Programa para el día %{index} – %{label}"
+        schedule: "Programa – %{label}"
+
+      speakers:
+        speakers: "Presentadores"
+        name: "Nombre"
+        events: "Eventos"
+
+      events:
+        events: "Eventos"
+        title: "Título"
+        track: "Área"
+        speakers: "Presentador"
+
+      event:
+        info: "Información"
+        day: "Día"
+        start_time: "Inicio"
+        language: "Idioma"
+        room: "Sala"
+        duration: "Duración"
+        track: "Área"
+        links: "Enlaces"
+        files: "Archivos"
+        feedback: "Retroalimentación"
+        feedback_link: "Haga clic aquí para indicarnos su opinión del evento."
+        speakers: "Presentadores"
+        no_recording: "Este evento no será grabado"
+        concurrent_events: "Eventos concurrents"
+
+      speaker:
+        speaker: "Presentador"
+        contact: "Contacto"
+        email: "Dirección de correo electrónico"
+        links: "Enlaces"
+        events_in_this_conference: "Eventos en esta conferencia"
+
+    feedback:
+      new:
+        feedback_for: "Retroalimentación para: %{title}"
+        please_let_us_know: "Indíquenos su opinión sobre este evento:"
+        how_would_you_rate: "¿Cómo calificaría este evento? 5 es la mejor calificación, 1 es la peor."
+        what_did_you_like: "¿Qué le gustó? ¿Qué no le gustó? ¿Cómo podría mejorar el evento? Compártanos su opinión."
+        submit_feedback: "Enviar retroalimentación"
+
+      thank_you:
+        thank_you: "¡Gracias!"
+        thank_you_for_helping_us: "Gracias por permitirnos mejorar nuestros eventos. Por favor califique tantos eventos a los que haya asistido como sea posible."
+        return: "Regresar al programa"
