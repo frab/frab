@@ -7,35 +7,32 @@ class ConferencesController < ApplicationController
   load_and_authorize_resource
 
   # GET /conferences
-  # GET /conferences.xml
   def index
     result = search params
     @conferences = result.paginate page: page_param
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
     end
   end
 
   # GET /conferences/1
-  # GET /conferences/1.xml
   def show
     @conference = Conference.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
     end
   end
 
   # GET /conferences/new
-  # GET /conferences/new.xml
   def new
     params.delete(:conference_acronym)
     @conference = Conference.new
     @first = true if Conference.count == 0
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
     end
   end
 
@@ -50,7 +47,6 @@ class ConferencesController < ApplicationController
   end
 
   # POST /conferences
-  # POST /conferences.xml
   def create
     @conference = Conference.new(conference_params)
 
@@ -64,7 +60,6 @@ class ConferencesController < ApplicationController
   end
 
   # PUT /conferences/1
-  # PUT /conferences/1.xml
   def update
     respond_to do |format|
       if @conference.update_attributes(conference_params)
@@ -84,13 +79,11 @@ class ConferencesController < ApplicationController
   end
 
   # DELETE /conferences/1
-  # DELETE /conferences/1.xml
   def destroy
     @conference.destroy
 
     respond_to do |format|
       format.html { redirect_to(conferences_path) }
-      format.xml  { head :ok }
     end
   end
 

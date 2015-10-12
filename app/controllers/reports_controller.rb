@@ -3,6 +3,9 @@ class ReportsController < ApplicationController
   before_action :not_submitter!
 
   def index
+    respond_to do |format|
+      format.html
+    end
   end
 
   def show_events
@@ -47,7 +50,9 @@ class ReportsController < ApplicationController
       @search_count = r.count
       @events = @search.result.paginate page: page_param
     end
-    render :show
+    respond_to do |format|
+      format.html { render :show }
+    end
   end
 
   def show_people
@@ -83,7 +88,9 @@ class ReportsController < ApplicationController
       @search_count = r.length
       @people = @search.result.paginate page: page_param
     end
-    render :show
+    respond_to do |format|
+      format.html { render :show }
+    end
   end
 
   def show_statistics
@@ -148,6 +155,8 @@ class ReportsController < ApplicationController
       @search_count = nil
     end
 
-    render :show
+    respond_to do |format|
+      format.html { render :show }
+    end
   end
 end
