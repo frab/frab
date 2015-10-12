@@ -44,6 +44,9 @@ class ConferencesController < ApplicationController
   end
 
   def edit_notifications
+    respond_to do |format|
+      format.html
+    end
   end
 
   # POST /conferences
@@ -68,6 +71,7 @@ class ConferencesController < ApplicationController
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
       else
         # redirect to the right nested form page
+        flash[:errors] = @conference.errors.full_messages.join
         format.html { render action: get_previous_nested_form(conference_params) }
       end
     end
