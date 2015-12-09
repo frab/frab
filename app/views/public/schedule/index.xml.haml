@@ -31,9 +31,13 @@
               %language= event.language
               %abstract= event.abstract
               %description= event.description
+              %logo= event.logo_path
               %persons
                 - event.speakers.each do |speaker|
                   %person{:id=>speaker.id}= speaker.public_name
               %links
                 - event.links.each do |link|
                   %link{:href=>link.url}= link.title ? link.title : link.url
+              %attachments
+                - event.event_attachments.is_public.each do |attachment|
+                  %link{href: attachment.attachment.url}= attachment.link_title
