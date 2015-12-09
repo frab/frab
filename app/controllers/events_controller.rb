@@ -222,7 +222,7 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(
-      :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license,
+      :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license, :tech_rider,
       event_attachments_attributes: %i(id title attachment public _destroy),
       ticket_attributes: %i(id remote_ticket_id),
       links_attributes: %i(id title url _destroy),

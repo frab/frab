@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20150920130550) do
     t.text     "resources"
     t.text     "target_audience_experience"
     t.text     "target_audience_experience_text"
+    t.text     "tech_rider"
   end
 
   add_index "events", ["conference_id"], name: "index_events_on_conference_id"

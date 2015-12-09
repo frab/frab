@@ -14,6 +14,7 @@ class ReportsController < ApplicationController
     @report_type = params[:id]
     @events = []
     @search_count = 0
+    @extra_fields = []
 
     conference_events = @conference.events
     if params[:term]
@@ -43,6 +44,11 @@ class ReportsController < ApplicationController
       r = conference_events.joins(:event_people).where(event_people: { role_state: [:canceled, :declined, :idea, :offer, :unclear], event_role: [:moderator, :speaker] })
     when 'do_not_record_events'
       r = conference_events.where(:do_not_record => true)
+    when 'events_with_tech_rider'
+      r = conference_events
+            .scheduled
+            .where(Event.arel_table[:tech_rider].not_eq(""))
+      @extra_fields << :tech_rider
     end
 
     unless r.nil? or r.empty?
