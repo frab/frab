@@ -1,5 +1,4 @@
 module NumberHelper
-
   def to_currency(i)
     options = {}
     options[:unit]   = ENV["FRAB_CURRENCY_UNIT"]   unless ENV["FRAB_CURRENCY_UNIT"].nil?
@@ -7,5 +6,4 @@ module NumberHelper
 
     number_to_currency i, options
   end
-
 end

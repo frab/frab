@@ -1,5 +1,4 @@
 class MailTemplatesController < ApplicationController
-
   before_filter :authenticate_user!
   before_filter :not_submitter!
   before_filter :find_conference
@@ -15,8 +14,8 @@ class MailTemplatesController < ApplicationController
   def show
     @mail_template = @conference.mail_templates.find(params[:id])
     @send_filter_options = [
-      [ "All speakers involved in all confirmed events",   :all_speakers_in_confirmed_events ],
-      [ "All speakers involved in all unconfirmed events", :all_speakers_in_unconfirmed_events ],
+      ["All speakers involved in all confirmed events",   :all_speakers_in_confirmed_events],
+      ["All speakers involved in all unconfirmed events", :all_speakers_in_unconfirmed_events]
     ]
   end
 
@@ -71,9 +70,13 @@ class MailTemplatesController < ApplicationController
   end
 
   def search(mail_templates, params)
-    if params.has_key?(:term) and not params[:term].empty?
+    if params.key?(:term) and not params[:term].empty?
       term = params[:term]
-      sort = params[:q][:s] rescue nil
+      sort = begin
+               params[:q][:s]
+             rescue
+               nil
+             end
       @search = mail_templates.ransack(name_cont: term,
                                        subject_cont: term,
                                        content_cont: term,
@@ -89,5 +92,4 @@ class MailTemplatesController < ApplicationController
   def mail_template_params
     params.require(:mail_template).permit(:name, :subject, :content)
   end
-
 end
