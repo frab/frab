@@ -29,7 +29,7 @@
     = f.input :submission_note, :input_html => {:rows => 2}, :hint => "visibiliy: admin and user; additional information."
   %fieldset.inputs
     %legend Additional Resources
-    = f.input :do_not_record, as: :inline_boolean, :hint => "Will this event be recorded?"
+    = f.input :tech_rider, :input_html => {:rows => 2}, :hint => "What is needed for this event?"
     = f.input :recording_license, hint: "Recording license for this talk"
     = dynamic_association :links, "Links", f
     = dynamic_association :event_attachments, "Uploaded files", f
