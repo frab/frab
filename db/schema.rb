@@ -209,12 +209,12 @@ ActiveRecord::Schema.define(version: 20150920130550) do
     t.boolean  "reimbursed"
     t.integer  "person_id"
     t.integer  "conference_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "expenses", ["person_id"], :name => "index_expenses_on_person_id"
-  add_index "expenses", ["conference_id"], :name => "index_expenses_on_conference_id"
+  add_index "expenses", ["conference_id"], name: "index_expenses_on_conference_id"
+  add_index "expenses", ["person_id"], name: "index_expenses_on_person_id"
 
   create_table "im_accounts", force: :cascade do |t|
     t.integer  "person_id"
@@ -246,6 +246,17 @@ ActiveRecord::Schema.define(version: 20150920130550) do
   end
 
   add_index "links", ["linkable_id"], name: "index_links_on_linkable_id"
+
+  create_table "mail_templates", force: :cascade do |t|
+    t.integer  "conference_id"
+    t.string   "name"
+    t.string   "subject"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "mail_templates", ["conference_id"], name: "index_mail_templates_on_conference_id"
 
   create_table "notifications", force: :cascade do |t|
     t.datetime "created_at",                 null: false
