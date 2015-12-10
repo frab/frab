@@ -12,4 +12,9 @@ class UserMailer < ActionMailer::Base
     @conference = conference
     mail to: @user.email, subject: I18n.t("mailers.user_mailer.confirmation_instructions")
   end
+
+  def bulk_mail(user, template)
+    mail to: user.email, subject: template.subject, body: template.content_for(user)
+  end
+
 end
