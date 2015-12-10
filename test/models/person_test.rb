@@ -41,4 +41,16 @@ class PersonTest < ActiveSupport::TestCase
     create(:event_feedback, event: event3, rating: 5.0)
     assert_equal 4.0, person.average_feedback_as_speaker
   end
+
+  test "expenses get calculated correctly" do
+    conference = create(:conference)
+    person = create(:person)
+    e1 = create(:expense, value: 11.0, conference: conference, reimbursed: false)
+    e2 = create(:expense, value: 22.0, conference: conference, reimbursed: true)
+    e3 = create(:expense, value: 33.0, conference: conference, reimbursed: true)
+    person.expenses = [e1, e2, e3]
+    assert_equal person.sum_of_expenses(conference, false), e1.value
+    assert_equal person.sum_of_expenses(conference, true), e2.value + e3.value
+  end
+
 end

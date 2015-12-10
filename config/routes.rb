@@ -91,6 +91,7 @@ Frab::Application.routes.draw do
       resources :people do
         resource :user
         resource :availability
+        resources :expenses
         collection do
           get :all
           get :feedbacks

@@ -202,6 +202,19 @@ ActiveRecord::Schema.define(version: 20150920130550) do
   add_index "events", ["guid"], name: "index_events_on_guid", unique: true
   add_index "events", ["state"], name: "index_events_on_state"
 
+  create_table "expenses", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "value"
+    t.boolean  "reimbursed"
+    t.integer  "person_id"
+    t.integer  "conference_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "expenses", ["person_id"], :name => "index_expenses_on_person_id"
+  add_index "expenses", ["conference_id"], :name => "index_expenses_on_conference_id"
+
   create_table "im_accounts", force: :cascade do |t|
     t.integer  "person_id"
     t.string   "im_type",    limit: 255

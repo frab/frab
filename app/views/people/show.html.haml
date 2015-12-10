@@ -96,3 +96,23 @@
       - unless @other_events.empty?
         %h2 Events in other conferences
         = render "events_in_other_conferences_table", :collection => @other_events
+
+- if @expenses.any?
+  %section
+    .row
+      .span16
+        %h2 Expenses
+    .row
+      .span6
+        %p
+          %b Reimbursed expenses:
+      .span10
+        %p
+          = to_currency @expenses_sum_reimbursed
+    .row
+      .span6
+        %p
+          %b Non-reimbursed expenses:
+      .span10
+        %p
+          = to_currency @expenses_sum_non_reimbursed
