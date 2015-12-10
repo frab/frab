@@ -61,6 +61,7 @@ class ReportsController < ApplicationController
     @report_type = params[:id]
     @people = []
     @search_count = 0
+    @extra_fields = []
 
     conference_people = Person
     conference_people = Person.ransack(params[:term]).result if params[:term]
@@ -81,6 +82,14 @@ class ReportsController < ApplicationController
       r = conference_people.involved_in(@conference).where(Person.arel_table[:note].not_eq(""))
     when 'people_with_more_than_one'
       r = conference_people.involved_in(@conference).where("event_people.event_role" => ["submitter"]).group('event_people.person_id').having('count(*) > 1')
+    when 'people_with_non_reimbursed_expenses'
+      r = conference_people.involved_in(@conference).joins(:expenses).where('expenses.value > 0 AND expenses.reimbursed = "f" AND expenses.conference_id = ?', @conference.id)
+      @total_sum = 0
+      r.each do |p|
+        @total_sum += p.sum_of_expenses(@conference, false)
+      end
+
+      @extra_fields << :expenses
     end
 
     unless r.nil? or r.empty?

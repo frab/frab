@@ -53,6 +53,9 @@ class PeopleController < ApplicationController
       @other_events.map(&:clean_event_attributes!)
     end
     @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
+    @expenses = @person.expenses.where(:conference_id => @conference.id)
+    @expenses_sum_reimbursed = @person.sum_of_expenses(@conference, true)
+    @expenses_sum_non_reimbursed = @person.sum_of_expenses(@conference, false)
 
     respond_to do |format|
       format.html
