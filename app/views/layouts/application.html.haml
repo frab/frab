@@ -40,6 +40,7 @@
               - if can? :manage, CallForParticipation
                 %li= link_to t("schedule", :default => "Schedule"), schedule_path
               - if can? :update, @conference
+                %li= link_to t("mail_templates", :default => "Mail templates"), mail_templates_path
                 %li= link_to t("settings", :default => "Settings"), edit_conference_path(@conference)
           %ul.nav.secondary-nav.pull-right
             - conferences = accessible_conferences

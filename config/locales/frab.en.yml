@@ -22,6 +22,7 @@ en:
   remove_association: "Remove %{name}"
   rooms: "Rooms"
   schedule: "Schedule"
+  mail_templates: "Mail Templates"
   settings: "Settings"
   sign_in_successful: "Successfully signed in."
   submission_configuration: "Submission Configuration"
