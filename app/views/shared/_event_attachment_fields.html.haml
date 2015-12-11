@@ -1,4 +1,4 @@
-%div.nested-fields
+.nested-fields
   %fieldset.inputs
     - if f.object.new_record?
       = f.input :title
@@ -7,6 +7,6 @@
     - else
       = f.input :title
       = f.input :public, as: :inline_boolean, hint: "Is this attachment visible to the public?"
-      %div.input
+      .input
         = link_to f.object.attachment_file_name, f.object.attachment.url, style: 'float:left'
     = remove_association_link :event_attachment, f
