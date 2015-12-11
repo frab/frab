@@ -2,9 +2,9 @@
   .page-header
     .pull-right
       - if can? :crud, @person
-        = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+        = action_button "primary", "Edit person", edit_person_path(@person), title: "Edit this person's data."
       - if can? :administrate, Person
-        = action_button "add", "Add person", new_person_path, :title => "Add a new person."
+        = action_button "add", "Add person", new_person_path, title: "Add a new person."
       - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
         = action_button "attend", "Attending", attend_person_path, title: "Mark person as present.", method: 'PUT'
     %h1 Person: #{@person.full_name}
@@ -92,10 +92,10 @@
     .span16
       - unless @current_events.empty?
         %h2 Events in current conference
-        = render "events/table", :collection => @current_events
+        = render "events/table", collection: @current_events
       - unless @other_events.empty?
         %h2 Events in other conferences
-        = render "events_in_other_conferences_table", :collection => @other_events
+        = render "events_in_other_conferences_table", collection: @other_events
 
 - if @expenses.any?
   %section

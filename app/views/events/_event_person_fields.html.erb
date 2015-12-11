@@ -1,8 +1,8 @@
 <div class="nested-fields">
   <fieldset class="inputs">
-    <%= f.input :person_id, :collection => Person.all.sort_by(&:full_name), label_method: :full_name %>
-    <%= f.input :event_role, :as => :select, :collection => EventPerson::ROLES, :hint => "  Coordinators are part of the conference team, they coordinate speaker attendance and events. Submitters answer the cfp to enter events into frab. Speakers take part in events, their availability matters. Moderators take part in panel discussions, their availability matters." %>
-    <%= f.input :role_state, :as => :select, :collection => EventPerson::STATES %>
+    <%= f.input :person_id, collection: Person.all.sort_by(&:full_name), label_method: :full_name %>
+    <%= f.input :event_role, as: :select, collection: EventPerson::ROLES, hint: "  Coordinators are part of the conference team, they coordinate speaker attendance and events. Submitters answer the cfp to enter events into frab. Speakers take part in events, their availability matters. Moderators take part in panel discussions, their availability matters." %>
+    <%= f.input :role_state, as: :select, collection: EventPerson::STATES %>
     <%= remove_association_link :event_person, f %>
   </fieldset>
 </div>

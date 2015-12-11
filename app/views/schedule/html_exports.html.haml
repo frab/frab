@@ -14,9 +14,9 @@
               - conference_export = @conference.conference_export(locale)
               %tr
                 %td
-                  = action_button '', "create #{locale}", schedule_create_static_export_path(export_locale: locale), method: :post, :hint => "Create a static HTML export of your program schedule."
+                  = action_button '', "create #{locale}", schedule_create_static_export_path(export_locale: locale), method: :post, hint: "Create a static HTML export of your program schedule."
                 %td
                   - if conference_export.present? and File.readable? conference_export.tarball.path
-                    - date = l(Time.at(conference_export.tarball.updated_at), :format => :pretty_datetime)
+                    - date = l(Time.at(conference_export.tarball.updated_at), format: :pretty_datetime)
                     = link_to "#{date} - #{locale}", schedule_download_static_export_path(export_locale: locale)
 

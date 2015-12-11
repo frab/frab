@@ -12,12 +12,12 @@
         .fill
           .container
             - if @conference
-              = link_to @conference.title + " - Call for Participation", new_cfp_session_path, :class => "brand"
+              = link_to @conference.title + " - Call for Participation", new_cfp_session_path, class: "brand"
             - else
-              = link_to 'Call for Participation', '#', :class => 'brand'
+              = link_to 'Call for Participation', '#', class: 'brand'
             %ul.nav.secondary-nav.pull-right
               - if current_user
-                %li= link_to t("logout", :default => "Logout"), cfp_session_path, :method => :delete
+                %li= link_to t("logout", default: "Logout"), cfp_session_path, method: :delete
     .container
       .main-content
         = yield

@@ -2,15 +2,15 @@
 
 .column.left#basic
   = image_box(@speaker.avatar, :large)
-  = simple_format @speaker.abstract, :class => "abstract"
-  = simple_format @speaker.description, :class => "description"
+  = simple_format @speaker.abstract, class: "abstract"
+  = simple_format @speaker.description, class: "description"
 
 .column.left#details
   - if @speaker.email_public?
     %h3= t '.contact'
     %p
       %b #{t '.email'}:
-      = mail_to @speaker.email, nil, :replace_at => "(at)", :replace_dot => "(dot)", :encode => :javascript
+      = mail_to @speaker.email, nil, replace_at: "(at)", replace_dot: "(dot)", encode: :javascript
   - if @speaker.links.any?
     %h3= t '.links'
     %ul
@@ -24,4 +24,4 @@
       - @speaker.public_and_accepted_events_as_speaker_in(@conference).each do |event|
         %tr
           %td= image_box event.logo, :small
-          %td= link_to event.title, public_event_path(:id => event.id)
+          %td= link_to event.title, public_event_path(id: event.id)

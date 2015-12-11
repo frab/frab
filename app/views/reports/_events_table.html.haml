@@ -3,11 +3,11 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :title, "Title", :term => params[:term]
-        %th= sort_link @search, :track_name, "Track", :term => params[:term]
-        %th= sort_link @search, :event_type, :term => params[:term]
-        %th= sort_link @search, :state, "State", :term => params[:term]
-        %th= sort_link @search, :created_at, :term => params[:term]
+        %th= sort_link @search, :title, "Title", term: params[:term]
+        %th= sort_link @search, :track_name, "Track", term: params[:term]
+        %th= sort_link @search, :event_type, term: params[:term]
+        %th= sort_link @search, :state, "State", term: params[:term]
+        %th= sort_link @search, :created_at, term: params[:term]
         - if @extra_fields.include?(:tech_rider)
           %th Tech rider
       - else
@@ -37,4 +37,4 @@
           = action_button "small", 'Show', event
           - if can? :manage, event
             = action_button "small", 'Edit', edit_event_path(event)
-            = action_button "small danger", 'Destroy', event, :confirm => 'Are you sure?', :method => :delete
+            = action_button "small danger", 'Destroy', event, confirm: 'Are you sure?', method: :delete

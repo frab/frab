@@ -2,9 +2,9 @@
   .page-header
     .pull-right
       - if can? :crud, Event
-        = action_button "primary", "Add event", new_event_path, :hint => "Add a new event."
-        = action_button "", "Print cards", cards_events_path(:format => :pdf), :hint => "Download a PDF with all events as cards (four cards per page). Print this out to take your planning offline."
-        = action_button "", "Print cards (accepted only)", cards_events_path(:accepted => true, :format => :pdf), :hint => "Download a PDF with only the accepted events as cards (four cards per page). Especially useful to plan your program schedule offline."
+        = action_button "primary", "Add event", new_event_path, hint: "Add a new event."
+        = action_button "", "Print cards", cards_events_path(format: :pdf), hint: "Download a PDF with all events as cards (four cards per page). Print this out to take your planning offline."
+        = action_button "", "Print cards (accepted only)", cards_events_path(accepted: true, format: :pdf), hint: "Download a PDF with only the accepted events as cards (four cards per page). Especially useful to plan your program schedule offline."
     %h1 List of events
   %ul.tabs
     %li.active= link_to "All Events", events_path
@@ -23,4 +23,4 @@
             papers, to allow others to submit events for
             you to review.
   - else
-    = render 'shared/search_and_table', :collection => @events
+    = render 'shared/search_and_table', collection: @events

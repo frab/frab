@@ -4,7 +4,7 @@
   = render 'report_menu'
   %h2 Results
   - if @people or @events
-    = render 'shared/simple_search', :path => request.path
+    = render 'shared/simple_search', path: request.path
   - unless @search_count.nil?
     Found
     = @search_count
@@ -15,7 +15,7 @@
         - if @people.all.empty?
           %p Sorry, but your search yielded no results.
         - else
-          = render 'people_table', :people => @people
+          = render 'people_table', people: @people
           = actions_bar do
             = will_paginate @people
   - if not @events.nil? and not @events.empty?
@@ -24,10 +24,10 @@
         - if @events.all.empty?
           %p Sorry, but your search yielded no results.
         - else
-          = render 'events_table', :events => @events
+          = render 'events_table', events: @events
           = actions_bar do
             = will_paginate @events
   - if not @data.nil? and not @data.empty?
     .row
       .span16
-        = render 'statistics_table', :data => @data
+        = render 'statistics_table', data: @data

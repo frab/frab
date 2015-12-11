@@ -1,24 +1,24 @@
 - day_id = "day_" + day.id.to_s
-%span{ :id => day_id }
+%span{ id: day_id }
   %h3
     from
     %span.start_date
-      = l day.start_date, :format => :pretty_datetime
+      = l day.start_date, format: :pretty_datetime
     to
     %span.end_date
-      = l day.end_date, :format => :pretty_datetime
+      = l day.end_date, format: :pretty_datetime
 
   = f.simple_fields_for :availabilities, availability do |af|
-    = af.input :start_date, :as => :hidden
-    = af.input :end_date, :as => :hidden
-    = af.input :conference_id, :as => :hidden
-    = af.input :day_id, :as => :hidden
+    = af.input :start_date, as: :hidden
+    = af.input :end_date, as: :hidden
+    = af.input :conference_id, as: :hidden
+    = af.input :day_id, as: :hidden
     %span
       .time_range_slider{"data-min" => day.start_date.to_i,
                          "data-max" => day.end_date.to_i,
                          "data-from" => availability.start_date.to_i,
                          "data-to" => availability.end_date.to_i}
     %span
-      = check_box_tag "available for day #{day.label}", '1', false, :class => 'cbx'
+      = check_box_tag "available for day #{day.label}", '1', false, class: 'cbx'
     available
 

@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit user account", edit_person_user_path(@person), :title => "Edit this user account."
+      = action_button "primary", "Edit user account", edit_person_user_path(@person), title: "Edit this user account."
     %h1 Person: #{@person.full_name}
   = render 'shared/people_tabs'
   .row

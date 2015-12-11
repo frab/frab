@@ -3,10 +3,10 @@
     %h1=t("cfp.resend_confirmation_headline")
   .row
     .span16
-      = render "shared/flash", :flash => flash
-      = simple_form_for(@user, url: cfp_user_confirmation_path, :html => { :method => :post }) do |f|
+      = render "shared/flash", flash: flash
+      = simple_form_for(@user, url: cfp_user_confirmation_path, html: { method: :post }) do |f|
         %fieldset.inputs
           = f.input :email
         .actions
           = f.button :submit, t("cfp.resend_confirmation_button"), class: 'primary'
-          = link_to t("cfp.back"), :back, :class => "btn"
+          = link_to t("cfp.back"), :back, class: "btn"

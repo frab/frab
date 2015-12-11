@@ -3,7 +3,7 @@ Welcome <%= @user.email %>!
 You can confirm your account through the link below:
 
 <% if @conference %>
-  <%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @user.confirmation_token, :conference_acronym => @conference.acronym) %>
+  <%= cfp_user_confirmation_url(locale: I18n.locale, confirmation_token: @user.confirmation_token, conference_acronym: @conference.acronym) %>
 <% else %>
-  <%= cfp_user_confirmation_url(:locale => I18n.locale, :confirmation_token => @user.confirmation_token, :conference_acronym => Conference.current.acronym) %>
+  <%= cfp_user_confirmation_url(locale: I18n.locale, confirmation_token: @user.confirmation_token, conference_acronym: Conference.current.acronym) %>
 <% end %>

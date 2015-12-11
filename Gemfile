@@ -40,7 +40,7 @@ gem 'ransack'
 gem 'ri_cal'
 gem 'simple_form'
 gem 'sucker_punch'
-gem 'transitions', :require => ["transitions", "active_record/transitions"]
+gem 'transitions', require: ["transitions", "active_record/transitions"]
 gem 'will_paginate'
 
 group :development, :test do
@@ -61,5 +61,5 @@ group :doc do
   gem 'github-markdown' # documentation
   gem 'yard'            # documentation
   #gem 'rails-erd'      # graph
-  #gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
+  #gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
 end

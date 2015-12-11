@@ -19,7 +19,7 @@
         %td= event.event_type
         %td= l(event.created_at.to_date)
         %td
-          = number_with_precision event.average_feedback, :precision => 2
+          = number_with_precision event.average_feedback, precision: 2
           - if event.event_feedbacks_count
             %br
             s<sub>N-1</sub> = #{event.feedback_standard_deviation} n = #{event.event_feedbacks_count}
@@ -28,5 +28,5 @@
         %tr
           %td
             = raty_for("event_rating_#{feedback.id}", feedback.rating)
-          %td{:colspan=>5}= feedback.comment
+          %td{colspan: 5}= feedback.comment
 

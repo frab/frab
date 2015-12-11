@@ -11,10 +11,10 @@ class Cfp::PeopleController < ApplicationController
       flash[:alert] = t("cfp.specify_availability")
     end
 
-    return redirect_to :action => "new" unless @person
+    return redirect_to action: "new" unless @person
     if @person.public_name == current_user.email
       flash[:alert] = "Your email address is not a valid public name, please change it."
-      redirect_to :action => "edit"
+      redirect_to action: "edit"
     end
   end
 

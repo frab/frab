@@ -5,4 +5,4 @@
   = render 'shared/people_tabs'
   .row
     .span16
-      = render(:partial => 'shared/expenses_form', :locals => { :person => @person, :expense => @expense, :url => person_expenses_path })
+      = render(partial: 'shared/expenses_form', locals: { person: @person, expense: @expense, url: person_expenses_path })

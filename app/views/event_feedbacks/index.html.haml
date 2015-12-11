@@ -22,7 +22,7 @@
       .span16
         %p
           %b Average Feedback:
-          %b= number_with_precision @event.average_feedback, :precision => 2
+          %b= number_with_precision @event.average_feedback, precision: 2
           - if @event.event_feedbacks_count
             %br
             s<sub>N-1</sub> = #{@event.feedback_standard_deviation} n = #{@event.event_feedbacks_count}

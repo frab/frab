@@ -9,13 +9,13 @@ class AbilitiesTest < ActiveSupport::TestCase
     @conference = @event.conference
 
     # CallForParticipation
-    @cfp = FactoryGirl.create :call_for_participation, :conference => @conference
+    @cfp = FactoryGirl.create :call_for_participation, conference: @conference
 
     # Person
     @person = FactoryGirl.create :person
 
     # EventRating
-    @rating = FactoryGirl.create :event_rating, :event => @event, :rating => 4.0
+    @rating = FactoryGirl.create :event_rating, event: @event, rating: 4.0
 
     # User
     @other_user = FactoryGirl.create :user

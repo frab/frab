@@ -2,7 +2,7 @@
   %fieldset.inputs
     = f.input :name
     = f.input :value
-    = f.input :reimbursed, as: :inline_boolean, :hint => "Has this expense been reimbursed yet?"
+    = f.input :reimbursed, as: :inline_boolean, hint: "Has this expense been reimbursed yet?"
   .actions
     - if can? :administrate, person
       = f.button :submit, class: 'primary'

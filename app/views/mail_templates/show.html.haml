@@ -2,7 +2,7 @@
   .page-header
     .pull-right
       - if can? :crud, @mail_template
-        = action_button "primary", "Edit mail template", edit_mail_template_path(@mail_template), :hint => "Edit this mail template."
+        = action_button "primary", "Edit mail template", edit_mail_template_path(@mail_template), hint: "Edit this mail template."
     %h1 Mail template '#{@mail_template.name}'
     %b Subject: #{@mail_template.subject}
     %pre= @mail_template.content

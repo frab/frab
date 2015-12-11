@@ -15,7 +15,7 @@
         %pentabarf:event-slug= event.slug
         %pentabarf:title= event.title
         %pentabarf:subtitle= event.subtitle
-        %pentabarf:language= t("languages." + event.language, :locale => :en) if event.language
+        %pentabarf:language= t("languages." + event.language, locale: :en) if event.language
         %pentabarf:language-code= event.language
         %dtstart= event.start_time.strftime('%Y%m%dT%H%M%S')
         %dtend= event.end_time.strftime('%Y%m%dT%H%M%S')
@@ -26,7 +26,7 @@
         %status= "CONFIRMED"
         %category= "Lecture"
         - if @conference.program_export_base_url.blank?
-          %url= public_event_url(:id => event.id)
+          %url= public_event_url(id: event.id)
         - else
           %url= event.static_url
         %location= event.room.try(:name)
