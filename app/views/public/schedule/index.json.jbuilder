@@ -22,7 +22,6 @@ json.schedule do
             json.id event.id
             json.guid event.guid
             json.logo event.logo_path
-            json.logo event.logo_path
             json.date event.start_time.iso8601
             json.start event.start_time.strftime('%H:%M')
             json.duration format_time_slots(event.time_slots)
