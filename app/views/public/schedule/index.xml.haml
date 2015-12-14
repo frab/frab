@@ -40,4 +40,4 @@
                   %link{:href=>link.url}= link.title ? link.title : link.url
               %attachments
                 - event.event_attachments.is_public.each do |attachment|
-                  %link{href: attachment.attachment.url}= attachment.link_title
+                  %attachment{href: attachment.attachment.url}= attachment.link_title
