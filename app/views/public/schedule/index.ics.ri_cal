@@ -6,7 +6,7 @@
     e.organizer = @conference.acronym
     e.dtstart = event.start_time
     e.dtend = event.end_time
-    e.summary = event.title
+    e.summary = event.title + ' - ' + event.speakers.map(&:public_name).join(', ')
     e.description = event.abstract if event.abstract
     e.location = event.room.name if event.room
     if @conference.program_export_base_url.blank?
