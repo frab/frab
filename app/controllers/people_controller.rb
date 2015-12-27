@@ -48,10 +48,7 @@ class PeopleController < ApplicationController
     authorize! :read, @person
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
-    if cannot? :manage, Event
-      @current_events.map(&:clean_event_attributes!)
-      @other_events.map(&:clean_event_attributes!)
-    end
+    clean_events_attributes
     @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
     @expenses = @person.expenses.where(:conference_id => @conference.id)
     @expenses_sum_reimbursed = @person.sum_of_expenses(@conference, true)
@@ -159,6 +156,12 @@ class PeopleController < ApplicationController
     end
 
     @search.result(distinct: true)
+  end
+
+  def clean_events_attributes
+    return if can? :crud, Event
+    @current_events.map(&:clean_event_attributes!)
+    @other_events.map(&:clean_event_attributes!)
   end
 
   def person_params
