@@ -29,7 +29,7 @@ class VideoImport
   protected
 
   def find_event(id)
-    event = Event.find(id)
+    event = Event.find_by(guid: id)
     event if event and event.conference == @conference
   end
 
