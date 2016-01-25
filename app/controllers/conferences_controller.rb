@@ -13,6 +13,7 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json { render json: @conferences }
     end
   end
 
@@ -22,6 +23,7 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json { render json: @conference }
     end
   end
 
