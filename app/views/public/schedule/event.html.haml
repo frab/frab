@@ -68,3 +68,31 @@
     %video{ class: 'video', controls: "controls" }
       %source{ type: @event.videos.first.mimetype, src: @event.videos.first.url }
 
+%script{:type => "application/ld+json"}
+  - performers = @event.speakers.map { |speaker| { :name => speaker.full_public_name, :@type => "Person", :sameAs => public_speaker_path(:id => speaker.id), :image => image_path(speaker.avatar.url(:small)) } }
+  :plain
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Event",
+      "name" : "#{@event.title}",
+      "location" : {
+        "@type" : "Place",
+        "name" : "#{@event.room.try(:name)}",
+        "address" : "#{@conference.title}"
+      },
+      "startDate" : "#{@event.start_time.strftime("%F")}T#{@event.start_time.strftime("%T%z")}",
+      "endDate" : "#{@event.end_time.strftime("%F")}T#{@event.end_time.strftime("%T%z")}",
+      "performer" : #{performers.to_json},
+      "inLanguage" : "#{@event.language}",
+      "superEvent" : {
+        "@type" : "Event",
+        "sameAs" : "#{public_schedule_index_path}",
+        "name" : "#{@conference.title}",
+        "location" : {
+          "@type" : "Place",
+          "name" : "#{@conference.title}",
+          "address" : "#{@conference.title}"
+        },
+        "startDate" : "#{@conference.first_day.start_date.strftime("%F")}T#{@conference.first_day.start_date.strftime("%T%z")}"
+      }
+    }
