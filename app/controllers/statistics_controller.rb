@@ -5,11 +5,11 @@ class StatisticsController < ApplicationController
   def events_by_state
     authorize! :read, @conference
     case params[:type]
-    when "lectures"
+    when 'lectures'
       result = @conference.events_by_state_and_type(:lecture)
-    when "workshops"
+    when 'workshops'
       result = @conference.events_by_state_and_type(:workshop)
-    when "others"
+    when 'others'
       remaining = Event::TYPES - [:workshop, :lecture]
       result = @conference.events_by_state_and_type(remaining)
     else

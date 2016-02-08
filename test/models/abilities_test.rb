@@ -32,7 +32,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     @guest_user.role = nil
   end
 
-  test "orga has full access on everything" do
+  test 'orga has full access on everything' do
     ability = Ability.new @orga_user, @conference
 
     # full access on everything
@@ -51,7 +51,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can? :manage, @person
   end
 
-  test "orga has valid access on users" do
+  test 'orga has valid access on users' do
     ability = Ability.new @orga_user, @conference
 
     assert ability.can? :create, @submitter_user
@@ -69,7 +69,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :assign_roles, User
   end
 
-  test "coordinator has full access on events, ratings and persons" do
+  test 'coordinator has full access on events, ratings and persons' do
     ability = Ability.new @coordinator_user, @conference
     assert ability.can? :crud, Event
     assert ability.can? :crud, @event
@@ -80,7 +80,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.can? :manage, @person
   end
 
-  test "coordinator may manage call for papers, but not destroy them" do
+  test 'coordinator may manage call for papers, but not destroy them' do
     ability = Ability.new @coordinator_user, @conference
     assert ability.can? :create, CallForParticipation
     assert ability.can? :read, CallForParticipation
@@ -92,7 +92,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :destroy, @cfp
   end
 
-  test "coordinator can only read conferences" do
+  test 'coordinator can only read conferences' do
     ability = Ability.new @coordinator_user, @conference
     assert ability.can? :read, Conference
     assert ability.can? :read, @conference
@@ -100,27 +100,27 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :manage, Conference
   end
 
-  test "coordinator can only read feedback" do
+  test 'coordinator can only read feedback' do
     ability = Ability.new @coordinator_user, @conference
     assert ability.can? :access, :event_feedback
     assert ability.cannot? :manage, :event_feedback
   end
 
-  test "coordinator can read all users, but only manage self" do
+  test 'coordinator can read all users, but only manage self' do
     ability = Ability.new @coordinator_user, @conference
     assert ability.can? :crud, @coordinator_user
     assert ability.cannot? :update, @other_user
     assert ability.cannot? :administrate, User
   end
 
-  test "coordinator cannot assign roles to users" do
+  test 'coordinator cannot assign roles to users' do
     ability = Ability.new @coordinator_user, @conference
     assert ability.cannot? :assign_roles, User
     assert ability.cannot? :assign_roles, @other_user
     assert ability.cannot? :assign_roles, @coordinator_user
   end
 
-  test "reviewer can only read conferences" do
+  test 'reviewer can only read conferences' do
     ability = Ability.new @reviewer_user, @conference
     assert ability.can? :read, Conference
     assert ability.can? :read, @conference
@@ -128,7 +128,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :manage, @conference
   end
 
-  test "reviewer can only read call for papers" do
+  test 'reviewer can only read call for papers' do
     ability = Ability.new @reviewer_user, @conference
     assert ability.can? :read, CallForParticipation
     assert ability.can? :read, @cfp
@@ -136,13 +136,13 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :manage, @cfp
   end
 
-  test "reviewer can only read event feedback" do
+  test 'reviewer can only read event feedback' do
     ability = Ability.new @reviewer_user, @conference
     assert ability.can? :access, :event_feedback
     assert ability.cannot? :manage, :event_feedback
   end
 
-  test "reviewer can only read and submit events" do
+  test 'reviewer can only read and submit events' do
     ability = Ability.new @reviewer_user, @conference
     assert ability.can? :read, Event
     assert ability.can? :read, @event
@@ -151,7 +151,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :crud, @event
   end
 
-  test "reviewer can read all event ratings, but only manage self" do
+  test 'reviewer can read all event ratings, but only manage self' do
     my_rating = FactoryGirl.create :event_rating, person: @reviewer_user.person
     ability = Ability.new @reviewer_user, @conference
     assert ability.can? :create, my_rating
@@ -161,7 +161,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :manage, EventRating
   end
 
-  test "reviewer can read all persons, but only manage self" do
+  test 'reviewer can read all persons, but only manage self' do
     ability = Ability.new @reviewer_user, @conference
     assert ability.cannot? :administrate, Person
     assert ability.cannot? :manage, Person
@@ -171,21 +171,21 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :update, @person
   end
 
-  test "reviewer can only read and manage own user" do
+  test 'reviewer can only read and manage own user' do
     ability = Ability.new @reviewer_user, @conference
     assert ability.can? :crud, @reviewer_user
     assert ability.cannot? :read, @other_user
     assert ability.cannot? :administrate, User
   end
 
-  test "reviewer cannot assign roles to users" do
+  test 'reviewer cannot assign roles to users' do
     ability = Ability.new @reviewer_user, @conference
     assert ability.cannot? :assign_roles, User
     assert ability.cannot? :assign_roles, @other_user
     assert ability.cannot? :assign_roles, @reviewer_user
   end
 
-  test "submitter has no access to conferences" do
+  test 'submitter has no access to conferences' do
     ability = Ability.new @submitter_user, @conference
     assert ability.cannot? :read, Conference
     assert ability.cannot? :read, @conference
@@ -193,7 +193,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :manage, @conference
   end
 
-  test "submitter has no access to call for papers" do
+  test 'submitter has no access to call for papers' do
     ability = Ability.new @submitter_user, @conference
     assert ability.cannot? :read, CallForParticipation
     assert ability.cannot? :read, @cfp
@@ -201,13 +201,13 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :destroy, @cfp
   end
 
-  test "submitter can only create event feedback" do
+  test 'submitter can only create event feedback' do
     ability = Ability.new @submitter_user, @conference
     assert ability.cannot? :access, :event_feedback
     assert ability.cannot? :manage, :event_feedback
   end
 
-  test "submitter can only submit events" do
+  test 'submitter can only submit events' do
     ability = Ability.new @submitter_user, @conference
     assert ability.can? :submit, Event
     assert ability.cannot? :read, Event
@@ -216,7 +216,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :crud, @event
   end
 
-  test "submitter has no access to event ratings" do
+  test 'submitter has no access to event ratings' do
     my_rating = FactoryGirl.create :event_rating, person: @submitter_user.person
     ability = Ability.new @submitter_user, @conference
     assert ability.cannot? :read, my_rating
@@ -227,14 +227,14 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :manage, EventRating
   end
 
-  test "submitter can only manage own person" do
+  test 'submitter can only manage own person' do
     ability = Ability.new @submitter_user, @conference
     assert ability.can? :crud, @submitter_user.person
     assert ability.cannot? :crud, @person
     assert ability.cannot? :read, @person
   end
 
-  test "submitter can only read and manage own user" do
+  test 'submitter can only read and manage own user' do
     ability = Ability.new @submitter_user, @conference
     assert ability.can? :crud, @submitter_user
     assert ability.cannot? :read, @other_user
@@ -242,21 +242,21 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :administrate, User
   end
 
-  test "submitter cannot assign roles to users" do
+  test 'submitter cannot assign roles to users' do
     ability = Ability.new @submitter_user, @conference
     assert ability.cannot? :assign_roles, User
     assert ability.cannot? :assign_roles, @other_user
     assert ability.cannot? :assign_roles, @submitter_user
   end
 
-  test "guest has no access to conferences" do
+  test 'guest has no access to conferences' do
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :read, Conference
     assert ability.cannot? :manage, Conference
     assert ability.cannot? :manage, @conference
   end
 
-  test "guest has no access to call for papers" do
+  test 'guest has no access to call for papers' do
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :read, CallForParticipation
     assert ability.cannot? :read, @cfp
@@ -264,13 +264,13 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :destroy, @cfp
   end
 
-  test "guest can only create event feedback" do
+  test 'guest can only create event feedback' do
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :access, :event_feedback
     assert ability.cannot? :manage, :event_feedback
   end
 
-  test "guest has no access to events" do
+  test 'guest has no access to events' do
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :submit, Event
     assert ability.cannot? :read, Event
@@ -279,7 +279,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :crud, @event
   end
 
-  test "guest has no access to event ratings" do
+  test 'guest has no access to event ratings' do
     my_rating = FactoryGirl.create :event_rating, person: @guest_user.person
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :read, my_rating
@@ -290,7 +290,7 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :manage, EventRating
   end
 
-  test "guest has no access to person" do
+  test 'guest has no access to person' do
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :administrate, Person
     assert ability.cannot? :update, @guest_user.person
@@ -298,14 +298,14 @@ class AbilitiesTest < ActiveSupport::TestCase
     assert ability.cannot? :update, @person
   end
 
-  test "guest has no access to user" do
+  test 'guest has no access to user' do
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :read, @guest_user
     assert ability.cannot? :crud, @other_user
     assert ability.cannot? :administrate, User
   end
 
-  test "guest cannot assign roles to users" do
+  test 'guest cannot assign roles to users' do
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :assign_roles, User
     assert ability.cannot? :assign_roles, @other_user

@@ -49,7 +49,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to(person_user_path(@person), notice: 'User was successfully created.') }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end

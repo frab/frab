@@ -16,13 +16,13 @@ class Cfp::UsersController < ApplicationController
       @user.send_confirmation_instructions(@conference)
       redirect_to new_cfp_session_path, notice: t(:"cfp.signed_up")
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
   def edit
     @user = current_user
-    render layout: "cfp"
+    render layout: 'cfp'
   end
 
   def update
@@ -30,7 +30,7 @@ class Cfp::UsersController < ApplicationController
     if @user.update_attributes(user_params)
       redirect_to cfp_person_path, notice: t(:"cfp.updated")
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 

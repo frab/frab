@@ -53,7 +53,7 @@ namespace :paperclip_migration do
   end
 
   def local_move(old_path, new_path)
-    if not File.readable?(old_path)
+    unless File.readable?(old_path)
       STDERR.puts "missing #{old_path}, skipping!"
       return
     end

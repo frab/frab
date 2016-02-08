@@ -14,8 +14,8 @@ class MailTemplatesController < ApplicationController
   def show
     @mail_template = @conference.mail_templates.find(params[:id])
     @send_filter_options = [
-      ["All speakers involved in all confirmed events",   :all_speakers_in_confirmed_events],
-      ["All speakers involved in all unconfirmed events", :all_speakers_in_unconfirmed_events]
+      ['All speakers involved in all confirmed events',   :all_speakers_in_confirmed_events],
+      ['All speakers involved in all unconfirmed events', :all_speakers_in_unconfirmed_events]
     ]
   end
 
@@ -46,7 +46,7 @@ class MailTemplatesController < ApplicationController
         format.xml  { head :ok }
         format.js   { head :ok }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.xml  { render xml: @mail_template.errors, status: :unprocessable_entity }
       end
     end

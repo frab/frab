@@ -4,18 +4,18 @@ class SendBulkMailJob
   def perform(template, send_filter)
     persons = Person
               .joins(events: :conference)
-              .where(:'conferences.id' => template.conference.id)
+              .where('conferences.id': template.conference.id)
 
     case send_filter
-    when "all_speakers_in_confirmed_events"
+    when 'all_speakers_in_confirmed_events'
       persons = persons
-                .where(:'events.state' => 'confirmed')
-                .where(:'event_people.event_role' => 'speaker')
+                .where('events.state': 'confirmed')
+                .where('event_people.event_role': 'speaker')
 
-    when "all_speakers_in_unconfirmed_events"
+    when 'all_speakers_in_unconfirmed_events'
       persons = persons
-                .where(:'events.state' => 'unconfirmed')
-                .where(:'event_people.event_role' => 'speaker')
+                .where('events.state': 'unconfirmed')
+                .where('event_people.event_role': 'speaker')
     end
 
     persons = persons.group(:'people.id')

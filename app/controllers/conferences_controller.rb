@@ -54,7 +54,7 @@ class ConferencesController < ApplicationController
       if @conference.save
         format.html { redirect_to(conference_home_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -91,24 +91,28 @@ class ConferencesController < ApplicationController
 
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
-      attribs = name.index("_attributes")
+      attribs = name.index('_attributes')
       next if attribs.nil?
       next unless attribs > 0
-      test = name.gsub("_attributes", '')
+      test = name.gsub('_attributes', '')
       next unless %w(rooms days schedule tracks ticket_server ).include?(test)
       return "edit_#{test}"
     }
-    "edit"
+    'edit'
   end
 
   def search(params)
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
-      sort = params[:q][:s] rescue nil
+      sort = begin
+               params[:q][:s]
+             rescue
+               nil
+             end
       @search = Conference.ransack(title_cont: term,
-                              acronym_cont: term,
-                              m: 'or',
-                              s: sort)
+                                   acronym_cont: term,
+                                   m: 'or',
+                                   s: sort)
     else
       @search = Conference.ransack(params[:q])
     end

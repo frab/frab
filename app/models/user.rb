@@ -33,15 +33,15 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    self.role == "admin"
+    self.role == 'admin'
   end
 
   def is_submitter?
-    self.role == "submitter"
+    self.role == 'submitter'
   end
 
   def is_crew?
-    self.role == "crew"
+    self.role == 'crew'
   end
 
   def is_crew_of?(conference)
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   def self.check_pentabarf_credentials(email, password)
     user = User.find_by_email(email)
     return unless user and user.pentabarf_password and user.pentabarf_salt
-    salt = [user.pentabarf_salt.to_i(16)].pack("Q").reverse
+    salt = [user.pentabarf_salt.to_i(16)].pack('Q').reverse
 
     if Digest::MD5.hexdigest(salt + password) == user.pentabarf_password
       user.password = password
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def authenticate(password_entered)
-    if super(password_entered) or (ENV["DEVISE_PEPPER"] and super(password_entered + ENV["DEVISE_PEPPER"]))
+    if super(password_entered) or (ENV['DEVISE_PEPPER'] and super(password_entered + ENV['DEVISE_PEPPER']))
       self
     else
       false
@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
 
   def conference_user_fields_present
     return if self.conference_users.map { |cu| cu.conference.nil? || cu.role.nil? }.none?
-    self.errors.add(:role, "Missing fields on conference user.")
+    self.errors.add(:role, 'Missing fields on conference user.')
   end
 
   def only_one_role_per_conference
@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
     self.conference_users.each { |cu|
       next if cu.conference.nil?
       if seen.key? cu.conference.id
-        self.errors.add(:role, "User cannot have multiple roles in one conference")
+        self.errors.add(:role, 'User cannot have multiple roles in one conference')
         return
       end
       seen[cu.conference.id] = 1

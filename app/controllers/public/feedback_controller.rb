@@ -1,5 +1,5 @@
 class Public::FeedbackController < ApplicationController
-  layout "public_schedule"
+  layout 'public_schedule'
 
   def new
     @event = @conference.events.find(params[:event_id])
@@ -12,9 +12,9 @@ class Public::FeedbackController < ApplicationController
     @feedback = @event.event_feedbacks.new(event_feedback_params)
 
     if @feedback.save
-      render action: "thank_you"
+      render action: 'thank_you'
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 

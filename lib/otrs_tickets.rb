@@ -73,8 +73,8 @@ module OtrsTickets
       end
 
       result = ActiveSupport::JSON.decode(response.body.tr("\"", "\""))
-      if result["Result"] == 'successful'
-        result["Data"]
+      if result['Result'] == 'successful'
+        result['Data']
       else
         @logger.info response.to_json
         fail "OTRS Error:#{result['Result']} #{result['Data']} #{result['Message']}"
@@ -129,8 +129,8 @@ module OtrsTickets
     remote_article_id = otrs.connect('TicketObject', 'ArticleCreate',       TicketID: remote_ticket_id,
                                                                             ArticleType: 'webrequest',
                                                                             SenderType: 'customer',
-                                                                            HistoryType: "WebRequestCustomer",
-                                                                            HistoryComment: "created from frab",
+                                                                            HistoryType: 'WebRequestCustomer',
+                                                                            HistoryComment: 'created from frab',
                                                                             From: from,
                                                                             Subject: args[:title],
                                                                             ContentType: 'text/plain; charset=ISO-8859-1',

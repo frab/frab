@@ -14,17 +14,17 @@ class CallForParticipationsControllerTest < ActionController::TestCase
     }
   end
 
-  test "should show cfp" do
+  test 'should show cfp' do
     get :show, conference_acronym: @conference.acronym
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new, conference_acronym: @conference.acronym
     assert_response :success
   end
 
-  test "should create cfp" do
+  test 'should create cfp' do
     new_conference = FactoryGirl.create(:conference)
     params = {
       call_for_participation: call_for_participation_params,
@@ -35,14 +35,14 @@ class CallForParticipationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, conference_acronym: @conference.acronym
     assert_response :success
   end
 
-  test "should update cfp" do
+  test 'should update cfp' do
     params = {
-      call_for_participation: call_for_participation_params.merge(welcome_text: "welcome"),
+      call_for_participation: call_for_participation_params.merge(welcome_text: 'welcome'),
       conference_acronym: @conference.acronym
     }
     put :update, params

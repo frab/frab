@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :film, :concert, :djset, :performance, :other]
 
   has_one :ticket, dependent: :destroy
-  has_many :conflicts_as_conflicting, class_name: "Conflict", foreign_key: "conflicting_event_id", dependent: :destroy
+  has_many :conflicts_as_conflicting, class_name: 'Conflict', foreign_key: 'conflicting_event_id', dependent: :destroy
   has_many :conflicts, dependent: :destroy
   has_many :event_attachments, dependent: :destroy
   has_many :event_feedbacks, dependent: :destroy
@@ -22,8 +22,8 @@ class Event < ActiveRecord::Base
   belongs_to :room
 
   has_attached_file :logo,
-    styles: { tiny: "16x16>", small: "32x32>", large: "128x128>" },
-    default_url: "event_:style.png"
+    styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },
+    default_url: 'event_:style.png'
 
   accepts_nested_attributes_for :event_people, allow_destroy: true, reject_if: proc { |attr| attr[:person_id].blank? }
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
@@ -37,17 +37,17 @@ class Event < ActiveRecord::Base
   after_save :update_conflicts
 
   scope :accepted, -> { where(self.arel_table[:state].in(%w(confirmed unconfirmed))) }
-  scope :associated_with, ->(person) { joins(:event_people).where(:"event_people.person_id" => person.id) }
+  scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
   scope :candidates, -> { where(state: %w(new review unconfirmed confirmed)) }
   scope :confirmed, -> { where(state: :confirmed) }
-  scope :no_conflicts, -> { includes(:conflicts).where(:"conflicts.event_id" => nil) }
+  scope :no_conflicts, -> { includes(:conflicts).where("conflicts.event_id": nil) }
   scope :is_public, -> { where(public: true) }
   scope :scheduled_on, ->(day) { where(self.arel_table[:start_time].gteq(day.start_date.to_datetime)).where(self.arel_table[:start_time].lteq(day.end_date.to_datetime)).where(self.arel_table[:room_id].not_eq(nil)) }
   scope :scheduled, -> { where(self.arel_table[:start_time].not_eq(nil).and(self.arel_table[:room_id].not_eq(nil))) }
   scope :unscheduled, -> { where(self.arel_table[:start_time].eq(nil).or(self.arel_table[:room_id].eq(nil))) }
-  scope :without_speaker, -> { where("speaker_count = 0") }
-  scope :with_speaker, -> { where("speaker_count > 0") }
-  scope :with_more_than_one_speaker, -> { where("speaker_count > 1") }
+  scope :without_speaker, -> { where('speaker_count = 0') }
+  scope :with_speaker, -> { where('speaker_count > 0') }
+  scope :with_more_than_one_speaker, -> { where('speaker_count > 1') }
 
   has_paper_trail
 
@@ -106,7 +106,7 @@ class Event < ActiveRecord::Base
 
     n = arr.count
     m = arr.reduce(:+).to_f / n
-    "%02.02f" % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
+    '%02.02f' % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
   end
 
   def recalculate_average_feedback!
@@ -122,7 +122,7 @@ class Event < ActiveRecord::Base
   end
 
   def humanized_time_str
-    return "" unless start_time.present?
+    return '' unless start_time.present?
     I18n.localize(start_time, format: :time) + I18n.t('time.time_range_seperator') + I18n.localize(end_time, format: :time)
   end
 
@@ -142,8 +142,8 @@ class Event < ActiveRecord::Base
       end
     end
     return unless options[:coordinator]
-    return if self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, "coordinator")
-    self.event_people.create(person: options[:coordinator], event_role: "coordinator")
+    return if self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, 'coordinator')
+    self.event_people.create(person: options[:coordinator], event_role: 'coordinator')
   end
 
   def process_rejection(options)
@@ -153,8 +153,8 @@ class Event < ActiveRecord::Base
       end
     end
     return unless options[:coordinator]
-    return if self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, "coordinator")
-    self.event_people.create(person: options[:coordinator], event_role: "coordinator")
+    return if self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, 'coordinator')
+    self.event_people.create(person: options[:coordinator], event_role: 'coordinator')
   end
 
   def overlap?(other_event)
@@ -168,7 +168,7 @@ class Event < ActiveRecord::Base
   end
 
   def accepted?
-    self.state == "unconfirmed" or self.state == "confirmed"
+    self.state == 'unconfirmed' or self.state == 'confirmed'
   end
 
   def remote_ticket?
@@ -186,8 +186,8 @@ class Event < ActiveRecord::Base
   end
 
   def conflict_level
-    return "fatal" if self.conflicts.any? { |c| c.severity == "fatal" }
-    return "warning" if self.conflicts.any? { |c| c.severity == "warning" }
+    return 'fatal' if self.conflicts.any? { |c| c.severity == 'fatal' }
+    return 'warning' if self.conflicts.any? { |c| c.severity == 'warning' }
     nil
   end
 
@@ -206,12 +206,12 @@ class Event < ActiveRecord::Base
       [
         self.conference.acronym,
         self.id,
-        self.title.parameterize("_")
-      ].flatten.join("-"),
+        self.title.parameterize('_')
+      ].flatten.join('-'),
       escape: false,
       length: 240,
-      separator: "_",
-      omission: ""
+      separator: '_',
+      omission: ''
     ).to_str
   end
 
@@ -258,8 +258,8 @@ class Event < ActiveRecord::Base
     conflicting_event_candidates = self.class.accepted.where(room_id: self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
     conflicting_event_candidates.each do |conflicting_event|
       if self.overlap?(conflicting_event)
-        Conflict.create(event: self, conflicting_event: conflicting_event, conflict_type: "events_overlap", severity: "fatal")
-        Conflict.create(event: conflicting_event, conflicting_event: self, conflict_type: "events_overlap", severity: "fatal")
+        Conflict.create(event: self, conflicting_event: conflicting_event, conflict_type: 'events_overlap', severity: 'fatal')
+        Conflict.create(event: conflicting_event, conflicting_event: self, conflict_type: 'events_overlap', severity: 'fatal')
       end
     end
   end
@@ -274,11 +274,11 @@ class Event < ActiveRecord::Base
 
   def conflict_person_has_no_availabilities(event_person)
     return if event_person.person.availabilities.present?
-    Conflict.create(event: self, person: event_person.person, conflict_type: "person_has_no_availability", severity: "warning")
+    Conflict.create(event: self, person: event_person.person, conflict_type: 'person_has_no_availability', severity: 'warning')
   end
 
   def conflict_person_not_available(event_person)
     return if event_person.available_between?(self.start_time, self.end_time)
-    Conflict.create(event: self, person: event_person.person, conflict_type: "person_unavailable", severity: "warning")
+    Conflict.create(event: self, person: event_person.person, conflict_type: 'person_unavailable', severity: 'warning')
   end
 end

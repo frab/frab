@@ -1,6 +1,6 @@
 module ScheduleHelper
   def day_active?(index)
-    "active" if params[:day].to_i == index
+    'active' if params[:day].to_i == index
   end
 
   def landscape?

@@ -6,12 +6,12 @@ class Cfp::ConfirmationsControllerTest < ActionController::TestCase
     @conference = @call_for_participation.conference
   end
 
-  test "displays resend confirmation instructions form" do
+  test 'displays resend confirmation instructions form' do
     get :new, conference_acronym: @conference.acronym
     assert_response :success
   end
 
-  test "resends confirmation instructions" do
+  test 'resends confirmation instructions' do
     user = FactoryGirl.create(:user, confirmed_at: nil)
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :create, conference_acronym: @conference.acronym, user: { email: user.email }
@@ -19,7 +19,7 @@ class Cfp::ConfirmationsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "performs confirmation" do
+  test 'performs confirmation' do
     user = FactoryGirl.create(:user, confirmed_at: nil)
     get :show, conference_acronym: @conference.acronym, confirmation_token: user.confirmation_token
     assert_response :redirect

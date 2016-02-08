@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class ConferenceScrubberTest < ActiveSupport::TestCase
-  TEXT = "text message"
-  DUMMY_MAIL = "root@localhost.localdomain"
+  TEXT = 'text message'
+  DUMMY_MAIL = 'root@localhost.localdomain'
 
   setup do
     @conference = FactoryGirl.create(:conference)
@@ -18,11 +18,11 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
   end
 
   def add_event_with_speaker(conference)
-    event = FactoryGirl.create(:event, conference: conference, state: "confirmed")
+    event = FactoryGirl.create(:event, conference: conference, state: 'confirmed')
     FactoryGirl.create(:event_person, event: event)
   end
 
-  test "should find last years conferences" do
+  test 'should find last years conferences' do
     c_new = FactoryGirl.create(:conference)
     add_day(c_new, 1.days)
 
@@ -31,7 +31,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     assert_equal 1, last_years.count
   end
 
-  test "should recognize person active in conference" do
+  test 'should recognize person active in conference' do
     c_new = FactoryGirl.create(:conference)
     add_day(c_new, 1.days)
     event_person = add_event_with_speaker(c_new)
@@ -41,13 +41,13 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     assert is_active
   end
 
-  test "should recognize person not active in conference" do
+  test 'should recognize person not active in conference' do
     @scrubber = ConferenceScrubber.new(@conference)
     is_active = @scrubber.send(:still_active, @event_person.person)
     assert !is_active
   end
 
-  test "should clear persons contact data" do
+  test 'should clear persons contact data' do
     @scrubber = ConferenceScrubber.new(@conference)
     person =  FactoryGirl.create(:person)
     person.email_public = false
@@ -64,16 +64,16 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     assert_nil person.note
   end
 
-  test "should recognize person not active in any conference" do
+  test 'should recognize person not active in any conference' do
     person = FactoryGirl.create(:person)
     assert !person.active_in_any_conference?
   end
 
-  test "should recognize person active in some conference" do
+  test 'should recognize person active in some conference' do
     assert @event_person.person.active_in_any_conference?
   end
 
-  test "should clear persons biographical data" do
+  test 'should clear persons biographical data' do
     person =  FactoryGirl.create(:person, abstract: TEXT, description: TEXT)
     @scrubber = ConferenceScrubber.new(@conference)
     @scrubber.send(:scrub_person, person)
@@ -82,7 +82,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
     assert_nil person.description
   end
 
-  test "should scrub all event ratings of a conference" do
+  test 'should scrub all event ratings of a conference' do
     event = @event_person.event
     FactoryGirl.create(:event_rating, event: event)
     FactoryGirl.create(:event_rating, event: event)

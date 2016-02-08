@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EventRatingTest < ActiveSupport::TestCase
-  test "creating ratings correctly updates average" do
+  test 'creating ratings correctly updates average' do
     event = FactoryGirl.create(:event)
     id = event.id
 
@@ -18,7 +18,7 @@ class EventRatingTest < ActiveSupport::TestCase
     assert_equal 5.0, Event.find(id).average_rating
   end
 
-  test "person can only submit one rating per event" do
+  test 'person can only submit one rating per event' do
     event = FactoryGirl.create(:event)
     person = FactoryGirl.create(:person)
 

@@ -25,8 +25,8 @@ class Person < ActiveRecord::Base
   has_paper_trail
 
   has_attached_file :avatar,
-    styles: { tiny: "16x16>", small: "32x32>", large: "128x128>" },
-    default_url: "person_:style.png"
+    styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },
+    default_url: 'person_:style.png'
 
   validates_attachment_content_type :avatar, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
@@ -44,7 +44,7 @@ class Person < ActiveRecord::Base
     joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(unconfirmed confirmed)).group(:"people.id")
   }
   scope :confirmed, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("events.state": "confirmed")
+    joins(events: :conference).where("conferences.id": conference.id).where("events.state": 'confirmed')
   }
 
   def full_name
@@ -87,7 +87,7 @@ class Person < ActiveRecord::Base
   end
 
   def events_as_presenter_not_in(conference)
-    self.events.where("event_people.event_role": %w(speaker moderator)).where("conference_id != ?", conference.id)
+    self.events.where("event_people.event_role": %w(speaker moderator)).where('conference_id != ?', conference.id)
   end
 
   def public_and_accepted_events_as_speaker_in(conference)

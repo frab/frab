@@ -16,9 +16,9 @@ class CallForParticipationsController < ApplicationController
     @call_for_participation.conference = @conference
 
     if @call_for_participation.save
-      redirect_to call_for_participation_path, notice: "Launched Call for Participation."
+      redirect_to call_for_participation_path, notice: 'Launched Call for Participation.'
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
@@ -29,10 +29,10 @@ class CallForParticipationsController < ApplicationController
   def update
     @call_for_participation = @conference.call_for_participation
     if @call_for_participation.update_attributes(call_for_participation_params)
-      redirect_to call_for_participation_path, notice: "Changes saved successfully!"
+      redirect_to call_for_participation_path, notice: 'Changes saved successfully!'
     else
-      flash[:alert] = "Failed to update"
-      render action: "edit"
+      flash[:alert] = 'Failed to update'
+      render action: 'edit'
     end
   end
 

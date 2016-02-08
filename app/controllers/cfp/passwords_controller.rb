@@ -1,5 +1,5 @@
 class Cfp::PasswordsController < ApplicationController
-  layout "signup"
+  layout 'signup'
 
   def new
     @user = User.new
@@ -36,7 +36,7 @@ class Cfp::PasswordsController < ApplicationController
       redirect_to cfp_person_path, notice: t(:"cfp.password_updated")
     else
       @user.reset_password_token = params[:user][:reset_password_token]
-      render action: "edit"
+      render action: 'edit'
     end
   end
 end

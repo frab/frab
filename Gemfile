@@ -28,11 +28,11 @@ gem 'acts_as_commentable'
 gem 'bcrypt-ruby'
 gem 'cancancan'
 gem 'cocoon'
-gem "dotenv-rails"
+gem 'dotenv-rails'
 gem 'haml'
-gem 'localized_language_select', github: "frab/localized_language_select", branch: 'master'
+gem 'localized_language_select', github: 'frab/localized_language_select', branch: 'master'
 gem 'nokogiri'
-gem "paperclip", "~> 4.1"
+gem 'paperclip', '~> 4.1'
 gem 'paper_trail'
 gem 'prawn', '< 1.0'
 gem 'prawn_rails'
@@ -40,7 +40,7 @@ gem 'ransack'
 gem 'ri_cal'
 gem 'simple_form'
 gem 'sucker_punch'
-gem 'transitions', require: ["transitions", "active_record/transitions"]
+gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'will_paginate'
 
 group :development, :test do
@@ -60,6 +60,6 @@ group :doc do
   gem 'redcarpet'       # documentation
   gem 'github-markdown' # documentation
   gem 'yard'            # documentation
-  #gem 'rails-erd'      # graph
-  #gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
+  # gem 'rails-erd'      # graph
+  # gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
 end

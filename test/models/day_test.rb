@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class DayTest < ActiveSupport::TestCase
-  test "day label matches format" do
+  test 'day label matches format' do
     day = FactoryGirl.create(:day)
 
-    assert_equal day.label, day.start_date.strftime("%Y-%m-%d")
+    assert_equal day.label, day.start_date.strftime('%Y-%m-%d')
   end
 
-  test "end date not possible before start date" do
+  test 'end date not possible before start date' do
     day = FactoryGirl.create(:day)
     assert_equal true, day.valid?
 
@@ -19,7 +19,7 @@ class DayTest < ActiveSupport::TestCase
     assert_equal false, day.valid?
   end
 
-  test "day overlaps with other day" do
+  test 'day overlaps with other day' do
     conference = FactoryGirl.create(:three_day_conference)
     conference.days[1].start_date = conference.days[0].end_date.ago(2.hours)
     assert_equal false, conference.days[1].valid?

@@ -56,7 +56,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml  { render xml: @person }
+      format.xml { render xml: @person }
     end
   end
 
@@ -87,7 +87,7 @@ class PeopleController < ApplicationController
   def edit
     @person = Person.find(params[:id])
     if @person.nil?
-      flash[:alert] = "Not a valid person"
+      flash[:alert] = 'Not a valid person'
       return redirect_to action: :index
     end
     authorize! :manage, @person
@@ -102,7 +102,7 @@ class PeopleController < ApplicationController
       if @person.save
         format.html { redirect_to(@person, notice: 'Person was successfully created.') }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -116,7 +116,7 @@ class PeopleController < ApplicationController
       if @person.update_attributes(person_params)
         format.html { redirect_to(@person, notice: 'Person was successfully updated.') }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
       end
     end
   end
@@ -141,7 +141,11 @@ class PeopleController < ApplicationController
   def search(people, params)
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
-      sort = params[:q][:s] rescue nil
+      sort = begin
+               params[:q][:s]
+             rescue
+               nil
+             end
       @search = people.ransack(first_name_cont: term,
                                last_name_cont: term,
                                public_name_cont: term,

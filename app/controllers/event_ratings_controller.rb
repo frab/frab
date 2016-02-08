@@ -17,10 +17,10 @@ class EventRatingsController < ApplicationController
     authorize! :create, @rating
 
     if @rating.save
-      redirect_to event_event_rating_path, notice: "Rating saved successfully."
+      redirect_to event_event_rating_path, notice: 'Rating saved successfully.'
     else
-      flash[:alert] = "Failed to create event rating: " + @rating.errors.full_messages.join
-      render action: "show"
+      flash[:alert] = 'Failed to create event rating: ' + @rating.errors.full_messages.join
+      render action: 'show'
     end
   end
 
@@ -29,10 +29,10 @@ class EventRatingsController < ApplicationController
     authorize! :update, @rating
 
     if @rating.update_attributes(event_rating_params)
-      redirect_to event_event_rating_path, notice: "Rating updated successfully."
+      redirect_to event_event_rating_path, notice: 'Rating updated successfully.'
     else
-      flash[:alert] = "Failed to update event rating"
-      render action: "show"
+      flash[:alert] = 'Failed to update event rating'
+      render action: 'show'
     end
   end
 

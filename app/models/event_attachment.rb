@@ -6,7 +6,7 @@ class EventAttachment < ActiveRecord::Base
   validates_attachment_size :attachment, less_than: 42.megabytes
   do_not_validate_attachment_file_type :attachment
 
-  has_paper_trail meta: { associated_id: :event_id, associated_type: "Event" }
+  has_paper_trail meta: { associated_id: :event_id, associated_type: 'Event' }
 
   scope :is_public, -> { where(public: true) }
 

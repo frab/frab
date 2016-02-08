@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ConferenceExportTest < ActiveSupport::TestCase
-  test "can create a conference export" do
+  test 'can create a conference export' do
     conference_export = FactoryGirl.create :conference_export
     assert_not_nil conference_export.tarball
     assert File.readable? conference_export.tarball.path
@@ -9,14 +9,14 @@ class ConferenceExportTest < ActiveSupport::TestCase
     assert_not_nil conference_export.id
   end
 
-  test "can update a conference export attachment" do
+  test 'can update a conference export attachment' do
     file = File.open(File.join(Rails.root, 'test', 'fixtures', 'tarball.tar.gz'))
     conference_export = FactoryGirl.create :conference_export, tarball: file
     conference_export.save
     assert File.readable? conference_export.tarball.path
   end
 
-  test "can update conference export with tarball" do
+  test 'can update conference export with tarball' do
     conference = FactoryGirl.create(:three_day_conference)
     locale = 'en'
     file = File.join(Rails.root, 'test', 'fixtures', 'tarball.tar.gz')

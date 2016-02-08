@@ -19,7 +19,7 @@ class ScheduleController < ApplicationController
     else
       @unscheduled_events = @conference.events.accepted.unscheduled
     end
-    render partial: "unscheduled_events"
+    render partial: 'unscheduled_events'
   end
 
   def update_event
@@ -64,7 +64,7 @@ class ScheduleController < ApplicationController
 
     conference_export = @conference.conference_export(check_conference_locale(params[:export_locale]))
     if conference_export.present? and File.readable? conference_export.tarball.path
-      send_file conference_export.tarball.path, type: "application/x-tar-gz"
+      send_file conference_export.tarball.path, type: 'application/x-tar-gz'
     else
       redirect_to schedule_path, notice: 'No export found to download.'
     end

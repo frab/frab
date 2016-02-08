@@ -1,7 +1,7 @@
 class StaticProgramExport
   include RakeLogger
 
-  EXPORT_PATH = Rails.root.join("tmp", "static_export").to_s
+  EXPORT_PATH = Rails.root.join('tmp', 'static_export').to_s
 
   # Export a static html version of the conference program.
   #
@@ -26,7 +26,7 @@ class StaticProgramExport
   #
   # only run by rake task, cannot run in the same thread as rails
   def run_export
-    fail "No conference found!" if @conference.nil?
+    fail 'No conference found!' if @conference.nil?
 
     @asset_paths = []
     @base_directory = File.join(@destination, @conference.acronym)
@@ -35,7 +35,7 @@ class StaticProgramExport
 
     @session = ActionDispatch::Integration::Session.new(Frab::Application)
     @session.host = ENV.fetch('FRAB_HOST')
-    @session.https! if ENV.fetch('FRAB_PROTOCOL') == "https"
+    @session.https! if ENV.fetch('FRAB_PROTOCOL') == 'https'
     ActiveRecord::Base.transaction do
       unlock_schedule unless @original_schedule_public
 
@@ -56,7 +56,7 @@ class StaticProgramExport
       base_url += '/' unless base_url.end_with?('/')
       base_url
     else
-      "/"
+      '/'
     end
   end
 
@@ -78,7 +78,7 @@ class StaticProgramExport
 
   def copy_stripped_assets
     @asset_paths.uniq.each do |asset_path|
-      original_path = File.join(Rails.root, "public", URI.unescape(asset_path))
+      original_path = File.join(Rails.root, 'public', URI.unescape(asset_path))
       if File.exist? original_path
         new_path = File.join(@base_directory, URI.unescape(asset_path))
         FileUtils.mkdir_p(File.dirname(new_path))
@@ -97,16 +97,16 @@ class StaticProgramExport
 
   def static_query_paths
     [
-      { source: "schedule", target: "schedule.html" },
-      { source: "events", target: "events.html" },
-      { source: "speakers", target: "speakers.html" },
-      { source: "events.json", target: "events.json" },
-      { source: "speakers.json", target: "speakers.json" },
-      { source: "schedule/style.css", target: "style.css" },
-      { source: "schedule.ics", target: "schedule.ics" },
-      { source: "schedule.xcal", target: "schedule.xcal" },
-      { source: "schedule.json", target: "schedule.json" },
-      { source: "schedule.xml", target: "schedule.xml" }
+      { source: 'schedule', target: 'schedule.html' },
+      { source: 'events', target: 'events.html' },
+      { source: 'speakers', target: 'speakers.html' },
+      { source: 'events.json', target: 'events.json' },
+      { source: 'speakers.json', target: 'speakers.json' },
+      { source: 'schedule/style.css', target: 'style.css' },
+      { source: 'schedule.ics', target: 'schedule.ics' },
+      { source: 'schedule.xcal', target: 'schedule.xcal' },
+      { source: 'schedule.json', target: 'schedule.json' },
+      { source: 'schedule.xml', target: 'schedule.xml' }
     ]
   end
 
@@ -142,55 +142,55 @@ class StaticProgramExport
 
     if filename =~ /\.html$/
       document = modify_response_html(filename)
-      File.open(file_path, "w") do |f|
+      File.open(file_path, 'w') do |f|
         # FIXME corrupts events and speakers?
         # document.write_html_to(f, encoding: "UTF-8")
         f.puts(document.to_html)
       end
     elsif filename =~ /\.pdf$/
-      File.open(file_path, "wb") do |f|
+      File.open(file_path, 'wb') do |f|
         f.write(@session.response.body)
       end
     else
       # CSS,...
-      File.open(file_path, "w:utf-8") do |f|
-        f.write(@session.response.body.encode("UTF-8", invalid: :replace, undef: :replace, replace: "?"))
+      File.open(file_path, 'w:utf-8') do |f|
+        f.write(@session.response.body.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?'))
       end
     end
   end
 
   def modify_response_html(_filename)
-    document = Nokogiri::HTML(@session.response.body, nil, "UTF-8")
+    document = Nokogiri::HTML(@session.response.body, nil, 'UTF-8')
 
     # <link>
-    document.css("link").each do |link|
-      href_attr = link.attributes["href"]
+    document.css('link').each do |link|
+      href_attr = link.attributes['href']
       if href_attr.value.index("/#{@conference.acronym}/public/schedule/style.css")
-        link.attributes["href"].value = @base_url + "style.css"
+        link.attributes['href'].value = @base_url + 'style.css'
       else
-        strip_asset_path(link, "href") if href_attr
+        strip_asset_path(link, 'href') if href_attr
       end
     end
 
     # <script>
-    document.css("script").each do |script|
-      strip_asset_path(script, "src") if script.attributes["src"]
+    document.css('script').each do |script|
+      strip_asset_path(script, 'src') if script.attributes['src']
     end
 
     # <img>
-    document.css("img").each do |image|
-      strip_asset_path(image, "src")
+    document.css('img').each do |image|
+      strip_asset_path(image, 'src')
     end
 
     # <a>
-    document.css("a").each do |link|
-      href = link.attributes["href"]
-      if href and href.value.start_with?("/")
+    document.css('a').each do |link|
+      href = link.attributes['href']
+      if href and href.value.start_with?('/')
         if href.value =~ /\?\d+$/
-          strip_asset_path(link, "href")
+          strip_asset_path(link, 'href')
         else
           path = @base_url + strip_path(href.value)
-          path += ".html" unless path =~ /\.\w+$/
+          path += '.html' unless path =~ /\.\w+$/
           href.value = path
         end
       end
@@ -205,7 +205,7 @@ class StaticProgramExport
   end
 
   def strip_path(path)
-    path.gsub(/^\//, "").gsub(/^(?:en|de)?\/?#{@conference.acronym}\/public\//, "").gsub(/\?(?:body=)?\d+$/, "")
+    path.gsub(/^\//, '').gsub(/^(?:en|de)?\/?#{@conference.acronym}\/public\//, '').gsub(/\?(?:body=)?\d+$/, '')
   end
 
   def unlock_schedule

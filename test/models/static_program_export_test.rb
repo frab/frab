@@ -7,13 +7,13 @@ class StaticProgramExportTest < ActiveSupport::TestCase
     @target_dir = File.join(Rails.root, 'tmp', 'static_export')
   end
 
-  test "static exporter can create a tarball" do
+  test 'static exporter can create a tarball' do
     FileUtils.mkdir_p File.join(@target_dir, @conference.acronym)
     exporter = StaticProgramExport.new(@conference, @locale, @target_dir)
     assert_equal exporter.create_tarball, File.join(@target_dir, @conference.acronym + '-en.tar.gz')
   end
 
-  test "static exporter can run export" do
+  test 'static exporter can run export' do
     exporter = StaticProgramExport.new(@conference, @locale, @target_dir)
     exporter.run_export
     assert File.directory? File.join(@target_dir, @conference.acronym)

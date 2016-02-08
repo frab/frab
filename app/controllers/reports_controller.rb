@@ -39,19 +39,19 @@ class ReportsController < ApplicationController
     when 'events_with_more_than_one_speaker'
       r = conference_events.with_more_than_one_speaker
     when 'events_without_abstract'
-      r = conference_events.where(Event.arel_table[:abstract].eq(""))
+      r = conference_events.where(Event.arel_table[:abstract].eq(''))
     when 'unconfirmed_events'
       r = conference_events.where(event_type: :lecture, state: :unconfirmed)
     when 'events_with_a_note'
-      r = conference_events.where(Event.arel_table[:note].not_eq("").or(Event.arel_table[:submission_note].not_eq("")))
+      r = conference_events.where(Event.arel_table[:note].not_eq('').or(Event.arel_table[:submission_note].not_eq('')))
     when 'events_with_unusual_state_speakers'
       r = conference_events.joins(:event_people).where(event_people: { role_state: [:canceled, :declined, :idea, :offer, :unclear], event_role: [:moderator, :speaker] })
     when 'do_not_record_events'
       r = conference_events.where(do_not_record: true)
     when 'events_with_tech_rider'
       r = conference_events
-            .scheduled
-            .where(Event.arel_table[:tech_rider].not_eq(""))
+          .scheduled
+          .where(Event.arel_table[:tech_rider].not_eq(''))
       @extra_fields << :tech_rider
     end
 
@@ -79,19 +79,19 @@ class ReportsController < ApplicationController
     case @report_type
     when 'expected_speakers'
       r = Person.joins(events: :conference)
-          .where(:'conferences.id' => @conference.id)
-          .where(:'event_people.event_role' => %w(speaker moderator))
-          .where(:'event_people.role_state' => 'confirmed')
-          .where(:'events.public' => true)
+          .where('conferences.id': @conference.id)
+          .where('event_people.event_role': %w(speaker moderator))
+          .where('event_people.role_state': 'confirmed')
+          .where('events.public': true)
           .where('events.start_time > ?', Time.now)
           .where('events.start_time < ?', Time.now.since(4.hours))
-          .where(:'events.state' => %w(unconfirmed confirmed)).order('events.start_time ASC').group(:'people.id')
+          .where('events.state': %w(unconfirmed confirmed)).order('events.start_time ASC').group(:'people.id')
     when 'people_speaking_at'
       r = conference_people.speaking_at(@conference)
     when 'people_with_a_note'
-      r = conference_people.involved_in(@conference).where(Person.arel_table[:note].not_eq(""))
+      r = conference_people.involved_in(@conference).where(Person.arel_table[:note].not_eq(''))
     when 'people_with_more_than_one'
-      r = conference_people.involved_in(@conference).where("event_people.event_role" => ["submitter"]).group('event_people.person_id').having('count(*) > 1')
+      r = conference_people.involved_in(@conference).where('event_people.event_role' => ['submitter']).group('event_people.person_id').having('count(*) > 1')
     when 'people_with_non_reimbursed_expenses'
       r = conference_people.involved_in(@conference).joins(:expenses).where('expenses.value > 0 AND expenses.reimbursed = "f" AND expenses.conference_id = ?', @conference.id)
       @total_sum = 0

@@ -23,7 +23,6 @@ module WillPaginate
       def gap
         tag :li, link(super, '#'), class: 'disabled'
       end
-
     end
   end
 end

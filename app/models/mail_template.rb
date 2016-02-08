@@ -20,5 +20,4 @@ class MailTemplate < ActiveRecord::Base
     job = SendBulkMailJob.new
     job.async.perform self, filter
   end
-
 end

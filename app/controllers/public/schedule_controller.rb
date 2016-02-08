@@ -39,14 +39,14 @@ class Public::ScheduleController < ApplicationController
       @rooms << room
     end
     if @rooms.empty?
-      return redirect_to public_schedule_index_path, notice: "No events are public and scheduled."
+      return redirect_to public_schedule_index_path, notice: 'No events are public and scheduled.'
     end
 
     respond_to do |format|
       format.html
       format.pdf do
-        @page_size = "A4"
-        render template: "schedule/custom_pdf"
+        @page_size = 'A4'
+        render template: 'schedule/custom_pdf'
       end
     end
   end

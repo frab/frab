@@ -1,6 +1,6 @@
 class ImportExportHelper
   DEBUG = true
-  EXPORT_DIR = "tmp/frab_export"
+  EXPORT_DIR = 'tmp/frab_export'
 
   def initialize(conference = nil)
     @export_dir = EXPORT_DIR
@@ -18,27 +18,27 @@ class ImportExportHelper
     FileUtils.mkdir_p(@export_dir)
 
     ActiveRecord::Base.transaction do
-      dump "conference", @conference
-      dump "conference_tracks", @conference.tracks
-      dump "conference_cfp", @conference.call_for_participation
-      dump "conference_ticket_server", @conference.ticket_server
-      dump "conference_rooms", @conference.rooms
-      dump "conference_days", @conference.days
-      dump "conference_languages", @conference.languages
-      events = dump "events", @conference.events
-      dump_has_many "tickets", @conference.events, 'ticket'
-      dump_has_many "event_people", @conference.events, 'event_people'
-      dump_has_many "event_feedbacks", @conference.events, 'event_feedbacks'
-      people = dump_has_many "people", @conference.events, 'people'
-      dump_has_many "event_links", @conference.events, 'links'
-      attachments = dump_has_many "event_attachments", @conference.events, 'event_attachments'
-      dump_has_many "event_ratings", @conference.events, 'event_ratings'
-      dump_has_many "people_phone_numbers", people, 'phone_numbers'
-      dump_has_many "people_im_accounts", people, 'im_accounts'
-      dump_has_many "people_links", people, 'links'
-      dump_has_many "people_languages", people, 'languages'
-      dump_has_many "people_availabilities", people, 'availabilities'
-      dump_has_many "users", people, 'user'
+      dump 'conference', @conference
+      dump 'conference_tracks', @conference.tracks
+      dump 'conference_cfp', @conference.call_for_participation
+      dump 'conference_ticket_server', @conference.ticket_server
+      dump 'conference_rooms', @conference.rooms
+      dump 'conference_days', @conference.days
+      dump 'conference_languages', @conference.languages
+      events = dump 'events', @conference.events
+      dump_has_many 'tickets', @conference.events, 'ticket'
+      dump_has_many 'event_people', @conference.events, 'event_people'
+      dump_has_many 'event_feedbacks', @conference.events, 'event_feedbacks'
+      people = dump_has_many 'people', @conference.events, 'people'
+      dump_has_many 'event_links', @conference.events, 'links'
+      attachments = dump_has_many 'event_attachments', @conference.events, 'event_attachments'
+      dump_has_many 'event_ratings', @conference.events, 'event_ratings'
+      dump_has_many 'people_phone_numbers', people, 'phone_numbers'
+      dump_has_many 'people_im_accounts', people, 'im_accounts'
+      dump_has_many 'people_links', people, 'links'
+      dump_has_many 'people_languages', people, 'languages'
+      dump_has_many 'people_availabilities', people, 'availabilities'
+      dump_has_many 'users', people, 'user'
       # TODO languages
       # TODO videos
       # TODO notifications
@@ -71,7 +71,7 @@ class ImportExportHelper
   private
 
   def restore_all_data
-    restore("conference", Conference) do |id, c|
+    restore('conference', Conference) do |id, c|
       test = Conference.find_by_acronym(c.acronym)
       if test
         puts "conference #{c} already exists!"
@@ -85,7 +85,7 @@ class ImportExportHelper
 
     restore_conference_data
 
-    restore_multiple("people", Person) do |id, obj|
+    restore_multiple('people', Person) do |id, obj|
       # TODO could be the wrong person if persons share email addresses!?
       persons = Person.where(email: obj.email, public_name: obj.public_name)
       person = persons.first
@@ -95,7 +95,7 @@ class ImportExportHelper
         @mappings[:people][id] = person.id
         @mappings[:people_user][obj.user_id] = person
       else
-        if (file = import_file("avatars", id, obj.avatar_file_name))
+        if (file = import_file('avatars', id, obj.avatar_file_name))
           obj.avatar = file
         end
         obj.save!
@@ -132,11 +132,11 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("events", Event) do |id, obj|
+    restore_multiple('events', Event) do |id, obj|
       obj.conference_id = @conference_id
       obj.track_id = @mappings[:tracks][obj.track_id]
       obj.room_id = @mappings[:rooms][obj.room_id]
-      if (file = import_file("logos", id, obj.logo_file_name))
+      if (file = import_file('logos', id, obj.logo_file_name))
         obj.logo = file
       end
       obj.save!
@@ -154,72 +154,72 @@ class ImportExportHelper
   end
 
   def restore_conference_data
-    restore_multiple("conference_tracks", Track) do |id, obj|
+    restore_multiple('conference_tracks', Track) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
       @mappings[:tracks][id] = obj.id
     end
 
-    restore("conference_cfp", CallForParticipation) do |id, obj|
+    restore('conference_cfp', CallForParticipation) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
       @mappings[:cfp][id] = obj.id
     end
 
-    restore("conference_ticket_server", TicketServer) do |_id, obj|
+    restore('conference_ticket_server', TicketServer) do |_id, obj|
       obj.conference_id = @conference_id
       obj.save!
     end
 
-    restore_multiple("conference_rooms", Room) do |id, obj|
+    restore_multiple('conference_rooms', Room) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
       @mappings[:rooms][id] = obj.id
     end
 
-    restore_multiple("conference_days", Day) do |id, obj|
+    restore_multiple('conference_days', Day) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
       @mappings[:days][id] = obj.id
     end
 
-    restore_multiple("conference_languages", Language) do |_id, obj|
+    restore_multiple('conference_languages', Language) do |_id, obj|
       obj.attachable_id = @conference_id
       obj.save!
     end
   end
 
   def restore_events_data
-    restore_multiple("tickets", Ticket) do |_id, obj|
+    restore_multiple('tickets', Ticket) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.save!
     end
 
-    restore_multiple("event_people", EventPerson) do |_id, obj|
+    restore_multiple('event_people', EventPerson) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.person_id = @mappings[:people][obj.person_id]
       obj.save!
     end
 
-    restore_multiple("event_feedbacks", EventFeedback) do |_id, obj|
+    restore_multiple('event_feedbacks', EventFeedback) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.save!
     end
 
-    restore_multiple("event_ratings", EventRating) do |_id, obj|
+    restore_multiple('event_ratings', EventRating) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.person_id = @mappings[:people][obj.person_id]
       obj.save! if obj.valid?
     end
 
-    restore_multiple("event_links", Link) do |_id, obj|
+    restore_multiple('event_links', Link) do |_id, obj|
       obj.linkable_id = @mappings[:events][obj.linkable_id]
       obj.save!
     end
 
-    restore_multiple("event_attachments", EventAttachment) do |id, obj|
+    restore_multiple('event_attachments', EventAttachment) do |id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
-      if (file = import_file("attachments", id, obj.attachment_file_name))
+      if (file = import_file('attachments', id, obj.attachment_file_name))
         obj.attachment = file
       end
       obj.save!
@@ -227,7 +227,7 @@ class ImportExportHelper
   end
 
   def restore_people_data
-    restore_multiple("people_phone_numbers", PhoneNumber) do |_id, obj|
+    restore_multiple('people_phone_numbers', PhoneNumber) do |_id, obj|
       new_id = @mappings[:people][obj.person_id]
       test = PhoneNumber.where(person_id: new_id, phone_number: obj.phone_number)
       unless test
@@ -236,7 +236,7 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("people_im_accounts", ImAccount) do |_id, obj|
+    restore_multiple('people_im_accounts', ImAccount) do |_id, obj|
       new_id = @mappings[:people][obj.person_id]
       test = ImAccount.where(person_id: new_id, im_address: obj.im_address)
       unless test
@@ -245,7 +245,7 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("people_links", Link) do |_id, obj|
+    restore_multiple('people_links', Link) do |_id, obj|
       new_id = @mappings[:people][obj.linkable_id]
       test = Link.where(linkable_id: new_id, linkable_type: obj.linkable_type,
                         url: obj.url)
@@ -255,7 +255,7 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("people_languages", Language) do |_id, obj|
+    restore_multiple('people_languages', Language) do |_id, obj|
       new_id = @mappings[:people][obj.attachable_id]
       test = Language.where(attachable_id: new_id, attachable_type: obj.attachable_type,
                             code: obj.code)
@@ -265,7 +265,7 @@ class ImportExportHelper
       end
     end
 
-    restore_multiple("people_availabilities", Availability) do |_id, obj|
+    restore_multiple('people_availabilities', Availability) do |_id, obj|
       next if obj.nil? or obj.start_date.nil? or obj.end_date.nil?
       obj.conference_id = @conference_id
       obj.person_id = @mappings[:people][obj.person_id]
@@ -283,7 +283,7 @@ class ImportExportHelper
   def dump(name, obj)
     return if obj.nil?
     File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f|
-      if obj.respond_to?("collect")
+      if obj.respond_to?('collect')
         f.puts obj.collect(&:attributes).to_yaml
       else
         f.puts obj.attributes.to_yaml
@@ -310,7 +310,7 @@ class ImportExportHelper
     end
   end
 
-  def restore_users(name = "users", obj = User)
+  def restore_users(name = 'users', obj = User)
     puts "[ ] restore all #{name}" if DEBUG
     records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
     records.each do |record|
@@ -356,8 +356,8 @@ class ImportExportHelper
 
   def update_counters
     ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
-    update_event_average("event_ratings", "average_rating")
-    update_event_average("event_feedbacks", "average_feedback")
+    update_event_average('event_ratings', 'average_rating')
+    update_event_average('event_feedbacks', 'average_feedback')
   end
 
   def update_event_average(table, field)

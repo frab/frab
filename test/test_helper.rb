@@ -1,4 +1,4 @@
-ENV["RAILS_ENV"] ||= "test"
+ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/pride'
@@ -27,7 +27,7 @@ class ActiveSupport::TestCase
   end
 
   def sign_in(user)
-    post "/session", user: { email: user.email, password: user.password }
+    post '/session', user: { email: user.email, password: user.password }
   end
 
   def setup

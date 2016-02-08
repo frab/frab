@@ -7,7 +7,7 @@ class Cfp::AvailabilitiesControllerTest < ActionController::TestCase
     login_as(:submitter)
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new, conference_acronym: @conference.acronym
     assert_response :success
   end

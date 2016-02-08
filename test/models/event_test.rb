@@ -29,17 +29,17 @@ class EventTest < ActiveSupport::TestCase
     @notification = create(:notification)
     @event = create(:event, conference: @notification.conference)
     @speaker = create(:person)
-    create(:event_person, event: @event, person: @speaker, event_role: "speaker")
+    create(:event_person, event: @event, person: @speaker, event_role: 'speaker')
     @coordinator = create(:person)
   end
 
-  test "acceptance processing sends email if asked to" do
+  test 'acceptance processing sends email if asked to' do
     setup_notification_event
     @event.process_acceptance(send_mail: true)
     assert !ActionMailer::Base.deliveries.empty?
   end
 
-  test "acceptance processing sends german email if asked to" do
+  test 'acceptance processing sends german email if asked to' do
     setup_notification_event
     @speaker.languages << Language.new(code: 'de')
     @event.conference.languages << Language.new(code: 'de')
@@ -50,39 +50,39 @@ class EventTest < ActiveSupport::TestCase
     assert !ActionMailer::Base.deliveries.empty?
   end
 
-  test "acceptance processing does not send email by default" do
+  test 'acceptance processing does not send email by default' do
     setup_notification_event
     @event.process_acceptance(send_mail: false)
     assert ActionMailer::Base.deliveries.empty?
   end
 
-  test "acceptance processing sets coordinator" do
+  test 'acceptance processing sets coordinator' do
     setup_notification_event
-    assert_difference "EventPerson.count" do
+    assert_difference 'EventPerson.count' do
       @event.process_acceptance(coordinator: @coordinator)
     end
   end
 
-  test "rejection processing sends email if asked to" do
+  test 'rejection processing sends email if asked to' do
     setup_notification_event
     @event.process_rejection(send_mail: true)
     assert !ActionMailer::Base.deliveries.empty?
   end
 
-  test "rejection processing does not send email by default" do
+  test 'rejection processing does not send email by default' do
     setup_notification_event
     @event.process_rejection(send_mail: false)
     assert ActionMailer::Base.deliveries.empty?
   end
 
-  test "rejection processing sets coordinator" do
+  test 'rejection processing sets coordinator' do
     setup_notification_event
-    assert_difference "EventPerson.count" do
+    assert_difference 'EventPerson.count' do
       @event.process_rejection(coordinator: @coordinator)
     end
   end
 
-  test "correctly detects overlapping of events" do
+  test 'correctly detects overlapping of events' do
     event = create(:event)
     other_event = create(:event)
     other_event.start_time = event.start_time.ago(30.minutes)
@@ -91,7 +91,7 @@ class EventTest < ActiveSupport::TestCase
     refute event.overlap?(other_event)
   end
 
-  test "event conflicts are updated if availabilities change" do
+  test 'event conflicts are updated if availabilities change' do
     conference = create(:three_day_conference_with_events)
     first_event = conference.events.first
     assert_empty first_event.conflicts

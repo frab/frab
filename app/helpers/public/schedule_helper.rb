@@ -21,7 +21,7 @@ module Public::ScheduleHelper
     if event.track
       "track-#{event.track.name.parameterize}"
     else
-      "track-default"
+      'track-default'
     end
   end
 
@@ -31,6 +31,6 @@ module Public::ScheduleHelper
   end
 
   def selected(regex)
-    "selected" if request.path =~ regex
+    'selected' if request.path =~ regex
   end
 end

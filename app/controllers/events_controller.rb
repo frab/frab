@@ -79,7 +79,7 @@ class EventsController < ApplicationController
     @events_no_review_total = @events_total - @events_reviewed_total
 
     # current_user rated:
-    @events_reviewed = @conference.events.joins(:event_ratings).where("event_ratings.person_id" => current_user.person.id).count
+    @events_reviewed = @conference.events.joins(:event_ratings).where('event_ratings.person_id' => current_user.person.id).count
     @events_no_review = @events_total - @events_reviewed
   end
 
@@ -95,7 +95,7 @@ class EventsController < ApplicationController
     authorize! :create, EventRating
     ids = Event.ids_by_least_reviewed(@conference, current_user.person)
     if ids.empty?
-      redirect_to action: "ratings", notice: "You have already reviewed all events:"
+      redirect_to action: 'ratings', notice: 'You have already reviewed all events:'
     else
       session[:review_ids] = ids
       redirect_to event_event_rating_path(event_id: ids.first)
@@ -155,7 +155,7 @@ class EventsController < ApplicationController
       if @event.save
         format.html { redirect_to(@event, notice: 'Event was successfully created.') }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -170,8 +170,8 @@ class EventsController < ApplicationController
         format.html { redirect_to(@event, notice: 'Event was successfully updated.') }
         format.js   { head :ok }
       else
-        format.html { render action: "edit" }
-        format.js  { render json: @event.errors, status: :unprocessable_entity }
+        format.html { render action: 'edit' }
+        format.js { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -189,9 +189,9 @@ class EventsController < ApplicationController
         return redirect_to edit_conference_path, alert: 'No notification text present. Please change the default text for your needs, before accepting/ rejecting events.'
       end
 
-      return redirect_to(@event, alert: "Cannot send mails: Please specify an email address for this conference.") unless @conference.email
+      return redirect_to(@event, alert: 'Cannot send mails: Please specify an email address for this conference.') unless @conference.email
 
-      return redirect_to(@event, alert: "Cannot send mails: Not all speakers have email addresses.") unless @event.speakers.all?(&:email)
+      return redirect_to(@event, alert: 'Cannot send mails: Not all speakers have email addresses.') unless @event.speakers.all?(&:email)
     end
 
     begin
@@ -229,7 +229,11 @@ class EventsController < ApplicationController
   def search(events, params)
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
-      sort = params[:q][:s] rescue nil
+      sort = begin
+               params[:q][:s]
+             rescue
+               nil
+             end
       @search = events.ransack(title_cont: term,
                                description_cont: term,
                                abstract_cont: term,
