@@ -4,19 +4,19 @@
       - if available_conference_locales.size > 1
         %ul.pills
           - available_conference_locales.each do |locale|
-            %li{:class => (I18n.locale.to_s == locale.to_s) ? "active" : ""}
-              = link_to locale.to_s, url_for( :locale => locale )
+            %li{class: (I18n.locale.to_s == locale.to_s) ? "active" : ""}
+              = link_to locale.to_s, url_for( locale: locale )
     %h1
       = @conference.title
       \- Call for Participation
   .row
     .span16
-      = render "shared/flash", :flash => flash
+      = render "shared/flash", flash: flash
       - if @conference.call_for_participation.welcome_text
         %p
           = simple_format @conference.call_for_participation.welcome_text
       - else
-        %p=t("cfp.welcome_text", :title => @conference.title)
+        %p=t("cfp.welcome_text", title: @conference.title)
   .row
     .span8
       %h2=t("cfp.login_existing_headline")
@@ -31,7 +31,7 @@
           = f.button :submit, t("cfp.sign_in"), class: 'primary'
     .span8
       %h2=t("cfp.sign_up_headline")
-      %p=t("cfp.sign_up_description", :title => @conference.title)
+      %p=t("cfp.sign_up_description", title: @conference.title)
       %p= action_button "", t("cfp.sign_up"), new_cfp_user_path
   .row
     .span8

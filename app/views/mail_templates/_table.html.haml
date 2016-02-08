@@ -2,10 +2,10 @@
   %thead
     %tr
     - if @search
-      %th= sort_link @search, :name, 'Name', :term => params[:term]
-      %th= sort_link @search, :subject, 'Subject', :term => params[:term]
-      %th= sort_link @search, :content, 'Content', :term => params[:term]
-      %th= sort_link @search, :created_at, :term => params[:term]
+      %th= sort_link @search, :name, 'Name', term: params[:term]
+      %th= sort_link @search, :subject, 'Subject', term: params[:term]
+      %th= sort_link @search, :content, 'Content', term: params[:term]
+      %th= sort_link @search, :created_at, term: params[:term]
     - else
       %th Name
       %th Subject
@@ -23,4 +23,4 @@
           = action_button "small", 'Show', t
           - if can? :crud, t
             = action_button "small", 'Edit', edit_mail_template_path(t)
-            = action_button "small danger", 'Destroy', t, :confirm => 'Are you sure?', :method => :delete
+            = action_button "small danger", 'Destroy', t, confirm: 'Are you sure?', method: :delete

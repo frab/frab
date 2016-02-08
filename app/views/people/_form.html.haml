@@ -1,25 +1,25 @@
-= simple_form_for(@person, :html => {:multipart => true}) do |f|
+= simple_form_for(@person, html: {multipart: true}) do |f|
   %fieldset.inputs
     %legend Basic
     = f.input :first_name
     = f.input :last_name
-    = f.input :public_name, :hint => "This is the name that will be shown in the public program."
-    = f.input :gender, :collection => Person::GENDERS
-    = f.input :avatar, :hint => "Upload a new picture."
+    = f.input :public_name, hint: "This is the name that will be shown in the public program."
+    = f.input :gender, collection: Person::GENDERS
+    = f.input :avatar, hint: "Upload a new picture."
     = dynamic_association :languages, "Languages spoken", f
   %fieldset.inputs
     %legend Contact Data
-    = f.input :email, :hint => "Please enter the email address that should be used as main means of contacting this person."
-    = f.input :email_public, as: :inline_boolean, :hint => "If set, this email address will be published in the public program."
+    = f.input :email, hint: "Please enter the email address that should be used as main means of contacting this person."
+    = f.input :email_public, as: :inline_boolean, hint: "If set, this email address will be published in the public program."
     = f.input :include_in_mailings, hint: "Do you want to receive information about upcoming conferences by mail?"
     = dynamic_association :phone_numbers, "Phone numbers", f
     = dynamic_association :im_accounts, "Instant messaging accounts", f
   %fieldset.inputs
     %legend Bio
-    = f.input :abstract, :input_html => {:rows => 4, :class => "span6"}, :hint => "One short paragraph that succinctly describes this person. (HTML)"
-    = f.input :description, :input_html => {:class => "span6"}, :hint => "A longer description of this person. Use this to give additional details that did not fit in the abstract. (HTML)"
-    = f.input :note, :hint => "visibility: admin only."
+    = f.input :abstract, input_html: {rows: 4, class: "span6"}, hint: "One short paragraph that succinctly describes this person. (HTML)"
+    = f.input :description, input_html: {class: "span6"}, hint: "A longer description of this person. Use this to give additional details that did not fit in the abstract. (HTML)"
+    = f.input :note, hint: "visibility: admin only."
     = dynamic_association :links, "Links", f
   .actions
     = f.button :submit, class: 'primary'
-    = link_to "Cancel", :back, :class => "btn"
+    = link_to "Cancel", :back, class: "btn"

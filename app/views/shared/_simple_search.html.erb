@@ -1,4 +1,4 @@
-<%= form_tag path, :method => :get do %>
+<%= form_tag path, method: :get do %>
   <p>Search:
     <%= text_field_tag :term, params[:term] %> <%= link_to "clear",  path %>
   </p>

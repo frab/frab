@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Start reviewing", start_review_events_path, :hint => "Review a batch of events in a row. You will be presented with the event that has the least ratings first and can easily navigate to the next event in the row."
+      = action_button "primary", "Start reviewing", start_review_events_path, hint: "Review a batch of events in a row. You will be presented with the event that has the least ratings first and can easily navigate to the next event in the row."
     %h1 Event Ratings
   %ul.tabs
     %li= link_to "All Events", events_path
@@ -42,13 +42,13 @@
           %thead
             %tr
               %th
-              %th= sort_link @search, :title, :term => params[:term]
-              %th= sort_link @search, :track_name, "Track", :term => params[:term]
-              %th= sort_link @search, :event_type, :term => params[:term]
+              %th= sort_link @search, :title, term: params[:term]
+              %th= sort_link @search, :track_name, "Track", term: params[:term]
+              %th= sort_link @search, :event_type, term: params[:term]
               - if can? :crud, Event
-                %th= sort_link @search, :state, :term => params[:term]
-              %th= sort_link @search, :average_rating, :term => params[:term]
-              %th= sort_link @search, :event_ratings_count, :term => params[:term]
+                %th= sort_link @search, :state, term: params[:term]
+              %th= sort_link @search, :average_rating, term: params[:term]
+              %th= sort_link @search, :event_ratings_count, term: params[:term]
               %th
           %tbody
             - @events.each do |event|
@@ -67,6 +67,6 @@
                     = raty_for("event_rating_#{event.id}", event.average_rating)
                 %td= event.event_ratings_count
                 %td
-                  = link_to 'Show Ratings', event_event_rating_path(event), :class => "btn small"
+                  = link_to 'Show Ratings', event_event_rating_path(event), class: "btn small"
         = actions_bar do
           = will_paginate @events

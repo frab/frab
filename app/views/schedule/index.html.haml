@@ -1,15 +1,15 @@
 %section
   .page-header
     .pull-right
-      = action_button "", "View public schedule", public_schedule_index_path, :hint => "View the public live version of your schedule just like any attendee might see it."
-      = action_button "", "Create custom PDF export", new_schedule_pdf_path, :hint => "Create a PDF version of your program schedule that can easily be printed."
-      = action_button "", "HTML export", schedule_html_exports_path, :hint => "Create a HTML version of your program schedule that can be copied to another web server."
+      = action_button "", "View public schedule", public_schedule_index_path, hint: "View the public live version of your schedule just like any attendee might see it."
+      = action_button "", "Create custom PDF export", new_schedule_pdf_path, hint: "Create a PDF version of your program schedule that can easily be printed."
+      = action_button "", "HTML export", schedule_html_exports_path, hint: "Create a HTML version of your program schedule that can be copied to another web server."
     %h1 Schedule
 
   %ul.tabs
     - @conference.days.each_with_index do |day, index|
-      %li{:class => day_active?(index)}
-        = link_to day.label, schedule_path(:day => index)
+      %li{class: day_active?(index)}
+        = link_to day.label, schedule_path(day: index)
   - if @conference.rooms.empty?
     .row
       .span16
@@ -45,8 +45,8 @@
           %b Toggle rooms:
         %p
           - @conference.rooms.each do |room|
-            = link_to room.name, "#", :class => "btn small success toggle-room", :data => {:room => room.name.downcase}
-          = link_to "hide all", "#", :id => "hide-all-rooms", :class => "btn small danger"
+            = link_to room.name, "#", class: "btn small success toggle-room", data: {room: room.name.downcase}
+          = link_to "hide all", "#", id: "hide-all-rooms", class: "btn small danger"
     .row
       .span16
         - @conference.rooms.each do |room|
@@ -58,7 +58,7 @@
             %tbody
               - slot = 0
               - each_timeslot do  |time|
-                %tr{:class => cycle('odd', 'even')}
+                %tr{class: cycle('odd', 'even')}
                   %td{:"data-time" => time.to_s(:rfc822)}
                     - if slot % @conference.default_timeslots == 0
                       = time.strftime("%H:%M")
@@ -66,18 +66,18 @@
         .clear
         #event-pane
           - @scheduled_events.each do |event|
-            = render 'event', :event => event
-        #add-event-modal.modal{:style => "display: none;"}
+            = render 'event', event: event
+        #add-event-modal.modal{style: "display: none;"}
           .modal-header
-            = link_to "×", "#", :class => "close"
+            = link_to "×", "#", class: "close"
             %h3
               Add event at
               %span#current-time &nbsp;
           .modal-body
             %p
-              = form_tag schedule_update_track_path, :id => "update-track" do
+              = form_tag schedule_update_track_path, id: "update-track" do
                 = label_tag "track_select", "Filter by track"
-                = select_tag "track_select", content_tag(:option, "All", :selected => true) + options_from_collection_for_select(@conference.tracks, :id, :name)
+                = select_tag "track_select", content_tag(:option, "All", selected: true) + options_from_collection_for_select(@conference.tracks, :id, :name)
             %p
               %ul#unscheduled-events
                 = render 'unscheduled_events'

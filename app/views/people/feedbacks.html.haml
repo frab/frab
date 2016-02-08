@@ -2,9 +2,9 @@
   .page-header
     .pull-right
       - if can? :manage, @person
-        = action_button "primary", "Edit person", edit_person_path(@person), :title => "Edit this person's data."
+        = action_button "primary", "Edit person", edit_person_path(@person), title: "Edit this person's data."
       - if can? :administrate, Person
-        = action_button "add", "Add person", new_person_path, :title => "Add a new person."
+        = action_button "add", "Add person", new_person_path, title: "Add a new person."
     %h1 Person: #{@person.full_name}
   = render 'shared/people_tabs'
   .row
@@ -31,7 +31,7 @@
     .span16
       - unless @current_events.empty?
         %h2 Events in current conference
-        = render "feedback_table", :collection => @current_events
+        = render "feedback_table", collection: @current_events
       - unless @other_events.empty?
         %h2 Events in other conferences
-        = render "feedback_table", :collection => @other_events
+        = render "feedback_table", collection: @other_events

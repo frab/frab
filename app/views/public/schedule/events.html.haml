@@ -13,9 +13,9 @@
   %tbody
     - @events.each do |event|
       %tr
-        %td= link_to image_box(event.logo, :small), public_event_path(:id => event.id)
+        %td= link_to image_box(event.logo, :small), public_event_path(id: event.id)
         %td
-          %b= link_to event.title, public_event_path(:id => event.id)
+          %b= link_to event.title, public_event_path(id: event.id)
           %br/
           = truncate(event.abstract, length: 80, separator: ' ')
         - unless no_tracks
@@ -23,4 +23,4 @@
         %td
           %ul
             - event.speakers.each do |speaker|
-              %li= link_to speaker.public_name, public_speaker_path(:id => speaker.id)
+              %li= link_to speaker.public_name, public_speaker_path(id: speaker.id)

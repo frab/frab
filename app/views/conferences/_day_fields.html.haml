@@ -1,0 +1,13 @@
+.nested-fields
+  %fieldset.inputs
+    = f.input :start_date, html5: true, hint: "yyyy-mm-dd hh:mm", as: :datetime
+    = f.input :end_date, html5: true, hint: "yyyy-mm-dd hh:mm", as: :datetime
+    = remove_association_link :day, f
+
+:javascript
+  $(function() {
+    $('div.datetime input').datetimepicker({
+      dateFormat: "yy-mm-dd",
+      timeFormat: "hh:mm"
+    });
+  });

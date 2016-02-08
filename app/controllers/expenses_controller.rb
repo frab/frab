@@ -13,7 +13,7 @@ class ExpensesController < ApplicationController
   end
 
   def index
-    @expenses = @person.expenses.where(:conference_id => @conference.id)
+    @expenses = @person.expenses.where(conference_id: @conference.id)
     @expenses_sum_reimbursed = @person.sum_of_expenses(@conference, true)
     @expenses_sum_non_reimbursed = @person.sum_of_expenses(@conference, false)
   end

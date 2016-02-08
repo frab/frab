@@ -3,7 +3,7 @@
     .pull-right
       - if @next_event
         = actions_block do
-          = action_button "primary", "Rate next event", event_event_rating_path(@next_event), :hint => "Proceed to rate the next event."
+          = action_button "primary", "Rate next event", event_event_rating_path(@next_event), hint: "Proceed to rate the next event."
     %h1 Event: #{@event.title}
   %ul.tabs
     %li= link_to "Event Details", @event
@@ -13,7 +13,7 @@
   .row
     .span16
       %small= link_to "Toggle Description >>", "#", data: { function: 'notification-defaults' }
-  #full_description{:style => "display:none;"}
+  #full_description{style: "display:none;"}
     .row
       .span16
         %p
@@ -78,7 +78,7 @@
       = simple_form_for @rating, url: event_event_rating_path do |f|
         %fieldset.inputs
           = f.input :rating, as: :rating
-          = f.input :comment, :input_html => {:rows => 3}
+          = f.input :comment, input_html: {rows: 3}
         .actions
           = f.button :submit, class: 'primary'
   .row

@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Add conference", new_conference_path, :hint => "Add a new conference"
+      = action_button "primary", "Add conference", new_conference_path, hint: "Add a new conference"
     %h1 List of conferences
   - if params[:term].blank? and Conference.all.empty?
     .row
@@ -12,4 +12,4 @@
             Start adding a conference by clicking on the
             button on the right.
   - else
-    = render 'shared/search_and_table', :collection => @conferences
+    = render 'shared/search_and_table', collection: @conferences

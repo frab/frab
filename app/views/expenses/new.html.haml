@@ -7,4 +7,4 @@
     .span16
       = content do
         = inner do
-          = render(:partial => 'shared/expenses_form', :locals => { :person => @person, :conference => @conference, :expense => @expense, :url => person_expenses_path })
+          = render(partial: 'shared/expenses_form', locals: { person: @person, conference: @conference, expense: @expense, url: person_expenses_path })

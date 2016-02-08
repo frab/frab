@@ -1,1 +1,1 @@
-= render(:partial => 'shared/availabilities_form', :locals => { :person => current_user.person, :conference => @conference, :availabilities => @availabilities, :url => cfp_person_availability_path })
+= render(partial: 'shared/availabilities_form', locals: { person: current_user.person, conference: @conference, availabilities: @availabilities, url: cfp_person_availability_path })

@@ -1,8 +1,8 @@
 %h2
   - if @conference.days.length > 1
-    = t '.schedule_for_day', :index => @day_index+1, :label => l(@day.date)
+    = t '.schedule_for_day', index: @day_index+1, label: l(@day.date)
   - else
-    = t '.schedule', :label => l(@day.date)
+    = t '.schedule', label: l(@day.date)
 - if different_track_colors?
   #colorkeys
     %ul
@@ -33,17 +33,17 @@
               - if not @events[room].empty? and @events[room].first.start_time == time
                 - event = @events[room].shift
                 - @skip_row[room] = event.time_slots
-                %td{:rowspan => event.time_slots, :class => "cell-height#{event.time_slots}"}
-                  .event{:class => track_class(event)}
+                %td{rowspan: event.time_slots, class: "cell-height#{event.time_slots}"}
+                  .event{class: track_class(event)}
                     .event-wrapper
                       .event-header
-                        %h2= link_to event.title, public_event_path(:id => event.id)
+                        %h2= link_to event.title, public_event_path(id: event.id)
                       .event-details
                         .subtitle
                           = event.subtitle
                           - if @conference.languages.count > 1
                             = "(#{event.language})"
-                        .speakers= event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(:id => p.id))}.join(", ").html_safe
+                        .speakers= event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(id: p.id))}.join(", ").html_safe
               - else
                 %td &nbsp;
           - slot += 1

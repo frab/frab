@@ -3,11 +3,11 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :full_name, :term => params[:term]
-        %th= sort_link @search, :public_name, :term => params[:term]
-        %th= sort_link @search, :email, :term => params[:term]
+        %th= sort_link @search, :full_name, term: params[:term]
+        %th= sort_link @search, :public_name, term: params[:term]
+        %th= sort_link @search, :email, term: params[:term]
         %th Events in
-        %th= sort_link @search, :created_at, :term => params[:term]
+        %th= sort_link @search, :created_at, term: params[:term]
         - if @extra_fields.include?(:expenses)
           %th Non-reimbursed expenses
       - else
@@ -34,7 +34,7 @@
           = action_button "small", 'Show', person
           - if can? :manage, person
             = action_button "small", 'Edit', edit_person_path(person)
-            = action_button "small danger", 'Destroy', person, :confirm => 'Are you sure?', :method => :delete
+            = action_button "small danger", 'Destroy', person, confirm: 'Are you sure?', method: :delete
 
     - if @extra_fields.include?(:expenses)
       %tr

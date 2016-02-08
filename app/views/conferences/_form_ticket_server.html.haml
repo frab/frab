@@ -1,10 +1,10 @@
 = simple_form_for(@conference, url: conference_path) do |f|
   - @conference.build_ticket_server unless @conference.ticket_server
   = f.simple_fields_for :ticket_server do |ts|
-    = ts.input :url, :hint => "URL of your ticket system, for example https://localhost/otrs/"
-    = ts.input :queue, :hint => "Name of this events queue"
-    = ts.input :user, :hint => "Username used to create tickets"
-    = ts.input :password, :hint => "Password used to log into ticket system"
+    = ts.input :url, hint: "URL of your ticket system, for example https://localhost/otrs/"
+    = ts.input :queue, hint: "Name of this events queue"
+    = ts.input :user, hint: "Username used to create tickets"
+    = ts.input :password, hint: "Password used to log into ticket system"
 
   .actions
     = f.button :submit, class: 'primary'

@@ -23,7 +23,7 @@ class Public::ScheduleController < ApplicationController
   def day
     @day_index = params[:day].to_i ||= 0
     if @conference.days.count <= @day_index
-      return redirect_to public_schedule_index_path, :alert => "Failed to find day for id #{@day_index}"
+      return redirect_to public_schedule_index_path, alert: "Failed to find day for id #{@day_index}"
     end
     @day = @conference.days[@day_index]
 
@@ -39,7 +39,7 @@ class Public::ScheduleController < ApplicationController
       @rooms << room
     end
     if @rooms.empty?
-      return redirect_to public_schedule_index_path, :notice => "No events are public and scheduled."
+      return redirect_to public_schedule_index_path, notice: "No events are public and scheduled."
     end
 
     respond_to do |format|

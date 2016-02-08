@@ -2,7 +2,7 @@
   .page-header
     .pull-right
       - if can? :manage, CallForParticipation
-        = action_button "primary", "Edit", edit_call_for_participation_path, :hint => "Edit this call for paper's data."
+        = action_button "primary", "Edit", edit_call_for_participation_path, hint: "Edit this call for paper's data."
     %h1 Call for Participation
   - if @conference.call_for_participation.welcome_text
     .row
@@ -20,11 +20,11 @@
         = new_cfp_session_url
   .row
     .span16
-      #submission_graph{:style => "width: 800px; height: 300px;"}
+      #submission_graph{style: "width: 800px; height: 300px;"}
 
   .row
     .span16
-      #submission_graph-sum_to_submission_time{:style => "width: 800px; height: 300px;"}
+      #submission_graph-sum_to_submission_time{style: "width: 800px; height: 300px;"}
 
 :javascript
   var data = #{@conference.submission_data.inspect};

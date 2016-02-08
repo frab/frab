@@ -3,7 +3,7 @@ class EventAttachment < ActiveRecord::Base
 
   has_attached_file :attachment
 
-  validates_attachment_size :attachment, :less_than => 42.megabytes
+  validates_attachment_size :attachment, less_than: 42.megabytes
   do_not_validate_attachment_file_type :attachment
 
   has_paper_trail meta: { associated_id: :event_id, associated_type: "Event" }

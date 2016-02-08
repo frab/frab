@@ -35,16 +35,16 @@ class Person < ActiveRecord::Base
   # validates_inclusion_of :gender, in: GENDERS, allow_nil: true
 
   scope :involved_in, ->(conference) {
-    joins(events: :conference).where(:"conferences.id" => conference.id).group(:"people.id")
+    joins(events: :conference).where("conferences.id": conference.id).group(:"people.id")
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where(:"conferences.id" => conference.id).where(:"event_people.event_role" => %w(speaker moderator)).where(:"events.state" => %w(unconfirmed confirmed)).group(:"people.id")
+    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(unconfirmed confirmed)).group(:"people.id")
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where(:"conferences.id" => conference.id).where(:"event_people.event_role" => %w(speaker moderator)).where(:"events.public" => true).where(:"events.state" => %w(unconfirmed confirmed)).group(:"people.id")
+    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(unconfirmed confirmed)).group(:"people.id")
   }
   scope :confirmed, ->(conference) {
-    joins(events: :conference).where(:"conferences.id" => conference.id).where(:"events.state" => "confirmed")
+    joins(events: :conference).where("conferences.id": conference.id).where("events.state": "confirmed")
   }
 
   def full_name
@@ -65,7 +65,7 @@ class Person < ActiveRecord::Base
 
   def involved_in?(conference)
     found = Person.joins(events: :conference)
-            .where(:"conferences.id" => conference.id)
+            .where("conferences.id": conference.id)
             .where(id: self.id).count
     found > 0
   end
@@ -83,15 +83,15 @@ class Person < ActiveRecord::Base
   end
 
   def events_as_presenter_in(conference)
-    self.events.where(:"event_people.event_role" => %w(speaker moderator), conference_id: conference.id)
+    self.events.where("event_people.event_role": %w(speaker moderator), conference_id: conference.id)
   end
 
   def events_as_presenter_not_in(conference)
-    self.events.where(:"event_people.event_role" => %w(speaker moderator)).where("conference_id != ?", conference.id)
+    self.events.where("event_people.event_role": %w(speaker moderator)).where("conference_id != ?", conference.id)
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    self.events.is_public.accepted.where(:"events.state" => :confirmed, :"event_people.event_role" => %w(speaker moderator), conference_id: conference.id)
+    self.events.is_public.accepted.where("events.state": :confirmed, "event_people.event_role": %w(speaker moderator), conference_id: conference.id)
   end
 
   def role_state(conference)
@@ -151,7 +151,7 @@ class Person < ActiveRecord::Base
   end
 
   def sum_of_expenses(conference, reimbursed)
-    self.expenses.where(:conference_id => conference.id, :reimbursed => reimbursed).sum(:value)
+    self.expenses.where(conference_id: conference.id, reimbursed: reimbursed).sum(:value)
   end
 
   def to_s

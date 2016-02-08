@@ -3,10 +3,10 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :acronym, :term => params[:term]
-        %th= sort_link @search, :title, :term => params[:term]
-        %th= sort_link @search, :created_at, :term => params[:term]
-        %th= sort_link @search, :email, :term => params[:term]
+        %th= sort_link @search, :acronym, term: params[:term]
+        %th= sort_link @search, :title, term: params[:term]
+        %th= sort_link @search, :created_at, term: params[:term]
+        %th= sort_link @search, :email, term: params[:term]
       - else
         %th Acronym
         %th Title
@@ -22,8 +22,8 @@
         %td= l(conference.created_at.to_date)
         %td= conference.email
         %td.buttons
-          = action_button "small", 'Show', conference_home_path(:conference_acronym => conference.acronym)
+          = action_button "small", 'Show', conference_home_path(conference_acronym: conference.acronym)
           - if can? :update, conference
-            = action_button "small", 'Edit', edit_conference_path(:conference_acronym => conference.acronym)
+            = action_button "small", 'Edit', edit_conference_path(conference_acronym: conference.acronym)
           - if can? :destroy, conference
-            = action_button "small danger", 'Destroy', conference_path(:conference_acronym => conference.acronym), :confirm => 'Are you sure?', :method => :delete
+            = action_button "small danger", 'Destroy', conference_path(conference_acronym: conference.acronym), confirm: 'Are you sure?', method: :delete

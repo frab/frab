@@ -11,12 +11,12 @@
         .fill
           .container
             - if @conference
-              = link_to @conference.title + " - Conference Management", new_cfp_session_path, :class => "brand"
+              = link_to @conference.title + " - Conference Management", new_cfp_session_path, class: "brand"
             - else
-              = link_to 'Conference Management', '#', :class => 'brand'
+              = link_to 'Conference Management', '#', class: 'brand'
             %ul.nav.secondary-nav.pull-right
               - if current_user
-                %li= link_to t("logout", :default => "Logout"), cfp_session_path, :method => :delete
+                %li= link_to t("logout", default: "Logout"), cfp_session_path, method: :delete
     .container
       .main-content
         = yield

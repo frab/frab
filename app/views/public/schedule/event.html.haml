@@ -6,17 +6,17 @@
   - if @event.do_not_record
     %p
       %b #{t '.no_recording'}
-  = simple_format @event.abstract, :class => "abstract"
-  = simple_format @event.description, :class => "description"
+  = simple_format @event.abstract, class: "abstract"
+  = simple_format @event.description, class: "description"
 
 .column.left#details
   %h3= t '.info'
   %p
     %b #{t '.day'}:
-    = link_to l(@event.start_time.to_date), public_schedule_path(:day => @conference.day_at(@event.start_time))
+    = link_to l(@event.start_time.to_date), public_schedule_path(day: @conference.day_at(@event.start_time))
     %br/
     %b #{t '.start_time'}:
-    = l @event.start_time, :format => :time
+    = l @event.start_time, format: :time
     %br/
     %b #{t '.duration'}:
     = format_time_slots(@event.time_slots)
@@ -44,7 +44,7 @@
   - if @conference.feedback_enabled?
     %h3= t '.feedback'
     %p
-      = link_to t('.feedback_link'), new_public_event_feedback_url(:event_id => @event)
+      = link_to t('.feedback_link'), new_public_event_feedback_url(event_id: @event)
   - unless @concurrent_events.blank?
     #concurrent_events.column.left
       %h3 #{t '.concurrent_events'}
@@ -61,7 +61,7 @@
       - @event.speakers.each do |speaker|
         %tr
           %td= image_box speaker.avatar, :small
-          %td= link_to speaker.public_name, public_speaker_path(:id => speaker.id)
+          %td= link_to speaker.public_name, public_speaker_path(id: speaker.id)
 
 .span16
   - if @event.videos.count > 0

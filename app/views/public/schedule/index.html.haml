@@ -4,14 +4,14 @@
   - @conference.days.each_with_index do |day, index|
     %li
       - if @conference.days.length > 1
-        - label = t('.day', :index => index + 1, :label => l(day.date))
+        - label = t('.day', index: index + 1, label: l(day.date))
       - else
-        - label = t('.schedule', :label => l(day.date))
-      = link_to label, public_schedule_path(:day => index)
-      (#{link_to "PDF", public_schedule_path(:day => index, :format => :pdf)})
+        - label = t('.schedule', label: l(day.date))
+      = link_to label, public_schedule_path(day: index)
+      (#{link_to "PDF", public_schedule_path(day: index, format: :pdf)})
   %li= link_to t('.speakers'), public_speakers_path
   %li= link_to t('.events'), public_events_path
-  %li= link_to "iCalendar", public_schedule_index_path(:format => :ics)
-  %li= link_to "xCal", public_schedule_index_path(:format => :xcal)
-  %li= link_to "XML", public_schedule_index_path(:format => :xml)
-  %li= link_to("JSON", public_schedule_index_path(:format => :json)) + " (" + link_to(t('.speakers'), public_speakers_path(:format => :json)) + ")"
+  %li= link_to "iCalendar", public_schedule_index_path(format: :ics)
+  %li= link_to "xCal", public_schedule_index_path(format: :xcal)
+  %li= link_to "XML", public_schedule_index_path(format: :xml)
+  %li= link_to("JSON", public_schedule_index_path(format: :json)) + " (" + link_to(t('.speakers'), public_speakers_path(format: :json)) + ")"

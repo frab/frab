@@ -4,7 +4,7 @@
   .row
     .span16
       .flash
-        %div{:class => "alert-message error fade in", "data-alert" => "alert"}
+        %div{class: "alert-message error fade in", "data-alert" => "alert"}
           %p
             Thank you for your interest in participating in #{@conference.title}.
           %p
@@ -18,7 +18,7 @@
         at or after this date. We are looking forward to your submission.
   .row
     .span16
-      = render "shared/flash", :flash => flash
+      = render "shared/flash", flash: flash
   .row
     .span8
       %h2=t("cfp.login_existing_headline")
@@ -34,7 +34,7 @@
           = f.button :submit, t("cfp.sign_in"), class: 'primary'
     .span8
       %h2=t("cfp.sign_up_headline")
-      %p=t("cfp.sign_up_description", :title => @conference.title)
+      %p=t("cfp.sign_up_description", title: @conference.title)
       %p= action_button "", t("cfp.sign_up"), new_cfp_user_path
   .row
     .span8

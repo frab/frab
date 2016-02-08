@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit", edit_people_event_path(@event), :hint => "Add or remove people from this event."
+      = action_button "primary", "Edit", edit_people_event_path(@event), hint: "Add or remove people from this event."
     %h1 Event: #{@event.title}
   %ul.tabs
     %li= link_to "Event Details", @event

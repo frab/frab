@@ -27,7 +27,7 @@ class Conference < ActiveRecord::Base
     :max_timeslots,
     :timeslot_duration,
     :timezone
-  validates_inclusion_of :feedback_enabled, :in => [true, false]
+  validates_inclusion_of :feedback_enabled, in: [true, false]
   validates_uniqueness_of :acronym
   validates_format_of :acronym, with: /\A[a-zA-Z0-9_-]*\z/
   validate :days_do_not_overlap

@@ -8,7 +8,7 @@ cal.event do |e|
   e.description = @event.abstract if @event.abstract
   e.location = @event.room.name if @event.room
   if @conference.program_export_base_url.blank?
-    e.url = public_event_url(:id => @event.id)
+    e.url = public_event_url(id: @event.id)
   else
     e.url = @event.static_url
   end

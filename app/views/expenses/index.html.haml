@@ -23,7 +23,7 @@
             %td= to_currency e.value
             %td
               =action_button "small", 'Edit', edit_person_expense_path(@person, e)
-              =action_button "small danger", 'Destroy', person_expense_path(@person, e), :confirm => 'Are you sure?', :method => :delete
+              =action_button "small danger", 'Destroy', person_expense_path(@person, e), confirm: 'Are you sure?', method: :delete
 
         %tr
           %td{ colspan: 3 }
