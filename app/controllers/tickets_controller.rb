@@ -9,11 +9,12 @@ class TicketsController < ApplicationController
     if not @conference.ticket_server_enabled? or @conference.ticket_server.nil?
       return redirect_to edit_conference_path(conference_acronym: @conference.acronym), alert: 'No ticket server configured'
     end
-    server = @conference.get_ticket_module
+
+    server = @conference.ticket_server
 
     begin
-      remote_id = server.create_remote_ticket(conference: @conference,
-                                              title: server.create_ticket_title(t(:your_submission, locale: @event.language), @event),
+      title = t(:your_submission, locale: @event.language) + " " + @event.title.truncate(30)
+      remote_id = server.create_remote_ticket(title: title,
                                               requestors: server.create_ticket_requestors(@event.speakers),
                                               owner_email: current_user.email,
                                               test_only: params[:test_only])

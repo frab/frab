@@ -179,14 +179,6 @@ class Conference < ActiveRecord::Base
     true
   end
 
-  def get_ticket_module
-    if self.ticket_type == 'otrs'
-      return OtrsTickets
-    else
-      return RTTickets
-    end
-  end
-
   def to_s
     "Conference: #{self.title} (#{self.acronym})"
   end
