@@ -1,5 +1,5 @@
 class Conference < ActiveRecord::Base
-  TICKET_TYPES = %w(otrs rt integrated)
+  TICKET_TYPES = %w(otrs rt redmine integrated)
 
   has_many :availabilities, dependent: :destroy
   has_many :conference_users, dependent: :destroy
@@ -177,10 +177,10 @@ class Conference < ActiveRecord::Base
   end
 
   def get_ticket_module
-    if self.ticket_type == 'otrs'
-      return OtrsTickets
-    else
-      return RTTickets
+    case
+      when self.ticket_type == 'otrs'    then OtrsTickets
+      when self.ticket_type == 'redmine' then RedmineTickets
+      else RTTickets
     end
   end
 

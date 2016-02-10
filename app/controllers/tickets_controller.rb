@@ -16,6 +16,7 @@ class TicketsController < ApplicationController
                                               title: server.create_ticket_title(t(:your_submission, locale: @event.language), @event),
                                               requestors: server.create_ticket_requestors(@event.speakers),
                                               owner_email: current_user.email,
+                                              event_url: event_url(@event),
                                               test_only: params[:test_only])
     rescue => ex
       return redirect_to event_path(id: params[:event_id], method: :get), alert: "Failed to create ticket: #{ex.message}"
