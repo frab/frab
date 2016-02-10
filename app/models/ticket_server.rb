@@ -4,8 +4,12 @@ class TicketServer < ActiveRecord::Base
   validates_format_of :url, with: /\/\z/
 
   def adapter
-    if self.ticket_type == 'otrs'
+    type = self.conference.ticket_type.to_sym
+
+    if type == :otrs
       OTRSTicketServerAdapter.new(self)
+    elsif type == :redmine
+      RedmineTicketServerAdapter.new(self)
     else
       RTTicketServerAdapter.new(self)
     end

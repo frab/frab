@@ -122,7 +122,7 @@ To start frab in the production environment run
 
 ## Ticket Server
 
-frab supports OTRS and RT ticket servers. Instead of sending
+frab supports OTRS, RT and Redmine ticket servers. Instead of sending
 event acceptance/rejection mails directly to submitters, frab adds
 a ticket to a request tracker.
 

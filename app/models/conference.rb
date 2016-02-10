@@ -1,5 +1,5 @@
 class Conference < ActiveRecord::Base
-  TICKET_TYPES = %w(otrs rt integrated)
+  TICKET_TYPES = %w(otrs rt redmine integrated)
 
   has_many :availabilities, dependent: :destroy
   has_many :conference_users, dependent: :destroy
