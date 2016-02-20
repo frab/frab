@@ -86,8 +86,11 @@ class OTRSTicketServerAdapter < TicketServerAdapter
 
     # https connection
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    if uri.is_a? URI::HTTPS
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    end
+
     request = Net::HTTP::Get.new(uri.request_uri)
     response = http.request(request)
 
