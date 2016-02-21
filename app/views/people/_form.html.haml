@@ -6,6 +6,8 @@
     = f.input :public_name, hint: "This is the name that will be shown in the public program."
     = f.input :gender, collection: Person::GENDERS
     = f.input :avatar, hint: "Upload a new picture."
+    = f.simple_fields_for :ticket do |ticket|
+      = ticket.input :remote_ticket_id
     = dynamic_association :languages, "Languages spoken", f
   %fieldset.inputs
     %legend Contact Data
@@ -20,6 +22,7 @@
     = f.input :description, input_html: {class: "span6"}, hint: "A longer description of this person. Use this to give additional details that did not fit in the abstract. (HTML)"
     = f.input :note, hint: "visibility: admin only."
     = dynamic_association :links, "Links", f
+
   .actions
     = f.button :submit, class: 'primary'
     = link_to "Cancel", :back, class: "btn"

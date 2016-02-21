@@ -7,6 +7,9 @@
         = action_button "add", "Add person", new_person_path, title: "Add a new person."
       - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
         = action_button "attend", "Attending", attend_person_path, title: "Mark person as present.", method: 'PUT'
+      - if @conference.ticket_server_enabled?
+        - unless @person.remote_ticket?
+          = action_button "primary", "Add Ticket", tickets_path(person_id: @person), method: :post, title: "Create a ticket for this person."
     %h1 Person: #{@person.full_name}
   = render 'shared/people_tabs'
   - if can? :manage, Person and @person.user.nil?
@@ -43,6 +46,13 @@
           - @availabilities.each do |availability|
             %span= "#{availability.start_date.strftime("%d.%m. %H:%M")} - #{availability.end_date.strftime("%H:%M")}"
 
+      - unless @person.ticket.nil? or @person.ticket.remote_ticket_id.nil?
+        %p
+          %b Ticket:
+          -if @conference.ticket_server.nil?
+            = @person.ticket.remote_ticket_id
+          -else
+            = link_to @person.ticket.remote_ticket_id, get_ticket_view_url(@person.ticket.remote_ticket_id), target: "_blank"
 
     - if can? :manage, Person
       .span6

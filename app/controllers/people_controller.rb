@@ -178,7 +178,8 @@ class PeopleController < ApplicationController
       im_accounts_attributes: %i(id im_type im_address _destroy),
       languages_attributes: %i(id code _destroy),
       links_attributes: %i(id title url _destroy),
-      phone_numbers_attributes: %i(id phone_type phone_number _destroy)
+      phone_numbers_attributes: %i(id phone_type phone_number _destroy),
+      ticket_attributes: %i(id remote_ticket_id)
     )
   end
 end

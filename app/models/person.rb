@@ -11,6 +11,7 @@ class Person < ActiveRecord::Base
   has_many :phone_numbers, dependent: :destroy
   has_many :expenses, dependent: :destroy
   has_many :transport_needs, dependent: :destroy
+  has_one :ticket, as: :object, dependent: :destroy
 
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank
   accepts_nested_attributes_for :im_accounts, reject_if: :all_blank, allow_destroy: true
@@ -18,6 +19,7 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :expenses, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :ticket, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :user, dependent: :destroy
 
@@ -157,6 +159,10 @@ class Person < ActiveRecord::Base
 
   def to_s
     "Person: #{self.full_name}"
+  end
+
+  def remote_ticket?
+    ticket.present? and ticket.remote_ticket_id.present?
   end
 
   private
