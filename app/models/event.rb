@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
 
   TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :film, :concert, :djset, :performance, :other]
 
-  has_one :ticket, dependent: :destroy
+  has_one :ticket, as: :object, dependent: :destroy
   has_many :conflicts_as_conflicting, class_name: 'Conflict', foreign_key: 'conflicting_event_id', dependent: :destroy
   has_many :conflicts, dependent: :destroy
   has_many :event_attachments, dependent: :destroy
