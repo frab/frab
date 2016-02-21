@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920130550) do
+ActiveRecord::Schema.define(version: 20160221162627) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20150920130550) do
     t.text     "schedule_custom_css",       limit: 2097152
     t.text     "schedule_html_intro",       limit: 2097152
     t.string   "default_recording_license", limit: 255
+    t.boolean  "expenses_enabled",                          default: false,        null: false
+    t.boolean  "transport_needs_enabled",                   default: false,        null: false
   end
 
   add_index "conferences", ["acronym"], name: "index_conferences_on_acronym"

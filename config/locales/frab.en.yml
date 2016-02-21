@@ -16,7 +16,7 @@ en:
   edit_ticket_server: "Edit ticket server"
   error_signing_in: "Invalid email or password."
   event_languages: "Event languages"
-  feedback_system: "Feedback System"
+  features: "Additional features"
   new_conference: "New conference"
   notifications: Notifications
   remove_association: "Remove %{name}"

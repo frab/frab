@@ -135,6 +135,7 @@ FactoryGirl.define do
     default_timeslots 4
     max_timeslots 20
     feedback_enabled true
+    expenses_enabled true
     schedule_public true
     timezone 'Berlin'
 

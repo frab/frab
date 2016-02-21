@@ -2,6 +2,7 @@ class ExpensesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :not_submitter!
   before_filter :find_person
+  before_filter :check_enabled
 
   def new
     @expense = Expense.new
@@ -41,6 +42,12 @@ class ExpensesController < ApplicationController
   def find_person
     @person = Person.find(params[:person_id])
     authorize! :administrate, @person
+  end
+
+  def check_enabled
+    unless @conference.expenses_enabled?
+      redirect_to(person_url(@person), notice: 'Expenses are not enabled for this conference')
+    end
   end
 
   def expenses_params

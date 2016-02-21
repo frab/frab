@@ -97,7 +97,7 @@
         %h2 Events in other conferences
         = render "events_in_other_conferences_table", collection: @other_events
 
-- if @expenses.any?
+- if @conference.expenses_enabled? and @expenses.any?
   %section
     .row
       .span16
