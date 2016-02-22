@@ -97,7 +97,7 @@
         %h2 Events in other conferences
         = render "events_in_other_conferences_table", collection: @other_events
 
-- if @expenses.any?
+- if @conference.expenses_enabled? and @expenses.any?
   %section
     .row
       .span16
@@ -116,3 +116,26 @@
       .span10
         %p
           = to_currency @expenses_sum_non_reimbursed
+
+- if @conference.transport_needs_enabled? and @transport_needs.any?
+  %section
+    .row
+      .span16
+        %h2 Transport needs
+        %table.zebra-striped
+          %thead
+            %tr
+              %th When
+              %th Type
+              %th # of seats
+              %th Booked?
+              %th Note
+              %th
+          %tbody
+            - @transport_needs.each do |tn|
+              %tr
+                %td= tn.at.to_formatted_s(:long)
+                %td= tn.transport_type
+                %td= tn.seats
+                %td= tn.booked
+                %td= tn.note

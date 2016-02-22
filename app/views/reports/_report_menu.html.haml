@@ -20,10 +20,16 @@
   %li= link_to "confirmed people speaking at conference", report_on_people_path("people_speaking_at")
   %li= link_to "people with a note in their submission", report_on_people_path("people_with_a_note")
   %li= link_to "people with more than one submission", report_on_people_path("people_with_more_than_one")
-  %li= link_to "people with non-reimbursed expenses", report_on_people_path("people_with_non_reimbursed_expenses")
+  - if @conference.expenses_enabled?
+    %li= link_to "people with non-reimbursed expenses", report_on_people_path("people_with_non_reimbursed_expenses")
 %p Statistics
 %ul
   %li= link_to "used timeslots (hours)", report_on_statistics_path("event_timeslot_sum")
   %li= link_to "confirmed event numbers by track", report_on_statistics_path("confirmed_events_by_track")
   %li= link_to "event numbers by track", report_on_statistics_path("events_by_track")
   %li= link_to "confirmed speakers by day with attendance status", report_on_statistics_path("people_speaking_by_day")
+
+- if @conference.transport_needs_enabled?
+  %p Transport needs
+  %ul
+    %li= link_to "overview on transport needs", report_on_transport_needs_path("all")

@@ -10,6 +10,7 @@ class Person < ActiveRecord::Base
   has_many :links, as: :linkable, dependent: :destroy
   has_many :phone_numbers, dependent: :destroy
   has_many :expenses, dependent: :destroy
+  has_many :transport_needs, dependent: :destroy
 
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank
   accepts_nested_attributes_for :im_accounts, reject_if: :all_blank, allow_destroy: true

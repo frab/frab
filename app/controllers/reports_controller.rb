@@ -178,4 +178,15 @@ class ReportsController < ApplicationController
       format.html { render :show }
     end
   end
+
+  def show_transport_needs
+    authorize! :manage, CallForParticipation
+
+    @search = @conference.transport_needs.search(params[:q])
+    @transport_needs = @search.result
+    @report_type = params[:id]
+
+    render :show
+  end
+
 end

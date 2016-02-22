@@ -124,7 +124,9 @@ class ConferencesController < ApplicationController
 
   def conference_params
     params.require(:conference).permit(
-      :acronym, :title, :timezone, :timeslot_duration, :default_timeslots, :max_timeslots, :feedback_enabled, :email, :program_export_base_url, :schedule_version, :schedule_public, :color, :ticket_type, :event_state_visible, :schedule_custom_css, :schedule_html_intro, :default_recording_license,
+      :acronym, :title, :timezone, :timeslot_duration, :default_timeslots, :max_timeslots, :feedback_enabled, :expenses_enabled,
+      :transport_needs_enabled, :email, :program_export_base_url, :schedule_version, :schedule_public, :color, :ticket_type,
+      :event_state_visible, :schedule_custom_css, :schedule_html_intro, :default_recording_license,
       rooms_attributes: %i(name size public rank _destroy id),
       days_attributes: %i(start_date end_date _destroy id),
       tracks_attributes: %i(name color _destroy id),

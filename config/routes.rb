@@ -87,6 +87,7 @@ Frab::Application.routes.draw do
         resource :user
         resource :availability
         resources :expenses
+        resources :transport_needs
         collection do
           get :all
           get :feedbacks
@@ -117,6 +118,7 @@ Frab::Application.routes.draw do
       get '/reports/on_people/:id' => 'reports#show_people', as: 'report_on_people'
       get '/reports/on_events/:id' => 'reports#show_events', as: 'report_on_events'
       get '/reports/on_statistics/:id' => 'reports#show_statistics', as: 'report_on_statistics'
+      get "/reports/on_transport_needs/:id" => "reports#show_transport_needs", as: "report_on_transport_needs"
 
       resources :tickets do
         member do
