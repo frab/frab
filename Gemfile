@@ -24,6 +24,7 @@ gem 'jquery-ui-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
+gem 'activeresource'
 gem 'acts_as_commentable'
 gem 'bcrypt-ruby'
 gem 'cancancan'

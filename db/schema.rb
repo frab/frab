@@ -330,13 +330,14 @@ ActiveRecord::Schema.define(version: 20160221162627) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer  "event_id",                     null: false
+    t.integer  "object_id",                    null: false
     t.string   "remote_ticket_id", limit: 255
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "object_type"
   end
 
-  add_index "tickets", ["event_id"], name: "index_tickets_on_event_id"
+  add_index "tickets", ["object_id"], name: "index_tickets_on_object_id"
 
   create_table "tracks", force: :cascade do |t|
     t.integer  "conference_id"
