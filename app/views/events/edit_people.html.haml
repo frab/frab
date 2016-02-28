@@ -3,8 +3,38 @@
     %h1 Editing People for "#{@event.title}"
   .row
     .span16
-      = simple_form_for(@event) do |f|
+      = simple_form_for(@event, data: { persons: @persons }) do |f|
         = dynamic_association :event_people, nil, f
         .actions
           = f.button :submit, class: 'primary'
           = link_to "Cancel", :back, class: "btn"
+
+:javascript
+  attach_filter = function(set) {
+    form = $("form.edit_event");
+    var persons = form.data()["persons"];
+    var q = $(set).find('input[name=filter]');
+    var list = $(set).find('[name$="[person_id]"]');
+
+    q.on('input', function(e) {
+      $(list).empty();
+      $(list).append($('<option>', { value: null, text: "" }));
+
+      $(persons).each(function(i) {
+        id = persons[i]["id"];
+        text = persons[i]["text"];
+
+        if (text.toUpperCase().indexOf(q.val().toUpperCase()) >= 0) {
+          $(list).append($('<option>', { value: id, text: text }));
+        }
+      });
+    });
+  }
+
+  $('div.nested-fields').each(function(i) {
+    attach_filter(this);
+  });
+
+  $('form.edit_event').on('cocoon:after-insert', function(e, item) {
+    attach_filter(item);
+  });

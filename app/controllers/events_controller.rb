@@ -144,6 +144,10 @@ class EventsController < ApplicationController
   # GET /events/2/edit_people
   def edit_people
     @event = Event.find(params[:id])
+    @persons = Person.all.sort_by(&:full_name).map do |p|
+      { id: p.id, text: p.full_name_annotated }
+    end
+
     authorize! :update, @event
   end
 
