@@ -58,6 +58,10 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def full_name_annotated
+    full_name + " (#{email}, \##{id})"
+  end
+
   def user_email
     self.user.email if self.user.present?
   end
