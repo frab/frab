@@ -164,6 +164,19 @@ out, checkout the code at the revision the script was last
 changed at and upgrade the code and migrate the database
 from there.
 
+### Create fake data
+
+For development, it might be helpful to have some fake data around that allows for better testing.
+The following command will create a bunch of tracks, persons and events in a random existing
+conference. Call it multiple times if you need more records.
+
+    rake frab:add_fake_data
+
+You may also call the following tasks manually.
+
+    rake frab:add_fake_tracks
+    rake frab:add_fake_persons
+    rake frab:add_fake_events
 
 ## Vagrant Server
 

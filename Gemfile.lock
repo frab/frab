@@ -87,6 +87,8 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     github-markdown (0.6.9)
+    faker (1.6.3)
+      i18n (~> 0.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -244,6 +246,7 @@ DEPENDENCIES
   database_cleaner
   dotenv-rails
   factory_girl_rails (~> 4.0)
+  faker
   github-markdown
   haml
   jbuilder (~> 2.0)
