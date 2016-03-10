@@ -44,6 +44,10 @@ gem 'sucker_punch'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'will_paginate'
 
+group :production do
+  gem 'exception_notification'
+end
+
 group :development, :test do
   gem 'bullet'
   gem 'pry-rails'
