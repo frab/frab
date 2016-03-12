@@ -100,6 +100,15 @@ class ReportsController < ApplicationController
       end
 
       @extra_fields << :expenses
+    when 'non_attending_speakers'
+      r = Person.joins(events: :conference).
+        where('conferences.id': @conference.id).
+        where('event_people.event_role': 'speaker').
+        where("event_people.role_state != 'attending'").
+        where('events.public': true).
+        where('events.start_time > ?', Time.now).
+        where('events.start_time < ?', Time.now.since(2.hours)).
+        where('events.state': ['unconfirmed', 'confirmed']).order('events.start_time ASC').group(:'people.id')
     end
 
     unless r.nil? or r.empty?
