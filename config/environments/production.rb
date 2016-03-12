@@ -76,4 +76,14 @@ Frab::Application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  if ENV['EXCEPTION_EMAIL'].present? and ENV['FROM_EMAIL'].present?
+    Rails.application.config.middleware.use ExceptionNotification::Rack,
+      email: {
+        email_prefix: "frab on #{ENV['FRAB_HOST']}: ",
+        sender_address: "frab <#{ENV['FROM_EMAIL']}>",
+        exception_recipients: ENV['EXCEPTION_EMAIL']
+      }
+  end
+
 end
