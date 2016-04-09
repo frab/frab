@@ -6,6 +6,7 @@ set :repo_url, 'https://github.com/frab/frab.git'
 
 # Default branch is :master
 set :branch, 'master'
+set :user, ENV['CAP_USER']
 
 set :use_sudo,        false
 set :stage,           :production
