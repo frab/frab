@@ -16,6 +16,16 @@ gem 'sqlite3', group: :sqlite3
 # Use Puma as the app server
 gem 'puma'
 
+# Capistrano for deployment
+group :capistrano do
+  gem 'airbrussh'
+  gem 'capistrano', '~> 3.4.0', require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano3-puma',   require: false
+end
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-migrate-rails'

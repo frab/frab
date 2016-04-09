@@ -22,3 +22,4 @@ specifications/
 .vagrant
 doc/
 tags
+config/deploy/production.rb
