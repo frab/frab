@@ -4,3 +4,13 @@
     = f.input :end_date, html5: true, hint: "yyyy-mm-dd hh:mm", as: :datetime, input_html: { value: f.object.end_date.try(:strftime, '%Y-%m-%d %H:%M') }
 
     = remove_association_link :day, f
+
+:javascript
+  $(function() {
+    $('div.datetime input').datetimepicker({
+      dateFormat: "yy-mm-dd",
+      timeFormat: "HH:mm",
+      stepHour: 1,
+      stepMinute: #{@conference.timeslot_duration}
+    });
+  });

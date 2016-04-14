@@ -8,3 +8,11 @@
   .actions
     - if can? :administrate, person
       = f.button :submit, class: 'primary'
+
+:javascript
+  $(function() {
+    $('div.datetime input').datetimepicker({
+        dateFormat: "yy-mm-dd",
+        timeFormat: "HH:mm"
+    });
+  })
