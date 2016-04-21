@@ -33,6 +33,8 @@ class Cfp::PasswordsController < ApplicationController
 
     if @user.reset_password(params[:user])
       login_as @user
+      @user.skip_confirmation!
+      @user.save
       redirect_to cfp_person_path, notice: t(:"cfp.password_updated")
     else
       @user.reset_password_token = params[:user][:reset_password_token]
