@@ -93,7 +93,7 @@ class ReportsController < ApplicationController
     when 'people_with_more_than_one'
       r = conference_people.involved_in(@conference).where('event_people.event_role' => ['submitter']).group('event_people.person_id').having('count(*) > 1')
     when 'people_with_non_reimbursed_expenses'
-      r = conference_people.involved_in(@conference).joins(:expenses).where('expenses.value > 0 AND expenses.reimbursed = "f" AND expenses.conference_id = ?', @conference.id)
+      r = conference_people.involved_in(@conference).joins(:expenses).where('expenses.value > 0 AND expenses.reimbursed = ? AND expenses.conference_id = ?', false, @conference.id)
       @total_sum = 0
       r.each do |p|
         @total_sum += p.sum_of_expenses(@conference, false)
