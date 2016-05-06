@@ -85,7 +85,7 @@ Frab::Application.routes.draw do
 
       resources :people do
         resource :user
-        resource :availability
+        resource :availability, except: %i(create show)
         resources :expenses
         resources :transport_needs
         collection do
