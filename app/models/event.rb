@@ -96,6 +96,10 @@ class Event < ActiveRecord::Base
     self.start_time.since((self.time_slots * self.conference.timeslot_duration).minutes)
   end
 
+  def duration_in_minutes
+    (time_slots * conference.timeslot_duration).minutes
+  end
+
   def transition_possible?(transition)
     self.class.state_machine.events_for(self.current_state).include?(transition)
   end

@@ -22,24 +22,9 @@ class EventsController < ApplicationController
   def export_accepted
     authorize! :read, Event
     @events = @conference.events.is_public.accepted
-    dump = @events.map { |e|
-      {
-        event_id: e.id,
-        track_id: e.track_id,
-        track_name: e.track.try(:name),
-        room_id: e.room_id,
-        room_name: e.room.try(:name),
-        start_time: e.start_time,
-        duration: (e.time_slots * e.conference.timeslot_duration).minutes,
-        title: e.title,
-        abstract: e.abstract,
-        speakers: e.speakers.map(&:public_name).join(', ')
-      }
-    }
 
     respond_to do |format|
-      format.json { render json: dump.to_json }
-      format.xml  { render xml: dump.to_xml }
+      format.json
     end
   end
 
