@@ -33,7 +33,9 @@ class EventsController < ApplicationController
         duration: (e.time_slots * e.conference.timeslot_duration).minutes,
         title: e.title,
         abstract: e.abstract,
-        speakers: e.speakers.map(&:public_name).join(', ')
+        language: e.language,
+        speakers: e.speakers.map(&:public_name).join(', '),
+        speaker_ids: e.speakers.map(&:id)
       }
     }
 

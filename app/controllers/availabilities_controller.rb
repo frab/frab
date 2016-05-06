@@ -17,6 +17,15 @@ class AvailabilitiesController < ApplicationController
     redirect_to(person_url(@person), notice: 'Availibility was successfully updated.')
   end
 
+  def show
+    @availabilities = @person.availabilities_in(@conference)
+    respond_to do |format|
+    format.html { render :_form }
+    format.json { render json: @availabilities.to_json }
+    format.xml  { render xml: @availabilities.to_xml }
+    end
+  end
+
   private
 
   def find_person
