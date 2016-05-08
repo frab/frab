@@ -9,11 +9,10 @@ class ConferencesController < ApplicationController
   # GET /conferences
   def index
     result = search params
-    @conferences = result.paginate page: page_param
 
     respond_to do |format|
-      format.html
-      format.json { render json: @conferences }
+      format.html { @conferences = result.paginate page: page_param }
+      format.json { render json: result }
     end
   end
 
