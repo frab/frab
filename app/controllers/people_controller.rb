@@ -10,7 +10,7 @@ class PeopleController < ApplicationController
     @people = search Person.involved_in(@conference), params
 
     respond_to do |format|
-      format.html { @people = result.paginate page: page_param }
+      format.html { @people = @people.paginate page: page_param }
       format.xml  { render xml: @people }
       format.json { render json: @people }
     end
