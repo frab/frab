@@ -10,10 +10,10 @@ class EventsController < ApplicationController
 
     @events = search @conference.events.includes(:track), params
 
+    clean_events_attributes
     respond_to do |format|
       format.html {
         @events = @events.paginate page: page_param
-        clean_events_attributes
       }
       format.xml  { render xml: @events }
       format.json { render json: @events }
