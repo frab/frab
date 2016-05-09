@@ -38,10 +38,6 @@ class EventPersonTest < ActiveSupport::TestCase
     person2 = FactoryGirl.create(:person)
     event_person1 = FactoryGirl.create(:event_person, event: event, person: person1, event_role: 'speaker', role_state: 'confirmed')
     event_person2 = FactoryGirl.create(:event_person, event: event, person: person2, event_role: 'speaker', role_state: 'confirmed')
-    Person.speaking_at(conference) do |person|
-      Rails::logger.debug "FOOOOBAR " + person.to_s
-    end
-    Rails::logger.debug "FOOOOBAR " + Person.count.to_s
     assert Person.speaking_at(conference).count == 2
   end
 
