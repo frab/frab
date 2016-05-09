@@ -1,7 +1,7 @@
 class ConferenceScrubber
   include RakeLogger
 
-  DUMMY_MAIL = "root@localhost.localdomain"
+  DUMMY_MAIL = 'root@localhost.localdomain'
 
   def initialize(conference, dry_run = false)
     @conference = conference

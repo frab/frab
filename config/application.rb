@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module Frab
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -25,19 +27,20 @@ module Frab
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib/ticket_server_adapters)
     config.autoload_paths += %W(#{config.root}/app/inputs)
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
 
     # smaller whitelist of allowed tags
     # TODO config.action_view.sanitized_allowed_tags.delete 'img'
-    #config.after_initialize do
-      #ActionView::Base.sanitized_allowed_tags.delete 'img'
-      #ActionView::Base.sanitized_allowed_protocols.delete 'urn'
-    #end
+    # config.after_initialize do
+    # ActionView::Base.sanitized_allowed_tags.delete 'img'
+    # ActionView::Base.sanitized_allowed_protocols.delete 'urn'
+    # end
   end
 end

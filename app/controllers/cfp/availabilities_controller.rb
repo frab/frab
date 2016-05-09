@@ -18,7 +18,7 @@ class Cfp::AvailabilitiesController < ApplicationController
     if params.key? :person
       current_user.person.update_attributes_from_slider_form(person_params)
     end
-    redirect_to cfp_root_path, notice: t("cfp.update_availability_notice")
+    redirect_to cfp_root_path, notice: t('cfp.update_availability_notice')
   end
 
   private

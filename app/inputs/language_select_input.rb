@@ -11,8 +11,8 @@ class LanguageSelectInput < SimpleForm::Inputs::CollectionSelectInput
 
   private
 
-  SEP = "----------"
-  BLANK = ""
+  SEP = '----------'
+  BLANK = ''
 
   def filter_collection(only)
     return unless only

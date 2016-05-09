@@ -29,7 +29,7 @@ class VideoImport
   protected
 
   def find_event(id)
-    event = Event.find(id)
+    event = Event.find_by(guid: id)
     event if event and event.conference == @conference
   end
 
@@ -38,7 +38,7 @@ class VideoImport
   end
 
   def add_link(event, link)
-    event.links << Link.new(title: "Video Recording", url: link)
+    event.links << Link.new(title: 'Video Recording', url: link)
   end
 
   def fetch_remote

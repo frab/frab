@@ -2,24 +2,24 @@
   .page-header
     .pull-right
       - if can? :crud, @event
-        = action_button "primary", "Edit event", edit_event_path(@event), :hint => "Edit this event's data."
-        = action_button "primary", "Edit people", edit_people_event_path(@event), :hint => "Edit this event's data."
+        = action_button "primary", "Edit event", edit_event_path(@event), hint: "Edit this event's data."
+        = action_button "primary", "Edit people", edit_people_event_path(@event), hint: "Edit this event's data."
         - if @conference.ticket_type == 'integrated' and @conference.call_for_participation.present?
           - if @event.transition_possible? :accept
             = action_button "success", "Accept event", update_state_event_path(@event, transition: :accept, send_mail: true), method: :put, hint: "Accept this event. The speaker(s) will be notified of the acceptance via email. If they have access to the call for papers system, they will receive a link to confirm their attendance as well."
           - if @event.transition_possible? :reject
-            = action_button "danger", "Reject event", update_state_event_path(@event, transition: :reject, send_mail: true), method: :put, confirm: "Are you sure?", :hint => "Reject this event. The speaker(s) will be notified of the rejection via email."
+            = action_button "danger", "Reject event", update_state_event_path(@event, transition: :reject, send_mail: true), method: :put, confirm: "Are you sure?", hint: "Reject this event. The speaker(s) will be notified of the rejection via email."
         - if @event.transition_possible? :accept
-          = action_button "success", "Accept event (no email)", update_state_event_path(@event, :transition => :accept), :method => :put, :hint => "Accept this event without sending an automated email."
+          = action_button "success", "Accept event (no email)", update_state_event_path(@event, transition: :accept), method: :put, hint: "Accept this event without sending an automated email."
         - if @event.transition_possible? :reject
-          = action_button "danger", "Reject event (no email)", update_state_event_path(@event, :transition => :reject), :method => :put, :confirm => "Are you sure?", :hint => "Reject this event without sending an automated email."
+          = action_button "danger", "Reject event (no email)", update_state_event_path(@event, transition: :reject), method: :put, confirm: "Are you sure?", hint: "Reject this event without sending an automated email."
         - if @event.transition_possible? :confirm
-          = action_button "", "Confirm event", update_state_event_path(@event, :transition => :confirm), :method => :put, :hint => "Confirm that the speaker(s) will be present and that the event will actually take place."
+          = action_button "", "Confirm event", update_state_event_path(@event, transition: :confirm), method: :put, hint: "Confirm that the speaker(s) will be present and that the event will actually take place."
         - if @event.transition_possible? :cancel
-          = action_button "danger", "Cancel event", update_state_event_path(@event, :transition => :cancel), :method => :put, :hint => "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
+          = action_button "danger", "Cancel event", update_state_event_path(@event, transition: :cancel), method: :put, hint: "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
         - if @conference.ticket_server_enabled?
           - unless @event.remote_ticket?
-            = action_button "primary", "Add Ticket", tickets_path(:event_id => @event), :method => :post, :title => "Create a ticket for this event."
+            = action_button "primary", "Add Ticket", tickets_path(event_id: @event), method: :post, title: "Create a ticket for this event."
     %h1 Event
     %h2 #{@event.title}
   %ul.tabs
@@ -30,7 +30,7 @@
   .row
     .span16
       - @event.conflicts.each do |conflict|
-        = render "conflicts/#{conflict.conflict_type}", :conflict => conflict
+        = render "conflicts/#{conflict.conflict_type}", conflict: conflict
   .row
     .span6
       %h2 Basic Information
@@ -53,16 +53,16 @@
           -if @conference.ticket_server.nil?
             = @event.ticket.remote_ticket_id
           -else
-            = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), :target => "_blank"
+            = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), target: "_blank"
       %p
         %b Language:
         = @event.language
       %p
         %b Public:
-        = check_box_tag :public, @event.public, @event.public, :disabled => true
+        = check_box_tag :public, @event.public, @event.public, disabled: true
       %p
         %b Average audience feedback:
-        = number_with_precision @event.average_feedback, :precision => 1
+        = number_with_precision @event.average_feedback, precision: 1
     .span6
       %h2 People
       %p= @event.speakers.map{ |p| link_to p.public_name, p}.join(", ").html_safe
@@ -120,3 +120,8 @@
       %p
         %b Submission Notes(user and admin):
         = @event.submission_note
+  .row
+    .span8
+      %p
+        %b Tech Rider(user and admin):
+        = @event.tech_rider

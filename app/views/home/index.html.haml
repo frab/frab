@@ -54,13 +54,13 @@
       - else
         %h4 Events by state
         %p
-          = link_to "All", "#", :id => "events_all_types"
+          = link_to "All", "#", id: "events_all_types"
           |
-          = link_to "lectures only", "#", :id => "events_lectures_only"
+          = link_to "lectures only", "#", id: "events_lectures_only"
           |
-          = link_to "workshops only", "#", :id => "events_workshops_only"
+          = link_to "workshops only", "#", id: "events_workshops_only"
           |
-          = link_to "others only", "#", :id => "events_others_only"
+          = link_to "others only", "#", id: "events_others_only"
         #event_state_graph(style="width:600px;height:300px;")
         %table.zebra-stripe
           %thead
@@ -75,28 +75,28 @@
               %th total
           %tbody
             %tr
-              %td= @conference.events.where(:state => :new).count
-              %td= @conference.events.where(:state => :review).count
-              %td= @conference.events.where(:state => :withdrawn).count
-              %td= @conference.events.where(:state => :unconfirmed).count
-              %td= @conference.events.where(:state => :confirmed).count
-              %td= @conference.events.where(:state => :canceled).count
-              %td= @conference.events.where(:state => :rejected).count
+              %td= @conference.events.where(state: :new).count
+              %td= @conference.events.where(state: :review).count
+              %td= @conference.events.where(state: :withdrawn).count
+              %td= @conference.events.where(state: :unconfirmed).count
+              %td= @conference.events.where(state: :confirmed).count
+              %td= @conference.events.where(state: :canceled).count
+              %td= @conference.events.where(state: :rejected).count
               %td= @conference.events.count
       - if @conference.languages.count > 1
         %h4 Events by language
         %p
-          = link_to "All", "#", :id => "languages_all_events"
+          = link_to "All", "#", id: "languages_all_events"
           |
-          = link_to "Accepted only", "#", :id => "languages_accepted_events_only"
+          = link_to "Accepted only", "#", id: "languages_accepted_events_only"
         #event_language_graph(style="width:400px;height:300px;")
 
       - if @conference.gender_breakdown.count > 1
         %h4 Events by gender
         %p
-          = link_to "All", "#", :id => "gender_all_events"
+          = link_to "All", "#", id: "gender_all_events"
           |
-          = link_to "Accepted only", "#", :id => "gender_accepted_events_only"
+          = link_to "Accepted only", "#", id: "gender_accepted_events_only"
         #event_gender_graph(style="width:400px;height:300px;")
 
 :coffeescript

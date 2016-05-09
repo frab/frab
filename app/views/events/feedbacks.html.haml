@@ -19,11 +19,11 @@
           %thead
             %tr
               %th
-              %th= sort_link @search, :title, :term => params[:term]
+              %th= sort_link @search, :title, term: params[:term]
               %th Speakers
-              %th= sort_link @search, :track_name, 'Track', :term => params[:term]
-              %th= sort_link @search, :average_feedback, :term => params[:term]
-              %th= sort_link @search, :event_feedbacks_count, :term => params[:term]
+              %th= sort_link @search, :track_name, 'Track', term: params[:term]
+              %th= sort_link @search, :average_feedback, term: params[:term]
+              %th= sort_link @search, :event_feedbacks_count, term: params[:term]
           %tbody
             - @events.each do |event|
               %tr

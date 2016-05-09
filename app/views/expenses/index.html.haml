@@ -1,0 +1,40 @@
+%section
+  .page-header
+    .pull-right
+    %h1 Person: #{@person.full_name}
+  = render 'shared/people_tabs'
+
+  - if @expenses.any?
+    %table.zebra-striped
+      %thead
+        %tr
+          %th Date created
+          %th Name
+          %th Reimbursed
+          %th Value
+          %th
+          %th
+      %tbody
+        - @expenses.each do |e|
+          %tr
+            %td= e.created_at.to_formatted_s(:db)
+            %td= e.name
+            %td= e.reimbursed
+            %td= to_currency e.value
+            %td
+              =action_button "small", 'Edit', edit_person_expense_path(@person, e)
+              =action_button "small danger", 'Destroy', person_expense_path(@person, e), confirm: 'Are you sure?', method: :delete
+
+        %tr
+          %td{ colspan: 3 }
+            %b Sum of all reimbursed
+          %td{ colspan: 2 }
+            %b= to_currency @expenses_sum_reimbursed
+        %tr
+          %td{ colspan: 3 }
+            %b Sum of all non-reimbursed
+          %td{ colspan: 2 }
+            %b= to_currency @expenses_sum_non_reimbursed
+
+  =action_button "small", 'New expense', new_person_expense_path
+

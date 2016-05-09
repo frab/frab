@@ -1,0 +1,29 @@
+%table.zebra-stripe
+  %thead
+    %tr
+      %th.first
+      - if @search
+        %th= sort_link @search, :name, :term => params[:term]
+        %th= sort_link @search, :at, :term => params[:term]
+        %th= sort_link @search, :transport_type, :term => params[:term]
+        %th= sort_link @search, :seats, :term => params[:term]
+        %th= sort_link @search, :booked, :term => params[:term]
+        %th= sort_link @search, :note, :term => params[:term]
+      - else
+        %th Name
+        %th When
+        %th Type
+        %th # of seats
+        %th Booked
+        %th Note
+      %th.last
+  %tbody
+    - transport_needs.each do |tn|
+      %tr
+        %td= link_to (image_box tn.person.avatar, :small), tn.person
+        %td= link_to tn.person.full_name, tn.person
+        %td= tn.at.to_formatted_s(:long)
+        %td= tn.transport_type
+        %td= tn.seats
+        %td= t_boolean(tn.booked)
+        %td= tn.note

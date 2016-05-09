@@ -1,5 +1,5 @@
 class Cfp::ConfirmationsController < ApplicationController
-  layout "signup"
+  layout 'signup'
 
   def new
     @user = User.new
@@ -22,9 +22,9 @@ class Cfp::ConfirmationsController < ApplicationController
 
     if @user
       login_as @user
-      redirect_to cfp_person_path, notice: t("cfp.successfully_confirmed")
+      redirect_to cfp_person_path, notice: t('cfp.successfully_confirmed')
     else
-      redirect_to new_cfp_user_confirmation_path, error: t("cfp.error_confirming")
+      redirect_to new_cfp_user_confirmation_path, error: t('cfp.error_confirming')
     end
   end
 end

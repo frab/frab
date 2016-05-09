@@ -3,16 +3,20 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :first_name, :term => params[:term]
-        %th= sort_link @search, :last_name, :term => params[:term]
-        %th= sort_link @search, :public_name, :term => params[:term]
-        %th= sort_link @search, :email, :term => params[:term]
+        %th= sort_link @search, :first_name, term: params[:term]
+        %th= sort_link @search, :last_name, term: params[:term]
+        %th= sort_link @search, :public_name, term: params[:term]
+        %th= sort_link @search, :email, term: params[:term]
+        - if @conference.ticket_server_enabled?
+          %th Ticket
         %th
       - else
         %th First name
         %th Last name
         %th Public name
         %th Email
+        - if @conference.ticket_server_enabled?
+          %th Ticket
       %th.last
   %tbody
     - collection.each do |person|
@@ -22,6 +26,13 @@
         %td= link_to person.last_name, person
         %td= link_to person.public_name, person
         %td= link_to person.email, person
+        - if @conference.ticket_server_enabled?
+          %td
+            - if person.remote_ticket?
+              -if @conference.ticket_server.nil?
+                = person.ticket.remote_ticket_id
+              -else
+                = link_to person.ticket.remote_ticket_id, get_ticket_view_url(person.ticket.remote_ticket_id ), target: "_blank"
         %td.buttons
           = action_button "small", 'Show', person
           - if can? :manage, person
@@ -31,4 +42,4 @@
                 = action_button "small", 'User', new_person_user_path(person)
               - else
                 = action_button "small", 'User', edit_person_user_path(person)
-            = action_button "small danger", 'Destroy', person, :confirm => 'Are you sure?', :method => :delete
+            = action_button "small danger", 'Destroy', person, confirm: 'Are you sure?', method: :delete

@@ -13,6 +13,7 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json { render json: @conferences }
     end
   end
 
@@ -22,6 +23,7 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json { render json: @conference }
     end
   end
 
@@ -54,7 +56,7 @@ class ConferencesController < ApplicationController
       if @conference.save
         format.html { redirect_to(conference_home_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -91,24 +93,28 @@ class ConferencesController < ApplicationController
 
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
-      attribs = name.index("_attributes")
+      attribs = name.index('_attributes')
       next if attribs.nil?
       next unless attribs > 0
-      test = name.gsub("_attributes", '')
+      test = name.gsub('_attributes', '')
       next unless %w(rooms days schedule tracks ticket_server ).include?(test)
       return "edit_#{test}"
     }
-    "edit"
+    'edit'
   end
 
   def search(params)
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
-      sort = params[:q][:s] rescue nil
+      sort = begin
+               params[:q][:s]
+             rescue
+               nil
+             end
       @search = Conference.ransack(title_cont: term,
-                              acronym_cont: term,
-                              m: 'or',
-                              s: sort)
+                                   acronym_cont: term,
+                                   m: 'or',
+                                   s: sort)
     else
       @search = Conference.ransack(params[:q])
     end
@@ -118,7 +124,9 @@ class ConferencesController < ApplicationController
 
   def conference_params
     params.require(:conference).permit(
-      :acronym, :title, :timezone, :timeslot_duration, :default_timeslots, :max_timeslots, :feedback_enabled, :email, :program_export_base_url, :schedule_version, :schedule_public, :color, :ticket_type, :event_state_visible, :schedule_custom_css, :schedule_html_intro, :default_recording_license,
+      :acronym, :title, :timezone, :timeslot_duration, :default_timeslots, :max_timeslots, :feedback_enabled, :expenses_enabled,
+      :transport_needs_enabled, :email, :program_export_base_url, :schedule_version, :schedule_public, :color, :ticket_type,
+      :event_state_visible, :schedule_custom_css, :schedule_html_intro, :default_recording_license,
       rooms_attributes: %i(name size public rank _destroy id),
       days_attributes: %i(start_date end_date _destroy id),
       tracks_attributes: %i(name color _destroy id),

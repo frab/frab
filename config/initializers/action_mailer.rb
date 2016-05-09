@@ -2,13 +2,13 @@ ActionMailer::Base.default_url_options = {
   host: ENV.fetch('FRAB_HOST'),
   protocol: ENV.fetch('FRAB_PROTOCOL')
 }
-if ENV["SMTP_ADDRESS"]
-  %w(ADDRESS PORT DOMAIN USER_NAME PASSWORD).each do |setting|
+if ENV['SMTP_ADDRESS']
+  %w(ADDRESS PORT DOMAIN USER_NAME PASSWORD AUTHENTICATION).each do |setting|
     next unless ENV["SMTP_#{setting}"].present?
     ActionMailer::Base.smtp_settings[setting.downcase.to_sym] = ENV["SMTP_#{setting}"]
   end
 end
-if ENV["SMTP_NOTLS"].present?
+if ENV['SMTP_NOTLS'].present?
   ActionMailer::Base.smtp_settings.merge!(
     enable_starttls_auto: false,
     ssl: false,

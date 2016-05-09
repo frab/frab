@@ -3,17 +3,21 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :title, "Title", :term => params[:term]
-        %th= sort_link @search, :track_name, "Track", :term => params[:term]
-        %th= sort_link @search, :event_type, :term => params[:term]
-        %th= sort_link @search, :state, "State", :term => params[:term]
-        %th= sort_link @search, :created_at, :term => params[:term]
+        %th= sort_link @search, :title, "Title", term: params[:term]
+        %th= sort_link @search, :track_name, "Track", term: params[:term]
+        %th= sort_link @search, :event_type, term: params[:term]
+        %th= sort_link @search, :state, "State", term: params[:term]
+        %th= sort_link @search, :start_time, term: params[:term]
+        - if @extra_fields.include?(:tech_rider)
+          %th Tech rider
       - else
         %th Title
         %th Track
         %th Event type
         %th State
-        %th Created at
+        %th Start time
+        - if @extra_fields.include?(:tech_rider)
+          %th Tech rider
       %th
   %tbody
     - events.each do |event|
@@ -26,9 +30,11 @@
         %td= event.track.try(:name)
         %td= event.event_type
         %td= event.state
-        %td= l(event.created_at.to_date)
+        %td= event.start_time ? l(event.start_time) : ""
+        - if @extra_fields.include?(:tech_rider)
+          %td= event.tech_rider
         %td.buttons
           = action_button "small", 'Show', event
           - if can? :manage, event
             = action_button "small", 'Edit', edit_event_path(event)
-            = action_button "small danger", 'Destroy', event, :confirm => 'Are you sure?', :method => :delete
+            = action_button "small danger", 'Destroy', event, confirm: 'Are you sure?', method: :delete

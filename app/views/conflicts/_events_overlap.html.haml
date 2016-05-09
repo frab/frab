@@ -1,4 +1,4 @@
-%div{:class => ["message", conflict.severity]}
+%div{class: ["message", conflict.severity]}
   = link_to "Event", conflict.event
   = t('conflict.events_overlap')
   = link_to conflict.conflicting_event.title, conflict.conflicting_event

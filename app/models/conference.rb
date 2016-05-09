@@ -1,5 +1,5 @@
 class Conference < ActiveRecord::Base
-  TICKET_TYPES = %w(otrs rt integrated)
+  TICKET_TYPES = %w(otrs rt redmine integrated)
 
   has_many :availabilities, dependent: :destroy
   has_many :conference_users, dependent: :destroy
@@ -10,10 +10,12 @@ class Conference < ActiveRecord::Base
   has_many :rooms, dependent: :destroy
   has_many :tracks, dependent: :destroy
   has_many :conference_exports, dependent: :destroy
+  has_many :mail_templates, dependent: :destroy
+  has_many :transport_needs, dependent: :destroy
   has_one :call_for_participation, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
 
-  accepts_nested_attributes_for :rooms, reject_if: proc { |r| r["name"].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :rooms, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :notifications, allow_destroy: true
   accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
@@ -26,7 +28,9 @@ class Conference < ActiveRecord::Base
     :max_timeslots,
     :timeslot_duration,
     :timezone
-  validates_inclusion_of :feedback_enabled, :in => [true, false]
+  validates_inclusion_of :feedback_enabled, in: [true, false]
+  validates_inclusion_of :expenses_enabled, in: [true, false]
+  validates_inclusion_of :transport_needs_enabled, in: [true, false]
   validates_uniqueness_of :acronym
   validates_format_of :acronym, with: /\A[a-zA-Z0-9_-]*\z/
   validate :days_do_not_overlap
@@ -41,7 +45,7 @@ class Conference < ActiveRecord::Base
       .where(Person.arel_table[:id].eq(person.id)).group(:"conferences.id")
   }
 
-  scope :creation_order, -> { order("conferences.created_at DESC") }
+  scope :creation_order, -> { order('conferences.created_at DESC') }
 
   scope :accessible_by_crew, ->(user) {
     joins(:conference_users).where(conference_users: { user_id: user })
@@ -52,7 +56,7 @@ class Conference < ActiveRecord::Base
   }
 
   def self.current
-    self.order("created_at DESC").first
+    self.order('created_at DESC').first
   end
 
   def submission_data
@@ -77,7 +81,7 @@ class Conference < ActiveRecord::Base
     [
       [[0, self.events.where(state: %w(new review)).count]],
       [[1, self.events.where(state: %w(unconfirmed confirmed)).count]],
-      [[2, self.events.where(state: "rejected").count]],
+      [[2, self.events.where(state: 'rejected').count]],
       [[3, self.events.where(state: %w(withdrawn canceled)).count]]
     ]
   end
@@ -86,7 +90,7 @@ class Conference < ActiveRecord::Base
     [
       [[0, self.events.where(state: %w(new review), event_type: type).count]],
       [[1, self.events.where(state: %w(unconfirmed confirmed), event_type: type).count]],
-      [[2, self.events.where(state: "rejected", event_type: type).count]],
+      [[2, self.events.where(state: 'rejected', event_type: type).count]],
       [[3, self.events.where(state: %w(withdrawn canceled), event_type: type).count]]
     ]
   end
@@ -114,21 +118,21 @@ class Conference < ActiveRecord::Base
     self.languages.each do |language|
       result << { label: language.code, data: base_relation.where(language: language.code).count }
     end
-    result << { label: "unknown", "data" => base_relation.where(language: "").count }
+    result << { label: 'unknown', 'data' => base_relation.where(language: '').count }
     result
   end
 
   def gender_breakdown(accepted_only = false)
     result = []
     ep = Person.joins(events: :conference)
-         .where(:"conferences.id" => self.id)
-         .where(:"event_people.event_role" => %w(speaker moderator))
-         .where(:"events.public" => true)
+         .where("conferences.id": self.id)
+         .where("event_people.event_role": %w(speaker moderator))
+         .where("events.public": true)
 
-    ep = ep.where(:"events.state" => "confirmed") if accepted_only
+    ep = ep.where("events.state": 'confirmed') if accepted_only
 
     ep.group(:gender).count.each do |k, v|
-      k = "unknown" if k.nil?
+      k = 'unknown' if k.nil?
       result << { label: k, data: v }
     end
 
@@ -175,14 +179,6 @@ class Conference < ActiveRecord::Base
     true
   end
 
-  def get_ticket_module
-    if self.ticket_type == 'otrs'
-      return OtrsTickets
-    else
-      return RTTickets
-    end
-  end
-
   def to_s
     "Conference: #{self.title} (#{self.acronym})"
   end
@@ -213,8 +209,8 @@ class Conference < ActiveRecord::Base
   end
 
   def duration_to_time(duration_in_minutes)
-    minutes = sprintf("%02d", duration_in_minutes % 60)
-    hours = sprintf("%02d", duration_in_minutes / 60)
+    minutes = sprintf('%02d', duration_in_minutes % 60)
+    hours = sprintf('%02d', duration_in_minutes / 60)
     "#{hours}:#{minutes}h"
   end
 end

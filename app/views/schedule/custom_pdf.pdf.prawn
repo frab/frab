@@ -26,14 +26,14 @@ def get_header_right
 end
 
 prawn_document(
-  :page_layout => landscape? ? :landscape : :portrait,
-  :page_size => @page_size
+  page_layout: landscape? ? :landscape : :portrait,
+  page_size: @page_size
 ) do |pdf|
 
   pdf.font_families.update("BitStream Vera" => {
-    :normal => Rails.root.join("vendor", "fonts", "vera.ttf").to_s,
-    :bold => Rails.root.join("vendor", "fonts", "verabd.ttf").to_s,
-    :italic => Rails.root.join("vendor", "fonts", "verait.ttf").to_s
+    normal: Rails.root.join("vendor", "fonts", "vera.ttf").to_s,
+    bold: Rails.root.join("vendor", "fonts", "verabd.ttf").to_s,
+    italic: Rails.root.join("vendor", "fonts", "verait.ttf").to_s
   })
   pdf.font "BitStream Vera"
 
@@ -58,21 +58,21 @@ prawn_document(
 
     offset = current_page * number_of_columns
 
-    pdf.draw_text get_header_left, :size => 9, :at => [ pdf.bounds.left, pdf.bounds.top + 0.5.cm ]
-    pdf.draw_text get_header_center, :size => 16, :at => [ pdf.bounds.left + 12.cm, pdf.bounds.top + 0.5.cm ]
-    pdf.draw_text get_header_right, :size => 9, :at => [ pdf.bounds.right - 1.cm, pdf.bounds.top + 0.5.cm ]
+    pdf.draw_text get_header_left, size: 9, at: [ pdf.bounds.left, pdf.bounds.top + 0.5.cm ]
+    pdf.draw_text get_header_center, size: 16, at: [ pdf.bounds.left + 12.cm, pdf.bounds.top + 0.5.cm ]
+    pdf.draw_text get_header_right, size: 9, at: [ pdf.bounds.right - 1.cm, pdf.bounds.top + 0.5.cm ]
 
     rooms = @rooms[(offset)..(offset + number_of_columns -1)]
     table_data = get_table_data(rooms)
 
     table = pdf.make_table(table_data) do |t|
-      t.cells.style(:border_width => 1.pt, :border_color => "cccccc")
+      t.cells.style(border_width: 1.pt, border_color: "cccccc")
       t.row(0).height = header_height
       t.row(0).align = :center
       t.row(0).font_style = :bold
-      t.row(0).style(:size => 10)
+      t.row(0).style(size: 10)
       t.column(0).width = margin_width - 1
-      t.rows(1..-1).style(:size => 4)
+      t.rows(1..-1).style(size: 4)
       t.rows(1..-1).height = timeslot_height
       t.rows(1..-1).padding = 3
       t.rows(1..-1).align = :right
@@ -89,13 +89,13 @@ prawn_document(
         y += offset
         coord = [ 0, y ]
         pdf.bounding_box(coord,
-                         :width => margin_width - 1,
-                         :height => event.time_slots * timeslot_height - 1) do
+                         width: margin_width - 1,
+                         height: event.time_slots * timeslot_height - 1) do
           pdf.rounded_rectangle(pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3)
           pdf.fill_color = "ffffff"
           pdf.fill_and_stroke
           pdf.fill_color = "000000"
-          pdf.text_box event.start_time.strftime("%H:%M"), :size => 8, :at => [pdf.bounds.left + 2, pdf.bounds.top - 2]
+          pdf.text_box event.start_time.strftime("%H:%M"), size: 8, at: [pdf.bounds.left + 2, pdf.bounds.top - 2]
         end
     end
 
@@ -105,19 +105,19 @@ prawn_document(
       events.each do |event|
         coord = event_coordinates(i, event, column_width, timeslot_height, offset)
         pdf.bounding_box(coord,
-                         :width => column_width-1,
-                         :height => event.time_slots * timeslot_height-1) do
+                         width: column_width-1,
+                         height: event.time_slots * timeslot_height-1) do
           pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3
           pdf.fill_color = "ffffff"
           pdf.fill_and_stroke
           pdf.fill_color = "000000"
-          pdf.text_box event.title, :size => 8, :at => [pdf.bounds.left + 2, pdf.bounds.top - 2]
+          pdf.text_box event.title, size: 8, at: [pdf.bounds.left + 2, pdf.bounds.top - 2]
           pdf.text_box event.speakers.map(&:public_name).join(", "),
-            :size => 6,
-            :width => pdf.bounds.width - 4,
-            :style => :italic,
-            :align => :right,
-            :at => [pdf.bounds.left + 2, pdf.bounds.bottom + 8]
+            size: 6,
+            width: pdf.bounds.width - 4,
+            style: :italic,
+            align: :right,
+            at: [pdf.bounds.left + 2, pdf.bounds.bottom + 8]
         end
       end
     end

@@ -1,0 +1,29 @@
+%section
+  .page-header
+    .pull-right
+    %h1 Person: #{@person.full_name}
+  = render 'shared/people_tabs'
+
+  - if @transport_needs.any?
+    %table.zebra-striped
+      %thead
+        %tr
+          %th When
+          %th Type
+          %th # of seats
+          %th Booked?
+          %th Note
+          %th
+      %tbody
+        - @transport_needs.each do |tn|
+          %tr
+            %td= tn.at.to_formatted_s(:long)
+            %td= tn.transport_type
+            %td= tn.seats
+            %td= t_boolean(tn.booked)
+            %td= tn.note
+            %td
+              =action_button "small", 'Edit', edit_person_transport_need_path(@person, tn)
+              =action_button "small danger", 'Destroy', person_transport_need_path(@person, tn), :confirm => 'Are you sure?', :method => :delete
+
+  =action_button "small", 'New transport need', new_person_transport_need_path

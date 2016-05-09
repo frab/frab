@@ -1,6 +1,6 @@
 # old ruby style syntax may still be needed
 Style/HashSyntax:
-  Enabled: false
+  Enabled: true
 
 # never break line due to length, except in data
 # vim: set wrap
@@ -22,7 +22,7 @@ Style/RedundantSelf:
 
 # Good cop, but to spammy
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
 
 # use { only for single line blocks, but allow block content on its own line to keep line length short
 # each { |l|
@@ -44,7 +44,7 @@ Style/AlignParameters:
   Enabled: false
   EnforcedStyle: with_fixed_indentation
 
-# Do not write 1234 as 1_234 
+# Do not write 1234 as 1_234
 Style/NumericLiterals:
   Enabled: false
 

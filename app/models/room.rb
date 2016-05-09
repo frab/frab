@@ -2,7 +2,7 @@ class Room < ActiveRecord::Base
   belongs_to :conference
   has_many :events
 
-  has_paper_trail meta: { associated_id: :conference_id, associated_type: "Conference" }
+  has_paper_trail meta: { associated_id: :conference_id, associated_type: 'Conference' }
 
   default_scope -> { order(:rank) }
 

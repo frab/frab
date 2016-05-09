@@ -1,5 +1,5 @@
 - @unscheduled_events.each do |event|
-  %li.unscheduled-event{ :id => "event_#{event.id}",
-          :"data-update-url" => schedule_update_event_path(:id => event.id),
+  %li.unscheduled-event{ id: "event_#{event.id}",
+          :"data-update-url" => schedule_update_event_path(id: event.id),
           :"data-height" => (event.time_slots * 20 - 7) }
     = link_to event.title, "#"

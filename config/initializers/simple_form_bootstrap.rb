@@ -20,7 +20,7 @@ SimpleForm.setup do |config|
     # TODO * not shown on password field
     b.wrapper tag: 'div', class: 'input' do |ba|
       ba.use :input
-      ba.use :hint,  wrap_with: { tag: :span, class: 'help-block' }
+      ba.use :hint, wrap_with: { tag: :span, class: 'help-block' }
     end
   end
 
@@ -32,9 +32,8 @@ SimpleForm.setup do |config|
     # TODO right align, margin, missing ul<li
     b.wrapper tag: 'div', class: 'input' do |ba|
       ba.use :input
-      ba.use :hint,  wrap_with: { tag: :span, class: 'help-block' }
+      ba.use :hint, wrap_with: { tag: :span, class: 'help-block' }
     end
-
   end
 
   config.default_wrapper = :horizontal_string

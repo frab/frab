@@ -1,4 +1,4 @@
-require "securerandom"
+require 'securerandom'
 
 module UniqueToken
   def generate_token_for(attribute)

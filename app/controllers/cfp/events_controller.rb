@@ -1,5 +1,5 @@
 class Cfp::EventsController < ApplicationController
-  layout "cfp"
+  layout 'cfp'
 
   before_action :authenticate_user!, except: :confirm
 
@@ -45,14 +45,14 @@ class Cfp::EventsController < ApplicationController
     authorize! :submit, Event
     @event = Event.new(event_params.merge(recording_license: @conference.default_recording_license))
     @event.conference = @conference
-    @event.event_people << EventPerson.new(person: current_user.person, event_role: "submitter")
-    @event.event_people << EventPerson.new(person: current_user.person, event_role: "speaker")
+    @event.event_people << EventPerson.new(person: current_user.person, event_role: 'submitter')
+    @event.event_people << EventPerson.new(person: current_user.person, event_role: 'speaker')
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to(cfp_person_path, notice: t("cfp.event_created_notice")) }
+        format.html { redirect_to(cfp_person_path, notice: t('cfp.event_created_notice')) }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -65,9 +65,9 @@ class Cfp::EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(event_params)
-        format.html { redirect_to(cfp_person_path, notice: t("cfp.event_updated_notice")) }
+        format.html { redirect_to(cfp_person_path, notice: t('cfp.event_updated_notice')) }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
       end
     end
   end
@@ -76,7 +76,7 @@ class Cfp::EventsController < ApplicationController
     authorize! :submit, Event
     @event = current_user.person.events.find(params[:id], readonly: false)
     @event.withdraw!
-    redirect_to(cfp_person_path, notice: t("cfp.event_withdrawn_notice"))
+    redirect_to(cfp_person_path, notice: t('cfp.event_withdrawn_notice'))
   end
 
   def confirm
@@ -91,14 +91,14 @@ class Cfp::EventsController < ApplicationController
       event_people = event_person.person.event_people.where(event_id: params[:id])
       login_as(event_person.person.user) if event_person.person.user
     else
-      fail "Unauthenticated" unless current_user
+      fail 'Unauthenticated' unless current_user
       event_people = current_user.person.event_people.where(event_id: params[:id])
     end
     event_people.each(&:confirm!)
     if current_user
-      redirect_to cfp_person_path, notice: t("cfp.thanks_for_confirmation")
+      redirect_to cfp_person_path, notice: t('cfp.thanks_for_confirmation')
     else
-      render layout: "signup"
+      render layout: 'signup'
     end
   end
 
@@ -106,7 +106,7 @@ class Cfp::EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(
-      :title, :subtitle, :event_type, :time_slots, :language, :abstract, :description, :logo, :track_id, :submission_note,
+      :title, :subtitle, :event_type, :time_slots, :language, :abstract, :description, :logo, :track_id, :submission_note, :tech_rider,
       event_attachments_attributes: %i(id title attachment public _destroy),
       links_attributes: %i(id title url _destroy)
     )

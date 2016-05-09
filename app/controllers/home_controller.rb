@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       end
       return redirect_to cfp_root_path
     end
-    @versions = PaperTrail::Version.where(conference_id: @conference.id).includes(:item).order("created_at DESC").limit(5)
+    @versions = PaperTrail::Version.where(conference_id: @conference.id).includes(:item).order('created_at DESC').limit(5)
     respond_to do |format|
       format.html
     end

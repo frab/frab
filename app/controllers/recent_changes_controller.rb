@@ -4,7 +4,7 @@ class RecentChangesController < ApplicationController
 
   def index
     authorize! :manage, CallForParticipation
-    @all_versions = PaperTrail::Version.where(conference_id: @conference.id).order("created_at DESC")
+    @all_versions = PaperTrail::Version.where(conference_id: @conference.id).order('created_at DESC')
     @versions = @all_versions.paginate(
       page: page_param,
       per_page: 25
@@ -12,6 +12,7 @@ class RecentChangesController < ApplicationController
     respond_to do |format|
       format.html
       format.xml { render xml: @all_versions }
+      format.json { render json: @versions.to_json }
     end
   end
 

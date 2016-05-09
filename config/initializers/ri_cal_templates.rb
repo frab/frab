@@ -1,1 +1,1 @@
-require "ri_cal_templates"
+require 'ri_cal_templates'

@@ -13,6 +13,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html
       format.xml  { render xml: @people }
+      format.json { render json: @people }
     end
   end
 
@@ -48,15 +49,18 @@ class PeopleController < ApplicationController
     authorize! :read, @person
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
-    if cannot? :manage, Event
-      @current_events.map(&:clean_event_attributes!)
-      @other_events.map(&:clean_event_attributes!)
-    end
+    clean_events_attributes
     @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
+    @expenses = @person.expenses.where(conference_id: @conference.id)
+    @expenses_sum_reimbursed = @person.sum_of_expenses(@conference, true)
+    @expenses_sum_non_reimbursed = @person.sum_of_expenses(@conference, false)
+
+    @transport_needs = @person.transport_needs.where(:conference_id => @conference.id)
 
     respond_to do |format|
       format.html
-      format.xml  { render xml: @person }
+      format.xml { render xml: @person }
+      format.json { render json: @person }
     end
   end
 
@@ -87,7 +91,7 @@ class PeopleController < ApplicationController
   def edit
     @person = Person.find(params[:id])
     if @person.nil?
-      flash[:alert] = "Not a valid person"
+      flash[:alert] = 'Not a valid person'
       return redirect_to action: :index
     end
     authorize! :manage, @person
@@ -102,7 +106,7 @@ class PeopleController < ApplicationController
       if @person.save
         format.html { redirect_to(@person, notice: 'Person was successfully created.') }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -116,7 +120,7 @@ class PeopleController < ApplicationController
       if @person.update_attributes(person_params)
         format.html { redirect_to(@person, notice: 'Person was successfully updated.') }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
       end
     end
   end
@@ -141,7 +145,11 @@ class PeopleController < ApplicationController
   def search(people, params)
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
-      sort = params[:q][:s] rescue nil
+      sort = begin
+               params[:q][:s]
+             rescue
+               nil
+             end
       @search = people.ransack(first_name_cont: term,
                                last_name_cont: term,
                                public_name_cont: term,
@@ -158,13 +166,20 @@ class PeopleController < ApplicationController
     @search.result(distinct: true)
   end
 
+  def clean_events_attributes
+    return if can? :crud, Event
+    @current_events.map(&:clean_event_attributes!)
+    @other_events.map(&:clean_event_attributes!)
+  end
+
   def person_params
     params.require(:person).permit(
       :first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar, :abstract, :description, :include_in_mailings, :note,
       im_accounts_attributes: %i(id im_type im_address _destroy),
       languages_attributes: %i(id code _destroy),
       links_attributes: %i(id title url _destroy),
-      phone_numbers_attributes: %i(id phone_type phone_number _destroy)
+      phone_numbers_attributes: %i(id phone_type phone_number _destroy),
+      ticket_attributes: %i(id remote_ticket_id)
     )
   end
 end

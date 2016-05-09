@@ -3,7 +3,7 @@
     %h1 Sign in
   .row
     .span8
-      = render "shared/flash", :flash => flash
+      = render "shared/flash", flash: flash
       = simple_form_for @user, url: session_path do |f|
         %fieldset.inputs
           = f.input :email

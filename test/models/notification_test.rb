@@ -8,11 +8,11 @@ class NotificationTest < ActiveSupport::TestCase
     @cfp.reload
   end
 
-  test "call for papers can have multiple notifications" do
+  test 'call for papers can have multiple notifications' do
     assert_equal @cfp.conference.notifications.count, 2
   end
 
-  test "cannot add same language twice" do
+  test 'cannot add same language twice' do
     notification = Notification.new(conference: @cfp.conference, locale: 'en')
     notification.default_text = 'en'
     assert !notification.valid?

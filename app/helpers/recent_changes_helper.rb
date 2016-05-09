@@ -19,8 +19,8 @@ module RecentChangesHelper
 
   def verb_for(event)
     case event
-    when "destroy"
-      "deleted"
+    when 'destroy'
+      'deleted'
     else
       "#{event}d"
     end

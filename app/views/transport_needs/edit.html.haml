@@ -1,0 +1,8 @@
+%section
+  .page-header
+    .pull-right
+    %h1 Person: #{@person.full_name}
+  = render 'shared/people_tabs'
+  .row
+    .span16
+      = render(:partial => 'shared/transport_needs_form', :locals => { :person => @person, :transport_need => @transport_need, :url => person_transport_needs_path })

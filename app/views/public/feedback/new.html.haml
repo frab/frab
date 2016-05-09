@@ -1,10 +1,10 @@
-%h2.title= t '.feedback_for', :title => @event.title
+%h2.title= t '.feedback_for', title: @event.title
 
 %p= t '.please_let_us_know'
 
-= simple_form_for(@feedback, url: public_event_feedback_path(:event_id => @event.id)) do |f|
+= simple_form_for(@feedback, url: public_event_feedback_path(event_id: @event.id)) do |f|
   %fieldset.inputs
-    = f.input :rating, :as => :radio_buttons, :collection => 1..5, :hint => t('.how_would_you_rate')
-    = f.input :comment, :input_html => {:rows => 4}, :hint => t('.what_did_you_like')
+    = f.input :rating, as: :radio_buttons, collection: 1..5, hint: t('.how_would_you_rate')
+    = f.input :comment, input_html: {rows: 4}, hint: t('.what_did_you_like')
   .actions
     = f.button :submit, t('.submit_feedback')

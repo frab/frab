@@ -18,24 +18,24 @@
           %td= event.state
         - if @conference.feedback_enabled
           %td
-            %b= number_with_precision event.average_feedback, :precision => 2
+            %b= number_with_precision event.average_feedback, precision: 2
           %td
             - if event.event_feedbacks_count
               s<sub>N-1</sub> = #{event.feedback_standard_deviation} n = #{event.event_feedbacks_count}
         %td
-          = link_to t("edit"), edit_cfp_event_path(event), :class => "btn small"
+          = link_to t("edit"), edit_cfp_event_path(event), class: "btn small"
           - if @conference.event_state_visible
             - if event.state == "unconfirmed"
-              = link_to t("cfp.confirm"), confirm_cfp_event_path(event), :method => :put, :class => "btn success small"
+              = link_to t("cfp.confirm"), confirm_cfp_event_path(event), method: :put, class: "btn success small"
             - if event.transition_possible? :withdrawn and event.start_time and event.start_time > Time.now
-              = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), :method => :put, :confirm => t("cfp.withdrawal_confirmation"), :class => "btn danger small"
+              = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), method: :put, confirm: t("cfp.withdrawal_confirmation"), class: "btn danger small"
       - if @conference.feedback_enabled
         - event.event_feedbacks.each do |feedback|
           - next if feedback.comment.blank?
           %tr
             %td
             - if @conference.event_state_visible
-              %td{:colspan=>2}
+              %td{colspan: 2}
             - else
               %td
                 = raty_for("event_rating_#{event.id}", feedback.rating)

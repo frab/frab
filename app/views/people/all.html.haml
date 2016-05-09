@@ -2,10 +2,10 @@
   .page-header
     .pull-right
       - if can? :administrate, Person
-        = action_button "primary", "Add person", new_person_path, :title => "Add a new person."
+        = action_button "primary", "Add person", new_person_path, title: "Add a new person."
     %h1 List of people
   %ul.tabs
     %li= link_to "This conference", people_path
     %li= link_to "Speakers", speakers_people_path
     %li.active= link_to "All people", all_people_path
-  = render 'shared/search_and_table', :collection => @people
+  = render 'shared/search_and_table', collection: @people

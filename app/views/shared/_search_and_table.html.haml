@@ -1,11 +1,11 @@
 .row
   .span16
-    = render 'shared/simple_search', :path => request.path
+    = render 'shared/simple_search', path: request.path
 .row
   .span16
     - if collection.empty?
       %p Sorry, but your search yielded no results.
     - else
-      = render 'table', :collection => collection
+      = render 'table', collection: collection
       = actions_bar do
         = will_paginate collection

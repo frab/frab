@@ -19,6 +19,11 @@ Frab::Application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  # Use letter_opener for easier mail content testing in development
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.action_mailer.delivery_method = :letter_opener
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
@@ -42,9 +47,7 @@ Frab::Application.configure do
   # bullet
   config.after_initialize do
     Bullet.enable = true
-    #Bullet.alert = true
+    # Bullet.alert = true
     Bullet.rails_logger = true
   end
 end
-
-

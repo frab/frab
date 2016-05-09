@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     else
       @user = User.new
       flash[:alert] = t(:error_signing_in)
-      render action: "new"
+      render action: 'new'
     end
   end
 
@@ -53,7 +53,7 @@ class SessionsController < ApplicationController
     @user = User.new
     flash[:alert] = t(:error_signing_in)
     # abort processing
-    render action: "new"
+    render action: 'new'
   end
 
   private

@@ -1,6 +1,7 @@
 json.schedule do
   json.version @conference.schedule_version if @conference.schedule_version.present?
   json.conference do
+    json.acronym @conference.acronym
     json.title @conference.title
     if @conference.days.length > 0
       json.start @conference.first_day.start_date.strftime('%Y-%m-%d')
@@ -33,11 +34,16 @@ json.schedule do
             json.language event.language
             json.abstract event.abstract
             json.description event.description
+            json.recording_license event.recording_license
             json.do_not_record event.do_not_record
             json.persons event.speakers, :id, :public_name
             json.links event.links do |link|
               json.url url_for(link.url)
               json.title link.title
+            end
+            json.attachments event.event_attachments.is_public.each do |attachment|
+              json.url attachment.attachment.url
+              json.title attachment.link_title
             end
           end
         end

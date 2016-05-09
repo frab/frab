@@ -1,0 +1,9 @@
+%h2 Send mail
+%p
+  Use this mail template to send a mail to all people involved in
+  the events of this conference.
+
+= simple_form_for @mail_template, url: send_mail_mail_template_path, html: { method: :put } do |f|
+  .actions
+    = select_tag "send_filter", options_for_select(@send_filter_options), style: "width:400px"
+    = f.button :submit, "Send", class: 'danger'

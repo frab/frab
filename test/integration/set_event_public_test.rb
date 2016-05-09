@@ -8,7 +8,7 @@ class SetEventPublicTest < ActionDispatch::IntegrationTest
     sign_in(@conference_user.user)
   end
 
-  test "can set event to public" do
+  test 'can set event to public' do
     @event.public = true
     put "/#{@conference.acronym}/events/#{@event.id}", event: { public: true }
     assert_redirected_to event_path(assigns(:event))
@@ -24,7 +24,7 @@ class SetEventPublicTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "can set event to private" do
+  test 'can set event to private' do
     @event.public = false
     put "/#{@conference.acronym}/events/#{@event.id}", event: { public: false }
     assert_redirected_to event_path(assigns(:event))

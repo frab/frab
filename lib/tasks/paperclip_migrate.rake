@@ -2,7 +2,7 @@
 namespace :paperclip_migration do
   desc 'Migrate paperclip storage to 3.x layout'
 
-  task :migrate => :environment do
+  task migrate: :environment do
     # Make sure that all of the models have been loaded so any attachments are registered
     puts 'Loading models...'
     Dir[Rails.root.join('app', 'models', '**/*')].each { |file| File.basename(file, '.rb').camelize.constantize }
@@ -53,7 +53,7 @@ namespace :paperclip_migration do
   end
 
   def local_move(old_path, new_path)
-    if not File.readable?(old_path)
+    unless File.readable?(old_path)
       STDERR.puts "missing #{old_path}, skipping!"
       return
     end

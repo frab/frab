@@ -17,6 +17,16 @@ gem 'sqlite3', group: :sqlite3
 # Use Puma as the app server
 gem 'puma'
 
+# Capistrano for deployment
+group :capistrano do
+  gem 'airbrussh'
+  gem 'capistrano', '~> 3.4.0', require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano3-puma',   require: false
+end
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-migrate-rails'
@@ -25,15 +35,16 @@ gem 'jquery-ui-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
+gem 'activeresource'
 gem 'acts_as_commentable'
 gem 'bcrypt-ruby'
 gem 'cancancan'
 gem 'cocoon'
-gem "dotenv-rails"
+gem 'dotenv-rails'
 gem 'haml'
-gem 'localized_language_select', github: "frab/localized_language_select", branch: 'master'
+gem 'localized_language_select', github: 'frab/localized_language_select', branch: 'master'
 gem 'nokogiri'
-gem "paperclip", "~> 4.1"
+gem 'paperclip', '~> 4.1'
 gem 'paper_trail'
 gem 'prawn', '< 1.0'
 gem 'prawn_rails'
@@ -41,13 +52,19 @@ gem 'ransack'
 gem 'ri_cal'
 gem 'simple_form'
 gem 'sucker_punch'
-gem 'transitions', :require => ["transitions", "active_record/transitions"]
+gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'will_paginate'
+
+group :production do
+  gem 'exception_notification'
+end
 
 group :development, :test do
   gem 'bullet'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'letter_opener'
+  gem 'faker'
 end
 
 group :test do
@@ -60,6 +77,6 @@ group :doc do
   gem 'redcarpet'       # documentation
   gem 'github-markdown' # documentation
   gem 'yard'            # documentation
-  #gem 'rails-erd'      # graph
-  #gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
+  # gem 'rails-erd'      # graph
+  # gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
 end

@@ -18,7 +18,7 @@ class BulkMailer
       puts "send mail to: #{args[:to]}"
       @person = person
       mail(args) do |format|
-        format.text { render :inline => template }
+        format.text { render inline: template }
       end
     end
   end
@@ -40,7 +40,7 @@ class BulkMailer
       end
     end
 
-    args = { :subject => @subject, :to => email_address_with_name, :from => @from_email }
+    args = { subject: @subject, to: email_address_with_name, from: @from_email }
 
     BulkMail.notify(@body, p, args).deliver
   end

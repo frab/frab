@@ -8,18 +8,18 @@
 PaperTrail.enabled = false
 
 person = Person.create!(
-  email: "admin@example.org",
-  first_name: "admin",
-  last_name: "admin",
-  public_name: "admin_127"
+  email: 'admin@example.org',
+  first_name: 'admin',
+  last_name: 'admin',
+  public_name: 'admin_127'
 )
 
 admin = User.new(
   email: person.email,
-  password: "test123",
-  password_confirmation: "test123"
+  password: 'test123',
+  password_confirmation: 'test123'
 )
 admin.person = person
-admin.role = "admin"
+admin.role = 'admin'
 admin.confirmed_at = Time.now
 admin.save!
