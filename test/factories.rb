@@ -189,6 +189,10 @@ FactoryGirl.define do
     person
     event
     event_role 'speaker'
+
+    factory :confirmed_event_person do
+      role_state 'confirmed'
+    end
   end
 
   factory :event_rating do

@@ -38,4 +38,23 @@ class ConferenceTest < ActiveSupport::TestCase
     assert_equal 3, conference.days.size
     assert_equal Date.today.since(3.days).since(10.hours), conference.days.last.start_date
   end
+
+  test '#has_submission' do
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+    person = create(:person)
+    create(:confirmed_event_person, event: event, person: person)
+    assert Conference.has_submission(person)
+
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+    create(:confirmed_event_person, event: event, person: person)
+    create(:confirmed_event_person, event: event)
+    assert_equal 2, Conference.has_submission(person).count
+
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+    create(:event_person, event: event, person: person, event_role: 'coordinator')
+    assert_equal 2, Conference.has_submission(person).count
+  end
 end
