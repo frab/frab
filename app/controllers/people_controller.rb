@@ -7,11 +7,10 @@ class PeopleController < ApplicationController
   # GET /people.xml
   def index
     authorize! :administrate, Person
-    result = search Person.involved_in(@conference), params
-    @people = result.paginate page: page_param
+    @people = search Person.involved_in(@conference), params
 
     respond_to do |format|
-      format.html
+      format.html { @people = @people.paginate page: page_param }
       format.xml  { render xml: @people }
       format.json { render json: @people }
     end
@@ -19,7 +18,6 @@ class PeopleController < ApplicationController
 
   def speakers
     authorize! :administrate, Person
-    @people = Person.speaking_at(@conference).accessible_by(current_ability)
 
     respond_to do |format|
       format.html do
@@ -27,6 +25,7 @@ class PeopleController < ApplicationController
         @people = result.paginate page: page_param
       end
       format.text do
+        @people = Person.speaking_at(@conference).accessible_by(current_ability)
         render text: @people.map(&:email).join("\n")
       end
     end

@@ -12,7 +12,7 @@ class RecentChangesController < ApplicationController
     respond_to do |format|
       format.html
       format.xml { render xml: @all_versions }
-      format.json { render json: @versions.to_json }
+      format.json { render json: @all_versions.to_json }
     end
   end
 

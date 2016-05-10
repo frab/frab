@@ -8,12 +8,13 @@ class EventsController < ApplicationController
   def index
     authorize! :read, Event
 
-    result = search @conference.events.includes(:track), params
-    @events = result.paginate page: page_param
+    @events = search @conference.events.includes(:track), params
 
     clean_events_attributes
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {
+        @events = @events.paginate page: page_param
+      }
       format.xml  { render xml: @events }
       format.json { render json: @events }
     end
