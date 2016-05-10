@@ -38,13 +38,13 @@ class Person < ActiveRecord::Base
   # validates_inclusion_of :gender, in: GENDERS, allow_nil: true
 
   scope :involved_in, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).group(:"people.id")
+    joins(events: :conference).where("conferences.id": conference.id).uniq
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(unconfirmed confirmed)).group(:"people.id")
+    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(unconfirmed confirmed)).uniq
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(unconfirmed confirmed)).group(:"people.id")
+    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(unconfirmed confirmed)).uniq
   }
   scope :confirmed, ->(conference) {
     joins(events: :conference).where("conferences.id": conference.id).where("events.state": 'confirmed')
