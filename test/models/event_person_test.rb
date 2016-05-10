@@ -36,8 +36,8 @@ class EventPersonTest < ActiveSupport::TestCase
     event = create(:event, conference: conference, state: 'confirmed')
     person1 = create(:person)
     person2 = create(:person)
-    event_person1 = create(:event_person, event: event, person: person1, event_role: 'speaker', role_state: 'confirmed')
-    event_person2 = create(:event_person, event: event, person: person2, event_role: 'speaker', role_state: 'confirmed')
+    event_person1 = create(:confirmed_event_person, event: event, person: person1)
+    event_person2 = create(:confirmed_event_person, event: event, person: person2)
     persons = Person.involved_in(conference)
     assert_equal 2, persons.count
     assert_includes persons, person1
@@ -46,15 +46,14 @@ class EventPersonTest < ActiveSupport::TestCase
     assert_equal 2, Person.involved_in(conference).count
 
     event2 = create(:event, conference: conference, state: 'confirmed')
-    create(:event_person, event: event2, person: person2, event_role: 'speaker', role_state: 'confirmed')
+    create(:confirmed_event_person, event: event2, person: person2)
     assert_equal 2, Person.involved_in(conference).count
   end
 
   test 'check speaking_at returns conferences speakers' do
     conference = create(:three_day_conference_with_events)
     event = conference.events.first
-    person1 = create(:person)
-    create(:event_person, event: event, person: person1, event_role: 'speaker', role_state: 'confirmed')
+    create(:confirmed_event_person, event: event)
     assert_equal 1, Person.speaking_at(conference).count
     person2 = create(:person)
     create(:event_person, event: event, person: person2, event_role: 'coordinator', role_state: 'confirmed')
