@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Public::FeedbackControllerTest < ActionController::TestCase
   setup do
-    @event = FactoryGirl.create(:event)
+    @event = create(:event)
     @conference = @event.conference
   end
 

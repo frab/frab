@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CallForParticipationsControllerTest < ActionController::TestCase
   setup do
-    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @call_for_participation = create(:call_for_participation)
     @conference = @call_for_participation.conference
     login_as(:admin)
   end
@@ -25,7 +25,7 @@ class CallForParticipationsControllerTest < ActionController::TestCase
   end
 
   test 'should create cfp' do
-    new_conference = FactoryGirl.create(:conference)
+    new_conference = create(:conference)
     params = {
       call_for_participation: call_for_participation_params,
       conference_acronym: new_conference.acronym

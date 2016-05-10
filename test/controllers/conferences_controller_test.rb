@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ConferencesControllerTest < ActionController::TestCase
   setup do
-    FactoryGirl.create(:conference)
-    FactoryGirl.create(:conference)
-    @conference = FactoryGirl.create(:conference)
+    create(:conference)
+    create(:conference)
+    @conference = create(:conference)
     login_as(:admin)
   end
 
@@ -24,7 +24,7 @@ class ConferencesControllerTest < ActionController::TestCase
 
   test 'should create conference' do
     assert_difference('Conference.count') do
-      post :create, conference: FactoryGirl.attributes_for(:conference)
+      post :create, conference: attributes_for(:conference)
     end
   end
 
@@ -46,14 +46,14 @@ class ConferencesControllerTest < ActionController::TestCase
 
   test 'should add conference_day' do
     assert_difference('Day.count') do
-      @conference.days << FactoryGirl.create(:day)
+      @conference.days << create(:day)
       put :update, conference: conference_params, conference_acronym: @conference.acronym
     end
   end
 
   test 'should create conference with feedback disabled' do
     assert_difference('Conference.count') do
-      post :create, conference: FactoryGirl.attributes_for(:conference, feedback_enabled: false)
+      post :create, conference: attributes_for(:conference, feedback_enabled: false)
     end
   end
 

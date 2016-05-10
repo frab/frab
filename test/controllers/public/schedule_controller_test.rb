@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Public::ScheduleControllerTest < ActionController::TestCase
   setup do
-    @conference = FactoryGirl.create(:three_day_conference_with_events)
+    @conference = create(:three_day_conference_with_events)
   end
 
   test 'displays schedule main page' do

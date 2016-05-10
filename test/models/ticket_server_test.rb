@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TicketServerTest < ActiveSupport::TestCase
   setup do
-    @conference = FactoryGirl.create(:conference)
+    @conference = create(:conference)
     @url = 'https://localhost/otrs/'
   end
 

@@ -4,7 +4,7 @@ class SetEventPublicTest < ActionDispatch::IntegrationTest
   setup do
     @conference = create :three_day_conference
     @event = create :event, conference: @conference
-    @conference_user = FactoryGirl.create :conference_orga, conference: @conference
+    @conference_user = create :conference_orga, conference: @conference
     sign_in(@conference_user.user)
   end
 

@@ -2,8 +2,8 @@ require 'test_helper'
 
 class PeopleControllerTest < ActionController::TestCase
   setup do
-    @person = FactoryGirl.create(:person)
-    @conference = FactoryGirl.create(:conference)
+    @person = create(:person)
+    @conference = create(:conference)
     login_as(:admin)
   end
 
