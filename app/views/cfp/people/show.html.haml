@@ -2,7 +2,8 @@
   .page-header
     .pull-right
       - unless @conference.in_the_past
-        = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
+        - unless cfp_hard_deadline_over?
+          = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
         - if @person.availabilities_in(@conference).count == 0
           = action_button "", t("cfp.edit_availability"), new_cfp_person_availability_path
         - else
