@@ -2,8 +2,8 @@ require 'test_helper'
 
 class TicketTest < ActiveSupport::TestCase
   setup do
-    @conference = FactoryGirl.create(:conference)
-    @event = FactoryGirl.create(:event)
+    @conference = create(:conference)
+    @event = create(:event)
   end
 
   test 'should create a ticket' do

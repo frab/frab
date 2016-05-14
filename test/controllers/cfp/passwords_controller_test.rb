@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Cfp::PasswordsControllerTest < ActionController::TestCase
   setup do
-    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @call_for_participation = create(:call_for_participation)
     @conference = @call_for_participation.conference
   end
 
@@ -12,7 +12,7 @@ class Cfp::PasswordsControllerTest < ActionController::TestCase
   end
 
   test 'sends password reset instructions' do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :create, conference_acronym: @conference.acronym, user: { email: user.email }
     end
@@ -22,14 +22,14 @@ class Cfp::PasswordsControllerTest < ActionController::TestCase
   end
 
   test 'displays password reset form' do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     user.send_password_reset_instructions(@call_for_participation.conference)
     get :edit, conference_acronym: @conference.acronym, reset_password_token: user.reset_password_token
     assert_response :success
   end
 
   test 'allows setting a new password' do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     user.send_password_reset_instructions(@call_for_participation.conference)
     before_digest = user.password_digest
     put :update, conference_acronym: @conference.acronym, user: { reset_password_token: user.reset_password_token, password: '123frab', password_confirmation: '123frab' }

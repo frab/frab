@@ -2,9 +2,9 @@ require 'test_helper'
 
 class NotificationTest < ActiveSupport::TestCase
   setup do
-    @cfp = FactoryGirl.create(:call_for_participation)
-    FactoryGirl.create(:notification, conference: @cfp.conference, locale: 'en')
-    FactoryGirl.create(:notification, conference: @cfp.conference, locale: 'de')
+    @cfp = create(:call_for_participation)
+    create(:notification, conference: @cfp.conference, locale: 'en')
+    create(:notification, conference: @cfp.conference, locale: 'de')
     @cfp.reload
   end
 

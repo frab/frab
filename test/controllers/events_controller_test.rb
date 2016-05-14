@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
   setup do
-    @event = FactoryGirl.create(:event)
+    @event = create(:event)
     @conference = @event.conference
     login_as(:admin)
   end
@@ -55,19 +55,19 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should get cards pdf' do
-    conference = FactoryGirl.create :three_day_conference_with_events
+    conference = create :three_day_conference_with_events
     get :cards, conference_acronym: conference.acronym, format: 'pdf'
     assert_response :success
   end
 
   test 'should get accepted cards pdf' do
-    conference = FactoryGirl.create :three_day_conference_with_events
+    conference = create :three_day_conference_with_events
     get :cards, accepted: true, conference_acronym: conference.acronym, format: 'pdf'
     assert_response :success
   end
 
   test 'should get export accepted' do
-    conference = FactoryGirl.create :three_day_conference_with_events
+    conference = create :three_day_conference_with_events
     get :export_accepted, conference_acronym: conference.acronym, format: :json
     assert_response :success
     assert_includes response.body, '[{"event_id":'

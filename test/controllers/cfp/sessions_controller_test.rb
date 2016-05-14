@@ -2,16 +2,16 @@ require 'test_helper'
 
 class Cfp::SessionsControllerTest < ActionController::TestCase
   setup do
-    @first_conference = FactoryGirl.create(:conference)
-    FactoryGirl.create(:call_for_participation, conference: @first_conference)
+    @first_conference = create(:conference)
+    create(:call_for_participation, conference: @first_conference)
 
-    @conference = FactoryGirl.create(:conference)
-    @call_for_participation = FactoryGirl.create(:call_for_participation, conference: @conference)
+    @conference = create(:conference)
+    @call_for_participation = create(:call_for_participation, conference: @conference)
 
-    @last_conference = FactoryGirl.create(:conference)
-    FactoryGirl.create(:call_for_participation, conference: @last_conference)
+    @last_conference = create(:conference)
+    create(:call_for_participation, conference: @last_conference)
 
-    @submitter = FactoryGirl.create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'submitter')
+    @submitter = create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'submitter')
   end
 
   test 'submitter can login' do

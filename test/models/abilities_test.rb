@@ -3,32 +3,32 @@ require 'test_helper'
 class AbilitiesTest < ActiveSupport::TestCase
   setup do
     # Event
-    @event = FactoryGirl.create :event
+    @event = create :event
 
     # Conference
     @conference = @event.conference
 
     # CallForParticipation
-    @cfp = FactoryGirl.create :call_for_participation, conference: @conference
+    @cfp = create :call_for_participation, conference: @conference
 
     # Person
-    @person = FactoryGirl.create :person
+    @person = create :person
 
     # EventRating
-    @rating = FactoryGirl.create :event_rating, event: @event, rating: 4.0
+    @rating = create :event_rating, event: @event, rating: 4.0
 
     # User
-    @other_user = FactoryGirl.create :user
+    @other_user = create :user
 
-    @orga_user = FactoryGirl.create(:conference_orga, conference: @conference).user
-    @coordinator_user = FactoryGirl.create(:conference_coordinator, conference: @conference).user
-    @reviewer_user = FactoryGirl.create(:conference_reviewer, conference: @conference).user
+    @orga_user = create(:conference_orga, conference: @conference).user
+    @coordinator_user = create(:conference_coordinator, conference: @conference).user
+    @reviewer_user = create(:conference_reviewer, conference: @conference).user
 
-    @submitter_user = FactoryGirl.create :user
-    @conference_event = FactoryGirl.create :event, conference: @conference
-    FactoryGirl.create :event_person, person: @submitter_user.person, event: @conference_event
+    @submitter_user = create :user
+    @conference_event = create :event, conference: @conference
+    create :event_person, person: @submitter_user.person, event: @conference_event
 
-    @guest_user = FactoryGirl.create :user
+    @guest_user = create :user
     @guest_user.role = nil
   end
 
@@ -152,7 +152,7 @@ class AbilitiesTest < ActiveSupport::TestCase
   end
 
   test 'reviewer can read all event ratings, but only manage self' do
-    my_rating = FactoryGirl.create :event_rating, person: @reviewer_user.person
+    my_rating = create :event_rating, person: @reviewer_user.person
     ability = Ability.new @reviewer_user, @conference
     assert ability.can? :create, my_rating
     assert ability.can? :crud, my_rating
@@ -217,7 +217,7 @@ class AbilitiesTest < ActiveSupport::TestCase
   end
 
   test 'submitter has no access to event ratings' do
-    my_rating = FactoryGirl.create :event_rating, person: @submitter_user.person
+    my_rating = create :event_rating, person: @submitter_user.person
     ability = Ability.new @submitter_user, @conference
     assert ability.cannot? :read, my_rating
     assert ability.cannot? :manage, my_rating
@@ -280,7 +280,7 @@ class AbilitiesTest < ActiveSupport::TestCase
   end
 
   test 'guest has no access to event ratings' do
-    my_rating = FactoryGirl.create :event_rating, person: @guest_user.person
+    my_rating = create :event_rating, person: @guest_user.person
     ability = Ability.new @guest_user, @conference
     assert ability.cannot? :read, my_rating
     assert ability.cannot? :manage, my_rating

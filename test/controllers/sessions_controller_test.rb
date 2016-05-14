@@ -2,11 +2,11 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
   setup do
-    @first_conference = FactoryGirl.create(:conference)
-    @conference = FactoryGirl.create(:conference)
-    @last_conference = FactoryGirl.create(:conference)
-    @orga = FactoryGirl.create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'orga')
-    @submitter = FactoryGirl.create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'submitter')
+    @first_conference = create(:conference)
+    @conference = create(:conference)
+    @last_conference = create(:conference)
+    @orga = create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'orga')
+    @submitter = create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'submitter')
   end
 
   test 'admin user can login' do
@@ -33,7 +33,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'unconfirmed user cannot login' do
-    user = FactoryGirl.create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'orga')
+    user = create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'orga')
     user.confirmed_at = nil
     user.save!
     post :create, conference_acronym: @conference.acronym, user: user_param(user)

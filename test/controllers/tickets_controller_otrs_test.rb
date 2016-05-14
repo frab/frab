@@ -2,12 +2,12 @@ require 'test_helper'
 
 class TicketsControllerTest < ActionController::TestCase
   setup do
-    @event = FactoryGirl.create(:event)
+    @event = create(:event)
     @conference = @event.conference
-    @person = FactoryGirl.create(:person)
-    FactoryGirl.create(:event_person, event: @event, person: @person,
+    @person = create(:person)
+    create(:event_person, event: @event, person: @person,
                                       event_role: 'submitter')
-    FactoryGirl.create(:event_person, event: @event, person: @person,
+    create(:event_person, event: @event, person: @person,
                                       event_role: 'speaker')
 
     @conference.ticket_type = 'otrs'

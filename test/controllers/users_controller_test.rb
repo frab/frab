@@ -2,14 +2,14 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @conference = FactoryGirl.create(:conference)
-    @person = FactoryGirl.create(:person)
-    @user = FactoryGirl.create(:user, person: FactoryGirl.create(:person))
+    @conference = create(:conference)
+    @person = create(:person)
+    @user = create(:user, person: create(:person))
     login_as(:admin)
   end
 
   def user_params(user_type = :user)
-    user_params = FactoryGirl.attributes_for(user_type).merge(password: 'frab123', password_confirmation: 'frab123')
+    user_params = attributes_for(user_type).merge(password: 'frab123', password_confirmation: 'frab123')
     user_params.delete(:confirmed_at)
     user_params.delete(:sign_in_count)
     user_params
@@ -55,10 +55,10 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should add conference user to existing crew user' do
-    @user = FactoryGirl.create(:crew_user, person: FactoryGirl.create(:person))
+    @user = create(:crew_user, person: create(:person))
     user_attributes = { id: @user.id }
     user_attributes['conference_users_attributes'] = {
-      '0' => FactoryGirl.attributes_for(:conference_user, role: 'reviewer', conference_id: @conference.id)
+      '0' => attributes_for(:conference_user, role: 'reviewer', conference_id: @conference.id)
     }
     assert_difference('ConferenceUser.count') do
       put :update,
