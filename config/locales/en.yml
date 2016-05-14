@@ -715,7 +715,7 @@ en:
     cancel_account_text: Unhappy? %{link}
     change_my_password: Change my password
     confirmations:
-      confirmed: Your email address has been successfully confirmed.
+      confirmed: Your email address has been successfully confirmed. / Deine E-Mailadresse ist nun bestätigt.
       send_instructions: You will receive an email with instructions for how to confirm your email address in a few minutes.
       send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.
     current_password_hint: We need your current password to confirm your changes

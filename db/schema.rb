@@ -236,6 +236,11 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "guid", limit: 255
     t.boolean "do_not_record", default: false
     t.string "recording_license", limit: 255
+    t.integer "number_of_repeats", default: 1
+    t.text "other_locations"
+    t.text "methods"
+    t.text "target_audience_experience"
+    t.text "target_audience_experience_text"
     t.text "tech_rider"
     t.string "invite_token"
     t.string "video_url", limit: 255

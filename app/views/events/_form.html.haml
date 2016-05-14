@@ -9,12 +9,16 @@
       = ticket.input :remote_ticket_id
     = f.input :event_type, collection: translated_options(@conference.allowed_event_types_as_list)
     = f.association :track, collection: @conference.tracks
-    = f.input :time_slots, as: :select, collection: timeslots
+    = f.input :time_slots, as: :select, collection: custom_timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes
     = f.input :public, as: :inline_boolean, hint: t('events_module.inputs.hints.public')
     - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
       = image_input_box(f.object.logo)
       = f.input :logo
+  %fieldset.inputs
+    %legend Zielgruppe
+    = f.input :target_audience_experience, collection: Event::EXPERIENCE
+    = f.input :target_audience_experience_text, input_html: { rows: 2 }, hint: "ggf."
   %fieldset.inputs
     %legend= t('state')
     = f.input :state, collection: Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
@@ -22,6 +26,7 @@
     %legend= t('time_and_place')
     = f.input :start_time do
       = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
+    = f.input :number_of_repeats, as: :select, collection: 1..4, hint: '1-4'
     = f.association :room, collection: @conference.rooms
   - if @conference.classifiers.any?
     = render partial: 'event_classifiers', locals: { f: f }
@@ -31,6 +36,8 @@
       = translated_textbox f, 'abstract', l, language_label('event.abstract', l), t('cfp.event_abstract_hint')
       - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
         = translated_textbox f, 'description', l, language_label('event.description', l), t('cfp.event_description_hint')
+    = f.input :other_locations, input_html: { rows: 2 }
+    = f.input :methods, as: :check_boxes, collection: Event::METHODS, hint: 'Mit welcher/n Methode/n soll die Veranstaltung durchgeführt werden?'
   %fieldset.inputs
     %legend= t('notes')
     = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')

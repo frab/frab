@@ -152,6 +152,8 @@ class Cfp::EventsController < ApplicationController
   def event_params
     params.require(:event).permit(
       :title, :subtitle, :event_type, :time_slots, :language, :abstract, :description, :logo, :track_id, :submission_note, :tech_rider,
+      :target_audience_experience_text,
+      methods: [],
       event_attachments_attributes: %i(id title attachment public _destroy),
       event_classifiers_attributes: %i(id classifier_id value _destroy),
       links_attributes: %i(id title url _destroy)
