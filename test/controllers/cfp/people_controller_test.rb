@@ -2,8 +2,8 @@ require 'test_helper'
 
 class Cfp::PeopleControllerTest < ActionController::TestCase
   setup do
-    @cfp_person = FactoryGirl.create(:person)
-    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @cfp_person = create(:person)
+    @call_for_participation = create(:call_for_participation)
     @conference = @call_for_participation.conference
     login_as(:submitter)
   end
@@ -19,7 +19,7 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
 
   test 'should create cfp_person' do
     # can't have two persons on one user, so delete the one from login_as
-    user = FactoryGirl.create(
+    user = create(
       :user,
       role: 'submitter'
     )

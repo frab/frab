@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Cfp::UsersControllerTest < ActionController::TestCase
   setup do
-    @call_for_participation = FactoryGirl.create(:call_for_participation)
+    @call_for_participation = create(:call_for_participation)
     @conference = @call_for_participation.conference
   end
 
