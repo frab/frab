@@ -15,6 +15,12 @@ You can then proceed setting up your application.
 dokku create <APP_NAME>
 ```
 
+Set up your Ruby version:
+
+```
+dokku config:set CUSTOM_RUBY_VERSION 2.3
+```
+
 ## 2. Setting up frab
 
 For your application you need

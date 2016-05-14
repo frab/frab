@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: ruby-2.3
+  TargetRubyVersion: 2.3
 
 # old ruby style syntax may still be needed
 Style/HashSyntax:
