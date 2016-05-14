@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 class Event < ActiveRecord::Base
   include ActiveRecord::Transitions
   include ActionView::Helpers::TextHelper
 
   before_create :generate_guid
 
-  TYPES = [:lecture, :workshop, :podium, :lightning_talk, :meeting, :film, :concert, :djset, :performance, :other]
+  TYPES = %i(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
 
   has_one :ticket, as: :object, dependent: :destroy
   has_many :conflicts_as_conflicting, class_name: 'Conflict', foreign_key: 'conflicting_event_id', dependent: :destroy
@@ -32,7 +33,7 @@ class Event < ActiveRecord::Base
 
   validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
-  validates_presence_of :title, :time_slots
+  validates :title, :time_slots, presence: true
 
   after_save :update_conflicts
 
