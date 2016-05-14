@@ -16,7 +16,7 @@ class StaticProgramExport
 
   # create a tarball from the conference export directory
   def create_tarball
-    out_file = filename(@conference, @locale)
+    out_file = tarball_filename
     File.unlink out_file if File.exist? out_file
     system('tar', *['-cpz', '-f', out_file.to_s, '-C', @destination, @conference.acronym].flatten)
     out_file.to_s
@@ -60,7 +60,7 @@ class StaticProgramExport
     end
   end
 
-  def filename(_conference, _locale = 'en')
+  def tarball_filename
     File.join(@destination, "#{@conference.acronym}-#{@locale}.tar.gz")
   end
 
