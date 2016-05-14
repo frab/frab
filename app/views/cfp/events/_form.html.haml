@@ -12,7 +12,7 @@
     %legend= t("cfp.detailed_description")
     = f.input :abstract, input_html: {rows: 4}, hint: t("cfp.event_abstract_hint")
     = f.input :description, hint: t("cfp.event_description_hint")
-    = f.input :submission_note, hint: "visible for admins and users, contains additional information."
+    = f.input :submission_note, hint: t("cfp.submission_note_hint")
     = dynamic_association :links, t("cfp.links"), f
     = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
   .actions
