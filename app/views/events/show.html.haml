@@ -23,29 +23,29 @@
     %h1 Event
     %h2 #{@event.title}
   %ul.tabs
-    %li.active= link_to "Event Details", @event
-    %li= link_to "People", people_event_path(@event)
-    %li= link_to "Ratings", event_event_rating_path(@event)
-    %li= link_to "Feedback", event_event_feedbacks_path(@event)
+    %li.active= link_to Event.model_name.human, @event
+    %li= link_to Person.model_name.human, people_event_path(@event)
+    %li= link_to EventRating.model_name.human, event_event_rating_path(@event)
+    %li= link_to EventFeedback.model_name.human, event_event_feedbacks_path(@event)
   .row
     .span16
       - @event.conflicts.each do |conflict|
         = render "conflicts/#{conflict.conflict_type}", conflict: conflict
   .row
     .span6
-      %h2 Basic Information
+      %h2= t(:basic_information)
       %p
-        %b Subtitle:
+        %b= Event.human_attribute_name(:subtitle) + ':'
         = @event.subtitle
       %p
-        %b Track:
+        %b= Event.human_attribute_name(:track) + ':'
         = @event.track_name
       %p
-        %b Event type:
+        %b= Event.human_attribute_name(:event_type) + ':'
         = @event.event_type
       - if can? :crud, Event
         %p
-          %b State:
+          %b= Event.human_attribute_name(:state) + ':'
           = @event.state
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
@@ -64,7 +64,7 @@
         %b Average audience feedback:
         = number_with_precision @event.average_feedback, precision: 1
     .span6
-      %h2 People
+      %h2= EventPerson.model_name.human(count: 2)
       %p= @event.speakers.map{ |p| link_to p.public_name, p}.join(", ").html_safe
       %h2 Scheduling
       %p
@@ -123,5 +123,5 @@
   .row
     .span8
       %p
-        %b Tech Rider(user and admin):
+        %b= Event.human_attribute_name(:tech_rider) + ':'
         = @event.tech_rider

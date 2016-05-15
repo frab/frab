@@ -18,7 +18,7 @@ de:
   event_languages: "Veranstaltungssprachen"
   events: "Veranstaltungen"
   features: "Zusatzfunktionen"
-  launch_call_for_participation: "Call for Participation starten"
+  launch_call_for_participation: "Aufruf starten"
   new_conference: "Neue Konferenz"
   people: "Personen"
   remove_association: "%{name} entfernen"
@@ -172,10 +172,17 @@ de:
       full_messages:
         format: "%{attribute}%{message}"
     models:
+      call_for_participation: "Aufruf"
       conference: "Konferenz"
       event: "Einreichung"
-      person: "Profil"
-      event_person: "Person"
+      person:
+        one: "Profil"
+        other: "Profile"
+      event_person:
+        one: "Person"
+        other: "Personen"
+      event_rating: "Bewertung"
+      event_feedback: "Feedback"
       day: "Tag"
       link: "Link"
       im_account: "IM-Account"
@@ -220,6 +227,8 @@ de:
         abstract: "Abstract"
         description: "Beschreibung"
         state: "Status"
+        submission_note: "Details zur Einreichung"
+        tech_rider: "Material"
       link:
         title: "Titel"
         url: "URL"
