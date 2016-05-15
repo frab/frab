@@ -7,6 +7,7 @@
     = f.association :track, collection: @conference.tracks
     = f.input :time_slots, as: :select, collection: timeslots, hint: t("cfp.event_time_slots_hint")
     = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
+    = image_input_box(f.object.logo)
     = f.input :logo
   %fieldset.inputs
     %legend= t("cfp.detailed_description")

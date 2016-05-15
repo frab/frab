@@ -5,6 +5,7 @@
     = f.input :last_name
     = f.input :public_name, hint: t("cfp.public_name_hint")
     = f.input :gender, collection: translated_options(Person::GENDERS)
+    = image_input_box(f.object.avatar)
     = f.input :avatar, hint: t("cfp.avatar_hint")
     = dynamic_association :languages, t("cfp.languages_spoken"), f
   %fieldset.inputs

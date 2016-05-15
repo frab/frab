@@ -31,6 +31,12 @@ module ApplicationHelper
     end
   end
 
+  def image_input_box(image)
+    content_tag(:div, class: 'clearfix input image small') do
+      image_tag image.url(:small)
+    end
+  end
+
   def duration_to_time(duration_in_minutes)
     minutes = sprintf('%02d', duration_in_minutes % 60)
     hours = sprintf('%02d', duration_in_minutes / 60)

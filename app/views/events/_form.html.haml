@@ -11,6 +11,7 @@
     = f.input :time_slots, as: :select, collection: timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes
     = f.input :public, as: :inline_boolean, hint: "Is this event visible in the public schedule?"
+    = image_input_box(f.object.logo)
     = f.input :logo
   %fieldset.inputs
     %legend State

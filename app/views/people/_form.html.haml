@@ -5,6 +5,7 @@
     = f.input :last_name
     = f.input :public_name, hint: "This is the name that will be shown in the public program."
     = f.input :gender, collection: Person::GENDERS
+    = image_input_box(f.object.avatar)
     = f.input :avatar, hint: "Upload a new picture."
     = f.simple_fields_for :ticket do |ticket|
       = ticket.input :remote_ticket_id
