@@ -118,7 +118,6 @@ class ImportExportHelper
         ).each { |var|
           obj.send("#{var}=", yaml[var])
         }
-        obj.call_for_participation_id = @mappings[:cfp][obj.call_for_participation_id]
         obj.confirmed_at ||= Time.now
         obj.person = @mappings[:people_user][id]
         unless obj.valid?
@@ -163,7 +162,6 @@ class ImportExportHelper
     restore('conference_cfp', CallForParticipation) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
-      @mappings[:cfp][id] = obj.id
     end
 
     restore('conference_ticket_server', TicketServer) do |_id, obj|
@@ -298,6 +296,7 @@ class ImportExportHelper
     return unless File.readable? file
     records = YAML.load_file(file)
     tmp = obj.new(records)
+    tmp.id = nil
     yield records['id'], tmp
   end
 
@@ -306,6 +305,7 @@ class ImportExportHelper
     records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
     records.each do |record|
       tmp = obj.new(record)
+      tmp.id = nil
       yield record['id'], tmp
     end
   end
@@ -315,6 +315,7 @@ class ImportExportHelper
     records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
     records.each do |record|
       tmp = obj.new(record)
+      tmp.id = nil
       yield record['id'], record, tmp
     end
   end
