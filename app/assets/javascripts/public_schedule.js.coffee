@@ -1,3 +1,7 @@
+//= require jquery
+//= require jquery-migrate-min
+//= require jquery_ujs
+
 $ ->
   column_count = $("table.rooms-table th").size()
   columns_displayable = Math.floor(($(window).width() - 95) / 200)
