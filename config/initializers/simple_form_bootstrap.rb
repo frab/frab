@@ -36,6 +36,18 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :check_boxes, tag: 'div', class: 'inputs-list clearfix', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label
+    b.use :error, wrap_with: { tag: :span, class: :error }
+
+    b.wrapper tag: 'div', class: 'input' do |ba|
+      ba.use :input, wrap_with: { tag: :div, class: 'clearfix' }
+      ba.use :hint, wrap_with: { tag: :span, class: 'help-block' }
+    end
+  end
+
   config.default_wrapper = :horizontal_string
 
   # http://simple-form.plataformatec.com.br/#available-input-types-and-defaults-for-each-column-type
@@ -43,6 +55,7 @@ SimpleForm.setup do |config|
     inline_boolean: :horizontal_boolean,
     email: :horizontal_string,
     rating: :horizontal,
+    check_boxes: :check_boxes,
     hidden: :horizontal
   }
 end
