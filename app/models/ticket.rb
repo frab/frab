@@ -8,5 +8,4 @@ class Ticket < ActiveRecord::Base
   def person
     self.object if self.object_type == "Person"
   end
-
 end

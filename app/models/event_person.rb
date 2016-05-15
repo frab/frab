@@ -37,8 +37,4 @@ class EventPerson < ActiveRecord::Base
     availabilities = self.person.availabilities_in(conference)
     availabilities.any? { |a| a.within_range?(start_time) && a.within_range?(end_time) }
   end
-
-  def to_s
-    "Event person: #{self.person.full_name} (#{self.event_role})"
-  end
 end

@@ -54,8 +54,4 @@ class Day < ActiveRecord::Base
   def last
     self.label
   end
-
-  def to_s
-    "Day: #{self.label}"
-  end
 end

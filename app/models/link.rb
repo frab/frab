@@ -7,8 +7,4 @@ class Link < ActiveRecord::Base
     associated_id: :linkable_id,
     associated_type: :linkable_type
   }
-
-  def to_s
-    "Link: #{self.title}"
-  end
 end

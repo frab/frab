@@ -179,10 +179,6 @@ class Conference < ActiveRecord::Base
     true
   end
 
-  def to_s
-    "Conference: #{self.title} (#{self.acronym})"
-  end
-
   private
 
   def update_timeslots

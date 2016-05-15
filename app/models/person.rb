@@ -161,10 +161,6 @@ class Person < ActiveRecord::Base
     self.expenses.where(conference_id: conference.id, reimbursed: reimbursed).sum(:value)
   end
 
-  def to_s
-    "Person: #{self.full_name}"
-  end
-
   def remote_ticket?
     ticket.present? and ticket.remote_ticket_id.present?
   end

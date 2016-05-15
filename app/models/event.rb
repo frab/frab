@@ -131,10 +131,6 @@ class Event < ActiveRecord::Base
     I18n.localize(start_time, format: :time) + I18n.t('time.time_range_seperator') + I18n.localize(end_time, format: :time)
   end
 
-  def to_s
-    "Event: #{self.title}"
-  end
-
   def to_sortable
     self.title.gsub(/[^\w]/, '').upcase
   end
