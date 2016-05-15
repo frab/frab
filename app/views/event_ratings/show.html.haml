@@ -12,7 +12,7 @@
     %li= link_to "Feedback", event_event_feedbacks_path(@event)
   .row
     .span16
-      %small= link_to "Toggle Description >>", "#", data: { function: 'notification-defaults' }
+      %small= link_to "Toggle Description >>", "#", data: { function: 'toggle', args: { target: '#full_description' } }
   #full_description{style: "display:none;"}
     .row
       .span16
