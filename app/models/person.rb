@@ -66,7 +66,7 @@ class Person < ActiveRecord::Base
     self.user.email if self.user.present?
   end
 
-  def avatar_path(size = :medium)
+  def avatar_path(size = :large)
     self.avatar(size) if self.avatar.present?
   end
 

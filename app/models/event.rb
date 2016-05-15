@@ -220,7 +220,7 @@ class Event < ActiveRecord::Base
     File.join self.conference.program_export_base_url, "events/#{self.id}.html"
   end
 
-  def logo_path(size = :medium)
+  def logo_path(size = :large)
     self.logo(size) if self.logo.present?
   end
 
