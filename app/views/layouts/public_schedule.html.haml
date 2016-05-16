@@ -12,25 +12,24 @@
       #banner
       #header
         %h1= title
-        #top-navigation
-          %ul.horizontal-navigation
-            - unless feedback_page?
-              %li{:class => selected(/schedule$/)}
-                = link_to t('public.schedule.nav.index'), public_schedule_index_path
-              - @conference.days.each_with_index do |day, index|
-                %li{:class => selected(/#{day.label}$/)}
-                  %a{:href => public_schedule_path(:day => index)}
-                    - if @conference.days.length > 1
-                      = t 'public.schedule.nav.day', :index => index + 1
-                      %br/
-                      %span.small-font= l day.date
-                    - else
-                      = t 'public.schedule.nav.schedule'
-              %li{:class => selected(/speakers.*$/)}
-                = link_to t('public.schedule.nav.speakers'), public_speakers_path
-              %li{:class => selected(/events.*$/)}
-                = link_to t('public.schedule.nav.events'), public_events_path
-          %br.clear/
+      #horizontal-navigation
+        %ul
+          - unless feedback_page?
+            %li{:class => selected(/schedule$/)}
+              = link_to t('public.schedule.nav.index'), public_schedule_index_path
+            - @conference.days.each_with_index do |day, index|
+              %li{:class => selected(/#{day.label}$/)}
+                %a{:href => public_schedule_path(:day => index)}
+                  - if @conference.days.length > 1
+                    = t 'public.schedule.nav.day', :index => index + 1
+                    %br/
+                    %span.small-font= l day.date
+                  - else
+                    = t 'public.schedule.nav.schedule'
+            %li{:class => selected(/speakers.*$/)}
+              = link_to t('public.schedule.nav.speakers'), public_speakers_path
+            %li{:class => selected(/events.*$/)}
+              = link_to t('public.schedule.nav.events'), public_events_path
       #main-content
         - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
           %p.release
