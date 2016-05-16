@@ -32,7 +32,8 @@ class Conference < ActiveRecord::Base
   validates_inclusion_of :expenses_enabled, in: [true, false]
   validates_inclusion_of :transport_needs_enabled, in: [true, false]
   validates_uniqueness_of :acronym
-  validates_format_of :acronym, with: /\A[a-zA-Z0-9_-]*\z/
+  validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
+  validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
 
   after_update :update_timeslots
