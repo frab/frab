@@ -30,4 +30,5 @@ class TicketServer < ActiveRecord::Base
       { name: name, email: p.email }
     }
   end
+
 end

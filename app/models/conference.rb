@@ -179,6 +179,10 @@ class Conference < ActiveRecord::Base
     true
   end
 
+  def to_s
+    "#{model_name.human}: #{self.title} (#{self.acronym})"
+  end
+
   private
 
   def update_timeslots

@@ -7,4 +7,8 @@ class Room < ActiveRecord::Base
   default_scope -> { order(:rank) }
 
   scope :is_public, -> { where(public: true) }
+
+  def to_s
+    "#{model_name.human}: #{self.name}"
+  end
 end

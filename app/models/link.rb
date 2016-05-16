@@ -7,4 +7,8 @@ class Link < ActiveRecord::Base
     associated_id: :linkable_id,
     associated_type: :linkable_type
   }
+
+  def to_s
+    "#{model_name.human}: #{self.title}"
+  end
 end
