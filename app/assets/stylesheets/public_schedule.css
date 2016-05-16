@@ -38,25 +38,25 @@ body {
   margin-left: 20px;
 }
 
-#horizontal-navigation {
+#navigation {
   float: left;
   padding: 8em 0.7em 1em 2em;
   vertical-align: top;
 }
 
-#horizontal-navigation ul {
+#navigation ul {
   margin: 0;
   min-width: 135px;
 }
 
-#horizontal-navigation ul li {
+#navigation ul li {
   background-color: #E1E1E1;
   border: solid 1px #C7C8C6;
   list-style: none;
   margin: 5px 1px 0 0;
 }
 
-#horizontal-navigation ul li a {
+#navigation ul li a {
   color: #666;
   padding: 10px 25px;
   text-align: center;
