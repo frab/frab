@@ -57,23 +57,10 @@
 .event.track-<%= track.name.parameterize -%> div.event-header {
   background-color: #<%= bg_color -%>;
 }
+
 .event.track-<%= track.name.parameterize -%> div.event-header a {
   color: #<%= fg_color -%>;
 }
-<% end %>
-
-/* Colorkeys for Tracks */
-
-<% @conference.tracks.each do |track| %>
-  <% if track.color.blank?
-      bg_color = conference_bg_color
-      fg_color = conference_fg_color
-    else
-      bg_color = track.color
-      fg_color = color_dark?(bg_color) ? 'fff' : '000'
-    end
-
-  %>
 
 #colorkeys .track-<%= track.name.parameterize -%> {
   background-color: #<%= bg_color -%>;
