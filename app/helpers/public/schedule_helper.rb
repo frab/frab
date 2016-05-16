@@ -33,4 +33,8 @@ module Public::ScheduleHelper
   def selected(regex)
     'selected' if request.path =~ regex
   end
+
+  def day_selected(index)
+    'selected' if request.path.ends_with?(index.to_s)
+  end
 end

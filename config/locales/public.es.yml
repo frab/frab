@@ -2,6 +2,7 @@ es:
   time:
     formats:
       time: "%H:%M"
+      day: "%A"
 
   public:
     schedule:

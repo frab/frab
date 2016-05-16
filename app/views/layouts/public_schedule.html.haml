@@ -2,11 +2,11 @@
 - title = t('public.schedule.title', title: @conference.title)
 %html
   %head
-    %meta{ :"http-equiv" => "content-type", :content => "text/html; charset=utf-8" }
+    %meta{ :"http-equiv" => "content-type", content: "text/html; charset=utf-8" }
     %title= title
     = stylesheet_link_tag 'public_schedule'
-    = stylesheet_link_tag public_schedule_style_path(:format => :css), :media => "all"
-    = stylesheet_link_tag 'public_schedule_print', :media => 'print'
+    = stylesheet_link_tag public_schedule_style_path(format: :css), media: "all"
+    = stylesheet_link_tag 'public_schedule_print', media: 'print'
   %body
     #wrapper
       #banner
@@ -15,20 +15,20 @@
       #horizontal-navigation
         %ul
           - unless feedback_page?
-            %li{:class => selected(/schedule$/)}
+            %li{class: selected(/schedule$/)}
               = link_to t('public.schedule.nav.index'), public_schedule_index_path
             - @conference.days.each_with_index do |day, index|
-              %li{:class => selected(/#{day.label}$/)}
-                %a{:href => public_schedule_path(:day => index)}
+              %li{class: day_selected(index)}
+                %a{href: public_schedule_path(day: index)}
                   - if @conference.days.length > 1
-                    = t 'public.schedule.nav.day', :index => index + 1
+                    = l day.start_date, format: :day
                     %br/
                     %span.small-font= l day.date
                   - else
                     = t 'public.schedule.nav.schedule'
-            %li{:class => selected(/speakers.*$/)}
+            %li{class: selected(/speakers.*$/)}
               = link_to t('public.schedule.nav.speakers'), public_speakers_path
-            %li{:class => selected(/events.*$/)}
+            %li{class: selected(/events.*$/)}
               = link_to t('public.schedule.nav.events'), public_events_path
       #main-content
         - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?

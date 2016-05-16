@@ -2,6 +2,7 @@ de:
   time:
     formats:
       time: "%H:%M Uhr"
+      day: "%A"
 
   public:
     schedule:
