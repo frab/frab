@@ -169,6 +169,20 @@ class Person < ActiveRecord::Base
     ticket.present? and ticket.remote_ticket_id.present?
   end
 
+  def merge_with(doppelgaenger, keep_last_updated=false)
+    keep = self
+    kill = doppelgaenger
+
+    keep, kill = kill, keep if keep_last_updated and self.updated_at < doppelgaenger.updated_at
+
+    if keep.user.present?
+      keep.user = keep.user.merge_with(kill.user, keep_last_updated) if kill.user.present?
+    else
+      keep.user = kill.user
+      kill.user = nil
+    end
+  end
+
   private
 
   def speaker_role_state(conference)

@@ -107,6 +107,31 @@ class User < ActiveRecord::Base
     update_attributes(last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1)
   end
 
+  def merge_with(doppelgaenger, keep_last_updated=false)
+    keep = self
+    kill = doppelgaenger
+
+    keep, kill = kill, keep if keep_last_updated and self.updated_at < doppelgaenger.updated_at
+
+    # merge conference users, if both were in the same conference, keep the one from keep
+    kill.conference_users.all.each do |u|
+      next if u.conference.nil?
+      collision = keep.conference_users.find_by conference_id: u.conference_id
+      if collision
+        if ConferenceUser::ROLES.index(u.role) > ConferenceUser::ROLES.index(collision.role)
+          collision.update_attributes :role => u.role
+        end
+        u.destroy
+      else
+        u.update_attributes :user_id => keep.id
+      end
+    end
+
+    # get rid of older user and return the one we keep
+    kill.destroy
+    keep
+  end
+
   private
 
   def conference_user_fields_present
