@@ -52,4 +52,31 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal person.sum_of_expenses(conference, false), e1.value
     assert_equal person.sum_of_expenses(conference, true), e2.value + e3.value
   end
+
+  test 'persons merged correctly' do
+    conference1 = create(:three_day_conference_with_events)
+    conference2 = create(:three_day_conference_with_events)
+
+    person1 = create(:person, user: create(:crew_user) )
+    person2 = create(:person, user: create(:crew_user) )
+
+    cu1 = ConferenceUser.create! user_id: person1.user.id, conference_id: conference1.id, role: 'orga'
+    cu1 = ConferenceUser.create! user_id: person2.user.id, conference_id: conference1.id, role: 'reviewer'
+    cu1 = ConferenceUser.create! user_id: person2.user.id, conference_id: conference2.id, role: 'coordinator'
+
+    assert_equal 2, User.count
+    assert_equal 3, ConferenceUser.count
+
+    event1 = conference1.events.first
+    event2 = conference2.events.first
+    create(:confirmed_event_person, event: event1, person: person1)
+    create(:confirmed_event_person, event: event2, person: person2)
+
+    person1.merge_with(person2)
+
+    assert_equal 1, User.count
+    assert_equal 2, ConferenceUser.count
+
+  end
+
 end
