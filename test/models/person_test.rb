@@ -72,6 +72,8 @@ class PersonTest < ActiveSupport::TestCase
     create(:confirmed_event_person, event: event1, person: person1)
     create(:confirmed_event_person, event: event2, person: person2)
 
+# Rails::logger.debug Availability.count
+
     person1.merge_with(person2)
 
     assert_equal 1, User.count
