@@ -35,13 +35,10 @@ class ScheduleController < ApplicationController
 
   def custom_pdf
     authorize! :read, Event
-    @page_size = params[:page_size]
     @day = @conference.days.find(params[:date_id])
     @rooms = @conference.rooms.is_public.find(params[:room_ids])
-    @events = {}
-    @rooms.each do |room|
-      @events[room] = room.events.accepted.is_public.scheduled_on(@day).order(:start_time)
-    end
+    @layout = page_layout(params[:page_size], params[:half_page])
+    @events = filter_events_by_day_and_rooms(@day, @rooms)
 
     respond_to do |format|
       format.pdf
@@ -84,5 +81,21 @@ class ScheduleController < ApplicationController
     else
       'en'
     end
+  end
+
+  def page_layout(page_size, half_page)
+    if half_page
+      CustomPDF::HalfPageLayout.new(page_size)
+    else
+      CustomPDF::FullPageLayout.new(page_size)
+    end
+  end
+
+  def filter_events_by_day_and_rooms(day, rooms)
+    events = {}
+    rooms.each do |room|
+      events[room] = room.events.accepted.is_public.scheduled_on(day).order(:start_time)
+    end
+    events
   end
 end

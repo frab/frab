@@ -45,7 +45,7 @@ class Public::ScheduleController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        @page_size = 'A4'
+        @layout = CustomPDF::FullPageLayout.new('A4')
         render template: 'schedule/custom_pdf'
       end
     end

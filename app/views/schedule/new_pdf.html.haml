@@ -13,6 +13,10 @@
           .input
             = select_tag "date_id", options_from_collection_for_select(@conference.days, "id", "label")
         .clearfix
+          = label_tag "half_page", "Only use half page width:"
+          .input
+            = check_box_tag "half_page", false
+        .clearfix
           = label_tag "room_ids[]", "Select rooms:"
           .input
             %ul.inputs-list
