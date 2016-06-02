@@ -219,6 +219,11 @@ class EventsController < ApplicationController
   end
 
   def search(events, params)
+    filter = events
+    filter = filter.where( {state: params[:state]}) if params[:state].present?
+    filter = filter.where( {event_type: params[:type]}) if params[:type].present?
+    filter = filter.where( {track: Track.find_by(:name => params[:track_name])}) if params[:track_name].present?
+
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
       sort = begin
@@ -226,7 +231,7 @@ class EventsController < ApplicationController
              rescue
                nil
              end
-      @search = events.ransack(title_cont: term,
+      @search = filter.ransack(title_cont: term,
                                description_cont: term,
                                abstract_cont: term,
                                track_name_cont: term,
@@ -234,7 +239,7 @@ class EventsController < ApplicationController
                                m: 'or',
                                s: sort)
     else
-      @search = events.ransack(params[:q])
+      @search = filter.ransack(params[:q])
     end
 
     @search.result(distinct: true)
