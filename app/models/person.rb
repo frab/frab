@@ -216,6 +216,11 @@ class Person < ActiveRecord::Base
 
     # update conflicts on all associated events
     keep.events.all { |event| event.update_conflicts() }
+
+    # remove merged user and save the one to keep
+    kill.destroy
+    keep.save!
+    keep
   end
 
   private

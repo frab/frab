@@ -129,6 +129,7 @@ class User < ActiveRecord::Base
 
     # get rid of older user and return the one we keep
     kill.destroy
+    keep.save
     keep
   end
 
