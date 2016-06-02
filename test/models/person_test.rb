@@ -71,22 +71,36 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 2, Person.count
     assert_equal 3, ConferenceUser.count
 
+    user3 = create(:crew_user)
+    person3 = user3.person
+    ConferenceUser.create! user_id: user3.id, conference_id: conference1.id, role: 'reviewer'
+
     event1 = conference1.events.first
     event2 = conference2.events.first
     create(:confirmed_event_person, event: event1, person: person1)
     create(:confirmed_event_person, event: event2, person: person2)
+    create(:confirmed_event_person, event: event2, person: person3)
 
 # Rails::logger.debug Availability.count
 
-    person2.merge_with(person1)
+    person2.merge_with person1
+
+    assert_equal 2, User.count
+    assert_equal 2, Person.count
+    assert_equal 3, ConferenceUser.count
+
+    # check if the person2's user role for conference1 was properly up-merged to orga
+    assert_equal 'orga', person2.user.conference_users.find_by(conference_id: conference1.id).role
+
+    # last updated person is person3, so it should be kept
+    merged_person = person2.merge_with person3, keep_last_updated: true
 
     assert_equal 1, User.count
     assert_equal 1, Person.count
     assert_equal 2, ConferenceUser.count
 
-    # check if the person2's user role for conference1 was properly up-merged to orga
-    assert_equal 'orga', person2.user.conference_users.find_by(conference_id: conference1.id).role
-
+    assert_equal merged_person, person3
+    assert_equal 'orga', person3.user.conference_users.find_by(conference_id: conference1.id).role
   end
 
 end
