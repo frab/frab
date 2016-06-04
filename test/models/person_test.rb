@@ -22,6 +22,13 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 'Bred Fesen', person.full_name
   end
 
+  test '#newer_than?' do
+    old_person = create(:person)
+    new_person = create(:person)
+    refute old_person.newer_than?(new_person)
+    assert new_person.newer_than?(old_person)
+  end
+
   test 'feedback average gets calculated correctly' do
     conference = create(:conference)
     event1 = create(:event, conference: conference)
@@ -80,8 +87,6 @@ class PersonTest < ActiveSupport::TestCase
     create(:confirmed_event_person, event: event1, person: person1)
     create(:confirmed_event_person, event: event2, person: person2)
     create(:confirmed_event_person, event: event2, person: person3)
-
-# Rails::logger.debug Availability.count
 
     person2.merge_with person1
 

@@ -50,6 +50,10 @@ class Person < ActiveRecord::Base
     joins(events: :conference).where("conferences.id": conference.id).where("events.state": 'confirmed')
   }
 
+  def newer_than?(person)
+    updated_at > person.updated_at
+  end
+
   def full_name
     if first_name.blank? or last_name.blank?
       public_name
@@ -169,58 +173,8 @@ class Person < ActiveRecord::Base
     ticket.present? and ticket.remote_ticket_id.present?
   end
 
-  def merge_with(doppelgaenger, keep_last_updated=false)
-    keep = self
-    kill = doppelgaenger
-
-    keep, kill = kill, keep if keep_last_updated and self.updated_at < doppelgaenger.updated_at
-
-    # Merge or move user model
-    if keep.user.present?
-      keep.user = keep.user.merge_with(kill.user, keep_last_updated) if kill.user.present?
-    else
-      keep.user = kill.user
-      kill.user = nil
-    end
-
-    # Get list of all conferences for which keep already has set the availabilities, then only
-    # import availabilities for the others
-    keep_cons = keep.availabilities.select(:conference_id).uniq
-    kill.availabilities.all do |avail|
-      next if keep_cons.include? avail.conference_id
-      avail.update_attributes(:person_id => keep.id)
-    end
-
-    # Merge ticket. Orphan ticket in kill, if both have one
-    if keep.ticket.nil?
-      keep.ticket = kill.ticket
-      kill.ticket = nil
-    end
-
-    # Merge languages
-    kill.languages.all do |lang|
-      keep.languages << lang unless keep.languages.include? lang
-    end
-
-    # Merge event_person, if the person does not already have the same role in the same event
-    kill.event_people.all do |event_person|
-      next if keep.event_people.find_by(eventid: event_person.event_id, role: event_person.role)
-      event_person.update_attributes(:person_id => keep.id)
-    end
-
-    # steal all members that need no special treatment
-    kill.event_ratings.all { |rating| rating.update_attributes(:person_id => keep.id) }
-    kill.im_accounts.all { |im| im.update_attributes(:person_id => keep.id) }
-    kill.links.all { |link| link.update_attributes(:associated_id => keep.id) }
-    kill.phone_numbers.all { |phone| phone.update_attributes(:person_id => keep.id) }
-
-    # update conflicts on all associated events
-    keep.events.all { |event| event.update_conflicts() }
-
-    # remove merged user and save the one to keep
-    kill.destroy
-    keep.save!
-    keep
+  def merge_with(doppelgaenger, keep_last_updated = false)
+    MergePersons.new(keep_last_updated).combine!(self, doppelgaenger)
   end
 
   private
