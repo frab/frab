@@ -38,10 +38,10 @@
                 = event.ticket.remote_ticket_id
               -else
                 = link_to event.ticket.remote_ticket_id, get_ticket_view_url( event.ticket.remote_ticket_id ), target: "_blank"
-        %td= event.track.try(:name)
-        %td= event.event_type
+        %td= link_to_unless params[:track_name].present?, event.track.try(:name), url_for(params.merge({:track_name => event.track.try(:name)}))
+        %td= link_to_unless params[:event_type].present?, event.event_type, url_for(params.merge({:event_type => event.event_type}))
         - if can? :crud, Event
-          %td= event.state
+          %td= link_to_unless params[:event_state].present?, event.state, url_for(params.merge({:event_state => event.state}))
         %td= l(event.created_at.to_date)
         %td.buttons
           = action_button "small", 'Show', event

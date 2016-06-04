@@ -12,7 +12,7 @@
     %li= link_to "Event Ratings", ratings_events_path
     - if @conference.feedback_enabled
       %li= link_to "Event Feedbacks", feedbacks_events_path
-  - if params[:term].blank? and @events.all.empty?
+  - unless @conference.events.any?
     .row
       .span16
         .blank-slate
@@ -23,4 +23,5 @@
             papers, to allow others to submit events for
             you to review.
   - else
+    = render 'filters', params
     = render 'shared/search_and_table', collection: @events

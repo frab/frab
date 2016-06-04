@@ -1,0 +1,15 @@
+- if params[:event_type].present? or params[:event_state].present? or params[:track_name].present?
+  %p
+    %b Filters:
+    %span{:style => 'margin-left: 1em'}
+      - if params[:track_name].present?
+        = link_to "[x]", url_for(params.except(:track_name))
+        track name: #{params[:track_name]}
+    %span{:style => 'margin-left: 1em'}
+      - if params[:event_type].present?
+        = link_to "[x]", url_for(params.except(:event_type))
+        event type: #{params[:event_type]}
+    %span{:style => 'margin-left: 1em'}
+      - if params[:event_state].present?
+        = link_to "[x]", url_for(params.except(:event_state))
+        event state: #{params[:event_state]}
