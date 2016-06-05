@@ -1,9 +1,11 @@
 language: ruby
 rvm:
   - 2.2.3
+  - 2.3.1
 bundler_args: --without mysql postgresql
 before_install:
   - cp config/database.yml.template config/database.yml
 script:
-  - bundle exec rake db:setup
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
   - bundle exec rake

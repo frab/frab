@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     self.sign_in_count ||= 0
   end
 
+  def newer_than?(user)
+    updated_at > user.updated_at
+  end
+
   def is_admin?
     self.role == 'admin'
   end

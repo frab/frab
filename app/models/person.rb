@@ -50,6 +50,10 @@ class Person < ActiveRecord::Base
     joins(events: :conference).where("conferences.id": conference.id).where("events.state": 'confirmed')
   }
 
+  def newer_than?(person)
+    updated_at > person.updated_at
+  end
+
   def full_name
     if first_name.blank? or last_name.blank?
       public_name
@@ -167,6 +171,10 @@ class Person < ActiveRecord::Base
 
   def remote_ticket?
     ticket.present? and ticket.remote_ticket_id.present?
+  end
+
+  def merge_with(doppelgaenger, keep_last_updated = false)
+    MergePersons.new(keep_last_updated).combine!(self, doppelgaenger)
   end
 
   private
