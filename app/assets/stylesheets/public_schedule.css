@@ -1,4 +1,4 @@
-/*
+  /*
  *= require_self
  *
  */
@@ -17,7 +17,7 @@ body {
 #wrapper { width: 100%; }
 
 #header {
-  background-color: #C7C8C6;
+  background-color: #41afff;
 }
 
 #header h1 {
@@ -69,7 +69,7 @@ body {
 #main-content p.release {
   float: right;
 
-  background-color: #C7C8C6;
+  background-color: #41afff;
   color: black;
   font-size: 100%;
 
@@ -100,8 +100,6 @@ body {
 }
 
 #navigation ul li {
-  background-color: #E1E1E1;
-  border: solid 1px #C7C8C6;
   padding-top: 5px;
   list-style: none;
   margin: 5px 1px 0 0;
@@ -109,7 +107,7 @@ body {
 
 #navigation ul li a {
   text-decoration:none;
-  color:#666;
+  color:#494947;
   text-align:center;
   font:400 1.12em/1.4em 'Open Sans', sans-serif;
   margin:0;
@@ -129,7 +127,7 @@ body {
   height: auto;
   border-style: solid;
   border-width: 1px 1px 1px;
-  border-color: #C7C8C6;
+  border-color: #41afff;
   background-color: #FEFEFE;
 }
 
@@ -264,7 +262,7 @@ table.list {
 }
 
 table.list td {
-  background: #e4e4e4;
+  background: #41afff;
   padding: 10px;
 }
 
