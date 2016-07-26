@@ -11,7 +11,7 @@ en:
       nav:
         day: "Day %{index}"
         events: "Events"
-        index: "Index"
+        index: "Overview"
         schedule: "Schedule"
         speakers: "Speakers"
 
@@ -19,7 +19,7 @@ en:
         day: "Day %{index} – %{label}"
         events: "Events"
         schedule: "Schedule – %{label}"
-        schedule_index: "Schedule index"
+        schedule_index: "Schedule overview"
         speakers: "Speakers"
 
       day:
