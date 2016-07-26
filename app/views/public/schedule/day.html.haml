@@ -22,39 +22,43 @@
 
 %br.clear/
 #main-table
-  #pagination
-  #conference-rooms
-    %table.rooms-table
-      %thead
-        %tr
-          %th.cell-time
-          - @rooms.each do |room|
-            %th= room.name
-      %tbody
-        - slot = 0
-        - each_timeslot do |time|
-          %tr.cell-height1
-            %td.cell-time
-              - if slot % @conference.default_timeslots == 0
-                %p= time.strftime("%H:%M")
-            - @rooms.each do |room|
-              - @skip_row[room] -= 1
-              - next if @skip_row[room] > 0
-              - if not @events[room].empty? and @events[room].first.start_time == time
-                - event = @events[room].shift
-                - @skip_row[room] = event.time_slots
-                %td{rowspan: event.time_slots, class: "cell-height#{event.time_slots}"}
-                  .event{class: track_class(event)}
-                    .event-wrapper
-                      .event-header
-                        %h2= link_to event.title, public_event_path(id: event.id)
-                      .event-details
-                        .subtitle
-                          = event.subtitle
-                          - if @conference.languages.count > 1
-                            = "(#{event.language})"
-                        .speakers= event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(id: p.id))}.join(", ").html_safe
-              - else
-                %td &nbsp;
-          - slot += 1
-= javascript_include_tag "public_schedule"
+
+  - count = 0
+  - @rooms.each_slice(7) do |rooms|
+    #conference-rooms{ id: count }
+      %a{ name: "#{count}"}
+      - count =+ 1
+      %table.rooms-table
+        %thead
+          %tr
+            %th.cell-time
+            - rooms.each do |room|
+              %th= room.name
+        %tbody
+          - slot = 0
+          - each_timeslot do |time|
+            %tr.cell-height1
+              %td.cell-time
+                - if slot % @conference.default_timeslots == 0
+                  %p= time.strftime("%H:%M")
+              - rooms.each do |room|
+                - @skip_row[room] -= 1
+                - next if @skip_row[room] > 0
+                - if not @events[room].empty? and @events[room].first.start_time == time
+                  - event = @events[room].shift
+                  - @skip_row[room] = event.time_slots
+                  %td{rowspan: event.time_slots, class: "cell-height#{event.time_slots}"}
+                    .event{class: track_class(event)}
+                      .event-wrapper
+                        .event-header
+                          %h2= link_to event.title, public_event_path(id: event.id)
+                        .event-details
+                          .subtitle
+                            = event.subtitle
+                            - if @conference.languages.count > 1
+                              = "(#{event.language})"
+                          .speakers= event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(id: p.id))}.join(", ").html_safe
+                - else
+                  %td &nbsp;
+            - slot += 1
+  = javascript_include_tag "public_schedule"
