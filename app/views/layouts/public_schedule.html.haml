@@ -22,7 +22,7 @@
                 %a{href: public_schedule_path(day: index)}
                   - if @conference.days.length > 1
                     = l day.start_date, format: :day
-                    %br/
+                    = " - "
                     %span.small-font= l day.date
                   - else
                     = t 'public.schedule.nav.schedule'
