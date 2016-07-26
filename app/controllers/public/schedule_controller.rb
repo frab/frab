@@ -55,6 +55,7 @@ class Public::ScheduleController < ApplicationController
     @events = @conference.events.is_public.confirmed.scheduled.sort { |a, b|
       a.to_sortable <=> b.to_sortable
     }
+    @events_by_track = @events.group_by(&:track_id)
     respond_to do |format|
       format.html
       format.json
