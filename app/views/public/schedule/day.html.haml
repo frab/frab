@@ -1,16 +1,25 @@
+- content_for :track_menu do
+  %p.tracks Tracks:
+  %ul.tracks
+    - @conference.tracks.sort_by{|e| e.name }.each do |track|
+      %li
+        .event{class: "track-#{track.name.parameterize}", href: "\##{track.name.downcase}" }= track.name
+
 %h2
   - if @conference.days.length > 1
     = t '.schedule_for_day', index: @day_index+1, label: l(@day.date)
   - else
     = t '.schedule', label: l(@day.date)
-- if different_track_colors?
-  #colorkeys
-    %ul
-      - @conference.tracks.each do |track|
-        %li{class: "track-#{track.name.parameterize}"}
-          %div
-            %a{href: '#'}
-              %p.small-font= track.name
+
+%p.rooms
+  Rooms:
+  %ul.rooms
+    - count_rooms = 0
+    - @rooms.each_slice(7).map{|r| r.map{|n| n.name} }.each do |rooms|
+      %li
+        %a{ href: "\##{count_rooms}"}= rooms.join(', ')
+        - count_rooms =+ 1
+
 %br.clear/
 #main-table
   #pagination
