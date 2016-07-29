@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221162627) do
+ActiveRecord::Schema.define(version: 20160515092921) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -162,35 +162,40 @@ ActiveRecord::Schema.define(version: 20160221162627) do
   add_index "event_ratings", ["person_id"], name: "index_event_ratings_on_person_id"
 
   create_table "events", force: :cascade do |t|
-    t.integer  "conference_id",                                      null: false
-    t.string   "title",                 limit: 255,                  null: false
-    t.string   "subtitle",              limit: 255
-    t.string   "event_type",            limit: 255, default: "talk"
+    t.integer  "conference_id",                                                null: false
+    t.string   "title",                           limit: 255,                  null: false
+    t.string   "subtitle",                        limit: 255
+    t.string   "event_type",                      limit: 255, default: "talk"
     t.integer  "time_slots"
-    t.string   "state",                 limit: 255, default: "new",  null: false
-    t.string   "language",              limit: 255
+    t.string   "state",                           limit: 255, default: "new",  null: false
+    t.string   "language",                        limit: 255
     t.datetime "start_time"
     t.text     "abstract"
     t.text     "description"
-    t.boolean  "public",                            default: true
-    t.string   "logo_file_name",        limit: 255
-    t.string   "logo_content_type",     limit: 255
+    t.boolean  "public",                                      default: true
+    t.string   "logo_file_name",                  limit: 255
+    t.string   "logo_content_type",               limit: 255
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.integer  "track_id"
     t.integer  "room_id"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.float    "average_rating"
-    t.integer  "event_ratings_count",               default: 0
+    t.integer  "event_ratings_count",                         default: 0
     t.text     "note"
     t.text     "submission_note"
-    t.integer  "speaker_count",                     default: 0
-    t.integer  "event_feedbacks_count",             default: 0
+    t.integer  "speaker_count",                               default: 0
+    t.integer  "event_feedbacks_count",                       default: 0
     t.float    "average_feedback"
-    t.string   "guid",                  limit: 255
-    t.boolean  "do_not_record",                     default: false
-    t.string   "recording_license",     limit: 255
+    t.string   "guid",                            limit: 255
+    t.boolean  "do_not_record",                               default: false
+    t.string   "recording_license",               limit: 255
+    t.integer  "number_of_repeats",                           default: 1
+    t.text     "other_locations"
+    t.text     "methods"
+    t.text     "target_audience_experience"
+    t.text     "target_audience_experience_text"
     t.text     "tech_rider"
   end
 
@@ -200,15 +205,16 @@ ActiveRecord::Schema.define(version: 20160221162627) do
   add_index "events", ["state"], name: "index_events_on_state"
 
   create_table "expenses", force: :cascade do |t|
-    t.string   "name",          limit: 255
+    t.string   "name"
     t.decimal  "value"
     t.boolean  "reimbursed"
     t.integer  "person_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
     t.integer  "conference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "expenses", ["conference_id"], name: "index_expenses_on_conference_id"
   add_index "expenses", ["person_id"], name: "index_expenses_on_person_id"
 
   create_table "im_accounts", force: :cascade do |t|
@@ -244,11 +250,11 @@ ActiveRecord::Schema.define(version: 20160221162627) do
 
   create_table "mail_templates", force: :cascade do |t|
     t.integer  "conference_id"
-    t.string   "name",          limit: 255
-    t.string   "subject",       limit: 255
+    t.string   "name"
+    t.string   "subject"
     t.text     "content"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "mail_templates", ["conference_id"], name: "index_mail_templates_on_conference_id"
@@ -298,12 +304,11 @@ ActiveRecord::Schema.define(version: 20160221162627) do
   add_index "phone_numbers", ["person_id"], name: "index_phone_numbers_on_person_id"
 
   create_table "rooms", force: :cascade do |t|
-    t.integer  "conference_id",                            null: false
-    t.string   "name",          limit: 255,                null: false
+    t.integer  "conference_id",             null: false
+    t.string   "name",          limit: 255, null: false
     t.integer  "size"
-    t.boolean  "public",                    default: true
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "rank"
   end
 
@@ -357,8 +362,8 @@ ActiveRecord::Schema.define(version: 20160221162627) do
     t.integer  "seats"
     t.boolean  "booked"
     t.text     "note"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "transport_needs", ["conference_id"], name: "index_transport_needs_on_conference_id"
