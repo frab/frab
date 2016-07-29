@@ -27,7 +27,7 @@ class Public::ScheduleController < ApplicationController
     end
     @day = @conference.days[@day_index]
 
-    @all_rooms = @conference.rooms.is_public
+    @all_rooms = @conference.rooms
     @rooms = []
     @events = {}
     @skip_row = {}

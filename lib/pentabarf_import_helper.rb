@@ -123,7 +123,6 @@ class PentabarfImportHelper
       new_room = Room.create!(
         name: room['conference_room'],
         size: room['size'],
-        public: room['public'],
         conference_id: mappings(:conferences)[room['conference_id']]
       )
       room_mapping[room['conference_room_id']] = new_room.id

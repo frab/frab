@@ -35,8 +35,9 @@ class ScheduleController < ApplicationController
 
   def custom_pdf
     authorize! :read, Event
+    @page_size = params[:page_size]
     @day = @conference.days.find(params[:date_id])
-    @rooms = @conference.rooms.is_public.find(params[:room_ids])
+    @rooms = @conference.rooms.find(params[:room_ids])
     @layout = page_layout(params[:page_size], params[:half_page])
     @events = filter_events_by_day_and_rooms(@day, @rooms)
 

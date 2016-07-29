@@ -12,7 +12,7 @@
     %timeslot_duration= duration_to_time(@conference.timeslot_duration)
   - @conference.days.each_with_index do |day, index|
     %day{index: (index + 1), date: day.start_date.strftime('%Y-%m-%d'), start: day.start_date.iso8601, end: day.end_date.iso8601}
-      - @conference.rooms.is_public.each do |room|
+      - @conference.rooms.each do |room|
         %room{name: room.name}
           - room.events.is_public.accepted.scheduled_on(day).order(:start_time).each do |event|
             %event{id: event.id, guid: event.guid}
