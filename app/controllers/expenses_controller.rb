@@ -21,7 +21,7 @@ class ExpensesController < ApplicationController
 
   def update
     expense = @person.expenses.find(params[:id])
-    expense.update_attributes(params[:expense])
+    expense.update_attributes(expenses_params)
     redirect_to(person_url(@person), notice: 'Expense was successfully updated.')
   end
 
