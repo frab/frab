@@ -22,7 +22,7 @@
                 %a{href: public_schedule_path(day: index)}
                   - if @conference.days.length > 1
                     = l day.start_date, format: :day
-                    %br/
+                    = " - "
                     %span.small-font= l day.date
                   - else
                     = t 'public.schedule.nav.schedule'
@@ -30,6 +30,9 @@
               = link_to t('public.schedule.nav.speakers'), public_speakers_path
             %li{class: selected(/events.*$/)}
               = link_to t('public.schedule.nav.events'), public_events_path
+
+        = yield :track_menu
+
       #main-content
         - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
           %p.release
