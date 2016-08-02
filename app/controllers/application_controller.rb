@@ -94,7 +94,11 @@ class ApplicationController < ActionController::Base
     if request.path =~ /\/cfp/
       new_cfp_session_path
     else
-      new_session_path
+      if request.get?
+        new_session_path(return_to: request.path)
+      else
+        new_session_path
+      end
     end
   end
 

@@ -36,7 +36,11 @@ class SessionsController < ApplicationController
     if current_user.is_submitter?
       cfp_person_path
     else
-      root_path
+      if params.key?(:return_to)
+        params[:return_to]
+      else
+        root_path
+      end
     end
   end
 
