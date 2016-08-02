@@ -1,26 +1,42 @@
+- content_for :track_menu do
+  %p.tracks Tracks:
+  %ul.tracks
+    - @events_by_track.each do |track_id, events|
+      - if events.count > 0 && ! track_id.nil?
+        - track = Track.find(track_id)
+        %li
+          .event{class: "track-#{track.name.parameterize}"}
+            %a{href: "\##{track.name.downcase}" }= track.name
+
 - no_tracks = @conference.tracks.empty?
 
 %h2.title= t '.events'
 
-%table.list
-  %thead
-    %tr
-      %th &nbsp;
-      %th= t '.title'
-      - unless no_tracks
-        %th= t '.track'
-      %th= t '.speakers'
-  %tbody
-    - @events.each do |event|
-      %tr
-        %td= link_to image_box(event.logo, :small), public_event_path(id: event.id)
-        %td
-          %b= link_to event.title, public_event_path(id: event.id)
-          %br/
-          = truncate(event.abstract, length: 80, separator: ' ')
-        - unless no_tracks
-          %td= event.track.try(:name)
-        %td
-          %ul
-            - event.speakers.each do |speaker|
-              %li= link_to speaker.public_name, public_speaker_path(id: speaker.id)
+- @events_by_track.each do |track_id, events|
+  - if events.count >  0 && ! track_id.nil?
+    - track = Track.find(track_id)
+
+    %a{ name: track.name.downcase }
+    %h3= track.name
+    %table.list{ class: track.name.gsub(' ', '').downcase }
+      %thead
+        %tr
+          %th &nbsp;
+          %th= t '.title'
+          - unless no_tracks
+            %th= t '.track'
+          %th= t '.speakers'
+      %tbody
+        - events.each do |event|
+          %tr
+            %td= link_to image_box(event.logo, :small), public_event_path(id: event.id)
+            %td
+              %b= link_to event.title, public_event_path(id: event.id)
+              %br/
+              = truncate(event.abstract, length: 80, separator: ' ')
+            - unless no_tracks
+              %td= event.track.try(:name)
+            %td
+              %ul
+                - event.speakers.each do |speaker|
+                  %li= link_to speaker.public_name, public_speaker_path(id: speaker.id)
