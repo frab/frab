@@ -103,6 +103,7 @@ Frab::Application.routes.draw do
           get :start_review
           get :cards
           get :export_accepted
+          get :export_confirmed
         end
         member do
           get :people

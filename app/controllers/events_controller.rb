@@ -25,8 +25,17 @@ class EventsController < ApplicationController
     @events = @conference.events.is_public.accepted
 
     respond_to do |format|
-      format.json
+      format.json { render :export }
     end
+  end
+
+  def export_confirmed
+      authorize! :read, Event
+      @events = @conference.events.is_public.confirmed
+
+      respond_to do |format|
+        format.json { render :export }
+      end
   end
 
   # current_users events
