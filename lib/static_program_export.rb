@@ -190,12 +190,18 @@ class StaticProgramExport
           strip_asset_path(link, 'href')
         else
           path = @base_url + strip_path(href.value)
-          path += '.html' unless path =~ /\.\w+$/
+          path = add_html_ext(path) unless path =~ /\.\w+$/
           href.value = path
         end
       end
     end
     document
+  end
+
+  def add_html_ext(path)
+    uri = URI.parse(path)
+    uri.path += '.html'
+    uri.to_s
   end
 
   def strip_asset_path(element, attribute)
