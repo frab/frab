@@ -231,7 +231,7 @@ class EventsController < ApplicationController
     filter = events
     filter = filter.where(state: params[:event_state]) if params[:event_state].present?
     filter = filter.where(event_type: params[:event_type]) if params[:event_type].present?
-    filter = filter.where(track: Track.find_by(:name => params[:track_name])) if params[:track_name].present?
+    filter = filter.where(track: @conference.tracks.find_by(:name => params[:track_name])) if params[:track_name].present?
 
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
