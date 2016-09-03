@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_action :set_locale
+  before_filter :set_paper_trail_whodunnit
   prepend_before_filter :load_conference
 
   helper_method :current_user

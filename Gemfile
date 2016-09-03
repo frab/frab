@@ -53,6 +53,8 @@ gem 'prawn', '< 1.0'
 gem 'prawn_rails'
 gem 'ransack'
 gem 'ri_cal'
+gem 'roust'
+#gem 'roust', :git => 'git@github.com:bulletproofnetworks/roust.git'
 gem 'simple_form'
 gem 'sucker_punch'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
