@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905132242) do
+ActiveRecord::Schema.define(version: 20160908211732) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -255,14 +255,16 @@ ActiveRecord::Schema.define(version: 20160905132242) do
   add_index "mail_templates", ["conference_id"], name: "index_mail_templates_on_conference_id"
 
   create_table "notifications", force: :cascade do |t|
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "locale",         limit: 255
-    t.string   "accept_subject", limit: 255
-    t.string   "reject_subject", limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "locale",           limit: 255
+    t.string   "accept_subject",   limit: 255
+    t.string   "reject_subject",   limit: 255
     t.text     "accept_body"
     t.text     "reject_body"
     t.integer  "conference_id"
+    t.string   "schedule_subject", limit: 255
+    t.text     "schedule_body"
   end
 
   create_table "people", force: :cascade do |t|

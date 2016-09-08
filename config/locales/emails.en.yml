@@ -42,3 +42,18 @@ en:
         Kind regards
 
         The %{conference} team
+    event_schedule:
+      subject: "Your submission to %{conference} scheduled on %{date} at %{time}"
+      greeting: "Dear %{forename},"
+      info: |
+        We're glad to inform you that your submission
+
+        %{event}
+        
+        has been scheduled for the %{date} at %{time}.
+        
+        You will be speaking at %{room}.
+      goodbye: |
+        See you at %{conference}
+
+        The %{conference} team

@@ -131,7 +131,7 @@ class ConferencesController < ApplicationController
       tracks_attributes: %i(name color _destroy id),
       languages_attributes: %i(language_id code _destroy id),
       ticket_server_attributes: %i(url user password queue _destroy id),
-      notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body _destroy)
+      notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body schedule_subject schedule_body _destroy)
     )
   end
 end
