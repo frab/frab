@@ -47,3 +47,19 @@ de:
         Schöne Grüße 
 
         Das %{conference}-Team
+
+    event_schedule:
+      subject: "Deine Einreichung zur %{conference} am %{date} um %{time}"
+      greeting: "Hallo %{forename},"
+      info: |
+        Wir freuen uns, mitteilen zu können, dass Deine Einreichung
+
+        %{event}
+        
+        einen Platz im Programm gefunden hat. Sie findet am %{date}
+        um %{time} in %{room} statt.
+      goodbye: |
+        Schöne Grüße
+
+        Das %{conference}-Team
+
