@@ -12,6 +12,5 @@
   - if @conference.ticket_server_enabled?
     - conference_tab(:ticket_server, active) do
       = link_to t(:ticket_server), edit_ticket_server_conference_path
-  - if @conference.ticket_type == 'integrated'
-    - conference_tab(:notifications, active) do
-      = link_to "Notifications", edit_notifications_conference_path
+  - conference_tab(:notifications, active) do
+    = link_to "Notifications", edit_notifications_conference_path
