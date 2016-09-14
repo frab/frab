@@ -1,5 +1,6 @@
 class EventPerson < ActiveRecord::Base
   include UniqueToken
+  include Rails.application.routes.url_helpers
 
   ROLES = [:coordinator, :submitter, :speaker, :moderator]
   STATES = [:canceled, :confirmed, :declined, :idea, :offer, :unclear, :attending]
@@ -36,6 +37,29 @@ class EventPerson < ActiveRecord::Base
     conference = self.event.conference
     availabilities = self.person.availabilities_in(conference)
     availabilities.any? { |a| a.within_range?(start_time) && a.within_range?(end_time) }
+  end
+
+  def substitute_notification_variables(string)
+    conference = self.event.conference
+    locale = self.person.locale_for_mailing(conference)
+
+    string = string.gsub '%{conference}', conference.title
+    string = string.gsub '%{event}', self.event.title
+    string = string.gsub '%{forename}', self.person.first_name.presence || ''
+    string = string.gsub '%{surname}', self.person.last_name.presence || ''
+    string = string.gsub '%{public_name}', self.person.public_name.presence || ''
+
+    string = string.gsub '%{room}', self.event.room.name if self.event.room.present?
+    if self.event.start_time.present?
+      string = string.gsub '%{date}', I18n.l(self.event.start_time.to_date, locale: locale)
+      string = string.gsub '%{time}', I18n.l(self.event.start_time.to_time, locale: locale, format: '%X') 
+    end
+
+    if self.confirmation_token.present?
+      string = string.gsub '%{link}', cfp_event_confirm_by_token_url( conference_acronym: conference.acronym, id: self.event.id, token: self.confirmation_token, host: ENV.fetch('FRAB_HOST'), locale: locale )
+    end
+
+    string
   end
 
   def to_s

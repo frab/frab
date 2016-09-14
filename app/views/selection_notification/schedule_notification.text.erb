@@ -1,2 +1,2 @@
 <%- I18n.locale = @locale %>
-<%= @notification.schedule_body.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{room}', @event.room.presence || '').gsub('%{date}', @event.start_time ? I18n.l(@event.start_time.to_date) : '').gsub('%{time}', @event.start_time ? I18n.l(@event.start_time.to_time, format: '%X') : '').gsub('%{surname}', @person.last_name).gsub('%{forename}', @person.first_name).gsub('%{public_name}', @person.public_name) %>
+<%= @event_person.substitute_notification_variables(@notification.schedule_body) %>
