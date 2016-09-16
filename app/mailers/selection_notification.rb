@@ -1,31 +1,29 @@
 class SelectionNotification < ActionMailer::Base
   default from: ENV.fetch('FROM_EMAIL')
 
-  def common_notification(event_person)
-    @event_person = event_person
+  def common_notification(event_person, field)
+    @locale = event_person.person.locale_for_mailing(event_person.event.conference)
+    @body = event_person.substitute_notification_variables(field + '_body')
     conference = event_person.event.conference
-    @locale = event_person.person.locale_for_mailing(conference)
-    @notification = conference.notifications.with_locale(@locale).first
-    fail "Notification for #{@locale} not found" if @notification.nil?
 
     mail(
       reply_to: conference.email,
       to: event_person.person.email,
-      subject: event_person.substitute_notification_variables(yield @notification),
+      subject: event_person.substitute_notification_variables(field + '_subject'),
       locale: @locale,
       title: conference.title
     )
   end
 
   def acceptance_notification(event_person)
-    common_notification(event_person) { |notification| notification.accept_subject }
+    common_notification(event_person, 'accept')
   end
 
   def rejection_notification(event_person)
-    common_notification(event_person) { |notification| notification.reject_subject }
+    common_notification(event_person, 'reject')
   end
 
   def schedule_notification(event_person)
-    common_notification(event_person) { |notification| notification.schedule_subject }
+    common_notification(event_person, 'schedule')
   end
 end

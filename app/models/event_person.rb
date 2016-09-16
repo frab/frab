@@ -39,10 +39,13 @@ class EventPerson < ActiveRecord::Base
     availabilities.any? { |a| a.within_range?(start_time) && a.within_range?(end_time) }
   end
 
-  def substitute_notification_variables(string)
+  def substitute_notification_variables(field)
     conference = self.event.conference
     locale = self.person.locale_for_mailing(conference)
+    notification = conference.notifications.with_locale(locale).first
+    fail "Notification for #{locale} not found" if notification.nil?
 
+    string = notification[field]
     string = string.gsub '%{conference}', conference.title
     string = string.gsub '%{event}', self.event.title
     string = string.gsub '%{forename}', self.person.first_name.presence || ''
@@ -55,11 +58,10 @@ class EventPerson < ActiveRecord::Base
       string = string.gsub '%{time}', I18n.l(self.event.start_time.to_time, locale: locale, format: '%X') 
     end
 
-    if self.confirmation_token.present?
-      string = string.gsub '%{link}', cfp_event_confirm_by_token_url( conference_acronym: conference.acronym, id: self.event.id, token: self.confirmation_token, host: ENV.fetch('FRAB_HOST'), locale: locale )
-    end
+    string unless self.confirmation_token.present?
 
-    string
+    # XXX ENV.fetch('FRAB_HOST') does not belong here
+    string.gsub '%{link}', cfp_event_confirm_by_token_url( conference_acronym: conference.acronym, id: self.event.id, token: self.confirmation_token, host: ENV.fetch('FRAB_HOST'), locale: locale )
   end
 
   def to_s
