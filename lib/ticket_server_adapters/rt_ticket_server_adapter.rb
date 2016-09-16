@@ -30,4 +30,23 @@ class RTTicketServerAdapter < TicketServerAdapter
     ticket['id']
   end
 
+  def add_correspondence(remote_id, subject, body, recipient)
+    rt = Roust.new({
+            :server   => @server.url,
+            :username => @server.user,
+            :password => @server.password
+            }, {
+            'Referer' => @server.url
+            })
+    fail "RT Error" if not rt.authenticated?
+
+    old_ticket = rt.show(remote_id)
+    attrs = { 'Subject' => subject }
+    attrs['Requestors'] = recipient if recipient
+    rt.ticket_update(remote_id, attrs )
+    rt.ticket_comment(remote_id, { 'Action' => 'correspond', 'Text' => body })
+    rt.ticket_update(remote_id, old_ticket.slice( 'Subject', 'Requestors' ))
+
+  end
+
 end
