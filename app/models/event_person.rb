@@ -58,7 +58,7 @@ class EventPerson < ActiveRecord::Base
       string = string.gsub '%{time}', I18n.l(self.event.start_time.to_time, locale: locale, format: '%X') 
     end
 
-    string unless self.confirmation_token.present?
+    return string unless self.confirmation_token.present?
 
     # XXX ENV.fetch('FRAB_HOST') does not belong here
     string.gsub '%{link}', cfp_event_confirm_by_token_url( conference_acronym: conference.acronym, id: self.event.id, token: self.confirmation_token, host: ENV.fetch('FRAB_HOST'), locale: locale )
