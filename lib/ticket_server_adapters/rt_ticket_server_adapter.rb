@@ -42,11 +42,16 @@ class RTTicketServerAdapter < TicketServerAdapter
 
     old_ticket = rt.show(remote_id)
     attrs = { 'Subject' => subject }
-    attrs['Requestors'] = recipient if recipient
+    attrs['Requestors'] = [ recipient ] if recipient
     rt.ticket_update(remote_id, attrs )
-    rt.ticket_comment(remote_id, { 'Action' => 'correspond', 'Text' => body })
+    begin
+      rt.ticket_comment(remote_id, { 'Action' => 'correspond', 'Text' => body })
+    rescue Exception => ex
+      Rails.logger.debug 'RT reported an error'
+    end
     rt.ticket_update(remote_id, old_ticket.slice( 'Subject', 'Requestors' ))
 
+    raise ex if ex
   end
 
 end
