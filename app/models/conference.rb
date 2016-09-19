@@ -12,8 +12,10 @@ class Conference < ActiveRecord::Base
   has_many :conference_exports, dependent: :destroy
   has_many :mail_templates, dependent: :destroy
   has_many :transport_needs, dependent: :destroy
+  has_many :sub_conferences, class_name: Conference, foreign_key: :parent_id
   has_one :call_for_participation, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
+  belongs_to :parent, class_name: Conference
 
   accepts_nested_attributes_for :rooms, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
@@ -36,6 +38,8 @@ class Conference < ActiveRecord::Base
   validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
+  validate :subs_dont_allow_days
+  validate :subs_cant_have_subs
 
   after_update :update_timeslots
 
@@ -56,6 +60,32 @@ class Conference < ActiveRecord::Base
   scope :accessible_by_orga, ->(user) {
     joins(:conference_users).where(conference_users: { user_id: user, role: 'orga' })
   }
+
+  alias :own_days :days
+
+  def days
+    if parent
+      parent.days
+    else
+      own_days
+    end
+  end
+
+  def timezone
+    if parent
+      parent.timezone
+    else
+      self.attributes['timezone']
+    end
+  end
+
+  def timeslot_duration
+    if parent
+      parent.timeslot_duration
+    else
+      self.attributes['timeslot_duration']
+    end
+  end
 
   def self.current
     self.order('created_at DESC').first
@@ -192,7 +222,7 @@ class Conference < ActiveRecord::Base
     old_duration = self.timeslot_duration_was
     factor = old_duration / self.timeslot_duration
     Event.paper_trail_off!
-    self.events.each do |event|
+    self.events_including_sub_conferences.each do |event|
       event.update_attributes(time_slots: event.time_slots * factor)
     end
     Event.paper_trail_on!
@@ -209,4 +239,25 @@ class Conference < ActiveRecord::Base
       end
     }
   end
+
+  def subs_dont_allow_days
+    if Day.where(conference: self).any? && self.parent
+      self.errors.add(:days, "are not allowed for conferences with a parent")
+      self.errors.add(:parent, "may not be set for conferences with days")
+    end
+  end
+
+  def subs_cant_have_subs
+    if self.subs.any? && self.parent
+      self.errors.add(:subs, "cannot have sub-conferences and a parent")
+      self.errors.add(:parent, "may not be set for conferences with a parent")
+    end
+  end
+
+  def duration_to_time(duration_in_minutes)
+    minutes = sprintf('%02d', duration_in_minutes % 60)
+    hours = sprintf('%02d', duration_in_minutes / 60)
+    "#{hours}:#{minutes}h"
+  end
+
 end
