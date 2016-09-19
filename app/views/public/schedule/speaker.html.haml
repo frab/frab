@@ -21,7 +21,7 @@
   %h3= t '.events_in_this_conference'
   %table.list
     %tbody
-      - @speaker.public_and_accepted_events_as_speaker_in(@conference).each do |event|
+      - @speaker.public_and_accepted_events_as_speaker_in(@conference.include_subs).each do |event|
         %tr
           %td= image_box event.logo, :small
           %td= link_to event.title, public_event_path(id: event.id)

@@ -24,7 +24,7 @@ module Public::ScheduleHelper
   end
 
   def different_track_colors?
-    colors = @conference.tracks.map(&:color)
+    colors = @conference.tracks_including_subs.map(&:color)
     colors.uniq.size > 1
   end
 

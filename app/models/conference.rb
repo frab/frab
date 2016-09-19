@@ -12,7 +12,7 @@ class Conference < ActiveRecord::Base
   has_many :conference_exports, dependent: :destroy
   has_many :mail_templates, dependent: :destroy
   has_many :transport_needs, dependent: :destroy
-  has_many :sub_conferences, class_name: Conference, foreign_key: :parent_id
+  has_many :subs, class_name: Conference, foreign_key: :parent_id
   has_one :call_for_participation, dependent: :destroy
   has_one :ticket_server, dependent: :destroy
   belongs_to :parent, class_name: Conference
@@ -85,6 +85,26 @@ class Conference < ActiveRecord::Base
     else
       self.attributes['timeslot_duration']
     end
+  end
+
+  def include_subs
+    [self, self.subs].flatten.uniq
+  end
+
+  def events_including_subs
+    Event.where(conference: self.include_subs)
+  end
+
+  def rooms_including_subs
+    Room.where(conference: self.include_subs)
+  end
+
+  def tracks_including_subs
+    Track.where(conference: self.include_subs)
+  end
+
+  def languages_including_subs
+    Language.where(attachable: self.include_subs)
   end
 
   def self.current
@@ -222,7 +242,7 @@ class Conference < ActiveRecord::Base
     old_duration = self.timeslot_duration_was
     factor = old_duration / self.timeslot_duration
     Event.paper_trail_off!
-    self.events_including_sub_conferences.each do |event|
+    self.events_including_subs.each do |event|
       event.update_attributes(time_slots: event.time_slots * factor)
     end
     Event.paper_trail_on!
