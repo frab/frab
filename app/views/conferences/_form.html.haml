@@ -1,16 +1,29 @@
 = simple_form_for(@conference, url: @conference.new_record? ? create_conference_path : conference_path) do |f|
+  - if @conference.new_record? && @possible_parents.any?
+    %fieldset.inputs
+      %legend= t(:parent_conference)
+      = f.input :parent_id, as: :select, collection: @possible_parents, hint: "Please select a parent for this new conference. A conferences nested under a parent will inherit the days and some settings (such as time slots and time zones etc.) from the parent, and the configuration of rooms and tracks may only be done with administation right for the parent conference. The parent's schedule export will also include events from the sub-conferences. If you don't know what this means, just leave this field blank, but note that this setting cannot be changed after the conference has been created."
+
+  - elsif @conference.parent
+    %fieldset.inputs
+      %legend= t(:parent_conference)
+      .input
+        This conference is a sub-conference of
+        ="'#{@conference.parent.title}'."
+
   %fieldset.inputs
     %legend= t(:basic_information)
     = f.input :title, hint: "The name of your conference as it shall appear throughout the site. Example: 'FrOSCon'"
     = f.input :acronym, hint: "A short and unique handle for your conference, using only lower-case letters, numbers and underscores. This will be used to identify your conference in URLs etc. Example: 'froscon2011'"
     = f.input :email, hint: "Contact email address for your conference. Will be used as reply-to address in emails sent out by the system."
     = f.input :color, hint: "You may define a color for your conference.", input_html: { class: 'color' }
-  %fieldset.inputs
-    %legend= t(:timeslot_configuration)
-    = f.input :timezone, as: :time_zone, hint: "Please select in what time zone your conference will take place. This is needed to correctly display times for your events."
-    = f.input :timeslot_duration, as: :select, collection: timeslot_durations(@conference), hint: "How long do you want the smallest timeslots to be? This essentially defines the grid on which you can plan your program. WARNING: This one is tricky and cannot be easily changed later, so give this some thought. In general, larger timeslots make things a lot simpler, but smaller ones make you more flexible. Example: If all you need is to schedule 30 minute talks that perfectly align with full and half hours, choose 30 minutes as slot size. If you have 1 hour long talks and 15 minute breaks between them, 15 minutes is the perfect slot size. Note that you can make the slot size smaller later on, as long as the old slot size is a multiple of the new one. So going from 15 minutes down to 5 is fine, while going down to 10 minutes will not work."
-    = f.input :default_timeslots, as: :select, collection: 1..20, hint: "What is the default length of your events? Example: If you chose a timeslot duration of 15 minutes to account for breaks, but your talks are usually 1 hour long, select 4, because 4 times 15 minutes is one hour."
-    = f.input :max_timeslots, as: :select, collection: 1..100, hint: "What is the maximum length of a single event (e.g. a single talk)?"
+  -if @conference.parent.nil?
+    %fieldset.inputs
+      %legend= t(:timeslot_configuration)
+      = f.input :timezone, as: :time_zone, hint: "Please select in what time zone your conference will take place. This is needed to correctly display times for your events."
+      = f.input :timeslot_duration, as: :select, collection: timeslot_durations(@conference), hint: "How long do you want the smallest timeslots to be? This essentially defines the grid on which you can plan your program. WARNING: This one is tricky and cannot be easily changed later, so give this some thought. In general, larger timeslots make things a lot simpler, but smaller ones make you more flexible. Example: If all you need is to schedule 30 minute talks that perfectly align with full and half hours, choose 30 minutes as slot size. If you have 1 hour long talks and 15 minute breaks between them, 15 minutes is the perfect slot size. Note that you can make the slot size smaller later on, as long as the old slot size is a multiple of the new one. So going from 15 minutes down to 5 is fine, while going down to 10 minutes will not work."
+      = f.input :default_timeslots, as: :select, collection: 1..20, hint: "What is the default length of your events? Example: If you chose a timeslot duration of 15 minutes to account for breaks, but your talks are usually 1 hour long, select 4, because 4 times 15 minutes is one hour."
+      = f.input :max_timeslots, as: :select, collection: 1..100, hint: "What is the maximum length of a single event (e.g. a single talk)?"
   = dynamic_association :languages, t(:event_languages), f, hint: "Choose which languages events in this conference can be held in."
   %fieldset.inputs
     %legend= t(:submission_configuration)
