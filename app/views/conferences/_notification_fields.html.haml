@@ -1,4 +1,4 @@
-.notification
+.nested-fields
   %fieldset.inputs
     = button_tag "default text", type: 'button', class: 'btn', style: 'float:right', data: { function: 'notification-defaults', args: { url: "#{ conferences_default_notifications_path(conference_acronym: @conference.acronym) }" } }
     = f.input :locale, as: :select, collection: available_locales(@conference), hint: "Available locales for this conference and its speakers"
