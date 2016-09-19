@@ -141,7 +141,7 @@ class Event < ActiveRecord::Base
 
   def process_bulk_notification(reason)
       self.event_people.presenter.each do |event_person|
-        event_person.generate_token!
+        event_person.generate_token! if reason == 'accept'
 
         # XXX handle integrated mailers
 
