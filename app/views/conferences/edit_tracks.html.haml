@@ -3,22 +3,40 @@
     %h1= t :edit_conference_tracks
   = render partial: 'tabs', locals: { active: :tracks }
 
-  - if @conference.tracks.empty?
+  - if @conference.parent and not can? :adminstrate, @conference.parent
     .row
       .span16
         .blank-slate
           %p
-            If you organize your conference into different tracks,
-            this is the place to create them. Even if you do not
-            have more than one track, go ahead and enter this
-            one track.
+            The tracks for this conference can only be modified with
+            administration rights for the parent conference
+            ="'#{@conference.parent.title}'."
+
           %p
-            Tracks have a name and a color. The color is used in
-            the web based program, so feel free to customize it
-            as much as you wish.
-  .row
-    .span16
-      = render 'form_tracks'
+            The currently configured tracks are:
+
+          %ul
+            - @conference.tracks.each do |track|
+              %li
+                =track.name
+
+  - else
+    - if @conference.tracks.empty?
+      .row
+        .span16
+          .blank-slate
+            %p
+              If you organize your conference into different tracks,
+              this is the place to create them. Even if you do not
+              have more than one track, go ahead and enter this
+              one track.
+            %p
+              Tracks have a name and a color. The color is used in
+              the web based program, so feel free to customize it
+              as much as you wish.
+    .row
+      .span16
+        = render 'form_tracks'
 
 :coffeescript
   $ ->
