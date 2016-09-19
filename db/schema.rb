@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908211732) do
+ActiveRecord::Schema.define(version: 20160919021700) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160908211732) do
     t.string   "default_recording_license", limit: 255
     t.boolean  "expenses_enabled",                          default: false,        null: false
     t.boolean  "transport_needs_enabled",                   default: false,        null: false
+    t.boolean  "bulk_notification_enabled",                 default: false,        null: false
   end
 
   add_index "conferences", ["acronym"], name: "index_conferences_on_acronym"
@@ -192,7 +193,6 @@ ActiveRecord::Schema.define(version: 20160908211732) do
     t.boolean  "do_not_record",                     default: false
     t.string   "recording_license",     limit: 255
     t.text     "tech_rider"
-    t.string   "bulk_mail"
   end
 
   add_index "events", ["conference_id"], name: "index_events_on_conference_id"

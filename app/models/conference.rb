@@ -31,6 +31,7 @@ class Conference < ActiveRecord::Base
   validates_inclusion_of :feedback_enabled, in: [true, false]
   validates_inclusion_of :expenses_enabled, in: [true, false]
   validates_inclusion_of :transport_needs_enabled, in: [true, false]
+  validates_inclusion_of :bulk_notification_enabled, in: [true, false]
   validates_uniqueness_of :acronym
   validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
