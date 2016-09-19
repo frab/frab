@@ -14,6 +14,7 @@ es:
         schedule: "Programa"
         speakers: "Presentadores"
         events: "Eventos"
+        qrcode: "QR-Code"
 
       index:
         schedule_index: "Índice de programa"

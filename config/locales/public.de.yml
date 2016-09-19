@@ -14,6 +14,7 @@ de:
         index: "Übersicht"
         schedule: "Zeitplan"
         speakers: "Referenten"
+        qrcode: "QR-Code"
 
       index:
         day: "Tag %{index} – %{label}"
@@ -58,6 +59,11 @@ de:
         events_in_this_conference: "Veranstaltungen auf dieser Konferenz"
         links: "Links"
         speaker: "Referent"
+
+      qrcode:
+        link_to_public_schedule: |
+          Diese QR-Code enthält die URL zur maschinenlesbaren Verion der öffentlichen Programmübersicht.
+          Er kann von Apps wie Giggity oder BarfBag gescannt werden, um die Daten zu importieren.
 
     feedback:
       new:

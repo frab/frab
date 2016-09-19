@@ -30,6 +30,8 @@
               = link_to t('public.schedule.nav.speakers'), public_speakers_path
             %li{class: selected(/events.*$/)}
               = link_to t('public.schedule.nav.events'), public_events_path
+            %li{class: selected(/qrcode$/)}
+              = link_to t('public.schedule.nav.qrcode'), public_qrcode_path
 
         = yield :track_menu
 
