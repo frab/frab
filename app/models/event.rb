@@ -142,7 +142,9 @@ class Event < ActiveRecord::Base
   def process_bulk_notification(reason)
       self.event_people.presenter.each do |event_person|
         event_person.generate_token!
-        
+
+        # XXX handle integrated mailers
+
         self.conference.ticket_server.add_correspondence(
           ticket.remote_ticket_id,
           event_person.substitute_notification_variables(reason + '_subject'),
@@ -152,6 +154,16 @@ class Event < ActiveRecord::Base
       end
   end
 
+  def process_acceptance_notification
+      process_bulk_notification 'accept'
+  end
+  def process_rejection_notification
+      process_bulk_notification 'reject'
+  end
+  def process_schedule_notification
+      process_bulk_notification 'schedule'
+  end
+
   def process_acceptance(options)
     if options[:send_mail]
       self.event_people.presenter.each do |event_person|
@@ -159,7 +171,6 @@ class Event < ActiveRecord::Base
         SelectionNotification.acceptance_notification(event_person).deliver_now
       end
     end
-    process_bulk_notification 'accept'
     return unless options[:coordinator]
     return if self.event_people.find_by_person_id_and_event_role(options[:coordinator].id, 'coordinator')
     self.event_people.create(person: options[:coordinator], event_role: 'coordinator')
