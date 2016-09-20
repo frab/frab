@@ -1,11 +1,25 @@
 %section
   .page-header
-    %h1 Edit Call for Participation
+    %h1 Edit and send notifications
   = render partial: 'tabs', locals: { active: :notifications }
 
+  - locales_needed = Person.joins(events: :conference).where("conferences.id": @conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(accepting rejecting confirmed)).map { |p| p.languages.first.code }.uniq
+  - locales_present = @conference.notifications.map(&:locale).uniq
+
+  - if !(locales_needed - locales_present).empty?
+    .alert-message.error.span12 Can not send bulk notifications: Notification for locales #{ locales_needed - locales_present } missing
+  - else
+    %h1 Send
+    = render partial: 'notification_section', locals: { e: @conference.events.where(:state => 'accepting'), state: 'accepting', name: 'acceptance' }
+    = render partial: 'notification_section', locals: { e: @conference.events.where(:state => 'rejecting'), state: 'rejecting', name: 'rejection' }
+    = render partial: 'notification_section', locals: { e: @conference.events.where(:state => 'confirmed').scheduled, state: 'confirmed', name: 'scheduling' }
+
+
+  %h1 Edit
+
   .row
-    .span6
-      %h2 Possible variables
+    .span6.offset8.label
+      %h4 Possible variables
       %dl.dl-horizontal
         - Notification::VARIABLES.each do |key, desc|
           %dt= "#{desc}:"
