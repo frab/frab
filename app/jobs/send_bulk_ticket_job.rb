@@ -2,14 +2,15 @@ class SendBulkTicketJob
   include SuckerPunch::Job
 
   def perform(conference, filter)
-
+    Rails.logger.debug 'performing ' + filter + ' on ' + conference.acronym
+    return
     case filter
-    when 'accept'
-      conference.events.where(state: :accepting).map{|e| e.notify }
-    when 'reject'
-      conference.events.where(state: :rejecting).map{|e| e.notify }
-    when 'schedule'
-      conference.events.where(state: :confirmed).scheduled.map{|e| e.notify }
+    when 'accepting'
+      conference.events.where(state: filter).map{|e| e.notify }
+    when 'rejecting'
+      conference.events.where(state: filter).map{|e| e.notify }
+    when 'confirmed'
+      conference.events.where(state: filter).scheduled.map{|e| e.notify }
     end
 
   end
