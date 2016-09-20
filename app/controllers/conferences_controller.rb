@@ -47,6 +47,10 @@ class ConferencesController < ApplicationController
     end
   end
 
+  def send_notification
+    redirect_to edit_notifications_conference_path, notice: 'Bulk notifications for events in ' + params[:notification] + ' enqueued.'
+  end
+
   # POST /conferences
   def create
     @conference = Conference.new(conference_params)

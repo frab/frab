@@ -79,6 +79,7 @@ Frab::Application.routes.draw do
         get :edit_rooms
         get :edit_ticket_server
         get :edit_notifications
+        post :send_notification
       end
       get '/conferences/default_notifications' => 'conferences#default_notifications', as: 'conferences_default_notifications'
 
