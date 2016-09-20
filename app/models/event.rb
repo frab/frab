@@ -37,9 +37,9 @@ class Event < ActiveRecord::Base
 
   after_save :update_conflicts
 
-  scope :accepted, -> { where(self.arel_table[:state].in(%w(confirmed unconfirmed accepting))) }
+  scope :accepted, -> { where(self.arel_table[:state].in(%w(accepting unconfirmed confirmed))) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
-  scope :candidates, -> { where(state: %w(new review unconfirmed confirmed accepting)) }
+  scope :candidates, -> { where(state: %w(new review accepting unconfirmed confirmed)) }
   scope :confirmed, -> { where(state: %w(confirmed scheduled)) }
   scope :no_conflicts, -> { includes(:conflicts).where("conflicts.event_id": nil) }
   scope :is_public, -> { where(public: true) }
@@ -208,7 +208,7 @@ class Event < ActiveRecord::Base
   end
 
   def accepted?
-    self.state == 'unconfirmed' or self.state == 'confirmed' or self.state == 'accepting'
+    self.state == 'accepting' or self.state == 'unconfirmed' or self.state == 'confirmed' or self.state == 'scheduled'
   end
 
   def remote_ticket?
