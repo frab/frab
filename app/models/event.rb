@@ -37,10 +37,10 @@ class Event < ActiveRecord::Base
 
   after_save :update_conflicts
 
-  scope :accepted, -> { where(self.arel_table[:state].in(%w(confirmed unconfirmed))) }
+  scope :accepted, -> { where(self.arel_table[:state].in(%w(confirmed unconfirmed accepting))) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
-  scope :candidates, -> { where(state: %w(new review unconfirmed confirmed)) }
-  scope :confirmed, -> { where(state: :confirmed) }
+  scope :candidates, -> { where(state: %w(new review unconfirmed confirmed accepting)) }
+  scope :confirmed, -> { where(state: %w(confirmed scheduled)) }
   scope :no_conflicts, -> { includes(:conflicts).where("conflicts.event_id": nil) }
   scope :is_public, -> { where(public: true) }
   scope :scheduled_on, ->(day) { where(self.arel_table[:start_time].gteq(day.start_date.to_datetime)).where(self.arel_table[:start_time].lteq(day.end_date.to_datetime)).where(self.arel_table[:room_id].not_eq(nil)) }
@@ -56,27 +56,37 @@ class Event < ActiveRecord::Base
     state :new
     state :review
     state :withdrawn
+    state :canceled
+    state :rejecting
+    state :rejected
+    state :accepting
     state :unconfirmed
     state :confirmed
-    state :canceled
-    state :rejected
+    state :scheduled
 
     event :start_review do
       transitions to: :review, from: :new
     end
     event :withdraw do
-      transitions to: :withdrawn, from: [:new, :review, :unconfirmed]
+      transitions to: :withdrawn, from: [:new, :review, :accepting, :unconfirmed]
     end
     event :accept do
+      transitions to: :accepting, from: [:new, :review], on_transition: :process_acceptance, :if => lambda {|event| event.conference.bulk_notification_enabled }
       transitions to: :unconfirmed, from: [:new, :review], on_transition: :process_acceptance
     end
+    event :notify do
+      transitions to: :unconfirmed, from: :accepting, on_transition: :process_acceptance_notification
+      transitions to: :rejected, from: :rejecting, on_transition: :process_rejection_notification
+      transitions to: :scheduled, from: :confirmed, on_transition: :process_schedule_notification
+    end
     event :confirm do
-      transitions to: :confirmed, from: :unconfirmed
+      transitions to: :confirmed, from: [:accepting, :unconfirmed]
     end
     event :cancel do
-      transitions to: :canceled, from: [:unconfirmed, :confirmed]
+      transitions to: :canceled, from: [:accepting, :unconfirmed, :confirmed]
     end
     event :reject do
+      transitions to: :rejecting, from: [:new, :review], on_transition: :process_rejection, :if => lambda {|event| event.conference.bulk_notification_enabled }
       transitions to: :rejected, from: [:new, :review], on_transition: :process_rejection
     end
   end
@@ -198,7 +208,7 @@ class Event < ActiveRecord::Base
   end
 
   def accepted?
-    self.state == 'unconfirmed' or self.state == 'confirmed'
+    self.state == 'unconfirmed' or self.state == 'confirmed' or self.state == 'accepting'
   end
 
   def remote_ticket?
