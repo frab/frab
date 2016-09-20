@@ -68,9 +68,12 @@
               %th new
               %th review
               %th withdrawn
+              %th accepting
               %th unconfirmed
               %th confirmed
+              %th scheduled
               %th canceled
+              %th rejecting
               %th rejected
               %th total
           %tbody
@@ -78,9 +81,12 @@
               %td= @conference.events.where(state: :new).count
               %td= @conference.events.where(state: :review).count
               %td= @conference.events.where(state: :withdrawn).count
+              %td= @conference.events.where(state: :accepting).count
               %td= @conference.events.where(state: :unconfirmed).count
               %td= @conference.events.where(state: :confirmed).count
+              %td= @conference.events.where(state: :scheduled).count
               %td= @conference.events.where(state: :canceled).count
+              %td= @conference.events.where(state: :rejecting).count
               %td= @conference.events.where(state: :rejected).count
               %td= @conference.events.count
       - if @conference.languages.count > 1
