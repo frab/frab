@@ -48,6 +48,7 @@ class ConferencesController < ApplicationController
   end
 
   def send_notification
+    SendBulkTicketJob.new.async.perform @conference, params[:notification]
     redirect_to edit_notifications_conference_path, notice: 'Bulk notifications for events in ' + params[:notification] + ' enqueued.'
   end
 
