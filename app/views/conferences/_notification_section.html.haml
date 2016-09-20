@@ -18,5 +18,5 @@
     - if noticket.count == e.count
       =button_to('No events with tickets', {}, { disabled: true, class: "btn disabled"})
     - else
-      =button_to( 'Send ' + name + ' notifications to ' + pluralize( speakers, 'speaker') + ' in ' + pluralize( e.count - noticket.count, 'event'), { method: 'post' }, { class: "btn danger", data: { confirm: 'Are you sure you want to send ' + name + ' notifications for ' + pluralize(e.count - noticket.count, 'event') +'?', disable_with: 'working...' }})
+      =button_to( 'Send ' + name + ' notifications to ' + pluralize( speakers, 'speaker') + ' in ' + pluralize( e.count - noticket.count, 'event'), { action: 'send_notification', notification: state }, { class: "btn danger", data: { confirm: 'Are you sure you want to send ' + name + ' notifications for ' + pluralize(e.count - noticket.count, 'event') +'?', disable_with: 'working...' }})
   
