@@ -134,6 +134,8 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     authorize! :update, @event
+
+    @other_conferences = Conference.where("id != ?", @event.conference.id)
   end
 
   # GET /events/2/edit_people
@@ -212,6 +214,25 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(events_url) }
+    end
+  end
+
+  def copy_to_conference
+    old_event = Event.find(params[:id])
+    new_event = old_event.dup
+    authorize! :create, new_event
+
+    new_conference = Conference.find(params[:event][:conference_id])
+    new_event.conference = new_conference
+
+    new_event.event_attachments = old_event.event_attachments.map(&:dup)
+    new_event.event_people = old_event.event_people.map(&:dup)
+
+    new_event.save!
+
+    respond_to do |format|
+      format.html { redirect_to(new_event, notice: 'Event was successfully created.') }
+      format.xml  { render xml: new_event, status: :created, location: new_event }
     end
   end
 

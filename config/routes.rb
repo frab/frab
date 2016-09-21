@@ -110,6 +110,7 @@ Frab::Application.routes.draw do
           get :edit_people
           get :ticket
           put :update_state
+          put :copy_to_conference
         end
         resource :event_rating
         resources :event_feedbacks
