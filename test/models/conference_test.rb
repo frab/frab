@@ -57,4 +57,20 @@ class ConferenceTest < ActiveSupport::TestCase
     create(:event_person, event: event, person: person, event_role: 'coordinator')
     assert_equal 2, Conference.has_submission(person).count
   end
+
+  test 'inherits from parent conference' do
+    parent_conference = create(:three_day_conference_with_events)
+    sub_conference = create(:conference)
+    sub_conference.update_attributes(parent: parent_conference)
+
+    parent_conference.update_attributes(timeslot_duration: 10)
+    assert_equal sub_conference.timeslot_duration, parent_conference.timeslot_duration
+
+    parent_conference.update_attributes(timezone: "Honululu")
+    assert_equal sub_conference.timezone, parent_conference.timezone
+
+    sub_conference.days.destroy_all
+    assert_equal sub_conference.days.count, parent_conference.days.count
+  end
+
 end
