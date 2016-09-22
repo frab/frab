@@ -46,9 +46,13 @@ class RTTicketServerAdapter < TicketServerAdapter
     rt.ticket_update(remote_id, attrs )
     begin
       rt.ticket_comment(remote_id, { 'Action' => 'correspond', 'Text' => body })
+    rescue UnhandledResponse => ur
+      ex = ur unless /^# Correspondence added/.match(ur.to_s)
     rescue Exception => ex
       Rails.logger.debug 'RT reported an error'
+      Rails.logger.debug ex.to_s
     end
+    # XXX needs to go into an ensure block
     rt.ticket_update(remote_id, old_ticket.slice( 'Subject', 'Requestors' ))
 
     raise ex if ex
