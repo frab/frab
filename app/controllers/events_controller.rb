@@ -203,7 +203,7 @@ class EventsController < ApplicationController
     begin
       @event.send(:"#{params[:transition]}!", send_mail: params[:send_mail], coordinator: current_user.person)
     rescue => ex
-      return redirect_to(@event, alert: "Cannot send mails: #{ex}.")
+      return redirect_to(@event, alert: "Cannot update state: #{ex}.")
     end
 
     redirect_to @event, notice: 'Event was successfully updated.'
