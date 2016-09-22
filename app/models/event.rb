@@ -161,14 +161,17 @@ class Event < ActiveRecord::Base
       self.event_people.presenter.each do |event_person|
         event_person.generate_token! if reason == 'accept'
 
-        # XXX handle integrated mailers
-
-        self.conference.ticket_server.add_correspondence(
-          ticket.remote_ticket_id,
-          event_person.substitute_notification_variables(reason + '_subject'),
-          event_person.substitute_notification_variables(reason + '_body'),
-          event_person.person.email
-        )
+        # XXX sending out bulk mails only works for rt and integrated
+        if conference.ticket_type == 'rt'
+          self.conference.ticket_server.add_correspondence(
+            ticket.remote_ticket_id,
+            event_person.substitute_notification_variables(reason + '_subject'),
+            event_person.substitute_notification_variables(reason + '_body'),
+            event_person.person.email
+          )
+        else
+          SelectionNotification.make_notification(event_person, reason).deliver_now
+        end
       end
   end
 
@@ -186,7 +189,7 @@ class Event < ActiveRecord::Base
     if options[:send_mail]
       self.event_people.presenter.each do |event_person|
         event_person.generate_token!
-        SelectionNotification.acceptance_notification(event_person).deliver_now
+        SelectionNotification.make_notification(event_person, 'accept').deliver_now
       end
     end
     return unless options[:coordinator]
@@ -197,7 +200,7 @@ class Event < ActiveRecord::Base
   def process_rejection(options)
     if options[:send_mail]
       self.event_people.presenter.each do |event_person|
-        SelectionNotification.rejection_notification(event_person).deliver_now
+        SelectionNotification.make_notification(event_person, 'reject').deliver_now
       end
     end
     return unless options[:coordinator]
