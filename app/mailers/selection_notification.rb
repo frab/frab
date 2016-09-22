@@ -1,7 +1,7 @@
 class SelectionNotification < ActionMailer::Base
   default from: ENV.fetch('FROM_EMAIL')
 
-  def common_notification(event_person, field)
+  def make_notification(event_person, field)
     @locale = event_person.person.locale_for_mailing(event_person.event.conference)
     @body = event_person.substitute_notification_variables(field + '_body')
     conference = event_person.event.conference
@@ -15,15 +15,4 @@ class SelectionNotification < ActionMailer::Base
     )
   end
 
-  def acceptance_notification(event_person)
-    common_notification(event_person, 'accept')
-  end
-
-  def rejection_notification(event_person)
-    common_notification(event_person, 'reject')
-  end
-
-  def schedule_notification(event_person)
-    common_notification(event_person, 'schedule')
-  end
 end
