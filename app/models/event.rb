@@ -71,13 +71,13 @@ class Event < ActiveRecord::Base
       transitions to: :withdrawn, from: [:new, :review, :accepting, :unconfirmed]
     end
     event :accept do
-      transitions to: :accepting, from: [:new, :review], on_transition: :process_acceptance, :if => lambda {|event| event.conference.bulk_notification_enabled }
-      transitions to: :unconfirmed, from: [:new, :review], on_transition: :process_acceptance
+      transitions to: :unconfirmed, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|event, transition| !event.conference.bulk_notification_enabled }
+      transitions to: :accepting, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|event, transition| event.conference.bulk_notification_enabled }
     end
     event :notify do
-      transitions to: :unconfirmed, from: :accepting, on_transition: :process_acceptance_notification
-      transitions to: :rejected, from: :rejecting, on_transition: :process_rejection_notification
-      transitions to: :scheduled, from: :confirmed, on_transition: :process_schedule_notification
+      transitions to: :unconfirmed, from: :accepting, on_transition: :process_acceptance_notification, :guard => :notifiable
+      transitions to: :rejected, from: :rejecting, on_transition: :process_rejection_notification, :guard => :notifiable
+      transitions to: :scheduled, from: :confirmed, on_transition: :process_schedule_notification, :guard => :notifiable
     end
     event :confirm do
       transitions to: :confirmed, from: [:accepting, :unconfirmed]
@@ -86,8 +86,8 @@ class Event < ActiveRecord::Base
       transitions to: :canceled, from: [:accepting, :unconfirmed, :confirmed]
     end
     event :reject do
-      transitions to: :rejecting, from: [:new, :review], on_transition: :process_rejection, :if => lambda {|event| event.conference.bulk_notification_enabled }
-      transitions to: :rejected, from: [:new, :review], on_transition: :process_rejection
+      transitions to: :rejected, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|event, transition| !event.conference.bulk_notification_enabled }
+      transitions to: :rejecting, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|event, transition| event.conference.bulk_notification_enabled }
     end
   end
 
@@ -97,6 +97,14 @@ class Event < ActiveRecord::Base
     least_reviewed = self.connection.select_rows("SELECT events.id FROM events LEFT OUTER JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} GROUP BY events.id ORDER BY COUNT(event_ratings.id) ASC, events.id ASC").flatten.map(&:to_i)
     least_reviewed -= already_reviewed
     least_reviewed
+  end
+
+  def notifiable
+    return false unless conference.bulk_notification_enabled
+    return false unless speakers.count > 0
+    return false unless speakers.all?(&:email)
+    return false unless ticket.present?
+    true
   end
 
   def track_name
