@@ -111,6 +111,7 @@ Frab::Application.routes.draw do
           get :edit_people
           get :ticket
           put :update_state
+          post :custom_notification
         end
         resource :event_rating
         resources :event_feedbacks

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919021700) do
+ActiveRecord::Schema.define(version: 20160923195521) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -137,14 +137,16 @@ ActiveRecord::Schema.define(version: 20160919021700) do
   add_index "event_feedbacks", ["event_id"], name: "index_event_feedbacks_on_event_id"
 
   create_table "event_people", force: :cascade do |t|
-    t.integer  "event_id",                                             null: false
-    t.integer  "person_id",                                            null: false
-    t.string   "event_role",         limit: 255, default: "submitter", null: false
-    t.string   "role_state",         limit: 255
-    t.string   "comment",            limit: 255
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
-    t.string   "confirmation_token", limit: 255
+    t.integer  "event_id",                                               null: false
+    t.integer  "person_id",                                              null: false
+    t.string   "event_role",           limit: 255, default: "submitter", null: false
+    t.string   "role_state",           limit: 255
+    t.string   "comment",              limit: 255
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.string   "confirmation_token",   limit: 255
+    t.string   "notification_subject", limit: 255
+    t.text     "notification_body"
   end
 
   add_index "event_people", ["event_id"], name: "index_event_people_on_event_id"
