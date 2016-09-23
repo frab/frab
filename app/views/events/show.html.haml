@@ -4,7 +4,7 @@
       - if can? :crud, @event
         = action_button "primary", "Edit event", edit_event_path(@event), hint: "Edit this event's data."
         = action_button "primary", "Edit people", edit_people_event_path(@event), hint: "Edit this event's data."
-        - if @conference.ticket_type == 'integrated' and !@confernce.bulk_notification_enabled and @conference.call_for_participation.present?
+        - if @conference.ticket_type == 'integrated' and !@conference.bulk_notification_enabled and @conference.call_for_participation.present?
           - if @event.transition_possible? :accept
             = action_button "success", "Accept event", update_state_event_path(@event, transition: :accept, send_mail: true), method: :put, hint: "Accept this event. The speaker(s) will be notified of the acceptance via email. If they have access to the call for papers system, they will receive a link to confirm their attendance as well."
           - if @event.transition_possible? :reject
