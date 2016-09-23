@@ -165,8 +165,8 @@ class Event < ActiveRecord::Base
         if conference.ticket_type == 'rt'
           self.conference.ticket_server.add_correspondence(
             ticket.remote_ticket_id,
-            event_person.substitute_notification_variables(reason + '_subject'),
-            event_person.substitute_notification_variables(reason + '_body'),
+            event_person.substitute_notification_variables(reason, :subject),
+            event_person.substitute_notification_variables(reason, :body),
             event_person.person.email
           )
         else

@@ -39,13 +39,35 @@ class EventPerson < ActiveRecord::Base
     availabilities.any? { |a| a.within_range?(start_time) && a.within_range?(end_time) }
   end
 
-  def substitute_notification_variables(field)
+  def set_default_notification
     conference = self.event.conference
     locale = self.person.locale_for_mailing(conference)
     notification = conference.notifications.with_locale(locale).first
     fail "Notification for #{locale} not found" if notification.nil?
 
-    string = notification[field]
+    self.notification_subject = notification['accept_subject'] unless notification_subject.present?
+    self.notification_body = notification['accept_body'] unless notification_body.present?
+    save
+  end
+
+  def substitute_notification_variables(state, field)
+    conference = self.event.conference
+    locale = self.person.locale_for_mailing(conference)
+
+    if field == :subject and self.notification_subject.present?
+      string = self.notification_subject
+      self.notification_subject = nil
+      save
+    elsif field == :body and self.notification_body.present?
+      string = self.notification_body
+      self.notification_body = nil
+      save
+    else
+      notification = conference.notifications.with_locale(locale).first
+      fail "Notification for #{locale} not found" if notification.nil?
+      string = notification[state + '_' + field.to_s]
+    end
+
     string = string.gsub '%{conference}', conference.title
     string = string.gsub '%{event}', self.event.title
     string = string.gsub '%{forename}', self.person.first_name.presence || ''
