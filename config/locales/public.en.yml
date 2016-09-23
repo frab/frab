@@ -14,6 +14,7 @@ en:
         index: "Overview"
         schedule: "Schedule"
         speakers: "Speakers"
+        qrcode: "QR-Code"
 
       index:
         day: "Day %{index} – %{label}"
@@ -58,6 +59,11 @@ en:
         events_in_this_conference: "Events in this conference"
         links: "Links"
         speaker: "Speaker"
+
+      qrcode:
+        link_to_public_schedule: |
+          This QR code contains the URL to the machine-readable version of the public schedule file.
+          Scan it with an application such as Giggity or BarfBag to import the schedule for this conference.
 
     feedback:
       new:
