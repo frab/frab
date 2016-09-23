@@ -236,6 +236,49 @@ class Event < ActiveRecord::Base
     self
   end
 
+  def possible_start_times
+    possible = {}
+
+    # Retrieve a list of persons that are presenting this event,
+    # and filter out those who don't have any availabilities configured.
+
+    event_persons = self.event_people.presenter.group(:person_id, :id)
+                         .select { |ep| ep.person.availabilities.any? }
+    person_ids = event_persons.map { |ep| ep.person_id }
+
+    self.conference.days.each do |day|
+      availabilities = Availability.where(person: person_ids, day: day)
+
+      times = day.start_times_map do |time, pretty|
+        # People with no availability at all are not present in person_ids.
+        # Hence, if the number of availability records for this day is less
+        # than the number of presenters in person_ids, we know that at least
+        # one of them is not available.
+
+        if availabilities.length == person_ids.length
+          presenters_available = availabilities.map { |a| a.within_range?(time) }
+        else
+          presenters_available = [ false ]
+        end
+
+        if presenters_available.all?
+          [pretty, time.to_s]
+        elsif self.start_time == time
+          # Special case: if the event is already scheduled, offer that start time
+          # in the list as well, but add a warning, so that records are not accidentally
+          # modified through HTML forms.
+
+          [pretty + " (not all presenters available!)", time.to_s]
+        end
+      end
+
+      times.compact!
+      possible[day.to_s] = times if times.any?
+    end
+
+    possible
+  end
+
   private
 
   def generate_guid

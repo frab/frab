@@ -26,14 +26,18 @@ class Day < ActiveRecord::Base
     }
   end
 
-  def start_times
+  def start_times_map
     times = []
     time = start_date
     while time <= end_date
-      times << I18n.l(time, format: :pretty_datetime)
+      times << yield(time, I18n.l(time, format: :pretty_datetime))
       time = time.since(conference.timeslot_duration.minutes)
     end
     times
+  end
+
+  def start_times
+    start_times_map { |time, pretty| pretty }
   end
 
   def label
