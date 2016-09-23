@@ -96,7 +96,7 @@ class ConferencesController < ApplicationController
       next if attribs.nil?
       next unless attribs > 0
       test = name.gsub('_attributes', '')
-      next unless %w(rooms days schedule tracks ticket_server ).include?(test)
+      next unless %w(rooms days schedule notifications tracks ticket_server).include?(test)
       return "edit_#{test}"
     }
     'edit'
