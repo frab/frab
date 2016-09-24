@@ -92,46 +92,52 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'event conflicts are updated if availabilities change' do
-    conference = create(:three_day_conference_with_events)
-    first_event = conference.events.first
-    assert_empty first_event.conflicts
+    [:three_day_conference_with_events,
+     :sub_conference_with_events].each do |conference_type|
+      conference = create(conference_type)
+      first_event = conference.events.first
+      assert_empty first_event.conflicts
 
-    event_person = create(:event_person, event: first_event)
-    refute_empty first_event.reload.conflicts
+      event_person = create(:event_person, event: first_event)
+      refute_empty first_event.reload.conflicts
 
-    availability = create(:availability, person: event_person.person, conference: conference,
-                                         start_date: conference.days.first.start_date,
-                                         end_date: conference.days.last.end_date)
-    assert_empty first_event.reload.conflicts
-    availability.update(start_date: conference.days.last.start_date)
-    refute_empty first_event.reload.conflicts
+      availability = create(:availability, person: event_person.person, conference: conference,
+                                           start_date: conference.days.first.start_date,
+                                           end_date: conference.days.last.end_date)
+      assert_empty first_event.reload.conflicts
+      availability.update(start_date: conference.days.last.start_date)
+      refute_empty first_event.reload.conflicts
+    end
   end
 
   test 'possible start times for event' do
-    conference = create(:three_day_conference_with_events)
-    event = conference.events.first
-    day = conference.days.first
+    [:three_day_conference_with_events,
+     :sub_conference_with_events].each do |conference_type|
+      conference = create(conference_type)
+      event = conference.events.first
+      day = conference.days.first
 
-    event_person_a = create(:event_person, event: event)
-    person_a = event_person_a.person
-    create(:availability, person: person_a, conference: conference,
-                          start_date: day.start_date,
-                          end_date: day.start_date + 2.hours)
+      event_person_a = create(:event_person, event: event)
+      person_a = event_person_a.person
+      create(:availability, person: person_a, conference: conference,
+             start_date: day.start_date,
+             end_date: day.start_date + 2.hours)
 
-    event_person_b = create(:event_person, event: event)
-    person_b = event_person_b.person
-    create(:availability, person: person_b, conference: conference,
-                          start_date: day.start_date + 1.hour,
-                          end_date: day.start_date + 3.hours)
+      event_person_b = create(:event_person, event: event)
+      person_b = event_person_b.person
+      create(:availability, person: person_b, conference: conference,
+             start_date: day.start_date + 1.hour,
+             end_date: day.start_date + 3.hours)
 
-    possible = event.possible_start_times
-    possible_days = possible.keys
-    assert possible_days.count == 1
+      possible = event.possible_start_times
+      possible_days = possible.keys
+      assert possible_days.count == 1
 
-    possible_times = possible[possible_days.first]
+      possible_times = possible[possible_days.first]
 
-    # 5 possible time slots, plus 1 extra for the one the event is currently scheduled on
-    assert possible_times.count == 6
+      # 5 possible time slots, plus 1 extra for the one the event is currently scheduled on
+      assert possible_times.count == 6
+    end
   end
 
   test 'transitions to notifiable states only possible when bulk notifications enabled' do

@@ -40,22 +40,25 @@ class ConferenceTest < ActiveSupport::TestCase
   end
 
   test '#has_submission' do
-    conference = create(:three_day_conference_with_events)
-    event = conference.events.first
-    person = create(:person)
-    create(:confirmed_event_person, event: event, person: person)
-    assert Conference.has_submission(person)
+    [:three_day_conference_with_events,
+      :sub_conference_with_events].each do |conference_type|
+      conference = create(conference_type)
+      event = conference.events.first
+      person = create(:person)
+      create(:confirmed_event_person, event: event, person: person)
+      assert Conference.has_submission(person)
 
-    conference = create(:three_day_conference_with_events)
-    event = conference.events.first
-    create(:confirmed_event_person, event: event, person: person)
-    create(:confirmed_event_person, event: event)
-    assert_equal 2, Conference.has_submission(person).count
+      conference = create(conference_type)
+      event = conference.events.first
+      create(:confirmed_event_person, event: event, person: person)
+      create(:confirmed_event_person, event: event)
+      assert_equal 2, Conference.has_submission(person).count
 
-    conference = create(:three_day_conference_with_events)
-    event = conference.events.first
-    create(:event_person, event: event, person: person, event_role: 'coordinator')
-    assert_equal 2, Conference.has_submission(person).count
+      conference = create(conference_type)
+      event = conference.events.first
+      create(:event_person, event: event, person: person, event_role: 'coordinator')
+      assert_equal 2, Conference.has_submission(person).count
+    end
   end
 
   test 'inherits from parent conference' do

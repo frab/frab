@@ -75,6 +75,22 @@ FactoryGirl.define do
     end
   end
 
+  trait :with_parent_conference do
+    after :create do |conference|
+      unless conference.subs.any?
+        conference.parent = create(:three_day_conference_with_events, title: "#{conference.title} parent")
+      end
+    end
+  end
+
+  trait :with_sub_conference do
+    after :create do |conference|
+      if conference.parent.nil?
+        create(:conference, parent: conference, title: "#{conference.title} sub")
+      end
+    end
+  end
+
   factory :user do
     person
     email { generate(:email) }
@@ -138,9 +154,11 @@ FactoryGirl.define do
     transport_needs_enabled true
     schedule_public true
     timezone 'Berlin'
+    parent nil
 
-    factory :three_day_conference, traits: [:three_days]
-    factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events]
+    factory :three_day_conference, traits: [:three_days, :with_sub_conference]
+    factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference]
+    factory :sub_conference_with_events, traits: [:with_rooms, :with_events, :with_parent_conference]
   end
 
   factory :call_for_participation do
