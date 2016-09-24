@@ -32,11 +32,7 @@ class TicketServer < ActiveRecord::Base
   end
 
   def add_correspondence(remote_id, subject, body, recipient = nil)
-    begin
-      adapter.add_correspondence(remote_id, subject, body, recipient)
-    rescue UnhandledResponse => response
-      print "Error running script: " + response.inspect
-    end
+    adapter.add_correspondence(remote_id, subject, body, recipient)
   end
 
 end
