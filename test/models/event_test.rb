@@ -159,4 +159,22 @@ class EventTest < ActiveSupport::TestCase
     assert_equal event1.state, 'rejected'
     assert_equal event2.state, 'rejecting'
   end
+
+  test 'notifiable is only true if all checks match' do
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+
+    conference.bulk_notification_enabled = true
+    event.state = :accepted
+    event.ticket = Ticket.new(object_id: 1, object_type: 'Event', remote_ticket_id: '1')
+
+    assert_not event.notifiable
+    create(:event_person, event: event)
+    assert event.notifiable
+    conference.bulk_notification_enabled = false
+    assert_not event.notifiable
+    conference.bulk_notification_enabled = true
+    event.ticket = nil
+    assert_not event.notifiable
+  end
 end
