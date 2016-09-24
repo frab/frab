@@ -66,6 +66,7 @@ class EventPerson < ActiveRecord::Base
       notification = conference.notifications.with_locale(locale).first
       fail "Notification for #{locale} not found" if notification.nil?
       string = notification[state + '_' + field.to_s]
+      fail "Field #{state}_#{field.to_s} not found" unless string.present?
     end
 
     string = string.gsub '%{conference}', conference.title
