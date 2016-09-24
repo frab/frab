@@ -106,4 +106,31 @@ class EventTest < ActiveSupport::TestCase
     availability.update(start_date: conference.days.last.start_date)
     refute_empty first_event.reload.conflicts
   end
+
+  test 'transitions to notifiable states only possible when bulk notifications enabled' do
+    conference1 = create(:three_day_conference_with_events)
+    conference2 = create(:three_day_conference_with_events)
+
+    conference2.bulk_notification_enabled = true
+    event1 = conference1.events.first
+    event2 = conference2.events.first
+    event1.state = :new
+    event2.state = :new
+
+    event1.accept({})
+    event2.accept({})
+    assert_equal event1.state, "unconfirmed"
+    assert_equal event2.state, "accepting"
+
+    event1 = conference1.events.second
+    event2 = conference2.events.second
+    event1.state = :new
+    event2.state = :new
+
+    event1.reject({})
+    event2.reject({})
+    assert_equal event1.state, "rejected"
+    assert_equal event2.state, "rejecting"
+
+  end
 end
