@@ -71,8 +71,8 @@ class Event < ActiveRecord::Base
       transitions to: :withdrawn, from: [:new, :review, :accepting, :unconfirmed]
     end
     event :accept do
-      transitions to: :unconfirmed, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|event, transition| !event.conference.bulk_notification_enabled }
-      transitions to: :accepting, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|event, transition| event.conference.bulk_notification_enabled }
+      transitions to: :unconfirmed, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|*args| !args[0].conference.bulk_notification_enabled }
+      transitions to: :accepting, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|*args| args[0].conference.bulk_notification_enabled }
     end
     event :notify do
       transitions to: :unconfirmed, from: :accepting, on_transition: :process_acceptance_notification, :guard => :notifiable
@@ -86,8 +86,8 @@ class Event < ActiveRecord::Base
       transitions to: :canceled, from: [:accepting, :unconfirmed, :confirmed]
     end
     event :reject do
-      transitions to: :rejected, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|event, transition| !event.conference.bulk_notification_enabled }
-      transitions to: :rejecting, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|event, transition| event.conference.bulk_notification_enabled }
+      transitions to: :rejected, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|*args| !args[0].conference.bulk_notification_enabled }
+      transitions to: :rejecting, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|*args| args[0].conference.bulk_notification_enabled }
     end
   end
 
