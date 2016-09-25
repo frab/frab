@@ -80,9 +80,11 @@ module ApplicationHelper
   end
 
   def t_boolean(b)
-    b ?
-      t("simple_form.yes") :
+    if b
+      t("simple_form.yes")
+    else
       t("simple_form.no")
+    end
   end
 
   def available_conference_locales
