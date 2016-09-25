@@ -141,8 +141,8 @@ class EventTest < ActiveSupport::TestCase
     conference2.bulk_notification_enabled = true
     event1 = conference1.events.first
     event2 = conference2.events.first
-    event1.state = :new
-    event2.state = :new
+    event1.state = 'new'
+    event2.state = 'new'
 
     event1.accept({})
     event2.accept({})
@@ -151,8 +151,8 @@ class EventTest < ActiveSupport::TestCase
 
     event1 = conference1.events.second
     event2 = conference2.events.second
-    event1.state = :new
-    event2.state = :new
+    event1.state = 'new'
+    event2.state = 'new'
 
     event1.reject({})
     event2.reject({})
@@ -165,7 +165,8 @@ class EventTest < ActiveSupport::TestCase
     event = conference.events.first
 
     conference.bulk_notification_enabled = true
-    event.state = :accepted
+    conference.ticket_type = 'rt'
+    event.state = 'accepting'
     event.ticket = Ticket.new(object_id: 1, object_type: 'Event', remote_ticket_id: '1')
 
     assert_not event.notifiable
@@ -174,7 +175,12 @@ class EventTest < ActiveSupport::TestCase
     conference.bulk_notification_enabled = false
     assert_not event.notifiable
     conference.bulk_notification_enabled = true
+    event.state = 'accepted'
+    assert_not event.notifiable
+    event.state = 'accepting'
     event.ticket = nil
     assert_not event.notifiable
+    conference.ticket_type = 'integrated'
+    assert event.notifiable
   end
 end
