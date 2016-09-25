@@ -63,7 +63,7 @@ class PentabarfImportHelper
         # nowhere to find. just use the conference dates instead..
         created_at: fake_days.first.to_datetime,
         updated_at: fake_days.last.to_datetime,
-      # TODO ticket server, instead of link? DO TICKET URLS THEY END UP PUBLIC?
+        # TODO ticket server, instead of link? DO TICKET URLS THEY END UP PUBLIC?
       )
       conference_mapping[conference['conference_id']] = new_conference.id
 
