@@ -258,7 +258,7 @@ class Event < ActiveRecord::Base
         if availabilities.length == person_ids.length
           presenters_available = availabilities.map { |a| a.within_range?(time) }
         else
-          presenters_available = [ false ]
+          presenters_available = [false]
         end
 
         if presenters_available.all?
@@ -268,7 +268,7 @@ class Event < ActiveRecord::Base
           # in the list as well, but add a warning, so that records are not accidentally
           # modified through HTML forms.
 
-          [pretty + " (not all presenters available!)", time.to_s]
+          [pretty + ' (not all presenters available!)', time.to_s]
         end
       end
 
