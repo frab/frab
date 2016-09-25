@@ -126,9 +126,9 @@ class Conference < ActiveRecord::Base
   def gender_breakdown(accepted_only = false)
     result = []
     ep = Person.joins(events: :conference)
-         .where("conferences.id": self.id)
-         .where("event_people.event_role": %w(speaker moderator))
-         .where("events.public": true)
+               .where("conferences.id": self.id)
+               .where("event_people.event_role": %w(speaker moderator))
+               .where("events.public": true)
 
     ep = ep.where("events.state": 'confirmed') if accepted_only
 
