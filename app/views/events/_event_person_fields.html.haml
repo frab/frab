@@ -7,5 +7,5 @@
     = f.input :role_state, as: :select, collection: EventPerson::STATES
     - if f.object.notification_subject.present? or f.object.notification_body.present?
       = f.input :notification_subject, label: 'Notification subject'
-      = f.input :notification_body, label: 'Notification body', as: :text
+      = f.input :notification_body, label: 'Notification body', as: :text, hint: 'Valid variables: ' + Notification::VARIABLES.collect{ |key, desc| '%{'+key+'}' }.join(', ')
     = remove_association_link :event_person, f
