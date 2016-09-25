@@ -303,7 +303,12 @@ class Event < ActiveRecord::Base
 
   # check if room has been assigned multiple times for the same slot
   def update_event_conflicts
-    conflicting_event_candidates = self.class.accepted.where(room_id: self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
+    conflicting_event_candidates =
+      self.class.accepted.where(room_id: self.room.id)
+                         .where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day))
+                         .where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day))
+                         .where(self.class.arel_table[:id].not_eq(self.id))
+
     conflicting_event_candidates.each do |conflicting_event|
       if self.overlap?(conflicting_event)
         Conflict.create(event: self, conflicting_event: conflicting_event, conflict_type: 'events_overlap', severity: 'fatal')
