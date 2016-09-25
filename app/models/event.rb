@@ -101,9 +101,10 @@ class Event < ActiveRecord::Base
 
   def notifiable
     return false unless conference.bulk_notification_enabled
+    return false unless ['accepting', 'rejecting', 'confirmed'].include?(state)
     return false unless speakers.count > 0
     return false unless speakers.all?(&:email)
-    return false unless ticket.present?
+    return false unless conference.ticket_type == 'integrated' or ticket.present?
     true
   end
 
@@ -219,7 +220,7 @@ class Event < ActiveRecord::Base
   end
 
   def accepted?
-    self.state == 'accepting' or self.state == 'unconfirmed' or self.state == 'confirmed' or self.state == 'scheduled'
+    ['accepting', 'unconfirmed', 'confirmed', 'scheduled'].include?(state)
   end
 
   def remote_ticket?
