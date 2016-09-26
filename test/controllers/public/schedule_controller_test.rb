@@ -68,4 +68,33 @@ class Public::ScheduleControllerTest < ActionController::TestCase
     get :speakers, id: 1, conference_acronym: @conference.acronym
     assert_response :success
   end
+
+  test 'json schedule contains the conference events' do
+    get :events, format: :json, conference_acronym: @conference.acronym
+    assert_response :success
+
+    data = JSON.parse(@response.body)
+    events = data['conference_events']['events']
+
+    assert_equal events.count, @conference.events.count
+  end
+
+  test 'json schedule contains the sub-conference events' do
+    subc = @conference.subs.first
+    subc.rooms << create(:room, conference: subc)
+    subc.events << create(:event, conference: subc,
+                                  room: subc.rooms.first,
+                                  state: 'confirmed',
+                                  public: true,
+                                  start_time: Date.today.since(1.days).since(11.hours))
+
+    get :events, format: :json, conference_acronym: @conference.acronym
+    assert_response :success
+
+    data = JSON.parse(@response.body)
+    events = data['conference_events']['events']
+
+    assert_equal events.count, @conference.events.count + subc.events.count
+  end
+
 end
