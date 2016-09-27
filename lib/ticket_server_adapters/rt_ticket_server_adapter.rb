@@ -27,6 +27,12 @@ class RTTicketServerAdapter < TicketServerAdapter
                                 'Requestors' => args[:requestors].collect { |r| "#{r[:name]} <#{r[:email]}>" },
                               })
 
+    begin
+      rt.ticket_comment(ticket['id'], { 'Action' => 'comment', 'Text' => args[:owner_email] + ' created a ticket for ' + args[:frab_url] } )
+    rescue Exception => ex
+      Rails.logger.debug 'RT error ' + ex.to_s + ' when adding frab url'
+    end
+
     ticket['id']
   end
 
