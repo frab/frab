@@ -120,6 +120,10 @@ To start frab in the production environment run
 
     RACK_ENV=production bundle rails s
 
+Note that when seeding the database in production mode, the password for
+admin@example.org will be a random one. It will be printed to the console
+in when `rake db:seed` is invoked.
+
 ## Ticket Server
 
 frab supports OTRS, RT and Redmine ticket servers. Instead of sending

@@ -18,7 +18,8 @@
     = f.input :state, collection: Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
   %fieldset.inputs
     %legend Time and place
-    = f.input :start_time, collection: @conference.days, as: :grouped_select, group_method: :start_times, include_blank: true, selected: event_start_time
+    = f.input :start_time do
+      = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
     = f.association :room, collection: @conference.rooms
   %fieldset.inputs
     %legend Detailed description

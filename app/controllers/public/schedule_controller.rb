@@ -85,6 +85,10 @@ class Public::ScheduleController < ApplicationController
     @speaker = Person.publicly_speaking_at(@conference).confirmed(@conference).find(params[:id])
   end
 
+  def qrcode
+    @qr = RQRCode::QRCode.new(public_schedule_index_url(format: :xml), size: 8, level: :h)
+  end
+
   private
 
   def maybe_authenticate_user!

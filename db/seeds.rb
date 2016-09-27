@@ -14,12 +14,16 @@ person = Person.create!(
   public_name: 'admin_127'
 )
 
+password = Rails.env.production? ? SecureRandom.urlsafe_base64(32) : 'test123'
+
 admin = User.new(
   email: person.email,
-  password: 'test123',
-  password_confirmation: 'test123'
+  password: password,
+  password_confirmation: password
 )
 admin.person = person
 admin.role = 'admin'
 admin.confirmed_at = Time.now
 admin.save!
+
+puts "Created admin user (#{admin.email}) with password #{password}"
