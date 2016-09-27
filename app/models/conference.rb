@@ -127,9 +127,9 @@ class Conference < ActiveRecord::Base
   def gender_breakdown(accepted_only = false)
     result = []
     ep = Person.joins(events: :conference)
-         .where("conferences.id": self.id)
-         .where("event_people.event_role": %w(speaker moderator))
-         .where("events.public": true)
+               .where("conferences.id": self.id)
+               .where("event_people.event_role": %w(speaker moderator))
+               .where("events.public": true)
 
     ep = ep.where("events.state": %w(accepting confirmed scheduled)) if accepted_only
 
@@ -208,11 +208,5 @@ class Conference < ActiveRecord::Base
         self.errors.add(:days, "day #{day} overlaps with day before")
       end
     }
-  end
-
-  def duration_to_time(duration_in_minutes)
-    minutes = sprintf('%02d', duration_in_minutes % 60)
-    hours = sprintf('%02d', duration_in_minutes / 60)
-    "#{hours}:#{minutes}h"
   end
 end

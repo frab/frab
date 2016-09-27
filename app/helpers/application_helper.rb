@@ -38,9 +38,7 @@ module ApplicationHelper
   end
 
   def duration_to_time(duration_in_minutes)
-    minutes = sprintf('%02d', duration_in_minutes % 60)
-    hours = sprintf('%02d', duration_in_minutes / 60)
-    "#{hours}:#{minutes}"
+    "%02d:%02d" % [ duration_in_minutes / 60, duration_in_minutes % 60 ]
   end
 
   def icon(name)
@@ -80,9 +78,11 @@ module ApplicationHelper
   end
 
   def t_boolean(b)
-    b ?
-      t("simple_form.yes") :
+    if b
+      t("simple_form.yes")
+    else
       t("simple_form.no")
+    end
   end
 
   def available_conference_locales

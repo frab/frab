@@ -5,10 +5,12 @@ class TicketsControllerTest < ActionController::TestCase
     @event = create(:event)
     @conference = @event.conference
     @person = create(:person)
-    create(:event_person, event: @event, person: @person,
-                                      event_role: 'submitter')
-    create(:event_person, event: @event, person: @person,
-                                      event_role: 'speaker')
+    create(:event_person, event: @event,
+                          person: @person,
+                          event_role: 'submitter')
+    create(:event_person, event: @event,
+                          person: @person,
+                          event_role: 'speaker')
 
     @url = 'https://localhost/RT/'
     @conference.ticket_server = TicketServer.new(conference: @conference,

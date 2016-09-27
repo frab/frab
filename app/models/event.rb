@@ -130,7 +130,7 @@ class Event < ActiveRecord::Base
 
     n = arr.count
     m = arr.reduce(:+).to_f / n
-    '%02.02f' % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
+    "%02.02f" % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
   end
 
   def recalculate_average_feedback!
@@ -290,7 +290,7 @@ class Event < ActiveRecord::Base
     # and filter out those who don't have any availabilities configured.
 
     event_persons = self.event_people.presenter.group(:person_id, :id)
-                         .select { |ep| ep.person.availabilities.any? }
+                        .select { |ep| ep.person.availabilities.any? }
     person_ids = event_persons.map { |ep| ep.person_id }
 
     self.conference.days.each do |day|
@@ -305,7 +305,7 @@ class Event < ActiveRecord::Base
         if availabilities.length == person_ids.length
           presenters_available = availabilities.map { |a| a.within_range?(time) }
         else
-          presenters_available = [ false ]
+          presenters_available = [false]
         end
 
         if presenters_available.all?
@@ -315,7 +315,7 @@ class Event < ActiveRecord::Base
           # in the list as well, but add a warning, so that records are not accidentally
           # modified through HTML forms.
 
-          [pretty + " (not all presenters available!)", time.to_s]
+          [pretty + ' (not all presenters available!)', time.to_s]
         end
       end
 
@@ -350,7 +350,13 @@ class Event < ActiveRecord::Base
 
   # check if room has been assigned multiple times for the same slot
   def update_event_conflicts
-    conflicting_event_candidates = self.class.accepted.where(room_id: self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
+    conflicting_event_candidates =
+      self.class.accepted
+          .where(room_id: self.room.id)
+          .where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day))
+          .where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day))
+          .where(self.class.arel_table[:id].not_eq(self.id))
+
     conflicting_event_candidates.each do |conflicting_event|
       if self.overlap?(conflicting_event)
         Conflict.create(event: self, conflicting_event: conflicting_event, conflict_type: 'events_overlap', severity: 'fatal')
