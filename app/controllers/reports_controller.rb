@@ -85,7 +85,7 @@ class ReportsController < ApplicationController
                 .where('events.public': true)
                 .where('events.start_time > ?', Time.now)
                 .where('events.start_time < ?', Time.now.since(4.hours))
-                .where('events.state': %w(unconfirmed confirmed)).order('events.start_time ASC').group(:'people.id')
+                .where('events.state': %w(unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
     when 'people_speaking_at'
       r = conference_people.speaking_at(@conference)
     when 'people_with_a_note'
@@ -108,7 +108,7 @@ class ReportsController < ApplicationController
                 .where('events.public': true)
                 .where('events.start_time > ?', Time.now)
                 .where('events.start_time < ?', Time.now.since(2.hours))
-                .where('events.state': ['unconfirmed', 'confirmed']).order('events.start_time ASC').group(:'people.id')
+                .where('events.state': ['accepting', 'unconfirmed', 'confirmed', 'scheduled']).order('events.start_time ASC').group(:'people.id')
     end
 
     unless r.nil? or r.empty?
