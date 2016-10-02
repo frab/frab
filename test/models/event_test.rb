@@ -92,8 +92,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'event conflicts are updated if availabilities change' do
-    [:three_day_conference_with_events,
-     :sub_conference_with_events].each do |conference_type|
+    %i(three_day_conference_with_events sub_conference_with_events).each do |conference_type|
       conference = create(conference_type)
       first_event = conference.events.first
       assert_empty first_event.conflicts
@@ -111,8 +110,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'possible start times for event' do
-    [:three_day_conference_with_events,
-     :sub_conference_with_events].each do |conference_type|
+    %i(three_day_conference_with_events sub_conference_with_events).each do |conference_type|
       conference = create(conference_type)
       event = conference.events.first
       day = conference.days.first

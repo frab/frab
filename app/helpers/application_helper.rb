@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def duration_to_time(duration_in_minutes)
-    "%02d:%02d" % [ duration_in_minutes / 60, duration_in_minutes % 60 ]
+    '%02d:%02d' % [ duration_in_minutes / 60, duration_in_minutes % 60 ]
   end
 
   def icon(name)
