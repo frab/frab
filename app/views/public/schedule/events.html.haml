@@ -8,7 +8,7 @@
           .event{class: "track-#{track.name.parameterize}"}
             %a{href: "\##{track.name.downcase}" }= track.name
 
-- no_tracks = @conference.tracks.empty?
+- no_tracks = @conference.tracks_including_subs.empty?
 
 %h2.title= t '.events'
 

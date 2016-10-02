@@ -3,14 +3,34 @@
     %h1= t :edit_conference_days
   = render partial: 'tabs', locals: { active: :days }
 
-  - if @conference.days.empty?
+  - if @conference.parent
     .row
       .span16
         .blank-slate
           %p
-            Here you can create and edit the conference days.
-            Your 'days' can start an end anytime, but should not
-            overlap.
-  .row
-    .span16
-      = render 'form_days'
+            The days for this conference are inherited from its
+            parent conference
+            ="'#{@conference.parent.title}'"
+            and can only be changed through the administration
+            interface of that conference.
+
+          %p
+            The currently configured days are:
+
+          %ul
+            - @conference.days.each do |day|
+              %li
+                ="#{l day.start_date} - #{l day.end_date}"
+
+  - else
+    - if @conference.days.empty?
+      .row
+        .span16
+          .blank-slate
+            %p
+              Here you can create and edit the conference days.
+              Your 'days' can start an end anytime, but should not
+              overlap.
+    .row
+      .span16
+        = render 'form_days'

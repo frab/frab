@@ -39,7 +39,7 @@
   background-color: #<%= conference_bg_color -%>;
 }
 
-<% @conference.tracks.each do |track| %>
+<% @conference.tracks_including_subs.each do |track| %>
   <% if track.color.blank?
       bg_color = conference_bg_color
       fg_color = conference_fg_color

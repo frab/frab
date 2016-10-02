@@ -30,6 +30,7 @@ class ConferencesController < ApplicationController
   def new
     params.delete(:conference_acronym)
     @conference = Conference.new
+    @possible_parents = Conference.where(parent: nil)
     @first = true if Conference.count == 0
 
     respond_to do |format|
@@ -50,6 +51,10 @@ class ConferencesController < ApplicationController
   # POST /conferences
   def create
     @conference = Conference.new(conference_params)
+
+    if @conference.parent and not can? :administate, @conference.parent
+      @conference.parent = nil
+    end
 
     respond_to do |format|
       if @conference.save
@@ -122,16 +127,33 @@ class ConferencesController < ApplicationController
   end
 
   def conference_params
-    params.require(:conference).permit(
-      :acronym, :title, :timezone, :timeslot_duration, :default_timeslots, :max_timeslots, :feedback_enabled, :expenses_enabled,
+    allowed = [
+      :acronym, :title, :default_timeslots, :max_timeslots, :feedback_enabled, :expenses_enabled,
       :transport_needs_enabled, :email, :program_export_base_url, :schedule_version, :schedule_public, :color, :ticket_type,
       :event_state_visible, :schedule_custom_css, :schedule_html_intro, :default_recording_license,
-      rooms_attributes: %i(name size public rank _destroy id),
-      days_attributes: %i(start_date end_date _destroy id),
-      tracks_attributes: %i(name color _destroy id),
       languages_attributes: %i(language_id code _destroy id),
       ticket_server_attributes: %i(url user password queue _destroy id),
       notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body _destroy)
-    )
+    ]
+
+    if @conference && @conference.new_record?
+      allowed += [ :parent_id ]
+    end
+
+    if @conference && @conference.parent.nil?
+      allowed += [
+        :timezone, :timeslot_duration,
+        days_attributes: %i(start_date end_date _destroy id),
+      ]
+    end
+
+    if @conference && (@conference.parent.nil? || can?(:adminstrate, @conference.parent))
+      allowed += [
+        rooms_attributes: %i(name size public rank _destroy id),
+        tracks_attributes: %i(name color _destroy id),
+      ]
+    end
+
+    params.require(:conference).permit(allowed)
   end
 end

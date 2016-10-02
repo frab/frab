@@ -32,7 +32,7 @@
       - else
         = link_to @event.track.try(:name), public_events_path(anchor: "#{@event.track.try(:name).downcase}")
     %br/
-    - if @conference.languages.count > 1
+    - if @conference.languages_including_subs.count > 1
       %b #{t '.language'}:
       = @event.language
   %h3 #{t '.links'}:
