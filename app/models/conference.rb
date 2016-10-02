@@ -49,7 +49,7 @@ class Conference < ActiveRecord::Base
 
   scope :has_submission, ->(person) {
     joins(events: [{ event_people: :person }])
-      .where(EventPerson.arel_table[:event_role].in(%w(speaker moderator)))
+      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
       .where(Person.arel_table[:id].eq(person.id)).uniq
   }
 

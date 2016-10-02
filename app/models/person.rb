@@ -41,10 +41,10 @@ class Person < ActiveRecord::Base
     joins(events: :conference).where('conferences.id': conference).uniq
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': %w(speaker moderator)).where('events.state': %w(accepted unconfirmed confirmed scheduled)).uniq
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.state': %w(accepted unconfirmed confirmed scheduled)).uniq
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': %w(speaker moderator)).where('events.public': true).where('events.state': %w(accepted unconfirmed confirmed scheduled)).uniq
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.public': true).where('events.state': %w(accepted unconfirmed confirmed scheduled)).uniq
   }
   scope :confirmed, ->(conference) {
     joins(events: :conference).where('conferences.id': conference).where('events.state': %w(confirmed scheduled))
@@ -84,8 +84,8 @@ class Person < ActiveRecord::Base
 
   def active_in_any_conference?
     found = Conference.joins(events: [{ event_people: :person }])
-                      .where(Event.arel_table[:state].in(%w(accepting unconfirmed confirmed scheduled)))
-                      .where(EventPerson.arel_table[:event_role].in(%w(speaker moderator)))
+                      .where(Event.arel_table[:state].in(Event::ACCEPTED))
+                      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
                       .where(Person.arel_table[:id].eq(id))
                       .count
     found.positive?
@@ -96,15 +96,15 @@ class Person < ActiveRecord::Base
   end
 
   def events_as_presenter_in(conference)
-    events.where('event_people.event_role': %w(speaker moderator), conference: conference)
+    events.where('event_people.event_role': EventPerson::SPEAKER, conference: conference)
   end
 
   def events_as_presenter_not_in(conference)
-    events.where('event_people.event_role': %w(speaker moderator)).where.not(conference: conference)
+    events.where('event_people.event_role': EventPerson::SPEAKER).where.not(conference: conference)
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    events.is_public.accepted.where('events.state': %w(confirmed scheduled), 'event_people.event_role': %w(speaker moderator), conference_id: conference)
+    events.is_public.accepted.where('events.state': %w(confirmed scheduled), 'event_people.event_role': EventPerson::SPEAKER, conference_id: conference)
   end
 
   def role_state(conference)
@@ -143,7 +143,7 @@ class Person < ActiveRecord::Base
   end
 
   def average_feedback_as_speaker
-    events = event_people.where(event_role: %w(speaker moderator)).map(&:event)
+    events = event_people.where(event_role: EventPerson::SPEAKER).map(&:event)
     feedback = 0.0
     count = 0
     events.each do |event|
@@ -182,7 +182,7 @@ class Person < ActiveRecord::Base
   private
 
   def speaker_role_state(conference)
-    event_people.select { |ep| ep.event.conference == conference }.select { |ep| %w(speaker moderator).include? ep.event_role }
+    event_people.select { |ep| ep.event.conference == conference }.select { |ep| EventPerson::SPEAKER.include? ep.event_role }
   end
 
   def nilify_empty

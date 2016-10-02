@@ -2,8 +2,9 @@ class EventPerson < ActiveRecord::Base
   include UniqueToken
   include Rails.application.routes.url_helpers
 
-  ROLES = [:coordinator, :submitter, :speaker, :moderator]
-  STATES = [:canceled, :confirmed, :declined, :idea, :offer, :unclear, :attending]
+  ROLES = %i(coordinator submitter speaker moderator).freeze
+  STATES = %i(canceled confirmed declined idea offer unclear attending).freeze
+  SPEAKER = %i(speaker moderator).freeze
 
   belongs_to :event
   belongs_to :person
@@ -12,11 +13,11 @@ class EventPerson < ActiveRecord::Base
 
   has_paper_trail meta: { associated_id: :event_id, associated_type: 'Event' }
 
-  scope :presenter, -> { where(event_role: %w(speaker moderator)) }
+  scope :presenter, -> { where(event_role: SPEAKER) }
 
   def update_speaker_count
     event = Event.find(self.event_id)
-    event.speaker_count = EventPerson.where(event_id: event.id, event_role: [:moderator, :speaker]).count
+    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKER).count
     event.save
   end
 
@@ -78,7 +79,7 @@ class EventPerson < ActiveRecord::Base
     string = string.gsub '%{room}', self.event.room.name if self.event.room.present?
     if self.event.start_time.present?
       string = string.gsub '%{date}', I18n.l(self.event.start_time.to_date, locale: locale)
-      string = string.gsub '%{time}', I18n.l(self.event.start_time.to_time, locale: locale, format: '%X') 
+      string = string.gsub '%{time}', I18n.l(self.event.start_time.to_time, locale: locale, format: '%X')
     end
 
     return string unless self.confirmation_token.present?

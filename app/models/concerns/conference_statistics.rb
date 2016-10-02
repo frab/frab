@@ -6,7 +6,7 @@ module ConferenceStatistics
   def events_by_state
     [
       [[0, events.where(state: %w(new review)).count]],
-      [[1, events.where(state: %w(accepting unconfirmed confirmed scheduled)).count]],
+      [[1, events.where(state: Event::ACCEPTED).count]],
       [[2, events.where(state: %w(rejecting rejected)).count]],
       [[3, events.where(state: %w(withdrawn canceled)).count]]
     ]
@@ -15,7 +15,7 @@ module ConferenceStatistics
   def events_by_state_and_type(type)
     [
       [[0, events.where(state: %w(new review), event_type: type).count]],
-      [[1, events.where(state: %w(accepting unconfirmed confirmed scheduled), event_type: type).count]],
+      [[1, events.where(state: Event::ACCEPTED, event_type: type).count]],
       [[2, events.where(state: %w(rejecting rejected), event_type: type).count]],
       [[3, events.where(state: %w(withdrawn canceled), event_type: type).count]]
     ]
@@ -44,7 +44,7 @@ module ConferenceStatistics
     result = []
     ep = Person.joins(events: :conference)
                .where("conferences.id": id)
-               .where("event_people.event_role": %w(speaker moderator))
+               .where("event_people.event_role": EventPerson::SPEAKER)
                .where("events.public": true)
 
     ep = ep.where("events.state": %w(accepting confirmed scheduled)) if accepted_only

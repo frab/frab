@@ -3,7 +3,7 @@
     %h1 Edit and send notifications
   = render partial: 'tabs', locals: { active: :notifications }
 
-  - locales_needed = Person.joins(events: :conference).where("conferences.id": @conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(accepting rejecting confirmed)).map { |p| p.languages.first.code }.uniq
+  - locales_needed = Person.joins(events: :conference).where("conferences.id": @conference.id).where("event_people.event_role": EventPerson::SPEAKER).where("events.state": %w(accepting rejecting confirmed)).map { |p| p.languages.first.code }.uniq
   - locales_present = @conference.notifications.map(&:locale).uniq
 
   - if !(locales_needed - locales_present).empty?

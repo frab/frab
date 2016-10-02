@@ -80,7 +80,7 @@ class ReportsController < ApplicationController
     when 'expected_speakers'
       r = Person.joins(events: :conference)
                 .where('conferences.id': @conference.id)
-                .where('event_people.event_role': %w(speaker moderator))
+                .where('event_people.event_role': EventPerson::SPEAKER)
                 .where('event_people.role_state': 'confirmed')
                 .where('events.public': true)
                 .where('events.start_time > ?', Time.now)

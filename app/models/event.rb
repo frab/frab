@@ -6,6 +6,7 @@ class Event < ActiveRecord::Base
   before_create :generate_guid
 
   TYPES = %i(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
+  ACCEPTED = %w(accepting unconfirmed confirmed scheduled).freeze
 
   has_one :ticket, as: :object, dependent: :destroy
   has_many :conflicts_as_conflicting, class_name: 'Conflict', foreign_key: 'conflicting_event_id', dependent: :destroy
@@ -37,7 +38,7 @@ class Event < ActiveRecord::Base
 
   after_save :update_conflicts
 
-  scope :accepted, -> { where(self.arel_table[:state].in(%w(accepting unconfirmed confirmed scheduled))) }
+  scope :accepted, -> { where(self.arel_table[:state].in(ACCEPTED)) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
   scope :candidates, -> { where(state: %w(new review accepting unconfirmed confirmed scheduled)) }
   scope :confirmed, -> { where(state: %w(confirmed scheduled)) }
@@ -220,7 +221,7 @@ class Event < ActiveRecord::Base
   end
 
   def accepted?
-    ['accepting', 'unconfirmed', 'confirmed', 'scheduled'].include?(state)
+    ACCEPTED.include?(state)
   end
 
   def remote_ticket?
