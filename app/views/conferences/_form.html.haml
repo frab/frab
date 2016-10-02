@@ -21,6 +21,7 @@
     = f.input :feedback_enabled, as: :inline_boolean, hint: "If you enable this, your program export will include links to a feedback form where attendees can rate an event."
     = f.input :expenses_enabled, as: :inline_boolean, hint: "If you enable this, frab will allow you to track expenses of people"
     = f.input :transport_needs_enabled, as: :inline_boolean, hint: "If you enable this, frab will allow you to track transportation needs of people"
+    = f.input :bulk_notification_enabled, as: :inline_boolean, hint: "If you enable this, notifications will be sent out in bulk by mail or ticket subsystem."
   %fieldset.inputs
     %legend= t(:ticket_server)
     = f.input :ticket_type, as: :radio_buttons, collection: Conference::TICKET_TYPES

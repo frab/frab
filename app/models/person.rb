@@ -41,13 +41,13 @@ class Person < ActiveRecord::Base
     joins(events: :conference).where("conferences.id": conference.id).uniq
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(unconfirmed confirmed)).uniq
+    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(accepting unconfirmed confirmed scheduled)).uniq
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(unconfirmed confirmed)).uniq
+    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(accepting unconfirmed confirmed scheduled)).uniq
   }
   scope :confirmed, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("events.state": 'confirmed')
+    joins(events: :conference).where("conferences.id": conference.id).where("events.state": %w(confirmed scheduled))
   }
 
   def newer_than?(person)
@@ -76,16 +76,18 @@ class Person < ActiveRecord::Base
 
   def involved_in?(conference)
     found = Person.joins(events: :conference)
-            .where("conferences.id": conference.id)
-            .where(id: self.id).count
+                  .where("conferences.id": conference.id)
+                  .where(id: self.id)
+                  .count
     found > 0
   end
 
   def active_in_any_conference?
     found = Conference.joins(events: [{ event_people: :person }])
-            .where(Event.arel_table[:state].in(%w(confirmed unconfirmed)))
-            .where(EventPerson.arel_table[:event_role].in(%w(speaker moderator)))
-            .where(Person.arel_table[:id].eq(self.id)).count
+                      .where(Event.arel_table[:state].in(%w(accepting unconfirmed confirmed scheduled)))
+                      .where(EventPerson.arel_table[:event_role].in(%w(speaker moderator)))
+                      .where(Person.arel_table[:id].eq(self.id))
+                      .count
     found > 0
   end
 
@@ -102,7 +104,7 @@ class Person < ActiveRecord::Base
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    self.events.is_public.accepted.where("events.state": :confirmed, "event_people.event_role": %w(speaker moderator), conference_id: conference.id)
+    self.events.is_public.accepted.where("events.state": %w(confirmed scheduled), "event_people.event_role": %w(speaker moderator), conference_id: conference.id)
   end
 
   def role_state(conference)

@@ -31,4 +31,8 @@ class TicketServer < ActiveRecord::Base
     }
   end
 
+  def add_correspondence(remote_id, subject, body, recipient = nil)
+    adapter.add_correspondence(remote_id, subject, body, recipient)
+  end
+
 end

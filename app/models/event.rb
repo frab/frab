@@ -37,10 +37,10 @@ class Event < ActiveRecord::Base
 
   after_save :update_conflicts
 
-  scope :accepted, -> { where(self.arel_table[:state].in(%w(confirmed unconfirmed))) }
+  scope :accepted, -> { where(self.arel_table[:state].in(%w(accepting unconfirmed confirmed scheduled))) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
-  scope :candidates, -> { where(state: %w(new review unconfirmed confirmed)) }
-  scope :confirmed, -> { where(state: :confirmed) }
+  scope :candidates, -> { where(state: %w(new review accepting unconfirmed confirmed scheduled)) }
+  scope :confirmed, -> { where(state: %w(confirmed scheduled)) }
   scope :no_conflicts, -> { includes(:conflicts).where("conflicts.event_id": nil) }
   scope :is_public, -> { where(public: true) }
   scope :scheduled_on, ->(day) { where(self.arel_table[:start_time].gteq(day.start_date.to_datetime)).where(self.arel_table[:start_time].lteq(day.end_date.to_datetime)).where(self.arel_table[:room_id].not_eq(nil)) }
@@ -56,28 +56,38 @@ class Event < ActiveRecord::Base
     state :new
     state :review
     state :withdrawn
+    state :canceled
+    state :rejecting
+    state :rejected
+    state :accepting
     state :unconfirmed
     state :confirmed
-    state :canceled
-    state :rejected
+    state :scheduled
 
     event :start_review do
       transitions to: :review, from: :new
     end
     event :withdraw do
-      transitions to: :withdrawn, from: [:new, :review, :unconfirmed]
+      transitions to: :withdrawn, from: [:new, :review, :accepting, :unconfirmed]
     end
     event :accept do
-      transitions to: :unconfirmed, from: [:new, :review], on_transition: :process_acceptance
+      transitions to: :unconfirmed, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|*args| !args[0].conference.bulk_notification_enabled }
+      transitions to: :accepting, from: [:new, :review], on_transition: :process_acceptance, :guard => lambda {|*args| args[0].conference.bulk_notification_enabled }
+    end
+    event :notify do
+      transitions to: :unconfirmed, from: :accepting, on_transition: :process_acceptance_notification, :guard => :notifiable
+      transitions to: :rejected, from: :rejecting, on_transition: :process_rejection_notification, :guard => :notifiable
+      transitions to: :scheduled, from: :confirmed, on_transition: :process_schedule_notification, :guard => :notifiable
     end
     event :confirm do
-      transitions to: :confirmed, from: :unconfirmed
+      transitions to: :confirmed, from: [:accepting, :unconfirmed]
     end
     event :cancel do
-      transitions to: :canceled, from: [:unconfirmed, :confirmed]
+      transitions to: :canceled, from: [:accepting, :unconfirmed, :confirmed]
     end
     event :reject do
-      transitions to: :rejected, from: [:new, :review], on_transition: :process_rejection
+      transitions to: :rejected, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|*args| !args[0].conference.bulk_notification_enabled }
+      transitions to: :rejecting, from: [:new, :review], on_transition: :process_rejection, :guard => lambda {|*args| args[0].conference.bulk_notification_enabled }
     end
   end
 
@@ -87,6 +97,15 @@ class Event < ActiveRecord::Base
     least_reviewed = self.connection.select_rows("SELECT events.id FROM events LEFT OUTER JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} GROUP BY events.id ORDER BY COUNT(event_ratings.id) ASC, events.id ASC").flatten.map(&:to_i)
     least_reviewed -= already_reviewed
     least_reviewed
+  end
+
+  def notifiable
+    return false unless conference.bulk_notification_enabled
+    return false unless ['accepting', 'rejecting', 'confirmed'].include?(state)
+    return false unless speakers.count > 0
+    return false unless speakers.all?(&:email)
+    return false unless conference.ticket_type == 'integrated' or ticket.present?
+    true
   end
 
   def track_name
@@ -111,7 +130,7 @@ class Event < ActiveRecord::Base
 
     n = arr.count
     m = arr.reduce(:+).to_f / n
-    '%02.02f' % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
+    "%02.02f" % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
   end
 
   def recalculate_average_feedback!
@@ -139,11 +158,39 @@ class Event < ActiveRecord::Base
     self.title.gsub(/[^\w]/, '').upcase
   end
 
+  def process_bulk_notification(reason)
+      self.event_people.presenter.each do |event_person|
+        event_person.generate_token! if reason == 'accept'
+
+        # XXX sending out bulk mails only works for rt and integrated
+        if conference.ticket_type == 'rt'
+          self.conference.ticket_server.add_correspondence(
+            ticket.remote_ticket_id,
+            event_person.substitute_notification_variables(reason, :subject),
+            event_person.substitute_notification_variables(reason, :body),
+            event_person.person.email
+          )
+        else
+          SelectionNotification.make_notification(event_person, reason).deliver_now
+        end
+      end
+  end
+
+  def process_acceptance_notification
+      process_bulk_notification 'accept'
+  end
+  def process_rejection_notification
+      process_bulk_notification 'reject'
+  end
+  def process_schedule_notification
+      process_bulk_notification 'schedule'
+  end
+
   def process_acceptance(options)
     if options[:send_mail]
       self.event_people.presenter.each do |event_person|
         event_person.generate_token!
-        SelectionNotification.acceptance_notification(event_person).deliver_now
+        SelectionNotification.make_notification(event_person, 'accept').deliver_now
       end
     end
     return unless options[:coordinator]
@@ -154,7 +201,7 @@ class Event < ActiveRecord::Base
   def process_rejection(options)
     if options[:send_mail]
       self.event_people.presenter.each do |event_person|
-        SelectionNotification.rejection_notification(event_person).deliver_now
+        SelectionNotification.make_notification(event_person, 'reject').deliver_now
       end
     end
     return unless options[:coordinator]
@@ -173,7 +220,7 @@ class Event < ActiveRecord::Base
   end
 
   def accepted?
-    self.state == 'unconfirmed' or self.state == 'confirmed'
+    ['accepting', 'unconfirmed', 'confirmed', 'scheduled'].include?(state)
   end
 
   def remote_ticket?
@@ -243,7 +290,7 @@ class Event < ActiveRecord::Base
     # and filter out those who don't have any availabilities configured.
 
     event_persons = self.event_people.presenter.group(:person_id, :id)
-                         .select { |ep| ep.person.availabilities.any? }
+                        .select { |ep| ep.person.availabilities.any? }
     person_ids = event_persons.map { |ep| ep.person_id }
 
     self.conference.days.each do |day|
@@ -258,7 +305,7 @@ class Event < ActiveRecord::Base
         if availabilities.length == person_ids.length
           presenters_available = availabilities.map { |a| a.within_range?(time) }
         else
-          presenters_available = [ false ]
+          presenters_available = [false]
         end
 
         if presenters_available.all?
@@ -268,7 +315,7 @@ class Event < ActiveRecord::Base
           # in the list as well, but add a warning, so that records are not accidentally
           # modified through HTML forms.
 
-          [pretty + " (not all presenters available!)", time.to_s]
+          [pretty + ' (not all presenters available!)', time.to_s]
         end
       end
 
@@ -303,7 +350,13 @@ class Event < ActiveRecord::Base
 
   # check if room has been assigned multiple times for the same slot
   def update_event_conflicts
-    conflicting_event_candidates = self.class.accepted.where(room_id: self.room.id).where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day)).where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day)).where(self.class.arel_table[:id].not_eq(self.id))
+    conflicting_event_candidates =
+      self.class.accepted
+          .where(room_id: self.room.id)
+          .where(self.class.arel_table[:start_time].gteq(self.start_time.beginning_of_day))
+          .where(self.class.arel_table[:start_time].lteq(self.start_time.end_of_day))
+          .where(self.class.arel_table[:id].not_eq(self.id))
+
     conflicting_event_candidates.each do |conflicting_event|
       if self.overlap?(conflicting_event)
         Conflict.create(event: self, conflicting_event: conflicting_event, conflict_type: 'events_overlap', severity: 'fatal')

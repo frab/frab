@@ -133,4 +133,54 @@ class EventTest < ActiveSupport::TestCase
     # 5 possible time slots, plus 1 extra for the one the event is currently scheduled on
     assert possible_times.count == 6
   end
+
+  test 'transitions to notifiable states only possible when bulk notifications enabled' do
+    conference1 = create(:three_day_conference_with_events)
+    conference2 = create(:three_day_conference_with_events)
+
+    conference2.bulk_notification_enabled = true
+    event1 = conference1.events.first
+    event2 = conference2.events.first
+    event1.state = 'new'
+    event2.state = 'new'
+
+    event1.accept({})
+    event2.accept({})
+    assert_equal event1.state, 'unconfirmed'
+    assert_equal event2.state, 'accepting'
+
+    event1 = conference1.events.second
+    event2 = conference2.events.second
+    event1.state = 'new'
+    event2.state = 'new'
+
+    event1.reject({})
+    event2.reject({})
+    assert_equal event1.state, 'rejected'
+    assert_equal event2.state, 'rejecting'
+  end
+
+  test 'notifiable is only true if all checks match' do
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+
+    conference.bulk_notification_enabled = true
+    conference.ticket_type = 'rt'
+    event.state = 'accepting'
+    event.ticket = Ticket.new(object_id: 1, object_type: 'Event', remote_ticket_id: '1')
+
+    assert_not event.notifiable
+    create(:event_person, event: event)
+    assert event.notifiable
+    conference.bulk_notification_enabled = false
+    assert_not event.notifiable
+    conference.bulk_notification_enabled = true
+    event.state = 'accepted'
+    assert_not event.notifiable
+    event.state = 'accepting'
+    event.ticket = nil
+    assert_not event.notifiable
+    conference.ticket_type = 'integrated'
+    assert event.notifiable
+   end
 end

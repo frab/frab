@@ -1,0 +1,22 @@
+.bulk-notification
+  - if e.count > 0
+    %h3 #{ pluralize( e.count, "event" ) } in state #{ state }
+    - noticket = e.select { |e| e.ticket == nil }
+    - speakers = e.map { |e| e.speakers.count }.sum
+    - nospeakers = e.select { |e| e.speakers.count == 0 }
+    - if noticket.count > 0
+      %p
+        = link_to 'Warning: ' + pluralize(noticket.count, "event" ) + ' without ticket:', events_path(:event_state => state, 'q[s]' => 'ticket_id')
+        - noticket.each do |e|
+          = link_to e.title, e
+    - if nospeakers.count > 0
+      %p
+        Warning: #{ pluralize(nospeakers.count, "event" ) } without speakers:
+        - nospeakers.each do |e|
+          = link_to e.title, e
+    %p
+    - if noticket.count == e.count
+      =button_to('No events with tickets', {}, { disabled: true, class: "btn disabled"})
+    - else
+      =button_to( 'Send ' + name + ' notifications to ' + pluralize( speakers, 'speaker') + ' in ' + pluralize( e.count - noticket.count, 'event'), { action: 'send_notification', notification: state }, { class: "btn danger", data: { confirm: 'Are you sure you want to send ' + name + ' notifications for ' + pluralize(e.count - noticket.count, 'event') +'?', disable_with: 'working...' }})
+  

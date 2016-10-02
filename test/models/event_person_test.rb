@@ -59,4 +59,30 @@ class EventPersonTest < ActiveSupport::TestCase
     create(:event_person, event: event, person: person2, event_role: 'coordinator', role_state: 'confirmed')
     assert_equal 1, Person.speaking_at(conference).count
   end
+
+  test 'test notification and substitution' do
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+    event.room = conference.rooms.first
+
+    event_person = create(:confirmed_event_person, event: event)
+    assert_raise do
+      event_person.set_default_notification
+    end
+    create(:notification, conference: conference, locale: 'en')
+    assert_raise do
+      event_person.substitute_notification_variables 'unknownstate', :body
+    end
+
+    string = event_person.substitute_notification_variables 'accept', :subject
+    event_person.set_default_notification
+
+    assert_not_equal event_person.substitute_notification_variables('accept', :subject), conference.rooms.first.name
+    event_person.notification_subject = '%{room}'
+    assert_equal event_person.substitute_notification_variables('accept', :subject), conference.rooms.first.name
+
+    assert_nil event_person.notification_subject
+
+  end
+
 end
