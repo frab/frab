@@ -63,7 +63,11 @@ class Conference < ActiveRecord::Base
     joins(:conference_users).where(conference_users: { user_id: user, role: 'orga' })
   }
 
-  alias :own_days :days
+  def self.current
+    order('created_at DESC').first
+  end
+
+  alias own_days days
 
   def days
     return parent.days if sub?
@@ -100,10 +104,6 @@ class Conference < ActiveRecord::Base
     Language.where(attachable: include_subs)
   end
 
-  def self.current
-    order('created_at DESC').first
-  end
-
   def submission_data
     result = {}
     events = self.events.order(:created_at)
@@ -134,6 +134,10 @@ class Conference < ActiveRecord::Base
     codes = languages.map { |l| l.code.downcase }
     codes = %w(en) if codes.empty?
     codes
+  end
+
+  def start_times_by_day
+    days.map { |day| [day.to_s, day.start_times] }
   end
 
   def first_day

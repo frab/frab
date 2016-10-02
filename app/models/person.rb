@@ -50,6 +50,12 @@ class Person < ActiveRecord::Base
     joins(events: :conference).where('conferences.id': conference).where('events.state': %w(confirmed scheduled))
   }
 
+  def self.fullname_options
+    all.sort_by(&:full_name).map do |p|
+      { id: p.id, text: p.full_name_annotated }
+    end
+  end
+
   def newer_than?(person)
     updated_at > person.updated_at
   end

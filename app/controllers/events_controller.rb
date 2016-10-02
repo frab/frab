@@ -71,7 +71,7 @@ class EventsController < ApplicationController
 
     # total ratings:
     @events_total = @conference.events.count
-    @events_reviewed_total = @conference.events.to_a.count { |e| !e.event_ratings_count.nil? and e.event_ratings_count > 0 }
+    @events_reviewed_total = @conference.events.to_a.count { |e| !e.event_ratings_count.nil? && e.event_ratings_count > 0 }
     @events_no_review_total = @events_total - @events_reviewed_total
 
     # current_user rated:
@@ -124,7 +124,7 @@ class EventsController < ApplicationController
   def new
     authorize! :crud, Event
     @event = Event.new
-    @start_time_options = @conference.days.map { |day| [ day.to_s, day.start_times ] }
+    @start_time_options = @conference.start_times_by_day
 
     respond_to do |format|
       format.html # new.html.erb
@@ -142,9 +142,7 @@ class EventsController < ApplicationController
   # GET /events/2/edit_people
   def edit_people
     @event = Event.find(params[:id])
-    @persons = Person.all.sort_by(&:full_name).map do |p|
-      { id: p.id, text: p.full_name_annotated }
-    end
+    @persons = Person.fullname_options
 
     authorize! :update, @event
   end
@@ -159,7 +157,7 @@ class EventsController < ApplicationController
       if @event.save
         format.html { redirect_to(@event, notice: 'Event was successfully created.') }
       else
-        @start_time_options = @conference.days.map { |day| [ day.to_s, day.start_times ] }
+        @start_time_options = @conference.start_times_by_day
         format.html { render action: 'new' }
       end
     end
