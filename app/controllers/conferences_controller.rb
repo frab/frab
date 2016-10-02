@@ -73,12 +73,12 @@ class ConferencesController < ApplicationController
   # PUT /conferences/1
   def update
     respond_to do |format|
-      if @conference.update_attributes(conference_params)
+      if @conference.update_attributes(existing_conference_params)
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
       else
         # redirect to the right nested form page
         flash[:errors] = @conference.errors.full_messages.join
-        format.html { render action: get_previous_nested_form(conference_params) }
+        format.html { render action: get_previous_nested_form(existing_conference_params) }
       end
     end
   end
@@ -131,32 +131,40 @@ class ConferencesController < ApplicationController
     @search.result(distinct: true)
   end
 
-  def conference_params
-    allowed = [
-      :acronym, :title, :default_timeslots, :max_timeslots, :feedback_enabled, :expenses_enabled,
-      :transport_needs_enabled, :email, :program_export_base_url, :schedule_version, :schedule_public, :color, :ticket_type,
-      :bulk_notification_enabled,
-      :event_state_visible, :schedule_custom_css, :schedule_html_intro, :default_recording_license,
+  def allowed_params
+    [
+      :acronym, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
+      :event_state_visible, :expenses_enabled, :feedback_enabled, :max_timeslots, :program_export_base_url,
+      :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_version, :ticket_type,
+      :title, :transport_needs_enabled,
       languages_attributes: %i(language_id code _destroy id),
       ticket_server_attributes: %i(url user password queue _destroy id),
       notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body schedule_subject schedule_body _destroy)
     ]
+  end
 
-    if @conference && @conference.new_record?
-      allowed += [ :parent_id ]
+  def conference_params
+    params.require(:conference).permit(allowed_params)
+  end
+
+  def existing_conference_params
+    allowed = allowed_params
+
+    if @conference.new_record?
+      allowed += [:parent_id]
     end
 
-    if @conference && @conference.parent.nil?
+    if @conference.parent.nil?
       allowed += [
         :timezone, :timeslot_duration,
-        days_attributes: %i(start_date end_date _destroy id),
+        days_attributes: %i(start_date end_date _destroy id)
       ]
     end
 
-    if @conference && (@conference.parent.nil? || can?(:adminstrate, @conference.parent))
+    if (@conference.parent.nil? || can?(:adminstrate, @conference.parent))
       allowed += [
         rooms_attributes: %i(name size public rank _destroy id),
-        tracks_attributes: %i(name color _destroy id),
+        tracks_attributes: %i(name color _destroy id)
       ]
     end
 
