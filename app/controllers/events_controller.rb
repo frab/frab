@@ -203,10 +203,21 @@ class EventsController < ApplicationController
     begin
       @event.send(:"#{params[:transition]}!", send_mail: params[:send_mail], coordinator: current_user.person)
     rescue => ex
-      return redirect_to(@event, alert: "Cannot send mails: #{ex}.")
+      return redirect_to(@event, alert: "Cannot update state: #{ex}.")
     end
 
     redirect_to @event, notice: 'Event was successfully updated.'
+  end
+
+  # add custom notifications to all the event's speakers
+  # POST /events/2/custom_notification
+  def custom_notification
+    @event = Event.find(params[:id])
+    authorize! :update, @event
+
+    @event.event_people.presenter.each.map(&:set_default_notification)
+
+    redirect_to edit_people_event_path(@event)
   end
 
   # DELETE /events/1
@@ -265,7 +276,7 @@ class EventsController < ApplicationController
       event_attachments_attributes: %i(id title attachment public _destroy),
       ticket_attributes: %i(id remote_ticket_id),
       links_attributes: %i(id title url _destroy),
-      event_people_attributes: %i(id person_id event_role role_state _destroy)
+      event_people_attributes: %i(id person_id event_role role_state notification_subject notification_body _destroy)
     )
   end
 end

@@ -1,2 +1,0 @@
-<%- I18n.locale = @locale %>
-<%= @notification.accept_body.gsub('%{conference}', @conference.title).gsub('%{event}', @event.title).gsub('%{forename}', @person.first_name).gsub('%{surname}', @person.last_name).gsub('%{public_name}', @person.public_name).gsub('%{link}', cfp_event_confirm_by_token_url( conference_acronym: @conference.acronym, id: @event.id, token: @token, locale: @locale )) %>

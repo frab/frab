@@ -31,6 +31,7 @@ class Conference < ActiveRecord::Base
   validates_inclusion_of :feedback_enabled, in: [true, false]
   validates_inclusion_of :expenses_enabled, in: [true, false]
   validates_inclusion_of :transport_needs_enabled, in: [true, false]
+  validates_inclusion_of :bulk_notification_enabled, in: [true, false]
   validates_uniqueness_of :acronym
   validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
@@ -81,8 +82,8 @@ class Conference < ActiveRecord::Base
   def events_by_state
     [
       [[0, self.events.where(state: %w(new review)).count]],
-      [[1, self.events.where(state: %w(unconfirmed confirmed)).count]],
-      [[2, self.events.where(state: 'rejected').count]],
+      [[1, self.events.where(state: %w(accepting unconfirmed confirmed scheduled)).count]],
+      [[2, self.events.where(state: %w(rejecting rejected)).count]],
       [[3, self.events.where(state: %w(withdrawn canceled)).count]]
     ]
   end
@@ -90,8 +91,8 @@ class Conference < ActiveRecord::Base
   def events_by_state_and_type(type)
     [
       [[0, self.events.where(state: %w(new review), event_type: type).count]],
-      [[1, self.events.where(state: %w(unconfirmed confirmed), event_type: type).count]],
-      [[2, self.events.where(state: 'rejected', event_type: type).count]],
+      [[1, self.events.where(state: %w(accepting unconfirmed confirmed scheduled), event_type: type).count]],
+      [[2, self.events.where(state: %w(rejecting rejected), event_type: type).count]],
       [[3, self.events.where(state: %w(withdrawn canceled), event_type: type).count]]
     ]
   end
@@ -130,7 +131,7 @@ class Conference < ActiveRecord::Base
                .where("event_people.event_role": %w(speaker moderator))
                .where("events.public": true)
 
-    ep = ep.where("events.state": 'confirmed') if accepted_only
+    ep = ep.where("events.state": %w(accepting confirmed scheduled)) if accepted_only
 
     ep.group(:gender).count.each do |k, v|
       k = 'unknown' if k.nil?

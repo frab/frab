@@ -85,7 +85,7 @@ class ReportsController < ApplicationController
                 .where('events.public': true)
                 .where('events.start_time > ?', Time.now)
                 .where('events.start_time < ?', Time.now.since(4.hours))
-                .where('events.state': %w(unconfirmed confirmed)).order('events.start_time ASC').group(:'people.id')
+                .where('events.state': %w(unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
     when 'people_speaking_at'
       r = conference_people.speaking_at(@conference)
     when 'people_with_a_note'
@@ -108,7 +108,7 @@ class ReportsController < ApplicationController
                 .where('events.public': true)
                 .where('events.start_time > ?', Time.now)
                 .where('events.start_time < ?', Time.now.since(2.hours))
-                .where('events.state': ['unconfirmed', 'confirmed']).order('events.start_time ASC').group(:'people.id')
+                .where('events.state': ['accepting', 'unconfirmed', 'confirmed', 'scheduled']).order('events.start_time ASC').group(:'people.id')
     end
 
     unless r.nil? or r.empty?
@@ -152,11 +152,11 @@ class ReportsController < ApplicationController
       @data = []
       row = []
       @labels = %w(LecturesCommited LecturesConfirmed LecturesUnconfirmed Lectures Workshops)
-      events = @conference.events.where(event_type: :lecture, state: [:confirmed, :unconfirmed])
+      events = @conference.events.where(event_type: :lecture, state: [:accepting, :confirmed, :unconfirmed, :scheduled])
       row << @conference.event_duration_sum(events)
-      events = @conference.events.where(event_type: :lecture, state: :confirmed)
+      events = @conference.events.where(event_type: :lecture, state: [:confirmed, :scheduled])
       row << @conference.event_duration_sum(events)
-      events = @conference.events.where(event_type: :lecture, state: :unconfirmed)
+      events = @conference.events.where(event_type: :lecture, state: [:acepting, :unconfirmed])
       row << @conference.event_duration_sum(events)
       events = @conference.events.where(event_type: :lecture)
       row << @conference.event_duration_sum(events)

@@ -4,7 +4,7 @@
     = f.button :submit, class: 'primary'
 
 :javascript
-  $('[data-function="notification-defaults"]').click(function(){
+  $('body').on('click', '[data-function="notification-defaults"]', function(){
     var args = $(this).data("args");
     var topDiv = $(this).closest('div.notification');
     NotificationDefaults.fill({ topDiv: topDiv, url: args.url });

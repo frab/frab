@@ -4,8 +4,10 @@ class Notification < ActiveRecord::Base
   validates :locale, presence: true
   validates :reject_subject, presence: true
   validates :reject_body,    presence: true
-  validates :accept_body,    presence: true
   validates :accept_subject, presence: true
+  validates :accept_body,    presence: true
+  validates :schedule_subject, presence: true
+  validates :schedule_body,  presence: true
   validate :uniq_locale
   # TODO
   # validate :locale_is_valid
@@ -18,7 +20,10 @@ class Notification < ActiveRecord::Base
     'forename'    => 'Speaker forename',
     'surname'     => 'Speaker surname',
     'event'       => 'Event title',
-    'link'        => 'Confirmation link'
+    'link'        => 'Confirmation link',
+    'date'        => 'Date of presentation',
+    'time'        => 'Time of presentation',
+    'room'        => 'Room of presentation'
   }
 
   def default_text=(locale = self.locale)
@@ -43,7 +48,13 @@ BODY
 #{I18n.t('emails.event_acceptance.goodbye')}
     BODY
 
-    self.accept_subject = I18n.t('emails.event_acceptance.subject')
+    self.schedule_subject = I18n.t('emails.event_schedule.subject')
+    self.schedule_body = <<-BODY
+#{I18n.t('emails.event_schedule.greeting')}
+#{I18n.t('emails.event_schedule.info')}
+#{I18n.t('emails.event_schedule.goodbye')}
+BODY
+
   end
 
   private
