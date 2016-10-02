@@ -241,11 +241,11 @@ class Conference < ActiveRecord::Base
     return unless self.timeslot_duration_changed? and self.events.count > 0
     old_duration = self.timeslot_duration_was
     factor = old_duration / self.timeslot_duration
-    Event.paper_trail_off!
+    Event.paper_trail.disable
     self.events_including_subs.each do |event|
       event.update_attributes(time_slots: event.time_slots * factor)
     end
-    Event.paper_trail_on!
+    Event.paper_trail.enable
   end
 
   # if a conference has multiple days, they sould not overlap
