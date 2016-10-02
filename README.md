@@ -35,7 +35,7 @@ frab is a pretty standard Ruby on Rails (version 4.2) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
-Basically, to get started you need git, ruby (>= 2.2) and bundler
+Basically, to get started you need git, ruby (>= 2.3) and bundler
 and follow these steps:
 
 1) Install nodejs:
