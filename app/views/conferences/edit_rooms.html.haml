@@ -3,15 +3,33 @@
     %h1= t :edit_conference_rooms
   = render partial: 'tabs', locals: { active: :rooms }
 
-  - if @conference.rooms.empty?
+  - if @conference.parent and not can? :adminstrate, @conference.parent
     .row
       .span16
         .blank-slate
           %p
-            Here you can create and edit the rooms in which
-            your events take place. Please enter at least one
-            room. This is needed to determine the number of
-            columns in your program schedule.
-  .row
-    .span16
-      = render 'form_rooms'
+            The rooms for this conference can only be modified with
+            administration rights for the parent conference
+            ="'#{@conference.parent.title}'."
+
+          %p
+            The currently configured room are:
+
+          %ul
+            - @conference.rooms.each do |room|
+              %li
+                ="#{room.name} (size: #{room.size})"
+
+  -else
+    - if @conference.rooms.empty?
+      .row
+        .span16
+          .blank-slate
+            %p
+              Here you can create and edit the rooms in which
+              your events take place. Please enter at least one
+              room. This is needed to determine the number of
+              columns in your program schedule.
+    .row
+      .span16
+        = render 'form_rooms'

@@ -38,16 +38,16 @@ class Person < ActiveRecord::Base
   # validates_inclusion_of :gender, in: GENDERS, allow_nil: true
 
   scope :involved_in, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).uniq
+    joins(events: :conference).where("conferences.id": conference).uniq
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(accepting unconfirmed confirmed scheduled)).uniq
+    joins(events: :conference).where("conferences.id": conference).where("event_people.event_role": %w(speaker moderator)).where("events.state": %w(accepted unconfirmed confirmed scheduled)).uniq
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(accepting unconfirmed confirmed scheduled)).uniq
+    joins(events: :conference).where("conferences.id": conference).where("event_people.event_role": %w(speaker moderator)).where("events.public": true).where("events.state": %w(accepted unconfirmed confirmed scheduled)).uniq
   }
   scope :confirmed, ->(conference) {
-    joins(events: :conference).where("conferences.id": conference.id).where("events.state": %w(confirmed scheduled))
+    joins(events: :conference).where("conferences.id": conference).where("events.state": %w(confirmed scheduled))
   }
 
   def newer_than?(person)
@@ -96,15 +96,15 @@ class Person < ActiveRecord::Base
   end
 
   def events_as_presenter_in(conference)
-    self.events.where("event_people.event_role": %w(speaker moderator), conference_id: conference.id)
+    self.events.where("event_people.event_role": %w(speaker moderator), conference: conference)
   end
 
   def events_as_presenter_not_in(conference)
-    self.events.where("event_people.event_role": %w(speaker moderator)).where('conference_id != ?', conference.id)
+    self.events.where("event_people.event_role": %w(speaker moderator)).where.not(conference: conference)
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    self.events.is_public.accepted.where("events.state": %w(confirmed scheduled), "event_people.event_role": %w(speaker moderator), conference_id: conference.id)
+    self.events.is_public.accepted.where("events.state": %w(confirmed scheduled), "event_people.event_role": %w(speaker moderator), conference_id: conference)
   end
 
   def role_state(conference)
@@ -119,7 +119,7 @@ class Person < ActiveRecord::Base
   end
 
   def availabilities_in(conference)
-    availabilities = self.availabilities.where(conference_id: conference.id)
+    availabilities = self.availabilities.where(conference: conference)
     availabilities.each { |a|
       a.start_date = a.start_date.in_time_zone
       a.end_date = a.end_date.in_time_zone
