@@ -41,10 +41,10 @@ class Person < ActiveRecord::Base
     joins(events: :conference).where('conferences.id': conference).uniq
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.state': %w(accepted unconfirmed confirmed scheduled)).uniq
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.state': Event::ACCEPTED).uniq
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.public': true).where('events.state': %w(accepted unconfirmed confirmed scheduled)).uniq
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.public': true).where('events.state': Event::ACCEPTED).uniq
   }
   scope :confirmed, ->(conference) {
     joins(events: :conference).where('conferences.id': conference).where('events.state': %w(confirmed scheduled))
