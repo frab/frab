@@ -85,7 +85,7 @@ FactoryGirl.define do
 
   trait :with_sub_conference do
     after :create do |conference|
-      if conference.parent.nil?
+      if conference.parent?
         create(:conference, parent: conference, title: "#{conference.title} sub")
       end
     end

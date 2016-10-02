@@ -57,7 +57,7 @@ class ConferencesController < ApplicationController
   def create
     @conference = Conference.new(conference_params)
 
-    if @conference.parent and not can? :administate, @conference.parent
+    if @conference.sub? and not can? :administate, @conference.parent
       @conference.parent = nil
     end
 
@@ -154,14 +154,14 @@ class ConferencesController < ApplicationController
       allowed += [:parent_id]
     end
 
-    if @conference.parent.nil?
+    if @conference.parent?
       allowed += [
         :timezone, :timeslot_duration,
         days_attributes: %i(start_date end_date _destroy id)
       ]
     end
 
-    if (@conference.parent.nil? || can?(:adminstrate, @conference.parent))
+    if (@conference.parent? || can?(:adminstrate, @conference.parent))
       allowed += [
         rooms_attributes: %i(name size public rank _destroy id),
         tracks_attributes: %i(name color _destroy id)

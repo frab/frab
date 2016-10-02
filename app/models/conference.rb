@@ -231,6 +231,14 @@ class Conference < ActiveRecord::Base
     true
   end
 
+  def parent?
+    parent.nil?
+  end
+
+  def sub?
+    parent.present?
+  end
+
   def to_s
     "#{model_name.human}: #{self.title} (#{self.acronym})"
   end
