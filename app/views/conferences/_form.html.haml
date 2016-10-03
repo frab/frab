@@ -4,7 +4,7 @@
       %legend= t(:parent_conference)
       = f.input :parent_id, as: :select, collection: @possible_parents, hint: "Please select a parent for this new conference. A conferences nested under a parent will inherit the days and some settings (such as time slots and time zones etc.) from the parent, and the configuration of rooms and tracks may only be done with administation right for the parent conference. The parent's schedule export will also include events from the sub-conferences. If you don't know what this means, just leave this field blank, but note that this setting cannot be changed after the conference has been created."
 
-  - elsif @conference.sub?
+  - elsif @conference.sub_conference?
     %fieldset.inputs
       %legend= t(:parent_conference)
       .input
@@ -17,7 +17,7 @@
     = f.input :acronym, hint: "A short and unique handle for your conference, using only lower-case letters, numbers and underscores. This will be used to identify your conference in URLs etc. Example: 'froscon2011'"
     = f.input :email, hint: "Contact email address for your conference. Will be used as reply-to address in emails sent out by the system."
     = f.input :color, hint: "You may define a color for your conference.", input_html: { class: 'color' }
-  -if @conference.parent?
+  -if @conference.main_conference?
     %fieldset.inputs
       %legend= t(:timeslot_configuration)
       = f.input :timezone, as: :time_zone, hint: "Please select in what time zone your conference will take place. This is needed to correctly display times for your events."

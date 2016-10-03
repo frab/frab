@@ -70,17 +70,17 @@ class Conference < ActiveRecord::Base
   alias own_days days
 
   def days
-    return parent.days if sub?
+    return parent.days if sub_conference?
     own_days
   end
 
   def timezone
-    return parent.timezone if sub?
+    return parent.timezone if sub_conference?
     attributes['timezone']
   end
 
   def timeslot_duration
-    return parent.timeslot_duration if sub?
+    return parent.timeslot_duration if sub_conference?
     attributes['timeslot_duration']
   end
 
@@ -174,11 +174,11 @@ class Conference < ActiveRecord::Base
     true
   end
 
-  def parent?
+  def main_conference?
     parent.nil?
   end
 
-  def sub?
+  def sub_conference?
     parent.present?
   end
 
@@ -212,7 +212,7 @@ class Conference < ActiveRecord::Base
   end
 
   def subs_dont_allow_days
-    return unless sub?
+    return unless sub_conference?
     if Day.where(conference: self).any?
       errors.add(:days, 'are not allowed for conferences with a parent')
       errors.add(:parent, 'may not be set for conferences with days')
@@ -220,7 +220,7 @@ class Conference < ActiveRecord::Base
   end
 
   def subs_cant_have_subs
-    return unless sub?
+    return unless sub_conference?
     if subs.any?
       errors.add(:subs, 'cannot have sub-conferences and a parent')
       errors.add(:parent, 'may not be set for conferences with a parent')

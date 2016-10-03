@@ -3,7 +3,7 @@
     %h1= t :edit_conference_rooms
   = render partial: 'tabs', locals: { active: :rooms }
 
-  - if @conference.sub? and not can? :adminstrate, @conference.parent
+  - if @conference.sub_conference? and not can? :adminstrate, @conference.parent
     .row
       .span16
         .blank-slate
