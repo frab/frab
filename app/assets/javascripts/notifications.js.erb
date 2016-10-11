@@ -9,7 +9,7 @@ $(function() {
     },
 
     _fetch: function(topDiv, url) {
-      var code = topDiv.find('select option:selected').text();
+      var code = topDiv.find('select').val();
       $.ajax({
         type: "GET",
         dataType: "json",
