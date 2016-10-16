@@ -5,11 +5,15 @@ class MergePersons
   end
 
   def combine!(keep, kill)
-    return merge_persons(kill, keep) if @keep_last_updated && kill.newer_than?(keep)
+    return merge_persons(kill, keep) if retain_second_person?(keep, kill)
     merge_persons(keep, kill)
   end
 
   private
+
+  def retain_second_person?(keep, kill)
+    @keep_last_updated && kill.newer_than?(keep)
+  end
 
   def merge_persons(keep, kill)
     # Merge or move user model
