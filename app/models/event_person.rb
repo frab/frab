@@ -40,14 +40,14 @@ class EventPerson < ActiveRecord::Base
     availabilities.any? { |a| a.within_range?(start_time) && a.within_range?(end_time) }
   end
 
-  def set_default_notification
+  def set_default_notification(state)
     conference = self.event.conference
     locale = self.person.locale_for_mailing(conference)
     notification = conference.notifications.with_locale(locale).first
     fail "Notification for #{locale} not found" if notification.nil?
 
-    self.notification_subject = notification['accept_subject'] unless notification_subject.present?
-    self.notification_body = notification['accept_body'] unless notification_body.present?
+    self.notification_subject = notification[state+'_subject'] unless notification_subject.present?
+    self.notification_body = notification[state+'_body'] unless notification_body.present?
     save
   end
 

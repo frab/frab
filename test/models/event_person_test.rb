@@ -67,7 +67,7 @@ class EventPersonTest < ActiveSupport::TestCase
 
     event_person = create(:confirmed_event_person, event: event)
     assert_raise do
-      event_person.set_default_notification
+      event_person.set_default_notification 'reject'
     end
     create(:notification, conference: conference, locale: 'en')
     assert_raise do
@@ -75,7 +75,7 @@ class EventPersonTest < ActiveSupport::TestCase
     end
 
     string = event_person.substitute_notification_variables 'accept', :subject
-    event_person.set_default_notification
+    event_person.set_default_notification 'accept'
 
     assert_not_equal event_person.substitute_notification_variables('accept', :subject), conference.rooms.first.name
     event_person.notification_subject = '%{room}'
