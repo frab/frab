@@ -18,7 +18,7 @@
         - if @event.transition_possible? :cancel
           = action_button "danger", "Cancel event", update_state_event_path(@event, transition: :cancel), method: :put, hint: "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
         - if @event.transition_possible? :notify
-          = action_button "", "Costum notification", custom_notification_event_path(event_id: @event), method: :post, hint: "Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab."
+          = action_button "", "Custom notification", custom_notification_event_path(event_id: @event), method: :post, hint: "Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab."
         - if @conference.ticket_server_enabled?
           - unless @event.remote_ticket?
             = action_button "primary", "Add Ticket", tickets_path(event_id: @event), method: :post, title: "Create a ticket for this event."
