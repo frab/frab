@@ -213,7 +213,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     authorize! :update, @event
 
-    case @event.
+    case @event.state
     when 'accepting'
       state = 'accept'
     when 'rejecting'
@@ -224,7 +224,7 @@ class EventsController < ApplicationController
       return redirect_to(@event, alert: "Event not in a notifiable state.")
     end
 
-    @event.event_people.presenter.each.map(&:set_default_notification(state))
+    @event.event_people.presenter.each{ |p| p.set_default_notification(state) }
 
     redirect_to edit_people_event_path(@event)
   end
