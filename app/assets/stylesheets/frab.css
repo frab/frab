@@ -162,3 +162,9 @@ p.availability span {
 .dl-horizontal dd {
     margin-left: 180px;
 }
+
+.info-block {
+    background-color: #ddd;
+    border-radius: 5px;
+    padding: 0.2em;
+}
