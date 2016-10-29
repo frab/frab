@@ -21,6 +21,7 @@
             the "Start reviewing" button on the right, to
             rate a whole batch of events in a row.
   - else
+    = render 'filters', params
     .row
       .span16
         %h2 Statistics
@@ -58,10 +59,10 @@
                   = link_to event.title, event
                   %p.small
                     = by_speakers(event)
-                %td= event.track.try(:name)
-                %td= event.event_type
+                %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), url_for(params.merge({:track_name => event.track.try(:name)}))
+                %td= link_to_unless params[:event_type].present?, event.event_type, url_for(params.merge({:event_type => event.event_type}))
                 - if can? :crud, Event
-                  %td= event.state
+                  %td= link_to_unless params[:event_state].present?, event.state, url_for(params.merge({:event_state => event.state}))
                 %td
                   - if event.average_rating
                     = raty_for("event_rating_#{event.id}", event.average_rating)
