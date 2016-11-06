@@ -21,7 +21,7 @@
             the "Start reviewing" button on the right, to
             rate a whole batch of events in a row.
   - else
-    = render 'filters', params
+    = render partial: 'filters', locals: { params: params }
     .row
       .span16
         %h2 Statistics
