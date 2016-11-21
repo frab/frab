@@ -10,7 +10,7 @@ json.array! @events do |e|
     json.public_name speaker.public_name
     json.abstract speaker.abstract
     json.description speaker.description
-    json.availabilities speaker.availabilities do |availibility|
+    json.availabilities speaker.availabilities_in(event.conference) do |availibility|
       json.extract! availibility, :start_date, :end_date, :day_id
     end
   end
