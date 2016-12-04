@@ -40,7 +40,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'activeresource'
 gem 'acts_as_commentable'
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'cancancan'
 gem 'cocoon'
 gem 'dotenv-rails'
