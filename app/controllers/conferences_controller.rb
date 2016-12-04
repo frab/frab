@@ -65,6 +65,7 @@ class ConferencesController < ApplicationController
       if @conference.save
         format.html { redirect_to(conference_home_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
       else
+        @possible_parents = Conference.where(parent: nil)
         format.html { render action: 'new' }
       end
     end
