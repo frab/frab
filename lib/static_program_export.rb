@@ -112,7 +112,7 @@ class StaticProgramExport
 
   def query_paths
     paths = static_query_paths
-    day_index = 0
+    day_index = 1
     @conference.days.each do |_day|
       paths << { source: "schedule/#{day_index}", target: "schedule/#{day_index}.html" }
       paths << { source: "schedule/#{day_index}.pdf", target: "schedule/#{day_index}.pdf" }
