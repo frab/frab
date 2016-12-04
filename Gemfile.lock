@@ -276,7 +276,7 @@ DEPENDENCIES
   activeresource
   acts_as_commentable
   airbrussh
-  bcrypt-ruby
+  bcrypt
   bullet
   cancancan
   capistrano (~> 3.4.0)
