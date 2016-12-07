@@ -67,7 +67,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should get export accepted' do
-    conference = create :three_day_conference_with_events
+    conference = create :three_day_conference_with_events_and_speakers
     get :export_accepted, conference_acronym: conference.acronym, format: :json
     assert_response :success
     assert_includes response.body, '[{"event_id":'

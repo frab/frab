@@ -75,6 +75,16 @@ FactoryGirl.define do
     end
   end
 
+  trait :with_speakers do
+    after :create do |conference|
+      conference.events.each do |event|
+        speaker = create(:person)
+        create(:event_person, event: event, person: speaker, event_role: 'speaker', role_state: 'confirmed')
+        create(:availability, conference: conference, person: speaker)
+      end
+    end
+  end
+
   trait :with_parent_conference do
     after :create do |conference|
       unless conference.subs.any?
@@ -158,6 +168,7 @@ FactoryGirl.define do
 
     factory :three_day_conference, traits: [:three_days, :with_sub_conference]
     factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference]
+    factory :three_day_conference_with_events_and_speakers, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference, :with_speakers]
     factory :sub_conference_with_events, traits: [:with_rooms, :with_events, :with_parent_conference]
   end
 
