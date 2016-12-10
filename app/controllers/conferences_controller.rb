@@ -145,7 +145,18 @@ class ConferencesController < ApplicationController
   end
 
   def conference_params
-    params.require(:conference).permit(allowed_params)
+    allowed = allowed_params
+
+    if params[:conference][:parent_id].present?
+      allowed += [:parent_id]
+    else
+      allowed += [
+        :timezone, :timeslot_duration,
+        days_attributes: %i(start_date end_date _destroy id)
+      ]
+    end
+
+    params.require(:conference).permit(allowed)
   end
 
   def existing_conference_params

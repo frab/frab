@@ -12,6 +12,20 @@ class ConferencesControllerTest < ActionController::TestCase
     @conference.attributes.except(*%w(id created_at updated_at))
   end
 
+  def conference_attributes
+    attribs =  attributes_for(:conference)
+    attribs[:timezone] = 'Hawaii'
+    attribs.delete(:parent)
+    attribs
+  end
+
+  def sub_conference_attributes
+    attribs =  attributes_for(:conference)
+    attribs[:timezone] = 'Hawaii'
+    attribs[:parent_id] = Conference.first.id
+    attribs
+  end
+
   test 'should list all' do
     get :index
     assert_response :success
@@ -26,6 +40,20 @@ class ConferencesControllerTest < ActionController::TestCase
     assert_difference('Conference.count') do
       post :create, conference: attributes_for(:conference)
     end
+  end
+
+  test 'should create conference without parent' do
+    assert_difference('Conference.count') do
+      post :create, conference: conference_attributes
+    end
+    assert_equal 'Hawaii', Conference.last.timezone
+  end
+
+  test 'should create sub conference' do
+    assert_difference('Conference.count') do
+      post :create, conference: sub_conference_attributes
+    end
+    assert_equal 'Berlin', Conference.last.timezone
   end
 
   test 'should get edit' do
