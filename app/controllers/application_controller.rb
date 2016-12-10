@@ -39,10 +39,10 @@ class ApplicationController < ActionController::Base
 
   def load_conference
     if params[:conference_acronym]
-      @conference = Conference.find_by_acronym(params[:conference_acronym])
+      @conference = Conference.includes(:parent).find_by_acronym(params[:conference_acronym])
       fail ActionController::RoutingError.new('Not found') unless @conference
     elsif session.key?(:conference_acronym)
-      @conference = Conference.find_by_acronym(session[:conference_acronym])
+      @conference = Conference.includes(:parent).find_by_acronym(session[:conference_acronym])
     elsif Conference.count > 0
       @conference = Conference.current
     end
