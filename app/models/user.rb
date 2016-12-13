@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
     update_attributes(last_sign_in_at: Time.now, sign_in_count: sign_in_count + 1)
   end
 
+  def last_conference
+    conference_users.map(&:conference).last
+  end
+
   private
 
   def conference_user_fields_present
