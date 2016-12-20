@@ -28,6 +28,8 @@ conference with more than 100 talks (and as many speakers) in more
 than 5 parallel tracks (plus devrooms) over 2 days.
 
 The [frab wiki](https://github.com/frab/frab/wiki) hosts a list of conferences using frab.
+Take a look at the [screenshots](https://github.com/frab/frab/wiki/Screenshots) to get an idea
+of what frab does.
 
 ## Installing
 
