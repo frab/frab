@@ -66,6 +66,7 @@ class ConferencesController < ApplicationController
         format.html { redirect_to(conference_home_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
       else
         @possible_parents = Conference.where(parent: nil)
+        flash[:errors] = @conference.errors.full_messages.join
         format.html { render action: 'new' }
       end
     end
