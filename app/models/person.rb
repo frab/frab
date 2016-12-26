@@ -114,11 +114,11 @@ class Person < ActiveRecord::Base
   end
 
   def role_state(conference)
-    speaker_role_state(conference).map(&:role_state).uniq.join ', '
+    event_people.presenter_at(conference).map(&:role_state).uniq.join ', '
   end
 
   def set_role_state(conference, state)
-    speaker_role_state(conference).each do |ep|
+    event_people.presenter_at(conference).each do |ep|
       ep.role_state = state
       ep.save!
     end
@@ -186,10 +186,6 @@ class Person < ActiveRecord::Base
   end
 
   private
-
-  def speaker_role_state(conference)
-    event_people.select { |ep| ep.event.conference == conference }.select { |ep| EventPerson::SPEAKER.include? ep.event_role }
-  end
 
   def nilify_empty
     self.gender = nil if gender and gender.empty?

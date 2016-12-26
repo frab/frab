@@ -29,6 +29,34 @@ class PersonTest < ActiveSupport::TestCase
     assert new_person.newer_than?(old_person)
   end
 
+  test '#role_state' do
+    conference = create(:conference)
+    event1 = create(:event, conference: conference)
+    event2 = create(:event, conference: conference)
+    event3 = create(:event, conference: conference)
+    other_conference = create(:conference)
+    other_event = create(:event, conference: other_conference)
+    person = create(:person)
+    create(:event_person, event: event1, person: person, event_role: :speaker, role_state: 'idea')
+    create(:event_person, event: event2, person: person, event_role: :speaker, role_state: 'attending')
+    create(:event_person, event: event3, person: person, event_role: :submitter)
+    create(:event_person, event: other_event, person: person, event_role: :speaker)
+    assert_equal 'idea, attending', person.role_state(conference)
+    assert_equal '', person.role_state(other_conference)
+  end
+
+  test '#set_role_state' do
+    conference = create(:conference)
+    event1 = create(:event, conference: conference)
+    event2 = create(:event, conference: conference)
+    person = create(:person)
+    event_person1 = create(:event_person, event: event1, person: person, event_role: :speaker, role_state: 'idea')
+    event_person2 = create(:event_person, event: event2, person: person, event_role: :submitter)
+    person.set_role_state(conference, :attending)
+    assert_equal 'attending', event_person1.reload.role_state
+    assert_nil event_person2.reload.role_state
+  end
+
   test 'feedback average gets calculated correctly' do
     conference = create(:conference)
     event1 = create(:event, conference: conference)
@@ -107,5 +135,4 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal merged_person, person3
     assert_equal 'orga', person3.user.conference_users.find_by(conference_id: conference1.id).role
   end
-
 end
