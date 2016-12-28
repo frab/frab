@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161224142836) do
+ActiveRecord::Schema.define(version: 20161227232916) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(version: 20161224142836) do
 
   create_table "expenses", force: :cascade do |t|
     t.string   "name"
-    t.decimal  "value"
+    t.decimal  "value",         precision: 6, scale: 4
     t.boolean  "reimbursed"
     t.integer  "person_id"
     t.integer  "conference_id"
