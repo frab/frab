@@ -562,7 +562,7 @@ class PentabarfImportHelper
   end
 
   def disable_event_callback(average)
-    # we wan't to update this in batch after all the inserts
+    # we want to update this in batch after all the inserts
     Event.skip_callback(:save, :after, :update_conflicts)
     average.skip_callback(:save, :after, :update_average)
     # TODO disable counter_cache?

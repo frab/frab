@@ -82,7 +82,7 @@ In Production make sure the config variables are set, copy and edit the file
 If you are running frab in a production environment you have to
 take additional steps to build a secure and stable site.
 
-* Change the password of the inital admin account
+* Change the password of the initial admin account
 * Change the initial secret token
 * Add a content disposition header, so attachments get downloaded and
 are not displayed in the browser. See `./public/system/attachments/.htaccess` for an example.
