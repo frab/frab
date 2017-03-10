@@ -49,12 +49,14 @@ class PeopleController < ApplicationController
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
     clean_events_attributes
-    @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
-    @expenses = @person.expenses.where(conference_id: @conference.id)
+    if @conference
+      @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
+      @expenses = @person.expenses.where(conference_id: @conference.id)
+      @transport_needs = @person.transport_needs.where(:conference_id => @conference.id)
+    end
     @expenses_sum_reimbursed = @person.sum_of_expenses(@conference, true)
     @expenses_sum_non_reimbursed = @person.sum_of_expenses(@conference, false)
 
-    @transport_needs = @person.transport_needs.where(:conference_id => @conference.id)
 
     respond_to do |format|
       format.html
