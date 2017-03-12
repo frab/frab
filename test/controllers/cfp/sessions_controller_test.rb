@@ -20,7 +20,7 @@ class Cfp::SessionsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test 'nonexistant user cannot login' do
+  test 'nonexistent user cannot login' do
     post :create, conference_acronym: @conference.acronym, user: { email: 'not@exista.nt', password: 'frab123' }
     assert_nil assigns(:current_user)
     assert_response :success

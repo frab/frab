@@ -1,7 +1,7 @@
 namespace :frab do
   task default: :bulk_mailer
 
-  desc 'sends bulk mails. This action takes two arguments. A file name of a file containing one mail adresses per line and another file with mail content'
+  desc 'sends bulk mails. This action takes two arguments. A file name of a file containing one mail addresses per line and another file with mail content'
   task bulk_mailer: :environment do |_t, _args|
     unless ENV['subject'] and ENV['from'] and ENV['emails'] and ENV['body']
       puts "Usage: rake frab:bulk_mailer subject=\"subject\" from=mail@example.org emails=emails.lst body=body.text.erb"

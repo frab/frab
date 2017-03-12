@@ -26,7 +26,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to cfp_person_path(conference_acronym: @first_conference.acronym)
   end
 
-  test 'nonexistant user cannot login' do
+  test 'nonexistent user cannot login' do
     post :create, conference_acronym: @conference.acronym, user: { email: 'not@exista.nt', password: 'frab123' }
     assert_nil assigns(:current_user)
     assert_response :success
@@ -64,7 +64,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to root_path, conference_acronym: @conference.acronym
   end
 
-  test 'current conference choosen if session and parameter are absent' do
+  test 'current conference chosen if session and parameter are absent' do
     post :create, user: user_param(@orga)
     assert_redirected_to root_path, conference_acronym: @last_conference.acronym
   end
