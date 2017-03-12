@@ -149,13 +149,13 @@ class Conference < ActiveRecord::Base
   end
 
   def day_at(date)
-    i = 0
+    i = 1
     days.each { |day|
       return i if date.between?(day.start_date, day.end_date)
       i += 1
     }
-    # fallback to day at index 0
-    0
+    # fallback to first day
+    1
   end
 
   def each_day(&block)

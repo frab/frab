@@ -7,7 +7,7 @@
 
 %h2
   - if @conference.days.length > 1
-    = t '.schedule_for_day', index: @day_index+1, label: l(@day.date)
+    = t '.schedule_for_day', index: @day_index, label: l(@day.date)
   - else
     = t '.schedule', label: l(@day.date)
 

@@ -22,8 +22,8 @@ class Public::ScheduleController < ApplicationController
 
   def day
     @day_index = params[:day].to_i
-    if @conference.days.count <= @day_index
-      return redirect_to public_schedule_index_path, alert: "Failed to find day for id #{@day_index}"
+    if @day_index < 1 || @day_index > @conference.days.count
+      return redirect_to public_schedule_index_path, alert: "Failed to find day at index #{@day_index}"
     end
 
     setup_day_ivars
@@ -86,8 +86,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def setup_day_ivars
-    @day = @conference.days[@day_index]
-
+    @day = @conference.days[@day_index - 1]
     all_rooms = @conference.rooms_including_subs
     @rooms = []
     @events = {}

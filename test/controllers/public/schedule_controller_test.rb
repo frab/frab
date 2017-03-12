@@ -31,17 +31,17 @@ class Public::ScheduleControllerTest < ActionController::TestCase
   end
 
   test 'displays schedule for a day' do
-    get :day, day: 0, conference_acronym: @conference.acronym
+    get :day, day: 1, conference_acronym: @conference.acronym
     assert_response :success
   end
 
   test 'displays pdf schedule for a day' do
-    get :day, day: 0, conference_acronym: @conference.acronym, format: 'pdf'
+    get :day, day: 1, conference_acronym: @conference.acronym, format: 'pdf'
     assert_response :success
   end
 
   test 'display first day' do
-    get :day, day: 0, conference_acronym: @conference.acronym, format: 'pdf'
+    get :day, day: 1, conference_acronym: @conference.acronym, format: 'pdf'
     assert_response :success
   end
 

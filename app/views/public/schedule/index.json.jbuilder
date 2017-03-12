@@ -9,7 +9,7 @@ json.schedule do
     end
     json.daysCount @conference.days.length
     json.timeslot_duration duration_to_time(@conference.timeslot_duration)
-    index = 0
+    index = 1
     json.days @conference.days do |day|
       json.index index
       index += 1
