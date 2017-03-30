@@ -13,7 +13,6 @@ class RecentChangesTest < ActionDispatch::IntegrationTest
 
   test 'home page still displays after event with person has been deleted' do
     sign_in(@user)
-    assert_response :redirect
     event = create(:event, conference: @conference)
     create(:event_person, event: event)
     PaperTrail.enabled = true
@@ -26,7 +25,6 @@ class RecentChangesTest < ActionDispatch::IntegrationTest
 
   test 'home page still displays after initiator of change has been deleted' do
     sign_in(@tmp_user)
-    post '/session', params: { user: { email: @tmp_user.email, password: 'frab23' } }
     PaperTrail.enabled = true
     event = create(:event, conference: @conference)
     create(:event_person, event: event)
