@@ -33,7 +33,7 @@ of what frab does.
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 4.2) application.
+frab is a pretty standard Ruby on Rails (version 5.0) application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
