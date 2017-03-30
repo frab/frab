@@ -1,9 +1,8 @@
 %table.zebra-striped
   %thead
     %th.first
-    %th= t('activerecord.attributes.conference.acronym')
-    %th= t('activerecord.attributes.conference.title')
     %th= t('activerecord.attributes.day.start_date')
+    %th= t('activerecord.attributes.conference.title')
     %th= t(:actions)
   %tbody
     - collection.each do |conference|
@@ -11,12 +10,11 @@
         %td
           - if conference.logo.present?
             = image_box conference&.logo, :small
-        %td= conference.acronym
-        %td= conference.title
         %td
           = l(conference.days.first.start_date.to_date)
           \-
           = l(conference.days.last.end_date.to_date)
+        %td= conference.title
         %td
           - if conference.call_for_participation
             = action_button 'small primary', t('activerecord.models.call_for_participation'), call_path(conference_acronym: conference.acronym)

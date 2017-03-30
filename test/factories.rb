@@ -20,6 +20,10 @@ FactoryGirl.define do
       start_date Date.today.ago(100.days)
       end_date Date.today.ago(90.days)
     end
+    factory :future_call_for_participation do
+      start_date Date.today.since(100.days)
+      end_date Date.today.since(90.days)
+    end
   end
 
   factory :conference_export do

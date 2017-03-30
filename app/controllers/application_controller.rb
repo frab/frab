@@ -74,11 +74,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_cfp_open
-    if @conference.call_for_participation.nil?
-      redirect_to cfp_not_existing_path
-    elsif @conference.call_for_participation.start_date > Date.today
-      redirect_to cfp_open_soon_path
-    end
+    redirect_to call_path unless @conference.cfp_open?
   end
 
   private

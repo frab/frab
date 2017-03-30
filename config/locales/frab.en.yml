@@ -34,6 +34,11 @@ en:
   ability:
     denied: "This action is not allowed."
 
+  cfp:
+    login: "Log-in"
+
+  events: "events"
+
   conflict:
     events_overlap: "overlaps with"
     has_no_availability: "has not entered any availability yet."
@@ -76,6 +81,7 @@ en:
 
   activerecord:
     models:
+      call_for_participation: "Call for Participation"
       conference: "conference"
       conference_user: "conference user"
       day: "day"
@@ -95,9 +101,12 @@ en:
     attributes:
       conference:
         email: "E-Mail"
+        title: "title"
       event:
         title: "title"
         state: "state"
+      day:
+        start_date: "start"
 
   mailers:
     user_mailer:

@@ -7,15 +7,10 @@ class HomeController < ApplicationController
   end
 
   def show
-  end
-
-  def not_existing
-    @user = User.new
-    redirect_to new_user_session_path if @conference.call_for_participation
-  end
-
-  def open_soon
-    @user = User.new
-    redirect_to new_user_session_path if @conference.call_for_participation.start_date <= Date.today
+    if @conference.call_for_participation.blank?
+      render 'not_existing'
+    elsif @conference.call_for_participation.in_the_future?
+      render 'open_soon'
+    end
   end
 end

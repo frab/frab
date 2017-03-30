@@ -8,4 +8,8 @@ class CallForParticipation < ApplicationRecord
   def to_s
     "#{model_name.human}: #{conference.title}"
   end
+
+  def in_the_future?
+    start_date > Date.today
+  end
 end

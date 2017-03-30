@@ -78,6 +78,12 @@ class Conference < ApplicationRecord
     own_days
   end
 
+  def cfp_open?
+    return false if call_for_participation.nil?
+    return false if call_for_participation.in_the_future?
+    true
+  end
+
   def timezone
     return parent.timezone if sub_conference?
     attributes['timezone']
