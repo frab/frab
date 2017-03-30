@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    registrations: 'auth/registrations'
+    registrations: 'auth/registrations',
+    sessions: 'auth/sessions'
   }
 
   scope '(:locale)' do

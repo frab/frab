@@ -21,5 +21,17 @@ class SignUpTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_includes @response.body, 'confirmation link'
     assert_includes @response.body, "#{@conference.title}\n- Call for Participation"
+
+    user = User.last
+    user.confirm
+
+    post '/users/sign_in', params: {
+      'user' => { 'email' => 'test2@example.org', 'password' => 'frab12345' },
+      'commit' => 'Log in', 'locale' => 'en'
+    }
+    follow_redirect!
+    follow_redirect!
+    assert_includes @response.body, "#{@conference.title}\n- Call for Participation"
+    assert_includes @response.body, 'Update profile'
   end
 end

@@ -52,6 +52,7 @@ class User < ApplicationRecord
   def is_crew_of?(conference)
     is_crew? and conference_users.select { |cu| cu.conference_id == conference.id }.any?
   end
+
   def last_conference
     conference_users.map(&:conference).last
   end
