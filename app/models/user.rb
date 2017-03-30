@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
   attr_accessor :remember_me
 
-  after_initialize :check_default_values
+  after_initialize :setup_default_values
 
   validates :person, presence: true
   validates :email, presence: true
@@ -27,9 +27,10 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where(arel_table[:confirmed_at].not_eq(nil)) }
 
-  def check_default_values
+  def setup_default_values
     self.role ||= 'submitter'
     self.sign_in_count ||= 0
+    self.person ||= Person.new(email: email, public_name: email)
   end
 
   def newer_than?(user)

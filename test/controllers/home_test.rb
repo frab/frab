@@ -17,25 +17,4 @@ class HomeControllerTest < ActionController::TestCase
     assert_includes response.body, '>past conference'
     assert_includes response.body, '>future conference'
   end
-
-  test 'should show cfp for running conference' do
-    get :show, params: { conference_acronym: @present.acronym }
-    assert_response :success
-  end
-
-  test 'should show cfp for past conference' do
-    get :show, params: { conference_acronym: @past.acronym }
-    assert_response :success
-  end
-
-  test 'should show open soon for future conference' do
-    get :show, params: { conference_acronym: @future.acronym }
-    assert_response :success
-  end
-
-  test 'should show non existing for missing conference' do
-    assert_raises(ActionController::RoutingError) do
-      get :show, params: { conference_acronym: 'non-existing' }
-    end
-  end
 end

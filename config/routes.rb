@@ -42,7 +42,7 @@ Rails.application.routes.draw do
             put :confirm
           end
         end
-        root to: 'people#show'
+        root to: 'welcome#show'
       end # namespace :cfp
 
       get '/recent_changes' => 'recent_changes#index', as: 'recent_changes'
@@ -125,7 +125,6 @@ Rails.application.routes.draw do
     end # scope path: "/:conference_acronym"
 
     get '/:conference_acronym' => 'crew#index', as: 'conference_crew'
-    get '/:conference_acronym/show' => 'home#show', as: 'call'
   end # scope "(:locale)" do
 
   root to: 'home#index'

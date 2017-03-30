@@ -1,22 +1,12 @@
 !!!
 %html
   %head
-    %title
-      - if conference_selected?
-        conference_selected?
-        - if @event.present?
-          \-
-          = @event.title
-        - elsif @person.present?
-          \-
-          = @person.full_name
-      - else
-        frab
-      \- Conference Management
+    %title= management_page_title
 
     = stylesheet_link_tag "application", "admin"
     = javascript_include_tag "application", "admin"
     = csrf_meta_tags
+
   %body
     .topbar
       .fill

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}"
     begin
       if current_user.is_submitter?
-        redirect_to cfp_root_path, notice: t(:"ability.denied")
+        redirect_to cfp_person_path, notice: t(:"ability.denied")
       else
         redirect_to :back, notice: t(:"ability.denied")
       end
@@ -48,14 +48,13 @@ class ApplicationController < ActionController::Base
   def load_conference
     @conference = conference_from_params
     @conference ||= conference_from_session
-    @conference ||= Conference.current
 
-    session[:conference_acronym] = @conference.acronym
-
+    session[:conference_acronym] = @conference&.acronym
     Time.zone = @conference&.timezone
   end
 
   def info_for_paper_trail
+    return {} unless @conference
     { conference_id: @conference.id }
   end
 
@@ -70,11 +69,11 @@ class ApplicationController < ActionController::Base
   end
 
   def not_submitter!
-    redirect_to cfp_root_path, alert: 'This action is not allowed' if current_user&.is_submitter?
+    redirect_to cfp_person_path, alert: 'This action is not allowed' if current_user&.is_submitter?
   end
 
   def check_cfp_open
-    redirect_to call_path unless @conference.cfp_open?
+    redirect_to cfp_show_path unless @conference.cfp_open?
   end
 
   private
@@ -86,6 +85,7 @@ class ApplicationController < ActionController::Base
 
   def conference_from_params
     return unless params.key?(:conference_acronym)
+
     conference = Conference.includes(:parent).find_by(acronym: params[:conference_acronym])
     raise ActionController::RoutingError, 'Specified conference not found' unless conference
     conference

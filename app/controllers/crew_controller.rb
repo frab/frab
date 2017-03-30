@@ -30,6 +30,6 @@ class CrewController < ApplicationController
     if current_user.is_crew?
       return users_last_conference_path if current_user.last_conference
     end
-    cfp_root_path
+    cfp_person_path
   end
 end

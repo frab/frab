@@ -94,7 +94,7 @@ class Cfp::EventsControllerTest < ActionController::TestCase
   test 'should redirect if confirm token was invalid' do
     log_out
     get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: '%' }
-    assert_redirected_to cfp_root_path
+    assert_redirected_to cfp_person_path
     refute_equal 'confirmed', @event.reload.state
     assert_nil session[:user_id]
   end

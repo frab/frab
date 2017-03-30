@@ -17,7 +17,7 @@
         %td= conference.title
         %td
           - if conference.call_for_participation
-            = action_button 'small primary', t('activerecord.models.call_for_participation'), call_path(conference_acronym: conference.acronym)
+            = action_button 'small primary', t('activerecord.models.call_for_participation'), cfp_root_path(conference_acronym: conference.acronym)
           - if conference.schedule_public?
             = action_button 'small primary', t('events'), public_schedule_index_path(conference_acronym: conference.acronym)
           - if can? :administrate, conference

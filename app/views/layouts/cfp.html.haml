@@ -23,7 +23,7 @@
                     %ul.dropdown-menu
                       - conferences.each do |conference|
                         - unless @conference == conference
-                          %li= link_to conference.acronym, cfp_root_path(conference_acronym: conference.acronym)
+                          %li= link_to conference.acronym, cfp_person_path(conference_acronym: conference.acronym)
                 %li= link_to t("logout", default: "Logout"), destroy_user_session_path, method: :delete
     .container
       .main-content
