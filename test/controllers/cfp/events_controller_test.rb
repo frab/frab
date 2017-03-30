@@ -8,7 +8,23 @@ class Cfp::EventsControllerTest < ActionController::TestCase
   end
 
   def event_params
-    @event.attributes.except('id', 'created_at', 'updated_at', 'conference_id', 'logo_file_name', 'logo_content_type', 'logo_file_size', 'logo_updated_at', 'average_rating', 'event_ratings_count', 'speaker_count', 'event_feedbacks_count', 'average_feedback', 'guid', 'number_of_repeats', 'other_locations', 'methods', 'resources', 'target_audience_experience', 'target_audience_experience_text', 'state', 'start_time', 'public', 'room_id', 'note', 'recording_license')
+    @event.attributes.slice(
+      'title',
+      'subtitle',
+      'event_type',
+      'time_slots',
+      'language',
+      'abstract',
+      'description',
+      'logo_content_type',
+      'track_id',
+      'submission_note',
+      'event_feedbacks_count',
+      'do_not_record',
+      'recording_license',
+      'target_audience_experience',
+      'tech_rider'
+    )
   end
 
   test 'should get new' do
@@ -35,27 +51,51 @@ class Cfp::EventsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test 'should confirm event and login user' do
-    session[:user_id] = nil
+  def setup_unconfirmed(person)
     @event.update_attributes(state: 'unconfirmed')
-    event_person = create(:event_person, event: @event, person: @user.person)
-    event_person.generate_token!
-    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
-    assert_response :redirect
-    @event.reload
-    assert_equal 'confirmed', @event.state
-    assert_not_nil session[:user_id]
-  end
-
-  test 'should confirm event without user' do
-    session[:user_id] = nil
-    @event.update_attributes(state: 'unconfirmed')
-    person = create(:person)
     event_person = create(:event_person, event: @event, person: person)
     event_person.generate_token!
+    event_person
+  end
+
+  test 'should confirm event for logged in user' do
+    event_person = setup_unconfirmed(@user.person)
     get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
-    assert_response :success
-    @event.reload
-    assert_equal 'confirmed', @event.state
+    assert_redirected_to cfp_person_path
+    assert_equal 'confirmed', @event.reload.state
+  end
+
+  test 'should confirm event for logged in user without requiring a token' do
+    setup_unconfirmed(@user.person)
+    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id }
+    assert_redirected_to cfp_person_path
+    assert_equal 'confirmed', @event.reload.state
+    assert_nil session[:user_id]
+  end
+
+  test 'should confirm event and thank user' do
+    log_out
+    event_person = setup_unconfirmed(@user.person)
+    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
+    assert_redirected_to new_user_session_path
+    assert_equal 'confirmed', @event.reload.state
+    assert_nil session[:user_id]
+  end
+
+  test 'should confirm event if person does not have a user account' do
+    log_out
+    event_person = setup_unconfirmed(create(:person))
+    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
+    assert_redirected_to new_user_session_path
+    assert_equal 'confirmed', @event.reload.state
+    assert_nil session[:user_id]
+  end
+
+  test 'should redirect if confirm token was invalid' do
+    log_out
+    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: '%' }
+    assert_redirected_to cfp_root_path
+    refute_equal 'confirmed', @event.reload.state
+    assert_nil session[:user_id]
   end
 end

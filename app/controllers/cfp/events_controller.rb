@@ -80,29 +80,31 @@ class Cfp::EventsController < ApplicationController
   end
 
   def confirm
-    if params[:token]
-      event_person = EventPerson.find_by(confirmation_token: params[:token])
-
-      # Catch undefined method `person' for nil:NilClass exception if no confirmation token is found.
-      if event_person.nil?
-        return redirect_to cfp_root_path, flash: { error: t('cfp.no_confirmation_token') }
-      end
-
-      event_people = event_person.person.event_people.where(event_id: params[:id])
-      login_as(event_person.person.user) if event_person.person.user
-    else
-      fail 'Unauthenticated' unless current_user
-      event_people = current_user.person.event_people.where(event_id: params[:id])
+    event_people = event_people_from_params
+    if event_people.blank?
+      return redirect_to cfp_root_path, flash: { error: t('cfp.no_confirmation_token') }
     end
     event_people.each(&:confirm!)
+
     if current_user
       redirect_to cfp_person_path, notice: t('cfp.thanks_for_confirmation')
     else
-      render layout: 'signup'
+      redirect_to new_user_session_path
     end
   end
 
   private
+
+  def event_people_from_params
+    if params[:token]
+      event_person = EventPerson.find_by(confirmation_token: params[:token])
+      return if event_person.nil?
+      event_person.person.event_people.where(event_id: params[:id])
+
+    elsif current_user
+      current_user.person.event_people.where(event_id: params[:id])
+    end
+  end
 
   def event_params
     params.require(:event).permit(

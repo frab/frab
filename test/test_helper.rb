@@ -22,6 +22,10 @@ class ActiveSupport::TestCase
     user
   end
 
+  def log_out
+    sign_out(:user)
+  end
+
   def sign_in(user)
     post '/session', params: { user: { email: user.email, password: user.password } }
   end
