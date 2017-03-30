@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   scope '(:locale)' do
-    resource :session
 
     get '/conferences/new' => 'conferences#new', as: 'new_conference'
     post '/conferences' => 'conferences#create', as: 'create_conference'
@@ -31,12 +32,8 @@ Rails.application.routes.draw do
       end # namespace :public
 
       namespace :cfp do
-        resource :session
 
-        resource :user do
-          resource :password
-          resource :confirmation
-        end
+        resource :user
 
         resource :person do
           resource :availability
