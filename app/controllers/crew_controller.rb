@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class CrewController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
 
@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   private
 
   def users_last_conference_path
-    conference_home_path(conference_acronym: current_user.last_conference.acronym)
+    conference_crew_path(conference_acronym: current_user.last_conference.acronym)
   end
 
   # maybe conference got deleted

@@ -22,7 +22,7 @@
       .fill
         .container
           - if @conference and not @conference.new_record?
-            = link_to @conference.title, conference_home_path, class: "brand"
+            = link_to @conference.title, conference_crew_path, class: "brand"
           - else
             = link_to "Welcome to frab", root_path, class: "brand"
           %ul.nav
@@ -50,7 +50,7 @@
                 %ul.dropdown-menu
                   - conferences[0..19].each do |conference|
                     - unless @conference == conference
-                      %li= link_to conference.acronym, conference_home_path(conference_acronym: conference.acronym)
+                      %li= link_to conference.acronym, conference_crew_path(conference_acronym: conference.acronym)
                   %li.divider/
                   - if conferences.count > 1
                     %li= link_to t(:conferences, default: "more"), conference_index_path

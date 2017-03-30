@@ -134,8 +134,8 @@ Rails.application.routes.draw do
       end
     end # scope path: "/:conference_acronym"
 
-    get '/:conference_acronym' => 'home#index', as: 'conference_home'
+    get '/:conference_acronym' => 'crew#index', as: 'conference_crew'
   end # scope "(:locale)" do
 
-  root to: 'home#index'
+  root to: 'crew#index'
 end
