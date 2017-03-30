@@ -67,10 +67,6 @@ class Conference < ApplicationRecord
     order('created_at DESC').first
   end
 
-  def self.empty_conference
-    new(acronym: ' ', title: '')
-  end
-
   alias own_days days
 
   def days

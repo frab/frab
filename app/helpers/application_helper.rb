@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def conference_selected?
+    @conference && !@conference.new_record?
+  end
+
   def accessible_conferences
     if current_user.is_crew?
       Conference.accessible_by_crew(current_user).order('created_at DESC')

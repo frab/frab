@@ -2,16 +2,16 @@
 %html
   %head
     %title
-      - if @conference.new_record?
-        frab
-      - else
-        = @conference.title
+      - if conference_selected?
+        conference_selected?
         - if @event.present?
           \-
           = @event.title
         - elsif @person.present?
           \-
           = @person.full_name
+      - else
+        frab
       \- Conference Management
 
     = stylesheet_link_tag "application", "admin"
@@ -21,12 +21,12 @@
     .topbar
       .fill
         .container
-          - if @conference.new_record?
-            = link_to "Welcome to frab", root_path, class: "brand"
+          - if conference_selected?
+            = link_to @conference.title, conference_crew_path(conference_acronym: @conference.acronym), class: "brand"
           - else
-            = link_to @conference.title, conference_crew_path, class: "brand"
+            = link_to "Welcome to frab", root_path, class: "brand"
           %ul.nav
-            - unless @conference.new_record?
+            - if conference_selected?
               = render 'shared/navi_conference'
           %ul.nav.secondary-nav.pull-right
             = render 'shared/navi_conferences_menu'

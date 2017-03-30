@@ -49,11 +49,10 @@ class ApplicationController < ActionController::Base
     @conference = conference_from_params
     @conference ||= conference_from_session
     @conference ||= Conference.current
-    @conference ||= Conference.empty_conference
 
     session[:conference_acronym] = @conference.acronym
 
-    Time.zone = @conference.timezone
+    Time.zone = @conference&.timezone
   end
 
   def info_for_paper_trail
