@@ -224,7 +224,11 @@ class EventsController < ApplicationController
       return redirect_to(@event, alert: 'Event not in a notifiable state.')
     end
 
-    @event.event_people.presenter.each { |p| p.set_default_notification(state) }
+    begin
+      @event.event_people.presenter.each { |p| p.set_default_notification(state) }
+    rescue NotificationMissingException => ex
+      return redirect_to(@event, alert: "Failed to set default notification: #{ex}.")
+    end
 
     redirect_to edit_people_event_path(@event)
   end

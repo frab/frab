@@ -2,6 +2,8 @@ class EventPerson < ApplicationRecord
   include UniqueToken
   include Rails.application.routes.url_helpers
 
+  class NotificationMissingException < StandardError; end
+
   ROLES = %i(coordinator submitter speaker moderator).freeze
   STATES = %i(canceled confirmed declined idea offer unclear attending).freeze
   SPEAKER = %i(speaker moderator).freeze
@@ -47,7 +49,7 @@ class EventPerson < ApplicationRecord
     conference = event.conference
     locale = person.locale_for_mailing(conference)
     notification = conference.notifications.with_locale(locale).first
-    fail "Notification for #{locale} not found" if notification.nil?
+    raise NotificationMissingException, "Notification for #{locale} not found" if notification.nil?
 
     self.notification_subject = notification[state + '_subject'] unless notification_subject.present?
     self.notification_body = notification[state + '_body'] unless notification_body.present?
