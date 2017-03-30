@@ -16,13 +16,17 @@ class Auth::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # protected
-  #
+  protected
+
   def after_sign_in_path_for(resource)
     if session[:conference_acronym]
-      cfp_person_path(conference_acronym: session[:conference_acronym])
+      if can? :manage, @conference
+        conference_crew_path
+      else
+        cfp_person_path(conference_acronym: session[:conference_acronym])
+      end
     else
-      Devise.sign_in_after_reset_password ? after_sign_in_path_for(resource) : new_session_path(resource_name)
+      root_path
     end
   end
 
