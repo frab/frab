@@ -39,8 +39,8 @@ prawn_document(
 
   @layout.bounds = pdf.bounds
 
-  number_of_columns = @rooms.size < 5 ? @rooms.size : 5
-  number_of_pages = (@rooms.size / number_of_columns.to_f).ceil.to_i
+  number_of_columns = @day.rooms.size < 5 ? @day.rooms.size : 5
+  number_of_pages = (@day.rooms.size / number_of_columns.to_f).ceil.to_i
   column_width = @layout.page_width / number_of_columns
   timeslot_height = @layout.timeslot_height(number_of_timeslots)
 
@@ -53,7 +53,7 @@ prawn_document(
     pdf.draw_text header_content_center, size: 16, at: @layout.header_center_anchor
     pdf.draw_text header_content_right, size: 9, at: @layout.header_right_anchor
 
-    rooms = @rooms[offset..(offset + number_of_columns - 1)]
+    rooms = @day.rooms[offset..(offset + number_of_columns - 1)]
     table_data = room_table_data(rooms)
 
     table = pdf.make_table(table_data) do |t|
@@ -74,7 +74,7 @@ prawn_document(
     offset = pdf.bounds.height - table.height
 
     # draw start time column
-    events = @events[rooms[0]]
+    events = @day.events[rooms[0]]
     events.each do |event|
       y = (timeslots_between(event.start_time, @day.end_date) - 1) * timeslot_height
       y += offset
@@ -92,7 +92,7 @@ prawn_document(
 
     # draw events
     rooms.size.times do |i|
-      events = @events[rooms[i]]
+      events = @day.events[rooms[i]]
       events.each do |event|
         coord = event_coordinates(i, event, column_width, timeslot_height, offset)
         pdf.bounding_box(coord,

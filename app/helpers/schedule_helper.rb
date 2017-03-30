@@ -4,7 +4,7 @@ module ScheduleHelper
   end
 
   def landscape?
-    @rooms.size > 3
+    @day.rooms.size > 3
   end
 
   # for pdf

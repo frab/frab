@@ -15,7 +15,7 @@
   Rooms:
   %ul.rooms
     - count_rooms = 0
-    - @rooms.each_slice(7).map{|r| r.map{|n| n.name} }.each do |rooms|
+    - @day.rooms.each_slice(7).map{|r| r.map{|n| n.name} }.each do |rooms|
       %li
         %a{ href: "\##{count_rooms}"}= rooms.join(', ')
         - count_rooms =+ 1
@@ -24,7 +24,8 @@
 #main-table
 
   - count = 0
-  - @rooms.each_slice(7) do |rooms|
+  - skip_rows = @day.rooms.inject({}) { |h,k| h.merge(k => 0) }
+  - @day.rooms.each_slice(7) do |rooms|
     #conference-rooms{ id: count }
       %a{ name: "#{count}"}
       - count =+ 1
@@ -42,11 +43,11 @@
                 - if slot % @conference.default_timeslots == 0
                   %p= time.strftime("%H:%M")
               - rooms.each do |room|
-                - @skip_row[room] -= 1
-                - next if @skip_row[room] > 0
-                - if not @events[room].empty? and @events[room].first.start_time == time
-                  - event = @events[room].shift
-                  - @skip_row[room] = event.time_slots
+                - skip_rows[room] -= 1
+                - next if skip_rows[room] > 0
+                - if not @day.events[room].empty? and @day.events[room].first.start_time == time
+                  - event = @day.events[room].shift
+                  - skip_rows[room] = event.time_slots
                   %td{rowspan: event.time_slots, class: "cell-height#{event.time_slots}"}
                     .event{class: track_class(event)}
                       .event-wrapper
