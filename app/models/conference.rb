@@ -1,7 +1,7 @@
 class Conference < ApplicationRecord
   include ConferenceStatistics
-
-  TICKET_TYPES = %w(otrs rt redmine integrated).freeze
+  include SubConference
+  include HasTicketServer
 
   has_many :availabilities, dependent: :destroy
   has_many :conference_users, dependent: :destroy
@@ -16,7 +16,6 @@ class Conference < ApplicationRecord
   has_many :transport_needs, dependent: :destroy
   has_many :subs, class_name: Conference, foreign_key: :parent_id
   has_one :call_for_participation, dependent: :destroy
-  has_one :ticket_server, dependent: :destroy
   belongs_to :parent, class_name: Conference
 
   accepts_nested_attributes_for :rooms, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
@@ -24,7 +23,6 @@ class Conference < ApplicationRecord
   accepts_nested_attributes_for :notifications, allow_destroy: true
   accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :languages, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :ticket_server
 
   validates :title,
     :acronym,
@@ -40,8 +38,6 @@ class Conference < ApplicationRecord
   validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
-  validate :subs_dont_allow_days
-  validate :subs_cant_have_subs
 
   after_update :update_timeslots
 
@@ -87,26 +83,6 @@ class Conference < ApplicationRecord
   def timeslot_duration
     return parent.timeslot_duration if sub_conference?
     attributes['timeslot_duration']
-  end
-
-  def include_subs
-    [self, subs].flatten.uniq
-  end
-
-  def events_including_subs
-    Event.where(conference: include_subs)
-  end
-
-  def rooms_including_subs
-    Room.where(conference: include_subs)
-  end
-
-  def tracks_including_subs
-    Track.where(conference: include_subs)
-  end
-
-  def languages_including_subs
-    Language.where(attachable: include_subs)
   end
 
   def submission_data
@@ -173,12 +149,6 @@ class Conference < ApplicationRecord
     true
   end
 
-  def ticket_server_enabled?
-    return false if ticket_type.nil?
-    return false if ticket_type == 'integrated'
-    true
-  end
-
   def main_conference?
     parent.nil?
   end
@@ -214,21 +184,5 @@ class Conference < ApplicationRecord
         errors.add(:days, "day #{day} overlaps with day before")
       end
     }
-  end
-
-  def subs_dont_allow_days
-    return unless sub_conference?
-    if Day.where(conference: self).any?
-      errors.add(:days, 'are not allowed for conferences with a parent')
-      errors.add(:parent, 'may not be set for conferences with days')
-    end
-  end
-
-  def subs_cant_have_subs
-    return unless sub_conference?
-    if subs.any?
-      errors.add(:subs, 'cannot have sub-conferences and a parent')
-      errors.add(:parent, 'may not be set for conferences with a parent')
-    end
   end
 end
