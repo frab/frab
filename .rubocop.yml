@@ -1,5 +1,19 @@
 AllCops:
   TargetRubyVersion: 2.4
+  Exclude:
+    - bin/**/*
+    - contrib/**/*
+    - config/**/*
+    - db/**/*
+    - tmp/**/*
+    - Capfile
+    - Gemfile
+    - Rakefile
+
+# Nested module syntax is fine, just be careful with
+# scoping, i.e. on include
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 # Old ruby style syntax may still be needed
 Style/HashSyntax:
@@ -10,7 +24,7 @@ Style/HashSyntax:
 Metrics/LineLength:
   Max: 1024
 
-# 20
+# Rails controllers and such
 Metrics/MethodLength:
   Max: 20
 
@@ -38,11 +52,6 @@ Style/Lambda:
 Style/CommentAnnotation:
   Enabled: false
 
-# Vim prefers fixed indent, avoid manual vertical alignment
-Style/AlignParameters:
-  Enabled: true
-  EnforcedStyle: with_fixed_indentation
-
 # Do not write 1234 as 1_234
 Style/NumericLiterals:
   Enabled: false
@@ -55,16 +64,36 @@ Metrics/AbcSize:
 Style/Documentation:
   Enabled: false
 
+# Will probably be default in ruby 3
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+# Use raise if you expect to catch the expception
 Style/SignalException:
   Enabled: false
 
-# false positive for if var = value
+# False positive for if var = value
 Lint/AssignmentInCondition:
   Enabled: false
 
-# Not working well?
-Style/MultilineHashBraceLayout:
+# Too much manual horizontal alignment
+Style/AlignHash:
+  Enabled: false
+
+Style/AlignParameters:
+  Enabled: false
+
+Style/AlignArray:
+  Enabled: false
+
+# Vim prefers fixed indent, avoid manual vertical alignment
+Style/AlignParameters:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# Load order is important
+Bundler/OrderedGems:
   Enabled: false
