@@ -6,20 +6,6 @@ class Cfp::UsersControllerTest < ActionController::TestCase
     @conference = @call_for_participation.conference
   end
 
-  test 'shows registration form' do
-    get :new, params: { conference_acronym: @conference.acronym }
-    assert_response :success
-  end
-
-  test 'allows registration of new user' do
-    assert_difference 'User.count' do
-      post :create, params: { conference_acronym: @conference.acronym, user: { email: 'new_user@example.com', password: 'frab123', password_confirmation: 'frab123' } }
-    end
-    assert_response :redirect
-    assert_not_nil assigns(:user)
-    assert_not_nil assigns(:user).confirmation_token
-  end
-
   test 'shows password editing form' do
     login_as(:submitter)
     get :edit, params: { conference_acronym: @conference.acronym }

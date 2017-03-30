@@ -8,11 +8,11 @@ class HomeController < ApplicationController
 
   def not_existing
     @user = User.new
-    redirect_to new_cfp_session_path if @conference.call_for_participation
+    redirect_to new_user_session_path if @conference.call_for_participation
   end
 
   def open_soon
     @user = User.new
-    redirect_to new_cfp_session_path if @conference.call_for_participation.start_date <= Date.today
+    redirect_to new_user_session_path if @conference.call_for_participation.start_date <= Date.today
   end
 end

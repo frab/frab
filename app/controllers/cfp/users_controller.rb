@@ -1,24 +1,5 @@
 class Cfp::UsersController < ApplicationController
-  layout 'signup'
-
-  before_action :authenticate_user!, only: [:edit, :update]
-
-  def new
-    @user = User.new
-  end
-
-  def create
-    @user = User.new(user_params)
-    @user.person = Person.new(email: @user.email, public_name: @user.email)
-    @conference = Conference.find_by(acronym: params[:conference_acronym])
-
-    if @user.save
-      @user.send_confirmation_instructions(@conference)
-      redirect_to new_cfp_session_path, notice: t(:"cfp.signed_up")
-    else
-      render action: 'new'
-    end
-  end
+  before_action :authenticate_user!
 
   def edit
     @user = current_user

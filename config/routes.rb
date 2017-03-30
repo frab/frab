@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       end # namespace :public
 
       namespace :cfp do
-        resource :user
+        resource :user, except: %i(new create)
         resource :person do
           resource :availability
         end

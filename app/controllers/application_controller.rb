@@ -71,18 +71,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_submitter!
-    return unless current_user
-    redirect_to cfp_root_path, alert: 'This action is not allowed' if current_user.is_submitter?
-  end
-
-  def scoped_sign_in_path
-    if request.path.match?(%r{/cfp})
-      new_cfp_session_path
-    elsif request.get?
-      new_session_path(return_to: request.path)
-    else
-      new_session_path
-    end
+    redirect_to cfp_root_path, alert: 'This action is not allowed' if current_user&.is_submitter?
   end
 
   def check_cfp_open
