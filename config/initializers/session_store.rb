@@ -2,7 +2,7 @@
 
 # Example for a cookie store, with secure flag set for SSL hosting in production mode
 #
-Frab::Application.config.session_store :cookie_store,
+Rails.application.config.session_store :cookie_store,
                                       key: '_frab_session',
                                       secure: Rails.env == 'production' && ENV['FRAB_PROTOCOL'] == 'https',
                                       httponly: true,

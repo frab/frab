@@ -1,4 +1,4 @@
-Frab::Application.routes.draw do
+Rails.application.routes.draw do
   scope '(:locale)' do
     resource :session
 
