@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  layout :layout_by_resource
+
   protect_from_forgery
 
   before_action :set_locale
@@ -19,6 +21,14 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def layout_by_resource
+    if devise_controller?
+      "home"
+    else
+      "application"
+    end
+  end
 
   def page_param
     page = params[:page].to_i

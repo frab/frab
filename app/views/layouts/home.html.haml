@@ -2,7 +2,10 @@
 %html
   %head
     %title
-      frab - home
+      - if @conference
+        = @conference.title
+      - else
+        frab - home
 
     = stylesheet_link_tag "application", "admin"
     = javascript_include_tag "application", "admin"
@@ -11,8 +14,11 @@
     .topbar
       .fill
         .container
-          %span.brand
-            frab
+          - if content_for? :title
+            = yield :title
+          - elsif @conference
+            = link_to @conference.title, root_url, class: 'brand'
+
           - if current_user
             = current_user.person.full_name
 

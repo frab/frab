@@ -1,3 +1,7 @@
+- content_for :title do
+  %span.brand
+    frab
+  = link_to 'home', root_url, class: 'brand'
 
 %h2 Conferences
 - if @future_conferences.empty?
