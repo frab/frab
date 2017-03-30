@@ -5,13 +5,13 @@ class EventRatingsController < ApplicationController
 
   def show
     authorize! :read, EventRating
-    @rating = @event.event_ratings.find_by_person_id(current_user.person.id) || EventRating.new
+    @rating = @event.event_ratings.find_by(person_id: current_user.person.id) || EventRating.new
     setup_batch_reviews_next_event
   end
 
   def create
     # only one rating allowed, if one exists update instead
-    return update if @event.event_ratings.find_by_person_id(current_user.person.id)
+    return update if @event.event_ratings.find_by(person_id: current_user.person.id)
 
     @rating = new_event_rating
     authorize! :create, @rating
@@ -25,7 +25,7 @@ class EventRatingsController < ApplicationController
   end
 
   def update
-    @rating = @event.event_ratings.find_by_person_id!(current_user.person.id)
+    @rating = @event.event_ratings.find_by!(person_id: current_user.person.id)
     authorize! :update, @rating
 
     if @rating.update_attributes(event_rating_params)

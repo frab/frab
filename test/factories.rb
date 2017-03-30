@@ -24,8 +24,8 @@ FactoryGirl.define do
   end
 
   factory :day do
-    start_date { Date.today.since(1.days).since(11.hours) }
-    end_date { Date.today.since(1.days).since(23.hours) }
+    start_date { Date.today.since(1.day).since(11.hours) }
+    end_date { Date.today.since(1.day).since(23.hours) }
   end
 
   factory :event_rating do

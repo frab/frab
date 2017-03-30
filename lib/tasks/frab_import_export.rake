@@ -4,7 +4,7 @@ namespace :frab do
   desc 'export a frab conference. Optionally set CONFERENCE=acronym to specify which conference to export. Current conference will be exported, when parameter is not set. The conference data is written to tmp/frab_export'
   task conference_export: :environment do
     conference = if ENV['CONFERENCE']
-                   Conference.find_by_acronym(ENV['CONFERENCE'])
+                   Conference.find_by(acronym: ENV['CONFERENCE'])
                  else
                    Conference.current
                  end

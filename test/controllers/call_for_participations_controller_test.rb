@@ -9,7 +9,7 @@ class CallForParticipationsControllerTest < ActionController::TestCase
 
   def call_for_participation_params
     {
-      start_date: Date.today.ago(1.days).strftime('%Y-%m-%d'),
+      start_date: Date.today.ago(1.day).strftime('%Y-%m-%d'),
       end_date: Date.today.since(6.days).strftime('%Y-%m-%d')
     }
   end

@@ -6,9 +6,9 @@ class PentabarfImportHelper
     'image/jpeg' => 'jpg',
     'image/png' => 'png',
     'image/gif' => 'gif'
-  }
+  }.freeze
 
-  DUMMY_MAIL = 'root@localhost.localdomain'
+  DUMMY_MAIL = 'root@localhost.localdomain'.freeze
 
   # pentabarf roles are just different
   ROLE_MAPPING = {
@@ -80,7 +80,7 @@ class PentabarfImportHelper
         hour = conference['day_change'].gsub(/:.*/, '').to_i
 
         start_date = day.to_datetime.change(hour: hour, minute: 0)
-        end_date = day.since(1.days).to_datetime.change(hour: hour - 1, minute: 59)
+        end_date = day.since(1.day).to_datetime.change(hour: hour - 1, minute: 59)
         tmp = Day.new(conference: new_conference,
                       start_date: Time.zone.local_to_utc(start_date),
                       end_date: Time.zone.local_to_utc(end_date))
@@ -90,7 +90,7 @@ class PentabarfImportHelper
       # create a dummy cfp for this conference
       cfp = CallForParticipation.new
       cfp.conference = new_conference
-      cfp.start_date = fake_days.first.to_datetime.ago(3.month)
+      cfp.start_date = fake_days.first.to_datetime.ago(3.months)
       cfp.end_date = fake_days.first.to_datetime.ago(1.month)
       cfp.created_at = cfp.start_date
       cfp.updated_at = cfp.end_date
@@ -472,10 +472,10 @@ class PentabarfImportHelper
     t = Time.parse(day + ' ' + interval).in_time_zone
     if t.dst?
       # t + 2.hour
-      t + 4.hour
+      t + 4.hours
     else
       # t + 3.hour
-      t + 4.hour
+      t + 4.hours
     end
   end
 

@@ -8,7 +8,7 @@ namespace :frab do
       exit
     end
 
-    conference = Conference.find_by_acronym(ENV['acronym'])
+    conference = Conference.find_by(acronym: ENV['acronym'])
     if conference.nil?
       puts "Failed to find conference: #{ENV['acronym']}"
       exit

@@ -66,7 +66,7 @@ module EventState
       end
     end
     return unless options[:coordinator]
-    return if event_people.find_by_person_id_and_event_role(options[:coordinator].id, 'coordinator')
+    return if event_people.find_by(person_id: options[:coordinator].id, event_role: 'coordinator')
     event_people.create(person: options[:coordinator], event_role: 'coordinator')
   end
 
@@ -77,7 +77,7 @@ module EventState
       end
     end
     return unless options[:coordinator]
-    return if event_people.find_by_person_id_and_event_role(options[:coordinator].id, 'coordinator')
+    return if event_people.find_by(person_id: options[:coordinator].id, event_role: 'coordinator')
     event_people.create(person: options[:coordinator], event_role: 'coordinator')
   end
 

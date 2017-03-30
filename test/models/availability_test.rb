@@ -14,7 +14,7 @@ class AvailabilityTest < ActiveSupport::TestCase
 
   test 'correctly determines if given time is within current range' do
     availability = build(:availability, conference: @conference)
-    availability.start_date = availability.day.start_date.since(1.hours)
+    availability.start_date = availability.day.start_date.since(1.hour)
     availability.end_date = availability.day.end_date.ago(4.hours)
     time = availability.start_date
     assert availability.within_range?(time)

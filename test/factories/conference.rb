@@ -6,8 +6,8 @@ FactoryGirl.define do
   trait :three_days do
     after :create do |conference|
       conference.days << create(:day, conference: conference,
-                                      start_date: Date.today.since(1.days).since(11.hours),
-                                      end_date: Date.today.since(1.days).since(23.hours))
+                                      start_date: Date.today.since(1.day).since(11.hours),
+                                      end_date: Date.today.since(1.day).since(23.hours))
       conference.days << create(:day, conference: conference,
                                       start_date: Date.today.since(2.days).since(10.hours),
                                       end_date: Date.today.since(2.days).since(24.hours))
@@ -29,7 +29,7 @@ FactoryGirl.define do
                                           room: conference.rooms.first,
                                           state: 'confirmed',
                                           public: true,
-                                          start_time: Date.today.since(1.days).since(11.hours))
+                                          start_time: Date.today.since(1.day).since(11.hours))
       conference.events << create(:event, conference: conference,
                                           room: conference.rooms.first,
                                           state: 'confirmed',

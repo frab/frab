@@ -1,7 +1,7 @@
 class Link < ApplicationRecord
   belongs_to :linkable, polymorphic: true
 
-  validates_presence_of :title, :url
+  validates :title, :url, presence: true
 
   has_paper_trail meta: {
     associated_id: :linkable_id,

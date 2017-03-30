@@ -92,7 +92,7 @@ class Conference < ApplicationRecord
       date = events.first.created_at.to_date
       while date <= events.last.created_at.to_date
         result[date.to_time.to_i * 1000] = 0
-        date = date.since(1.days).to_date
+        date = date.since(1.day).to_date
       end
     end
     events.each do |event|
@@ -164,7 +164,7 @@ class Conference < ApplicationRecord
   private
 
   def update_timeslots
-    return unless timeslot_duration_changed? and events.count > 0
+    return unless timeslot_duration_changed? and events.count.positive?
     old_duration = timeslot_duration_was
     factor = old_duration / timeslot_duration
     Event.paper_trail.disable

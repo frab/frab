@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.confirmed.find_by_email(user_params[:email])
+    @user = User.confirmed.find_by(email: user_params[:email])
     if @user and @user.authenticate(params[:user][:password])
       login_as @user
       redirect_to successful_sign_in_path, notice: t(:sign_in_successful)

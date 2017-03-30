@@ -41,7 +41,7 @@ class ConferenceTest < ActiveSupport::TestCase
 
   test '#has_submission' do
     [:three_day_conference_with_events,
-      :sub_conference_with_events].each do |conference_type|
+     :sub_conference_with_events].each do |conference_type|
       conference = create(conference_type)
       event = conference.events.first
       person = create(:person)

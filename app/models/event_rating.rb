@@ -4,7 +4,7 @@ class EventRating < ApplicationRecord
 
   after_save :update_average
 
-  validates_presence_of :rating
+  validates :rating, presence: true
 
   validates :event, presence: true
   validates :person, presence: true

@@ -10,7 +10,7 @@ class Cfp::PasswordsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_email(params[:user][:email])
+    @user = User.find_by(email: params[:user][:email])
     if @user and @user.send_password_reset_instructions(@conference)
       redirect_to new_cfp_session_path, notice: t(:"cfp.sent_password_reset_instructions")
     else
@@ -25,7 +25,7 @@ class Cfp::PasswordsController < ApplicationController
   end
 
   def update
-    @user = User.find_by_reset_password_token(params[:user][:reset_password_token])
+    @user = User.find_by(reset_password_token: params[:user][:reset_password_token])
     unless @user
       flash[:alert] = t(:"cfp.problem_sending_password_reset_instructions")
       return redirect_to new_cfp_user_password_path

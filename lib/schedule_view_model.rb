@@ -1,5 +1,4 @@
 class ScheduleViewModel
-
   def initialize(conference)
     @conference = conference
   end
@@ -17,7 +16,7 @@ class ScheduleViewModel
   end
 
   def concurrent_events
-    @concurrent_events||= @conference.events_including_subs.is_public.confirmed.scheduled.where(start_time: event.start_time)
+    @concurrent_events ||= @conference.events_including_subs.is_public.confirmed.scheduled.where(start_time: event.start_time)
   end
 
   def for_event(id)

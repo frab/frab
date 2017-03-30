@@ -6,8 +6,8 @@ class Cfp::ConfirmationsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_email(params[:user][:email])
-    @conference = Conference.find_by_acronym(params[:conference_acronym])
+    @user = User.find_by(email: params[:user][:email])
+    @conference = Conference.find_by(acronym: params[:conference_acronym])
 
     # re-send
     if @user and @user.send_confirmation_instructions(@conference)

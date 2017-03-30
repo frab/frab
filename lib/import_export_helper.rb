@@ -1,6 +1,6 @@
 class ImportExportHelper
   DEBUG = true
-  EXPORT_DIR = 'tmp/frab_export'
+  EXPORT_DIR = 'tmp/frab_export'.freeze
 
   def initialize(conference = nil)
     @export_dir = EXPORT_DIR
@@ -72,7 +72,7 @@ class ImportExportHelper
 
   def restore_all_data
     restore('conference', Conference) do |id, c|
-      test = Conference.find_by_acronym(c.acronym)
+      test = Conference.find_by(acronym: c.acronym)
       if test
         puts "conference #{c} already exists!"
         exit
@@ -105,7 +105,7 @@ class ImportExportHelper
     end
 
     restore_users do |id, yaml, obj|
-      user = User.find_by_email(obj.email)
+      user = User.find_by(email: obj.email)
       if user
         # don't create a new user
         @mappings[:users][id] = user.id
@@ -273,7 +273,7 @@ class ImportExportHelper
 
   def dump_has_many(name, obj, attr)
     arr = obj.collect { |t| t.send(attr) }
-          .flatten.select { |t| not t.nil? }.sort.uniq
+      .flatten.select { |t| not t.nil? }.sort.uniq
     dump name, arr
   end
 

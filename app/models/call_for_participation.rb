@@ -1,7 +1,7 @@
 class CallForParticipation < ApplicationRecord
   belongs_to :conference
 
-  validates_presence_of :start_date, :end_date
+  validates :start_date, :end_date, presence: true
 
   has_paper_trail
 

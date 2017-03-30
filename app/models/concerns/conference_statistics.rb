@@ -43,9 +43,9 @@ module ConferenceStatistics
   def gender_breakdown(accepted_only = false)
     result = []
     ep = Person.joins(events: :conference)
-               .where("conferences.id": id)
-               .where("event_people.event_role": EventPerson::SPEAKER)
-               .where("events.public": true)
+      .where("conferences.id": id)
+      .where("event_people.event_role": EventPerson::SPEAKER)
+      .where("events.public": true)
 
     ep = ep.where("events.state": %w(accepting confirmed scheduled)) if accepted_only
 

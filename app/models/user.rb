@@ -17,11 +17,11 @@ class User < ApplicationRecord
   after_initialize :check_default_values
   before_create :generate_confirmation_token, unless: :confirmed_at
 
-  validates_presence_of :person
-  validates_presence_of :email
-  validates_format_of :email, with: EMAIL_REGEXP
-  validates_uniqueness_of :email, case_sensitive: false
-  validates_length_of :password, minimum: 6, allow_nil: true
+  validates :person, presence: true
+  validates :email, presence: true
+  validates :email, format: { with: EMAIL_REGEXP }
+  validates :email, uniqueness: { case_sensitive: false }
+  validates :password, length: { minimum: 6, allow_nil: true }
   validate :conference_user_fields_present
   validate :only_one_role_per_conference
 
@@ -53,7 +53,7 @@ class User < ApplicationRecord
   end
 
   def self.check_pentabarf_credentials(email, password)
-    user = User.find_by_email(email)
+    user = User.find_by(email: email)
     return unless user and user.pentabarf_password and user.pentabarf_salt
     salt = [user.pentabarf_salt.to_i(16)].pack('Q').reverse
 
@@ -67,7 +67,7 @@ class User < ApplicationRecord
   end
 
   def self.confirm_by_token(token)
-    user = find_by_confirmation_token(token)
+    user = find_by(confirmation_token: token)
     if user
       user.confirmed_at = Time.now
       user.confirmation_token = nil

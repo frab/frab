@@ -50,8 +50,8 @@ class ReportsController < ApplicationController
       r = conference_events.where(do_not_record: true)
     when 'events_with_tech_rider'
       r = conference_events
-          .scheduled
-          .where(Event.arel_table[:tech_rider].not_eq(''))
+        .scheduled
+        .where(Event.arel_table[:tech_rider].not_eq(''))
       @extra_fields << :tech_rider
     end
 
@@ -79,13 +79,13 @@ class ReportsController < ApplicationController
     case @report_type
     when 'expected_speakers'
       r = Person.joins(events: :conference)
-                .where('conferences.id': @conference.id)
-                .where('event_people.event_role': EventPerson::SPEAKER)
-                .where('event_people.role_state': 'confirmed')
-                .where('events.public': true)
-                .where('events.start_time > ?', Time.now)
-                .where('events.start_time < ?', Time.now.since(4.hours))
-                .where('events.state': %w(unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
+        .where('conferences.id': @conference.id)
+        .where('event_people.event_role': EventPerson::SPEAKER)
+        .where('event_people.role_state': 'confirmed')
+        .where('events.public': true)
+        .where('events.start_time > ?', Time.now)
+        .where('events.start_time < ?', Time.now.since(4.hours))
+        .where('events.state': %w(unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
     when 'people_speaking_at'
       r = conference_people.speaking_at(@conference)
     when 'people_with_a_note'
@@ -102,13 +102,13 @@ class ReportsController < ApplicationController
       @extra_fields << :expenses
     when 'non_attending_speakers'
       r = Person.joins(events: :conference)
-                .where('conferences.id': @conference.id)
-                .where('event_people.event_role': 'speaker')
-                .where("event_people.role_state != 'attending'")
-                .where('events.public': true)
-                .where('events.start_time > ?', Time.now)
-                .where('events.start_time < ?', Time.now.since(2.hours))
-                .where('events.state': %w(accepting unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
+        .where('conferences.id': @conference.id)
+        .where('event_people.event_role': 'speaker')
+        .where("event_people.role_state != 'attending'")
+        .where('events.public': true)
+        .where('events.start_time > ?', Time.now)
+        .where('events.start_time < ?', Time.now.since(2.hours))
+        .where('events.state': %w(accepting unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
     end
 
     unless r.nil? or r.empty?

@@ -3,7 +3,7 @@ class EventFeedback < ApplicationRecord
 
   after_save :update_average
 
-  validates_presence_of :rating
+  validates :rating, presence: true
 
   protected
 

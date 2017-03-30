@@ -86,7 +86,7 @@ class Public::ScheduleControllerTest < ActionController::TestCase
                                   room: subc.rooms.first,
                                   state: 'confirmed',
                                   public: true,
-                                  start_time: Date.today.since(1.days).since(11.hours))
+                                  start_time: Date.today.since(1.day).since(11.hours))
 
     get :events, format: :json, params: { conference_acronym: @conference.acronym }
     assert_response :success

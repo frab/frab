@@ -35,7 +35,6 @@ class Event < ApplicationRecord
 
   validates :title, :time_slots, presence: true
 
-
   scope :accepted, -> { where(arel_table[:state].in(ACCEPTED)) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
   scope :candidates, -> { where(state: %w(new review accepting unconfirmed confirmed scheduled)) }
@@ -75,7 +74,7 @@ class Event < ApplicationRecord
 
     n = arr.count
     m = arr.reduce(:+).to_f / n
-    '%02.02f' % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
+    '%02.02f'.format(Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1)))
   end
 
   def recalculate_average_feedback!
@@ -166,7 +165,7 @@ class Event < ApplicationRecord
         rating_count += 1
       end
     end
-    return nil if rating_count == 0
-    return result.to_f / rating_count
+    return nil if rating_count.zero?
+    result.to_f / rating_count
   end
 end

@@ -1,7 +1,7 @@
 class TransportNeed < ApplicationRecord
   belongs_to :person
   belongs_to :conference
-  validates_presence_of :at
+  validates :at, presence: true
 
   TYPES = %w(bus shuttle)
 

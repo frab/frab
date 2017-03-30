@@ -24,7 +24,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
 
   test 'should find last years conferences' do
     c_new = create(:conference)
-    add_day(c_new, 1.days)
+    add_day(c_new, 1.day)
 
     @scrubber = ConferenceScrubber.new(@conference)
     last_years = @scrubber.send(:last_years_conferences)
@@ -33,7 +33,7 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
 
   test 'should recognize person active in conference' do
     c_new = create(:conference)
-    add_day(c_new, 1.days)
+    add_day(c_new, 1.day)
     event_person = add_event_with_speaker(c_new)
 
     @scrubber = ConferenceScrubber.new(@conference)

@@ -1,8 +1,8 @@
 class MailTemplate < ApplicationRecord
   belongs_to :conference
-  validates_presence_of :name
-  validates_presence_of :subject
-  validates_presence_of :content
+  validates :name, presence: true
+  validates :subject, presence: true
+  validates :content, presence: true
 
   def content_for(user)
     content

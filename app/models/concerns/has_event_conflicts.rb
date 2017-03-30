@@ -42,10 +42,10 @@ module HasEventConflicts
   def update_event_conflicts
     conflicting_event_candidates =
       self.class.accepted
-          .where(room_id: room.id)
-          .where(self.class.arel_table[:start_time].gteq(start_time.beginning_of_day))
-          .where(self.class.arel_table[:start_time].lteq(start_time.end_of_day))
-          .where(self.class.arel_table[:id].not_eq(id))
+        .where(room_id: room.id)
+        .where(self.class.arel_table[:start_time].gteq(start_time.beginning_of_day))
+        .where(self.class.arel_table[:start_time].lteq(start_time.end_of_day))
+        .where(self.class.arel_table[:id].not_eq(id))
 
     conflicting_event_candidates.each do |conflicting_event|
       if overlap?(conflicting_event)
@@ -73,4 +73,3 @@ module HasEventConflicts
     Conflict.create(event: self, person: event_person.person, conflict_type: 'person_unavailable', severity: 'warning')
   end
 end
-

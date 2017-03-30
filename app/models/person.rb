@@ -33,7 +33,7 @@ class Person < ApplicationRecord
 
   validates_attachment_content_type :avatar, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
-  validates_presence_of :public_name, :email
+  validates :public_name, :email, presence: true
 
   # validates_inclusion_of :gender, in: GENDERS, allow_nil: true
 
@@ -82,18 +82,18 @@ class Person < ApplicationRecord
 
   def involved_in?(conference)
     found = Person.joins(events: :conference)
-                  .where('conferences.id': conference.id)
-                  .where(id: id)
-                  .count
+      .where('conferences.id': conference.id)
+      .where(id: id)
+      .count
     found.positive?
   end
 
   def active_in_any_conference?
     found = Conference.joins(events: [{ event_people: :person }])
-                      .where(Event.arel_table[:state].in(Event::ACCEPTED))
-                      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
-                      .where(Person.arel_table[:id].eq(id))
-                      .count
+      .where(Event.arel_table[:state].in(Event::ACCEPTED))
+      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
+      .where(Person.arel_table[:id].eq(id))
+      .count
     found.positive?
   end
 

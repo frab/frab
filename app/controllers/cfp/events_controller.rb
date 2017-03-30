@@ -81,7 +81,7 @@ class Cfp::EventsController < ApplicationController
 
   def confirm
     if params[:token]
-      event_person = EventPerson.find_by_confirmation_token(params[:token])
+      event_person = EventPerson.find_by(confirmation_token: params[:token])
 
       # Catch undefined method `person' for nil:NilClass exception if no confirmation token is found.
       if event_person.nil?
