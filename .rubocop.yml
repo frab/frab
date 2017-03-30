@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 
 # Old ruby style syntax may still be needed
 Style/HashSyntax:
@@ -49,4 +49,10 @@ Metrics/AbcSize:
 
 # Too spammy
 Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/SignalException:
   Enabled: false
