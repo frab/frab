@@ -25,37 +25,27 @@ Rails.application.routes.draw do
         get '/speakers' => 'schedule#speakers', as: 'speakers'
         get '/speakers/:id' => 'schedule#speaker', as: 'speaker'
         get '/qrcode' => 'schedule#qrcode', as: 'qrcode'
-
         resources :events do
           resource :feedback, controller: :feedback
         end
       end # namespace :public
 
       namespace :cfp do
-
         resource :user
-
         resource :person do
           resource :availability
         end
-
         get '/events/:id/confirm/:token' => 'events#confirm', as: 'event_confirm_by_token'
-
         resources :events do
           member do
             put :withdraw
             put :confirm
           end
         end
-
-        get '/open_soon' => 'welcome#open_soon', as: 'open_soon'
-        get '/not_existing' => 'welcome#not_existing', as: 'not_existing'
-
         root to: 'people#show'
       end # namespace :cfp
 
       get '/recent_changes' => 'recent_changes#index', as: 'recent_changes'
-
       post '/schedule.pdf' => 'schedule#custom_pdf', as: 'schedule_custom_pdf', defaults: { format: :pdf }
       get '/schedule' => 'schedule#index', as: 'schedule'
       get '/schedule/update_track' => 'schedule#update_track', as: 'schedule_update_track'
@@ -137,5 +127,7 @@ Rails.application.routes.draw do
     get '/:conference_acronym' => 'crew#index', as: 'conference_crew'
   end # scope "(:locale)" do
 
+  get '/open_soon' => 'home#open_soon', as: 'open_soon'
+  get '/not_existing' => 'home#not_existing', as: 'not_existing'
   root to: 'home#index'
 end

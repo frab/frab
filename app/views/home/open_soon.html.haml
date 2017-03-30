@@ -24,7 +24,7 @@
       %h2=t("cfp.login_existing_headline")
       %p
       %p=t("cfp.login_existing_description")
-      = simple_form_for @user, url: cfp_session_path do |f|
+      = simple_form_for @user, url: user_session_path do |f|
         %fieldset.inputs
           = f.input :email
           = f.input :password
@@ -35,13 +35,13 @@
     .span8
       %h2=t("cfp.sign_up_headline")
       %p=t("cfp.sign_up_description", title: @conference.title)
-      %p= action_button "", t("cfp.sign_up"), new_cfp_user_path
+      %p= action_button "", t("cfp.sign_up"), new_user_registration_path
   .row
     .span8
       %h2=t("cfp.forgot_password_headline")
       %p=t("cfp.forgot_password_description")
-      = action_button "", t("cfp.forgot_password_button"), new_cfp_user_password_path
+      = action_button "", t("cfp.forgot_password_button"), new_user_password_path
     .span8
       %h2=t("cfp.confirmation_headline")
       %p=t("cfp.confirmation_description")
-      = action_button "", t("cfp.confirmation_button"), new_cfp_user_confirmation_path
+      = action_button "", t("cfp.confirmation_button"), new_user_confirmation_path
