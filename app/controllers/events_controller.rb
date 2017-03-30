@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  include Searchable
   before_action :authenticate_user!
   before_action :not_submitter!
   after_action :restrict_events
@@ -8,7 +9,7 @@ class EventsController < ApplicationController
   def index
     authorize! :read, Event
 
-    @events = search @conference.events.includes(:track), params
+    @events = search @conference.events.includes(:track)
 
     clean_events_attributes
     respond_to do |format|
@@ -256,21 +257,9 @@ class EventsController < ApplicationController
     @events&.map(&:clean_event_attributes!)
   end
 
-  def search(events, params)
-    if params.key?(:term) and not params[:term].empty?
-      term = params[:term]
-      sort = params.dig(:q, :s)
-      @search = events.ransack(title_cont: term,
-                               description_cont: term,
-                               abstract_cont: term,
-                               track_name_cont: term,
-                               event_type_is: term,
-                               m: 'or',
-                               s: sort)
-    else
-      @search = events.ransack(params[:q])
-    end
-
+  def search(events)
+    @search = perform_search(events, params,
+      %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
     @search.result(distinct: true)
   end
 

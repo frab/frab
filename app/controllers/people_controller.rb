@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+  include Searchable
   before_action :authenticate_user!
   before_action :not_submitter!
   after_action :restrict_people
@@ -7,7 +8,7 @@ class PeopleController < ApplicationController
   # GET /people.xml
   def index
     authorize! :administrate, Person
-    @people = search Person.involved_in(@conference), params
+    @people = search Person.involved_in(@conference)
 
     respond_to do |format|
       format.html { @people = @people.paginate page: page_param }
@@ -21,7 +22,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html do
-        result = search Person.involved_in(@conference), params
+        result = search Person.involved_in(@conference)
         @people = result.paginate page: page_param
       end
       format.text do
@@ -33,7 +34,7 @@ class PeopleController < ApplicationController
 
   def all
     authorize! :administrate, Person
-    result = search Person, params
+    result = search Person
     @people = result.paginate page: page_param
 
     respond_to do |format|
@@ -141,27 +142,10 @@ class PeopleController < ApplicationController
     @people = @people.accessible_by(current_ability) unless @people.nil?
   end
 
-  def search(people, params)
-    if params.key?(:term) and not params[:term].empty?
-      term = params[:term]
-      sort = begin
-               params[:q][:s]
-             rescue
-               nil
-             end
-      @search = people.ransack(first_name_cont: term,
-                               last_name_cont: term,
-                               public_name_cont: term,
-                               email_cont: term,
-                               abstract_cont: term,
-                               description_cont: term,
-                               user_email_cont: term,
-                               m: 'or',
-                               s: sort)
-    else
-      @search = people.ransack(params[:q])
-    end
-
+  def search(people)
+    @search = perform_search(people, params,
+      %i(first_name_cont last_name_cont public_name_cont email_cont
+      abstract_cont description_cont user_email_cont))
     @search.result(distinct: true)
   end
 

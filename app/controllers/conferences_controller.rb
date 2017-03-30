@@ -1,4 +1,5 @@
 class ConferencesController < ApplicationController
+  include Searchable
   # these methods don't need a conference
   skip_before_action :load_conference, only: [:new, :index, :create]
 
@@ -8,7 +9,7 @@ class ConferencesController < ApplicationController
 
   # GET /conferences
   def index
-    result = search params
+    result = search
 
     respond_to do |format|
       format.html { @conferences = result.paginate page: page_param }
@@ -114,22 +115,8 @@ class ConferencesController < ApplicationController
     'edit'
   end
 
-  def search(params)
-    if params.key?(:term) and not params[:term].empty?
-      term = params[:term]
-      sort = begin
-               params[:q][:s]
-             rescue
-               nil
-             end
-      @search = Conference.ransack(title_cont: term,
-                                   acronym_cont: term,
-                                   m: 'or',
-                                   s: sort)
-    else
-      @search = Conference.ransack(params[:q])
-    end
-
+  def search
+    @search = perform_search(Conference, params, %i(title_cont acronym_cont))
     @search.result(distinct: true)
   end
 

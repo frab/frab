@@ -20,4 +20,16 @@ class ViewEventTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, 'Introducing frap'
     assert_includes @response.body, %'by <a href="/en/people/3?conference_acronym=#{@conference.acronym}">Fred Besen</a>'
   end
+
+  test 'reports no results for missing terms' do
+    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=workshop&utf8=%E2%9C%93"
+    assert_response :success
+    assert_includes @response.body, 'Sorry, but your search yielded no results.'
+  end
+
+  test 'finds events for search term' do
+    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=frap&utf8=%E2%9C%93"
+    assert_response :success
+    assert_includes @response.body, 'frap'
+  end
 end
