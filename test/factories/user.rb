@@ -11,8 +11,6 @@ FactoryGirl.define do
     person
     email { generate(:email) }
     password 'frab23'
-    password_confirmation { password }
-    sign_in_count 0
     confirmed_at { Time.now }
 
     factory :admin_user, traits: [:admin_role]

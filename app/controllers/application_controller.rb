@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   prepend_before_action :load_conference
 
-  helper_method :current_user
-
   rescue_from CanCan::AccessDenied do |ex|
     Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}"
     begin
@@ -58,30 +56,13 @@ class ApplicationController < ActionController::Base
     result
   end
 
-  def current_user
-    user = nil
-    # maybe the user got deleted, so lets wrap this in a rescue block
-    user = User.find_by(id: session[:user_id]) if session[:user_id]
-    @current_user ||= user
-  end
-
   def current_ability
     @current_ability ||= Ability.new(current_user, @conference)
-  end
-
-  def authenticate_user!
-    redirect_to scoped_sign_in_path unless current_user
   end
 
   def not_submitter!
     return unless current_user
     redirect_to cfp_root_path, alert: 'This action is not allowed' if current_user.is_submitter?
-  end
-
-  def login_as(user)
-    session[:user_id] = user.id
-    @current_user = user
-    user.record_login!
   end
 
   def scoped_sign_in_path

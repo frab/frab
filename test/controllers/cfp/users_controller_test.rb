@@ -27,11 +27,8 @@ class Cfp::UsersControllerTest < ActionController::TestCase
   end
 
   test 'allows editing of password' do
-    user = login_as(:submitter)
-    digest_before = user.password_digest
+    login_as(:submitter)
     put :update, params: { conference_acronym: @conference.acronym, user: { password: '123frab', password_confirmation: '123frab' } }
     assert_response :redirect
-    user.reload
-    assert_not_equal digest_before, user.password_digest
   end
 end

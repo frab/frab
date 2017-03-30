@@ -3,8 +3,8 @@ require 'test_helper'
 class RecentChangesTest < ActionDispatch::IntegrationTest
   setup do
     @conference = create(:conference)
-    @user = create(:user, person: create(:person), role: 'admin')
-    @tmp_user = create(:user, person: create(:person), role: 'admin')
+    @user = create(:user, role: 'admin')
+    @tmp_user = create(:user, role: 'admin')
   end
 
   teardown do
