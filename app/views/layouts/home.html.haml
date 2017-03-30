@@ -1,0 +1,38 @@
+!!!
+%html
+  %head
+    %title
+      frab - home
+
+    = stylesheet_link_tag "application", "admin"
+    = javascript_include_tag "application", "admin"
+    = csrf_meta_tags
+  %body
+    .topbar
+      .fill
+        .container
+          %span.brand
+            frab
+          - if current_user
+            = current_user.person.full_name
+
+          - if current_user
+            %ul.nav.secondary-nav.pull-right
+              %li.dropdown
+                = link_to t("show_account", default: "Account"), "#", class: "dropdown-toggle"
+                %ul.dropdown-menu
+                  %li= link_to t("user_settings", default: "Settings"), person_user_path(current_user.person)
+                  %li= link_to t("logout", default: "Logout"), session_path, method: :delete
+          - else
+            %ul.nav.secondary-nav.pull-right
+              %li
+                = link_to t("cfp.login"), new_user_session_path
+              %li
+                = link_to t("cfp.sign_up"), new_user_registration_path
+
+    .container
+      .main-content
+        = render 'shared/flash', flash: flash
+        = yield
+    %footer.footer
+      .container

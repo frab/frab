@@ -137,5 +137,5 @@ Rails.application.routes.draw do
     get '/:conference_acronym' => 'crew#index', as: 'conference_crew'
   end # scope "(:locale)" do
 
-  root to: 'crew#index'
+  root to: 'home#index'
 end

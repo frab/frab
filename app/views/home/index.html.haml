@@ -1,0 +1,20 @@
+
+%h2 Conferences
+- if @future_conferences.empty?
+  none
+- else
+  %ul
+  - @future_conferences.each do |conference|
+    %li
+      = link_to conference.acronym, cfp_root_path
+
+%h2 Past Conferences
+
+- if @past_conferences.empty?
+  none
+- else
+  %ul
+  - @past_conferences.each do |conference|
+    %li
+      = link_to conference.acronym, cfp_root_path(conference_acronym: conference.acronym)
+      = link_to "(schedule)", public_schedule_index_path(conference_acronym: conference.acronym)
