@@ -125,8 +125,8 @@ module StaticSchedule
         href_attr = link.attributes['href']
         if href_attr.value.index("/#{@conference.acronym}/public/schedule/style.css")
           link.attributes['href'].value = @base_url + 'style.css'
-        else
-          strip_asset_path(link, 'href') if href_attr
+        elsif href_attr
+          strip_asset_path(link, 'href')
         end
       end
 
@@ -169,7 +169,7 @@ module StaticSchedule
     end
 
     def strip_path(path)
-      path.gsub(/^\//, '').gsub(/^(?:en|de)?\/?#{@conference.acronym}\/public\//, '').gsub(/\?(?:body=)?\d+$/, '')
+      path.gsub(%r{^/}, '').gsub(%r{^(?:en|de)?/?#{@conference.acronym}/public/}, '').gsub(/\?(?:body=)?\d+$/, '')
     end
 
     def unlock_schedule

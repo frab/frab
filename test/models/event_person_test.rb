@@ -22,7 +22,7 @@ class EventPersonTest < ActiveSupport::TestCase
     conference = create(:three_day_conference)
     event = create(:event, conference: conference)
     person = create(:person)
-    availability = create(:availability, conference: conference, person: person, start_date: Time.parse('10:00'), end_date: Time.parse('14:00'))
+    create(:availability, conference: conference, person: person, start_date: Time.parse('10:00'), end_date: Time.parse('14:00'))
     event_person = create(:event_person, event: event, person: person)
     assert event_person.available_between?(today.to_time.change(hour: 11), today.to_time.change(hour: 13))
     assert event_person.available_between?(today.to_time.change(hour: 10), today.to_time.change(hour: 14))
@@ -74,7 +74,7 @@ class EventPersonTest < ActiveSupport::TestCase
       event_person.substitute_notification_variables 'unknownstate', :body
     end
 
-    string = event_person.substitute_notification_variables 'accept', :subject
+    event_person.substitute_notification_variables 'accept', :subject
     event_person.set_default_notification 'accept'
 
     assert_not_equal event_person.substitute_notification_variables('accept', :subject), conference.rooms.first.name

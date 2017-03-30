@@ -1,22 +1,18 @@
 module ApplicationHelper
   def accessible_conferences
-    conferences = []
-    conferences = if current_user.is_crew?
-                    Conference.accessible_by_crew(current_user).order('created_at DESC')
-                  else
-                    Conference.order('created_at DESC')
-                  end
-    conferences
+    if current_user.is_crew?
+      Conference.accessible_by_crew(current_user).order('created_at DESC')
+    else
+      Conference.order('created_at DESC')
+    end
   end
 
   def manageable_conferences
-    conferences = []
-    conferences = if current_user.is_crew?
-                    Conference.accessible_by_orga(current_user).order('created_at DESC')
-                  else
-                    Conference.order('created_at DESC')
-                  end
-    conferences
+    if current_user.is_crew?
+      Conference.accessible_by_orga(current_user).order('created_at DESC')
+    else
+      Conference.order('created_at DESC')
+    end
   end
 
   def active_class?(*paths)
@@ -91,9 +87,9 @@ module ApplicationHelper
   end
 
   def by_speakers(event)
-    speakers = event.speakers.map { |p| link_to p.public_name, p }
-    if not speakers.empty?
-      "by #{speakers.join(', ')}".html_safe
+    speakers = event.speakers.map { |p| link_to(p.public_name, p) }
+    if speakers.present?
+      'by '.html_safe + safe_join(speakers, ', ')
     else
       ''
     end

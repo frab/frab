@@ -259,11 +259,7 @@ class EventsController < ApplicationController
   def search(events, params)
     if params.key?(:term) and not params[:term].empty?
       term = params[:term]
-      sort = begin
-               params[:q][:s]
-             rescue
-               nil
-             end
+      sort = params.dig(:q, :s)
       @search = events.ransack(title_cont: term,
                                description_cont: term,
                                abstract_cont: term,

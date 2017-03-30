@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def page_param
     page = params[:page].to_i
-    return page if page > 0
+    return page if page.positive?
     1
   end
 
@@ -61,10 +61,7 @@ class ApplicationController < ActionController::Base
   def current_user
     user = nil
     # maybe the user got deleted, so lets wrap this in a rescue block
-    begin
-      user = User.find(session[:user_id]) if session[:user_id]
-    rescue
-    end
+    user = User.find_by(id: session[:user_id]) if session[:user_id]
     @current_user ||= user
   end
 
@@ -88,14 +85,12 @@ class ApplicationController < ActionController::Base
   end
 
   def scoped_sign_in_path
-    if request.path.match?(/\/cfp/)
+    if request.path.match?(%r{/cfp})
       new_cfp_session_path
+    elsif request.get?
+      new_session_path(return_to: request.path)
     else
-      if request.get?
-        new_session_path(return_to: request.path)
-      else
-        new_session_path
-      end
+      new_session_path
     end
   end
 
