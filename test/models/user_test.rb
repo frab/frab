@@ -3,12 +3,9 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   test 'logins can be recorded' do
     user = create(:user)
+    assert user.valid?
     assert_equal 0, user.sign_in_count
     assert_nil user.last_sign_in_at
-    user.record_login!
-    user.reload
-    assert_equal 1, user.sign_in_count
-    assert_not_nil user.last_sign_in_at
   end
 
   test 'create admin user' do

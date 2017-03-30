@@ -17,12 +17,8 @@ class ActiveSupport::TestCase
   DatabaseCleaner.strategy = :truncation
 
   def login_as(role)
-    user = FactoryGirl.create(
-      :user,
-      person: FactoryGirl.create(:person),
-      role: role.to_s
-    )
-    session[:user_id] = user.id
+    user = FactoryGirl.create(:user, role: role.to_s)
+    sign_in(user)
     user
   end
 
@@ -38,4 +34,12 @@ class ActiveSupport::TestCase
   def teardown
     DatabaseCleaner.clean
   end
+end
+
+class ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+end
+
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
 end
