@@ -1,0 +1,23 @@
+%h2.title= t '.events'
+
+- @view_model.events_by_track.each do |_, events|
+  - if events.count >  0
+
+    %table.list
+      %thead
+        %tr
+          %th &nbsp;
+          %th= t '.title'
+          %th= t '.speakers'
+      %tbody
+        - events.each do |event|
+          %tr
+            %td= link_to image_box(event.logo, :small), public_event_path(id: event.id)
+            %td
+              %b= link_to event.title, public_event_path(id: event.id)
+              %br/
+              = truncate(event.abstract, length: 80, separator: ' ')
+            %td
+              %ul
+                - event.speakers.each do |speaker|
+                  %li= link_to speaker.public_name, public_speaker_path(id: speaker.id)

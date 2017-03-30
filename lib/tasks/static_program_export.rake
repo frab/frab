@@ -10,7 +10,7 @@ namespace :frab do
     locale ||= ENV['CONFERENCE_LOCALE']
     conference_dir ||= ENV['CONFERENCE_DIR']
 
-    require 'static_program_export'
-    StaticProgramExport.new(conference, locale, conference_dir).run_export
+    require 'static_schedule'
+    StaticSchedule::Export.new(conference, locale, conference_dir).run_export
   end
 end

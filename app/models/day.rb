@@ -67,7 +67,6 @@ class Day < ApplicationRecord
 
   def rooms
     return @rooms if @rooms
-
     all_rooms = conference.rooms_including_subs
     @rooms = []
     @events = {}
@@ -77,6 +76,7 @@ class Day < ApplicationRecord
       @events[room] = events
       @rooms << room
     end
+    @rooms
   end
 
   def to_s
