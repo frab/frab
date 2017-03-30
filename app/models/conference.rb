@@ -64,7 +64,12 @@ class Conference < ActiveRecord::Base
   }
 
   def self.current
+    return if Conference.count.zero?
     order('created_at DESC').first
+  end
+
+  def self.empty_conference
+    new(acronym: ' ', title: '')
   end
 
   alias own_days days

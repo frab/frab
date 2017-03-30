@@ -38,22 +38,18 @@ class ApplicationController < ActionController::Base
   end
 
   def load_conference
-    if params[:conference_acronym]
-      @conference = Conference.includes(:parent).find_by_acronym(params[:conference_acronym])
-      fail ActionController::RoutingError.new('Not found') unless @conference
-    elsif session.key?(:conference_acronym)
-      @conference = Conference.includes(:parent).find_by_acronym(session[:conference_acronym])
-    elsif Conference.count > 0
-      @conference = Conference.current
-    end
+    @conference = conference_from_params
+    @conference ||= conference_from_session
+    @conference ||= Conference.current
+    @conference ||= Conference.empty_conference
 
-    session[:conference_acronym] = @conference.acronym unless @conference.nil?
+    session[:conference_acronym] = @conference.acronym
 
-    Time.zone = @conference.timezone if @conference
+    Time.zone = @conference.timezone
   end
 
   def info_for_paper_trail
-    { conference_id: @conference.id } if @conference
+    { conference_id: @conference.id }
   end
 
   def default_url_options
@@ -109,5 +105,19 @@ class ApplicationController < ActionController::Base
     elsif @conference.call_for_participation.start_date > Date.today
       redirect_to cfp_open_soon_path
     end
+  end
+
+  private
+
+  def conference_from_session
+    return unless session.key?(:conference_acronym)
+    Conference.includes(:parent).find_by(acronym: session[:conference_acronym])
+  end
+
+  def conference_from_params
+    return unless params.key?(:conference_acronym)
+    conference = Conference.includes(:parent).find_by(acronym: params[:conference_acronym])
+    fail ActionController::RoutingError.new('Specified conference not found') unless conference
+    conference
   end
 end
