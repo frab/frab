@@ -32,6 +32,7 @@ class ActiveSupport::TestCase
 
   def setup
     DatabaseCleaner.start
+    I18n.locale = I18n.default_locale
   end
 
   def teardown
