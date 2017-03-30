@@ -1,4 +1,4 @@
-class ImAccount < ActiveRecord::Base
+class ImAccount < ApplicationRecord
   TYPES = %w(aim icq jabber msn yahoo skype)
 
   belongs_to :person

@@ -66,6 +66,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'listen'
   gem 'bullet'
   gem 'pry-rails'
   gem 'pry-byebug'
@@ -77,6 +78,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'shoulda'
+  gem 'rails-controller-testing'
 end
 
 group :doc do

@@ -1,4 +1,4 @@
-class Ticket < ActiveRecord::Base
+class Ticket < ApplicationRecord
   belongs_to :object, polymorphic: true
 
   def event

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   include ActionView::Helpers::TextHelper
   include EventState
 
@@ -155,7 +155,7 @@ class Event < ActiveRecord::Base
       [
         self.conference.acronym,
         self.id,
-        self.title.parameterize('_')
+        self.title.parameterize(separator: '_')
       ].flatten.join('-'),
       escape: false,
       length: 240,

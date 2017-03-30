@@ -1,4 +1,4 @@
-class EventPerson < ActiveRecord::Base
+class EventPerson < ApplicationRecord
   include UniqueToken
   include Rails.application.routes.url_helpers
 

@@ -12,26 +12,26 @@ class Cfp::EventsControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, conference_acronym: @conference.acronym
+    get :new, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should create event' do
     assert_difference('Event.count') do
-      post :create, event: event_params, conference_acronym: @conference.acronym
+      post :create, params: { event: event_params, conference_acronym: @conference.acronym }
     end
     assert_response :redirect
   end
 
   test 'should get edit' do
     create(:event_person, event: @event, person: @user.person)
-    get :edit, id: @event.to_param, conference_acronym: @conference.acronym
+    get :edit, params: { id: @event.to_param, conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should update event' do
     create(:event_person, event: @event, person: @user.person)
-    put :update, id: @event.to_param, event: event_params, conference_acronym: @conference.acronym
+    put :update, params: { id: @event.to_param, event: event_params, conference_acronym: @conference.acronym }
     assert_response :redirect
   end
 
@@ -40,7 +40,7 @@ class Cfp::EventsControllerTest < ActionController::TestCase
     @event.update_attributes(state: 'unconfirmed')
     event_person = create(:event_person, event: @event, person: @user.person)
     event_person.generate_token!
-    get :confirm, conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token
+    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
     assert_response :redirect
     @event.reload
     assert_equal 'confirmed', @event.state
@@ -53,7 +53,7 @@ class Cfp::EventsControllerTest < ActionController::TestCase
     person = create(:person)
     event_person = create(:event_person, event: @event, person: person)
     event_person.generate_token!
-    get :confirm, conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token
+    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
     assert_response :success
     @event.reload
     assert_equal 'confirmed', @event.state

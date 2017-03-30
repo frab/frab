@@ -1,4 +1,4 @@
-class CallForParticipation < ActiveRecord::Base
+class CallForParticipation < ApplicationRecord
   belongs_to :conference
 
   validates_presence_of :start_date, :end_date

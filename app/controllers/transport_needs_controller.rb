@@ -1,9 +1,8 @@
 class TransportNeedsController < ApplicationController
-
-  before_filter :authenticate_user!
-  before_filter :not_submitter!
-  before_filter :find_person
-  before_filter :check_enabled
+  before_action :authenticate_user!
+  before_action :not_submitter!
+  before_action :find_person
+  before_action :check_enabled
 
   def new
     @transport_need = TransportNeed.new

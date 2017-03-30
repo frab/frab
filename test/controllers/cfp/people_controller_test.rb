@@ -13,7 +13,7 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, conference_acronym: @conference.acronym
+    get :new, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
@@ -27,20 +27,20 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
     session[:user_id] = user.id
 
     assert_difference 'Person.count' do
-      post :create, person: { email: @cfp_person.email,
+      post :create, params: { person: { email: @cfp_person.email,
                               public_name: @cfp_person.public_name },
-                    conference_acronym: @conference.acronym
+                    conference_acronym: @conference.acronym }
     end
     assert_response :redirect
   end
 
   test 'should get edit' do
-    get :edit, conference_acronym: @conference.acronym
+    get :edit, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should update cfp_person' do
-    put :update, id: @cfp_person.id, person: cfp_person_params, conference_acronym: @conference.acronym
+    put :update, params: { id: @cfp_person.id, person: cfp_person_params, conference_acronym: @conference.acronym }
     assert_response :redirect
   end
 end

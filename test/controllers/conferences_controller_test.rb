@@ -38,55 +38,55 @@ class ConferencesControllerTest < ActionController::TestCase
 
   test 'should create conference' do
     assert_difference('Conference.count') do
-      post :create, conference: attributes_for(:conference)
+      post :create, params: { conference: attributes_for(:conference) }
     end
   end
 
   test 'should create conference without parent' do
     assert_difference('Conference.count') do
-      post :create, conference: conference_attributes
+      post :create, params: { conference: conference_attributes }
     end
     assert_equal 'Hawaii', Conference.last.timezone
   end
 
   test 'should create sub conference' do
     assert_difference('Conference.count') do
-      post :create, conference: sub_conference_attributes
+      post :create, params: { conference: sub_conference_attributes }
     end
     assert_equal 'Berlin', Conference.last.timezone
   end
 
   test 'should get edit' do
-    get :edit, id: @conference.to_param, conference_acronym: @conference.acronym
+    get :edit, params: { id: @conference.to_param, conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should update conference' do
     new_acronym = @conference.acronym + '1'
-    put :update, conference: conference_params.merge(acronym: new_acronym), conference_acronym: @conference.acronym
+    put :update, params: { conference: conference_params.merge(acronym: new_acronym), conference_acronym: @conference.acronym }
     assert_redirected_to edit_conference_path(conference_acronym: new_acronym)
   end
 
   test 'should get edit days' do
-    get :edit_days, conference_acronym: @conference.acronym
+    get :edit_days, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should add conference_day' do
     assert_difference('Day.count') do
       @conference.days << create(:day)
-      put :update, conference: conference_params, conference_acronym: @conference.acronym
+      put :update, params: { conference: conference_params, conference_acronym: @conference.acronym }
     end
   end
 
   test 'should create conference with feedback disabled' do
     assert_difference('Conference.count') do
-      post :create, conference: attributes_for(:conference, feedback_enabled: false)
+      post :create, params: { conference: attributes_for(:conference, feedback_enabled: false) }
     end
   end
 
   test 'should get edit notification' do
-    get :edit_notifications, conference_acronym: @conference.acronym
+    get :edit_notifications, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
@@ -109,12 +109,12 @@ class ConferencesControllerTest < ActionController::TestCase
       )
     }
     assert_difference('Notification.count') do
-      put :update, params
+      put :update, params: params
     end
   end
 
   test 'get default notification texts as json' do
-    get :default_notifications, format: :json, code: 'en', conference_acronym: @conference.acronym
+    get :default_notifications, format: :json, params: { code: 'en', conference_acronym: @conference.acronym }
     assert_response :success
   end
 end

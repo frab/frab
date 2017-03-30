@@ -1,4 +1,4 @@
-class EventRating < ActiveRecord::Base
+class EventRating < ApplicationRecord
   belongs_to :event, counter_cache: true
   belongs_to :person
 

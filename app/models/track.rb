@@ -1,4 +1,4 @@
-class Track < ActiveRecord::Base
+class Track < ApplicationRecord
   belongs_to :conference
 
   default_scope -> { order(:name) }

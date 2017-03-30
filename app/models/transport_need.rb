@@ -1,4 +1,4 @@
-class TransportNeed < ActiveRecord::Base
+class TransportNeed < ApplicationRecord
   belongs_to :person
   belongs_to :conference
   validates_presence_of :at

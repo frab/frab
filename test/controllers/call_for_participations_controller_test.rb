@@ -15,12 +15,12 @@ class CallForParticipationsControllerTest < ActionController::TestCase
   end
 
   test 'should show cfp' do
-    get :show, conference_acronym: @conference.acronym
+    get :show, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should get new' do
-    get :new, conference_acronym: @conference.acronym
+    get :new, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
@@ -31,12 +31,12 @@ class CallForParticipationsControllerTest < ActionController::TestCase
       conference_acronym: new_conference.acronym
     }
     assert_difference('CallForParticipation.count') do
-      post :create, params
+      post :create, params: params
     end
   end
 
   test 'should get edit' do
-    get :edit, conference_acronym: @conference.acronym
+    get :edit, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
@@ -45,7 +45,7 @@ class CallForParticipationsControllerTest < ActionController::TestCase
       call_for_participation: call_for_participation_params.merge(welcome_text: 'welcome'),
       conference_acronym: @conference.acronym
     }
-    put :update, params
+    put :update, params: params
     assert_redirected_to call_for_participation_path(conference_acronym: @conference.acronym)
   end
 end

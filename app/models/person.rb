@@ -1,10 +1,10 @@
-class Person < ActiveRecord::Base
+class Person < ApplicationRecord
   GENDERS = %w(male female other).freeze
 
   has_many :availabilities, dependent: :destroy
   has_many :event_people, dependent: :destroy
   has_many :event_ratings, dependent: :destroy
-  has_many :events, -> { uniq }, through: :event_people
+  has_many :events, -> { distinct }, through: :event_people
   has_many :im_accounts, dependent: :destroy
   has_many :languages, as: :attachable, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
@@ -38,13 +38,13 @@ class Person < ActiveRecord::Base
   # validates_inclusion_of :gender, in: GENDERS, allow_nil: true
 
   scope :involved_in, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).uniq
+    joins(events: :conference).where('conferences.id': conference).distinct
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.state': Event::ACCEPTED).uniq
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.state': Event::ACCEPTED).distinct
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.public': true).where('events.state': Event::ACCEPTED).uniq
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.public': true).where('events.state': Event::ACCEPTED).distinct
   }
   scope :confirmed, ->(conference) {
     joins(events: :conference).where('conferences.id': conference).where('events.state': %w(confirmed scheduled))

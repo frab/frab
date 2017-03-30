@@ -16,40 +16,41 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, person_id: @person.id, conference_acronym: @conference.acronym
+    get :new, params: { person_id: @person.id, conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should create user' do
     assert_difference('User.count') do
-      post :create, user: user_params, person_id: @person.id, conference_acronym: @conference.acronym
+      post :create, params: { user: user_params, person_id: @person.id, conference_acronym: @conference.acronym }
     end
 
     assert_redirected_to person_user_path(@person)
   end
 
   test 'should get edit' do
-    get :edit, person_id: @user.person.id, conference_acronym: @conference.acronym
+    get :edit, params: { person_id: @user.person.id, conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should update user' do
-    put :update, user: { id: @user.id }, person_id: @user.person.id, conference_acronym: @conference.acronym
+    put :update, params: { user: { id: @user.id }, person_id: @user.person.id, conference_acronym: @conference.acronym }
     assert_redirected_to person_user_path(@user.person)
   end
 
   test 'should create crew user' do
     assert_difference('User.count') do
-      post :create,
+      post :create, params: {
         user: user_params(:crew_user),
         person_id: @person.id,
         conference_acronym: @conference.acronym
+      }
     end
   end
 
   test 'should change users role' do
     @user.role = 'crew'
-    put :update, user: { id: @user.id, role: 'crew' }, person_id: @user.person.id, conference_acronym: @conference.acronym
+    put :update, params: { user: { id: @user.id, role: 'crew' }, person_id: @user.person.id, conference_acronym: @conference.acronym }
     @user.reload
     assert_equal 'crew', @user.role
   end
@@ -61,10 +62,11 @@ class UsersControllerTest < ActionController::TestCase
       '0' => attributes_for(:conference_user, role: 'reviewer', conference_id: @conference.id)
     }
     assert_difference('ConferenceUser.count') do
-      put :update,
+      put :update, params: {
         user: user_attributes,
         person_id: @user.person.id,
         conference_acronym: @conference.acronym
+      }
     end
     assert_redirected_to person_user_path(@user.person)
   end

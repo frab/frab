@@ -8,7 +8,7 @@ class Cfp::AvailabilitiesControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, conference_acronym: @conference.acronym
+    get :new, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 end

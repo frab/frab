@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include UniqueToken
 
   ROLES = %w(submitter crew admin)

@@ -26,7 +26,7 @@ class MergePersons
 
     # Get list of all conferences for which keep already has set the availabilities, then only
     # import availabilities for the others
-    keep_cons = keep.availabilities.select(:conference_id).uniq
+    keep_cons = keep.availabilities.select(:conference_id).distinct
     kill.availabilities.all do |avail|
       next if keep_cons.include? avail.conference_id
       avail.update_attributes(person_id: keep.id)

@@ -1,4 +1,4 @@
-class Conflict < ActiveRecord::Base
+class Conflict < ApplicationRecord
   belongs_to :event
   belongs_to :person
   belongs_to :conflicting_event, class_name: 'Event', foreign_key: 'conflicting_event_id'

@@ -1,4 +1,4 @@
-class Availability < ActiveRecord::Base
+class Availability < ApplicationRecord
   include HumanizedDateRange
 
   # if several conferences were on the same day,

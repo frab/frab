@@ -13,42 +13,42 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, conference_acronym: @conference.acronym
+    get :index, params: { conference_acronym: @conference.acronym }
     assert_response :success
     assert_not_nil assigns(:events)
   end
 
   test 'should get new' do
-    get :new, conference_acronym: @conference.acronym
+    get :new, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should create event' do
     assert_difference('Event.count') do
-      post :create, event: event_params, conference_acronym: @conference.acronym
+      post :create, params: { event: event_params, conference_acronym: @conference.acronym }
     end
 
     assert_redirected_to event_path(assigns(:event))
   end
 
   test 'should show event' do
-    get :show, id: @event.to_param, conference_acronym: @conference.acronym
+    get :show, params: { id: @event.to_param, conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @event.to_param, conference_acronym: @conference.acronym
+    get :edit, params: { id: @event.to_param, conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'should update event' do
-    put :update, id: @event.to_param, event: event_params, conference_acronym: @conference.acronym
+    put :update, params: { id: @event.to_param, event: event_params, conference_acronym: @conference.acronym }
     assert_redirected_to event_path(assigns(:event))
   end
 
   test 'should destroy event' do
     assert_difference('Event.count', -1) do
-      delete :destroy, id: @event.to_param, conference_acronym: @conference.acronym
+      delete :destroy, params: { id: @event.to_param, conference_acronym: @conference.acronym }
     end
 
     assert_redirected_to events_path
@@ -56,19 +56,19 @@ class EventsControllerTest < ActionController::TestCase
 
   test 'should get cards pdf' do
     conference = create :three_day_conference_with_events
-    get :cards, conference_acronym: conference.acronym, format: 'pdf'
+    get :cards, params: { conference_acronym: conference.acronym }, format: 'pdf'
     assert_response :success
   end
 
   test 'should get accepted cards pdf' do
     conference = create :three_day_conference_with_events
-    get :cards, accepted: true, conference_acronym: conference.acronym, format: 'pdf'
+    get :cards, params: { accepted: true, conference_acronym: conference.acronym }, format: 'pdf'
     assert_response :success
   end
 
   test 'should get export accepted' do
     conference = create :three_day_conference_with_events_and_speakers
-    get :export_accepted, conference_acronym: conference.acronym, format: :json
+    get :export_accepted, params: { conference_acronym: conference.acronym }, format: :json
     assert_response :success
     assert_includes response.body, '[{"event_id":'
   end

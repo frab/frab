@@ -20,19 +20,19 @@ class RecentChangesTest < ActionDispatch::IntegrationTest
     assert_difference 'Event.count', -1 do
       delete "/#{@conference.acronym}/events/#{event.id}"
     end
-    get '/', conference_acronym: @conference.acronym
+    get '/', params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
   test 'home page still displays after initiator of change has been deleted' do
     sign_in(@tmp_user)
-    post '/session', user: { email: @tmp_user.email, password: 'frab23' }
+    post '/session', params: { user: { email: @tmp_user.email, password: 'frab23' } }
     PaperTrail.enabled = true
     event = create(:event, conference: @conference)
     create(:event_person, event: event)
     delete "/#{@conference.acronym}/people/#{@tmp_user.id}"
     sign_in(@user)
-    get '/', conference_acronym: @conference.acronym
+    get '/', params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 end

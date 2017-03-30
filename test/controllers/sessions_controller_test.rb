@@ -10,24 +10,24 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'admin user can login' do
-    post :create, conference_acronym: @conference.acronym, user: user_param(@orga)
+    post :create, params: { conference_acronym: @conference.acronym, user: user_param(@orga) }
     assert_not_nil assigns(:current_user)
     assert_response :redirect
   end
 
   test 'submitter gets redirected to cfp area after login' do
-    post :create, conference_acronym: @conference.acronym, user: user_param(@submitter)
+    post :create, params: { conference_acronym: @conference.acronym, user: user_param(@submitter) }
     assert_redirected_to cfp_person_path(conference_acronym: @conference.acronym)
   end
 
   test 'submitter gets redirected to cfp area from session after login' do
     session[:conference_acronym] = @first_conference.acronym
-    post :create, user: user_param(@submitter)
+    post :create, params: { user: user_param(@submitter) }
     assert_redirected_to cfp_person_path(conference_acronym: @first_conference.acronym)
   end
 
   test 'nonexistent user cannot login' do
-    post :create, conference_acronym: @conference.acronym, user: { email: 'not@exista.nt', password: 'frab123' }
+    post :create, params: { conference_acronym: @conference.acronym, user: { email: 'not@exista.nt', password: 'frab123' } }
     assert_nil assigns(:current_user)
     assert_response :success
   end
@@ -36,36 +36,36 @@ class SessionsControllerTest < ActionController::TestCase
     user = create(:user, password: 'frab123', password_confirmation: 'frab123', role: 'orga')
     user.confirmed_at = nil
     user.save!
-    post :create, conference_acronym: @conference.acronym, user: user_param(user)
+    post :create, params: { conference_acronym: @conference.acronym, user: user_param(user) }
     assert_response :success
     assert_nil assigns(:current_user)
   end
 
   test 'cannot login with wrong password' do
-    post :create, conference_acronym: @conference.acronym, user: user_param(@orga, 'wrong')
+    post :create, params: { conference_acronym: @conference.acronym, user: user_param(@orga, 'wrong') }
     assert_nil assigns(:current_user)
     assert_response :success
   end
 
   test 'orga login works with conference as parameter' do
-    post :create, user: user_param(@orga), conference_acronym: @conference.acronym
+    post :create, params: { user: user_param(@orga), conference_acronym: @conference.acronym }
     assert_redirected_to root_path, conference_acronym: @conference.acronym
   end
 
   test 'orga login works with conference acronym from session' do
     session[:conference_acronym] = @conference.acronym
-    post :create, user: user_param(@orga)
+    post :create, params: { user: user_param(@orga) }
     assert_redirected_to root_path, conference_acronym: @conference.acronym
   end
 
   test 'conference parameter takes precedence on team login' do
     session[:conference_acronym] = @first_conference.acronym
-    post :create, conference_acronym: @conference.acronym, user: user_param(@orga)
+    post :create, params: { conference_acronym: @conference.acronym, user: user_param(@orga) }
     assert_redirected_to root_path, conference_acronym: @conference.acronym
   end
 
-  test 'current conference chosen if session and parameter are absent' do
-    post :create, user: user_param(@orga)
+  test 'current conference choosen if session and parameter are absent' do
+    post :create, params: { user: user_param(@orga) }
     assert_redirected_to root_path, conference_acronym: @last_conference.acronym
   end
 
@@ -76,7 +76,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'does not return error code if parameters are missing' do
-    post :create, whatever: 'foooo'
+    post :create, params: { whatever: 'foooo' }
     assert_nil assigns(:current_user)
     assert_response :success
   end

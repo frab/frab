@@ -1,4 +1,4 @@
-class Day < ActiveRecord::Base
+class Day < ApplicationRecord
   include HumanizedDateRange
 
   belongs_to :conference

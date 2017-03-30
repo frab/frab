@@ -1,4 +1,4 @@
-class TicketServer < ActiveRecord::Base
+class TicketServer < ApplicationRecord
   belongs_to :conference
   validates_presence_of :url, :queue, :user, :password
   validates_format_of :url, with: /\/\z/

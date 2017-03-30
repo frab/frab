@@ -1,4 +1,4 @@
-class ConferenceUser < ActiveRecord::Base
+class ConferenceUser < ApplicationRecord
   ROLES = %w(reviewer coordinator orga)
 
   belongs_to :conference

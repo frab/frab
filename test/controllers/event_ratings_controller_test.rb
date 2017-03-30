@@ -8,12 +8,12 @@ class EventRatingsControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    get :show, conference_acronym: @conference.acronym, event_id: @event.id
+    get :show, params: { conference_acronym: @conference.acronym, event_id: @event.id }
     assert_response :success
   end
 
   test 'should create rating' do
-    post :create, conference_acronym: @conference.acronym, event_id: @event.id, event_rating: attributes_for(:event_rating)
+    post :create, params: { conference_acronym: @conference.acronym, event_id: @event.id, event_rating: attributes_for(:event_rating) }
     assert_redirected_to event_event_rating_path
   end
 
@@ -21,7 +21,7 @@ class EventRatingsControllerTest < ActionController::TestCase
     event_rating = create :event_rating, event: @event, person: @user.person
 
     event_rating.rating = 1.0
-    patch :update, conference_acronym: @conference.acronym, event_id: @event.id, event_rating: event_rating.attributes
+    patch :update, params: { conference_acronym: @conference.acronym, event_id: @event.id, event_rating: event_rating.attributes }
     assert_redirected_to event_event_rating_path
     assert_equal 1.0, event_rating.reload.rating
   end

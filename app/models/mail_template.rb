@@ -1,4 +1,4 @@
-class MailTemplate < ActiveRecord::Base
+class MailTemplate < ApplicationRecord
   belongs_to :conference
   validates_presence_of :name
   validates_presence_of :subject
