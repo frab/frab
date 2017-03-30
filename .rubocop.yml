@@ -10,6 +10,10 @@ Style/HashSyntax:
 Metrics/LineLength:
   Max: 1024
 
+# 20
+Metrics/MethodLength:
+  Max: 20
+
 # Use and/or for flow control, but not in boolean assignments
 # http://devblog.avdi.org/2010/08/02/using-and-and-or-in-ruby/
 Style/AndOr:
@@ -55,4 +59,12 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/SignalException:
+  Enabled: false
+
+# false positive for if var = value
+Lint/AssignmentInCondition:
+  Enabled: false
+
+# Not working well?
+Style/MultilineHashBraceLayout:
   Enabled: false
