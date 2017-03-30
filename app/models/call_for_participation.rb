@@ -12,4 +12,8 @@ class CallForParticipation < ApplicationRecord
   def in_the_future?
     start_date > Date.today
   end
+
+  def still_running?
+    end_date > Date.today
+  end
 end

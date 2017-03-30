@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_cfp_open
-    redirect_to cfp_show_path unless @conference.cfp_open?
+    redirect_to cfp_root_path unless @conference.cfp_open?
   end
 
   private

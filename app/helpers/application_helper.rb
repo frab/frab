@@ -28,18 +28,22 @@ module ApplicationHelper
   end
 
   def accessible_conferences
-    if current_user.is_crew?
-      Conference.accessible_by_crew(current_user).order('created_at DESC')
+    if current_user.is_admin?
+      Conference.creation_order
+    elsif current_user.is_crew?
+      Conference.accessible_by_crew(current_user).creation_order
     else
-      Conference.order('created_at DESC')
+      Conference.accessible_by_submitter(current_user)
     end
   end
 
   def manageable_conferences
-    if current_user.is_crew?
-      Conference.accessible_by_orga(current_user).order('created_at DESC')
+    if current_user.is_admin?
+      Conference.creation_order
+    elsif current_user.is_crew?
+      Conference.accessible_by_orga(current_user).creation_order
     else
-      Conference.order('created_at DESC')
+      []
     end
   end
 
