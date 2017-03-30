@@ -6,6 +6,9 @@ class HomeController < ApplicationController
     @future_conferences = Conference.future
   end
 
+  def show
+  end
+
   def not_existing
     @user = User.new
     redirect_to new_user_session_path if @conference.call_for_participation

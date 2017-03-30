@@ -12,8 +12,7 @@
       .topbar
         .fill
           .container
-            %span.brand
-              = @conference.title + " - Call for Participation"
+            = link_to @conference.title + " - Call for Participation", root_url, class: 'brand'
 
             - if current_user and current_user.person
               %ul.nav.secondary-nav.pull-right

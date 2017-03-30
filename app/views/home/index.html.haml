@@ -1,28 +1,15 @@
 - content_for :title do
-  %span.brand
-    frab
-  = link_to 'home', root_url, class: 'brand'
+  = link_to 'frab - home', root_url, class: 'brand'
 
 %h2 Conferences
 - if @future_conferences.empty?
   none
 - else
-  %ul
-  - @future_conferences.each do |conference|
-    %li
-      = link_to conference.acronym, cfp_root_path
+  = render 'table', collection: @future_conferences
 
 %h2 Past Conferences
 
 - if @past_conferences.empty?
   none
 - else
-  %ul
-  - @past_conferences.each do |conference|
-    %li
-      = link_to conference.acronym, cfp_root_path(conference_acronym: conference.acronym)
-      = l(conference.days.first.start_date.to_date)
-      \-
-      = l(conference.days.last.end_date.to_date)
-      - if conference.schedule_public?
-        = link_to "public schedule", public_schedule_index_path(conference_acronym: conference.acronym)
+  = render 'table', collection: @past_conferences

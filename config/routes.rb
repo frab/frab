@@ -125,9 +125,10 @@ Rails.application.routes.draw do
     end # scope path: "/:conference_acronym"
 
     get '/:conference_acronym' => 'crew#index', as: 'conference_crew'
+    get '/call/:conference_acronym' => 'home#show', as: 'call'
+    get '/open_soon' => 'home#open_soon', as: 'cfp_open_soon'
+    get '/not_existing' => 'home#not_existing', as: 'cfp_not_existing'
   end # scope "(:locale)" do
 
-  get '/open_soon' => 'home#open_soon', as: 'open_soon'
-  get '/not_existing' => 'home#not_existing', as: 'not_existing'
   root to: 'home#index'
 end

@@ -43,6 +43,10 @@ class Conference < ApplicationRecord
 
   has_paper_trail
 
+  has_attached_file :logo,
+    styles: { tiny: '16x16>', small: '32x32>', large: '256x256>' },
+    default_url: 'conference_:style.png'
+
   scope :has_submission, ->(person) {
     joins(events: [{ event_people: :person }])
       .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
