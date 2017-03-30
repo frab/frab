@@ -1,0 +1,5 @@
+%li.dropdown
+  = link_to t("show_account", default: "Account"), "#", class: "dropdown-toggle"
+  %ul.dropdown-menu
+    %li= link_to t("user_settings", default: "Settings"), person_user_path(current_user.person)
+    %li= link_to t("logout", default: "Logout"), user_session_path, method: :delete

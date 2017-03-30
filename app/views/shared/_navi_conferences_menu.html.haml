@@ -1,0 +1,15 @@
+- conferences = accessible_conferences
+- if conferences.present? and conferences.count > 1
+  %li.dropdown
+    = link_to t("switch_conference", default: "Switch conference"), "#", class: "dropdown-toggle"
+    %ul.dropdown-menu
+      - conferences[0..19].each do |conference|
+        - unless @conference == conference
+          %li= link_to conference.acronym, conference_crew_path(conference_acronym: conference.acronym)
+      %li.divider/
+      - if conferences.count > 1
+        %li= link_to t(:conferences, default: "more"), conference_index_path
+      - if can? :manage, Conference
+        %li= link_to t(:create_new_conference, default: "Create new conference"), new_conference_path(conference_acronym: nil)
+- elsif can? :manage, Conference
+  %li= link_to t(:create_new_conference, default: "Create new conference"), new_conference_path(conference_acronym: nil)
