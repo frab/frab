@@ -27,7 +27,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user, conference)
-    @user = user || User.new
+    @user = user
     @conference = conference
 
     alias_action :create, :read, :update, :destroy, to: :crud
@@ -36,9 +36,9 @@ class Ability
     # actual update is handled by :update
     alias_action :edit_rooms, :edit_tracks, :edit_days, :edit_schedule, to: :read_nested_conference
 
-    setup_user_abilities
+    setup_user_abilities if @user
 
-    setup_crew_user_abilities if user.is_crew?
+    setup_crew_user_abilities if @user&.is_crew?
   end
 
   protected
