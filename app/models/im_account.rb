@@ -1,5 +1,5 @@
 class ImAccount < ApplicationRecord
-  TYPES = %w(aim icq jabber msn yahoo skype)
+  TYPES = %w(aim icq jabber msn yahoo skype).freeze
 
   belongs_to :person
 

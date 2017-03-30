@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   include UniqueToken
 
-  ROLES = %w(submitter crew admin)
-  USER_ROLES = %w(submitter crew)
+  ROLES = %w(submitter crew admin).freeze
+  USER_ROLES = %w(submitter crew).freeze
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   has_many :conference_users, dependent: :destroy

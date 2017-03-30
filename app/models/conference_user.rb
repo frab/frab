@@ -1,5 +1,5 @@
 class ConferenceUser < ApplicationRecord
-  ROLES = %w(reviewer coordinator orga)
+  ROLES = %w(reviewer coordinator orga).freeze
 
   belongs_to :conference
   belongs_to :user
