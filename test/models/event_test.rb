@@ -127,7 +127,7 @@ class EventTest < ActiveSupport::TestCase
              start_date: day.start_date + 1.hour,
              end_date: day.start_date + 3.hours)
 
-      possible = event.possible_start_times
+      possible = PossibleStartTimes.new(event).all
       possible_days = possible.keys
       assert possible_days.count == 1
 

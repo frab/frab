@@ -136,7 +136,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     authorize! :update, @event
 
-    @start_time_options = @event.possible_start_times
+    @start_time_options = PossibleStartTimes.new(@event).all
   end
 
   # GET /events/2/edit_people
@@ -173,7 +173,7 @@ class EventsController < ApplicationController
         format.html { redirect_to(@event, notice: 'Event was successfully updated.') }
         format.js   { head :ok }
       else
-        @start_time_options = @event.possible_start_times
+        @start_time_options = PossibleStartTimes.new(@event).all
         format.html { render action: 'edit' }
         format.js { render json: @event.errors, status: :unprocessable_entity }
       end
