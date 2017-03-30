@@ -4,7 +4,7 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
 
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 5.0.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -36,9 +36,9 @@ gem 'jquery-migrate-rails'
 gem 'jquery-ui-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 
-gem 'activeresource'
+gem 'activeresource', github: 'rails/activeresource', branch: 'master'
 gem 'acts_as_commentable'
 gem 'bcrypt'
 gem 'cancancan'
@@ -47,7 +47,7 @@ gem 'dotenv-rails'
 gem 'haml'
 gem 'localized_language_select', github: 'frab/localized_language_select', branch: 'master'
 gem 'nokogiri'
-gem 'paperclip', '~> 4.1'
+gem 'paperclip'
 gem 'paper_trail'
 gem 'prawn', '< 1.0'
 gem 'prawn_rails'
