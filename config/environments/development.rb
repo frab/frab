@@ -60,6 +60,6 @@ Rails.application.configure do
   end
 
   # Use letter_opener for easier mail content testing in development
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :letter_opener
 end
