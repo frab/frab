@@ -7,7 +7,7 @@
       %th= t '.name'
       %th= t '.events'
   %tbody
-    - @speakers.each do |speaker|
+    - @view_model.speakers.each do |speaker|
       %tr
         %td= link_to image_box(speaker.avatar, :small), public_speaker_path(id: speaker.id)
         %td= link_to speaker.public_name, public_speaker_path(id: speaker.id)

@@ -19,7 +19,7 @@
         <Cell><Data ss:Type="String">description</Data></Cell>
         <Cell><Data ss:Type="String">room</Data></Cell>
       </Row>
-    <%- @events.each do |event| %>
+    <%- @view_model.events.each do |event| %>
       <Row>
         <Cell><Data ss:Type="Number"><%= event.id %></Data></Cell>
         <Cell><Data ss:Type="String"><%= event.title %></Data></Cell>

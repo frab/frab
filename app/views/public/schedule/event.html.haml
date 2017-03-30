@@ -1,60 +1,61 @@
-%h2 #{t "options.#{@event.event_type.present? ? @event.event_type : 'other' }"}: #{@event.title}
-%h3.title= @event.subtitle
+- event = @view_model.event
+%h2 #{t "options.#{event.event_type.present? ? event.event_type : 'other' }"}: #{event.title}
+%h3.title= event.subtitle
 
 .column.left#basic
-  = image_box(@event.logo, :large)
-  - if @event.do_not_record
+  = image_box(event.logo, :large)
+  - if event.do_not_record
     %p
       %b #{t '.no_recording'}
-  = simple_format @event.abstract, class: "abstract"
-  = simple_format @event.description, class: "description"
+  = simple_format event.abstract, class: "abstract"
+  = simple_format event.description, class: "description"
 
 .column.left#details
   %h3= t '.info'
   %p
     %b #{t '.day'}:
-    = link_to l(@event.start_time.to_date), public_schedule_path(day: @conference.day_at(@event.start_time))
+    = link_to l(event.start_time.to_date), public_schedule_path(day: @conference.day_at(event.start_time))
     %br/
     %b #{t '.start_time'}:
-    = l @event.start_time, format: :time
+    = l event.start_time, format: :time
     %br/
     %b #{t '.duration'}:
-    = format_time_slots(@event.time_slots)
+    = format_time_slots(event.time_slots)
     %br/
     %b #{t '.room'}:
-    = @event.room.try(:name)
+    = event.room.try(:name)
     %br/
-    - unless @event.track.blank?
+    - unless event.track.blank?
       %b #{t '.track'}:
       - if different_track_colors?
-        %font.event{class: "track-#{@event.track.try(:name).parameterize}"}
-          = link_to @event.track.try(:name), public_events_path(anchor: "#{@event.track.try(:name).downcase}")
+        %font.event{class: "track-#{event.track.try(:name).parameterize}"}
+          = link_to event.track.try(:name), public_events_path(anchor: "#{event.track.try(:name).downcase}")
       - else
-        = link_to @event.track.try(:name), public_events_path(anchor: "#{@event.track.try(:name).downcase}")
+        = link_to event.track.try(:name), public_events_path(anchor: "#{event.track.try(:name).downcase}")
     %br/
     - if @conference.languages_including_subs.count > 1
       %b #{t '.language'}:
-      = @event.language
+      = event.language
   %h3 #{t '.links'}:
   %ul
-    %li= link_to "iCalendar", public_event_path(id: @event.id, format: :ics)
-    - @event.links.each do |link|
+    %li= link_to "iCalendar", public_event_path(id: event.id, format: :ics)
+    - event.links.each do |link|
       %li= link_to link.title, link.url
-  - if @event.event_attachments.is_public.any?
+  - if event.event_attachments.is_public.any?
     %h3= t '.files'
     %ul
-      - @event.event_attachments.is_public.each do |attachment|
+      - event.event_attachments.is_public.each do |attachment|
         %li= link_to attachment.link_title, attachment.attachment.url
   - if @conference.feedback_enabled?
     %h3= t '.feedback'
     %p
-      = link_to t('.feedback_link'), new_public_event_feedback_url(event_id: @event)
-  - unless @concurrent_events.blank?
+      = link_to t('.feedback_link'), new_public_event_feedback_url(event_id: event)
+  - unless @view_model.concurrent_events.blank?
     #concurrent_events.column.left
       %h3 #{t '.concurrent_events'}
       %dl.dl-horizontal
-        - @concurrent_events.each do |event|
-          - next if event.id == @event.id
+        - @view_model.concurrent_events.each do |event|
+          - next if event.id == event.id
           %dt= Room.find(event.room_id).name
           %dd= link_to event.title, public_event_path( id: event.id )
 
@@ -62,13 +63,13 @@
   %h3= t '.speakers'
   %table.list
     %tbody
-      - @event.speakers.each do |speaker|
+      - event.speakers.each do |speaker|
         %tr
           %td= image_box speaker.avatar, :small
           %td= link_to speaker.public_name, public_speaker_path(id: speaker.id)
 
 .span16
-  - if @event.videos.count > 0
+  - if event.videos.count > 0
     %video{ class: 'video', controls: "controls" }
-      %source{ type: @event.videos.first.mimetype, src: @event.videos.first.url }
+      %source{ type: event.videos.first.mimetype, src: event.videos.first.url }
 

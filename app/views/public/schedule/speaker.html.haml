@@ -1,27 +1,28 @@
-%h2.title #{t '.speaker'}: #{@speaker.public_name}
+- speaker = @view_model.speaker
+%h2.title #{t '.speaker'}: #{speaker.public_name}
 
 .column.left#basic
-  = image_box(@speaker.avatar, :large)
-  = simple_format @speaker.abstract, class: "abstract"
-  = simple_format @speaker.description, class: "description"
+  = image_box(speaker.avatar, :large)
+  = simple_format speaker.abstract, class: "abstract"
+  = simple_format speaker.description, class: "description"
 
 .column.left#details
-  - if @speaker.email_public?
+  - if speaker.email_public?
     %h3= t '.contact'
     %p
       %b #{t '.email'}:
-      = mail_to @speaker.email, nil, replace_at: "(at)", replace_dot: "(dot)", encode: :javascript
-  - if @speaker.links.any?
+      = mail_to speaker.email, nil, replace_at: "(at)", replace_dot: "(dot)", encode: :javascript
+  - if speaker.links.any?
     %h3= t '.links'
     %ul
-      - @speaker.links.each do |link|
+      - speaker.links.each do |link|
         %li= link_to link.title, link.url
 
 .column.right#sidebar
   %h3= t '.events_in_this_conference'
   %table.list
     %tbody
-      - @speaker.public_and_accepted_events_as_speaker_in(@conference.include_subs).each do |event|
+      - speaker.public_and_accepted_events_as_speaker_in(@conference.include_subs).each do |event|
         %tr
           %td= image_box event.logo, :small
           %td= link_to event.title, public_event_path(id: event.id)

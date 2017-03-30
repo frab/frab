@@ -39,8 +39,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events_including_subs.is_public.confirmed.scheduled.sort_by(&:to_sortable)
-    @events_by_track = @events.group_by(&:track_id)
+    @view_model = ScheduleViewModel.new(@conference)
     respond_to do |format|
       format.html
       format.json
@@ -49,8 +48,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def event
-    @event = @conference.events_including_subs.is_public.confirmed.scheduled.find(params[:id])
-    @concurrent_events = @conference.events_including_subs.is_public.confirmed.scheduled.where(start_time: @event.start_time)
+    @view_model = ScheduleViewModel.new(@conference).for_event(params[:id])
     respond_to do |format|
       format.html
       format.ics
@@ -58,7 +56,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def speakers
-    @speakers = Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).order(:public_name, :first_name, :last_name)
+    @view_model = ScheduleViewModel.new(@conference)
     respond_to do |format|
       format.html
       format.json
@@ -67,7 +65,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def speaker
-    @speaker = Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).find(params[:id])
+    @view_model = ScheduleViewModel.new(@conference).for_speaker(params[:id])
   end
 
   def qrcode

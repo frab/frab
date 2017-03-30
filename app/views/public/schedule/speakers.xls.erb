@@ -17,7 +17,7 @@
         <Cell><Data ss:Type="String">speaker_abstracts</Data></Cell>
         <Cell><Data ss:Type="String">speaker_descriptions</Data></Cell>
       </Row>
-    <%- @speakers.each do |speaker| %>
+    <%- @view_model.speakers.each do |speaker| %>
       <%- speaker_events = speaker.public_and_accepted_events_as_speaker_in(@conference) %>
       <Row>
         <Cell><Data ss:Type="Number"><%= speaker.id %></Data></Cell>

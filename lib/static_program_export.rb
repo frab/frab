@@ -33,9 +33,11 @@ class StaticProgramExport
     @base_url = base_url
     @original_schedule_public = @conference.schedule_public
 
-    @session = ActionDispatch::Integration::Session.new(Frab::Application)
-    @session.host = ENV.fetch('FRAB_HOST')
-    @session.https! if ENV.fetch('FRAB_PROTOCOL') == 'https'
+    setup
+    # @session = ActionDispatch::Integration::Session.new(Frab::Application)
+    # @session.host = ENV.fetch('FRAB_HOST')
+    # @session.https! if ENV.fetch('FRAB_PROTOCOL') == 'https'
+
     ActiveRecord::Base.transaction do
       unlock_schedule unless @original_schedule_public
 
@@ -49,6 +51,33 @@ class StaticProgramExport
   end
 
   private
+
+  def setup
+    @renderer = Public::ScheduleController.renderer.new(
+      http_host: ENV.fetch('FRAB_HOST'),
+      https: ENV.fetch('FRAB_PROTOCOL') == 'https'
+    )
+    env = @renderer.instance_variable_get(:@env)
+    env['action_dispatch.request.path_parameters'] = {
+      conference_acronym: @conference.acronym,
+      locale: @locale
+    }
+  end
+
+  def render(action, assigns, format = :html)
+    assigns[:conference] = @conference
+    @renderer.render action,
+      formats: [format],
+      assigns: assigns
+  end
+
+  def render_with_template(action, assigns, template, format = :prawn)
+    assigns[:conference] = @conference
+    @renderer.render action,
+      template: template,
+      formats: [format],
+      assigns: assigns
+  end
 
   def base_url
     if @conference.program_export_base_url.present?
@@ -73,7 +102,10 @@ class StaticProgramExport
     paths = query_paths
     path_prefix = "/#{@conference.acronym}/public"
     path_prefix = "/#{@locale}" + path_prefix unless @locale.nil?
-    paths.each { |p| save_response("#{path_prefix}/#{p[:source]}", p[:target]) }
+    paths.each { |p|
+      puts "Downloading #{p[:target]}"
+      save_response(p)
+    }
   end
 
   def copy_stripped_assets
@@ -97,51 +129,82 @@ class StaticProgramExport
 
   def static_query_paths
     [
-      { source: 'schedule', target: 'schedule.html' },
-      { source: 'events', target: 'events.html' },
-      { source: 'speakers', target: 'speakers.html' },
-      { source: 'events.json', target: 'events.json' },
-      { source: 'speakers.json', target: 'speakers.json' },
-      { source: 'schedule/style.css', target: 'style.css' },
-      { source: 'schedule.ics', target: 'schedule.ics' },
-      { source: 'schedule.xcal', target: 'schedule.xcal' },
-      { source: 'schedule.json', target: 'schedule.json' },
-      { source: 'schedule.xml', target: 'schedule.xml' }
+      {  action: :style, format: :css, target: 'style.css' },
+      {
+        action: :events, assigns: { view_model: ScheduleViewModel.new(@conference) },
+        target: 'events.html'
+      },
+      {  action: :events, format: :json, target: 'events.json',
+         assigns: { view_model: ScheduleViewModel.new(@conference) },
+      },
+      # {  action: :speakers, target: 'speakers.html' },
+      # {  action: :speakers, format: :json, target: 'speakers.json' },
+      # {  action: :index, target: 'schedule.html' },
+      # {  action: :index, format: :ics, target: 'schedule.ics' },
+      # {  action: :index, format: :xcal, target: 'schedule.xcal' },
+      # {  action: :index, format: :json, target: 'schedule.json' },
+      {  action: :index, format: :xml, target: 'schedule.xml' }
     ]
   end
 
   def query_paths
     paths = static_query_paths
     day_index = 1
-    @conference.days.each do |_day|
-      paths << { source: "schedule/#{day_index}", target: "schedule/#{day_index}.html" }
-      paths << { source: "schedule/#{day_index}.pdf", target: "schedule/#{day_index}.pdf" }
+    @conference.days.each do |day|
+      paths << { action: :day, assigns: { day: day }, target: "schedule/#{day_index}.html" }
+      paths << {
+        action: :day,
+        template: 'schedule/custom_pdf.pdf.prawn',
+        assigns: {
+          day: day,
+          layout: CustomPDF::FullPageLayout.new('A4')
+        },
+        format: :prawn,
+        target: "schedule/#{day_index}.pdf"
+      }
       day_index += 1
     end
 
     @conference.events.is_public.confirmed.scheduled.each do |event|
-      paths << { source: "events/#{event.id}", target: "events/#{event.id}.html" }
-      paths << { source: "events/#{event.id}.ics", target: "events/#{event.id}.ics" }
+      paths << {
+        action: :event,
+        assigns: { view_model: ScheduleViewModel.new(@conference).for_event(event.id) },
+        target: "events/#{event.id}.html"
+      }
+      paths << { action: :event, assigns: {
+        view_model: ScheduleViewModel.new(@conference).for_event(event.id)
+      }, format: :ics, target: "events/#{event.id}.ics" }
     end
 
     Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
-      paths << { source: "speakers/#{speaker.id}", target: "speakers/#{speaker.id}.html" }
+      paths << {
+        action: :speaker,
+        assigns: {
+          speakers: Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).order(:public_name, :first_name, :last_name)
+        },
+        target: "speakers/#{speaker.id}.html"
+      }
     end
     paths
   end
 
-  def save_response(source, filename)
-    status_code = @session.get(source)
-    unless status_code == 200
-      error('!! Failed to fetch "%s" as "%s" with error code %d' % [source, filename, status_code])
-      return
+  def save_response(action:, assigns: {}, target:, format: :html, template: nil)
+    filename = target
+    if format == :prawn
+      response = render_with_template(action, assigns, template, format)
+    else
+      response = render(action, assigns, format)
     end
+    # #unless status_code == 200
+    #   #error('!! Failed to fetch "%s" as "%s" with error code %d' % [source, filename, status_code])
+    #   #return
+    # #end
 
     file_path = File.join(@base_directory, URI.decode(filename))
     FileUtils.mkdir_p(File.dirname(file_path))
 
     if filename.match?(/\.html$/)
-      document = modify_response_html(filename)
+      document = modify_response_html(response)
       File.open(file_path, 'w') do |f|
         # FIXME corrupts events and speakers?
         # document.write_html_to(f, encoding: "UTF-8")
@@ -149,18 +212,18 @@ class StaticProgramExport
       end
     elsif filename.match?(/\.pdf$/)
       File.open(file_path, 'wb') do |f|
-        f.write(@session.response.body)
+        f.write(response)
       end
     else
       # CSS,...
       File.open(file_path, 'w:utf-8') do |f|
-        f.write(@session.response.body.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?'))
+        f.write(response.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?'))
       end
     end
   end
 
-  def modify_response_html(_filename)
-    document = Nokogiri::HTML(@session.response.body, nil, 'UTF-8')
+  def modify_response_html(body)
+    document = Nokogiri::HTML(body, nil, 'UTF-8')
 
     # <link>
     document.css('link').each do |link|

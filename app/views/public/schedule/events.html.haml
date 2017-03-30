@@ -1,7 +1,7 @@
 - content_for :track_menu do
   %p.tracks Tracks:
   %ul.tracks
-    - @events_by_track.each do |track_id, events|
+    - @view_model.events_by_track.each do |track_id, events|
       - if events.count > 0 && ! track_id.nil?
         - track = Track.find(track_id)
         %li
@@ -12,7 +12,7 @@
 
 %h2.title= t '.events'
 
-- @events_by_track.each do |track_id, events|
+- @view_model.events_by_track.each do |track_id, events|
   - if events.count >  0 && ! track_id.nil?
     - track = Track.find(track_id)
 
