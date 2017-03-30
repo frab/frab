@@ -8,7 +8,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   def person_params
-    @person.attributes.except(*%w(id avatar_content_type avatar_file_size avatar_updated_at avatar_file_name created_at updated_at user_id))
+    @person.attributes.except('id', 'avatar_content_type', 'avatar_file_size', 'avatar_updated_at', 'avatar_file_name', 'created_at', 'updated_at', 'user_id')
   end
 
   test 'should get index' do

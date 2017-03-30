@@ -108,7 +108,7 @@ class ReportsController < ApplicationController
                 .where('events.public': true)
                 .where('events.start_time > ?', Time.now)
                 .where('events.start_time < ?', Time.now.since(2.hours))
-                .where('events.state': ['accepting', 'unconfirmed', 'confirmed', 'scheduled']).order('events.start_time ASC').group(:'people.id')
+                .where('events.state': %w(accepting unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
     end
 
     unless r.nil? or r.empty?
@@ -197,5 +197,4 @@ class ReportsController < ApplicationController
 
     render :show
   end
-
 end

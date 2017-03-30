@@ -29,7 +29,7 @@ module Public::ScheduleHelper
   end
 
   def selected(regex)
-    'selected' if request.path =~ regex
+    'selected' if request.path.match?(regex)
   end
 
   def day_selected(index)

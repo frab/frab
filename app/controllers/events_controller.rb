@@ -50,11 +50,11 @@ class EventsController < ApplicationController
   # events as pdf
   def cards
     authorize! :crud, Event
-    if params[:accepted]
-      @events = @conference.events.accepted
-    else
-      @events = @conference.events
-    end
+    @events = if params[:accepted]
+                @conference.events.accepted
+              else
+                @conference.events
+              end
 
     respond_to do |format|
       format.pdf
@@ -221,10 +221,10 @@ class EventsController < ApplicationController
     when 'confirmed'
       state = 'schedule'
     else
-      return redirect_to(@event, alert: "Event not in a notifiable state.")
+      return redirect_to(@event, alert: 'Event not in a notifiable state.')
     end
 
-    @event.event_people.presenter.each{ |p| p.set_default_notification(state) }
+    @event.event_people.presenter.each { |p| p.set_default_notification(state) }
 
     redirect_to edit_people_event_path(@event)
   end
@@ -248,8 +248,8 @@ class EventsController < ApplicationController
 
   def clean_events_attributes
     return if can? :crud, Event
-    @event.clean_event_attributes! unless @event.nil?
-    @events.map(&:clean_event_attributes!) unless @events.nil?
+    @event&.clean_event_attributes!
+    @events&.map(&:clean_event_attributes!)
   end
 
   def search(events, params)

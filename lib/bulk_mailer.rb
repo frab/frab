@@ -27,11 +27,11 @@ class BulkMailer
     p = Person.find_by_email(email)
     email_address_with_name = p.nil? ? email : "#{p.public_name} <#{email}>"
 
-    if p.nil?
-      email_address_with_name = email
-    else
-      email_address_with_name = "#{p.public_name} <#{email}>"
-    end
+    email_address_with_name = if p.nil?
+                                email
+                              else
+                                "#{p.public_name} <#{email}>"
+                              end
 
     unless @force
       unless p.include_in_mailings?

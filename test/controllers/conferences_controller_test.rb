@@ -9,18 +9,18 @@ class ConferencesControllerTest < ActionController::TestCase
   end
 
   def conference_params
-    @conference.attributes.except(*%w(id created_at updated_at))
+    @conference.attributes.except('id', 'created_at', 'updated_at')
   end
 
   def conference_attributes
-    attribs =  attributes_for(:conference)
+    attribs = attributes_for(:conference)
     attribs[:timezone] = 'Hawaii'
     attribs.delete(:parent)
     attribs
   end
 
   def sub_conference_attributes
-    attribs =  attributes_for(:conference)
+    attribs = attributes_for(:conference)
     attribs[:timezone] = 'Hawaii'
     attribs[:parent_id] = Conference.first.id
     attribs

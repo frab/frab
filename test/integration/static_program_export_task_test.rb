@@ -7,7 +7,7 @@ class StaticProgramExportTask < ActionDispatch::IntegrationTest
   end
 
   test 'can run program export task' do
-    skip("defining rake task does not work. need to rewrite export task anyways.")
+    skip('defining rake task does not work. need to rewrite export task anyways.')
     locale = 'en'
 
     load File.join(Rails.root, 'lib', 'tasks', 'static_program_export.rake')

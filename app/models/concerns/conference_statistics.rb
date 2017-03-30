@@ -28,11 +28,11 @@ module ConferenceStatistics
 
   def language_breakdown(accepted_only = false)
     result = []
-    if accepted_only
-      base_relation = events.accepted
-    else
-      base_relation = events
-    end
+    base_relation = if accepted_only
+                      events.accepted
+                    else
+                      events
+                    end
     languages.each do |language|
       result << { label: language.code, data: base_relation.where(language: language.code).count }
     end
@@ -60,6 +60,6 @@ module ConferenceStatistics
   private
 
   def duration_to_time(duration_in_minutes)
-    '%02d:%02d' % [ duration_in_minutes / 60, duration_in_minutes % 60 ]
+    '%02d:%02d' % [duration_in_minutes / 60, duration_in_minutes % 60]
   end
 end

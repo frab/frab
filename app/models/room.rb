@@ -7,6 +7,6 @@ class Room < ApplicationRecord
   default_scope -> { order(:rank) }
 
   def to_s
-    "#{model_name.human}: #{self.name}"
+    "#{model_name.human}: #{name}"
   end
 end

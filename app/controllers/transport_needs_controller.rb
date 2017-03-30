@@ -14,7 +14,7 @@ class TransportNeedsController < ApplicationController
   end
 
   def index
-    @transport_needs = @person.transport_needs.where(:conference_id => @conference.id)
+    @transport_needs = @person.transport_needs.where(conference_id: @conference.id)
   end
 
   def update
@@ -51,5 +51,4 @@ class TransportNeedsController < ApplicationController
   def transport_needs_params
     params.require(:transport_need).permit(:at, :transport_type, :seats, :booked, :note)
   end
-
 end

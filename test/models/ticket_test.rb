@@ -7,7 +7,7 @@ class TicketTest < ActiveSupport::TestCase
   end
 
   test 'should create a ticket' do
-    ticket = Ticket.new(object_id: 1, object_type: 'Event',remote_ticket_id: '1')
+    ticket = Ticket.new(object_id: 1, object_type: 'Event', remote_ticket_id: '1')
     assert ticket.save
   end
 

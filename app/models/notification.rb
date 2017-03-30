@@ -7,12 +7,12 @@ class Notification < ApplicationRecord
   validates :accept_subject, presence: true
   validates :accept_body,    presence: true
   validates :schedule_subject, presence: true
-  validates :schedule_body,  presence: true
+  validates :schedule_body, presence: true
   validate :uniq_locale
   # TODO
   # validate :locale_is_valid
 
-  scope :with_locale, ->(code) { where(self.arel_table[:locale].eq(code)) }
+  scope :with_locale, ->(code) { where(arel_table[:locale].eq(code)) }
 
   VARIABLES = {
     'conference'  => 'Conference name',
@@ -24,7 +24,7 @@ class Notification < ApplicationRecord
     'date'        => 'Date of presentation',
     'time'        => 'Time of presentation',
     'room'        => 'Room of presentation'
-  }
+  }.freeze
 
   def default_text=(locale = self.locale)
     return if locale.nil?
@@ -54,16 +54,15 @@ BODY
 #{I18n.t('emails.event_schedule.info')}
 #{I18n.t('emails.event_schedule.goodbye')}
 BODY
-
   end
 
   private
 
   def uniq_locale
-    return if self.conference.nil?
-    self.conference.notifications.each { |n|
-      if n.id != self.id and n.locale == self.locale
-        self.errors.add(:locale, "#{n.locale} already added to this cfp")
+    return if conference.nil?
+    conference.notifications.each { |n|
+      if n.id != id and n.locale == locale
+        errors.add(:locale, "#{n.locale} already added to this cfp")
       end
     }
   end

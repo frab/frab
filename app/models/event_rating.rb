@@ -12,6 +12,6 @@ class EventRating < ApplicationRecord
   protected
 
   def update_average
-    self.event.recalculate_average_rating!
+    event.recalculate_average_rating!
   end
 end

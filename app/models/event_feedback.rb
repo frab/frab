@@ -8,6 +8,6 @@ class EventFeedback < ApplicationRecord
   protected
 
   def update_average
-    self.event.recalculate_average_feedback!
+    event.recalculate_average_feedback!
   end
 end

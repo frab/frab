@@ -36,8 +36,8 @@ class EventPersonTest < ActiveSupport::TestCase
     event = create(:event, conference: conference, state: 'confirmed')
     person1 = create(:person)
     person2 = create(:person)
-    event_person1 = create(:confirmed_event_person, event: event, person: person1)
-    event_person2 = create(:confirmed_event_person, event: event, person: person2)
+    create(:confirmed_event_person, event: event, person: person1)
+    create(:confirmed_event_person, event: event, person: person2)
     persons = Person.involved_in(conference)
     assert_equal 2, persons.count
     assert_includes persons, person1
@@ -82,7 +82,5 @@ class EventPersonTest < ActiveSupport::TestCase
     assert_equal event_person.substitute_notification_variables('accept', :subject), conference.rooms.first.name
 
     assert_nil event_person.notification_subject
-
   end
-
 end

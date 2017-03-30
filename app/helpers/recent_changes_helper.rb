@@ -1,6 +1,6 @@
 module RecentChangesHelper
   def yaml_load_version(version)
-    YAML.load(version.object_changes)
+    YAML.safe_load(version.object_changes)
   rescue
     Rails.logger.error "Invalid YAML in recent changes version #{version.id}"
     []

@@ -37,11 +37,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     can_manage_user!
 
-    if can? :assign_roles, User
-      @user.role = user_params[:role]
-    else
-      @user.role = 'submitter'
-    end
+    @user.role = if can? :assign_roles, User
+                   user_params[:role]
+                 else
+                   'submitter'
+                 end
     @user.person = @person
     @user.skip_confirmation!
 
@@ -94,7 +94,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:id, :role, :email, :password, :password_confirmation,
-                                conference_users_attributes: %i(id role conference_id _destroy))
+      conference_users_attributes: %i(id role conference_id _destroy))
   end
 
   def can_manage_user!

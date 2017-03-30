@@ -1,5 +1,4 @@
 namespace :frab do
-
   desc 'add fake conferences for testing'
   task add_fake_conferences: :environment do |_t, _args|
     ActiveRecord::Base.transaction do
@@ -13,7 +12,7 @@ namespace :frab do
         date = Faker::Time.forward(23).beginning_of_day + 9.hours
 
         3.times do
-          conference.languages << Language.create(code: %w(en de es pt-BR).shuffle.first)
+          conference.languages << Language.create(code: %w(en de es pt-BR).sample)
         end
 
         4.times do
@@ -52,24 +51,24 @@ namespace :frab do
 
         50.times do
           event = Event.create!(conference: conference,
-                                event_type: Event::TYPES.shuffle.first,
-                                state: %w(new review withdrawn unconfirmed confirmed canceled rejected).shuffle.first,
+                                event_type: Event::TYPES.sample,
+                                state: %w(new review withdrawn unconfirmed confirmed canceled rejected).sample,
                                 title: Faker::Book.title,
                                 subtitle: Faker::Hacker.say_something_smart.chomp('!'),
                                 abstract: Faker::Hipster.paragraph,
                                 description: Faker::Hipster.paragraph,
                                 time_slots: rand(10),
-                                track: Track.all.shuffle.first,
-                                language: conference.languages.all.shuffle.first,
+                                track: Track.all.sample,
+                                language: conference.languages.all.sample,
                                 public: Faker::Boolean.boolean,
                                 do_not_record: Faker::Boolean.boolean,
-                                tech_rider: Faker::Hipster.words.join(", "))
+                                tech_rider: Faker::Hipster.words.join(', '))
 
           5.times do
-            EventPerson.create!(person: Person.all.shuffle.first,
+            EventPerson.create!(person: Person.all.sample,
                                 event: event,
-                                event_role: EventPerson::ROLES.shuffle.first,
-                                role_state: EventPerson::STATES.shuffle.first,
+                                event_role: EventPerson::ROLES.sample,
+                                role_state: EventPerson::STATES.sample,
                                 comment: Faker::Lorem.sentence)
           end
         end
@@ -88,12 +87,12 @@ namespace :frab do
                            last_name: Faker::Name.last_name,
                            public_name: Faker::Internet.user_name,
                            include_in_mailings: Faker::Boolean.boolean,
-                           gender: ["male", "female", nil].shuffle.first)
+                           gender: ['male', 'female', nil].sample)
         puts "Created person #{p.first_name} #{p.last_name} <#{p.email}> (#{p.public_name})"
       end
     end
   end
 
   desc 'add fake people, confernces, events, tracks, days etc'
-  task add_fake_data: [ :add_fake_persons, :add_fake_conferences ]
+  task add_fake_data: [:add_fake_persons, :add_fake_conferences]
 end

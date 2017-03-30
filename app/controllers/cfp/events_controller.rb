@@ -9,7 +9,7 @@ class Cfp::EventsController < ApplicationController
     authorize! :submit, Event
 
     @events = current_user.person.events
-    @events.map(&:clean_event_attributes!) unless @events.nil?
+    @events&.map(&:clean_event_attributes!)
 
     respond_to do |format|
       format.html { redirect_to cfp_person_path }

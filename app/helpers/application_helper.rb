@@ -1,21 +1,21 @@
 module ApplicationHelper
   def accessible_conferences
     conferences = []
-    if current_user.is_crew?
-      conferences = Conference.accessible_by_crew(current_user).order('created_at DESC')
-    else
-      conferences = Conference.order('created_at DESC')
-    end
+    conferences = if current_user.is_crew?
+                    Conference.accessible_by_crew(current_user).order('created_at DESC')
+                  else
+                    Conference.order('created_at DESC')
+                  end
     conferences
   end
 
   def manageable_conferences
     conferences = []
-    if current_user.is_crew?
-      conferences = Conference.accessible_by_orga(current_user).order('created_at DESC')
-    else
-      conferences = Conference.order('created_at DESC')
-    end
+    conferences = if current_user.is_crew?
+                    Conference.accessible_by_orga(current_user).order('created_at DESC')
+                  else
+                    Conference.order('created_at DESC')
+                  end
     conferences
   end
 
@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def duration_to_time(duration_in_minutes)
-    '%02d:%02d' % [ duration_in_minutes / 60, duration_in_minutes % 60 ]
+    '%02d:%02d' % [duration_in_minutes / 60, duration_in_minutes % 60]
   end
 
   def icon(name)
@@ -79,9 +79,9 @@ module ApplicationHelper
 
   def t_boolean(b)
     if b
-      t("simple_form.yes")
+      t('simple_form.yes')
     else
-      t("simple_form.no")
+      t('simple_form.no')
     end
   end
 

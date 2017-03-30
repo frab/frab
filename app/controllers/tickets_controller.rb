@@ -14,7 +14,7 @@ class TicketsController < ApplicationController
       authorize! :crud, @event
 
       begin
-        title = t(:your_submission, locale: @event.language) + " " + @event.title.truncate(30)
+        title = t(:your_submission, locale: @event.language) + ' ' + @event.title.truncate(30)
         remote_id = server.create_remote_ticket(title: title,
                                                 requestors: server.create_ticket_requestors(@event.speakers),
                                                 owner_email: current_user.email,
@@ -57,7 +57,5 @@ class TicketsController < ApplicationController
       @person.save
       redirect_to person_path(id: params[:person_id], method: :get)
     end
-
   end
-
 end

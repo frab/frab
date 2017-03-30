@@ -9,7 +9,7 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
   end
 
   def cfp_person_params
-    @cfp_person.attributes.except(*%w(id avatar_file_name avatar_content_type avatar_file_size avatar_updated_at created_at updated_at user_id note))
+    @cfp_person.attributes.except('id', 'avatar_file_name', 'avatar_content_type', 'avatar_file_size', 'avatar_updated_at', 'created_at', 'updated_at', 'user_id', 'note')
   end
 
   test 'should get new' do

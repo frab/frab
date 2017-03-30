@@ -8,7 +8,7 @@ module UniqueToken
       if self.class.where(attribute => token).count > 0
         next
       else
-        self.send(:"#{attribute}=", token)
+        send(:"#{attribute}=", token)
         break token
       end
     end

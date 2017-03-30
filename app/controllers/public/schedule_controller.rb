@@ -42,9 +42,7 @@ class Public::ScheduleController < ApplicationController
   end
 
   def events
-    @events = @conference.events_including_subs.is_public.confirmed.scheduled.sort { |a, b|
-      a.to_sortable <=> b.to_sortable
-    }
+    @events = @conference.events_including_subs.is_public.confirmed.scheduled.sort_by(&:to_sortable)
     @events_by_track = @events.group_by(&:track_id)
     respond_to do |format|
       format.html

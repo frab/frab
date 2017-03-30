@@ -148,14 +148,14 @@ class ConferencesController < ApplicationController
   def conference_params
     allowed = allowed_params
 
-    if params[:conference][:parent_id].present?
-      allowed += [:parent_id]
-    else
-      allowed += [
-        :timezone, :timeslot_duration,
-        days_attributes: %i(start_date end_date _destroy id)
-      ]
-    end
+    allowed += if params[:conference][:parent_id].present?
+                 [:parent_id]
+               else
+                 [
+                   :timezone, :timeslot_duration,
+                   days_attributes: %i(start_date end_date _destroy id)
+                 ]
+               end
 
     params.require(:conference).permit(allowed)
   end
@@ -163,9 +163,7 @@ class ConferencesController < ApplicationController
   def existing_conference_params
     allowed = allowed_params
 
-    if @conference.new_record?
-      allowed += [:parent_id]
-    end
+    allowed += [:parent_id] if @conference.new_record?
 
     if @conference.main_conference?
       allowed += [
@@ -174,7 +172,7 @@ class ConferencesController < ApplicationController
       ]
     end
 
-    if (@conference.main_conference? || can?(:adminstrate, @conference.parent))
+    if @conference.main_conference? || can?(:adminstrate, @conference.parent)
       allowed += [
         rooms_attributes: %i(name size public rank _destroy id),
         tracks_attributes: %i(name color _destroy id)

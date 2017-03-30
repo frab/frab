@@ -6,6 +6,6 @@ class CallForParticipation < ApplicationRecord
   has_paper_trail
 
   def to_s
-    "#{model_name.human}: #{self.conference.title}"
+    "#{model_name.human}: #{conference.title}"
   end
 end

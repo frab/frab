@@ -1,6 +1,6 @@
 json.acronym conference.acronym
 json.title conference.title
-if conference.days.length > 0
+unless conference.days.empty?
   json.start conference.first_day.start_date.strftime('%Y-%m-%d')
   json.end conference.last_day.end_date.strftime('%Y-%m-%d')
 end

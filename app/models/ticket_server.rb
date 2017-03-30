@@ -4,7 +4,7 @@ class TicketServer < ApplicationRecord
   validates_format_of :url, with: /\/\z/
 
   def adapter
-    type = self.conference.ticket_type.to_sym
+    type = conference.ticket_type.to_sym
 
     if type == :otrs
       OTRSTicketServerAdapter.new(self)
@@ -34,5 +34,4 @@ class TicketServer < ApplicationRecord
   def add_correspondence(remote_id, subject, body, recipient = nil)
     adapter.add_correspondence(remote_id, subject, body, recipient)
   end
-
 end

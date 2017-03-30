@@ -49,7 +49,7 @@ class User < ApplicationRecord
   end
 
   def is_crew_of?(conference)
-    self.is_crew? and self.conference_users.select { |cu| cu.conference_id == conference.id }.any?
+    is_crew? and conference_users.select { |cu| cu.conference_id == conference.id }.any?
   end
 
   def self.check_pentabarf_credentials(email, password)
@@ -67,7 +67,7 @@ class User < ApplicationRecord
   end
 
   def self.confirm_by_token(token)
-    user = self.find_by_confirmation_token(token)
+    user = find_by_confirmation_token(token)
     if user
       user.confirmed_at = Time.now
       user.confirmation_token = nil
@@ -78,7 +78,7 @@ class User < ApplicationRecord
 
   def send_confirmation_instructions(conference = nil)
     return false if confirmed_at
-    generate_confirmation_token! unless self.confirmation_token
+    generate_confirmation_token! unless confirmation_token
     UserMailer.confirmation_instructions(self, conference).deliver_now
   end
 
@@ -118,16 +118,16 @@ class User < ApplicationRecord
   private
 
   def conference_user_fields_present
-    return if self.conference_users.map { |cu| cu.conference.nil? || cu.role.nil? }.none?
-    self.errors.add(:role, 'Missing fields on conference user.')
+    return if conference_users.map { |cu| cu.conference.nil? || cu.role.nil? }.none?
+    errors.add(:role, 'Missing fields on conference user.')
   end
 
   def only_one_role_per_conference
     seen = {}
-    self.conference_users.each { |cu|
+    conference_users.each { |cu|
       next if cu.conference.nil?
       if seen.key? cu.conference.id
-        self.errors.add(:role, 'User cannot have multiple roles in one conference')
+        errors.add(:role, 'User cannot have multiple roles in one conference')
         return
       end
       seen[cu.conference.id] = 1

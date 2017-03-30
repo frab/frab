@@ -13,7 +13,7 @@ class RedmineTicketServerAdapter < TicketServerAdapter
       end
 
       def key=(val)
-        self.headers['X-Redmine-API-Key'] = val
+        headers['X-Redmine-API-Key'] = val
       end
     end
   end
@@ -27,7 +27,6 @@ class RedmineTicketServerAdapter < TicketServerAdapter
   end
 
   def create_remote_ticket(args)
-
     server = @server
 
     Issue.configure do
@@ -49,6 +48,4 @@ class RedmineTicketServerAdapter < TicketServerAdapter
     issue.save
     issue.id
   end
-
-
 end

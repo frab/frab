@@ -9,6 +9,6 @@ class Link < ApplicationRecord
   }
 
   def to_s
-    "#{model_name.human}: #{self.title}"
+    "#{model_name.human}: #{title}"
   end
 end

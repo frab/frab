@@ -120,7 +120,7 @@ class Ability
   end
 
   def get_conference_role
-    if @conference.nil? and @user.conference_users.size > 0
+    if @conference.nil? and !@user.conference_users.empty?
       @conference = @user.conference_users.last.conference
     end
     unless @conference.nil?

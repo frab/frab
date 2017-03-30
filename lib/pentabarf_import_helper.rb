@@ -17,19 +17,19 @@ class PentabarfImportHelper
     'comittee' => 'coordinator',
     'admin' => 'orga',
     'developer' => 'admin'
-  }
+  }.freeze
 
   EVENT_STATE_MAPPING = {
     'undecided' => 'unconfirmed',
     'rejected' => 'rejected',
     'accepted' => 'confirmed'
-  }
+  }.freeze
 
   # as in User
   EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   class Pentabarf < ActiveRecord::Base
-    self.establish_connection(:pentabarf)
+    establish_connection(:pentabarf)
   end
 
   def initialize
@@ -196,7 +196,7 @@ class PentabarfImportHelper
       # Stupid edge case, where validation fails.
       account['email'].sub!(/@localhost$/, '@localhost.localdomain')
       # skip if email is still not valid
-      unless account['email'] =~ EMAIL_REGEXP
+      unless account['email'].match?(EMAIL_REGEXP)
         puts "!!! invalid email #{account['email']} - pentabarf person_id #{account['person_id']}"
         next
       end
@@ -254,22 +254,20 @@ class PentabarfImportHelper
       links = @barf.select_all("SELECT l.title, l.url FROM conference_person as p LEFT OUTER JOIN conference_person_link as l ON p.conference_person_id = l.conference_person_id WHERE p.person_id = #{orig_id}")
       # puts "[ ] importing #{links.count} links from people" if DEBUG
       links.each do |link|
-        if link['title'] and link['url']
-          person = Person.find(new_id)
-          Link.create(title: truncate_string(link['title']),
-                      url: truncate_string(link['url']), linkable: person)
-        end
+        next unless link['title'] and link['url']
+        person = Person.find(new_id)
+        Link.create(title: truncate_string(link['title']),
+                    url: truncate_string(link['url']), linkable: person)
       end
     end
     mappings(:events).each do |orig_id, new_id|
       links = @barf.select_all("SELECT title, url FROM event_link WHERE event_id = #{orig_id}")
       # puts "[ ] importing #{links.count} links from events" if DEBUG
       links.each do |link|
-        if link['title'] and link['url']
-          event = Event.find(new_id)
-          Link.create(title: truncate_string(link['title']),
-                      url: truncate_string(link['url']), linkable: event)
-        end
+        next unless link['title'] and link['url']
+        event = Event.find(new_id)
+        Link.create(title: truncate_string(link['title']),
+                    url: truncate_string(link['url']), linkable: event)
       end
     end
   end
@@ -325,11 +323,11 @@ class PentabarfImportHelper
     puts "[ ] importing #{event_ratings.count} event ratings" if DEBUG
     event_ratings.each do |rating|
       key = rating['person_id'] + '##' + rating['event_id']
-      if rating_rankings_n.key?(key)
-        score = rating_rankings[key] / rating_rankings_n[key]
-      else
-        score = 0
-      end
+      score = if rating_rankings_n.key?(key)
+                rating_rankings[key] / rating_rankings_n[key]
+              else
+                0
+              end
       EventRating.create!(
         event_id: mappings(:events)[rating['event_id']],
         person_id: mappings(:people)[rating['person_id']],
@@ -435,26 +433,26 @@ class PentabarfImportHelper
   def guess_public_name(person)
     # by order of preference
     if person['nickname']
-      return person['nickname']
+      person['nickname']
     elsif person['public_name']
-      return person['public_name']
+      person['public_name']
     elsif person['first_name'] and person['last_name']
-      return "#{person['first_name']} #{person['last_name']}"
+      "#{person['first_name']} #{person['last_name']}"
     elsif person['first_name']
-      return person['first_name']
+      person['first_name']
     elsif person['last_name']
-      return person['last_name']
+      person['last_name']
     else
-      return 'unknown'
+      'unknown'
     end
   end
 
   def guess_gender(person)
     # pentabarf mostly encodes gender as a boolean
     if person['gender'].nil?
-      return
+      nil
     else
-      return penta_bool(person['gender']) ? 'male' : 'female'
+      penta_bool(person['gender']) ? 'male' : 'female'
     end
   end
 

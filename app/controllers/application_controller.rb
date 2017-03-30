@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
 
   def default_url_options
     result = { locale: params[:locale] }
-    result.merge!(conference_acronym: @conference.acronym) if @conference
+    result[:conference_acronym] = @conference.acronym if @conference
     result
   end
 
@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
   end
 
   def scoped_sign_in_path
-    if request.path =~ /\/cfp/
+    if request.path.match?(/\/cfp/)
       new_cfp_session_path
     else
       if request.get?
@@ -117,7 +117,7 @@ class ApplicationController < ActionController::Base
   def conference_from_params
     return unless params.key?(:conference_acronym)
     conference = Conference.includes(:parent).find_by(acronym: params[:conference_acronym])
-    fail ActionController::RoutingError.new('Specified conference not found') unless conference
+    raise ActionController::RoutingError, 'Specified conference not found' unless conference
     conference
   end
 end

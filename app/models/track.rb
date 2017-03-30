@@ -8,6 +8,6 @@ class Track < ApplicationRecord
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
 
   def to_s
-    "#{model_name.human}: #{self.name}"
+    "#{model_name.human}: #{name}"
   end
 end

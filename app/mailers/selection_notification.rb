@@ -14,5 +14,4 @@ class SelectionNotification < ActionMailer::Base
       title: conference.title
     )
   end
-
 end

@@ -140,14 +140,14 @@ class StaticProgramExport
     file_path = File.join(@base_directory, URI.decode(filename))
     FileUtils.mkdir_p(File.dirname(file_path))
 
-    if filename =~ /\.html$/
+    if filename.match?(/\.html$/)
       document = modify_response_html(filename)
       File.open(file_path, 'w') do |f|
         # FIXME corrupts events and speakers?
         # document.write_html_to(f, encoding: "UTF-8")
         f.puts(document.to_html)
       end
-    elsif filename =~ /\.pdf$/
+    elsif filename.match?(/\.pdf$/)
       File.open(file_path, 'wb') do |f|
         f.write(@session.response.body)
       end
@@ -186,11 +186,11 @@ class StaticProgramExport
     document.css('a').each do |link|
       href = link.attributes['href']
       if href and href.value.start_with?('/')
-        if href.value =~ /\?\d+$/
+        if href.value.match?(/\?\d+$/)
           strip_asset_path(link, 'href')
         else
           path = @base_url + strip_path(href.value)
-          path = add_html_ext(path) unless path =~ /\.\w+$/
+          path = add_html_ext(path) unless path.match?(/\.\w+$/)
           href.value = path
         end
       end

@@ -114,19 +114,18 @@ class ImportExportHelper
             current_sign_in_at current_sign_in_ip last_sign_in_at
             last_sign_in_ip password_digest pentabarf_password
             pentabarf_salt remember_created_at remember_token
-            reset_password_token role sign_in_count updated_at
-        ).each { |var|
+            reset_password_token role sign_in_count updated_at).each { |var|
           obj.send("#{var}=", yaml[var])
         }
         obj.confirmed_at ||= Time.now
         obj.person = @mappings[:people_user][id]
-        unless obj.valid?
+        if obj.valid?
+          obj.save!
+          @mappings[:users][id] = obj.id
+        else
           STDERR.puts "invalid user: #{id}"
           p obj
           p obj.errors.messages
-        else
-          obj.save!
-          @mappings[:users][id] = obj.id
         end
       end
     end
@@ -159,7 +158,7 @@ class ImportExportHelper
       @mappings[:tracks][id] = obj.id
     end
 
-    restore('conference_cfp', CallForParticipation) do |id, obj|
+    restore('conference_cfp', CallForParticipation) do |_id, obj|
       obj.conference_id = @conference_id
       obj.save!
     end

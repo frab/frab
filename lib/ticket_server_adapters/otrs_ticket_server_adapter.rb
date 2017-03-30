@@ -3,7 +3,7 @@ class OTRSTicketServerAdapter < TicketServerAdapter
   require 'net/http'
 
   def get_ticket_view_url(remote_id)
-    return unless remote_id.is_a? Fixnum
+    return unless remote_id.is_a? Integer
     uri = URI.parse(@server.url)
     uri.path += 'index.pl'
     uri.query = "Action=AgentTicketZoom;TicketID=#{remote_id}"
@@ -99,7 +99,7 @@ class OTRSTicketServerAdapter < TicketServerAdapter
       fail "OTRS Connection Error: #{response.code} #{response.message}"
     end
 
-    result = ActiveSupport::JSON.decode(response.body.tr("\"", "\""))
+    result = ActiveSupport::JSON.decode(response.body.tr('"', '"'))
     if result['Result'] == 'successful'
       result['Data']
     else
@@ -107,5 +107,4 @@ class OTRSTicketServerAdapter < TicketServerAdapter
       fail "OTRS Error:#{result['Result']} #{result['Data']} #{result['Message']}"
     end
   end
-
 end

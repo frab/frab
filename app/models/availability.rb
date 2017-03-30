@@ -15,7 +15,7 @@ class Availability < ApplicationRecord
   def self.build_for(conference)
     result = []
     conference.each_day do |day|
-      result << self.new(
+      result << new(
         day: day,
         start_date: day.start_date,
         end_date: day.end_date,
@@ -26,23 +26,23 @@ class Availability < ApplicationRecord
   end
 
   def within_range?(time)
-    return unless self.start_date and self.end_date
-    if self.conference.timezone and time.zone != self.conference.timezone
-      time = time.in_time_zone(self.conference.timezone)
+    return unless start_date and end_date
+    if conference.timezone and time.zone != conference.timezone
+      time = time.in_time_zone(conference.timezone)
     end
-    time.between?(self.start_date, self.end_date)
+    time.between?(start_date, end_date)
   end
 
   private
 
   def update_event_conflicts
-    self.person.events_in(self.conference).each do |event|
-      event.update_conflicts if event.start_time and event.start_time.between?(self.day.start_date, self.day.end_date)
+    person.events_in(conference).each do |event|
+      event.update_conflicts if event.start_time and event.start_time.between?(day.start_date, day.end_date)
     end
   end
 
   def start_date_before_end_date?
-    self.errors.add(:end_date, 'should be after start date') if self.end_date < self.start_date
+    errors.add(:end_date, 'should be after start date') if end_date < start_date
   end
 
   def year_valid?(year)
@@ -51,7 +51,7 @@ class Availability < ApplicationRecord
   end
 
   def dates_valid?
-    self.errors.add(:start_date, 'not a valid date') unless year_valid?(self.start_date.year)
-    self.errors.add(:end_date, 'not a valid date') unless year_valid?(self.end_date.year)
+    errors.add(:start_date, 'not a valid date') unless year_valid?(start_date.year)
+    errors.add(:end_date, 'not a valid date') unless year_valid?(end_date.year)
   end
 end

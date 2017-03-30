@@ -69,11 +69,10 @@ class ConferenceTest < ActiveSupport::TestCase
     parent_conference.update_attributes(timeslot_duration: 10)
     assert_equal sub_conference.timeslot_duration, parent_conference.timeslot_duration
 
-    parent_conference.update_attributes(timezone: "Honululu")
+    parent_conference.update_attributes(timezone: 'Honululu')
     assert_equal sub_conference.timezone, parent_conference.timezone
 
     sub_conference.days.destroy_all
     assert_equal sub_conference.days.count, parent_conference.days.count
   end
-
 end
