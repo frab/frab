@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319220737) do
+ActiveRecord::Schema.define(version: 20170323053712) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -83,6 +83,10 @@ ActiveRecord::Schema.define(version: 20170319220737) do
     t.boolean  "transport_needs_enabled",                   default: false,        null: false
     t.integer  "parent_id"
     t.boolean  "bulk_notification_enabled",                 default: false,        null: false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
