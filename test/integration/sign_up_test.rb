@@ -30,7 +30,6 @@ class SignUpTest < ActionDispatch::IntegrationTest
       'commit' => 'Log in', 'locale' => 'en'
     }
     follow_redirect!
-    follow_redirect!
     assert_includes @response.body, "#{@conference.title}\n- Call for Participation"
     assert_includes @response.body, 'Update profile'
   end
@@ -44,7 +43,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
     }
     follow_redirect!
     assert_includes @response.body, "#{@conference.title}\n- Call for Participation"
-    assert_includes @response.body, 'Edit your personal profile'
+    assert_includes @response.body, 'Update profile'
   end
 
   test 'can sign in and get redirected back to root if no recent conference' do

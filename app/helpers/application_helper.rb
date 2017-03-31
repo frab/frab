@@ -2,6 +2,7 @@ module ApplicationHelper
   def management_page_title
     title = ''
     if conference_selected?
+      title += @conference.acronym
       if @event.present?
         title += "- #{@event.title}"
       elsif @person.present?

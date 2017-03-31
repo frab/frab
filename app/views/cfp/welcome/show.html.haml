@@ -11,7 +11,6 @@
       \- Call for Participation
   .row
     .span16
-      = render "shared/flash", flash: flash
       - if @conference.call_for_participation.welcome_text
         %p
           = simple_format @conference.call_for_participation.welcome_text
