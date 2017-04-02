@@ -18,8 +18,8 @@
             %li{class: selected(/schedule$/)}
               = link_to t('public.schedule.nav.index'), public_schedule_index_path
             - @conference.days.each_with_index do |day, index|
-              %li{class: day_selected(index)}
-                %a{href: public_schedule_path(day: index)}
+              %li{class: day_selected(index + 1)}
+                %a{href: public_schedule_path(day: index + 1)}
                   - if @conference.days.length > 1
                     = l day.start_date, format: :day
                     = " - "
