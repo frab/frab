@@ -61,7 +61,7 @@ class ScheduleController < ApplicationController
     authorize! :read, @conference
 
     conference_export = @conference.conference_export(check_conference_locale(params[:export_locale]))
-    if conference_export.present? and File.readable? conference_export.tarball.path
+    if conference_export&.tarball && File.readable?(conference_export.tarball.path)
       send_file conference_export.tarball.path, type: 'application/x-tar-gz'
     else
       redirect_to schedule_path, notice: 'No export found to download.'
