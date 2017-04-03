@@ -10,12 +10,12 @@ nodejs, as it is easier to install than v8.
 
     apt-get install nodejs
 
-2) Install Imagemagick:
+2) Install Imagemagick and `file`:
 
-This is a dependency of the paperclip gem. Imagemagick
+These are dependencies of the paperclip gem. Imagemagick
 tools need to be installed to identify and resize images.
 
-Imagemagick should be easy to install using your OS's
+Imagemagick and file should be easy to install using your OS's
 preferred package manager (apt-get, yum, brew etc.).
 
 3) Clone the repository
