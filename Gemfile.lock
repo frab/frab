@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/frab/localized_language_select.git
+  remote: https://github.com/frab/localized_language_select.git
   revision: 85df6b97789de6e29c630808b630e56a1b76f80c
   branch: master
   specs:
