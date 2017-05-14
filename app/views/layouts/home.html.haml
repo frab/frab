@@ -15,6 +15,8 @@
             = yield :title
           - elsif @conference
             = link_to @conference.title, root_url, class: 'brand'
+          - else
+            = link_to "Welcome to frab", root_path, class: "brand"
 
           - if current_user
             = current_user.person.full_name
