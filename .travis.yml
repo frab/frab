@@ -1,9 +1,15 @@
 language: ruby
 rvm:
   - 2.3.1
-bundler_args: --without mysql postgresql
-before_install:
-  - cp config/database.yml.template config/database.yml
+env:
+  - DB=mysql
+  - DB=postgresql
+  - DB=sqlite
+bundler_args: --without capistrano doc production --jobs 2
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - mysql -e 'create database frab_test'
+  - psql -c 'create database frab_test' -U postgres
 script:
   - bundle exec rake db:create
   - bundle exec rake db:schema:load

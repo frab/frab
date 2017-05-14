@@ -1,0 +1,25 @@
+sqlite: &sqlite
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+mysql: &mysql
+  adapter: mysql2
+  username: travis
+  password:
+  database: frab_test
+
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  password:
+  database: frab_test
+  min_messages: ERROR
+
+defaults: &defaults
+  pool: 5
+  timeout: 5000
+  host: localhost
+  <<: *<%= ENV['DB'] || "sqlite" %>
+
+test:
+  <<: *defaults
