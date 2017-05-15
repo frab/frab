@@ -40,8 +40,7 @@ class ConferenceTest < ActiveSupport::TestCase
   end
 
   test '#has_submission' do
-    [:three_day_conference_with_events,
-     :sub_conference_with_events].each do |conference_type|
+    %i(three_day_conference_with_events sub_conference_with_events).each do |conference_type|
       conference = create(conference_type)
       event = conference.events.first
       person = create(:person)
@@ -59,6 +58,24 @@ class ConferenceTest < ActiveSupport::TestCase
       create(:event_person, event: event, person: person, event_role: 'coordinator')
       assert_equal 2, Conference.has_submission(person).count
     end
+  end
+
+  test '#past' do
+    assert_empty Conference.past
+    past = create(:past_days_conference, title: 'past conference')
+    create(:past_call_for_participation, conference: past)
+    past = create(:past_days_conference, title: 'past conference')
+    create(:past_call_for_participation, conference: past)
+    assert_equal 2, Conference.past.count
+  end
+
+  test '#future' do
+    assert_empty Conference.future
+    future = create(:three_day_conference, title: 'future conference')
+    create(:future_call_for_participation, conference: future)
+    future = create(:three_day_conference, title: 'future conference')
+    create(:future_call_for_participation, conference: future)
+    assert_equal 2, Conference.future.count
   end
 
   test 'inherits from parent conference' do

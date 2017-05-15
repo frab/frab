@@ -4,10 +4,10 @@ class Cfp::WelcomeControllerTest < ActionController::TestCase
   setup do
     @present = create(:three_day_conference, title: 'present conference')
     create(:call_for_participation, conference: @present)
-    @past = create(:three_day_conference, title: 'past conference')
-    create(:past_call_for_participation, conference: @past)
+    @past = create(:past_days_conference, title: 'past conference')
+    create(:call_for_participation, conference: @past)
     @future = create(:three_day_conference, title: 'future conference')
-    create(:future_call_for_participation, conference: @future)
+    create(:call_for_participation, conference: @future)
   end
 
   test 'should show cfp for running conference' do

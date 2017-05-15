@@ -17,6 +17,20 @@ FactoryGirl.define do
     end
   end
 
+  trait :past_three_days do
+    after :create do |conference|
+      conference.days << create(:day, conference: conference,
+                                      start_date: Date.today.ago(1.week).since(11.hours),
+                                      end_date: Date.today.ago(1.week).since(23.hours))
+      conference.days << create(:day, conference: conference,
+                                      start_date: Date.today.ago(2.weeks).since(10.hours),
+                                      end_date: Date.today.ago(2.weeks).since(24.hours))
+      conference.days << create(:day, conference: conference,
+                                      start_date: Date.today.ago(3.weeks).since(10.hours),
+                                      end_date: Date.today.ago(3.weeks).since(17.hours))
+    end
+  end
+
   trait :with_rooms do
     after :create do |conference|
       conference.rooms << create(:room, conference: conference)
@@ -85,5 +99,6 @@ FactoryGirl.define do
     factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference]
     factory :three_day_conference_with_events_and_speakers, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference, :with_speakers]
     factory :sub_conference_with_events, traits: [:with_rooms, :with_events, :with_parent_conference]
+    factory :past_days_conference, traits: [:past_three_days]
   end
 end

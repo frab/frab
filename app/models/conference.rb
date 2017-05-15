@@ -63,8 +63,8 @@ class Conference < ApplicationRecord
     joins(:conference_users).where(conference_users: { user_id: user, role: 'orga' })
   }
 
-  scope :past, -> { joins(:days).where(Day.arel_table[:end_date].lt(Time.now)).order('days.start_date DESC').distinct }
-  scope :future, -> { joins(:days).where(Day.arel_table[:end_date].gt(Time.now)).order('days.start_date DESC').distinct }
+  scope :past, -> { includes(:days).where(Day.arel_table[:end_date].lt(Time.now)).order('days.start_date DESC').distinct }
+  scope :future, -> { includes(:days).where(Day.arel_table[:end_date].gt(Time.now)).order('days.start_date DESC').distinct }
 
   def self.current
     return if Conference.count.zero?
