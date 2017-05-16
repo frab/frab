@@ -41,7 +41,7 @@ class PersonTest < ActiveSupport::TestCase
     create(:event_person, event: event2, person: person, event_role: :speaker, role_state: 'attending')
     create(:event_person, event: event3, person: person, event_role: :submitter)
     create(:event_person, event: other_event, person: person, event_role: :speaker)
-    assert_equal 'idea, attending', person.role_state(conference)
+    assert_equal 'attending, idea', person.role_state(conference)
     assert_equal '', person.role_state(other_conference)
   end
 

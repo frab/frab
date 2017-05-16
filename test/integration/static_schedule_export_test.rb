@@ -17,8 +17,10 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
     assert_includes File.read(dir.join('style.css')), '.cell-height1'
     assert_includes File.read(dir.join('events.html')), 'Introducing frap'
     assert_includes File.read(dir.join('schedule/1.html')), 'Introducing frap'
-    assert_includes File.read(dir.join('events/1.html')), 'Introducing frap'
-    assert_includes File.read(dir.join('speakers/1.html')), 'Introducing frap'
+    event = @conference.events.first
+    assert_includes File.read(dir.join("events/#{event.id}.html")), 'Introducing frap'
+    speaker = event.speakers.first
+    assert_includes File.read(dir.join("speakers/#{speaker.id}.html")), 'Introducing frap'
   end
 
   teardown do
