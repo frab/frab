@@ -6,6 +6,6 @@
     - if collection.empty?
       %p Sorry, but your search yielded no results.
     - else
-      = render 'table', collection: collection
+      = render 'table', collection: collection.to_a.uniq
       = actions_bar do
         = will_paginate collection

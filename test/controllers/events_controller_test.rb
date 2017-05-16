@@ -18,6 +18,18 @@ class EventsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:events)
   end
 
+  test 'should search and find a conference' do
+    get :index, params: { conference_acronym: @conference.acronym, q: { s: 'acronym asc' }, term: @conference.title }
+    assert_response :success
+    assert_not_nil assigns(:events)
+  end
+
+  test 'should search and not find any conference' do
+    get :index, params: { conference_acronym: @conference.acronym, q: { s: 'track_name asc' }, term: 'barf' }
+    assert_response :success
+    assert_empty assigns(:events)
+  end
+
   test 'should get new' do
     get :new, params: { conference_acronym: @conference.acronym }
     assert_response :success

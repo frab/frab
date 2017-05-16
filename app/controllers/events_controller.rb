@@ -43,7 +43,7 @@ class EventsController < ApplicationController
   def my
     authorize! :read, Event
 
-    result = search @conference.events.associated_with(current_user.person), params
+    result = search @conference.events.associated_with(current_user.person)
     clean_events_attributes
     @events = result.paginate page: page_param
   end
@@ -257,10 +257,15 @@ class EventsController < ApplicationController
     @events&.map(&:clean_event_attributes!)
   end
 
+  # returns duplicates if ransack has to deal with the associated model
   def search(events)
     @search = perform_search(events, params,
       %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
-    @search.result(distinct: true)
+    if params.dig('q', 's')&.match?('track_name')
+      @search.result
+    else
+      @search.result(distinct: true)
+    end
   end
 
   def event_params
