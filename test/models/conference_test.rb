@@ -20,8 +20,11 @@ class ConferenceTest < ActiveSupport::TestCase
   should validate_presence_of :timezone
 
   test 'current returns the newest conference' do
-    conferences = create_list(:conference, 3)
-    assert_equal conferences.last.id, Conference.current.id
+    time = Time.now
+    create(:conference, created_at: time.ago(3.hour))
+    create(:conference, created_at: time.ago(2.hour))
+    conference = create(:conference, created_at: time.ago(1.hour))
+    assert_equal conference.id, Conference.current.id
   end
 
   test 'returns correct language codes' do

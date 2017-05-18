@@ -23,8 +23,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test '#newer_than?' do
-    old_person = create(:person)
-    new_person = create(:person)
+    old_person = create(:person, updated_at: Time.now.ago(2.hours))
+    new_person = create(:person, updated_at: Time.now.ago(1.hour))
     refute old_person.newer_than?(new_person)
     assert new_person.newer_than?(old_person)
   end
@@ -126,6 +126,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 'orga', person2.user.conference_users.find_by(conference_id: conference1.id).role
 
     # last updated person is person3, so it should be kept
+    person2.update_column(:updated_at, Time.now.ago(1.year))
     merged_person = person2.merge_with person3, keep_last_updated: true
 
     assert_equal 1, User.count
