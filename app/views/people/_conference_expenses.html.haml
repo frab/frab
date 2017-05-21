@@ -1,0 +1,18 @@
+%section
+  .row
+    .span16
+      %h2 Expenses
+  .row
+    .span6
+      %p
+        %b Reimbursed expenses:
+    .span10
+      %p
+        = to_currency @view_model.expenses_sum_reimbursed
+  .row
+    .span6
+      %p
+        %b Non-reimbursed expenses:
+    .span10
+      %p
+        = to_currency @view_model.expenses_sum_non_reimbursed

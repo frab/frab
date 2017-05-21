@@ -1,0 +1,10 @@
+%section
+  .row
+    .span16
+      - if @view_model.current_events.present?
+        %h2 Events in current conference
+        = render "events/table", collection: @view_model.current_events
+      - if @view_model.other_events.present?
+        %h2 Events in other conferences
+        = render "events_in_other_conferences_table", collection: @view_model.other_events
+

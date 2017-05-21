@@ -47,15 +47,8 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
     authorize! :read, @person
-    @current_events = @person.events_as_presenter_in(@conference)
-    @other_events = @person.events_as_presenter_not_in(@conference)
-    clean_events_attributes
-    @availabilities = @person.availabilities.where("conference_id = #{@conference.id}")
-    @expenses = @person.expenses.where(conference_id: @conference.id)
-    @expenses_sum_reimbursed = @person.sum_of_expenses(@conference, true)
-    @expenses_sum_non_reimbursed = @person.sum_of_expenses(@conference, false)
-
-    @transport_needs = @person.transport_needs.where(conference_id: @conference.id)
+    @view_model = PersonViewModel.new(@person, @conference)
+    @view_model.redact_events! unless can?(:crud, Event)
 
     respond_to do |format|
       format.html
@@ -147,12 +140,6 @@ class PeopleController < ApplicationController
       %i(first_name_cont last_name_cont public_name_cont email_cont
       abstract_cont description_cont user_email_cont))
     @search.result(distinct: true)
-  end
-
-  def clean_events_attributes
-    return if can? :crud, Event
-    @current_events.map(&:clean_event_attributes!)
-    @other_events.map(&:clean_event_attributes!)
   end
 
   def person_params

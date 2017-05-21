@@ -1,0 +1,21 @@
+%section
+  .row
+    .span16
+      %h2 Transport needs
+      %table.zebra-striped
+        %thead
+          %tr
+            %th When
+            %th Type
+            %th # of seats
+            %th Booked?
+            %th Note
+            %th
+        %tbody
+          - @view_model.transport_needs.each do |tn|
+            %tr
+              %td= tn.at.to_formatted_s(:long)
+              %td= tn.transport_type
+              %td= tn.seats
+              %td= tn.booked
+              %td= tn.note

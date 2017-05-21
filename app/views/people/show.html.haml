@@ -7,9 +7,8 @@
         = action_button "add", "Add person", new_person_path, title: "Add a new person."
       - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
         = action_button "attend", "Attending", attend_person_path, title: "Mark person as present.", method: 'PUT'
-      - if @conference.ticket_server_enabled?
-        - unless @person.remote_ticket?
-          = action_button "primary", "Add Ticket", tickets_path(person_id: @person), method: :post, title: "Create a ticket for this person."
+      - if @view_model.can_add_ticket?
+        = action_button "primary", "Add Ticket", tickets_path(person_id: @person), method: :post, title: "Create a ticket for this person."
     %h1 Person: #{@person.full_name}
   = render 'shared/people_tabs'
   - if can? :manage, Person and @person.user.nil?
@@ -33,26 +32,8 @@
         %b Gender:
         = @person.gender
 
-      %p
-        %b Event State:
-        - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
-          = @person.role_state @conference
-        - else
-          not speaking
-
-      - unless @availabilities.nil?
-        %p.availability
-          %b Availability:
-          - @availabilities.each do |availability|
-            %span= "#{availability.start_date.strftime("%d.%m. %H:%M")} - #{availability.end_date.strftime("%H:%M")}"
-
-      - unless @person.ticket.nil? or @person.ticket.remote_ticket_id.nil?
-        %p
-          %b Ticket:
-          -if @conference.ticket_server.nil?
-            = @person.ticket.remote_ticket_id
-          -else
-            = link_to @person.ticket.remote_ticket_id, get_ticket_view_url(@person.ticket.remote_ticket_id), target: "_blank"
+      - if @conference
+        = render 'conference_status'
 
     - if can? :manage, Person
       .span6
@@ -97,55 +78,11 @@
       %p
         %b Notes(admin):
         = @person.note
-%section
-  .row
-    .span16
-      - unless @current_events.empty?
-        %h2 Events in current conference
-        = render "events/table", collection: @current_events
-      - unless @other_events.empty?
-        %h2 Events in other conferences
-        = render "events_in_other_conferences_table", collection: @other_events
 
-- if @conference.expenses_enabled? and @expenses.any?
-  %section
-    .row
-      .span16
-        %h2 Expenses
-    .row
-      .span6
-        %p
-          %b Reimbursed expenses:
-      .span10
-        %p
-          = to_currency @expenses_sum_reimbursed
-    .row
-      .span6
-        %p
-          %b Non-reimbursed expenses:
-      .span10
-        %p
-          = to_currency @expenses_sum_non_reimbursed
+= render 'conference_events'
 
-- if @conference.transport_needs_enabled? and @transport_needs.any?
-  %section
-    .row
-      .span16
-        %h2 Transport needs
-        %table.zebra-striped
-          %thead
-            %tr
-              %th When
-              %th Type
-              %th # of seats
-              %th Booked?
-              %th Note
-              %th
-          %tbody
-            - @transport_needs.each do |tn|
-              %tr
-                %td= tn.at.to_formatted_s(:long)
-                %td= tn.transport_type
-                %td= tn.seats
-                %td= tn.booked
-                %td= tn.note
+- if @view_model.show_expenses?
+  = render 'conference_expenses'
+
+- if @view_model.show_transports?
+  = render 'conference_travel'
