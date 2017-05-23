@@ -36,6 +36,7 @@ class ScheduleController < ApplicationController
   def custom_pdf
     authorize! :read, Event
     @page_size = params[:page_size]
+
     @day = @conference.days.find(params[:date_id])
     @rooms = @conference.rooms.find(params[:room_ids])
     @layout = page_layout(params[:page_size], params[:half_page])
@@ -44,6 +45,9 @@ class ScheduleController < ApplicationController
     respond_to do |format|
       format.pdf
     end
+  rescue ActiveRecord::RecordNotFound => e
+    flash[:notice] = e.message
+    redirect_to action: :new_pdf
   end
 
   def html_exports
