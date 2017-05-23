@@ -8,6 +8,7 @@ env:
 bundler_args: --without capistrano doc production --jobs 2
 before_script:
   - cp config/database.yml.travis config/database.yml
+  - sed -i 's/config.eager_load = .*/config.eager_load = true/' config/environments/test.rb
   - mysql -e 'create database frab_test'
   - psql -c 'create database frab_test' -U postgres
 script:
