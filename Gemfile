@@ -79,6 +79,8 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'shoulda'
   gem 'rails-controller-testing'
+  gem 'minitest-rails-capybara'
+  gem 'poltergeist'
 end
 
 group :doc do

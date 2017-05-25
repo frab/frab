@@ -5,6 +5,9 @@ require 'minitest/pride'
 require 'database_cleaner'
 require 'sucker_punch/testing/inline'
 
+require "minitest/rails/capybara"
+require 'capybara/poltergeist'
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
   include FactoryGirl::Syntax::Methods
@@ -14,6 +17,7 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  Capybara.javascript_driver = :poltergeist
   DatabaseCleaner.strategy = :truncation
 
   def login_as(role)
