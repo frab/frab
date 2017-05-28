@@ -22,7 +22,7 @@ class ConferencesController < ApplicationController
     @conference = Conference.find(params[:id])
 
     respond_to do |format|
-      format.html
+      format.html { redirect_to(conference_crew_path(conference_acronym: @conference.acronym)) }
       format.json { render json: @conference }
     end
   end
