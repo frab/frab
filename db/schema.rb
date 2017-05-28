@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327061701) do
+ActiveRecord::Schema.define(version: 20170528105033) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 20170327061701) do
     t.string   "title",                           limit: 255,                  null: false
     t.string   "subtitle",                        limit: 255
     t.string   "event_type",                      limit: 255, default: "talk"
-    t.integer  "time_slots"
+    t.integer  "time_slots",                                  default: 3
     t.string   "state",                           limit: 255, default: "new",  null: false
     t.string   "language",                        limit: 255
     t.datetime "start_time"
