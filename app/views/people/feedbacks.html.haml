@@ -1,9 +1,9 @@
 %section
   .page-header
     .pull-right
-      - if can? :manage, @person
+      - if policy(@conference).manage?
         = action_button "primary", "Edit person", edit_person_path(@person), title: "Edit this person's data."
-      - if can? :administrate, Person
+      - if policy(@conference).manage?
         = action_button "add", "Add person", new_person_path, title: "Add a new person."
     %h1 Person: #{@person.full_name}
   = render 'shared/people_tabs'

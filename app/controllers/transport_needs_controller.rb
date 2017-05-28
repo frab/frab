@@ -3,6 +3,8 @@ class TransportNeedsController < ApplicationController
   before_action :not_submitter!
   before_action :find_person
   before_action :check_enabled
+  before_action :orga_only!
+  after_action :verify_authorized
 
   def new
     @transport_need = TransportNeed.new
@@ -39,7 +41,6 @@ class TransportNeedsController < ApplicationController
 
   def find_person
     @person = Person.find(params[:person_id])
-    authorize! :administrate, @person
   end
 
   def check_enabled

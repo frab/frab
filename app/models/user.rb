@@ -49,8 +49,32 @@ class User < ApplicationRecord
     self.role == 'crew'
   end
 
+  def is_orga_of?(conference)
+    has_role?(conference, 'orga')
+  end
+
+  def is_manager_of?(conference)
+    has_role?(conference, %w[orga coordinator])
+  end
+
   def is_crew_of?(conference)
-    is_crew? and conference_users.select { |cu| cu.conference_id == conference.id }.any?
+    is_crew? && conference_users.where(conference_id: conference.id).any?
+  end
+
+  def has_role?(conference, role)
+    conference_users.where(conference: conference, role: role).any?
+  end
+
+  def any_crew?(*roles)
+    is_crew? && conference_users.where(role: roles).any?
+  end
+
+  def manages_conferences
+    conference_users.where(role: %w[orga coordinator])
+  end
+
+  def organizes_conferences
+    conference_users.where(role: 'orga')
   end
 
   def last_conference

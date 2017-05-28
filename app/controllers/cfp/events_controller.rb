@@ -6,8 +6,6 @@ class Cfp::EventsController < ApplicationController
   # GET /cfp/events
   # GET /cfp/events.xml
   def index
-    authorize! :submit, Event
-
     @events = current_user.person.events
     @events&.map(&:clean_event_attributes!)
 
@@ -19,13 +17,11 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1
   def show
-    authorize! :submit, Event
     redirect_to(edit_cfp_event_path)
   end
 
   # GET /cfp/events/new
   def new
-    authorize! :submit, Event
     @event = Event.new(time_slots: @conference.default_timeslots)
     @event.recording_license = @conference.default_recording_license
 
@@ -36,13 +32,11 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1/edit
   def edit
-    authorize! :submit, Event
     @event = current_user.person.events.find(params[:id])
   end
 
   # POST /cfp/events
   def create
-    authorize! :submit, Event
     @event = Event.new(event_params.merge(recording_license: @conference.default_recording_license))
     @event.conference = @conference
     @event.event_people << EventPerson.new(person: current_user.person, event_role: 'submitter')
@@ -59,7 +53,6 @@ class Cfp::EventsController < ApplicationController
 
   # PUT /cfp/events/1
   def update
-    authorize! :submit, Event
     @event = current_user.person.events.readonly(false).find(params[:id])
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
 
@@ -73,7 +66,6 @@ class Cfp::EventsController < ApplicationController
   end
 
   def withdraw
-    authorize! :submit, Event
     @event = current_user.person.events.find(params[:id], readonly: false)
     @event.withdraw!
     redirect_to(cfp_person_path, notice: t('cfp.event_withdrawn_notice'))

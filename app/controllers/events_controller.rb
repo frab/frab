@@ -2,27 +2,24 @@ class EventsController < ApplicationController
   include Searchable
   before_action :authenticate_user!
   before_action :not_submitter!
-  after_action :restrict_events
+  after_action :verify_authorized
 
   # GET /events
   # GET /events.xml
   def index
-    authorize! :read, Event
-
+    authorize @conference, :read?
     @events = search @conference.events.includes(:track)
 
     clean_events_attributes
     respond_to do |format|
-      format.html {
-        @events = @events.paginate page: page_param
-      }
+      format.html { @events = @events.paginate page: page_param }
       format.xml  { render xml: @events }
       format.json { render json: @events }
     end
   end
 
   def export_accepted
-    authorize! :read, Event
+    authorize @conference, :read?
     @events = @conference.events.is_public.accepted
 
     respond_to do |format|
@@ -31,7 +28,7 @@ class EventsController < ApplicationController
   end
 
   def export_confirmed
-    authorize! :read, Event
+    authorize @conference, :read?
     @events = @conference.events.is_public.confirmed
 
     respond_to do |format|
@@ -41,7 +38,7 @@ class EventsController < ApplicationController
 
   # current_users events
   def my
-    authorize! :read, Event
+    authorize @conference, :read?
 
     result = search @conference.events.associated_with(current_user.person)
     clean_events_attributes
@@ -50,7 +47,7 @@ class EventsController < ApplicationController
 
   # events as pdf
   def cards
-    authorize! :crud, Event
+    authorize @conference, :manage?
     @events = if params[:accepted]
                 @conference.events.accepted
               else
@@ -64,7 +61,7 @@ class EventsController < ApplicationController
 
   # show event ratings
   def ratings
-    authorize! :create, EventRating
+    authorize @conference, :read?
 
     result = search @conference.events, params
     @events = result.paginate page: page_param
@@ -82,14 +79,14 @@ class EventsController < ApplicationController
 
   # show event feedbacks
   def feedbacks
-    authorize! :access, :event_feedback
+    authorize @conference, :read?
     result = search @conference.events.accepted, params
     @events = result.paginate page: page_param
   end
 
   # start batch event review
   def start_review
-    authorize! :create, EventRating
+    authorize @conference, :read?
     ids = Event.ids_by_least_reviewed(@conference, current_user.person)
     if ids.empty?
       redirect_to action: 'ratings', notice: 'You have already reviewed all events:'
@@ -102,8 +99,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
-    @event = Event.find(params[:id])
-    authorize! :read, @event
+    @event = authorize Event.find(params[:id])
 
     clean_events_attributes
     respond_to do |format|
@@ -117,13 +113,12 @@ class EventsController < ApplicationController
   # feedback tabs are handled in routes.rb
   # GET /events/2/people
   def people
-    @event = Event.find(params[:id])
-    authorize! :read, @event
+    @event = authorize Event.find(params[:id])
   end
 
   # GET /events/new
   def new
-    authorize! :crud, Event
+    authorize @conference, :manage?
     @event = Event.new
     @start_time_options = @conference.start_times_by_day
 
@@ -134,25 +129,21 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
-    authorize! :update, @event
-
+    @event = authorize Event.find(params[:id])
     @start_time_options = PossibleStartTimes.new(@event).all
   end
 
   # GET /events/2/edit_people
   def edit_people
-    @event = Event.find(params[:id])
+    @event = authorize Event.find(params[:id])
     @persons = Person.fullname_options
-
-    authorize! :update, @event
   end
 
   # POST /events
   def create
     @event = Event.new(event_params)
     @event.conference = @conference
-    authorize! :create, @event
+    authorize @event
 
     respond_to do |format|
       if @event.save
@@ -166,8 +157,7 @@ class EventsController < ApplicationController
 
   # PUT /events/1
   def update
-    @event = Event.find(params[:id])
-    authorize! :update, @event
+    @event = authorize Event.find(params[:id])
 
     respond_to do |format|
       if @event.update_attributes(event_params)
@@ -184,8 +174,7 @@ class EventsController < ApplicationController
   # update event state
   # GET /events/2/update_state?transition=cancel
   def update_state
-    @event = Event.find(params[:id])
-    authorize! :update, @event
+    @event = authorize Event.find(params[:id])
 
     if params[:send_mail]
 
@@ -211,8 +200,7 @@ class EventsController < ApplicationController
   # add custom notifications to all the event's speakers
   # POST /events/2/custom_notification
   def custom_notification
-    @event = Event.find(params[:id])
-    authorize! :update, @event
+    @event = authorize Event.find(params[:id])
 
     case @event.state
     when 'accepting'
@@ -236,8 +224,7 @@ class EventsController < ApplicationController
 
   # DELETE /events/1
   def destroy
-    @event = Event.find(params[:id])
-    authorize! :destroy, @event
+    @event = authorize Event.find(params[:id])
     @event.destroy
 
     respond_to do |format|
@@ -247,12 +234,8 @@ class EventsController < ApplicationController
 
   private
 
-  def restrict_events
-    @events = @events.accessible_by(current_ability) unless @events.nil?
-  end
-
   def clean_events_attributes
-    return if can? :crud, Event
+    return if policy(@conference).manage?
     @event&.clean_event_attributes!
     @events&.map(&:clean_event_attributes!)
   end

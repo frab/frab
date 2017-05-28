@@ -2,12 +2,12 @@ class PeopleController < ApplicationController
   include Searchable
   before_action :authenticate_user!
   before_action :not_submitter!
-  after_action :restrict_people
+  after_action :verify_authorized
 
   # GET /people
   # GET /people.xml
   def index
-    authorize! :administrate, Person
+    authorize Person, :manage?
     @people = search Person.involved_in(@conference)
 
     respond_to do |format|
@@ -18,7 +18,7 @@ class PeopleController < ApplicationController
   end
 
   def speakers
-    authorize! :administrate, Person
+    authorize Person, :manage?
 
     respond_to do |format|
       format.html do
@@ -26,14 +26,14 @@ class PeopleController < ApplicationController
         @people = result.paginate page: page_param
       end
       format.text do
-        @people = Person.speaking_at(@conference).accessible_by(current_ability)
+        @people = Person.speaking_at(@conference)
         render text: @people.map(&:email).join("\n")
       end
     end
   end
 
   def all
-    authorize! :administrate, Person
+    authorize Person, :manage?
     result = search Person
     @people = result.paginate page: page_param
 
@@ -45,10 +45,8 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.xml
   def show
-    @person = Person.find(params[:id])
-    authorize! :read, @person
-    @view_model = PersonViewModel.new(@person, @conference)
-    @view_model.redact_events! unless can?(:crud, Event)
+    @person = authorize Person.find(params[:id])
+    @view_model = PersonViewModel.new(current_user, @person, @conference)
 
     respond_to do |format|
       format.html
@@ -59,21 +57,21 @@ class PeopleController < ApplicationController
 
   def feedbacks
     @person = Person.find(params[:id])
-    authorize! :access, :event_feedback
+    authorize Conference, :index?
     @current_events = @person.events_as_presenter_in(@conference)
     @other_events = @person.events_as_presenter_not_in(@conference)
   end
 
   def attend
-    @person = Person.find(params[:id])
+    @person = authorize Person.find(params[:id])
     @person.set_role_state(@conference, 'attending')
     redirect_to action: :show
   end
 
   # GET /people/new
   def new
+    authorize Person
     @person = Person.new
-    authorize! :manage, @person
 
     respond_to do |format|
       format.html
@@ -87,13 +85,12 @@ class PeopleController < ApplicationController
       flash[:alert] = 'Not a valid person'
       return redirect_to action: :index
     end
-    authorize! :manage, @person
+    authorize @person
   end
 
   # POST /people
   def create
-    @person = Person.new(person_params)
-    authorize! :manage, @person
+    @person = authorize Person.new(person_params)
 
     respond_to do |format|
       if @person.save
@@ -106,8 +103,7 @@ class PeopleController < ApplicationController
 
   # PUT /people/1
   def update
-    @person = Person.find(params[:id])
-    authorize! :manage, @person
+    @person = authorize Person.find(params[:id])
 
     respond_to do |format|
       if @person.update_attributes(person_params)
@@ -120,8 +116,7 @@ class PeopleController < ApplicationController
 
   # DELETE /people/1
   def destroy
-    @person = Person.find(params[:id])
-    authorize! :manage, @person
+    @person = authorize Person.find(params[:id])
     @person.destroy
 
     respond_to do |format|
@@ -130,10 +125,6 @@ class PeopleController < ApplicationController
   end
 
   private
-
-  def restrict_people
-    @people = @people.accessible_by(current_ability) unless @people.nil?
-  end
 
   def search(people)
     @search = perform_search(people, params,

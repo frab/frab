@@ -23,7 +23,7 @@ class TicketsControllerTest < ActionController::TestCase
   end
 
   test 'create remote ticket with OTRS' do
-    post :create, params: { event_id: @event.id,
+    post :create_event, params: { id: @event.id,
                   conference_acronym: @conference.acronym,
                   test_only: true }
     # test fails because ?method=get is appended to url

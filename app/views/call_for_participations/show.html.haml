@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      - if can? :manage, CallForParticipation
+      - if policy(@conference).orga?
         = action_button "primary", "Edit", edit_call_for_participation_path, hint: "Edit this call for paper's data."
     %h1 Call for Participation
   - if @conference.call_for_participation.welcome_text

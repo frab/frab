@@ -5,8 +5,10 @@ require 'minitest/pride'
 require 'database_cleaner'
 require 'sucker_punch/testing/inline'
 
-require "minitest/rails/capybara"
+require 'minitest/rails/capybara'
 require 'capybara/poltergeist'
+
+Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f }
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -50,4 +52,8 @@ end
 
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+end
+
+class PunditControllerTest < ActionDispatch::IntegrationTest
+  include CrewRolesHelper
 end

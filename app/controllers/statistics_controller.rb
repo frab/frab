@@ -1,9 +1,10 @@
 class StatisticsController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
+  before_action :crew_only!, except: %i[update_track update_event]
+  after_action :verify_authorized
 
   def events_by_state
-    authorize! :read, @conference
     case params[:type]
     when 'lectures'
       result = @conference.events_by_state_and_type(:lecture)
@@ -22,7 +23,6 @@ class StatisticsController < ApplicationController
   end
 
   def language_breakdown
-    authorize! :read, @conference
     result = @conference.language_breakdown(params[:accepted_only])
 
     respond_to do |format|
@@ -31,7 +31,6 @@ class StatisticsController < ApplicationController
   end
 
   def gender_breakdown
-    authorize! :read, @conference
     result = @conference.gender_breakdown(params[:accepted_only])
 
     respond_to do |format|

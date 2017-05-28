@@ -2,13 +2,13 @@ class ConferencesController < ApplicationController
   include Searchable
   # these methods don't need a conference
   skip_before_action :load_conference, only: [:new, :index, :create]
-
   before_action :authenticate_user!
   before_action :not_submitter!
-  load_and_authorize_resource
+  after_action :verify_authorized
 
   # GET /conferences
   def index
+    authorize Conference
     result = search
 
     respond_to do |format|
@@ -19,7 +19,7 @@ class ConferencesController < ApplicationController
 
   # GET /conferences/1
   def show
-    @conference = Conference.find(params[:id])
+    @conference = authorize Conference.find(params[:id])
 
     respond_to do |format|
       format.html { redirect_to(conference_crew_path(conference_acronym: @conference.acronym)) }
@@ -30,7 +30,7 @@ class ConferencesController < ApplicationController
   # GET /conferences/new
   def new
     params.delete(:conference_acronym)
-    @conference = Conference.new
+    @conference = authorize Conference.new
     @possible_parents = Conference.where(parent: nil)
     @first = true if Conference.count == 0
 
@@ -41,12 +41,18 @@ class ConferencesController < ApplicationController
 
   # GET /conferences/1/edit
   def edit
+    authorize @conference, :orga?
   end
 
   def edit_notifications
+    authorize @conference, :orga?
     respond_to do |format|
       format.html
     end
+  end
+
+  def edit_days
+    authorize @conference, :orga?
   end
 
   def send_notification
@@ -57,8 +63,9 @@ class ConferencesController < ApplicationController
   # POST /conferences
   def create
     @conference = Conference.new(conference_params)
+    authorize @conference, :new?
 
-    if @conference.sub_conference? and not can? :administate, @conference.parent
+    if @conference.sub_conference? && ! policy(@conference.parent).manage?
       @conference.parent = nil
     end
 
@@ -75,6 +82,7 @@ class ConferencesController < ApplicationController
 
   # PUT /conferences/1
   def update
+    authorize @conference, :orga?
     respond_to do |format|
       if @conference.update_attributes(existing_conference_params)
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
@@ -87,6 +95,7 @@ class ConferencesController < ApplicationController
   end
 
   def default_notifications
+    authorize @conference, :orga?
     locale = params[:code]
     @notification = Notification.new(locale: locale)
     @notification.default_text = locale
@@ -94,6 +103,7 @@ class ConferencesController < ApplicationController
 
   # DELETE /conferences/1
   def destroy
+    authorize @conference, :orga?
     @conference.destroy
 
     respond_to do |format|
@@ -117,7 +127,9 @@ class ConferencesController < ApplicationController
 
   def search
     @search = perform_search(Conference, params, %i(title_cont acronym_cont))
-    @search.result(distinct: true)
+    result = @search.result(distinct: true)
+    result = result.accessible_by_crew(current_user) if current_user.is_crew?
+    result
   end
 
   def allowed_params
@@ -159,7 +171,7 @@ class ConferencesController < ApplicationController
       ]
     end
 
-    if @conference.main_conference? || can?(:adminstrate, @conference.parent)
+    if @conference.main_conference? || policy(@conference.parent).manage?
       allowed += [
         rooms_attributes: %i(name size public rank _destroy id),
         tracks_attributes: %i(name color _destroy id)

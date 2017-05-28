@@ -23,5 +23,7 @@
 
           - if conference.schedule_public?
             = action_button 'small primary', t('schedule'), public_schedule_index_path(conference_acronym: conference.acronym)
-          - if can? :administrate, conference
+          - if policy(conference).read?
+            = action_button 'small danger', t('show'), conference_crew_path(conference_acronym: conference.acronym)
+          - if policy(conference).orga?
             = action_button 'small danger', t('edit'), edit_conference_path(conference_acronym: conference.acronym)

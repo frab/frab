@@ -21,6 +21,6 @@
         %td= t.created_at
         %td.buttons
           = action_button "small", 'Show', t
-          - if can? :crud, t
+          - if policy(@conference).orga?
             = action_button "small", 'Edit', edit_mail_template_path(t)
             = action_button "small danger", 'Destroy', t, confirm: 'Are you sure?', method: :delete

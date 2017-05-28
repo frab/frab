@@ -104,7 +104,7 @@
                 %th Comment
             %tbody
               - @event_ratings.each do |event_rating|
-                - if can? :manage, event_rating
+                - if policy(@conference).manage?
                   - event_rating.person = Person.new if event_rating.person.nil?
                   %tr
                     %td=image_box event_rating.person.avatar, :small

@@ -9,7 +9,7 @@
       %li.divider/
       - if conferences.count > 1
         %li= link_to t(:conferences, default: "more"), conference_index_path
-      - if can? :manage, Conference
+      - if policy(Conference).orga?
         %li= link_to t(:create_new_conference, default: "Create new conference"), new_conference_path(conference_acronym: nil)
-- elsif can? :manage, Conference
+- elsif policy(Conference).orga?
   %li= link_to t(:create_new_conference, default: "Create new conference"), new_conference_path(conference_acronym: nil)

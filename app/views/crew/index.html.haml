@@ -25,7 +25,7 @@
             <em>Events</em> tab above. Or start a call for
             papers, to allow others to submit events for
             you to review.
-  - if can? :manage, CallForParticipation
+  - if policy(@conference).orga?
     .row
       .span16
         %h2

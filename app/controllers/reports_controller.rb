@@ -1,6 +1,8 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
+  before_action :orga_only!
+  after_action :verify_authorized
 
   def index
     respond_to do |format|
@@ -9,8 +11,6 @@ class ReportsController < ApplicationController
   end
 
   def show_events
-    authorize! :manage, CallForParticipation
-
     @report_type = params[:id]
     @events = []
     @search_count = 0
@@ -66,8 +66,6 @@ class ReportsController < ApplicationController
   end
 
   def show_people
-    authorize! :manage, CallForParticipation
-
     @report_type = params[:id]
     @people = []
     @search_count = 0
@@ -122,8 +120,6 @@ class ReportsController < ApplicationController
   end
 
   def show_statistics
-    authorize! :manage, CallForParticipation
-
     @report_type = params[:id]
     @search_count = 0
 
@@ -189,8 +185,6 @@ class ReportsController < ApplicationController
   end
 
   def show_transport_needs
-    authorize! :manage, CallForParticipation
-
     @search = @conference.transport_needs.search(params[:q])
     @transport_needs = @search.result
     @report_type = params[:id]

@@ -1,19 +1,19 @@
 class PersonViewModel
-  def initialize(person, conference)
+  def initialize(current_user, person, conference=nil)
+    @current_user = current_user
     @person = person
     @conference = conference
-    @redact = false
   end
 
-  def redact_events!
-    @redact = true
+  def redact_events?
+    @redact ||= !Pundit.policy(@current_user, @conference).manage?
   end
 
   def current_events
     return [] unless @conference
     return @current_events if @current_events
     @current_events = @person.events_as_presenter_in(@conference)
-    @current_events.to_a.map!(&:clean_event_attributes!) if @redact
+    @current_events.to_a.map!(&:clean_event_attributes!) if redact_events?
     @current_events
   end
 
@@ -21,7 +21,7 @@ class PersonViewModel
     return [] unless @conference
     return @other_events if @other_events
     @other_events = @person.events_as_presenter_not_in(@conference)
-    @other_events.to_a.map!(&:clean_event_attributes!) if @redact
+    @other_events.to_a.map!(&:clean_event_attributes!) if redact_events?
     @other_events
   end
 

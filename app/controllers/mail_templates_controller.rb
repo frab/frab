@@ -1,7 +1,8 @@
 class MailTemplatesController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
-  before_action :find_conference
+  before_action :orga_only!
+  after_action :verify_authorized
 
   def new
     @mail_template = MailTemplate.new
@@ -64,10 +65,6 @@ class MailTemplatesController < ApplicationController
   end
 
   private
-
-  def find_conference
-    authorize! :administrate, @conference
-  end
 
   def search(mail_templates, params)
     if params.key?(:term) and not params[:term].empty?

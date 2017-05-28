@@ -2,6 +2,7 @@ class AvailabilitiesController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
   before_action :find_person
+  after_action :verify_authorized
 
   def new
     @availabilities = Availability.build_for(@conference)
@@ -21,7 +22,7 @@ class AvailabilitiesController < ApplicationController
 
   def find_person
     @person = Person.find(params[:person_id])
-    authorize! :create, @person
+    authorize @conference, :manage?
   end
 
   def person_params

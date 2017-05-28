@@ -2,20 +2,19 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
   before_action :find_person
+  before_action :ensure_user, except: %i[new create]
+  after_action :verify_authorized
 
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = @person.user
-    can_manage_user!
-
-    redirect_to new_person_user_path(@person) unless @user
+    authorize_manage_user
   end
 
   # GET /users/new
   def new
+    authorize @conference, :orga?
     @user = User.new
-    can_manage_user!
 
     respond_to do |format|
       format.html # new.html.erb
@@ -24,24 +23,16 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = @person.user
-    can_manage_user!
-
-    @user.conference_users.to_a.select! { |cu|
-      can? :assign_user_roles, cu.conference
-    }
+    authorize_manage_user
+    @user.conference_users = policy_scope(@user.conference_users)
   end
 
   # POST /users
   def create
+    authorize @conference, :manage?
     @user = User.new(user_params)
-    can_manage_user!
 
-    @user.role = if can? :assign_roles, User
-                   user_params[:role]
-                 else
-                   'submitter'
-                 end
+    set_allowed_user_roles(user_params[:role], 'submitter')
     @user.person = @person
     @user.skip_confirmation!
 
@@ -56,24 +47,16 @@ class UsersController < ApplicationController
 
   # PUT /users/1
   def update
-    @user = @person.user
-    can_manage_user!
-
+    authorize_manage_user
     [:password, :password_confirmation].each do |password_key|
       params[:user].delete(password_key) if params[:user][password_key].blank?
     end
 
-    # user.role
-    if can? :assign_roles, User
-      @user.role = params[:user][:role]
-    elsif can_only_manage_crew_roles
-      role = params[:user][:role]
-      @user.role = role if User::USER_ROLES.include? role
-    end
+    set_allowed_user_roles(params[:user][:role])
     params[:user].delete(:role)
 
-    # user.conference_users
-    if can_only_manage_crew_roles and params[:user][:conference_users_attributes].present?
+    # only allowed user.conference_users from selection
+    if !current_user.is_admin? && policy(@conference).orga? && params[:user][:conference_users_attributes].present?
       filter_conference_users(params[:user][:conference_users_attributes])
     end
 
@@ -88,6 +71,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
+    authorize UserConferenceContext.new(user: @user, conference: @conference)
   end
 
   private
@@ -97,33 +81,35 @@ class UsersController < ApplicationController
       conference_users_attributes: %i(id role conference_id _destroy))
   end
 
-  def can_manage_user!
-    if @user.nil? or @user.id.nil?
-      authorize! :administrate, User
-    else
-      authorize! :crud, @user
+  def authorize_manage_user
+    authorize UserConferenceContext.new(user: @user, conference: @conference), :manage?
+  end
+
+  def set_allowed_user_roles(role, fallback=nil)
+    if current_user.is_admin?
+      @user.role = role
+    elsif policy(@conference).orga? && User::USER_ROLES.include?(role)
+      @user.role = role
+    elsif fallback
+      @user.role = fallback
     end
   end
 
-  def can_only_manage_crew_roles
-    cannot? :assign_roles, User and can? :assign_user_roles, User
+  def ensure_user
+    redirect_to new_person_user_path(@person) unless @user
   end
 
   def find_person
     @person = Person.find(params[:person_id])
+    @user = @person.user
   end
 
   def filter_conference_users(conference_users)
-    delete = []
-    conference_users.each do |id, conference_user|
-      if conference_user.key?(:conference_id) and conference_user[:conference_id].present?
-        conference = Conference.find conference_user[:conference_id]
-        delete << id unless can? :assign_user_roles, conference
-      else
-        delete << id
-      end
+    orga_conference_users = policy_scope(@user.conference_users)
+    orga_conferences = orga_conference_users.map(&:conference_id)
+    conference_users.delete_if do |id, conference_user|
+      conference_id = conference_user[:conference_id]
+      conference_id.nil? || !orga_conferences.include?(conference_id)
     end
-
-    delete.each { |p| conference_users.delete(p) }
   end
 end

@@ -4,17 +4,14 @@ class Cfp::AvailabilitiesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    authorize! :create, current_user.person
     @availabilities = Availability.build_for(@conference)
   end
 
   def edit
-    authorize! :edit, current_user.person
     @availabilities = current_user.person.availabilities_in(@conference)
   end
 
   def update
-    authorize! :update, current_user.person
     if params.key? :person
       current_user.person.update_attributes_from_slider_form(person_params)
     end

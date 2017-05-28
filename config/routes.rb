@@ -114,11 +114,8 @@ Rails.application.routes.draw do
       get '/reports/on_statistics/:id' => 'reports#show_statistics', as: 'report_on_statistics'
       get '/reports/on_transport_needs/:id' => 'reports#show_transport_needs', as: 'report_on_transport_needs'
 
-      resources :tickets do
-        member do
-          post :create
-        end
-      end
+      post '/tickets/:id/person' => 'tickets#create_person', as: 'create_person_ticket'
+      post '/tickets/:id/event' => 'tickets#create_event', as: 'create_event_ticket'
 
       resources :mail_templates do
         member do

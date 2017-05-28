@@ -1,8 +1,10 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
+  before_action :orga_only!
   before_action :find_person
   before_action :check_enabled
+  after_action :verify_authorized
 
   def new
     @expense = Expense.new
@@ -41,7 +43,6 @@ class ExpensesController < ApplicationController
 
   def find_person
     @person = Person.find(params[:person_id])
-    authorize! :administrate, @person
   end
 
   def check_enabled

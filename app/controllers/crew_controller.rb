@@ -1,11 +1,12 @@
 class CrewController < ApplicationController
   before_action :authenticate_user!
   before_action :not_submitter!
+  after_action :verify_authorized
 
   def index
     return redirect_to new_conference_path if Conference.count.zero?
-    return redirect_to cannot_read_redirect_path if cannot? :read, Conference
     return redirect_to deleted_conference_redirect_path if @conference.nil?
+    authorize @conference, :read?
 
     @versions = PaperTrail::Version.where(conference_id: @conference.id).includes(:item).order('created_at DESC').limit(5)
     respond_to do |format|

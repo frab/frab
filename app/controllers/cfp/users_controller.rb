@@ -9,9 +9,9 @@ class Cfp::UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update_attributes(user_params)
-      redirect_to cfp_person_path, notice: t(:"cfp.updated")
+      redirect_to cfp_person_path(@user.person), notice: t(:"cfp.updated")
     else
-      render action: 'new'
+      render action: 'edit'
     end
   end
 

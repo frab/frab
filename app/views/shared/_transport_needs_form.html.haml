@@ -6,7 +6,7 @@
     = f.input :booked, as: :inline_boolean, hint: "Has this transportation been booked?"
     = f.input :note
   .actions
-    - if can? :administrate, person
+    - if policy(@conference).manage?
       = f.button :submit, class: 'primary'
 
 :javascript
