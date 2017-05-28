@@ -13,7 +13,7 @@ class PersonViewModel
     return [] unless @conference
     return @current_events if @current_events
     @current_events = @person.events_as_presenter_in(@conference)
-    @current_events.map!(&:clean_event_attributes!) if @redact
+    @current_events.to_a.map!(&:clean_event_attributes!) if @redact
     @current_events
   end
 
@@ -21,7 +21,7 @@ class PersonViewModel
     return [] unless @conference
     return @other_events if @other_events
     @other_events = @person.events_as_presenter_not_in(@conference)
-    @other_events.map!(&:clean_event_attributes!) if @redact
+    @other_events.to_a.map!(&:clean_event_attributes!) if @redact
     @other_events
   end
 
