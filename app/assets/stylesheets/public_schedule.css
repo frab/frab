@@ -192,7 +192,7 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
   width: 45px;
   padding: 0px;
   border-bottom: 1px solid #9D9D9D;
-  vertical-align: middle;
+  vertical-align: top;
   text-align: center;
   font: bold 12px verdana, sans-serif;
   color:#666;
