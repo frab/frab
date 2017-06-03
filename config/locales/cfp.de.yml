@@ -67,6 +67,7 @@ de:
     resend_confirmation_button: "Bestätigungsmail erneut versenden"
     resend_confirmation_headline: "Bestätigungsmail erneut versenden"
     save_availability: "Verfügbarkeit speichern"
+    scheduled: "Geplante Zeit"
     send_reset_instructions: "Passwortreset-Anweisungen zusenden"
     sent_password_reset_instructions: "Eine E-Mail mit Anweisen, wie Sie Ihr Passwort ändern können, wurde an Ihre E-Mailadresse gesendet."
     sign_in: "Einloggen"
