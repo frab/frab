@@ -67,6 +67,7 @@ en:
     resend_confirmation_button: "Resend confirmation instructions"
     resend_confirmation_headline: "Resend confirmation instructions"
     save_availability: "Save availability"
+    scheduled: "Scheduled time"
     send_reset_instructions: "Send me reset password instructions"
     sent_password_reset_instructions: "Instructions how to reset your password have been sent to the email address you provided."
     sign_in: "Sign In"

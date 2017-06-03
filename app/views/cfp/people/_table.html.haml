@@ -5,6 +5,7 @@
       %th= t("activerecord.attributes.event.title")
       - if @conference.event_state_visible
         %th= t("activerecord.attributes.event.state")
+        %th= t("cfp.scheduled")
       - if @conference.feedback_enabled
         %th
         %th= t(:event_feedback)
@@ -16,6 +17,13 @@
         %td= event.title
         - if @conference.event_state_visible
           %td= event.state
+          %td
+            -if event.start_time
+              =I18n.l(event.start_time, format: :long)
+              %br
+              =event.room.name
+            -else
+              \-
         - if @conference.feedback_enabled
           %td
             %b= number_with_precision event.average_feedback, precision: 2
