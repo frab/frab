@@ -23,6 +23,7 @@
   - if @conference.expenses_enabled?
     %li= link_to "people with non-reimbursed expenses", report_on_people_path("people_with_non_reimbursed_expenses")
   %li= link_to "non-attending speakers for the next 2 hours", report_on_people_path("non_attending_speakers")
+  %li= link_to "speakers without availabilities", report_on_people_path("speakers_without_availabilities")
 %p Statistics
 %ul
   %li= link_to "used timeslots (hours)", report_on_statistics_path("event_timeslot_sum")

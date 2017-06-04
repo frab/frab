@@ -104,6 +104,13 @@ class ReportsController < BaseConferenceController
         .where('events.start_time > ?', Time.now)
         .where('events.start_time < ?', Time.now.since(2.hours))
         .where('events.state': %w(accepting unconfirmed confirmed scheduled)).order('events.start_time ASC').group(:'people.id')
+    when 'speakers_without_availabilities'
+      r = Person.joins(events: :conference)
+        .includes(:availabilities)
+        .where('conferences.id': @conference.id)
+        .where('event_people.event_role': EventPerson::SPEAKER)
+        .where('event_people.role_state': [ 'confirmed', 'scheduled' ])
+        .where(availabilities: { person_id: nil })
     end
 
     unless r.nil? or r.empty?
