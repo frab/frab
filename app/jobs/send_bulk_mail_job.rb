@@ -16,6 +16,11 @@ class SendBulkMailJob
       persons = persons
         .where('events.state': 'unconfirmed')
         .where('event_people.event_role': 'speaker')
+
+    when 'all_speakers_in_scheduled_events'
+      persons = persons
+        .where('events.state': 'scheduled')
+        .where('event_people.event_role': 'speaker')
     end
 
     persons = persons.group(:'people.id')
