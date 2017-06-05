@@ -1,6 +1,7 @@
 class Public::ScheduleController < ApplicationController
   layout 'public_schedule'
   before_action :maybe_authenticate_user!
+  after_action :cors_set_access_control_headers
 
   def index
     @days = @conference.days
@@ -97,5 +98,11 @@ class Public::ScheduleController < ApplicationController
 
   def maybe_authenticate_user!
     authenticate_user! unless @conference.schedule_public
+  end
+
+  private
+
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
   end
 end
