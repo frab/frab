@@ -27,7 +27,7 @@ def header_content_right
 end
 
 prawn_document(
-  page_layout: landscape? ? :landscape : :portrait,
+  page_layout: @orientation,
   page_size: @layout.page_size
 ) do |pdf|
   pdf.font_families.update('BitStream Vera' => {
@@ -39,7 +39,7 @@ prawn_document(
 
   @layout.bounds = pdf.bounds
 
-  number_of_columns = @rooms.size < 5 ? @rooms.size : 5
+  number_of_columns = [ @rooms.size, @rooms_per_page ].min
   number_of_pages = (@rooms.size / number_of_columns.to_f).ceil.to_i
   column_width = @layout.page_width / number_of_columns
   timeslot_height = @layout.timeslot_height(number_of_timeslots)

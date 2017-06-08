@@ -37,6 +37,7 @@ class Public::ScheduleController < ApplicationController
       format.html
       format.pdf do
         @layout = CustomPDF::FullPageLayout.new('A4')
+        @rooms_per_page = 5
         render template: 'schedule/custom_pdf'
       end
     end

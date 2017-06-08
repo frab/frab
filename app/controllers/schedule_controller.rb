@@ -31,15 +31,32 @@ class ScheduleController < ApplicationController
 
   def new_pdf
     authorize! :read, Event
+    @orientations = [ "auto", "landscape", "portrait" ]
   end
 
   def custom_pdf
     authorize! :read, Event
+
+    unless (params.has_key? :room_ids)
+      redirect_to :new_schedule_pdf
+      return
+    end
+
     @page_size = params[:page_size]
     @day = @conference.days.find(params[:date_id])
     @rooms = @conference.rooms.find(params[:room_ids])
     @layout = page_layout(params[:page_size], params[:half_page])
+    @rooms_per_page = params[:rooms_per_page].to_i
     @events = filter_events_by_day_and_rooms(@day, @rooms)
+
+    @orientation = case params[:orientation]
+    when "landscape"
+      :landscape
+    when "portrait"
+      :portrait
+    else
+      @rooms.size > 3 ? :landscape : :portrait
+    end
 
     respond_to do |format|
       format.pdf

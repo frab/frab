@@ -3,10 +3,6 @@ module ScheduleHelper
     'active' if params[:day].to_i == index
   end
 
-  def landscape?
-    @rooms.size > 3
-  end
-
   # for pdf
   def number_of_timeslots
     timeslots_between(@day.start_date, @day.end_date)

@@ -9,6 +9,10 @@
           .input
             = select_tag "page_size", options_for_select(Prawn::Document::PageGeometry::SIZES.keys.sort)
         .clearfix
+          = label_tag "orientation", "Orientation:"
+          .input
+            = select_tag "orientation", options_for_select(@orientations)
+        .clearfix
           = label_tag "date_id", "Select day:"
           .input
             = select_tag "date_id", options_from_collection_for_select(@conference.days, "id", "label")
@@ -16,6 +20,10 @@
           = label_tag "half_page", "Only use half page width:"
           .input
             = check_box_tag "half_page", false
+        .clearfix
+          = label_tag "rooms_per_page", "Rooms to show per page:"
+          .input
+            = text_field "", "rooms_per_page", value: "5"
         .clearfix
           = label_tag "room_ids[]", "Select rooms:"
           .input
@@ -25,6 +33,11 @@
                   %label
                     = check_box_tag "room_ids[]", room.id
                     .span= room.name
+        .clearfix
+          = label_tag "select_all_rooms", "Select all/none"
+          .input
+            = check_box_tag "select_all_rooms", false
+
         .actions
           = submit_tag "Create PDF", class: "btn primary"
       .clear

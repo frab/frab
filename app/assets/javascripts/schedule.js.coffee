@@ -143,4 +143,8 @@ $ ->
     make_draggable($(event))
     true
 
+  # for new_pdf view
+  $("#select_all_rooms").click ->
+    $('input[name^=room_ids]').attr('checked', this.checked);
+
   return
