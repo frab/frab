@@ -49,7 +49,7 @@ module StaticSchedule
             action: :day,
             template: 'schedule/custom_pdf.pdf.prawn',
             format: :prawn,
-            assigns: { day: day, layout: CustomPDF::FullPageLayout.new('A4') },
+            assigns: { day: day, layout: CustomPDF::FullPageLayout.new('A4'), rooms_per_page: 5 },
             target: "schedule/#{day_index}.pdf"
           }
         end

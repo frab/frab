@@ -28,15 +28,29 @@ class ScheduleController < BaseConferenceController
   end
 
   def new_pdf
+    @orientations = %w[auto landscape portrait]
   end
 
   def custom_pdf
+    return redirect_to :new_schedule_pdf unless params.key?(:room_ids)
+
     @page_size = params[:page_size]
 
     @day = @conference.days.find(params[:date_id])
     @rooms = @conference.rooms.find(params[:room_ids])
     @layout = page_layout(params[:page_size], params[:half_page])
+    @rooms_per_page = params[:rooms_per_page].to_i
+    @rooms_per_page = 1 if @rooms_per_page.zero?
     @events = filter_events_by_day_and_rooms(@day, @rooms)
+
+    @orientation = case params[:orientation]
+                   when 'landscape'
+                     :landscape
+                   when 'portrait'
+                     :portrait
+                   else
+                     @rooms.size > 3 ? :landscape : :portrait
+                   end
 
     respond_to do |format|
       format.pdf
