@@ -1,6 +1,7 @@
 class Public::ScheduleController < ApplicationController
   layout 'public_schedule'
   before_action :maybe_authenticate_user!
+  after_filter :cors_set_access_control_headers
 
   def index
     @days = @conference.days
@@ -36,6 +37,7 @@ class Public::ScheduleController < ApplicationController
       format.html
       format.pdf do
         @layout = CustomPDF::FullPageLayout.new('A4')
+        @rooms_per_page = 5
         render template: 'schedule/custom_pdf'
       end
     end
@@ -98,5 +100,11 @@ class Public::ScheduleController < ApplicationController
       @skip_row[room] = 0
       @rooms << room
     end
+  end
+
+  private
+
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
   end
 end
