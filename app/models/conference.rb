@@ -64,7 +64,7 @@ class Conference < ActiveRecord::Base
   }
 
   def self.current
-    order('created_at DESC').first
+    order('created_at DESC, id DESC').first
   end
 
   alias own_days days
