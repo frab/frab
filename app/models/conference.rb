@@ -68,7 +68,7 @@ class Conference < ApplicationRecord
 
   def self.current
     return if Conference.count.zero?
-    order('created_at DESC').first
+    order('created_at DESC, id DESC').first
   end
 
   def self.accessible_by_submitter(user)
