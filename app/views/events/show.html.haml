@@ -24,11 +24,7 @@
             = action_button "primary", "Add Ticket", create_event_ticket_path(event_id: @event), method: :post, title: "Create a ticket for this event."
     %h1 Event
     %h2 #{@event.title}
-  %ul.tabs
-    %li.active= link_to Event.model_name.human, @event
-    %li= link_to Person.model_name.human, people_event_path(@event)
-    %li= link_to EventRating.model_name.human, event_event_rating_path(@event)
-    %li= link_to EventFeedback.model_name.human, event_event_feedbacks_path(@event)
+  = render 'shared/events_tabs'
   .row
     .span16
       - @event.conflicts.each do |conflict|

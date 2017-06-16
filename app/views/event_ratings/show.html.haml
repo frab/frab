@@ -5,11 +5,7 @@
         = actions_block do
           = action_button "primary", "Rate next event", event_event_rating_path(@next_event), hint: "Proceed to rate the next event."
     %h1 Event: #{@event.title}
-  %ul.tabs
-    %li= link_to "Event Details", @event
-    %li= link_to "People", people_event_path(@event)
-    %li.active= link_to "Ratings", event_event_rating_path(@event)
-    %li= link_to "Feedback", event_event_feedbacks_path(@event)
+  = render 'shared/events_tabs'
   .row
     .span16
       %small= link_to "Toggle Description >>", "#", data: { function: 'toggle', args: { target: '#full_description' } }

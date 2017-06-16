@@ -38,6 +38,12 @@ de:
   tracks: "Tracks"
   your_submission: "Dein Vortrag"
 
+  navigation:
+    event: "Details"
+    people: "Personen"
+    ratings: "Bewertungen"
+    feedbacks: "Feedbacks"
+
   ability:
     denied: "Der Vorgang ist nicht erlaubt."
 

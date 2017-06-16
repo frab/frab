@@ -1,0 +1,5 @@
+%ul.tabs
+  %li{class: active_class?(event_path(@event))}= link_to t('navigation.event'), @event
+  %li{class: active_class?(people_event_path(@event))}= link_to t('navigation.people'), people_event_path(@event)
+  %li{class: active_class?(event_event_rating_path(@event))}= link_to t('navigation.ratings'), event_event_rating_path(@event)
+  %li{class: active_class?(event_event_feedbacks_path(@event))}= link_to t('navigation.feedbacks'), event_event_feedbacks_path(@event)

@@ -32,6 +32,12 @@ en:
   tracks: "Tracks"
   your_submission: "Your Submission"
 
+  navigation:
+    event: "Event Details"
+    people: "People"
+    ratings: "Ratings"
+    feedbacks: "Feedbacks"
+
   ability:
     denied: "This action is not allowed."
 
