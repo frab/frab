@@ -13,8 +13,8 @@ namespace :frab do
 
     PaperTrail.enabled = false
     ActiveRecord::Base.transaction do
-      conference = Conference.first
-      if not conference.present?
+      conference = Conference.all.sample
+      unless conference.present?
         puts 'No conference crew created, since no conference exists'
         # create full admin
         email = get_mail(mail_user, 'admin', mail_domain)
@@ -42,6 +42,7 @@ namespace :frab do
   end
 
   def get_mail(user, role, domain)
+    return "#{role}@#{domain}" if user == 'none'
     "#{user}+#{role}@#{domain}"
   end
 
