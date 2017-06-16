@@ -43,6 +43,8 @@ de:
     people: "Personen"
     ratings: "Bewertungen"
     feedbacks: "Feedbacks"
+    conferences: "Konferenzen"
+    users: "Benutzer"
 
   ability:
     denied: "Der Vorgang ist nicht erlaubt."

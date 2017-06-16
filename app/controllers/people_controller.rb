@@ -1,13 +1,10 @@
-class PeopleController < ApplicationController
+class PeopleController < BaseConferenceController
+  before_action :manage_only!, except: %i[show]
   include Searchable
-  before_action :authenticate_user!
-  before_action :not_submitter!
-  after_action :verify_authorized
 
   # GET /people
   # GET /people.xml
   def index
-    authorize Person, :manage?
     @people = search Person.involved_in(@conference)
 
     respond_to do |format|
@@ -18,8 +15,6 @@ class PeopleController < ApplicationController
   end
 
   def speakers
-    authorize Person, :manage?
-
     respond_to do |format|
       format.html do
         result = search Person.involved_in(@conference)
@@ -80,12 +75,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1/edit
   def edit
-    @person = Person.find(params[:id])
-    if @person.nil?
-      flash[:alert] = 'Not a valid person'
-      return redirect_to action: :index
-    end
-    authorize @person
+    @person = authorize Person.find(params[:id])
   end
 
   # POST /people

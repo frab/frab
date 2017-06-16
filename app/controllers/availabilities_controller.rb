@@ -1,8 +1,5 @@
-class AvailabilitiesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class AvailabilitiesController < BaseConferenceController
   before_action :find_person
-  after_action :verify_authorized
 
   def new
     @availabilities = Availability.build_for(@conference)

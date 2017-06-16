@@ -1,0 +1,19 @@
+%table.zebra-striped
+  %thead
+    %th.first
+    %th= t('activerecord.attributes.user.email')
+    %th= t('activerecord.attributes.conference.acronym')
+    %th= t('activerecord.attributes.conference_user.role')
+    %th= t(:actions)
+  %tbody
+    - collection.each do |conference_user|
+      %tr
+        %td
+        %td= conference_user.user.email
+        %td= conference_user.conference.acronym
+        %td= conference_user.role
+        %td
+          - if policy(conference_user).edit?
+            = action_button 'small danger', t('edit'), edit_person_user_path(conference_user.user.person, conference_acronym: conference_user.conference.acronym)
+          - if policy(conference_user).destroy?
+            = action_button 'small danger', t('destroy'), conference_users_path(person_id: conference_user.user.person), confirm: 'Are you sure', method: :delete

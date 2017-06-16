@@ -3,37 +3,18 @@ class EventPolicy < ApplicationPolicy
     user.is_admin? || user.is_crew_of?(record.conference)
   end
 
-  def people?
-    show?
-  end
+  alias people? show?
 
   def edit?
     user.is_admin? || user.is_manager_of?(record.conference)
   end
 
-  def edit_people?
-    edit?
-  end
-
-  def create?
-    edit?
-  end
-
-  def update?
-    edit?
-  end
-
-  def update_state?
-    edit?
-  end
-
-  def custom_notification?
-    edit?
-  end
-
-  def destroy?
-    edit?
-  end
+  alias create? edit?
+  alias custom_notification? edit?
+  alias destroy? edit?
+  alias edit_people? edit?
+  alias update? edit?
+  alias update_state? edit?
 
   class Scope < Scope
     def resolve

@@ -1,8 +1,5 @@
-class EventsController < ApplicationController
+class EventsController < BaseConferenceController
   include Searchable
-  before_action :authenticate_user!
-  before_action :not_submitter!
-  after_action :verify_authorized
 
   # GET /events
   # GET /events.xml

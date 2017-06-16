@@ -1,6 +1,5 @@
 class Cfp::WelcomeController < ApplicationController
-  layout 'home'
-
+  layout 'cfp'
   def show
     if @conference.call_for_participation.blank?
       render 'not_existing'

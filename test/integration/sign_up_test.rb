@@ -11,7 +11,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, '<title>frab - home'
     assert_includes @response.body, @conference.title
     get "/#{@conference.acronym}/cfp"
-    assert_includes @response.body, "<title>#{@conference.title}"
+    assert_includes @response.body, "<title>\n#{@conference.title}"
     assert_includes @response.body, "#{@conference.title}\n- Call for Participation"
 
     post '/users', params: {

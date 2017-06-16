@@ -1,8 +1,5 @@
-class ReportsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class ReportsController < BaseConferenceController
   before_action :orga_only!
-  after_action :verify_authorized
 
   def index
     respond_to do |format|

@@ -21,7 +21,7 @@ class WithoutConferenceTest < ActionDispatch::IntegrationTest
     sign_in @admin
     get '/'
     assert_response :success
-    get "/people/#{@admin.person.id}/user"
+    get "/user/#{@admin.person.id}/edit"
     assert_response :success
     get '/conferences/new'
     assert_response :success

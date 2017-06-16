@@ -1,8 +1,5 @@
-class TicketsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class TicketsController < BaseConferenceController
   before_action :manage_only!
-  before_action :verify_authorized
   before_action :check_ticket_server
 
   def create_event

@@ -1,8 +1,6 @@
 %li.dropdown
   = link_to t("show_account", default: "Account"), "#", class: "dropdown-toggle"
   %ul.dropdown-menu
-    - if @conference&.acronym
-      %li= link_to t("edit_profile", default: "Profle"), edit_cfp_person_path
-    - unless current_user.is_submitter?
-      %li= link_to t("user_settings", default: "Settings"), person_user_path(current_user.person)
+    %li= link_to t("edit_profile", default: "Profile"), edit_crew_profile_path(current_user)
+    %li= link_to t("user_settings", default: "Settings"), edit_crew_user_path(current_user.person)
     %li= link_to t("logout", default: "Logout"), destroy_user_session_path, method: :delete

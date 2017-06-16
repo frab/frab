@@ -11,12 +11,11 @@ Rails.application.routes.draw do
     get '/conferences' => 'conferences#index', as: 'conference_index'
     delete '/conferences' => 'conferences#destroy'
 
-    resources :people do
-      resource :user
-      member do
-        put :attend
-      end
-    end
+    get '/conference_users' => 'conference_users#index', as: 'conference_users'
+    delete '/conference_users' => 'conference_users#destroy'
+    get '/profile' => 'crew_profiles#edit', as: 'edit_crew_profile'
+    patch '/profile' => 'crew_profiles#update', as: 'update_crew_profile'
+    get '/user/:person_id/edit' => 'users#edit', as: 'edit_crew_user'
 
     scope path: '/:conference_acronym' do
       namespace :public do
@@ -85,6 +84,9 @@ Rails.application.routes.draw do
           get :feedbacks
           get :speakers
         end
+        member do
+          put :attend
+        end
       end
 
       resources :events do
@@ -123,8 +125,7 @@ Rails.application.routes.draw do
         end
       end
     end # scope path: "/:conference_acronym"
-
-    get '/:conference_acronym' => 'crew#index', as: 'conference_crew'
+    get '/:conference_acronym' => 'conferences#show', as: 'conference_crew'
   end # scope "(:locale)" do
 
   root to: 'home#index'

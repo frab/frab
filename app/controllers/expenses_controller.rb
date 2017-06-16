@@ -1,10 +1,7 @@
-class ExpensesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class ExpensesController < BaseConferenceController
   before_action :orga_only!
   before_action :find_person
   before_action :check_enabled
-  after_action :verify_authorized
 
   def new
     @expense = Expense.new

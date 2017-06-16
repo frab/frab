@@ -1,30 +1,18 @@
 module ApplicationHelper
   def management_page_title
     title = ''
-    if conference_selected?
-      title += @conference.acronym
-      if @event.present?
-        title += "- #{@event.title}"
-      elsif @person.present?
-        title += "- #{@person.full_name}"
-      end
-    else
-      title += 'frab'
+    title += @conference.acronym
+    if @event.present?
+      title += "- #{@event.title}"
+    elsif @person.present?
+      title += "- #{@person.full_name}"
     end
     title += '- Conference Management'
     title
   end
 
   def home_page_title
-    if @conference and not @conference.new_record?
-      @conference.title
-    else
-      'frab - home'
-    end
-  end
-
-  def conference_selected?
-    @conference && !@conference.new_record?
+    'frab - home'
   end
 
   def accessible_conferences

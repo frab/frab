@@ -11,7 +11,7 @@
     - @view_model.availabilities.each do |availability|
       %span= "#{availability.start_date.strftime("%d.%m. %H:%M")} - #{availability.end_date.strftime("%H:%M")}"
 
-- if @conference && @view_model.remote_ticket_present?
+- if @view_model.remote_ticket_present?
   %p
     %b Ticket:
     -if @conference.ticket_server.nil?

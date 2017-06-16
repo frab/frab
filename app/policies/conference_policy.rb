@@ -1,4 +1,9 @@
 class ConferencePolicy < ApplicationPolicy
+  # i.e.: event feedback, confernce index
+  def index?
+    user.is_admin? || user.is_crew?
+  end
+
   def read?
     return false unless user
     user.is_admin? || user.is_crew_of?(record)
@@ -10,24 +15,16 @@ class ConferencePolicy < ApplicationPolicy
     user.is_admin? || user.is_orga_of?(record)
   end
 
+  alias create? orga?
+
   def manage?
     return (user.is_admin? || user.any_crew?('orga', 'coordinator')) if record.is_a?(Class)
     user.is_admin? || user.is_manager_of?(record)
   end
 
-  # i.e.: event feedback, confernce index
-  def index?
-    user.is_admin? || user.is_crew?
-  end
-
   def show?
     return false unless scope.where(id: record.id).exists?
     user.is_admin? || user.is_crew_of?(record)
-  end
-
-  # also expenses
-  def create?
-    orga?
   end
 
   def new?

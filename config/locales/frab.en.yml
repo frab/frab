@@ -37,6 +37,8 @@ en:
     people: "People"
     ratings: "Ratings"
     feedbacks: "Feedbacks"
+    conferences: "Conferences"
+    users: "Users"
 
   ability:
     denied: "This action is not allowed."

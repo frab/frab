@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  layout :layout_by_resource
 
   protect_from_forgery
 
@@ -12,12 +11,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def layout_by_resource
-    if devise_controller?
-      "home"
-    else
-      "application"
-    end
+  def layout_if_conference
+    return 'conference' if @conference && !@conference.new_record?
+    'application'
   end
 
   def page_param
@@ -101,4 +97,15 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, 'Specified conference not found' unless conference
     conference
   end
+
+  # maybe conference got deleted
+  def deleted_conference_redirect_path
+    return users_last_conference_path if current_user.last_conference
+    new_conference_path
+  end
+
+  def users_last_conference_path
+    conference_path(conference_acronym: current_user.last_conference.acronym)
+  end
+
 end

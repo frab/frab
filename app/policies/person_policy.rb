@@ -4,32 +4,18 @@ class PersonPolicy < ApplicationPolicy
     (user.is_admin? || user.any_crew?('orga', 'coordinator'))
   end
 
-  def attend?
-    manage?
-  end
-
-  def new?
-    manage?
-  end
-
-  def create?
-    manage?
-  end
-
-  def edit?
-    manage?
-  end
-
-  def update?
-    manage?
-  end
-
-  def destroy?
-    manage?
-  end
+  alias attend? manage?
+  alias new? manage?
+  alias create? manage?
+  alias edit? manage?
+  alias update? manage?
+  alias destroy? manage?
 
   def show?
-    user.person == record || user.is_admin? || user.is_crew?
+    return true if user.person == record || user.is_admin?
+    return true if user.any_crew?('orga', 'coordinator')
+    return true if record.submitter_of?(user.reviews_conferences)
+    false
   end
 
   class Scope < Scope

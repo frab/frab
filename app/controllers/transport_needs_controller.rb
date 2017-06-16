@@ -1,10 +1,7 @@
-class TransportNeedsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class TransportNeedsController < BaseConferenceController
   before_action :find_person
   before_action :check_enabled
   before_action :orga_only!
-  after_action :verify_authorized
 
   def new
     @transport_need = TransportNeed.new

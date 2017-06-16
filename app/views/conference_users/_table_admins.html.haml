@@ -1,0 +1,13 @@
+%table.zebra-striped
+  %thead
+    %th.first
+    %th= t('activerecord.attributes.user.email')
+    %th= t(:actions)
+  %tbody
+    - collection.each do |user|
+      %tr
+        %td
+        %td= user.email
+        %td
+          = action_button 'small danger', t('edit'), edit_crew_profile_path(user.person)
+          = action_button 'small danger', t('destroy'), conference_users_path(person_id: user.person), confirm: 'Are you sure', method: :delete

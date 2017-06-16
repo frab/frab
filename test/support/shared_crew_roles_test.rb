@@ -1,8 +1,6 @@
 module SharedCrewRolesTest
   def test_manage_own_user
-    get "/people/#{@user.person.id}/user"
-    assert_response :success
-    get "/people/#{@user.person.id}/user/edit"
+    get "/user/#{@user.person.id}/edit"
     assert_response :success
   end
 
@@ -35,12 +33,11 @@ module SharedCrewRolesTest
   end
 
   def test_manage_own_person
-    get "/people/#{@user.person.id}", params: { conference_acronym: @acronym }
+    get '/profile'
     assert_response :success
-    get "/#{@acronym}/cfp/person/edit"
-    assert_response :success
-    # TODO bug: switches to cfp interface and hides navi
-    # TODO bug: not reachable with wrong conference
-    # get "/#{@other_conference.acronym}/cfp/person/edit"
+    patch '/profile', params: { person: { first_name: 'test' } }
+    assert_response :redirect
+    @user.person.reload
+    assert_equal 'test', @user.person.first_name
   end
 end

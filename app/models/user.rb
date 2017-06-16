@@ -26,6 +26,7 @@ class User < ApplicationRecord
   validate :only_one_role_per_conference
 
   scope :confirmed, -> { where(arel_table[:confirmed_at].not_eq(nil)) }
+  scope :all_admins, -> { where(role: 'admin') }
 
   def setup_default_values
     self.role ||= 'submitter'
@@ -75,6 +76,10 @@ class User < ApplicationRecord
 
   def organizes_conferences
     conference_users.where(role: 'orga')
+  end
+
+  def reviews_conferences
+    conference_users.where(role: 'reviewer')
   end
 
   def last_conference

@@ -1,8 +1,5 @@
-class MailTemplatesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class MailTemplatesController < BaseConferenceController
   before_action :orga_only!
-  after_action :verify_authorized
 
   def new
     @mail_template = MailTemplate.new

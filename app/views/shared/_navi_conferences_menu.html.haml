@@ -5,7 +5,7 @@
     %ul.dropdown-menu
       - conferences[0..19].each do |conference|
         - unless @conference == conference
-          %li= link_to conference.acronym, conference_crew_path(conference_acronym: conference.acronym)
+          %li= link_to conference.acronym, conference_path(conference_acronym: conference.acronym)
       %li.divider/
       - if conferences.count > 1
         %li= link_to t(:conferences, default: "more"), conference_index_path

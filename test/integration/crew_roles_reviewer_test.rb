@@ -31,7 +31,9 @@ class CrewRolesReviewerTest < PunditControllerTest
     get "/#{@acronym}/people/#{@submitter_user.person.id}"
     assert_response :success
 
-    get "/people/#{@submitter_user.person.id}/user"
+    get "/user/#{@submitter_user.person.id}/edit"
+    assert_ability_denied
+    get "/#{@acronym}/people/#{@submitter_user.person.id}/user"
     assert_ability_denied
   end
 end

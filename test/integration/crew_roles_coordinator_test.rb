@@ -19,7 +19,7 @@ class CrewRolesCoordinatorTest < PunditControllerTest
     get '/conferences/new'
     assert_ability_denied
 
-    get "/people/#{@submitter_user.person.id}/user"
+    get "/#{@acronym}/people/#{@submitter_user.person.id}/user"
     assert_ability_denied
   end
 end

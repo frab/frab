@@ -1,9 +1,9 @@
 class Cfp::UsersController < ApplicationController
+  layout 'cfp'
   before_action :authenticate_user!
 
   def edit
     @user = current_user
-    render layout: 'cfp'
   end
 
   def update

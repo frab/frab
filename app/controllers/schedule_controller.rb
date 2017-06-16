@@ -1,8 +1,5 @@
-class ScheduleController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class ScheduleController < BaseConferenceController
   before_action :crew_only!, except: %i[update_track update_event]
-  after_action :verify_authorized
 
   def index
     params[:day] ||= 0

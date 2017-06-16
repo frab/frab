@@ -1,10 +1,8 @@
-class ConferencesController < ApplicationController
+class ConferencesController < BaseConferenceController
   include Searchable
   # these methods don't need a conference
-  skip_before_action :load_conference, only: [:new, :index, :create]
-  before_action :authenticate_user!
-  before_action :not_submitter!
-  after_action :verify_authorized
+  skip_before_action :load_conference, only: %i[new index create]
+  layout :layout_if_conference
 
   # GET /conferences
   def index
@@ -19,10 +17,15 @@ class ConferencesController < ApplicationController
 
   # GET /conferences/1
   def show
-    @conference = authorize Conference.find(params[:id])
+    return redirect_to new_conference_path if Conference.count.zero?
+    return redirect_to deleted_conference_redirect_path if @conference.nil?
+    authorize @conference
+
+    @versions = PaperTrail::Version.where(conference_id: @conference.id).includes(:item).order('created_at DESC').limit(5)
 
     respond_to do |format|
-      format.html { redirect_to(conference_crew_path(conference_acronym: @conference.acronym)) }
+      #format.html { redirect_to(conference_crew_path(conference_acronym: @conference.acronym)) }
+      format.html
       format.json { render json: @conference }
     end
   end
@@ -44,6 +47,13 @@ class ConferencesController < ApplicationController
     authorize @conference, :orga?
   end
 
+  def edit_days
+    authorize @conference, :orga?
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def edit_notifications
     authorize @conference, :orga?
     respond_to do |format|
@@ -51,8 +61,25 @@ class ConferencesController < ApplicationController
     end
   end
 
-  def edit_days
+  def edit_rooms
     authorize @conference, :orga?
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def edit_schedule
+    authorize @conference, :orga?
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def edit_tracks
+    authorize @conference, :orga?
+    respond_to do |format|
+      format.html
+    end
   end
 
   def send_notification
@@ -71,7 +98,7 @@ class ConferencesController < ApplicationController
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to(conference_crew_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
+        format.html { redirect_to(conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
       else
         @possible_parents = Conference.where(parent: nil)
         flash[:errors] = @conference.errors.full_messages.join

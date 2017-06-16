@@ -1,8 +1,5 @@
-class RecentChangesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class RecentChangesController < BaseConferenceController
   before_action :orga_only!
-  after_action :verify_authorized
 
   def index
     @all_versions = PaperTrail::Version.where(conference_id: @conference.id).order('created_at DESC')

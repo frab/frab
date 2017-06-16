@@ -88,6 +88,14 @@ class Person < ApplicationRecord
     found.positive?
   end
 
+  def submitter_of?(conferences)
+    Person.joins(events: :conference)
+      .where('conferences.id': conferences)
+      .where('event_people.event_role': EventPerson::SPEAKER)
+      .where(id: id)
+      .any?
+  end
+
   def active_in_any_conference?
     found = Conference.joins(events: [{ event_people: :person }])
       .where(Event.arel_table[:state].in(Event::ACCEPTED))

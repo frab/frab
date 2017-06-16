@@ -1,0 +1,6 @@
+.nested-fields
+  %fieldset.inputs
+    = f.input :phone_type, as: :select, collection: PhoneNumber::TYPES
+    = f.input :phone_number
+    = remove_association_link :phone_number, f
+    %hr/

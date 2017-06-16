@@ -1,8 +1,4 @@
-class CallForParticipationsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
-  after_action :verify_authorized
-
+class CallForParticipationsController < BaseConferenceController
   def show
     authorize @conference, :read?
     @call_for_participation = @conference.call_for_participation
