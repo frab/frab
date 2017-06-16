@@ -59,7 +59,7 @@ namespace :frab do
                                 description: Faker::Hipster.paragraph,
                                 time_slots: rand(10),
                                 track: Track.all.sample,
-                                language: conference.languages.all.sample,
+                                language: conference.languages.all.sample.code,
                                 public: Faker::Boolean.boolean,
                                 do_not_record: Faker::Boolean.boolean,
                                 tech_rider: Faker::Hipster.words.join(', '))
