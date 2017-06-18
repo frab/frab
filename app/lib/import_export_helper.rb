@@ -112,21 +112,15 @@ class ImportExportHelper
       else
         %w( confirmation_sent_at confirmation_token confirmed_at created_at
             current_sign_in_at current_sign_in_ip last_sign_in_at
-            last_sign_in_ip password_digest pentabarf_password
-            pentabarf_salt remember_created_at remember_token
+            last_sign_in_ip encrypted_password
+            remember_created_at remember_token
             reset_password_token role sign_in_count updated_at).each { |var|
           obj.send("#{var}=", yaml[var])
         }
         obj.confirmed_at ||= Time.now
         obj.person = @mappings[:people_user][id]
-        if obj.valid?
-          obj.save!
-          @mappings[:users][id] = obj.id
-        else
-          STDERR.puts "invalid user: #{id}"
-          p obj
-          p obj.errors.messages
-        end
+        obj.save(validate: false)
+        @mappings[:users][id] = obj.id
       end
     end
 
