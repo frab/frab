@@ -20,7 +20,7 @@ class Auth::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     if session[:conference_acronym]
-      if policy(@conference).manage?
+      if @conference && policy(@conference).manage?
         conference_path(conference_acronym: session[:conference_acronym])
       else
         edit_cfp_person_path(conference_acronym: session[:conference_acronym])
