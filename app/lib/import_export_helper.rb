@@ -94,8 +94,12 @@ class ImportExportHelper
         # don't create a new person
         @mappings[:people][id] = person.id
         @mappings[:people_user][obj.user_id] = person
+        if person.avatar.nil? && (file = import_file('people/avatars', id, obj.avatar_file_name))
+          person.avatar = file
+          person.save
+        end
       else
-        if (file = import_file('avatars', id, obj.avatar_file_name))
+        if (file = import_file('people/avatars', id, obj.avatar_file_name))
           obj.avatar = file
         end
         obj.save!
@@ -128,7 +132,7 @@ class ImportExportHelper
       obj.conference_id = @conference_id
       obj.track_id = @mappings[:tracks][obj.track_id]
       obj.room_id = @mappings[:rooms][obj.room_id]
-      if (file = import_file('logos', id, obj.logo_file_name))
+      if (file = import_file('events/logos', id, obj.logo_file_name))
         obj.logo = file
       end
       obj.save!
@@ -210,7 +214,7 @@ class ImportExportHelper
 
     restore_multiple('event_attachments', EventAttachment) do |id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
-      if (file = import_file('attachments', id, obj.attachment_file_name))
+      if (file = import_file('event_attachments/attachments', id, obj.attachment_file_name))
         obj.attachment = file
       end
       obj.save!
@@ -317,9 +321,9 @@ class ImportExportHelper
     out_path = File.join(@export_dir, 'attachments.tar.gz')
 
     paths = []
-    paths << events.select { |e| not e.logo.path.nil? }.collect { |e| e.logo.path.gsub(/^#{Rails.root}\//, '') }
-    paths << people.select { |e| not e.avatar.path.nil? }.collect { |e| e.avatar.path.gsub(/^#{Rails.root}\//, '') }
-    paths << attachments.select { |e| not e.attachment.path.nil? }.collect { |e| e.attachment.path.gsub(/^#{Rails.root}\//, '') }
+    paths << events.reject { |e| e.logo.path.nil? }.collect { |e| e.logo.path.gsub(/^#{Rails.root}\//, '') }
+    paths << people.reject { |e| e.avatar.path.nil? }.collect { |e| e.avatar.path.gsub(/^#{Rails.root}\//, '') }
+    paths << attachments.reject { |e| e.attachment.path.nil? }.collect { |e| e.attachment.path.gsub(/^#{Rails.root}\//, '') }
     paths.flatten!
 
     # TODO don't use system
@@ -327,9 +331,11 @@ class ImportExportHelper
   end
 
   def import_file(dir, id, file_name)
-    return if file_name.nil? or file_name.empty?
+    return unless file_name.present?
 
-    path = File.join(@export_dir, 'public/system', dir, id.to_s, 'original', file_name)
+    # ':rails_root/public/system/:class/:attachment/:id_partition/:style/:filename'
+    id_partition = ('%09d'.freeze % id).scan(/\d{3}/).join('/'.freeze)
+    path = File.join(@export_dir, 'public/system', dir, id_partition, 'original', file_name)
     return File.open(path, 'r') if File.readable?(path)
 
     nil
