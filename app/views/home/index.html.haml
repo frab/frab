@@ -1,15 +1,29 @@
 - content_for :title do
   = link_to 'frab - home', root_url, class: 'brand'
 
-%h2 Conferences
-- if @future_conferences.empty?
-  none
-- else
-  = render 'table', collection: @future_conferences
+%section
+  - if policy(Conference).orga?
+    .page-header
+      .pull-right
+        = action_button "primary", "Add conference", new_conference_path, hint: "Add a new conference"
+        = action_button "secondary", "Search", conferences_path, hint: "Seach conferences"
 
-%h2 Past Conferences
+  - if Conference.all.empty?
+    .row
+      .span16
+        .blank-slate
+          %p
+            There is not a single conference yet.
+  - else
+    %h2 Conferences
+    - if @future_conferences.empty?
+      none
+    - else
+      = render 'table', collection: @future_conferences
 
-- if @past_conferences.empty?
-  none
-- else
-  = render 'table', collection: @past_conferences
+    %h2 Past Conferences
+
+    - if @past_conferences.empty?
+      none
+    - else
+      = render 'table', collection: @past_conferences

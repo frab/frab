@@ -32,7 +32,8 @@ class ConferencePolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.is_admin?
+    return false unless user
+    user&.is_admin?
   end
 
   class Scope < Scope

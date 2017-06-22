@@ -2,8 +2,6 @@
   .page-header
     .pull-right
       = action_button "primary", "Add conference", new_conference_path, hint: "Add a new conference"
-      - if policy(conference).orga?
-        = action_button "primary", "Manage conferences", conferences_path, hint: "Delete conferences"
     %h1 List of conferences
   - if params[:term].blank? and Conference.all.empty?
     .row

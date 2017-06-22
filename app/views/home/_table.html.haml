@@ -17,13 +17,13 @@
         %td= conference.title
         %td
           - if current_user && conference.call_for_participation&.still_running?
-            = action_button 'small danger', t('participate'), cfp_person_path(conference_acronym: conference.acronym)
+            = action_button 'small primary', t('participate'), cfp_person_path(conference_acronym: conference.acronym)
           - elsif conference.call_for_participation
             = action_button 'small primary', t('activerecord.models.call_for_participation'), cfp_root_path(conference_acronym: conference.acronym)
 
           - if conference.schedule_public?
             = action_button 'small primary', t('schedule'), public_schedule_index_path(conference_acronym: conference.acronym)
           - if policy(conference).read?
-            = action_button 'small danger', t('show'), conference_path(conference_acronym: conference.acronym)
-          - if policy(conference).orga?
-            = action_button 'small danger', t('edit'), edit_conference_path(conference_acronym: conference.acronym)
+            = action_button 'small secondary', t('show'), conference_path(conference_acronym: conference.acronym)
+          - if policy(conference).destroy?
+            = action_button "small danger", 'Destroy', conference_path(conference_acronym: conference.acronym), confirm: 'Are you sure?', method: :delete
