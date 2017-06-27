@@ -6,8 +6,7 @@
     %x-wr-caldesc= "#{@conference.acronym} Schedule"
     %x-wr-calname= "#{@conference.acronym} Schedule"
 
-    - @conference.events_including_subs.accepted.is_public.each do |event|
-      - next unless event.start_time
+    - @conference.schedule_events.each do |event|
       %vevent
         %method= "PUBLISH"
         %uid= "#{event.id}@#{@conference.acronym}@pentabarf.org"
@@ -29,6 +28,6 @@
           %url= public_event_url(id: event.id)
         - else
           %url= event.static_url
-        %location= event.room.try(:name)
+        %location= event.room&.name
         - event.speakers.each do |speaker|
           %attendee= speaker.public_name

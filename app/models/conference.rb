@@ -170,6 +170,14 @@ class Conference < ApplicationRecord
     parent.present?
   end
 
+  # these events should appear in the schedule
+  def schedule_events
+    events_including_subs
+      .includes(:track, :room)
+      .is_public.confirmed
+      .scheduled
+  end
+
   def to_s
     "#{model_name.human}: #{title} (#{acronym})"
   end

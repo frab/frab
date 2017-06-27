@@ -12,6 +12,7 @@ if event.start_time and event.room
     json.id event.room.id
   end
 end
+json.track event.track&.name
 json.abstract event.abstract
 json.speakers event.speakers do |person|
   json.id person.id

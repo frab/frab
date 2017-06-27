@@ -4,7 +4,7 @@ class ScheduleViewModel
   end
 
   def events
-    @events ||= @conference.events_including_subs.is_public.confirmed.scheduled.sort_by(&:to_sortable)
+    @events ||= @conference.schedule_events.sort_by(&:to_sortable)
   end
 
   def events_by_track
@@ -12,11 +12,11 @@ class ScheduleViewModel
   end
 
   def event
-    @event ||= @conference.events_including_subs.is_public.confirmed.scheduled.find(@event_id)
+    @event ||= @conference.schedule_events.find(@event_id)
   end
 
   def concurrent_events
-    @concurrent_events ||= @conference.events_including_subs.is_public.confirmed.scheduled.where(start_time: event.start_time)
+    @concurrent_events ||= @conference.schedule_events.where(start_time: event.start_time)
   end
 
   def for_event(id)
