@@ -146,6 +146,14 @@ body {
   overflow: visible;
 }
 
+#main-table hr {
+  margin: 25px 0px 0px;
+}
+
+#main-table h2 {
+  padding: 15px 0px;
+}
+
 td#top-left {
   border-top: none;
   height: 25px;
@@ -463,4 +471,33 @@ dt {
 }
 
 .event-book .label {
+}
+
+.event-navigation ul {
+  margin: 0;
+  min-width: 135px;
+}
+
+.event-navigation ul li {
+  background-color: #E1E1E1;
+  border: solid 1px #C7C8C6;
+  padding-top: 5px;
+  list-style: none;
+  margin: 5px 1px 0 0;
+  width: 50%;
+  overflow: hidden;
+  height: 1.5em;
+}
+
+.event-navigation ul li a {
+  text-decoration:none;
+  color:#666;
+  text-align:center;
+  font:400 1.12em/1.4em 'Open Sans', sans-serif;
+  margin:0;
+  border-bottom:5px solid transparent;
+}
+
+hr.short {
+  width: 50%;
 }

@@ -29,6 +29,8 @@ class Public::ScheduleController < ApplicationController
       return redirect_to public_schedule_index_path, notice: 'No events are public and scheduled.'
     end
 
+    @view_model = ScheduleViewModel.new(@conference).for_day(@day)
+
     respond_to do |format|
       format.html
       format.pdf do

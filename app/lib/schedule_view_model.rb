@@ -30,6 +30,23 @@ class ScheduleViewModel
     self
   end
 
+  def for_day(day)
+    @day = day
+    self
+  end
+
+  def room_slices
+    @day.rooms.each_slice(7) do |s|
+      yield s
+    end
+  end
+
+  def room_slice_names
+    @day.rooms.each_slice(7).map do |r|
+      r.map(&:name)
+    end
+  end
+
   def speakers
     @speakers ||= Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).order(:public_name, :first_name, :last_name)
   end
