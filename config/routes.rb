@@ -23,6 +23,8 @@ Rails.application.routes.draw do
         get '/schedule/style' => 'schedule#style', as: 'schedule_style'
         get '/schedule/:day' => 'schedule#day', as: 'schedule'
         get '/events' => 'schedule#events', as: 'events'
+        get '/timeline' => 'schedule#timeline', as: 'timeline'
+        get '/booklet' => 'schedule#booklet', as: 'booklet'
         get '/events/:id' => 'schedule#event', as: 'event'
         get '/speakers' => 'schedule#speakers', as: 'speakers'
         get '/speakers/:id' => 'schedule#speaker', as: 'speaker'

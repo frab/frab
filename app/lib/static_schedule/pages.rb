@@ -21,6 +21,8 @@ module StaticSchedule
         { action: :index, target: 'index.html' },
         { action: :style, format: :css, target: 'style.css' },
         { action: :events, target: 'events.html' },
+        { action: :timeline, target: 'timeline.html' },
+        { action: :booklet, target: 'booklet.html' },
         { action: :events, format: :json, target: 'events.json' },
         { action: :speakers, target: 'speakers.html' },
         { action: :speakers, format: :json, target: 'speakers.json' },
@@ -35,7 +37,14 @@ module StaticSchedule
       day_index = 1
       @conference.days.each do |day|
         if day.rooms.present?
-          @paths << { action: :day, assigns: { day: day }, target: "schedule/#{day_index}.html" }
+          @paths << {
+            action: :day,
+            assigns: {
+              day: day,
+              view_model: @renderer.view_model.for_day(day)
+            },
+            target: "schedule/#{day_index}.html",
+          }
           @paths << {
             action: :day,
             template: 'schedule/custom_pdf.pdf.prawn',

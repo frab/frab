@@ -1,4 +1,4 @@
-- if @conference.tracks_including_subs.empty?
-  = render partial: 'public/schedule/events'
-- else
+- if @conference.tracks_including_subs.present?
   = render partial: 'public/schedule/events_by_track'
+- else
+  = render partial: 'public/schedule/events'

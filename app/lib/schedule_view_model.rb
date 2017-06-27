@@ -11,6 +11,12 @@ class ScheduleViewModel
     @events_by_track ||= events.group_by(&:track_id)
   end
 
+  def events_by_day
+    @conference.days.each_with_object({}) { |day, h|
+      h[day] = @conference.schedule_events.scheduled_on(day).group_by(&:start_time)
+    }
+  end
+
   def event
     @event ||= @conference.schedule_events.find(@event_id)
   end

@@ -428,3 +428,39 @@ dt {
 
 .qr table td.black { border-color: #000; }
 .qr table td.white { border-color: #fff; }
+
+.event-time {
+  float: left;
+  width: 15%;
+}
+
+.event-list {
+  float: left;
+  margin-left: 15%;
+  width: 85%;
+}
+
+.event-list .event {
+  float: left;
+  width: 25%;
+  height: 25%;
+  margin: 10px;
+}
+
+.event-list .event-wrapper {
+  height: 100px;
+  overflow: hidden;
+}
+
+.event-book {
+  width: 98%;
+  height: 100%;
+  margin: 10px 0px;
+}
+
+.event-book p {
+  margin: 5px 0px;
+}
+
+.event-book .label {
+}

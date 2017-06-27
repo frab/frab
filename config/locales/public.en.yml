@@ -19,6 +19,7 @@ en:
       index:
         day: "Day %{index} – %{label}"
         events: "Events"
+        events_by_track: "Events by track"
         schedule: "Schedule – %{label}"
         schedule_index: "Schedule overview"
         speakers: "Speakers"
