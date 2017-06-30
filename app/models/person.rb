@@ -21,7 +21,7 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :expenses, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ticket, reject_if: :all_blank, allow_destroy: true
 
-  belongs_to :user, dependent: :destroy
+  belongs_to :user, dependent: :destroy, optional: true
 
   before_save :nilify_empty
 

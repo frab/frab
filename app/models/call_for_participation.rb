@@ -1,5 +1,5 @@
 class CallForParticipation < ApplicationRecord
-  belongs_to :conference
+  belongs_to :conference, optional: true
 
   validates :start_date, :end_date, presence: true
 

@@ -19,8 +19,8 @@ class Event < ApplicationRecord
   has_many :videos, dependent: :destroy
 
   belongs_to :conference
-  belongs_to :track
-  belongs_to :room
+  belongs_to :track, optional: true
+  belongs_to :room, optional: true
 
   has_attached_file :logo,
     styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },

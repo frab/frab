@@ -14,9 +14,9 @@ class Conference < ApplicationRecord
   has_many :conference_exports, dependent: :destroy
   has_many :mail_templates, dependent: :destroy
   has_many :transport_needs, dependent: :destroy
-  has_many :subs, class_name: Conference, foreign_key: :parent_id
+  has_many :subs, class_name: 'Conference', foreign_key: :parent_id
   has_one :call_for_participation, dependent: :destroy
-  belongs_to :parent, class_name: Conference
+  belongs_to :parent, class_name: 'Conference', optional: true
 
   accepts_nested_attributes_for :rooms, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
@@ -185,8 +185,8 @@ class Conference < ApplicationRecord
   private
 
   def update_timeslots
-    return unless timeslot_duration_changed? and events.count.positive?
-    old_duration = timeslot_duration_was
+    return unless saved_change_to_timeslot_duration? and events.count.positive?
+    old_duration = timeslot_duration_before_last_save
     factor = old_duration / timeslot_duration
     Event.paper_trail.disable
     events_including_subs.each do |event|
