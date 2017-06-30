@@ -22,6 +22,8 @@ chdir APP_ROOT do
   unless File.exist?('config/database.yml')
     cp 'config/database.yml.template', 'config/database.yml'
   end
+  # Install JavaScript dependencies if using Yarn
+  # system('bin/yarn')
 
   puts "\n== Preparing database =="
   system! 'bin/rails db:setup'

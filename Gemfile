@@ -8,14 +8,14 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
 
-gem 'rails', '~> 5.0.2'
+gem 'rails', '~> 5.1.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 
 gem 'mysql2', group: :mysql
 gem 'pg', group: :postgresql
