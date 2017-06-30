@@ -29,8 +29,8 @@ class ConferenceTest < ActiveSupport::TestCase
 
   test 'returns correct language codes' do
     conference = create(:conference)
-    conference.languages << create(:english_language)
-    conference.languages << create(:german_language)
+    conference.languages << create(:english_language, attachable: conference)
+    conference.languages << create(:german_language, attachable: conference)
     assert_equal 2, conference.language_codes.size
     assert conference.language_codes.include? 'en'
     assert conference.language_codes.include? 'de'

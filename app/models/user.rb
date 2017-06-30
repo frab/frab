@@ -79,7 +79,7 @@ class User < ApplicationRecord
   end
 
   def reviews_conferences
-    conference_users.where(role: 'reviewer')
+    conference_users.where(role: 'reviewer').map(&:conference)
   end
 
   def last_conference

@@ -57,7 +57,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'should add conference user to existing crew user' do
     @user = create(:crew_user, person: create(:person))
-    user_attributes = { id: @user.id }
+    user_attributes = { id: @user.id, role: 'crew' }
     user_attributes['conference_users_attributes'] = {
       '0' => attributes_for(:conference_user, role: 'reviewer', conference_id: @conference.id)
     }

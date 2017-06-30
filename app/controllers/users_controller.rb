@@ -58,6 +58,7 @@ class UsersController < BaseCrewController
       if @user.update_attributes(user_params)
         format.html { redirect_to(person_user_path(@person), notice: 'User was successfully updated.') }
       else
+        flash[:errors] = @user.errors.full_messages.join
         format.html { render action: 'edit' }
       end
     end

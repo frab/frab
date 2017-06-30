@@ -33,6 +33,7 @@ FactoryGirl.define do
   end
 
   factory :day do
+    conference
     start_date { Date.today.since(1.day).since(11.hours) }
     end_date { Date.today.since(1.day).since(23.hours) }
   end

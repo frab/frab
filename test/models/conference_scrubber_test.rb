@@ -14,7 +14,8 @@ class ConferenceScrubberTest < ActiveSupport::TestCase
   def add_day(conference, time)
     conference.days << create(:day,
       start_date: Date.today.ago(time).since(11.hours),
-      end_date: Date.today.ago(time).since(23.hours))
+      end_date: Date.today.ago(time).since(23.hours),
+      conference: conference)
   end
 
   def add_event_with_speaker(conference)
