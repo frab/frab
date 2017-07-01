@@ -1,4 +1,4 @@
-class MoveNotificationsOntoConference < ActiveRecord::Migration
+class MoveNotificationsOntoConference < ActiveRecord::Migration[4.2]
   def change
     add_column :notifications, :conference_id, :integer
     Notification.find_each { |n|

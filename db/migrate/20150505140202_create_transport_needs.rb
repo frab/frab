@@ -1,4 +1,4 @@
-class CreateTransportNeeds < ActiveRecord::Migration
+class CreateTransportNeeds < ActiveRecord::Migration[4.2]
   def change
     create_table :transport_needs do |t|
       t.references :person

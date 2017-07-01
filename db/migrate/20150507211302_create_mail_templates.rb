@@ -1,4 +1,4 @@
-class CreateMailTemplates < ActiveRecord::Migration
+class CreateMailTemplates < ActiveRecord::Migration[4.2]
   def change
     create_table :mail_templates do |t|
       t.references :conference

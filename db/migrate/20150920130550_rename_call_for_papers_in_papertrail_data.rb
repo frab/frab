@@ -1,4 +1,4 @@
-class RenameCallForPapersInPapertrailData < ActiveRecord::Migration
+class RenameCallForPapersInPapertrailData < ActiveRecord::Migration[4.2]
   def up
     PaperTrail::Version.where(item_type: 'CallForPapers').update_all(item_type: 'CallForParticipation')
   end

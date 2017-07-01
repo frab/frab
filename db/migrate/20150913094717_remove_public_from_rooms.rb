@@ -1,4 +1,4 @@
-class RemovePublicFromRooms < ActiveRecord::Migration
+class RemovePublicFromRooms < ActiveRecord::Migration[4.2]
   def up
     remove_column :rooms, :public
   end
