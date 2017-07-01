@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.1'
+lock '3.8.2'
 
 set :application, 'frab'
 set :repo_url, 'https://github.com/frab/frab.git'

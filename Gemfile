@@ -27,7 +27,7 @@ gem 'puma'
 # Capistrano for deployment
 group :capistrano do
   gem 'airbrussh'
-  gem 'capistrano', '~> 3.4.0', require: false
+  gem 'capistrano', '3.8.2', require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm',     require: false
