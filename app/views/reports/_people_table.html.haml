@@ -34,7 +34,7 @@
           = action_button "small", 'Show', person
           - if policy(@conference).manage?
             = action_button "small", 'Edit', edit_person_path(person)
-            = action_button "small danger", 'Destroy', person, confirm: 'Are you sure?', method: :delete
+            = action_button "small danger", 'Destroy', person, data: { confirm: 'Are you sure?' }, method: :delete
 
     - if @extra_fields.include?(:expenses)
       %tr

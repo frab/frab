@@ -26,4 +26,4 @@
           - if policy(conference).read?
             = action_button 'small secondary', t('show'), conference_path(conference_acronym: conference.acronym)
           - if policy(conference).destroy?
-            = action_button "small danger", 'Destroy', conference_path(conference_acronym: conference.acronym), confirm: 'Are you sure?', method: :delete
+            = action_button "small danger", 'Destroy', conference_path(conference_acronym: conference.acronym), data: { confirm: 'Are you sure?' }, method: :delete
