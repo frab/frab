@@ -18,7 +18,7 @@
         %td
           - if current_user && conference.call_for_participation&.still_running?
             = action_button 'small primary', t('participate'), cfp_person_path(conference_acronym: conference.acronym)
-          - elsif conference.call_for_participation
+          - elsif conference&.call_for_participation&.welcome_text.present?
             = action_button 'small primary', t('activerecord.models.call_for_participation'), cfp_root_path(conference_acronym: conference.acronym)
 
           - if conference.schedule_public?
