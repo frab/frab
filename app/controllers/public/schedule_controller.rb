@@ -23,7 +23,7 @@ class Public::ScheduleController < ApplicationController
 
   def day
     unless @day = find_day(params[:day].to_i)
-      return redirect_to public_schedule_index_path, alert: "Failed to find day at index #{day_index}"
+      return redirect_to public_schedule_index_path, alert: 'Failed to find day.'
     end
 
     if @day.rooms.empty?
@@ -93,7 +93,8 @@ class Public::ScheduleController < ApplicationController
   private
 
   def find_day(day_index)
-    return false if day_index < 1 || day_index > @conference.days.count
+    return @conference.days.first if day_index < 1
+    return @conference.days.last if day_index > @conference.days.count
     @conference.days[day_index - 1]
   end
 
