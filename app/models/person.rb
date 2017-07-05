@@ -122,7 +122,7 @@ class Person < ApplicationRecord
   end
 
   def role_state(conference)
-    event_people.presenter_at(conference).map(&:role_state).uniq.sort.join ', '
+    event_people.presenter_at(conference).map(&:role_state).compact.uniq.sort.join ', '
   end
 
   def set_role_state(conference, state)
