@@ -1,5 +1,9 @@
 %section
   .page-header
+    .pull-right
+      - if policy(@conference).destroy?
+        = action_button "small danger", 'Destroy', conference_path(conference_acronym: @conference.acronym), data: { confirm: 'Are you sure?' }, method: :delete
+
     %h1= t :edit_conference
   = render partial: 'tabs', locals: { active: :settings }
 
