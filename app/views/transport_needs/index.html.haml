@@ -24,6 +24,6 @@
             %td= tn.note
             %td
               =action_button "small", 'Edit', edit_person_transport_need_path(@person, tn)
-              =action_button "small danger", 'Destroy', person_transport_need_path(@person, tn), data: { confirm: 'Are you sure?' }, :method: :delete
+              =action_button "small danger", 'Destroy', person_transport_need_path(@person, tn), data: { confirm: 'Are you sure?' }, method: :delete
 
   =action_button "small", 'New transport need', new_person_transport_need_path
