@@ -2,9 +2,9 @@
 
 %h2
   - if @conference.days.length > 1
-    = t '.schedule_for_day', index: @day_index, label: l(@day.date)
+    = t '.schedule_for_day', index: @day_index, label: l(@view_model.day.date)
   - else
-    = t '.schedule', label: l(@day.date)
+    = t '.schedule', label: l(@view_model.day.date)
 
 .event-navigation
   %p
@@ -20,7 +20,6 @@
 #main-table
 
   - count = 0
-  - skip_rows = @day.rooms.inject({}) { |h,k| h.merge(k => 0) }
   - @view_model.room_slices do |rooms|
     #conference-rooms{ id: count }
       %hr
@@ -40,12 +39,13 @@
               %td.cell-time
                 - if slot % @conference.default_timeslots == 0
                   %p= time.strftime("%H:%M")
+
               - rooms.each do |room|
-                - skip_rows[room] -= 1
-                - next if skip_rows[room] > 0
-                - if not @day.events[room].empty? and @day.events[room].first.start_time == time
-                  - event = @day.events[room].shift
-                  - skip_rows[room] = event.time_slots
+                - @view_model.skip_rows[room] -= 1
+                - next if @view_model.skip_rows[room] > 0
+                - if not @view_model.events_by_room(room).empty? and @view_model.event_now?(room, time)
+                  - event = @view_model.events_by_room(room).shift
+                  - @view_model.skip_rows[room] = event.time_slots
                   %td{rowspan: event.time_slots, class: "cell-height#{event.time_slots}"}
                     .event{class: track_class(event)}
                       .event-wrapper

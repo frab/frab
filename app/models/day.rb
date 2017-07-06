@@ -13,7 +13,7 @@ class Day < ApplicationRecord
   validate :start_date_before_end_date
   validate :does_not_overlap
 
-  attr_reader :events, :skip_row
+  attr_reader :events_by_room
 
   def start_date_before_end_date
     errors.add(:end_date, 'should be after start date') if start_date >= end_date
@@ -65,15 +65,16 @@ class Day < ApplicationRecord
     conference.days.index(self)
   end
 
+  # this also sets up events_by_room
   def rooms
     return @rooms if @rooms
     all_rooms = conference.rooms_including_subs
     @rooms = []
-    @events = {}
+    @events_by_room = {}
     all_rooms.each do |room|
       events = room.events.confirmed.no_conflicts.is_public.scheduled_on(self).order(:start_time).to_a
       next if events.empty?
-      @events[room] = events
+      @events_by_room[room] = events
       @rooms << room
     end
     @rooms

@@ -20,7 +20,7 @@ module StaticSchedule
     end
 
     def view_model
-      @view_model ||= ScheduleViewModel.new(@conference)
+      @view_model = ScheduleViewModel.new(@conference)
     end
 
     private

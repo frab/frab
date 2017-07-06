@@ -2,7 +2,7 @@ class ScheduleViewModel
   def initialize(conference)
     @conference = conference
   end
-  attr_reader :event, :speaker
+  attr_reader :event, :speaker, :day
 
   def events
     @events ||= @conference.schedule_events.sort_by(&:to_sortable)
@@ -38,9 +38,21 @@ class ScheduleViewModel
     end
   end
 
+  def skip_rows
+    @day.rooms.inject({}) { |h,k| h.merge(k => 0) }
+  end
+
+  def events_by_room(room)
+    @day.events_by_room[room]
+  end
+
+  def event_now?(room, time)
+    events_by_room(room).first.start_time == time
+  end
+
   def room_slice_names
-    @day.rooms.each_slice(7).map do |r|
-      r.map(&:name)
+    @day.rooms.each_slice(7).map do |s|
+      s.map(&:name)
     end
   end
 

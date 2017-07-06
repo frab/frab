@@ -39,10 +39,12 @@ prawn_document(
 
   @layout.bounds = pdf.bounds
 
+  view_model = ScheduleViewModel.new(@conference).for_day(@day)
   number_of_columns = [ @day.rooms.size, @rooms_per_page ].min
   number_of_pages = (@day.rooms.size / number_of_columns.to_f).ceil.to_i
   column_width = @layout.page_width / number_of_columns
   timeslot_height = @layout.timeslot_height(number_of_timeslots)
+
 
   # A page contains the full time range. New pages will
   # contain further rooms.
@@ -74,7 +76,7 @@ prawn_document(
     offset = pdf.bounds.height - table.height
 
     # draw start time column
-    events = @day.events[rooms[0]]
+    events = view_model.events_by_room(rooms[0])
     events.each do |event|
       y = (timeslots_between(event.start_time, @day.end_date) - 1) * timeslot_height
       y += offset
@@ -92,7 +94,7 @@ prawn_document(
 
     # draw events
     rooms.size.times do |i|
-      events = @day.events[rooms[i]]
+      events = view_model.events_by_room(rooms[i])
       events.each do |event|
         coord = event_coordinates(i, event, column_width, timeslot_height, offset)
         pdf.bounding_box(coord,
