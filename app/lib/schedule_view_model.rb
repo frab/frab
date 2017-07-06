@@ -2,6 +2,7 @@ class ScheduleViewModel
   def initialize(conference)
     @conference = conference
   end
+  attr_reader :event, :speaker
 
   def events
     @events ||= @conference.schedule_events.sort_by(&:to_sortable)
@@ -17,16 +18,12 @@ class ScheduleViewModel
     }
   end
 
-  def event
-    @event ||= @conference.schedule_events.find(@event_id)
-  end
-
   def concurrent_events
     @concurrent_events ||= @conference.schedule_events.where(start_time: event.start_time)
   end
 
   def for_event(id)
-    @event_id = id
+    @event = @conference.schedule_events.find(id)
     self
   end
 
@@ -51,12 +48,8 @@ class ScheduleViewModel
     @speakers ||= Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).order(:public_name, :first_name, :last_name)
   end
 
-  def speaker
-    @speaker ||= Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).find(@speaker_id)
-  end
-
   def for_speaker(id)
-    @speaker_id = id
+    @speaker = Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).find(id)
     self
   end
 end
