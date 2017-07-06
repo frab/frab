@@ -4,10 +4,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-def bsd?
-  RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/
+install_if -> { RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/ } do
+  gem 'rb-kqueue', ">= 0.2", platforms: :ruby
 end
-gem 'rb-kqueue', ">= 0.2", platforms: :ruby, install_if: bsd?
 
 
 if ENV['CUSTOM_RUBY_VERSION']
