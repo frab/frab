@@ -37,7 +37,7 @@ class ImportExportHelper
       dump_has_many 'people_im_accounts', people, 'im_accounts'
       dump_has_many 'people_links', people, 'links'
       dump_has_many 'people_languages', people, 'languages'
-      dump_has_many 'people_availabilities', people, 'availabilities'
+      dump 'people_availabilities', Availability.where(conference: @conference, person: people)
       dump_has_many 'users', people, 'user'
       # TODO languages
       # TODO videos
