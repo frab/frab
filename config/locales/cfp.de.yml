@@ -11,7 +11,7 @@ de:
     confirmation_button: "Bestätigungsmail erneut anfordern"
     confirmation_description: "In wenigen Ausnahmefällen, kann es passieren, dass eine E-Mail nicht zugestellt wird. Wenn Sie bereits einige Zeit warten und auch schon Ihrem Spam-Ordner überprüft haben, klicken Sie bitten hier:"
     confirmation_headline: "Ich bin bereits registriert, habe aber keine Bestätigungsmail erhalten"
-    confirmation_instructions_sent: "Eine E-Mail mit Anweisen, wie Ihr Konto bestätigt werden kann, wurde an Ihre E-Mailadresse gesendet."
+    confirmation_instructions_sent: "Eine E-Mail mit Anweisungen, wie Ihr Konto bestätigt werden kann, wurde an Ihre E-Mailadresse gesendet."
     contact_data: "Kontaktdaten"
     contact_description_html: "Haben Sie Probleme mit der Einreichung oder irgendwelche Fragen, dann zögern Sie nicht, uns zu kontaktieren: %{mail_to}"
     contact_headline: "Kontakt"
