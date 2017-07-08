@@ -33,6 +33,8 @@ module StaticSchedule
     def run_export
       fail 'No conference found!' if @conference.nil?
 
+      Time.zone = @conference&.timezone
+
       @asset_paths = []
       @base_directory = File.join(@destination, @conference.acronym)
       @base_url = base_url
