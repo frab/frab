@@ -14,7 +14,7 @@ module HasEventConflicts
     conflicts.delete_all
     conflicts_as_conflicting.delete_all
     if accepted? and room and start_time and time_slots
-      update_event_conflicts
+      update_room_conflicts
       update_people_conflicts
     end
     conflicts
@@ -36,10 +36,20 @@ module HasEventConflicts
     affected_event_ids.uniq
   end
 
+  def update_speaker_conflicts(event_person)
+    events = event_person.person.public_and_accepted_events_as_speaker_in(conference)
+    events.to_a.combination(2).each do |a, b|
+      if a.overlap?(b)
+        Conflict.create(event: a, conflicting_event: b, person: event_person.person, conflict_type: 'person_already_speaking', severity: 'warning')
+        Conflict.create(event: b, conflicting_event: a, person: event_person.person, conflict_type: 'person_already_speaking', severity: 'warning')
+      end
+    end
+  end
+
   private
 
   # check if room has been assigned multiple times for the same slot
-  def update_event_conflicts
+  def update_room_conflicts
     conflicting_event_candidates =
       self.class.accepted
         .where(room_id: room.id)
@@ -60,6 +70,7 @@ module HasEventConflicts
     event_people.presenter.group(:person_id, :id).each do |event_person|
       next if conflict_person_has_no_availabilities(event_person)
       conflict_person_not_available(event_person)
+      update_speaker_conflicts(event_person)
     end
   end
 

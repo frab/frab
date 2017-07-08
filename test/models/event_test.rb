@@ -109,6 +109,22 @@ class EventTest < ActiveSupport::TestCase
     end
   end
 
+  test 'event conflicts are created if one person is speaker is already speaking' do
+    conference = create(:three_day_conference_with_events)
+    first_event = conference.events.first
+    new_room = create(:room, conference: conference)
+    new_event = create(:event, conference: conference, room: new_room, state: 'confirmed', start_time: first_event.start_time)
+    assert_empty first_event.conflicts
+    assert conference.events.include?(new_event)
+
+    event_person1 = create(:confirmed_speaker, conference: conference, event: first_event)
+    create(:confirmed_speaker, conference: conference, event: new_event, person: event_person1.person)
+
+    refute_empty first_event.reload.conflicts
+    refute_empty new_event.reload.conflicts
+    refute_empty Conflict.all
+  end
+
   test 'possible start times for event' do
     %i(three_day_conference_with_events sub_conference_with_events).each do |conference_type|
       conference = create(conference_type)

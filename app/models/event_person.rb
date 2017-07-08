@@ -10,7 +10,9 @@ class EventPerson < ApplicationRecord
 
   belongs_to :event
   belongs_to :person
+  has_one :conference, through: :event
   after_save :update_speaker_count
+  after_save :update_event_conflicts
   after_destroy :update_speaker_count
 
   has_paper_trail meta: { associated_id: :event_id, associated_type: 'Event' }
@@ -19,12 +21,6 @@ class EventPerson < ApplicationRecord
   scope :presenter_at, ->(conference) {
     joins(event: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER)
   }
-
-  def update_speaker_count
-    event = Event.find(event_id)
-    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKER).count
-    event.save
-  end
 
   def confirm!
     self.role_state = 'confirmed'
@@ -95,5 +91,16 @@ class EventPerson < ApplicationRecord
 
   def to_s
     "#{model_name.human}: #{person.full_name} (#{event_role})"
+  end
+
+  private
+
+  def update_speaker_count
+    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKER).count
+    event.save
+  end
+
+  def update_event_conflicts
+    event.update_speaker_conflicts(self)
   end
 end

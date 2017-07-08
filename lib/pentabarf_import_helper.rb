@@ -398,6 +398,7 @@ class PentabarfImportHelper
 
   def import_event_people
     EventPerson.skip_callback(:save, :after, :update_speaker_count)
+    EventPerson.skip_callback(:save, :after, :update_event_conflicts)
     event_people = @barf.select_all('SELECT * FROM event_person')
     puts "[ ] importing #{event_people.count} event people" if DEBUG
     event_people.each do |event_person|
