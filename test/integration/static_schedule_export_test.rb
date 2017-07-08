@@ -15,6 +15,7 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
     assert File.readable? dir.join('events.html')
     assert_includes File.read(dir.join('index.html')), 'Day 3'
     assert_includes File.read(dir.join('style.css')), '.cell-height1'
+    assert_includes File.read(dir.join('public_schedule.css')), 'article, '
     assert_includes File.read(dir.join('events.html')), 'Introducing frap'
     assert_includes File.read(dir.join('schedule/1.html')), 'Introducing frap'
     event = @conference.events.first

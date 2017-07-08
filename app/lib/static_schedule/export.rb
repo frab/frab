@@ -3,6 +3,8 @@ module StaticSchedule
     include RakeLogger
 
     EXPORT_PATH = Rails.root.join('tmp', 'static_export').to_s
+    STATIC_ASSET_PATHS = %w[app/assets/stylesheets/public_schedule.css app/assets/stylesheets/public_schedule_print.css].freeze
+    STATIC_ASSET_REGEX = %r{.*/(.*)-(?:[a-f0-9]+)\.(.{3})}
 
     # Export a static html version of the conference program.
     #
@@ -42,6 +44,7 @@ module StaticSchedule
         setup_directories
         download_pages
         copy_stripped_assets
+        copy_static_assets
 
         lock_schedule unless @original_schedule_public
       end
@@ -83,14 +86,23 @@ module StaticSchedule
 
     def copy_stripped_assets
       @asset_paths.uniq.each do |asset_path|
-        original_path = File.join(Rails.root, 'public', URI.unescape(asset_path))
-        if File.exist? original_path
+        original_path = Rails.root.join('public', URI.unescape(asset_path))
+        if File.exist?(original_path)
           new_path = File.join(@base_directory, URI.unescape(asset_path))
           FileUtils.mkdir_p(File.dirname(new_path))
           FileUtils.cp(original_path, new_path)
-        else
+        elsif Rails.env.production?
           warning('?? We might be missing "%s"' % original_path)
         end
+      end
+    end
+
+    def copy_static_assets
+      STATIC_ASSET_PATHS.each do |path|
+        path = Rails.root.join(path)
+        fail 'update source code to include necessary assets' unless File.exist?(path)
+        new_path = File.join(@base_directory, File.basename(path))
+        FileUtils.cp(path, new_path)
       end
     end
 
@@ -125,6 +137,8 @@ module StaticSchedule
         href_attr = link.attributes['href']
         if href_attr.value.index("/#{@conference.acronym}/public/schedule/style.css")
           link.attributes['href'].value = @base_url + 'style.css'
+        elsif static_assets_link?(href_attr.value)
+          link.attributes['href'].value = @base_url + strip_asset_hash(href_attr.value)
         elsif href_attr
           strip_asset_path(link, 'href')
         end
@@ -170,6 +184,18 @@ module StaticSchedule
 
     def strip_path(path)
       path.gsub(%r{^/}, '').gsub(%r{^(?:en|de)?/?#{@conference.acronym}/public/}, '').gsub(/\?(?:body=)?\d+$/, '')
+    end
+
+    def static_assets_link?(href)
+      STATIC_ASSET_PATHS.any? do |path|
+        path = File.basename(path)
+        href = href.gsub(STATIC_ASSET_REGEX, '\1.\2')
+        path == href
+      end
+    end
+
+    def strip_asset_hash(href)
+      href.gsub(STATIC_ASSET_REGEX, '\1.\2')
     end
 
     def unlock_schedule
