@@ -2,7 +2,7 @@ class Day < ApplicationRecord
   include HumanizedDateRange
 
   belongs_to :conference
-  has_many :availabilities
+  has_many :availabilities, dependent: :destroy
 
   has_paper_trail meta: { associated_id: :conference_id, associated_type: 'Conference' }
 
