@@ -71,16 +71,16 @@ class EventPerson < ApplicationRecord
       fail "Field #{state}_#{field} not found" unless string.present?
     end
 
-    string = string.gsub '%{conference}', conference.title
-    string = string.gsub '%{event}', event.title
-    string = string.gsub '%{forename}', person.first_name.presence || ''
-    string = string.gsub '%{surname}', person.last_name.presence || ''
-    string = string.gsub '%{public_name}', person.public_name.presence || ''
+    string.gsub! '%{conference}', conference.title
+    string.gsub! '%{event}', event.title
+    string.gsub! '%{forename}', person.first_name.presence || ''
+    string.gsub! '%{surname}', person.last_name.presence || ''
+    string.gsub! '%{public_name}', person.public_name.presence || ''
 
-    string = string.gsub '%{room}', event.room.name if event.room.present?
+    string.gsub! '%{room}', event.room.name if event.room.present?
     if event.start_time.present?
-      string = string.gsub '%{date}', I18n.l(event.start_time.to_date, locale: locale)
-      string = string.gsub '%{time}', I18n.l(event.start_time.to_time, locale: locale, format: '%X')
+      string.gsub! '%{date}', I18n.l(event.start_time.to_date, locale: locale)
+      string.gsub! '%{time}', I18n.l(event.start_time.to_time, locale: locale, format: '%X')
     end
 
     return string unless confirmation_token.present?
