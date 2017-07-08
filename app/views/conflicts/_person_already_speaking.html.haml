@@ -1,0 +1,4 @@
+%div{class: ["message", conflict.severity]}
+  = link_to conflict.person.full_name, conflict.person
+  = t('conflict.person_already_speaking')
+  = link_to conflict.conflicting_event.title, conflict.conflicting_event

@@ -53,6 +53,7 @@ de:
     events_overlap: "überschneidet sich mit"
     has_no_availability: "hat bisher keine Angaben zur Verfügbarkeit gemacht."
     person_unavailable: "ist nicht verfügbar zu dieser Zeit."
+    person_already_speaking: "hält gleichzeitig folgenden Vortrag:"
 
   options:
     business: "Geschäftlich"
