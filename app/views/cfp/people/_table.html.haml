@@ -5,6 +5,7 @@
       %th= t("activerecord.attributes.event.title")
       - if @conference.event_state_visible
         %th= t("activerecord.attributes.event.state")
+        %th= t("cfp.scheduled")
       - if @conference.feedback_enabled
         %th
         %th= t(:event_feedback)
@@ -16,12 +17,19 @@
         %td= event.title
         - if @conference.event_state_visible
           %td= event.state
-        - if @conference.feedback_enabled
           %td
-            %b= number_with_precision event.average_feedback, precision: 2
-          %td
-            - if event.event_feedbacks_count
-              s<sub>N-1</sub> = #{event.feedback_standard_deviation} n = #{event.event_feedbacks_count}
+            -if event.start_time
+              =I18n.l(event.start_time, format: :long)
+              %br
+              =event.room.name
+            -else
+              \-
+          - if @conference.feedback_enabled
+            %td
+              %b= number_with_precision event.average_feedback, precision: 2
+            %td
+              - if event.event_feedbacks_count
+                s<sub>N-1</sub> = #{event.feedback_standard_deviation} n = #{event.event_feedbacks_count}
         %td
           = link_to t("edit"), edit_cfp_event_path(event), class: "btn small"
           - if @conference.event_state_visible
