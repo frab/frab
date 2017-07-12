@@ -16,7 +16,7 @@
           = l(conference.days.last.end_date.to_date)
         %td= conference.title
         %td
-          - if current_user && conference.call_for_participation&.still_running?
+          - if show_cfp?(current_user, conference)
             = action_button 'small primary', t('participate'), cfp_person_path(conference_acronym: conference.acronym)
           - elsif conference&.call_for_participation&.welcome_text.present?
             = action_button 'small primary', t('activerecord.models.call_for_participation'), cfp_root_path(conference_acronym: conference.acronym)

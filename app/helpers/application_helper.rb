@@ -114,4 +114,9 @@ module ApplicationHelper
       ''
     end
   end
+
+  def show_cfp?(user, conference)
+    return unless user
+    conference.call_for_participation&.still_running? || user.person.involved_in?(conference)
+  end
 end
