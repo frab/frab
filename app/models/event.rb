@@ -74,7 +74,7 @@ class Event < ApplicationRecord
 
     n = arr.count
     m = arr.reduce(:+).to_f / n
-    '%02.02f'.format(Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1)))
+    '%02.02f' % Math.sqrt(arr.inject(0) { |sum, item| sum + (item - m)**2 } / (n - 1))
   end
 
   def recalculate_average_feedback!
