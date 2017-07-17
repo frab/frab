@@ -7,6 +7,7 @@ en:
     bio: "Bio"
     change_password_button: "Change my password"
     change_password_headline: "Change your password"
+    conference_in_the_past: "You can't submit a talk, because this conference is in the past."
     confirm: "confirm"
     confirmation_button: "Request the confirmation instructions again"
     confirmation_description: "This could be one of the rare occassions where an email has actually not been delivered. If you have already waited for some time and checked your spam folders, please"

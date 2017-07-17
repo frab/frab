@@ -35,8 +35,11 @@
       - unless @conference.call_for_participation.info_url.blank?
         %p=t("cfp.info_url_description_html", link: link_to(@conference.call_for_participation.info_url, @conference.call_for_participation.info_url))
       %p
-        =t("cfp.deadline_description")
-        %b= l(@conference.call_for_participation.end_date)
+        - if @conference.in_the_past
+          =t("cfp.conference_in_the_past")
+        - else
+          =t("cfp.deadline_description")
+          %b= l(@conference.call_for_participation.end_date)
       - unless @conference.call_for_participation.contact_email.blank?
         %h2=t("cfp.contact_headline")
         %p=t("cfp.contact_description_html", mail_to: mail_to(@conference.call_for_participation.contact_email))
