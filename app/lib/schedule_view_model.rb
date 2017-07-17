@@ -39,7 +39,7 @@ class ScheduleViewModel
   end
 
   def skip_rows
-    @day.rooms.inject({}) { |h,k| h.merge(k => 0) }
+    @skip_rows ||= @day.rooms.inject({}) { |h,k| h.merge(k => 0) }
   end
 
   def events_by_room(room)
