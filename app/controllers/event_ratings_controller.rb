@@ -1,9 +1,6 @@
-class EventRatingsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :not_submitter!
+class EventRatingsController < BaseConferenceController
   before_action :find_event
   before_action :crew_only!
-  after_action :verify_authorized
 
   def show
     @rating = @event.event_ratings.find_by(person_id: current_user.person.id) || EventRating.new
