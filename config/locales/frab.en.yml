@@ -89,14 +89,13 @@ en:
       time: '%H:%M'
     time_range_seperator: ' to '
 
-  user:
-    role:
-      admin: "Admin"
-      orga: "Orga"
-      reviewer: "Reviewer"
-      coordinator: "Coordinator"
-      crew: "Crew"
-      submitter: "Submitter"
+  role:
+    admin: "Admin"
+    orga: "Orga"
+    reviewer: "Reviewer"
+    coordinator: "Coordinator"
+    crew: "Crew"
+    submitter: "Submitter"
 
   activerecord:
     models:

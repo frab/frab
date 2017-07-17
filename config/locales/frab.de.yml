@@ -166,14 +166,13 @@ de:
       too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
       wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
 
-  user:
-    role:
-      admin: "Admin"
-      orga: "Orga"
-      reviewer: "Reviewer"
-      coordinator: "Koordinator"
-      crew: "Crew"
-      submitter: "Einreicher"
+  role:
+    admin: "Admin"
+    orga: "Orga"
+    reviewer: "Reviewer"
+    coordinator: "Koordinator"
+    crew: "Crew"
+    submitter: "Einreicher"
 
   activerecord:
     errors:

@@ -11,4 +11,4 @@
         %td
           = action_button 'small danger', t('user'), edit_crew_user_path(user.person)
           = action_button 'small danger', t('person'), edit_crew_profile_path(user.person)
-          = action_button 'small danger', t('destroy'), conference_users_path(person_id: user.person), confirm: 'Are you sure', method: :delete
+          = action_button 'small danger', t('destroy'), conference_users_path(person_id: user.person), data: { confirm: 'Are you sure' }, method: :delete
