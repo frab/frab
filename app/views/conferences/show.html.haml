@@ -28,6 +28,11 @@
   - if policy(@conference).orga?
     .row
       .span16
+        - if @conference.in_the_past
+          %p
+            The conference days are in the past. No submissions are possible.
+    .row
+      .span16
         %h2
           Recent changes
           %small= link_to "more >>", recent_changes_path

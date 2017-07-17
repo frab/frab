@@ -4,26 +4,28 @@
       - if policy(@conference).orga?
         = action_button "primary", "Edit", edit_call_for_participation_path, hint: "Edit this call for paper's data."
     %h1 Call for Participation
-  - if @conference.call_for_participation.welcome_text
-    .row
-      .span16
-        %p
-          = simple_format @conference.call_for_participation.welcome_text
-  - if @conference.call_for_participation.start_date
-    .row
-      .span16
-        %p The call for papers starts at #{l(@conference.call_for_participation.start_date)} and ends at #{l(@conference.call_for_participation.end_date)}.
+
   .row
     .span16
       %p
         The interface for submitters is available at:
-        = new_user_session_url
-  - if @conference.days.empty?
-    .row
-      .span16
+        %a{href: new_user_session_url}= new_user_session_url
+
+      - if @conference.call_for_participation.start_date
+        %p The call for papers starts at #{l(@conference.call_for_participation.start_date)} and ends at #{l(@conference.call_for_participation.end_date)}.
+
+      - if @conference.days.empty?
         %p
-          %b
-            Conference will not show up until days are added.
+          %b Conference will not show up until days are added.
+
+      - if cfp_hard_deadline_over?
+        %p
+          %b The hard cfp deadline has passed, no submissions are possible.
+
+      - if @conference.call_for_participation&.still_running? && @conference.call_for_participation.welcome_text.blank?
+        %p
+          %b The call for participation is running, but the description text is empty. frab won't link to the cfp.
+
   .row
     .span16
       #submission_graph{style: "width: 800px; height: 300px;"}

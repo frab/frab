@@ -7,4 +7,11 @@
     = f.input :info_url, hint: "A web page that contains additional information about the Call for Participation. Please enter a full URL including 'http://'"
     = f.input :contact_email, hint: "An email address where participants can contact you in case they have any questions."
   .actions
+    = link_to t('back'), call_for_participation_path, class: 'btn'
     = f.button :submit, class: 'primary'
+
+%hr
+.row
+  .span16
+    %h1 Preview
+    = render 'cfp/welcome/call_for_participation'

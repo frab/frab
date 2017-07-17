@@ -46,6 +46,6 @@ class CallForParticipationsControllerTest < ActionController::TestCase
       conference_acronym: @conference.acronym
     }
     put :update, params: params
-    assert_redirected_to call_for_participation_path(conference_acronym: @conference.acronym)
+    assert_redirected_to edit_call_for_participation_path(conference_acronym: @conference.acronym)
   end
 end

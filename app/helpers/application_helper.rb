@@ -117,6 +117,8 @@ module ApplicationHelper
 
   def show_cfp?(user, conference)
     return unless user
-    conference.call_for_participation&.still_running? || user.person.involved_in?(conference)
+    return true if conference.call_for_participation&.still_running? && conference.days.present?
+    return true if user.person.involved_in?(conference)
+    false
   end
 end
