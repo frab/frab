@@ -1,4 +1,10 @@
 module ScheduleHelper
+
+  def schedule_button_text
+    return 'Preview public schedule' if @conference.schedule_public
+    'Preview schedule'
+  end
+
   def day_active?(index)
     'active' if params[:day].to_i == index
   end
