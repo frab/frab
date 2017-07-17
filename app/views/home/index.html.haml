@@ -15,15 +15,11 @@
           %p
             There is not a single conference yet.
   - else
-    %h2 Conferences
-    - if @future_conferences.empty?
-      none
-    - else
+
+    - if @future_conferences.present?
+      %h2 Conferences
       = render 'table', collection: @future_conferences
 
-    %h2 Past Conferences
-
-    - if @past_conferences.empty?
-      none
-    - else
+    - if @past_conferences.present?
+      %h2 Past Conferences
       = render 'table', collection: @past_conferences

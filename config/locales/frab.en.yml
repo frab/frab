@@ -89,6 +89,15 @@ en:
       time: '%H:%M'
     time_range_seperator: ' to '
 
+  user:
+    role:
+      admin: "Admin"
+      orga: "Orga"
+      reviewer: "Reviewer"
+      coordinator: "Coordinator"
+      crew: "Crew"
+      submitter: "Submitter"
+
   activerecord:
     models:
       call_for_participation: "Call for Participation"

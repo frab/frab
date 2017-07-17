@@ -121,4 +121,14 @@ module ApplicationHelper
     return true if user.person.involved_in?(conference)
     false
   end
+
+  def humanized_access_level
+    return t('user.role.admin') if current_user.is_admin?
+    return t('user.role.orga') if current_user.has_role?(@conference, 'orga')
+    return t('user.role.coordinator') if current_user.has_role?(@conference, 'coordinator')
+    return t('user.role.reviewer') if current_user.has_role?(@conference, 'reviewer')
+    return t('user.role.crew') if current_user.is_crew?
+    return t('user.role.submitter') if current_user.is_submitter?
+    fail 'should not happen: user without acl'
+  end
 end

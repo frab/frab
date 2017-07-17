@@ -19,6 +19,9 @@
             = render 'shared/navi_conference'
           %ul.nav.secondary-nav.pull-right
             = render 'shared/navi_conferences_menu'
+            %li
+              %a{href: '#'}
+                %i= humanized_access_level
             = render 'shared/navi_account_menu'
     .container
       .main-content
