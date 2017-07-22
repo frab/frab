@@ -37,7 +37,7 @@ module StaticSchedule
 
       @asset_paths = []
       @base_directory = File.join(@destination, @conference.acronym)
-      @base_url = base_url
+      @base_url = @renderer.base_url
       @original_schedule_public = @conference.schedule_public
 
       ActiveRecord::Base.transaction do
@@ -53,16 +53,6 @@ module StaticSchedule
     end
 
     private
-
-    def base_url
-      if @conference.program_export_base_url.present?
-        base_url = URI.parse(@conference.program_export_base_url).path
-        base_url += '/' unless base_url.end_with?('/')
-        base_url
-      else
-        '/'
-      end
-    end
 
     def tarball_filename
       File.join(@destination, "#{@conference.acronym}-#{@locale}.tar.gz")
@@ -159,17 +149,26 @@ module StaticSchedule
       # <a>
       document.css('a').each do |link|
         href = link.attributes['href']
-        if href and href.value.start_with?('/')
-          if href.value.match?(/\?\d+$/)
+        if relative_link?(href)
+          if has_asset_hash?(href.value)
             strip_asset_path(link, 'href')
           else
             path = @base_url + strip_path(href.value)
+            path.gsub!(/schedule$/, 'index')
             path = add_html_ext(path) unless path.match?(/\.\w+$/)
             href.value = path
           end
         end
       end
       document
+    end
+
+    def relative_link?(href)
+      href&.value&.start_with?('/')
+    end
+
+    def has_asset_hash?(url)
+      url.match?(/\?\d+$/)
     end
 
     def add_html_ext(path)

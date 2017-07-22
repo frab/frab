@@ -11,6 +11,7 @@ module StaticSchedule
       days
       events
       speakers
+      qrcode
       @paths
     end
 
@@ -82,6 +83,14 @@ module StaticSchedule
           target: "speakers/#{speaker.id}.html"
         }
       end
+    end
+
+    def qrcode
+        @paths << {
+          action: :qrcode,
+          assigns: { qr: RQRCode::QRCode.new(@renderer.base_url, size: 8, level: :h) },
+          target: 'qrcode.html'
+        }
     end
   end
 end
