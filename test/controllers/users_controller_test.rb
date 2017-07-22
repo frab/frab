@@ -25,7 +25,7 @@ class UsersControllerTest < ActionController::TestCase
       post :create, params: { user: user_params, person_id: @person.id, conference_acronym: @conference.acronym }
     end
 
-    assert_redirected_to person_user_path(@person)
+    assert_redirected_to edit_person_user_path(@person)
   end
 
   test 'should get edit' do
@@ -35,7 +35,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'should update user' do
     put :update, params: { user: { id: @user.id }, person_id: @user.person.id, conference_acronym: @conference.acronym }
-    assert_redirected_to person_user_path(@user.person)
+    assert_redirected_to edit_person_user_path(@user.person)
   end
 
   test 'should create crew user' do
@@ -68,6 +68,6 @@ class UsersControllerTest < ActionController::TestCase
         conference_acronym: @conference.acronym
       }
     end
-    assert_redirected_to person_user_path(@user.person)
+    assert_redirected_to edit_person_user_path(@user.person)
   end
 end
