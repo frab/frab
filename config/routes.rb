@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get '/profile' => 'crew_profiles#edit', as: 'edit_crew_profile'
     patch '/profile' => 'crew_profiles#update', as: 'update_crew_profile'
     get '/user/:person_id/edit' => 'users#edit', as: 'edit_crew_user'
+    patch '/user/:person_id' => 'users#update', as: 'crew_user'
 
     scope path: '/:conference_acronym' do
       namespace :public do

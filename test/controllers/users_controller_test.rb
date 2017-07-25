@@ -34,8 +34,17 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should update user' do
-    put :update, params: { user: { id: @user.id }, person_id: @user.person.id, conference_acronym: @conference.acronym }
-    assert_redirected_to edit_person_user_path(@user.person)
+    put :update, params: { user: { id: @user.id, email: 'admin@example.org' }, person_id: @user.person.id, conference_acronym: @conference.acronym }
+    assert_redirected_to edit_crew_user_path(@user.person)
+    get :edit, params: { person_id: @user.person.id, conference_acronym: @conference.acronym }
+    assert_response :success
+  end
+
+  test 'should update user password' do
+    put :update, params: { user: { id: @user.id, password: 'test123', password_confirmation: 'test123' }, person_id: @user.person.id, conference_acronym: @conference.acronym }
+    assert_redirected_to edit_crew_user_path(@user.person)
+    get :edit, params: { person_id: @user.person.id, conference_acronym: @conference.acronym }
+    assert_response :success
   end
 
   test 'should create crew user' do
@@ -68,6 +77,6 @@ class UsersControllerTest < ActionController::TestCase
         conference_acronym: @conference.acronym
       }
     end
-    assert_redirected_to edit_person_user_path(@user.person)
+    assert_redirected_to edit_crew_user_path(@user.person)
   end
 end
