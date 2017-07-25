@@ -16,7 +16,8 @@ namespace :frab do
         end
 
         4.times do
-          day = Day.create!(start_date: date,
+          day = Day.create!(conference: conference,
+                            start_date: date,
                             end_date: date + 9.hours)
 
           Person.all.each do |person|
@@ -44,7 +45,8 @@ namespace :frab do
           name = Faker::Hacker.adjective
           t = conference.tracks.where(name: name)
           unless t.present?
-            conference.tracks << Track.create!(name: name,
+            conference.tracks << Track.create!(conference: conference,
+                                               name: name,
                                                color: Faker::Color.hex_color[1..6])
           end
         end
