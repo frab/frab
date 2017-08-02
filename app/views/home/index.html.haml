@@ -2,10 +2,11 @@
   = link_to 'frab - home', root_url, class: 'brand'
 
 %section
-  - if policy(Conference).orga?
-    .page-header
-      .pull-right
+  .page-header
+    .pull-right
+      - if policy(Conference).new?
         = action_button "primary", "Add conference", new_conference_path, hint: "Add a new conference"
+      - if policy(Conference).orga?
         = action_button "secondary", "Search", conferences_path, hint: "Seach conferences"
 
   - if Conference.all.empty?

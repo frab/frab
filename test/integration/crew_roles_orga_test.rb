@@ -23,7 +23,7 @@ class CrewRolesOrgaTest < PunditControllerTest
     get "/#{@acronym}/conference/edit"
     assert_response :success
     get '/conferences/new'
-    assert_ability_denied
+    assert_response :success
     # TODO test nested conference, ticket_server, default_notifications
 
     get "/#{@acronym}/people/#{@submitter_user.person.id}/user"

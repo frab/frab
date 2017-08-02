@@ -28,7 +28,8 @@ class ConferencePolicy < ApplicationPolicy
   end
 
   def new?
-    user.is_admin? || user.is_orga_of?(record)
+    return false unless user
+    user.is_admin? || user.any_crew?('orga')
   end
 
   def destroy?
