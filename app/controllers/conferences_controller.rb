@@ -123,7 +123,7 @@ class ConferencesController < BaseConferenceController
 
   def default_notifications
     authorize @conference, :orga?
-    locale = params[:code]
+    locale = params[:code] || @conference.language_codes.first
     @notification = Notification.new(locale: locale)
     @notification.default_text = locale
   end

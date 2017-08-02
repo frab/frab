@@ -86,10 +86,8 @@ class ScheduleController < BaseConferenceController
   def check_conference_locale(locale = 'en')
     if @conference.language_codes.include?(locale)
       locale
-    elsif @conference.language_codes.present?
-      @conference.language_codes.first
     else
-      'en'
+      @conference.language_codes.first
     end
   end
 
