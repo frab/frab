@@ -60,7 +60,7 @@ class EventsController < BaseConferenceController
   def ratings
     authorize @conference, :read?
 
-    result = search @conference.events, params
+    result = search @conference.events
     @events = result.paginate page: page_param
     clean_events_attributes
 
@@ -77,7 +77,7 @@ class EventsController < BaseConferenceController
   # show event feedbacks
   def feedbacks
     authorize @conference, :read?
-    result = search @conference.events.accepted, params
+    result = search @conference.events.accepted
     @events = result.paginate page: page_param
   end
 
@@ -239,8 +239,7 @@ class EventsController < BaseConferenceController
 
   # returns duplicates if ransack has to deal with the associated model
   def search(events)
-    @search = perform_search(events, params,
-      %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
+    @search = perform_search(events, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
     if params.dig('q', 's')&.match?('track_name')
       @search.result
     else
