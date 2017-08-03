@@ -36,9 +36,7 @@ module ApplicationHelper
   end
 
   def active_class?(*paths)
-    active = false
-    paths.each { |path| active ||= current_page?(path) }
-    active ? 'active' : nil
+    'active' if paths.any? { |path| current_page?(path.gsub(/\?.*/, '')) }
   end
 
   def image_box(image, size)
