@@ -33,17 +33,26 @@ class ScheduleViewModel
   end
 
   def room_slices
-    @day.rooms.each_slice(7) do |s|
+    @day.rooms_with_events.each_slice(7) do |s|
       yield s
     end
   end
 
   def skip_rows
-    @skip_rows ||= @day.rooms.inject({}) { |h,k| h.merge(k => 0) }
+    @skip_rows ||= @day.rooms_with_events.inject({}) { |h,k| h.merge(k => 0) }
   end
 
   def events_by_room(room)
-    @day.events_by_room[room]
+    build_events_by_room unless @events_by_room
+    @events_by_room[room]
+  end
+
+  def rooms
+    @selected_rooms || @day.rooms_with_events
+  end
+
+  def select_rooms(selected)
+    @selected_rooms = @day.rooms_with_events & selected
   end
 
   def event_now?(room, time)
@@ -51,7 +60,7 @@ class ScheduleViewModel
   end
 
   def room_slice_names
-    @day.rooms.each_slice(7).map do |s|
+    @day.rooms_with_events.each_slice(7).map do |s|
       s.map(&:name)
     end
   end
@@ -63,5 +72,15 @@ class ScheduleViewModel
   def for_speaker(id)
     @speaker = Person.publicly_speaking_at(@conference.include_subs).confirmed(@conference.include_subs).find(id)
     self
+  end
+
+  private
+
+  def build_events_by_room
+    @events_by_room = {}
+    @day.rooms_with_events.each do |room|
+      @events_by_room[room] = room.events.confirmed.no_conflicts.is_public.scheduled_on(@day).order(:start_time).to_a
+    end
+    @events_by_room
   end
 end

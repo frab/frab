@@ -37,11 +37,14 @@ class ScheduleController < BaseConferenceController
     @page_size = params[:page_size]
 
     @day = @conference.days.find(params[:date_id])
-    @rooms = @conference.rooms.find(params[:room_ids])
+    rooms = @conference.rooms.find(params[:room_ids])
+    @view_model = ScheduleViewModel.new(@conference).for_day(@day)
+    @view_model.select_rooms(rooms)
+
     @layout = page_layout(params[:page_size], params[:half_page])
     @rooms_per_page = params[:rooms_per_page].to_i
     @rooms_per_page = 1 if @rooms_per_page.zero?
-    @events = filter_events_by_day_and_rooms(@day, @rooms)
+    @events = filter_events_by_day_and_rooms(@day, rooms)
 
     @orientation = case params[:orientation]
                    when 'landscape'
@@ -49,7 +52,7 @@ class ScheduleController < BaseConferenceController
                    when 'portrait'
                      :portrait
                    else
-                     @rooms.size > 3 ? :landscape : :portrait
+                      rooms.size > 3 ? :landscape : :portrait
                    end
 
     respond_to do |format|

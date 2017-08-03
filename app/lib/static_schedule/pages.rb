@@ -37,7 +37,7 @@ module StaticSchedule
     def days
       day_index = 1
       @conference.days.each do |day|
-        if day.rooms.present?
+        if day.rooms_with_events.present?
           @paths << {
             action: :day,
             assigns: {
@@ -50,7 +50,12 @@ module StaticSchedule
             action: :day,
             template: 'schedule/custom_pdf.pdf.prawn',
             format: :prawn,
-            assigns: { day: day, layout: CustomPDF::FullPageLayout.new('A4'), rooms_per_page: 5 },
+            assigns: {
+              day: day,
+              view_model: @renderer.view_model.for_day(day),
+              layout: CustomPDF::FullPageLayout.new('A4'),
+              rooms_per_page: 5
+            },
             target: "schedule/#{day_index}.pdf"
           }
         end

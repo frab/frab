@@ -26,7 +26,7 @@ class Public::ScheduleController < ApplicationController
       return redirect_to public_schedule_index_path, alert: 'Failed to find day.'
     end
 
-    if @day.rooms.empty?
+    if @day.rooms_with_events.empty?
       return redirect_to public_schedule_index_path, notice: 'No events are public and scheduled.'
     end
 
