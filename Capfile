@@ -24,7 +24,6 @@ require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
 #require 'capistrano/puma'
 #require 'capistrano/passenger'
-require "airbrussh/capistrano"
 
 require 'dotenv'
 Dotenv.load
