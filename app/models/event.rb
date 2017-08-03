@@ -103,7 +103,8 @@ class Event < ApplicationRecord
   end
 
   def overlap?(other_event)
-    return false unless other_event.start_time && other_event.end_time
+    return false unless other_event.start_time?
+    return false unless start_time?
     return true if start_time <= other_event.start_time and other_event.start_time < end_time
     return true if other_event.start_time <= start_time and start_time < other_event.end_time
     false
