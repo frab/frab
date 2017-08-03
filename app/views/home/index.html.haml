@@ -7,6 +7,7 @@
       - if policy(Conference).new?
         = action_button "primary", "Add conference", new_conference_path, hint: "Add a new conference"
       - if policy(Conference).orga?
+        = action_button "primary", "Manage conferences", conferences_path, hint: "Manage all conferences"
         = action_button "secondary", "Search", conferences_path, hint: "Seach conferences"
     %h1 List of conferences
 
