@@ -66,6 +66,8 @@ class Conference < ApplicationRecord
   scope :past, -> { includes(:days).where(Day.arel_table[:end_date].lt(Time.now)).order('days.start_date DESC').distinct }
   scope :future, -> { includes(:days).where(Day.arel_table[:end_date].gt(Time.now)).order('days.start_date DESC').distinct }
 
+  self.per_page = 10
+
   def self.current
     return if Conference.count.zero?
     order('created_at DESC, id DESC').first

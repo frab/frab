@@ -8,6 +8,11 @@
         = action_button "primary", "Add conference", new_conference_path, hint: "Add a new conference"
       - if policy(Conference).orga?
         = action_button "secondary", "Search", conferences_path, hint: "Seach conferences"
+    %h1 List of conferences
+
+  %ul.tabs
+    %li{class: active_class?(root_path)}= link_to "Current Conferences", root_path
+    %li{class: active_class?(past_conferences_path)}= link_to "Past Conferences", past_conferences_path
 
   - if Conference.all.empty?
     .row
@@ -17,10 +22,7 @@
             There is not a single conference yet.
   - else
 
-    - if @future_conferences.present?
-      %h2 Conferences
-      = render 'table', collection: @future_conferences
-
-    - if @past_conferences.present?
-      %h2 Past Conferences
-      = render 'table', collection: @past_conferences
+    - if @conferences.present?
+      = render 'table', collection: @conferences
+      = actions_bar do
+        = will_paginate @conferences

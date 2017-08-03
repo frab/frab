@@ -1,0 +1,16 @@
+- content_for :title do
+  = link_to 'frab - admin users', root_url, class: 'brand'
+
+%section
+  .page-header
+    %h1 List of admin accounts
+
+  %ul.tabs
+    %li= link_to "Crew Accounts", conference_users_path
+    %li.active= link_to "Admin Accounts", admin_users_path
+
+  .row
+    - if @users.present?
+      = render 'table_admins', collection: @users
+      = actions_bar do
+        = will_paginate @users

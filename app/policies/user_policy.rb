@@ -17,6 +17,10 @@ class UserPolicy < ApplicationPolicy
     user.is_admin? || user.any_crew?('orga', 'coordinator')
   end
 
+  def index?
+    user.is_admin?
+  end
+
   class Scope < Scope
     def resolve
       scope

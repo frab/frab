@@ -1,16 +1,18 @@
 - content_for :title do
-  = link_to 'frab - admin users', root_url, class: 'brand'
+  = link_to 'frab - crew users', root_url, class: 'brand'
 
-- if current_user.is_admin?
-  %h2 Admins
-  - if @admin_users.empty?
-    none
-  - else
-    = render 'table_admins', collection: @admin_users
+%section
+  .page-header
+    %h1 List of crew accounts
 
-%h2 Crews
+  - if current_user.is_admin?
+    %ul.tabs
+      %li.active= link_to "Crew Accounts", conference_users_path
+      %li= link_to "Admin Accounts", admin_users_path
 
-- if @conference_users.empty?
-  none
-- else
-  = render 'table', collection: @conference_users
+  .row
+
+    - if @users.present?
+      = render 'table', collection: @users
+      = actions_bar do
+        = will_paginate @users

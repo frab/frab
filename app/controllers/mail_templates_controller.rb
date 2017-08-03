@@ -33,7 +33,7 @@ class MailTemplatesController < BaseConferenceController
 
   def index
     result = search @conference.mail_templates, params
-    @mail_templates = result.paginate page: params[:page]
+    @mail_templates = result.paginate page: page_param
   end
 
   def update

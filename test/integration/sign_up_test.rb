@@ -54,7 +54,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
       'commit' => 'Log in', 'locale' => 'en'
     }
     follow_redirect!
-    assert_select 'h2', 'Conferences'
+    assert_select 'li', 'Current Conferences'
   end
 
   test 'crew can sign in and gets redirected right' do

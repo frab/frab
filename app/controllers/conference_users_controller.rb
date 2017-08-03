@@ -1,7 +1,11 @@
 class ConferenceUsersController < BaseCrewController
   def index
-    @admin_users = User.all_admins if current_user.is_admin?
-    @conference_users = policy_scope(ConferenceUser.all).order(:user_id, :role, :conference_id)
+    @users = policy_scope(ConferenceUser.all).order(:user_id, :role, :conference_id).paginate(page: page_param)
+  end
+
+  def admins
+    authorize User, :index?
+    @users = User.all_admins.order(:email).paginate(page: page_param)
   end
 
   def destroy

@@ -28,6 +28,8 @@ class User < ApplicationRecord
   scope :confirmed, -> { where(arel_table[:confirmed_at].not_eq(nil)) }
   scope :all_admins, -> { where(role: 'admin') }
 
+  self.per_page = 10
+
   def setup_default_values
     self.role ||= 'submitter'
     self.sign_in_count ||= 0

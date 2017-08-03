@@ -8,6 +8,8 @@ class ConferenceUser < ApplicationRecord
   validate :user_role_is_crew
   validate :role_is_valid
 
+  self.per_page = 20
+
   private
 
   def role_is_valid

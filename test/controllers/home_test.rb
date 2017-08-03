@@ -13,8 +13,17 @@ class HomeControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_includes response.body, '>present conference'
-    assert_includes response.body, '>past conference'
     assert_includes response.body, '>future conference'
+    refute_includes response.body, '>past conference'
+    refute_includes response.body, '>other conference'
+  end
+
+  test 'should list all past conferences by days' do
+    get :past
+    assert_response :success
+    assert_includes response.body, '>past conference'
+    refute_includes response.body, '>present conference'
+    refute_includes response.body, '>future conference'
     refute_includes response.body, '>other conference'
   end
 end
