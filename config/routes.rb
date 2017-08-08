@@ -16,10 +16,13 @@ Rails.application.routes.draw do
     get '/conference_users' => 'conference_users#index', as: 'conference_users'
     get '/admin_users' => 'conference_users#admins', as: 'admin_users'
     delete '/conference_users' => 'conference_users#destroy'
+
     get '/profile' => 'crew_profiles#edit', as: 'edit_crew_profile'
     patch '/profile' => 'crew_profiles#update', as: 'update_crew_profile'
+
     get '/user/:person_id/edit' => 'users#edit', as: 'edit_crew_user'
     patch '/user/:person_id' => 'users#update', as: 'crew_user'
+    post '/user/:person_id' => 'users#create'
 
     scope path: '/:conference_acronym' do
       namespace :public do

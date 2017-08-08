@@ -57,7 +57,7 @@ class UsersController < BaseCrewController
     respond_to do |format|
       if @user.update_attributes(user_params)
         @user.confirm unless @user.confirmed?
-        bypass_sign_in(@user)
+        bypass_sign_in(@user) if current_user == @user
         format.html { redirect_to(edit_crew_user_path(@person), notice: 'User was successfully updated.') }
       else
         flash[:errors] = @user.errors.full_messages.join
