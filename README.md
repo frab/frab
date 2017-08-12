@@ -53,6 +53,7 @@ There is no official release yet. Just clone the repository and get the
 latest code.
 
 Please refer to the README for installation instructions.
+Take a look at the [wiki](https://github.com/frab/frab/wiki) for more information.
 
 ### Contact
 
