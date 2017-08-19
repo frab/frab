@@ -16,8 +16,6 @@ WORKDIR /home/frab/app
 
 RUN bundle install
 
-COPY docker-cmd.sh /home/frab/app/docker-cmd.sh
-
 RUN cp config/database.yml.template config/database.yml
 
 VOLUME /home/frab/app/public
