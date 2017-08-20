@@ -239,8 +239,12 @@ class EventsController < BaseConferenceController
 
   # returns duplicates if ransack has to deal with the associated model
   def search(events)
-    @search = perform_search(events, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
-    if params.dig('q', 's')&.match?('track_name')
+    filter = events
+    filter = filter.where(state: params[:event_state]) if params[:event_state].present?
+    filter = filter.where(event_type: params[:event_type]) if params[:event_type].present?
+    filter = filter.where(track: @conference.tracks.find_by(:name => params[:track_name])) if params[:track_name].present?
+    @search = perform_search(filter, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
+    if params.dig('q', 's')&.match('track_name')
       @search.result
     else
       @search.result(distinct: true)
