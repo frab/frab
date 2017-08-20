@@ -4,6 +4,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'rb-kqueue', ">= 0.2", platforms: :ruby, install_if: RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/
+
+
 if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
