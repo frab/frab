@@ -47,12 +47,12 @@ is capable of:
 
 ### Download and Installation
 
-frab is hosted at [github](https://github.com/frab/frab) .
+frab is hosted at [github](https://github.com/frab/frab).
 
 There is no official release yet. Just clone the repository and get the
 latest code.
 
-Please refer to the README for installation instructions.
+Please refer to the [README](https://github.com/frab/frab/blob/master/README.md) for installation instructions.
 Take a look at the [wiki](https://github.com/frab/frab/wiki) for more information.
 
 ### Manual
