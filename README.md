@@ -55,6 +55,10 @@ latest code.
 Please refer to the README for installation instructions.
 Take a look at the [wiki](https://github.com/frab/frab/wiki) for more information.
 
+### Manual
+
+The [user manual](https://github.com/frab/frab/wiki/Manual) is also in the [wiki](https://github.com/frab/frab/wiki).
+
 ### Contact
 
 If you have trouble using frab, consider [filing an
