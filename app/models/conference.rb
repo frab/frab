@@ -4,6 +4,7 @@ class Conference < ApplicationRecord
   include HasTicketServer
 
   has_many :availabilities, dependent: :destroy
+  has_many :classifiers, dependent: :destroy
   has_many :conference_users, dependent: :destroy
   has_many :days, dependent: :destroy
   has_many :events, dependent: :destroy
