@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528105033) do
+ActiveRecord::Schema.define(version: 20170811230712) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer  "person_id"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20170528105033) do
     t.string   "info_url",      limit: 255
     t.string   "contact_email", limit: 255
     t.index ["start_date", "end_date"], name: "index_call_for_papers_on_dates"
+  end
+
+  create_table "classifiers", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "conference_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conference_id"], name: "index_classifiers_on_conference_id"
   end
 
   create_table "conference_exports", force: :cascade do |t|
@@ -121,6 +130,14 @@ ActiveRecord::Schema.define(version: 20170528105033) do
     t.datetime "updated_at",                                         null: false
     t.boolean  "public",                              default: true
     t.index ["event_id"], name: "index_event_attachments_on_event_id"
+  end
+
+  create_table "event_classifiers", force: :cascade do |t|
+    t.float "value"
+    t.integer "classifier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["classifier_id"], name: "index_event_classifiers_on_classifier_id"
   end
 
   create_table "event_feedbacks", force: :cascade do |t|
