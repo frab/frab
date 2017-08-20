@@ -135,9 +135,11 @@ ActiveRecord::Schema.define(version: 20170811230712) do
   create_table "event_classifiers", force: :cascade do |t|
     t.float "value"
     t.integer "classifier_id"
+    t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["classifier_id"], name: "index_event_classifiers_on_classifier_id"
+    t.index ["event_id"], name: "index_event_classifiers_on_event_id"
   end
 
   create_table "event_feedbacks", force: :cascade do |t|
