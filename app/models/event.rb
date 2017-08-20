@@ -14,6 +14,7 @@ class Event < ApplicationRecord
   has_many :event_feedbacks, dependent: :destroy
   has_many :event_people, dependent: :destroy
   has_many :event_ratings, dependent: :destroy
+  has_many :event_classifiers, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :people, through: :event_people
   has_many :videos, dependent: :destroy
