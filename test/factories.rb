@@ -63,9 +63,4 @@ FactoryGirl.define do
     subject 'subject one'
     content '|first_name #first_name| |last_name #last_name| |public_name #public_name|'
   end
-
-  factory :ticket do
-    event
-    remote_ticket_id '1234'
-  end
 end

@@ -89,6 +89,13 @@ class ConferencesController < BaseConferenceController
     end
   end
 
+  def edit_ticket_server
+    authorize @conference, :orga?
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def send_notification
     SendBulkTicketJob.new.async.perform @conference, params[:notification]
     redirect_to edit_notifications_conference_path, notice: 'Bulk notifications for events in ' + params[:notification] + ' enqueued.'
