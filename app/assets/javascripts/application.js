@@ -23,5 +23,6 @@
 //= require bootstrap-scrollspy
 //= require bootstrap-tabs
 //= require bootstrap-buttons
+//= require rangeslider
 //= require cocoon
 //= require_tree .

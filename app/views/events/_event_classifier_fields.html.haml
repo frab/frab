@@ -1,0 +1,19 @@
+.nested-fields{ :class => 'classifier-block-'+the_cat.id.to_s }
+  %fieldset.inputs
+    -# the association field is hidden because it has to be sent with
+    - if f.object.new_record?
+      = f.association :classifier, as: :hidden, input_html: {value: the_cat.id}
+    - else
+      = f.association :classifier, as: :hidden
+    %label
+      = the_cat.name
+    = f.input :value, as: :range, label: false,
+      input_html: { class: 'category-slider', min: 0, max: 100, step: 5, category: the_cat.id },
+      hint: the_cat.description
+    -# the link is hidden and will be triggered with JS
+    = link_to_remove_association 'remove', f, { id: "remove_classifier_#{the_cat.id}", style: 'display:none;' }
+    %output{:class => 'category-output category-output-' + the_cat.id.to_s }
+      - if f.object.new_record?
+        = '0 %'
+      - else
+        = f.object.value.to_s + ' %'

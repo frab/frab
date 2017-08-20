@@ -14,6 +14,7 @@ class Event < ApplicationRecord
   has_many :event_feedbacks, dependent: :destroy
   has_many :event_people, dependent: :destroy
   has_many :event_ratings, dependent: :destroy
+  has_many :event_classifiers, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :people, through: :event_people
   has_many :videos, dependent: :destroy
@@ -30,6 +31,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :event_attachments, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :ticket, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :event_classifiers, allow_destroy: true
 
   validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
@@ -146,6 +148,10 @@ class Event < ApplicationRecord
     self.note = ''
     self.tech_rider = ''
     self
+  end
+
+  def serializable_hash(options={})
+    super(options).merge(event_classifiers: event_classifiers.map(&:as_array).to_h)
   end
 
   private

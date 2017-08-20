@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ConferenceTest < ActiveSupport::TestCase
   should have_many :availabilities
+  should have_many :classifiers
   should have_many :conference_users
   should have_many :days
   should have_many :events

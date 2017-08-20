@@ -1,0 +1,33 @@
+%section
+  .page-header
+    %h1= t :edit_conference_classifiers
+  = render partial: 'tabs', locals: { active: :classifiers }
+
+  - if @conference.sub_conference? && !policy(@conference).manage?
+    .row
+      .span16
+        .blank-slate
+          %p
+            The classifiers for this conference can only be modified with
+            administration rights for the parent conference
+            ="'#{@conference.parent.title}'."
+
+          %p
+            The currently configured classifiers are:
+
+          %ul
+            - @conference.classifiers.each do |classifier|
+              %li
+                ="#{classifier.name} (description: #{classifier.description})"
+
+  -else
+    - if @conference.classifiers.empty?
+      .row
+        .span16
+          .blank-slate
+            %p
+              Here you can create and edit the classifiers which
+              submitters can give to their events
+    .row
+      .span16
+        = render 'form_classifiers'
