@@ -23,6 +23,7 @@
     = f.association :room, collection: @conference.rooms
   %fieldset.inputs
     %legend Detailed description
+    = dynamic_association :event_classifiers, 'Categories', f, hint: 'TODO: insert explanation here' # TODO: fill hint
     = f.input :abstract, input_html: {rows: 4}, hint: "One short paragraph that succinctly describes the event. (HTML)"
     = f.input :description,input_html: {rows: 4}, hint: "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website. (HTML)"
   %fieldset.inputs

@@ -109,6 +109,7 @@ en:
       event: "event"
       person: "profile"
       event_person: "person"
+      event_classifier: "category"
       language: "language"
       link: "link"
       notification: "Notification"

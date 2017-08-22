@@ -1,0 +1,7 @@
+.nested-fields
+  %fieldset.inputs
+    = f.association :classifier, collection: @event.conference.classifiers, include_blank: false
+    = f.input :value, as: :range,
+      input_html: { class: 'category-slider', min: 1, max: 100, step: 1 }
+    -# TODO: show value next to the slider
+    = remove_association_link :event_classifiers, f
