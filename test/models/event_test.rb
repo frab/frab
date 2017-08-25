@@ -203,4 +203,19 @@ class EventTest < ActiveSupport::TestCase
     conference.ticket_type = 'integrated'
     assert event.notifiable
   end
+
+  test 'create with nested attributes is valid' do
+    event = build(:event)
+
+    link_plan = { 'title' => 'title value', 'url' => 'http://test.com' }
+    event.links_attributes = { 'random-string' => link_plan }
+
+    upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'textfile.txt'), 'text/plain')
+    event_attachment_plan = { 'title' => 'title value', 'attachment' => upload }
+    event.event_attachments_attributes = { 'random-string' => event_attachment_plan }
+
+    event.valid? # trigger validations
+    assert_empty event.errors.full_messages
+  end
+
 end

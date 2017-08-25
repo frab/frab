@@ -1,11 +1,13 @@
 require 'test_helper'
 
 class EditingUsersTest < Capybara::Rails::TestCase
+  include CapybaraHelper
+
   setup do
     @conference = create(:three_day_conference)
     @admin = create(:user, role: 'admin', password: 'frab123')
     @person = create(:person, public_name: 'FakeName')
-    sign_in(@admin)
+    sign_in(@admin.email, 'frab123')
   end
 
   test 'create and modify user' do
@@ -29,13 +31,5 @@ class EditingUsersTest < Capybara::Rails::TestCase
     click_on 'Update User'
     assert_content page, "Edit Account: #{@person.public_name}"
     assert_content page, 'Admin'
-  end
-
-  def sign_in(user)
-    visit root_path
-    click_on 'Log-in'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: 'frab123'
-    click_on 'Log in'
   end
 end
