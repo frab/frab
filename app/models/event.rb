@@ -36,6 +36,7 @@ class Event < ApplicationRecord
   validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
   validates :title, :time_slots, presence: true
+  # TODO: validate event_classifiers to be unique
 
   scope :accepted, -> { where(arel_table[:state].in(ACCEPTED)) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
