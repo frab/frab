@@ -1,3 +1,6 @@
+%li
+  - if @conference && policy(@conference).manage?
+    = link_to t("manage_conference", default: "Manage this conference"), conference_path(conference_acronym: @conference.acronym)
 - conferences = Conference.creation_order.has_submission(current_user.person).limit(5)
 - if conferences.to_a.count > 1
   %li.dropdown
