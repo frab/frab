@@ -168,3 +168,7 @@ p.availability span {
     border-radius: 5px;
     padding: 0.2em;
 }
+.rangeslider--horizontal {
+    /*width: 60% !important;*/
+    width: 420px !important;
+}

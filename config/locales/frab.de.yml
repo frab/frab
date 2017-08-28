@@ -202,6 +202,9 @@ de:
       event_person:
         one: "Person"
         other: "Personen"
+      event_classifier:
+        one: "Kategorie"
+        other: "Kategorien"
       event_rating: "Bewertung"
       event_feedback: "Feedback"
       day: "Tag"

@@ -31,10 +31,12 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :event_attachments, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :ticket, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :event_classifiers, allow_destroy: true
 
   validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
   validates :title, :time_slots, presence: true
+  # TODO: validate event_classifiers to be unique
 
   scope :accepted, -> { where(arel_table[:state].in(ACCEPTED)) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
