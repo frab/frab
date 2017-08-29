@@ -25,7 +25,7 @@
     %legend Detailed description
     .input
       %ul
-        - @event.conference.classifiers.each do |classifier|
+        - @conference.classifiers.each do |classifier|
           %li
             - event_has_this_classifier = @event.event_classifiers.pluck(:classifier_id).include?(classifier.id)
             = classifier.name
