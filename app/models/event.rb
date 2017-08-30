@@ -151,6 +151,10 @@ class Event < ApplicationRecord
     self
   end
 
+  def as_json(options={})
+    super(options.merge(:include => :event_classifiers))
+  end
+
   private
 
   def generate_guid
