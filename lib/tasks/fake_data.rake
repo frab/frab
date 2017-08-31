@@ -1,4 +1,6 @@
 namespace :frab do
+  require 'faker'
+
   desc 'add fake conferences for testing'
   task add_fake_conferences: :environment do |_t, _args|
     ActiveRecord::Base.transaction do
