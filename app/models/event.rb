@@ -152,7 +152,7 @@ class Event < ApplicationRecord
   end
 
   def as_json(options={})
-    super(options.merge(:include => :event_classifiers))
+    super(options).merge(:event_classifiers => event_classifiers.map(&:as_array).to_h)
   end
 
   private

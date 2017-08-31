@@ -8,7 +8,7 @@ class EventClassifier < ActiveRecord::Base
   validates :value, presence: true
   validates :value, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 100, only_integer: true }
 
-  def serializable_hash(options={})
-    { classifier.name => value }
+  def as_array
+    [ classifier.name, value]
   end
 end
