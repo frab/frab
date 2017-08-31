@@ -7,7 +7,7 @@
       - availability.nil? and availability = Availability.new(day: day, conference: conference)
       = render(partial: 'shared/availabilities_slider', locals: { f: f, day: day, availability: availability })
   .actions
-    - if policy(@conference).manage?
+    - if policy(person).edit_availability?
       = f.button :submit, t("cfp.save_availability"), class: 'primary'
 
 :javascript
