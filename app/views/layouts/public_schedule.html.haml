@@ -1,9 +1,11 @@
 !!!
-- title = t('public.schedule.title', title: @conference.title)
 %html
   %head
     %meta{ :"http-equiv" => "content-type", content: "text/html; charset=utf-8" }
-    %title= title
+    - if content_for? :title
+      %title= yield :title
+    - else
+      %title= schedule_title
     = stylesheet_link_tag 'public_schedule'
     = stylesheet_link_tag public_schedule_style_path(format: :css), media: "all"
     = stylesheet_link_tag 'public_schedule_print', media: 'print'
@@ -11,7 +13,7 @@
     #wrapper
       #banner
       #header
-        %h1= title
+        %h1= schedule_title
       #navigation
         %ul
           - unless feedback_page?

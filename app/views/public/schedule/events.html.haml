@@ -1,3 +1,6 @@
+- content_for :title do
+  = "#{t('.events')} | #{schedule_title}"
+
 - if @conference.tracks_including_subs.present?
   = render partial: 'public/schedule/events_by_track'
 - else

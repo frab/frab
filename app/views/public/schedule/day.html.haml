@@ -1,10 +1,10 @@
+- content_for :title do
+  = "#{day_title} | #{schedule_title}"
+
 = render partial: 'track_menu'
 
 %h2
-  - if @conference.days.length > 1
-    = t '.schedule_for_day', index: @day_index, label: l(@view_model.day.date)
-  - else
-    = t '.schedule', label: l(@view_model.day.date)
+  = day_title
 
 - if @view_model.room_slice_names.count > 1
   .event-navigation
