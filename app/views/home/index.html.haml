@@ -15,15 +15,30 @@
     %li{class: active_class?(root_path)}= link_to "Current Conferences", root_path
     %li{class: active_class?(past_conferences_path)}= link_to "Past Conferences", past_conferences_path
 
-  - if Conference.all.empty?
+  - if Conference.all.empty? |
     .row
       .span16
-        .blank-slate
+        .blank-slate{style: 'padding-bottom: 33%'}
           %p
             There is not a single conference yet.
-  - else
 
-    - if @conferences.present?
-      = render 'table', collection: @conferences
-      = actions_bar do
-        = will_paginate @conferences
+  - elsif @conferences.empty?
+    .row
+      .span16
+        .blank-slate{style: 'padding-bottom: 33%'}
+          %p
+            There is no current conference with a call for participation. Maybe you need to log in?
+
+  - else
+    = render 'table', collection: @conferences
+    = actions_bar do
+      = will_paginate @conferences
+
+  %hr
+
+  - content_for :footer do
+    .span16
+      :markdown
+        [frab](http://frab.github.io/frab/) is a conference planning and management system. It helps to collect submissions, manage talks and speakers and create a schedule.
+
+        The [users manual](https://github.com/frab/frab/wiki/Manual) is maintained in the [wiki](https://github.com/frab/frab/wiki/).  The source code is hosted on [Github](https://github.com/frab/frab).
