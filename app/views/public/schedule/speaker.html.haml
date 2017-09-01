@@ -1,4 +1,7 @@
 - speaker = @view_model.speaker
+- content_for :title do
+  = "#{t '.speaker'}: #{speaker.public_name} | #{schedule_title}"
+
 %h2.title #{t '.speaker'}: #{speaker.public_name}
 
 .column.left#basic
