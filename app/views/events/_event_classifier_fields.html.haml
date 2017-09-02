@@ -7,8 +7,10 @@
       = f.association :classifier, as: :hidden
     %label
       = the_cat.name
+    %output{:class => 'category-output-' + the_cat.id.to_s }
+      = f.object.value.round if f.object.value?
     = f.input :value, as: :range, label: false,
-      input_html: { class: 'category-slider', min: 1, max: 100, step: 1 }
+      input_html: { class: 'category-slider', min: 0, max: 100, step: 5, category: the_cat.id }
     -# TODO: show value next to the slider
     -# the link is hidden and will be triggered with JS
     = link_to_remove_association 'remove', f, { id: "remove_classifier_#{the_cat.id}", style: 'display:none;' }
