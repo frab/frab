@@ -15,3 +15,4 @@ script:
   - RAILS_ENV=test bundle exec rails db:schema:load --trace
   - bundle exec rails db:test:prepare
   - bundle exec rails test
+dist: precise
