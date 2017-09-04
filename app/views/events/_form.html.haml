@@ -21,26 +21,8 @@
     = f.input :start_time do
       = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
     = f.association :room, collection: @conference.rooms
-  %fieldset.inputs
-    %legend Event classifiers
-    %div.input.help-block= "Help your audience and reviewers to understand your submission. Chose and then weigh the appropriate categories for your lecture."
-    .input
-      %ul{class: 'event_classifiers_checkboxes'}
-        - @conference.classifiers.each do |classifier|
-          %li
-            - event_has_this_classifier = @event.event_classifiers.pluck(:classifier_id).include?(classifier.id)
-            = classifier.name
-            = link_to_add_association f, :event_classifiers, partial: 'event_classifier_fields', style: 'display:none;',
-            render_options: { locals: { the_cat: classifier } },
-            'data-association-insertion-node': '.classifier',
-            'data-association-insertion-position': 'after'
-            = check_box_tag(classifier.id, 0, event_has_this_classifier, class: 'cocoon-checkbox pull-left', autocomplete: 'off')
-  %fieldset.inputs
-    -# if hint
-      %div.input.help-block= hint
-    %div{class: 'classifier', id: 'classifier_sliders'}
-      = f.simple_fields_for :event_classifiers do |association_form|
-        = render 'event_classifier_fields', f: association_form, the_cat: association_form.object.classifier
+  - if @conference.classifiers.any?
+    = render partial: 'event_classifiers', locals: { f: f }
   %fieldset.inputs
     %legend Detailed description
     = f.input :abstract, input_html: {rows: 4}, hint: "One short paragraph that succinctly describes the event. (HTML)"
