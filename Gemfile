@@ -47,6 +47,7 @@ gem 'bcrypt'
 gem 'cocoon'
 gem 'devise'
 gem 'dotenv-rails'
+gem 'github-markdown'
 gem 'haml'
 gem 'localized_language_select', github: 'frab/localized_language_select', branch: 'master'
 gem 'nokogiri'
@@ -56,6 +57,7 @@ gem 'prawn', '< 1.0'
 gem 'prawn_rails'
 gem 'pundit', github: 'elabs/pundit', branch: 'master'
 gem 'ransack'
+gem 'redcarpet'
 gem 'ri_cal'
 gem 'roust'
 gem 'rqrcode'
@@ -87,8 +89,6 @@ group :test do
 end
 
 group :doc do
-  gem 'redcarpet'       # documentation
-  gem 'github-markdown' # documentation
   gem 'yard'            # documentation
   # gem 'rails-erd'      # graph
   # gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
