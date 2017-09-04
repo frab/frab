@@ -6,7 +6,7 @@ class EventClassifier < ActiveRecord::Base
   validates_uniqueness_of :classifier_id, scope: %i[event_id]
 
   validates :value, presence: true
-  validates :value, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 100, only_integer: true }
+  validates :value, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_integer: true }
 
   def as_array
     [ classifier.name, value]
