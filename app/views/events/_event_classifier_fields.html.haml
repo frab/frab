@@ -13,4 +13,7 @@
     -# the link is hidden and will be triggered with JS
     = link_to_remove_association 'remove', f, { id: "remove_classifier_#{the_cat.id}", style: 'display:none;' }
     %output{:class => 'category-output category-output-' + the_cat.id.to_s }
-      = f.object.value.round.to_s + ' %' if f.object.value?
+      - if f.object.new_record?
+        = '0 %'
+      - else
+        = f.object.value.to_s + ' %'
