@@ -10,7 +10,7 @@ rangeSlider = ->
   $(document).on 'input', '.category-slider', (event) ->
     console.log('value for category ' + event.target.getAttribute('category') + ' changed ' + event.target.value)
     out = $('.category-output-' + event.target.getAttribute('category'))
-    out.html(event.target.value)
+    out.html(event.target.value + ' %')
 checkbox_click_listener = ->
   $('.cocoon-checkbox').on 'change', (event) ->
     # trigger the hidden cocoon dynamic links
