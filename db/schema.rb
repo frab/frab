@@ -47,93 +47,93 @@ ActiveRecord::Schema.define(version: 20170811230712) do
   end
 
   create_table "conference_exports", force: :cascade do |t|
-    t.string   "locale",               limit: 255
-    t.integer  "conference_id"
-    t.string   "tarball_file_name",    limit: 255
-    t.string   "tarball_content_type", limit: 255
-    t.integer  "tarball_file_size"
+    t.string "locale", limit: 255
+    t.integer "conference_id"
+    t.string "tarball_file_name", limit: 255
+    t.string "tarball_content_type", limit: 255
+    t.integer "tarball_file_size"
     t.datetime "tarball_updated_at"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["conference_id"], name: "index_conference_exports_on_conference_id"
   end
 
   create_table "conference_users", force: :cascade do |t|
-    t.string   "role",          limit: 255
-    t.integer  "user_id"
-    t.integer  "conference_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string "role", limit: 255
+    t.integer "user_id"
+    t.integer "conference_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["conference_id"], name: "index_conference_users_on_conference_id"
     t.index ["user_id"], name: "index_conference_users_on_user_id"
   end
 
   create_table "conferences", force: :cascade do |t|
-    t.string   "acronym",                   limit: 255,                            null: false
-    t.string   "title",                     limit: 255,                            null: false
-    t.string   "timezone",                  limit: 255,     default: "Berlin",     null: false
-    t.integer  "timeslot_duration",                         default: 15,           null: false
-    t.integer  "default_timeslots",                         default: 3,            null: false
-    t.integer  "max_timeslots",                             default: 20,           null: false
-    t.boolean  "feedback_enabled",                          default: false,        null: false
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
-    t.string   "email",                     limit: 255
-    t.string   "program_export_base_url",   limit: 255
-    t.string   "schedule_version",          limit: 255
-    t.boolean  "schedule_public",                           default: false,        null: false
-    t.string   "color",                     limit: 255
-    t.string   "ticket_type",               limit: 255,     default: "integrated"
-    t.boolean  "event_state_visible",                       default: true
-    t.text     "schedule_custom_css",       limit: 2097152
-    t.text     "schedule_html_intro",       limit: 2097152
-    t.string   "default_recording_license", limit: 255
-    t.boolean  "expenses_enabled",                          default: false,        null: false
-    t.boolean  "transport_needs_enabled",                   default: false,        null: false
-    t.integer  "parent_id"
-    t.boolean  "bulk_notification_enabled",                 default: false,        null: false
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
+    t.string "acronym", limit: 255, null: false
+    t.string "title", limit: 255, null: false
+    t.string "timezone", limit: 255, default: "Berlin", null: false
+    t.integer "timeslot_duration", default: 15, null: false
+    t.integer "default_timeslots", default: 3, null: false
+    t.integer "max_timeslots", default: 20, null: false
+    t.boolean "feedback_enabled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", limit: 255
+    t.string "program_export_base_url", limit: 255
+    t.string "schedule_version", limit: 255
+    t.boolean "schedule_public", default: false, null: false
+    t.string "color", limit: 255
+    t.string "ticket_type", limit: 255, default: "integrated"
+    t.boolean "event_state_visible", default: true
+    t.text "schedule_custom_css", limit: 2097152
+    t.text "schedule_html_intro", limit: 2097152
+    t.string "default_recording_license", limit: 255
+    t.boolean "expenses_enabled", default: false, null: false
+    t.boolean "transport_needs_enabled", default: false, null: false
+    t.boolean "bulk_notification_enabled", default: false, null: false
+    t.integer "parent_id"
+    t.string "logo_file_name"
+    t.string "logo_content_type"
+    t.integer "logo_file_size"
     t.datetime "logo_updated_at"
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
 
   create_table "conflicts", force: :cascade do |t|
-    t.integer  "event_id"
-    t.integer  "conflicting_event_id"
-    t.integer  "person_id"
-    t.string   "conflict_type",        limit: 255
-    t.string   "severity",             limit: 255
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer "event_id"
+    t.integer "conflicting_event_id"
+    t.integer "person_id"
+    t.string "conflict_type", limit: 255
+    t.string "severity", limit: 255
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["event_id", "conflicting_event_id"], name: "index_conflicts_on_event_id"
     t.index ["person_id"], name: "index_conflicts_on_person_id"
   end
 
   create_table "days", force: :cascade do |t|
-    t.integer  "conference_id"
+    t.integer "conference_id"
     t.datetime "start_date"
     t.datetime "end_date"
     t.index ["conference_id"], name: "index_days_on_conference"
   end
 
   create_table "event_attachments", force: :cascade do |t|
-    t.integer  "event_id",                                           null: false
-    t.string   "title",                   limit: 255,                null: false
-    t.string   "attachment_file_name",    limit: 255
-    t.string   "attachment_content_type", limit: 255
-    t.integer  "attachment_file_size"
+    t.integer "event_id", null: false
+    t.string "title", limit: 255, null: false
+    t.string "attachment_file_name", limit: 255
+    t.string "attachment_content_type", limit: 255
+    t.integer "attachment_file_size"
     t.datetime "attachment_updated_at"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.boolean  "public",                              default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "public", default: true
     t.index ["event_id"], name: "index_event_attachments_on_event_id"
   end
 
   create_table "event_classifiers", force: :cascade do |t|
-    t.float "value"
+    t.integer "value", default: 0
     t.integer "classifier_id"
     t.integer "event_id"
     t.datetime "created_at", null: false
