@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+    frab:
+        image: frab/frab
+        build: .
+        container_name: frab_app
+        volumes:
+            - data:/home/frab/app/public
+        ports:
+            - 3000:3000
+        networks:
+            - backend
+        environment:
+            - TZ=America/Los_Angeles
+            - SECRET_KEY_BASE=5fe64927bda359b186be52191c1ce3e5ef34827a
+            - DATABASE_URL=postgresql://frab:HWsJ54XvCOXyeSZhAQi9@db/frab
+            - FRAB_CURRENCY_UNIT='$$'
+            - FROM_EMAIL=frab@localhost
+        restart: always
+        depends_on:
+            - db
+
+    db:
+        image: postgres:9.5
+        container_name: frab_db
+        restart: always
+        volumes:
+            - db_data:/var/lib/postgresql/data
+        networks:
+            - backend
+        environment:
+            - TZ=America/Los_Angeles
+            - POSTGRES_USER=frab
+            - POSTGRES_PASSWORD=HWsJ54XvCOXyeSZhAQi9
+            - POSTGRES_DB=frab
+
+networks:
+    backend:
+
+volumes:
+    data: {}
+    db_data: {}
+
