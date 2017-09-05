@@ -66,6 +66,7 @@ gem 'simple_form'
 gem 'sucker_punch'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'will_paginate'
+gem 'yard'
 
 group :production do
   gem 'exception_notification'
@@ -90,7 +91,6 @@ group :test do
 end
 
 group :doc do
-  gem 'yard'            # documentation
   # gem 'rails-erd'      # graph
   # gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
 end
