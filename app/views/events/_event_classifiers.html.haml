@@ -9,8 +9,8 @@
           = classifier.name
           = link_to_add_association f, :event_classifiers, partial: '/events/event_classifier_fields', style: 'display:none;',
           render_options: { locals: { the_cat: classifier } },
-          'data-association-insertion-node': '.classifier',
-          'data-association-insertion-position': 'after'
+          'data-association-insertion-node': '#classifier_sliders:last-child',
+          'data-association-insertion-method': 'append'
           = check_box_tag(classifier.id, 0, event_has_this_classifier, class: 'cocoon-checkbox pull-left', autocomplete: 'off')
 %fieldset.inputs
   %div{class: 'classifier', id: 'classifier_sliders'}
