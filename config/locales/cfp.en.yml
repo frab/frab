@@ -7,6 +7,7 @@ en:
     bio: "Bio"
     change_password_button: "Change my password"
     change_password_headline: "Change your password"
+    classifiers_hint: "Help your audience and reviewers to understand your submission. Chose and then weigh the appropriate categories for your submission."
     conference_in_the_past: "You can't submit a talk, because this conference is in the past."
     confirm: "confirm"
     confirmation_button: "Request the confirmation instructions again"

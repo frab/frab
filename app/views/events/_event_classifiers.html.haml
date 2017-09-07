@@ -1,6 +1,6 @@
 %fieldset.inputs
   %legend Event classifiers
-  %div.input.help-block= "Help your audience and reviewers to understand your submission. Chose and then weigh the appropriate categories for your lecture."
+  %div.input.help-block= t("cfp.classifiers_hint")
   .input
     %ul{class: 'event_classifiers_checkboxes'}
       - @conference.classifiers.each do |classifier|
