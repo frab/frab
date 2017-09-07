@@ -111,7 +111,9 @@
         %p
           %b Classifiers:
           - @event.event_classifiers.each do |ec|
-            = simple_format ec.classifier.name + ": " + ec.value.to_int.to_s + " %"
+            %p
+              %meter{ min: 0, max: 100, value: ec.value, class: 'classifier-meter' }
+              = ec.classifier.name + ": " + ec.value.to_s + " %"
   .row
     .span16
       %h2 Notes

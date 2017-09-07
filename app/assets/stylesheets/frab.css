@@ -204,6 +204,11 @@ p.availability span {
     margin-bottom: 0 !important;
 }
 
+.classifier-meter {
+    width: 8em;
+    margin-right: 0.5em;
+}
+
 ul.event_classifiers_checkboxes {
     list-style-type: none;
     padding: 0;
