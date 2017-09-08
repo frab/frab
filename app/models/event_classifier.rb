@@ -1,4 +1,4 @@
-class EventClassifier < ActiveRecord::Base
+class EventClassifier < ApplicationRecord
   belongs_to :classifier
   belongs_to :event, inverse_of: :event_classifiers
 
