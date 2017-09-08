@@ -1,6 +1,6 @@
 class EventClassifier < ApplicationRecord
   belongs_to :classifier
-  belongs_to :event, inverse_of: :event_classifiers
+  belongs_to :event
 
   # do not allow the same categories on an event TODO: make error message prettier
   validates_uniqueness_of :classifier_id, scope: %i[event_id]
