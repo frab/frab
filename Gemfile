@@ -47,6 +47,7 @@ gem 'rangesliderjs-rails', '~> 2.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
+gem 'activemodel-serializers-xml'
 gem 'activeresource', github: 'rails/activeresource', branch: 'master'
 gem 'acts_as_commentable'
 gem 'bcrypt'

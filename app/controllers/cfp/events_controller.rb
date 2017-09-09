@@ -4,14 +4,12 @@ class Cfp::EventsController < ApplicationController
   before_action :authenticate_user!, except: :confirm
 
   # GET /cfp/events
-  # GET /cfp/events.xml
   def index
     @events = current_user.person.events
     @events&.map(&:clean_event_attributes!)
 
     respond_to do |format|
       format.html { redirect_to cfp_person_path }
-      format.xml  { render xml: @events }
     end
   end
 

@@ -352,6 +352,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel-serializers-xml
   activeresource!
   acts_as_commentable
   bcrypt

@@ -29,6 +29,15 @@ class ConferencesControllerTest < ActionController::TestCase
   test 'should list all' do
     get :index
     assert_response :success
+    get :index, format: :json
+    assert_response :success
+  end
+
+  test 'should show conference' do
+    get :show, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+    get :show, format: :json, params: { conference_acronym: @conference.acronym }
+    assert_response :success
   end
 
   test 'should get new' do
