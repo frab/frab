@@ -1,16 +1,12 @@
 require 'test_helper'
 
-class CanLoginTest < Capybara::Rails::TestCase
+class CanLoginTest < FeatureTest
   setup do
-    @admin = create(:user, role: 'admin', password: 'frab123')
+    @admin = create(:admin_user)
   end
 
   test 'sanity' do
-    visit root_path
-    click_on 'Log-in'
-    fill_in 'Email', with: @admin.email
-    fill_in 'Password', with: 'frab123'
-    click_on 'Log in'
+    sign_in_user(@admin)
     assert_content page, 'Create new conference'
   end
 end

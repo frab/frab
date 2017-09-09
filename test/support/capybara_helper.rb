@@ -7,6 +7,10 @@ module CapybaraHelper
     click_on 'Log in'
   end
 
+  def sign_in_user(user)
+    sign_in(user.email, 'frab123')
+  end
+
   def visit_conference_settings
     click_on 'Conferences'
     click_on 'Show'
