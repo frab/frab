@@ -151,7 +151,7 @@ class Event < ApplicationRecord
     self
   end
 
-  def as_json(options={})
+  def serializable_hash(options={})
     super(options).merge(:event_classifiers => event_classifiers.map(&:as_array).to_h)
   end
 
