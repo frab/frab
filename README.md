@@ -6,6 +6,7 @@ and to create a schedule.
 
 [![Build Status](https://travis-ci.org/frab/frab.svg?branch=master)](https://travis-ci.org/frab/frab)
 [![Code Climate](https://codeclimate.com/github/frab/frab.png)](https://codeclimate.com/github/frab/frab)
+[![Docker Build Status](https://img.shields.io/docker/build/frab/frab.svg)](https://hub.docker.com/r/frab/frab/)
 
 ## Background
 

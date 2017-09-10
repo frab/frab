@@ -4,7 +4,19 @@ Frab can also be run inside a Docker container. Basic familiarity with docker is
 
 In addition to a `Dockerfile` a basic `docker-compose.yml` file is also provided.
 
+
+## Downloading the Docker Image
+
+To download a pre-built docker image for frab from the [Docker Hub](https://hub.docker.com/r/frab/frab/):
+
+
+```
+docker pull frab/frab
+```
+
 ## Building the Docker Image
+
+You can also build the image yourself:
 
 
 ```
@@ -32,7 +44,7 @@ The example docker-compose file used another postgres container as a database.
 
 # Running
 
-To run frab with docker-compose after building just run:
+To run frab with docker-compose just run:
 
 ```
 docker-compose up

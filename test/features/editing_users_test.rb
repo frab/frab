@@ -1,13 +1,11 @@
 require 'test_helper'
 
-class EditingUsersTest < Capybara::Rails::TestCase
-  include CapybaraHelper
-
+class EditingUsersTest < FeatureTest
   setup do
     @conference = create(:three_day_conference)
-    @admin = create(:user, role: 'admin', password: 'frab123')
+    @admin = create(:admin_user)
     @person = create(:person, public_name: 'FakeName')
-    sign_in(@admin.email, 'frab123')
+    sign_in_user(@admin)
   end
 
   test 'create and modify user' do

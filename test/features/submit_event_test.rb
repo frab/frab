@@ -1,8 +1,6 @@
 require 'test_helper'
 
-class SubmitEventTest < Capybara::Rails::TestCase
-  include CapybaraHelper
-
+class SubmitEventTest < FeatureTest
   setup do
     @conference = create(:three_day_conference)
     create(:call_for_participation, conference: @conference)

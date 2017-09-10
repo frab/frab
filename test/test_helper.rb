@@ -22,20 +22,6 @@ class ActiveSupport::TestCase
   Capybara.javascript_driver = :poltergeist
   DatabaseCleaner.strategy = :truncation
 
-  def login_as(role)
-    user = FactoryGirl.create(:user, role: role.to_s)
-    sign_in(user)
-    user
-  end
-
-  def log_out
-    sign_out(:user)
-  end
-
-  def sign_in(user)
-    post '/session', params: { user: { email: user.email, password: user.password } }
-  end
-
   def setup
     DatabaseCleaner.start
     I18n.locale = I18n.default_locale
@@ -48,12 +34,27 @@ end
 
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
+
+  def login_as(role)
+    user = FactoryGirl.create(:user, role: role.to_s)
+    sign_in(user)
+    user
+  end
+
+  def log_out
+    sign_out(:user)
+  end
 end
 
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+
 end
 
 class PunditControllerTest < ActionDispatch::IntegrationTest
   include CrewRolesHelper
+end
+
+class FeatureTest < Capybara::Rails::TestCase
+  include CapybaraHelper
 end
