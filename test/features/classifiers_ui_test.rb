@@ -17,8 +17,8 @@ class ClassifiersUiTest < FeatureTest
     assert_selector('.event_event_classifiers_value', :count => 0)
 
     assert_content page, 'TestClassifier1'
-    check '1', { :class => 'cocoon-checkbox' }
-    check '2', { :class => 'cocoon-checkbox' }
+    check 'classifier-checkbox-1'
+    check 'classifier-checkbox-2'
     assert_selector('.event_event_classifiers_value', :count => 2)
     click_on('Update event')
 
@@ -33,13 +33,13 @@ class ClassifiersUiTest < FeatureTest
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
     assert_selector('.event_event_classifiers_value', :count => 0)
-    check '1', { :class => 'cocoon-checkbox' }
+    check 'classifier-checkbox-1'
     click_on('Update event')
     assert_equal @event.event_classifiers.count, 1
 
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
     assert_selector('.event_event_classifiers_value', :count => 1)
-    uncheck '1', { :class => 'cocoon-checkbox' }
+    uncheck 'classifier-checkbox-1'
     click_on('Update event')
     assert_equal @event.event_classifiers.count, 0
 

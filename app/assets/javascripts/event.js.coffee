@@ -6,15 +6,12 @@ rangeSlider = ->
     $(insertedItem).find('input[type="range"]').rangeslider(
       polyfill: false
     )
-  $(document).on 'cocoon:after-remove', (event, removedItem) ->
-    category = $(removedItem).find('input.category-slider').attr('category')
-    $(removedItem).addClass "removed-classifier-#{category}"
   $(document).on 'input', '.category-slider', (event) ->
     $('.category-output-' + event.target.getAttribute('category')).html(event.target.value + ' %')
 checkbox_click_listener = ->
-  $('.cocoon-checkbox').on 'change', (event) ->
+  $('.classifier-checkbox').on 'change', (event) ->
     box = $(event.currentTarget)
-    classifier_id = box.attr('name')
+    classifier_id = box.attr('name').replace(/^classifier-checkbox-/, '')
     classifier_remove_link = $('#' + "remove_classifier_#{classifier_id}")
 
     # trigger the hidden cocoon dynamic links
@@ -23,7 +20,7 @@ checkbox_click_listener = ->
       return
 
     # if we removed a classifier slider before, unremove it and show it again
-    exists = $(".removed-classifier-#{classifier_id}")
+    exists = $(".classifier-block-#{classifier_id}")
     if exists.length
       exists.show()
       classifier_remove_link.prev("input[type=hidden]").val(false)
