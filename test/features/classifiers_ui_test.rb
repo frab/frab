@@ -14,7 +14,7 @@ class ClassifiersUiTest < FeatureTest
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
 
-    page.assert_no_selector '.event_event_classifiers_value'
+    assert_selector('.event_event_classifiers_value', :count => 0)
 
     assert_content page, 'TestClassifier1'
     check '1', { :class => 'cocoon-checkbox' }
