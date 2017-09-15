@@ -168,3 +168,63 @@ p.availability span {
     border-radius: 5px;
     padding: 0.2em;
 }
+.rangeslider--horizontal {
+    height: 10px !important;
+    width: 430px !important;
+}
+
+.rangeslider--horizontal .rangeslider__handle  {
+    height: 20px;
+    width: 20px;
+    top: -5px !important;
+}
+.rangeslider__fill {
+    background-color: #239d6a !important;
+}
+.category-output {
+    margin-top: 8px;
+    float: left;
+}
+
+.nested-fields .event_event_classifiers_value {
+    float: left;
+}
+
+.nested-fields .event_event_classifiers_value .input {
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.nested-fields .event_event_classifiers_value .help-block {
+    margin-top: 1em;
+}
+
+#classifier_sliders fieldset.inputs {
+    margin-bottom: 0 !important;
+}
+
+.classifier-meter {
+    width: 8em;
+    margin-right: 0.5em;
+}
+
+ul.event_classifiers_checkboxes {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    width: 430px;
+}
+
+ul.event_classifiers_checkboxes li {
+    margin: 0;
+    padding: 0.5em 0;
+}
+
+ul.event_classifiers_checkboxes input[type=checkbox] {
+    margin-right: 0.5em;
+}
+.help-block {
+    width: 430px;
+}

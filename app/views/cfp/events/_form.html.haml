@@ -9,6 +9,8 @@
     = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
     = image_input_box(f.object.logo)
     = f.input :logo
+  - if @conference.classifiers.any?
+    = render partial: '/events/event_classifiers', locals: {f: f}
   %fieldset.inputs
     %legend= t("cfp.detailed_description")
     = f.input :abstract, input_html: {rows: 4}, hint: t("cfp.event_abstract_hint")

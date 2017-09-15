@@ -21,6 +21,8 @@
     = f.input :start_time do
       = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
     = f.association :room, collection: @conference.rooms
+  - if @conference.classifiers.any?
+    = render partial: 'event_classifiers', locals: { f: f }
   %fieldset.inputs
     %legend Detailed description
     = f.input :abstract, input_html: {rows: 4}, hint: "One short paragraph that succinctly describes the event. (HTML)"

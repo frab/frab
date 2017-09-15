@@ -7,6 +7,7 @@ de:
     bio: "Beschreibung Ihrer Person"
     change_password_button: "Passwort ändern"
     change_password_headline: "Passwort ändern"
+    classifiers_hint: "Durch 'classifier' können Sie der Veranstaltungs-Organisation und Ihrem Publikum helfen, die Einreichung besser einzuordnen. Wählen Sie die zutreffenden Kategorien für Ihre Einreichung und wichten Sie sie mithilfe der Slider."
     confirm: "bestätigen"
     confirmation_button: "Bestätigungsmail erneut anfordern"
     confirmation_description: "Gelegentlich kann eine E-Mail nicht zugestellt werden. Wenn Sie bereits einige Zeit warten und auch schon Ihrem Spam-Ordner überprüft haben, klicken Sie bitten hier:"

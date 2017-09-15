@@ -105,6 +105,15 @@
           %ul
             - @event.event_attachments.each do |attachment|
               %li= link_to attachment.link_title, attachment.attachment.url
+  -if @event.event_classifiers.any?
+    .row
+      .span6
+        %p
+          %b Classifiers:
+          - @event.event_classifiers.each do |ec|
+            %p
+              %meter{ min: 0, max: 100, value: ec.value, class: 'classifier-meter' }
+              = ec.classifier.name + ": " + ec.value.to_s + " %"
   .row
     .span16
       %h2 Notes

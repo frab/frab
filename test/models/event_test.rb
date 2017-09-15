@@ -5,6 +5,7 @@ class EventTest < ActiveSupport::TestCase
   should have_many :conflicts_as_conflicting
   should have_many :conflicts
   should have_many :event_attachments
+  should have_many :event_classifiers
   should have_many :event_feedbacks
   should have_many :event_people
   should have_many :event_ratings

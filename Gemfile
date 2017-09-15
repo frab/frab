@@ -42,6 +42,7 @@ end
 gem 'jquery-rails'
 gem 'jquery-migrate-rails'
 gem 'jquery-ui-rails'
+gem 'rangesliderjs-rails', '~> 2.3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'

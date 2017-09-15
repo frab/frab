@@ -257,6 +257,7 @@ class EventsController < BaseConferenceController
       event_attachments_attributes: %i(id title attachment public _destroy),
       ticket_attributes: %i(id remote_ticket_id),
       links_attributes: %i(id title url _destroy),
+      event_classifiers_attributes: %i(id classifier_id value _destroy),
       event_people_attributes: %i(id person_id event_role role_state notification_subject notification_body _destroy)
     )
   end

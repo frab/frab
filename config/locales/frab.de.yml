@@ -3,12 +3,14 @@ de:
   add_association: "%{name} hinzufügen"
   basic_information: "Grundlegende Informationen"
   call_for_participation: "Call for Participation"
+  classifiers: "Classifiers"
   create_new_conference: "Neue Konferenz erstellen"
   create_your_first_conference: "Erste Konferenz erstellen"
   days: "Tage"
   date_not_set: "noch nicht gesetzt"
   edit: "Bearbeiten"
   edit_conference: "Konferenz bearbeiten"
+  edit_conference_classifiers: "Classifiers bearbeiten"
   edit_conference_days: "Konferenz-Tage bearbeiten"
   edit_conference_rooms: "Konferenz-Räume bearbeiten"
   edit_conference_schedule: "Zeitplan bearbeiten"
@@ -191,6 +193,7 @@ de:
         format: "%{attribute}%{message}"
     models:
       call_for_participation: "Aufruf"
+      classifier: "Classifier"
       conference: "Konferenz"
       event: "Einreichung"
       person:
@@ -199,6 +202,9 @@ de:
       event_person:
         one: "Person"
         other: "Personen"
+      event_classifier:
+        one: "Kategorie"
+        other: "Kategorien"
       event_rating: "Bewertung"
       event_feedback: "Feedback"
       day: "Tag"
