@@ -14,4 +14,5 @@ json.array! @events do |e|
       json.extract! availibility, :start_date, :end_date, :day_id
     end
   end
+  json.classifiers e.classifiers
 end
