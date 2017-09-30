@@ -95,6 +95,10 @@ class Event < ApplicationRecord
     speakers.map(&:id)
   end
 
+  def classifiers
+    event_classifiers.map(&:as_array).to_h
+  end
+
   def humanized_time_str
     return '' unless start_time.present?
     I18n.localize(start_time, format: :time) + I18n.t('time.time_range_seperator') + I18n.localize(end_time, format: :time)
@@ -155,7 +159,7 @@ class Event < ApplicationRecord
   end
 
   def serializable_hash(options={})
-    super(options.merge(methods: :speaker_ids)).merge(event_classifiers: event_classifiers.map(&:as_array).to_h)
+    super(options.merge(methods: [:speaker_ids, :classifiers]))
   end
 
   private
