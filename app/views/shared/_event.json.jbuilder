@@ -1,9 +1,10 @@
 json.id event.id
 json.guid event.guid
 json.title event.title
+json.subtitle event.subtitle
+json.description event.description
 json.logo event.logo_path
 json.type event.event_type
-json.event_classifiers event.event_classifiers.map(&:as_array).to_h
 json.do_not_record event.do_not_record
 if event.start_time and event.room
   json.start_time event.start_time

@@ -86,6 +86,19 @@ class EventsControllerTest < ActionController::TestCase
     assert_equal 2, events.count
     assert_includes events[0].keys, 'speakers'
     assert_includes events[0].keys, 'attachments'
+    assert_includes events[0].keys, 'event_classifiers'
+    assert_includes events[0].keys, 'speaker_ids'
+    assert_includes events[0].keys, 'state'
+  end
+
+  test 'should get index as JSON for crew member' do
+    conference_user = create(:conference_reviewer, conference: @conference)
+    sign_in(conference_user.user)
+    get :index, format: :json, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+    events = JSON.parse(response.body)['events']
+    refute_includes events[0].keys, 'speaker_ids'
+    refute_includes events[0].keys, 'state'
   end
 
   test 'should show event as JSON' do

@@ -1,5 +1,5 @@
-json.subtitle event.subtitle
 json.track event.track.try(:name)
+json.event_classifiers event.event_classifiers.map(&:as_array).to_h
 json.language event.language
 json.recording_license event.recording_license
 json.links event.links do |link|
