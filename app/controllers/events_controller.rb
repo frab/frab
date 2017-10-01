@@ -2,7 +2,7 @@ class EventsController < BaseConferenceController
   include Searchable
 
   # GET /events
-  # GET /events.xml
+  # GET /events.json
   def index
     authorize @conference, :read?
     @events = search @conference.events.includes(:track)
@@ -10,7 +10,6 @@ class EventsController < BaseConferenceController
     clean_events_attributes
     respond_to do |format|
       format.html { @events = @events.paginate page: page_param }
-      format.xml  { render xml: @events }
       format.json
     end
   end
@@ -94,14 +93,13 @@ class EventsController < BaseConferenceController
   end
 
   # GET /events/1
-  # GET /events/1.xml
+  # GET /events/1.json
   def show
     @event = authorize Event.find(params[:id])
 
     clean_events_attributes
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render xml: @event }
       format.json
     end
   end

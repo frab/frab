@@ -15,8 +15,6 @@ class PeopleControllerTest < ActionController::TestCase
     get :index, params: { conference_acronym: @conference.acronym }
     assert_response :success
     assert_not_nil assigns(:people)
-    get :index, format: :xml, params: { conference_acronym: @conference.acronym }
-    assert_response :success
   end
 
   test 'should get new' do
@@ -34,8 +32,6 @@ class PeopleControllerTest < ActionController::TestCase
 
   test 'should show person' do
     get :show, params: { id: @person.to_param, conference_acronym: @conference.acronym }
-    assert_response :success
-    get :show, format: :xml, params: { id: @person.to_param, conference_acronym: @conference.acronym }
     assert_response :success
   end
 

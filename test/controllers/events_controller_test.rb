@@ -78,11 +78,6 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get index as XML' do
-    get :index, format: :xml, params: { conference_acronym: @conference.acronym }
-    assert_response :success
-  end
-
   test 'should get index as JSON' do
     create(:event, conference: @conference)
     get :index, format: :json, params: { conference_acronym: @conference.acronym }
@@ -91,11 +86,6 @@ class EventsControllerTest < ActionController::TestCase
     assert_equal 2, events.count
     assert_includes events[0].keys, 'speakers'
     assert_includes events[0].keys, 'attachments'
-  end
-
-  test 'should show event as XML' do
-    get :show, format: :xml, params: { id: @event.to_param, conference_acronym: @conference.acronym }
-    assert_response :success
   end
 
   test 'should show event as JSON' do

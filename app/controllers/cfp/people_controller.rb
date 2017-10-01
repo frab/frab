@@ -18,6 +18,8 @@ class Cfp::PeopleController < ApplicationController
     end
   end
 
+  # It is possbile to create person object via XML, but not to view it, that's
+  # because not all fields should be visible to the user.
   def new
     @person = Person.new(email: current_user.email)
 
