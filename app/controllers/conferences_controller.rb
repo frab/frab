@@ -10,8 +10,8 @@ class ConferencesController < BaseConferenceController
     result = search
 
     respond_to do |format|
-      format.html { @conferences = result.paginate page: page_param }
-      format.json { render json: result }
+      format.html { @conferences = result.paginate(page: page_param) }
+      format.json { render template: 'conferences/index', locals: { conferences: result } }
     end
   end
 
@@ -24,9 +24,8 @@ class ConferencesController < BaseConferenceController
     @versions = PaperTrail::Version.where(conference_id: @conference.id).includes(:item).order('created_at DESC').limit(5)
 
     respond_to do |format|
-      #format.html { redirect_to(conference_crew_path(conference_acronym: @conference.acronym)) }
       format.html
-      format.json { render json: @conference }
+      format.json
     end
   end
 

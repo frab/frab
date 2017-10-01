@@ -10,7 +10,7 @@ class PeopleController < BaseConferenceController
     respond_to do |format|
       format.html { @people = @people.paginate page: page_param }
       format.xml  { render xml: @people }
-      format.json { render json: @people }
+      format.json
     end
   end
 
@@ -46,7 +46,7 @@ class PeopleController < BaseConferenceController
     respond_to do |format|
       format.html
       format.xml { render xml: @person }
-      format.json { render json: @person }
+      format.json
     end
   end
 

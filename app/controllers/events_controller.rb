@@ -11,7 +11,7 @@ class EventsController < BaseConferenceController
     respond_to do |format|
       format.html { @events = @events.paginate page: page_param }
       format.xml  { render xml: @events }
-      format.json { render json: @events }
+      format.json
     end
   end
 
@@ -102,7 +102,7 @@ class EventsController < BaseConferenceController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render xml: @event }
-      format.json { render json: @event }
+      format.json
     end
   end
 

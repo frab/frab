@@ -18,13 +18,6 @@ class EventsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:events)
   end
 
-  test 'should get index as XML/JSON' do
-    get :index, format: :xml, params: { conference_acronym: @conference.acronym }
-    assert_response :success
-    get :index, format: :json, params: { conference_acronym: @conference.acronym }
-    assert_response :success
-  end
-
   test 'should search and find a conference' do
     get :index, params: { conference_acronym: @conference.acronym, q: { s: 'acronym asc' }, term: @conference.title }
     assert_response :success
@@ -52,13 +45,6 @@ class EventsControllerTest < ActionController::TestCase
 
   test 'should show event' do
     get :show, params: { id: @event.to_param, conference_acronym: @conference.acronym }
-    assert_response :success
-  end
-
-  test 'should show event as XML/JSON' do
-    get :show, format: :xml, params: { id: @event.to_param, conference_acronym: @conference.acronym }
-    assert_response :success
-    get :show, format: :json, params: { id: @event.to_param, conference_acronym: @conference.acronym }
     assert_response :success
   end
 
@@ -92,6 +78,33 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get index as XML' do
+    get :index, format: :xml, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+  end
+
+  test 'should get index as JSON' do
+    create(:event, conference: @conference)
+    get :index, format: :json, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+    events = JSON.parse(response.body)['events']
+    assert_equal 2, events.count
+    assert_includes events[0].keys, 'speakers'
+    assert_includes events[0].keys, 'attachments'
+  end
+
+  test 'should show event as XML' do
+    get :show, format: :xml, params: { id: @event.to_param, conference_acronym: @conference.acronym }
+    assert_response :success
+  end
+
+  test 'should show event as JSON' do
+    get :show, format: :json, params: { id: @event.to_param, conference_acronym: @conference.acronym }
+    assert_response :success
+    event = JSON.parse(response.body)
+    assert_includes event.keys, 'speakers'
+  end
+
   test 'should get export accepted' do
     conference = create :three_day_conference_with_events_and_speakers
     get :export_accepted, params: { conference_acronym: conference.acronym }, format: :json
@@ -103,5 +116,7 @@ class EventsControllerTest < ActionController::TestCase
     conference = create :three_day_conference_with_events_and_speakers
     get :export_confirmed, params: { conference_acronym: conference.acronym }, format: :json
     assert_response :success
+    events = JSON.parse(response.body)
+    assert_includes events[0].keys, 'speakers'
   end
 end
