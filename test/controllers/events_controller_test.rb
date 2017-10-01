@@ -4,6 +4,7 @@ class EventsControllerTest < ActionController::TestCase
   setup do
     @event = create(:event)
     @conference = @event.conference
+    @room = create(:room, conference: @conference)
     login_as(:admin)
   end
 
@@ -79,26 +80,35 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should get index as JSON' do
-    create(:event, conference: @conference)
+    event_id = create(:event, conference: @conference, start_time: Time.now, room: @room, note: 'fake-note').id
+
     get :index, format: :json, params: { conference_acronym: @conference.acronym }
     assert_response :success
     events = JSON.parse(response.body)['events']
     assert_equal 2, events.count
-    assert_includes events[0].keys, 'speakers'
-    assert_includes events[0].keys, 'attachments'
-    assert_includes events[0].keys, 'event_classifiers'
-    assert_includes events[0].keys, 'speaker_ids'
-    assert_includes events[0].keys, 'state'
+    event_keys = events.find { |e| e['id'] == event_id }.keys
+    assert_includes event_keys, 'speakers'
+    assert_includes event_keys, 'attachments'
+    assert_includes event_keys, 'event_classifiers'
+    assert_includes event_keys, 'speaker_ids'
+    assert_includes event_keys, 'start_time'
+    assert_includes event_keys, 'state'
+    refute_includes event_keys, 'note'
   end
 
   test 'should get index as JSON for crew member' do
+    event_id = create(:event, conference: @conference, start_time: Time.now, room: @room, note: 'fake-note').id
     conference_user = create(:conference_reviewer, conference: @conference)
     sign_in(conference_user.user)
+    create(:event, conference: @conference, start_time: Time.now, room: create(:room, conference: @conference))
+
     get :index, format: :json, params: { conference_acronym: @conference.acronym }
     assert_response :success
     events = JSON.parse(response.body)['events']
-    refute_includes events[0].keys, 'speaker_ids'
-    refute_includes events[0].keys, 'state'
+    event_keys = events.find { |e| e['id'] == event_id }.keys
+    refute_includes event_keys, 'speaker_ids'
+    refute_includes event_keys, 'start_time'
+    refute_includes event_keys, 'state'
   end
 
   test 'should show event as JSON' do
