@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Public::ScheduleControllerTest < ActionController::TestCase
   setup do
-    @conference = create(:three_day_conference_with_events)
+    @conference = create(:three_day_conference_with_events_and_speakers)
   end
 
   test 'displays schedule main page' do
@@ -13,11 +13,16 @@ class Public::ScheduleControllerTest < ActionController::TestCase
   test 'displays xml schedule' do
     get :index, format: :xml, params: { conference_acronym: @conference.acronym }
     assert_response :success
+    schedule = Hash.from_xml(response.body)['schedule']
+    assert_includes schedule.keys, 'conference'
+    assert_includes schedule.keys, 'day'
   end
 
   test 'displays json schedule' do
     get :index, format: :json, params: { conference_acronym: @conference.acronym }
     assert_response :success
+    schedule = JSON.parse(response.body)['schedule']
+    assert_includes schedule.keys, 'conference'
   end
 
   test 'displays ical schedule' do

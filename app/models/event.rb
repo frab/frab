@@ -150,10 +150,6 @@ class Event < ApplicationRecord
     self
   end
 
-  def serializable_hash(options={})
-    super(options).merge(event_classifiers: event_classifiers.map(&:as_array).to_h)
-  end
-
   private
 
   def generate_guid

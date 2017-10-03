@@ -16,8 +16,14 @@ class Cfp::PeopleController < ApplicationController
       flash[:alert] = 'Your email address is not a valid public name, please change it.'
       redirect_to action: 'edit'
     end
+
+    respond_to do |format|
+      format.html
+    end
   end
 
+  # It is possbile to create a person object via XML, but not to view it.
+  # That's because not all fields should be visible to the user.
   def new
     @person = Person.new(email: current_user.email)
 

@@ -29,14 +29,10 @@ class ConferencesControllerTest < ActionController::TestCase
   test 'should list all' do
     get :index
     assert_response :success
-    get :index, format: :json
-    assert_response :success
   end
 
   test 'should show conference' do
     get :show, params: { conference_acronym: @conference.acronym }
-    assert_response :success
-    get :show, format: :json, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 
@@ -122,7 +118,24 @@ class ConferencesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'get default notification texts as json' do
+  test 'should list all as JSON' do
+    get :index, format: :json
+    assert_response :success
+    conferences = JSON.parse(response.body)['conferences']
+    assert_equal 3, conferences.count
+    assert_includes conferences[0].keys, 'daysCount'
+    assert_includes conferences[0].keys, 'days'
+  end
+
+  test 'should show conference as JSON' do
+    get :show, format: :json, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+    conference = JSON.parse(response.body)
+    assert_includes conference.keys, 'daysCount'
+    assert_includes conference.keys, 'days'
+  end
+
+  test 'get default notification texts as JSON' do
     get :default_notifications, format: :json, params: { code: 'en', conference_acronym: @conference.acronym }
     assert_response :success
   end

@@ -12,6 +12,15 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
     @cfp_person.attributes.except('id', 'avatar_file_name', 'avatar_content_type', 'avatar_file_size', 'avatar_updated_at', 'created_at', 'updated_at', 'user_id', 'note')
   end
 
+  test 'should get show' do
+    get :show, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+
+    assert_raises ActionController::UnknownFormat do
+      get :show, format: :xml, params: { conference_acronym: @conference.acronym }
+    end
+  end
+
   test 'should get edit' do
     get :edit, params: { conference_acronym: @conference.acronym }
     assert_response :success

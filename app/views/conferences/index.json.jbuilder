@@ -1,3 +1,3 @@
-json.conferences @conferences do |json, conference|
-  json.partial! 'shared/event', conference: conference
+json.conferences conferences do |conference|
+  json.partial! 'shared/conference', conference: conference
 end

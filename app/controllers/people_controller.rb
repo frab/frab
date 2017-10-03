@@ -3,14 +3,13 @@ class PeopleController < BaseConferenceController
   include Searchable
 
   # GET /people
-  # GET /people.xml
+  # GET /people.json
   def index
     @people = search Person.involved_in(@conference)
 
     respond_to do |format|
       format.html { @people = @people.paginate page: page_param }
-      format.xml  { render xml: @people }
-      format.json { render json: @people }
+      format.json
     end
   end
 
@@ -38,15 +37,14 @@ class PeopleController < BaseConferenceController
   end
 
   # GET /people/1
-  # GET /people/1.xml
+  # GET /people/1.json
   def show
     @person = authorize Person.find(params[:id])
     @view_model = PersonViewModel.new(current_user, @person, @conference)
 
     respond_to do |format|
       format.html
-      format.xml { render xml: @person }
-      format.json { render json: @person }
+      format.json
     end
   end
 

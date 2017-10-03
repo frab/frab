@@ -1,1 +1,1 @@
-json.partial! 'shared/event', conference: @conference
+json.partial! 'shared/conference', conference: @conference
