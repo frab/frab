@@ -14,6 +14,7 @@
   = link_to t('show_account', default: 'Account'), '#', class: 'dropdown-toggle'
   %ul.dropdown-menu
     %li= link_to t('edit_profile', default: 'Profile'), edit_cfp_person_path(current_user)
+    %li= link_to t("export_profile", default: "Export profile"), export_cfp_person_path(current_user.person)
     %li= link_to t('user_settings', default: 'Settings'), edit_cfp_user_path(current_user.person)
     %li= link_to t('manual', default: 'Manual'), 'https://github.com/frab/frab/wiki/Manual'
     %li= link_to t('logout', default: 'Logout'), destroy_user_session_path, method: :delete
