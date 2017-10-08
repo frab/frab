@@ -9,4 +9,11 @@
       - conferences.each do |conference|
         - unless @conference == conference
           %li= link_to conference.acronym, cfp_person_path(conference_acronym: conference.acronym)
-%li= link_to t("logout", default: "Logout"), destroy_user_session_path, method: :delete
+
+%li.dropdown
+  = link_to t('show_account', default: 'Account'), '#', class: 'dropdown-toggle'
+  %ul.dropdown-menu
+    %li= link_to t('edit_profile', default: 'Profile'), edit_cfp_person_path(current_user)
+    %li= link_to t('user_settings', default: 'Settings'), edit_cfp_user_path(current_user.person)
+    %li= link_to t('manual', default: 'Manual'), 'https://github.com/frab/frab/wiki/Manual'
+    %li= link_to t('logout', default: 'Logout'), destroy_user_session_path, method: :delete
