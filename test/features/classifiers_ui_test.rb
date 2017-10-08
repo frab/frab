@@ -10,7 +10,7 @@ class ClassifiersUiTest < FeatureTest
     @classifier2 = create(:classifier, name: 'TestClassifier2', conference: @conference)
   end
 
-  it 'can toggle classifier', :js => true do
+  it 'can toggle classifier', js: true do
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
 
@@ -29,7 +29,7 @@ class ClassifiersUiTest < FeatureTest
     assert_content page, 'TestClassifier2'
   end
 
-  it 'can toggle off classifiers', :js => true do
+  it 'can toggle off classifiers', js: true do
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
     assert_selector('.event_event_classifiers_value', :count => 0)
@@ -46,5 +46,4 @@ class ClassifiersUiTest < FeatureTest
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
     assert_selector('.event_event_classifiers_value', :count => 0)
   end
-
 end
