@@ -6,14 +6,13 @@
     %th= t('activerecord.attributes.conference_user.role')
     %th= t(:actions)
   %tbody
-    - collection.each do |conference_user|
+    - collection.group_by { |cu| cu.user_id }.each do |user_id, conference_users|
+      - conference_user = conference_users.first
       %tr
         %td
         %td= conference_user.user.email
-        %td= conference_user.conference.acronym
-        %td= conference_user.role
+        %td= conference_users.map { |cu| "#{cu.conference.acronym}=#{cu.role}" }.join(', ')
+        %td= conference_users.map(&:role).max_by { |r|  ConferenceUser::ROLES.index(r) }
         %td
           - if policy(conference_user).edit?
             = action_button 'small danger', t('edit'), edit_person_user_path(conference_user.user.person, conference_acronym: conference_user.conference.acronym)
-          - if policy(conference_user).destroy?
-            = action_button 'small danger', t('destroy'), conference_users_path(person_id: conference_user.user.person), data: { confirm: 'Are you sure' }, method: :delete
