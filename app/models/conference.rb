@@ -186,6 +186,10 @@ class Conference < ApplicationRecord
     "#{model_name.human}: #{title} (#{acronym})"
   end
 
+  def to_label
+    acronym
+  end
+
   private
 
   def update_timeslots

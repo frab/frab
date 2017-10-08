@@ -100,11 +100,10 @@ class UsersController < BaseCrewController
   end
 
   def filter_conference_users(conference_users)
-    orga_conference_users = policy_scope(@user.conference_users)
-    orga_conferences = orga_conference_users.map(&:conference_id)
-    conference_users.delete_if do |id, conference_user|
+    orga_conferences = policy_scope(current_user.conference_users).map(&:conference_id)
+    conference_users.delete_if do |_, conference_user|
       conference_id = conference_user[:conference_id]
-      conference_id.nil? || !orga_conferences.include?(conference_id)
+      conference_id.nil? || !orga_conferences.include?(conference_id.to_i)
     end
   end
 end

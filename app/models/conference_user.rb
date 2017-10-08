@@ -3,6 +3,7 @@ class ConferenceUser < ApplicationRecord
 
   belongs_to :conference
   belongs_to :user
+  has_one :person, through: :user
 
   validates :conference, :user, :role, presence: true
   validate :user_role_is_crew
