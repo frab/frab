@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SignUpTest < ActionDispatch::IntegrationTest
+class SubmitTalkTest < ActionDispatch::IntegrationTest
   setup do
     @conference = create(:three_day_conference, title: 'present conference')
     create(:call_for_participation, conference: @conference)
