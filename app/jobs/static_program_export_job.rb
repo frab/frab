@@ -8,6 +8,7 @@ class StaticProgramExportJob
       Rails.logger.info "Create static export for #{conference} in #{dir}"
 
       exporter = StaticSchedule::Export.new(conference, locale, dir)
+      exporter.run_export
       file = exporter.create_tarball
 
       unless File.readable?(file)
