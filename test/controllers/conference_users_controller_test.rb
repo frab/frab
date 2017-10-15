@@ -13,9 +13,8 @@ class ConferenceUsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get destroy' do
-    delete :destroy, params: { id: @conference_user }
-    assert_response :redirect
-    assert_equal 2, ConferenceUser.count
+  test 'should get admins' do
+    get :admins
+    assert_response :success
   end
 end
