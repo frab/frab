@@ -51,6 +51,8 @@ Rails.application.routes.draw do
           resource :availability
         end
         get '/events/:id/confirm/:token' => 'events#confirm', as: 'event_confirm_by_token'
+        get '/events/join(/:token)' => 'events#join', as: :events_join
+        post '/events/join/:token' => 'events#join'
         resources :events do
           member do
             put :withdraw

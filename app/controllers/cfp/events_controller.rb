@@ -83,6 +83,29 @@ class Cfp::EventsController < ApplicationController
     end
   end
 
+  def join
+    @token = params[:token] || ''
+    @event = @token.blank? ? nil : Event.find_by(invite_token: @token)
+
+    deadline = @event&.conference&.call_for_participation&.hard_deadline
+    if deadline && Date.today > deadline
+      return redirect_to cfp_root_path, flash: { error: t('cfp.hard_deadline_over') }
+    end
+
+    return unless request.post?
+
+    if @event.nil?
+        return redirect_to cfp_join_event_path, flash: { error: t('cfp.join_token_unknown', token: @token) }
+    end
+
+    if @event.people.exists?(current_user.person.id)
+      redirect_to edit_cfp_event_path(@event), notice: t('cfp.join_token_already_used')
+    else
+      @event.event_people << EventPerson.new(person: current_user.person, event_role: 'speaker')
+      redirect_to edit_cfp_event_path(@event), notice: t('cfp.join_success')
+    end
+  end
+
   private
 
   def event_people_from_params
