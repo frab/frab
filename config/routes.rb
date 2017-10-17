@@ -44,6 +44,10 @@ Rails.application.routes.draw do
       namespace :cfp do
         resource :user, except: %i(new create)
         resource :person do
+          member do
+            get :export
+            post :import
+          end
           resource :availability
         end
         get '/events/:id/confirm/:token' => 'events#confirm', as: 'event_confirm_by_token'

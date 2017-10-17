@@ -30,4 +30,19 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
     put :update, params: { id: @cfp_person.id, person: cfp_person_params, conference_acronym: @conference.acronym }
     assert_response :redirect
   end
+
+  test 'should show person' do
+    get :show, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+  end
+
+  test 'should export person' do
+    get :export, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+  end
+
+  test 'should import person' do
+    post :import, params: { conference_acronym: @conference.acronym, foaf: { first_name: 'fake-name' }.to_json }
+    assert_response :redirect
+  end
 end

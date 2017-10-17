@@ -1,0 +1,10 @@
+%section
+  .page-header
+    %h1=t("cfp.export_profile")
+  .row
+    .span16
+      = form_tag(import_cfp_person_path, method: "post") do
+        = label_tag(:q, "Profile data:")
+        = text_area_tag(:foaf, @foaf)
+        .actions
+          = submit_tag('Import')
