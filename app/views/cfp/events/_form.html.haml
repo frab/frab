@@ -26,7 +26,7 @@
     = f.button :submit, class: 'primary'
 
 - if @event.present? && @event.invite_token.present?
-  %div{class: "offset-3"}
+  %div
   %h3= 'Invite token: ' + @event.invite_token
   %p{class: 'help-block'}
-    Give this token to speakers you want to allow to join this event.
+    Give this token to speakers you want to allow to join this event. Speakers must have created accounts before they can join.
