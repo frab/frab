@@ -3,6 +3,7 @@
     .pull-right
       - unless @conference.in_the_past
         - unless cfp_hard_deadline_over?
+          = action_button "primary", t("cfp.join_existing_event"), cfp_events_join_path
           = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
         - if @person.availabilities_in(@conference).count == 0
           = action_button "", t("cfp.edit_availability"), new_cfp_person_availability_path
@@ -23,10 +24,12 @@
           .clear
         %p=t("cfp.input_appreciation")
         = action_button "success", t("cfp.submit_another_event"), new_cfp_event_path
+        = action_button "success", t("cfp.join_existing_event"), cfp_events_join_path
       - else
         - unless @conference.in_the_past
           %p=t("cfp.take_time_to_submit")
           = action_button "success", t("cfp.submit_new_event"), new_cfp_event_path
+          = action_button "success", t("cfp.join_existing_event"), cfp_events_join_path
         .clear
         %p=t("cfp.not_forget_personal_details")
         = action_button "success", t("cfp.edit_profile"), edit_cfp_person_path

@@ -83,6 +83,17 @@ class Cfp::EventsController < ApplicationController
     end
   end
 
+  def join
+    @token = params[:token] || ''
+    @event = @token.blank? ? nil : Event.find_by(invite_token: @token)
+    if request.post?
+      return redirect_to cfp_join_event_path, flash: { error: "Token #{@token} unknown" } if @event.nil?
+      return redirect_to edit_cfp_event_path(@event), notice: 'You already were a speaker on this event.' if @event.people.exists?(current_user.person.id)
+      @event.event_people << EventPerson.new(person: current_user.person, event_role: 'speaker')
+      return redirect_to edit_cfp_event_path(@event), notice: 'You are now a speaker on this event.'
+    end
+  end
+
   private
 
   def event_people_from_params

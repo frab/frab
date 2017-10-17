@@ -3,6 +3,10 @@
     %legend= t("cfp.basic_information")
     = f.input :title
     = f.input :subtitle
+    - if @event.present? && @event.speakers.count > 1
+      = f.input :speakers, label: "Speakers" do
+        %p{style: "padding-top: 0.5em;"}
+          %b=@event.speakers.map{ |p| p.public_name}.join(", ").html_safe
     = f.input :event_type, collection: translated_options(Event::TYPES)
     = f.association :track, collection: @conference.tracks
     = f.input :time_slots, as: :select, collection: timeslots, hint: t("cfp.event_time_slots_hint")
@@ -20,3 +24,9 @@
     = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
   .actions
     = f.button :submit, class: 'primary'
+
+- if @event.present? && @event.invite_token.present?
+  %div{class: "offset-3"}
+  %h3= 'Invite token: ' + @event.invite_token
+  %p{class: 'help-block'}
+    Give this token to speakers you want to allow to join this event.
