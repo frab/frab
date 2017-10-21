@@ -4,7 +4,7 @@
   .row
   - if @event.present?
     = form_tag cfp_events_join_path(@token) do
-      = 'Your token is an invitation to join the following event as a speaker:'
+      = t('cfp.join_description')
       %hr
       %h3=@event.title
       %dl
@@ -15,18 +15,17 @@
         %dt='Description:'
         %dd{class: "span8"}=@event.description
       %hr
-      = 'Do you want to accept the invitation?'
-      = submit_tag 'Join event', class: 'btn btn-large btn-primary'
+      = t('cfp.join_confirm')
+      = submit_tag t('cfp.join_event'), class: 'btn btn-large btn-primary'
       %hr
-    %h3='Or lookup another invitation token'
+    %h3=t('cfp.join_alternative')
   - else
     - if not @token.blank?
-      = render "shared/flash", flash: { error: "Token #{@token} unknown" }
-    %h3='Lookup invitation token.'
+      = render "shared/flash", flash: { error: t('cfp.join_token_unknown', token: @token) }
+    %p=t('cfp.join_token_lookup_description')
   %p
   = form_tag cfp_events_join_path, :method => :get do
     =text_field_tag :token
-    =submit_tag 'Lookup token', name: nil, class: 'btn btn-large btn-primary'
+    =submit_tag t('cfp.join_token_lookup'), name: nil, class: 'btn btn-large btn-primary'
   %p{class: 'help-block'}
-    Hint: The token can be viewed by the original submitter in the event's edit view.
-
+    =t('cfp.join_token_lookup_hint')

@@ -27,7 +27,7 @@
 
 - if @event.present? && @event.invite_token.present?
   %div
-  %h3= 'Invite token: ' + @event.invite_token
+  %h3= 'Token: ' + @event.invite_token
   %p{class: 'help-block'}
-    Give this token to speakers you want to allow to join this event. Speakers must have created accounts before they can join.
-    = link_to "Direct link to the join page.", cfp_events_join_path(@event.invite_token)
+    = t('cfp.join_submitters_hint')
+    = link_to t('cfp.join_token_link'), cfp_events_join_path(@event.invite_token)
