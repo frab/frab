@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811230712) do
+ActiveRecord::Schema.define(version: 20171022184419) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -300,6 +300,7 @@ ActiveRecord::Schema.define(version: 20170811230712) do
     t.integer "user_id"
     t.text "note"
     t.boolean "include_in_mailings", default: false, null: false
+    t.boolean "use_gravatar", default: false, null: false
     t.index ["email"], name: "index_people_on_email"
     t.index ["user_id"], name: "index_people_on_user_id"
   end

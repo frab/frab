@@ -35,7 +35,6 @@ class Person < ApplicationRecord
 
   Paperclip.interpolates :default_avatar_url do |avatar, style|
     style = :small if style.blank? || style.eql?(:original)
-
     avatar.instance.default_avatar_url(style)
   end
 
@@ -202,16 +201,16 @@ class Person < ApplicationRecord
   end
 
   def default_avatar_url(style = :small)
-    return "person_#{style}.png" unless email
-
-    # size is of the format '32x32>' string
-    size = avatar.styles[style][:geometry]
-
-    width = size.split('x').first
-    gravatar_url(width)
+    return "person_#{style}.png" unless use_gravatar
+    gravatar_url(gravatar_width(style))
   end
 
   private
+
+  # size is of the format '32x32>' string
+  def gravatar_width(style)
+    avatar.styles[style][:geometry].split('x').first
+  end
 
   def nilify_empty
     self.gender = nil if gender and gender.empty?
