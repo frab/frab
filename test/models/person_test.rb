@@ -57,6 +57,18 @@ class PersonTest < ActiveSupport::TestCase
     assert_nil event_person2.reload.role_state
   end
 
+  test '#default_avatar_url' do
+    person_without_email = build(:person, email: nil)
+
+    assert_equal 'person_small.png', person_without_email.default_avatar_url
+
+    person_with_email = build(:person, email: 'abc@xyz.org')
+    email_md5 = Digest::MD5.hexdigest('abc@xyz.org')
+    gravatar = "https://www.gravatar.com/avatar/#{email_md5}?size=32&dd=mm"
+
+    assert_equal gravatar, person_with_email.default_avatar_url
+  end
+
   test 'feedback average gets calculated correctly' do
     conference = create(:conference)
     event1 = create(:event, conference: conference)
@@ -135,5 +147,13 @@ class PersonTest < ActiveSupport::TestCase
 
     assert_equal merged_person, person3
     assert_equal 'orga', person3.user.conference_users.find_by(conference_id: conference1.id).role
+  end
+
+  test 'default avatar is gravatar' do
+    person = create(:person)
+    email_md5 = Digest::MD5.hexdigest(person.email)
+    gravatar = "https://www.gravatar.com/avatar/#{email_md5}?size=32&dd=mm"
+
+    assert_equal gravatar, person.avatar.url
   end
 end
