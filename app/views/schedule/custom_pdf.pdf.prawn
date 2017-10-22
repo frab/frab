@@ -82,7 +82,7 @@ prawn_document(
       coord = [0, y]
       pdf.bounding_box(coord,
                        width: @layout.margin_width - 1,
-                       height: event.time_slots * timeslot_height - 1) do
+                       height: (event.time_slots == 0 ? timeslot_height : event.time_slots * timeslot_height - 1)) do
         pdf.rounded_rectangle(pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3)
         pdf.fill_color = 'ffffff'
         pdf.fill_and_stroke
@@ -98,7 +98,7 @@ prawn_document(
         coord = event_coordinates(i, event, column_width, timeslot_height, offset)
         pdf.bounding_box(coord,
                          width: column_width - 1,
-                         height: event.time_slots * timeslot_height - 1) do
+                         height: (event.time_slots == 0 ? timeslot_height : event.time_slots * timeslot_height - 1)) do
           pdf.rounded_rectangle pdf.bounds.top_left, pdf.bounds.width, pdf.bounds.height, 3
           pdf.fill_color = 'ffffff'
           pdf.fill_and_stroke
