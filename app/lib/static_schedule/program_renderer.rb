@@ -24,13 +24,9 @@ module StaticSchedule
     end
 
     def base_url
-      if @conference.program_export_base_url.present?
-        base_url = URI.parse(@conference.program_export_base_url).path
-        base_url += '/' unless base_url.end_with?('/')
-        base_url
-      else
-        '/'
-      end
+      base_url = URI.parse(@conference.program_export_base_url).path
+      base_url += '/' unless base_url.end_with?('/')
+      base_url
     end
 
     private
