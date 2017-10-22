@@ -1,5 +1,6 @@
 class Person < ApplicationRecord
   GENDERS = %w(male female other).freeze
+  DEFAULT_AVATAR_SIZE = '32'.freeze
 
   has_many :availabilities, dependent: :destroy
   has_many :event_people, dependent: :destroy
@@ -29,7 +30,13 @@ class Person < ApplicationRecord
 
   has_attached_file :avatar,
     styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },
-    default_url: 'person_:style.png'
+    default_url: ':default_avatar_url',
+    escape_url: false
+
+  Paperclip.interpolates :default_avatar_url do |avatar, style|
+    style = :small if style.blank? || style.eql?(:original)
+    avatar.instance.default_avatar_url(style)
+  end
 
   validates_attachment_content_type :avatar, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
@@ -193,9 +200,23 @@ class Person < ApplicationRecord
     MergePersons.new(keep_last_updated).combine!(self, doppelgaenger)
   end
 
+  def default_avatar_url(style = :small)
+    return "person_#{style}.png" unless use_gravatar
+    gravatar_url(gravatar_width(style))
+  end
+
   private
+
+  # size is of the format '32x32>' string
+  def gravatar_width(style)
+    avatar.styles[style][:geometry].split('x').first
+  end
 
   def nilify_empty
     self.gender = nil if gender and gender.empty?
+  end
+
+  def gravatar_url(width = DEFAULT_AVATAR_SIZE)
+    "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}?size=#{width}&dd=mm"
   end
 end

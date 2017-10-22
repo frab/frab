@@ -4,7 +4,8 @@ class StaticProgramExportJobTest < ActiveSupport::TestCase
   self.use_transactional_tests = false
 
   setup do
-    @conference = create(:three_day_conference_with_events_and_speakers)
+    @conference = create(:three_day_conference_with_events_and_speakers,
+                         program_export_base_url: '/')
   end
 
   test 'exports conference as tarball' do

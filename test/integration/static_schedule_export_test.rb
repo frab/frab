@@ -2,7 +2,8 @@ require 'test_helper'
 
 class StaticScheduleExportTest < ActionDispatch::IntegrationTest
   setup do
-    @conference = create(:three_day_conference_with_events_and_speakers)
+    @conference = create(:three_day_conference_with_events_and_speakers,
+                         program_export_base_url: '/')
     @target_dir = Rails.root.join('tmp', 'static_export')
   end
 

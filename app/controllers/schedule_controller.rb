@@ -67,6 +67,7 @@ class ScheduleController < BaseConferenceController
   end
 
   def create_static_export
+    redirect_to schedule_path, notice: 'program_export_base_url needs to be set' if @conference.program_export_base_url.blank?
     StaticProgramExportJob.new.async.perform @conference, check_conference_locale(params[:export_locale])
     redirect_to schedule_html_exports_path, notice: 'Static schedule export started. Please reload this page after a minute.'
   end

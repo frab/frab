@@ -57,6 +57,18 @@ class PersonTest < ActiveSupport::TestCase
     assert_nil event_person2.reload.role_state
   end
 
+  test '#default_avatar_url' do
+    person_without_gravatar = build(:person, use_gravatar: false)
+
+    assert_equal 'person_small.png', person_without_gravatar.default_avatar_url
+
+    person_with_gravatar = build(:person, email: 'abc@xyz.org', use_gravatar: true)
+    email_md5 = Digest::MD5.hexdigest('abc@xyz.org')
+    gravatar = "https://www.gravatar.com/avatar/#{email_md5}?size=32&dd=mm"
+
+    assert_equal gravatar, person_with_gravatar.default_avatar_url
+  end
+
   test 'feedback average gets calculated correctly' do
     conference = create(:conference)
     event1 = create(:event, conference: conference)
