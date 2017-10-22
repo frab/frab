@@ -1,5 +1,10 @@
 json.schedule do
   json.version @conference.schedule_version if @conference.schedule_version.present?
+  if @conference.program_export_base_url.present?
+    json.base_url @conference.program_export_base_url
+  else
+    json.base_url request.base_url
+  end
   json.conference do
     json.acronym @conference.acronym
     json.title @conference.title
