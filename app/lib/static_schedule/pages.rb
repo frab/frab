@@ -91,11 +91,15 @@ module StaticSchedule
     end
 
     def qrcode
-        @paths << {
-          action: :qrcode,
-          assigns: { qr: RQRCode::QRCode.new(@renderer.base_url, size: 8, level: :h) },
-          target: 'qrcode.html'
-        }
+      @paths << {
+        action: :qrcode,
+        assigns: { qr: RQRCode::QRCode.new(qrcode_url, size: 8, level: :h) },
+        target: 'qrcode.html'
+      }
+    end
+
+    def qrcode_url
+      @conference.program_export_base_url
     end
   end
 end

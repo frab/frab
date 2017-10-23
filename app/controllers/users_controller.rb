@@ -76,10 +76,14 @@ class UsersController < BaseCrewController
       conference_users_attributes: %i(id role conference_id _destroy))
   end
 
+  def assign_user_role?(role)
+    policy(Conference).orga? && User::USER_ROLES.include?(role)
+  end
+
   def set_allowed_user_roles(role, fallback=nil)
     if current_user.is_admin?
       @user.role = role
-    elsif policy(@conference).orga? && User::USER_ROLES.include?(role)
+    elsif assign_user_role?(role)
       @user.role = role
     elsif fallback
       @user.role = fallback

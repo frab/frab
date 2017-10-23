@@ -1,5 +1,10 @@
 json.schedule do
   json.version @conference.schedule_version if @conference.schedule_version.present?
+  if @conference.program_export_base_url.present?
+    json.base_url @conference.program_export_base_url
+  else
+    json.base_url request.base_url
+  end
   json.conference do
     json.acronym @conference.acronym
     json.title @conference.title
@@ -19,6 +24,11 @@ json.schedule do
       json.rooms do
         @conference.rooms_including_subs.each do |room|
           json.set! room.name, room.events.is_public.accepted.scheduled_on(day).order(:start_time) do |event|
+            if @conference.program_export_base_url.blank?
+              json.url url_for(public_event_url(id: event.id))
+            else
+              json.url url_for(event.static_url)
+            end
             json.id event.id
             json.guid event.guid
             json.logo event.logo_path

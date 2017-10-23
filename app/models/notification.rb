@@ -27,7 +27,7 @@ class Notification < ApplicationRecord
   }.freeze
 
   def default_text=(locale = self.locale)
-    return if locale.nil?
+    return if locale.blank?
     I18n.locale = locale
 
     self.reject_subject = I18n.t('emails.event_rejection.subject')

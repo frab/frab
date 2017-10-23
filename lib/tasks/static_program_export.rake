@@ -10,6 +10,8 @@ namespace :frab do
     locale ||= ENV['CONFERENCE_LOCALE']
     conference_dir ||= ENV['CONFERENCE_DIR']
 
+    fail 'program_export_base_url needs to be set on conference' unless conference.program_export_base_url.present?
+
     require 'static_schedule'
     StaticSchedule::Export.new(conference, locale, conference_dir).run_export
   end

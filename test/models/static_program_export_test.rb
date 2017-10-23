@@ -2,7 +2,8 @@ require 'test_helper'
 
 class StaticSchedule::ExportText < ActiveSupport::TestCase
   setup do
-    @conference = create(:three_day_conference_with_events)
+    @conference = create(:three_day_conference_with_events,
+                        program_export_base_url: '/')
     @locale = 'en'
     @target_dir = File.join(Rails.root, 'tmp', 'static_export')
   end
