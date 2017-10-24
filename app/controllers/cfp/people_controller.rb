@@ -8,7 +8,7 @@ class Cfp::PeopleController < ApplicationController
     @person = current_user.person
 
     if !@conference.in_the_past && !@person.events_in(@conference).empty? && @person.availabilities_in(@conference).count.zero?
-      flash[:alert] = t('cfp.specify_availability')
+      flash.now[:alert] = t('cfp.specify_availability')
     end
 
     return redirect_to action: 'new' unless @person
