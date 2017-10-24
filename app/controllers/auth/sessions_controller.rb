@@ -22,11 +22,7 @@ class Auth::SessionsController < Devise::SessionsController
     goto = stored_location_for(resource)
     return goto if not goto.blank?
     if session[:conference_acronym]
-      if @conference && policy(@conference).manage?
-        conference_path(conference_acronym: session[:conference_acronym])
-      else
-        edit_cfp_person_path(conference_acronym: session[:conference_acronym])
-      end
+      cfp_root_path(conference_acronym: session[:conference_acronym])
     else
       root_path
     end
