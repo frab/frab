@@ -8,7 +8,6 @@ class EventJoinTest < FeatureTest
 
     @user = create(:cfp_user)
     create(:event_person, event: @event, person: @user.person, role_state: 'confirmed')
-
   end
 
   test 'can find an invite token in a new event' do
@@ -38,8 +37,13 @@ class EventJoinTest < FeatureTest
   end
 
   test 'can not join an event after hard deadline' do
+    join_user = create(:cfp_user)
+    sign_in_user(join_user)
 
+    @conference.call_for_participation.hard_deadline = Date.yesterday
+
+    visit cfp_events_join_path(token: @event.invite_token, conference_acronym: @conference.acronym)
+    assert_content page, 'deadline for submitting events is over'
+    assert_equal @event.speakers.count, 1
   end
-
 end
-
