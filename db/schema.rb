@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(version: 20171022184419) do
     t.text "target_audience_experience"
     t.text "target_audience_experience_text"
     t.text "tech_rider"
+    t.string "invite_token"
     t.index ["conference_id"], name: "index_events_on_conference_id"
     t.index ["event_type"], name: "index_events_on_type"
     t.index ["guid"], name: "index_events_on_guid", unique: true
