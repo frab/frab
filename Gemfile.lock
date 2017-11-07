@@ -7,6 +7,16 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+  remote: https://github.com/erdgeist/roust.git
+  revision: c96ea1d67a8141d0090413b280007cc47c70e985
+  branch: disallowed-ticket-1-fix
+  specs:
+    roust (1.8.9)
+      activesupport (>= 4.0.10)
+      httparty (>= 0.13.1)
+      mail (>= 2.5.4)
+
+GIT
   remote: https://github.com/frab/localized_language_select.git
   revision: 85df6b97789de6e29c630808b630e56a1b76f80c
   branch: master
@@ -290,10 +300,6 @@ GEM
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
     ri_cal (0.8.8)
-    roust (1.8.9)
-      activesupport (>= 4.0.10)
-      httparty (>= 0.13.1)
-      mail (>= 2.5.4)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
     ruby_dep (1.5.0)
@@ -399,7 +405,7 @@ DEPENDENCIES
   rb-kqueue (>= 0.2)
   redcarpet
   ri_cal
-  roust
+  roust!
   rqrcode
   sass-rails
   shoulda
