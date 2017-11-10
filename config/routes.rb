@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         post '/events/join/:token' => 'events#join'
         resources :events do
           member do
+            put :accept
             put :withdraw
             put :confirm
           end

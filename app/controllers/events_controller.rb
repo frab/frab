@@ -183,6 +183,8 @@ class EventsController < BaseConferenceController
       return redirect_to(@event, alert: 'Cannot send mails: Not all speakers have email addresses.') unless @event.speakers.all?(&:email)
     end
 
+    return redirect_to(@event, alert: 'Cannot update state.') unless @event.transition_possible?(params[:transition])
+
     begin
       @event.send(:"#{params[:transition]}!", send_mail: params[:send_mail], coordinator: current_user.person)
     rescue => ex

@@ -2,6 +2,7 @@ class Cfp::EventsController < ApplicationController
   layout 'cfp'
 
   before_action :authenticate_user!, except: :confirm
+  before_action :load_event, except: %i[index show new create confirm join]
 
   # GET /cfp/events
   def index
@@ -30,7 +31,6 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1/edit
   def edit
-    @event = current_user.person.events.find(params[:id])
   end
 
   # POST /cfp/events
@@ -51,7 +51,6 @@ class Cfp::EventsController < ApplicationController
 
   # PUT /cfp/events/1
   def update
-    @event = current_user.person.events.readonly(false).find(params[:id])
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
 
     respond_to do |format|
@@ -63,8 +62,14 @@ class Cfp::EventsController < ApplicationController
     end
   end
 
+  def accept
+    return redirect_to cfp_person_path, flash: { error: t('cfp.self_schedule_denied') } unless @conference.schedule_open?
+
+    @event.accept!({})
+    redirect_to(cfp_person_path, notice: t('cfp.self_schedule_accepted'))
+  end
+
   def withdraw
-    @event = current_user.person.events.find(params[:id], readonly: false)
     @event.withdraw!
     redirect_to(cfp_person_path, notice: t('cfp.event_withdrawn_notice'))
   end
@@ -107,6 +112,10 @@ class Cfp::EventsController < ApplicationController
   end
 
   private
+
+  def load_event
+    @event = current_user.person.events.find(params[:id])
+  end
 
   def event_people_from_params
     if params[:token]
