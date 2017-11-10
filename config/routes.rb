@@ -53,6 +53,9 @@ Rails.application.routes.draw do
         get '/events/:id/confirm/:token' => 'events#confirm', as: 'event_confirm_by_token'
         get '/events/join(/:token)' => 'events#join', as: :events_join
         post '/events/join/:token' => 'events#join'
+        get '/schedule' => 'schedule#index', as: 'schedule'
+        get '/schedule/update_track' => 'schedule#update_track', as: 'schedule_update_track'
+        put '/schedule/update_event' => 'schedule#update_event', as: 'schedule_update_event'
         resources :events do
           member do
             put :accept
