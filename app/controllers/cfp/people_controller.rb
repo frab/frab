@@ -7,7 +7,7 @@ class Cfp::PeopleController < ApplicationController
   def show
     @person = current_user.person
 
-    if !@conference.in_the_past && !@person.events_in(@conference).empty? && @person.availabilities_in(@conference).count.zero?
+    if !@conference.in_the_past? && !@person.events_in(@conference).empty? && @person.availabilities_in(@conference).count.zero?
       flash[:alert] = t('cfp.specify_availability')
     end
 

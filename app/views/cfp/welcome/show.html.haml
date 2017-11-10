@@ -22,7 +22,7 @@
 
   .row
     .span16
-      - if @conference.in_the_past
+      - if @conference.in_the_past?
         =t("cfp.conference_in_the_past")
       - else
         =t("cfp.deadline_description")
