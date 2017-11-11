@@ -19,14 +19,14 @@ class Auth::SessionsController < Devise::SessionsController
   protected
 
   def after_sign_in_path_for(resource)
-    if session[:conference_acronym]
-      if @conference && policy(@conference).manage?
-        conference_path(conference_acronym: session[:conference_acronym])
-      else
-        edit_cfp_person_path(conference_acronym: session[:conference_acronym])
-      end
+    return root_path unless session[:conference_acronym]
+    if @conference && policy(@conference).manage?
+      conference_path(conference_acronym: session[:conference_acronym])
+    elsif redirect_submitter_to_edit?
+      flash[:alert] = 'Your email address is not a valid public name, please change it.'
+      edit_cfp_person_path(conference_acronym: session[:conference_acronym])
     else
-      root_path
+      cfp_person_path(conference_acronym: session[:conference_acronym])
     end
   end
 

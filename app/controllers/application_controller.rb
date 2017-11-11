@@ -70,6 +70,10 @@ class ApplicationController < ActionController::Base
     redirect_to cfp_root_path unless @conference.cfp_open?
   end
 
+  def redirect_submitter_to_edit?
+    current_user.person.public_name == current_user.email
+  end
+
   private
 
   def user_not_authorized(ex)
