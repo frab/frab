@@ -40,7 +40,7 @@ class EventJoinTest < FeatureTest
     join_user = create(:cfp_user)
     sign_in_user(join_user)
 
-    @conference.call_for_participation.hard_deadline = Date.yesterday
+    @conference.call_for_participation.update(hard_deadline: Date.yesterday)
 
     visit cfp_events_join_path(token: @event.invite_token, conference_acronym: @conference.acronym)
     assert_content page, 'deadline for submitting events is over'
