@@ -22,7 +22,7 @@ class Cfp::ScheduleController < ApplicationController
   private
 
   def check_schedule_open!
-    return redirect_to :cfp_show_person_path unless @conference.schedule_open?
+    return redirect_to :cfp_person_path unless @conference.schedule_open?
   end
 
   def event_params
