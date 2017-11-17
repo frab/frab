@@ -10,6 +10,8 @@ en:
     classifiers_hint: "Help your audience and reviewers to understand your submission. Choose and then weight the appropriate categories for your submission."
     conference_in_the_past: "You can't submit a talk, because this conference is in the past."
     confirm: "confirm"
+    confirm_attendance: "Confirm attendance"
+    confirm_attendance_explanation: "Please click the button to re-confirm that you will be speaking at the event"
     confirmation_button: "Request the confirmation instructions again"
     confirmation_description: "This could be one of the rare occassions where an email has actually not been delivered. If you have already waited for some time and checked your spam folders, please"
     confirmation_headline: "I have registered but not received my confirmation instructions"
