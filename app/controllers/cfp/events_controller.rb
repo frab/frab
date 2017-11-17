@@ -81,11 +81,14 @@ class Cfp::EventsController < ApplicationController
   end
 
   def confirm
-    event_people = event_people_from_params
-    if event_people.blank?
+    @event_people = event_people_from_params
+    if @event_people.blank?
       return redirect_to cfp_person_path, flash: { error: t('cfp.no_confirmation_token') }
     end
-    event_people.each(&:confirm!)
+    @event = @event_people.first.event
+    return unless request.post?
+
+    @event_people.each(&:confirm!)
 
     if current_user
       redirect_to cfp_person_path, notice: t('cfp.thanks_for_confirmation')
