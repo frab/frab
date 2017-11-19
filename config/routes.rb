@@ -50,7 +50,7 @@ Rails.application.routes.draw do
           end
           resource :availability
         end
-        get '/events/:id/confirm/:token' => 'events#confirm', as: 'event_confirm_by_token'
+        match '/events/:id/confirm/:token' => 'events#confirm', as: 'event_confirm_by_token', via: [:get, :post]
         get '/events/join(/:token)' => 'events#join', as: :events_join
         post '/events/join/:token' => 'events#join'
         get '/schedule' => 'schedule#index', as: 'schedule'

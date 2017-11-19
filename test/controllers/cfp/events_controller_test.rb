@@ -58,16 +58,23 @@ class Cfp::EventsControllerTest < ActionController::TestCase
     event_person
   end
 
-  test 'should confirm event for logged in user' do
+  test 'should not confirm on get but redirect to confirm page' do
     event_person = setup_unconfirmed(@user.person)
     get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
+    assert_response :success
+    assert_equal 'unconfirmed', @event.reload.state
+  end
+
+  test 'should confirm event for logged in user' do
+    event_person = setup_unconfirmed(@user.person)
+    post :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
     assert_redirected_to cfp_person_path
     assert_equal 'confirmed', @event.reload.state
   end
 
   test 'should confirm event for logged in user without requiring a token' do
     setup_unconfirmed(@user.person)
-    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id }
+    post :confirm, params: { conference_acronym: @conference.acronym, id: @event.id }
     assert_redirected_to cfp_person_path
     assert_equal 'confirmed', @event.reload.state
     assert_nil session[:user_id]
@@ -76,7 +83,7 @@ class Cfp::EventsControllerTest < ActionController::TestCase
   test 'should confirm event and thank user' do
     log_out
     event_person = setup_unconfirmed(@user.person)
-    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
+    post :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
     assert_redirected_to new_user_session_path
     assert_equal 'confirmed', @event.reload.state
     assert_nil session[:user_id]
@@ -85,7 +92,7 @@ class Cfp::EventsControllerTest < ActionController::TestCase
   test 'should confirm event if person does not have a user account' do
     log_out
     event_person = setup_unconfirmed(create(:person))
-    get :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
+    post :confirm, params: { conference_acronym: @conference.acronym, id: @event.id, token: event_person.confirmation_token }
     assert_redirected_to new_user_session_path
     assert_equal 'confirmed', @event.reload.state
     assert_nil session[:user_id]
