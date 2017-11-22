@@ -98,7 +98,7 @@ fr:
       second: Secondes
       year: Années
   destroy: 'détruire' # 'destroy'
-  errors
+  errors:
     # Pas modifié
     format: "%{attribute} %{message}"
     messages:
