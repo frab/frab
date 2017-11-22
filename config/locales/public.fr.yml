@@ -43,7 +43,6 @@ fr:
         day: "Jour"
         duration: "Durée"
         feedback: "Commentaires" # "Feedback"
-        feedback_link: "Click here to let us know how you liked this event."
         feedback_link: "Cliquez ici pour nous faire savoir que vous avez aimé cet évènement."
         files: "Fichiers"
         info: "Info"
@@ -78,5 +77,7 @@ fr:
       thank_you:
         thank_you: "Merci !"
         # "[...] If you watched the streams, tell us about the quality."
-        thank_you_for_helping_us: "Merci de nous aider à améliorer nos évènements. Continuez de donner vos impressions sur le maximum d'évènements auxquels vous participez. Si vous avez regardé en srteaming, vous pouvez noter la qualité."
+        thank_you_for_helping_us: |
+          Merci de nous aider à améliorer nos évènements. Continuez de donner vos impressions sur le maximum d'évènements
+          auxquels vous participez. Si vous avez regardé en srteaming, vous pouvez noter la qualité.
         return: "Retours au programme"
