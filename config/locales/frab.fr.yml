@@ -1,0 +1,136 @@
+fr:
+  actions: "Actions"
+  add_association: "Ajouter %{name}"
+  basic_information: "Informations de base"
+  call_for_participation: "Appel à participation"
+  classifiers: "Classificateurs"
+  create_new_conference: "Créer une nouvelle conférence"
+  create_your_first_conference: "Créez votre première conférence"
+  days: "Jours"
+  date_not_set: "Date non définie pour le moment"
+  edit: "éditer"
+  edit_conference: "Éditer la conférence"
+  edit_conference_classifiers: "Éditer les classificateurs de la conférence"
+  edit_conference_days: "Éditer les jours de la conférence"
+  edit_conference_rooms: "Éditer les salles de la conférence"
+  edit_conference_schedule: "Modifier la programmation de la conférence"
+  edit_conference_tracks: "Modifier les pistes de la conférence"
+  edit_ticket_server: "Éditer le serveur de tickets"
+  error_signing_in: "Email ou mot de passe invalide."
+  event_languages: "Langues de l'évènement"
+  features: "Caractéristiques additionnelles" # "Additional features"
+  new_conference: "Nouvelle conférence"
+  notifications: Notifications
+  participate: "Perticiper"
+  remove_association: "Enlever %{name}"
+  rooms: "Pièces"
+  schedule: "Programme" # "Schedule"
+  mail_templates: "Templates d'emails"
+  settings: "Paramètres"
+  sign_in_successful: "Identifié avec succès."
+  submission_configuration: "Configuration des propositions"
+  ticket_server: "Serveur de tickets"
+  timeslot_configuration: "Configuration de l'intervalle de temps"
+  tracks: "Pistes" # "Tracks"
+  your_submission: "Votre proposition"
+
+  navigation:
+    event: "Détail de l'évènement"
+    people: "Personnes" # "People"
+    ratings: "Notes"
+    feedbacks: "Retours utilisateurs"
+    conferences: "Conférences"
+    users: "Utilisateurs"
+
+  ability:
+    denied: "Cette action est interdite."
+
+  cfp:
+    login: "Connexion"
+
+  events: "Évènements"
+
+  conflict:
+    events_overlap: "se chevauche avec"
+    has_no_availability: "n'a pas encore entré ses disponibilités."
+    person_unavailable: "n'est pas disponible dans la plage prévue."
+    person_already_speaking: "parle déjà à"
+
+  options:
+    business: "business"
+    concert: "concert"
+    dect: "DECT" # pas changé
+    djset: "set DJ"
+    fax: "fax"   # pas changé
+    female: "féminin"
+    film: "film"
+    lecture: "conférence"
+    lightning_talk: "conférence éclair"
+    male: "masculin"
+    meeting: "meeting" # pas changé
+    mobile: "mobile"
+    other: "autre"
+    performance: "theater/performance" # pas changé
+    phone: "téléphone"
+    podium: "podium" # pas changé
+    private: "privé"
+    secretary: "secrétaire"
+    skype: "skype"
+    talk: "conférence"
+    work: "travail" # "work"
+    workshop: "atelier"
+
+  time:
+    # Formats non changés
+    formats:
+      default: '%A, %d. %B %Y, %H:%M'
+      long: '%A, %d. %B %Y, %H:%M'
+      month_datetime: '%d. %b %H:%M'
+      pretty_datetime: "%Y-%m-%d %H:%M"
+      short: '%d. %B, %H:%M'
+      short_datetime: '%d. %H:%M'
+      time: '%H:%M'
+    time_range_seperator: ' à '
+
+  role:
+    admin: "Administrateur"
+    orga: "Organisateur"
+    reviewer: "Critique"
+    coordinator: "Coordinateur"
+    crew: "Equipe"
+    submitter: "Déposant"
+
+  activerecord:
+    models:
+      call_for_participation: "Appel à Participation"
+      classifier: "classificateur"
+      conference: "conférence"
+      conference_user: "participant à la conférence" # "conference user"
+      day: "jour"
+      event: "évènement"
+      person: "profil"
+      event_person: "personne"
+      event_classifier: "catégorie"
+      language: "langue"
+      link: "lien"
+      notification: "Notification"
+      im_account: "compte de messagerie instantanée"
+      phone_number: "numéro de téléphone"
+      event_attachment: "fichier"
+      track: "piste" # "track"
+      room: "salle"
+
+    attributes:
+      conference:
+        email: "E-Mail"
+        title: "titre"
+      event:
+        title: "titre"
+        state: "état"
+      day:
+        start_date: "début"
+
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Activation de compte"
+      password_reset_instructions: "Changement de mot de passe"
