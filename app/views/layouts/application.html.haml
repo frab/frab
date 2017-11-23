@@ -14,7 +14,7 @@
           - if content_for? :title
             = yield :title
           - else
-            = link_to "Welcome to frab", root_path, class: "brand"
+            = link_to t('titles.welcome'), root_path, class: "brand"
 
           - if current_user
             %ul.nav
