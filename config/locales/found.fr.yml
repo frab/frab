@@ -1,5 +1,53 @@
 ---
 fr:
+  # General strings
+  # ---------------------------------------------------------------------------
+  # Form inputs
+  # -----------
+  inputs:
+    password: "Mot de passe"
+    password_confirm: "Confirmation"
+    remember_me: "Se souvenir de moi"
+    hints:
+      #password_length: "%{length} characters minimum"
+      password_length: "Longueur minimum de %{length} caractères"
+
+  # Session-related strings
+  # -----------------------
+  session:
+    signup: "Créer mon compte"
+    login: "Connexion"
+
+  # Navbar titles
+  # -------------
+  page_titles:
+    welcome: "Bienvenue dans frab"
+    my_profile: "frab - Mon profil"
+    signup: "Inscription à frab"
+    login: "Connexion à frab"
+
+  # Page titles
+  # -----------
+  titles:
+    person: "Personne : %{person}"
+    session_signup: "Création d'un nouveau compte"
+    session_login: "Connexion"
+
+  # Modules
+  # ---------------------------------------------------------------------------
+  # Availabilities views
+  # --------------------
+  availabilities:
+    alerts:
+      #no_availabilities: |
+      #  %{person} does not currently have any availabilities.
+      #  You need to submit this form.
+      no_availabilities: |
+        %{person} n'a pas de disponibilités actuellement.
+        Vous devez remplir ce formulaire.
+
+  # Devise views
+  # ------------
   devise:
     mailer:
       confirmation_instructions:
@@ -7,24 +55,14 @@ fr:
         text: |
           Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
         link: "Confirmer mon compte"
-  inputs:
-    password: "Mot de passe"
-    password_confirm: "Confirmation"
-    remember_me: "Se souvenir de moi"
-  session:
-    remember_me: "Se souvenir de moi"
-    login: "Connexion"
-    #no_unlock_instructions: "Didn't receive unlock instructions?"
-    no_unlock_instructions: "Vous n'avez pas reçu d'instructions de déverouillage ?"
-    #sign_in_with: "Sign in with %{provider}"
-    sign_in_with: "Se connecter avec %{provider}"
-    new_account: "Création d'un nouveau compte"
-    #<%= @minimum_password_length %> characters minimum
-    hint_min_pass_length: "Longueur minimum de %{length} caractères"
-    signup: "Créer mon compte"
-  page_titles:
-    welcome: "Bienvenue dans frab"
-    my_profile: "frab - Mon profil"
+    links:
+        #no_unlock_instructions: "Didn't receive unlock instructions?"
+        no_unlock_instructions: "Vous n'avez pas reçu d'instructions de déverouillage ?"
+        #sign_in_with: "Sign in with %{provider}"
+        sign_in_with: "Se connecter avec %{provider}"
+
+  # Call for paper views
+  # --------------------
   cfp:
     #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
