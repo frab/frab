@@ -16,11 +16,11 @@
           = f.input :email
 
           - if @minimum_password_length
-            = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', {length: @minimum_password_length}), label: t('inputs.password')
+            = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', {length: @minimum_password_length})
           - else
-            = f.input :password_confirmation, autocomplete: 'off', label: t('inputs.password')
+            = f.input :password, autocomplete: 'off'
 
-          = f.input :password_confirmation, autocomplete: 'off', label: t('inputs.password_confirm')
+          = f.input :password_confirmation, autocomplete: 'off'
 
         .actions
           = f.button :submit, class: 'primary', value: t('session.signup')

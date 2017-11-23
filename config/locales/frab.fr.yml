@@ -124,10 +124,25 @@ fr:
     attributes:
       conference:
         email: "E-Mail"
-        title: "titre"
+        title: "Titre"
       event:
-        title: "titre"
-        state: "état"
+        title: "Titre"
+        state: "État"
+        subtitle: "Sous-titre"
+        speakers: "Orateurs"
+        event_type: "Type d'évènement"
+        track: "Piste"
+        time_slots: "Plages horaires"
+        language: "Langue"
+        logo: "Logo"
+        abstract: "Extrait"
+        description: "Description"
+        submission_note: "Notes de soumission"
+      user:
+        email: "E-mail"
+        password: "Mot de passe"
+        password_confirmation: "Confirmation du mot de passe"
+        remember_me: "Se souvenir de moi"
       day:
         start_date: "début"
 

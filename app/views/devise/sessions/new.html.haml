@@ -16,7 +16,7 @@
         %fieldset.inputs
           = f.input :email
           = f.input :password
-          = f.input :remember_me, as: :inline_boolean, label: t('inputs.remember_me') if devise_mapping.rememberable?
+          = f.input :remember_me, as: :inline_boolean if devise_mapping.rememberable?
 
         .actions
           = f.button :submit, class: 'primary', value: t('session.login')
