@@ -1,9 +1,7 @@
 %section
   .page-header
-    %h1 Confirm your attendance
+    %h1= t('page_titles.cpf_event_confirm')
     = form_tag request.url do
-      %p
-        Your confirmation is required for the event
-        %b=@event.title
-      = submit_tag "Confirm attendance", class: 'btn btn-large btn-primary'
+      %p= raw GitHub::Markdown.render(t('confirmation_request', {event: @event.title}))
+      = submit_tag t('cfp.pages.event_confirm_attendence'), class: 'btn btn-large btn-primary'
 

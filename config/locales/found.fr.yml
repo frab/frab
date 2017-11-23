@@ -47,6 +47,8 @@ fr:
     cfp_new_cfp: "Lancer un appel à participation"
     #cfp_view: "Call for Participation"
     cfp_view: "Appel à participation"
+    #cpf_event_confirm: "Confirm your attendance"
+    cpf_event_confirm: "Confirmez votre présence"
 
   # Notifications
   # -------------
@@ -167,3 +169,6 @@ fr:
       start_date_tip: |
         L'appel a participations démarrera le **%{start_date}**. Veuillez revenir à ce moment,
         nous regarderons votre proposition.
+      event_confirmation_request: "Your confirmation is required for the event **%{event}**."
+      #event_confirm_attendence: "Confirm attendance"
+      event_confirm_attendence: "Confirmer ma présence"
