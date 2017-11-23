@@ -6,20 +6,12 @@ fr:
   # ------------
   #preview: "Preview"
   preview: "Prévisualisation"
+  users: "Utilisateurs"
+  conferences: "Conférences"
 
   # Form inputs. Specific inputs are in their own modules sections.
   # -----------
   inputs:
-    #password: "Password"
-    password: "Mot de passe"
-    #password_confirm: "Password confirmation"
-    password_confirm: "Confirmation"
-    #remember_me: "Remember me"
-    remember_me: "Se souvenir de moi"
-    #start_date: "Start date"
-    start_date: "Date de début"
-    #end_date: "End date"
-    end_date: "Date de fin"
     hints:
       #password_length: "%{length} characters minimum"
       password_length: "Longueur minimum de %{length} caractères"
@@ -111,6 +103,7 @@ fr:
   cfp:
     #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
+    deadline_description: "Veuillez soumettre votre proposition avant le **%{date}**"
     #save_cfp: "Save the call for participation"
     save_cfp: "Enregistrer l'appel à participation"
     inputs:
@@ -137,9 +130,9 @@ fr:
         info_url: "Une page web contenant des informations supplémentaires à propos de cet appel à participer. Veuiller entrer une url complète."
         #contact_email: "An email address where participants can contact you in case they have any questions."
         contact_email: "Une adresse email à laquelle vos participant·e·s peuvent vous contacter s'ils ont des questions."
-      notifications:
-        #launched: "Launched Call for Participation."
-        launched: "Appel à participation lancé."
+    notifications:
+      #launched: "Launched Call for Participation."
+      launched: "Appel à participation lancé."
     show:
       #submitters_interface_link: "The interface for submitters is available at:"
       submitters_interface_link: "L'interface de soumission est dispoible ici :"
@@ -157,3 +150,20 @@ fr:
       total_event_count: "Nombre total d'évènements"
       #edit_cfp_hint: "Edit this Call for Paper's data"
       edit_cfp_hint: "Editer les données de cet appel à participation"
+    pages:
+      #thank_for_interest: "Thank you for your interest in participating in %{conference}."
+      thank_for_interest: "Merci pour votre intérêt pour %{conference}."
+      #inexistent_cfp: "Unfortunately, the Call for Participation does not (yet?) exist."
+      inexistent_cfp: "Malheureusement, l'appel à participation n'existe pas (encore ?)."
+      #not_started_cfp: |
+      #  Unfortunately, the Call for Participation has not yet started. Please bear with us
+      #  and leave us a little more time for our preparations.
+      not_started_cfp: |
+        Malheureusement, l'appel à participation n'a pas encore commencé. Veuillez nous en excuser
+        et nous laisser un peu plus de temps pour le préparer.
+      #start_date_tip: |
+      #  The Call for Participation will start on **%{start_date}**. Please return at or after this date.
+      #  We are looking forward to your submission.
+      start_date_tip: |
+        L'appel a participations démarrera le **%{start_date}**. Veuillez revenir à ce moment,
+        nous regarderons votre proposition.
