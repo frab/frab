@@ -2,12 +2,24 @@
 fr:
   # General strings
   # ---------------------------------------------------------------------------
-  # Form inputs
+  # Misc strings
+  # ------------
+  #preview: "Preview"
+  preview: "Prévisualisation"
+
+  # Form inputs. Specific inputs are in their own modules sections.
   # -----------
   inputs:
+    #password: "Password"
     password: "Mot de passe"
+    #password_confirm: "Password confirmation"
     password_confirm: "Confirmation"
+    #remember_me: "Remember me"
     remember_me: "Se souvenir de moi"
+    #start_date: "Start date"
+    start_date: "Date de début"
+    #end_date: "End date"
+    end_date: "Date de fin"
     hints:
       #password_length: "%{length} characters minimum"
       password_length: "Longueur minimum de %{length} caractères"
@@ -15,22 +27,51 @@ fr:
   # Session-related strings
   # -----------------------
   session:
+    #signup: "Signup"
     signup: "Créer mon compte"
+    #login: "Login"
     login: "Connexion"
+
+  # Navigation-related string
+  # -------------------------
+  navigation:
+    #back: "Back"
+    back: "Retours"
 
   # Navbar titles
   # -------------
   page_titles:
+    #welcome: "Welcome to frab"
     welcome: "Bienvenue dans frab"
+    #my_profile: "frab - My profile"
     my_profile: "frab - Mon profil"
+    #signup: "Signup to frab"
     signup: "Inscription à frab"
+    #login: "Login to frab"
     login: "Connexion à frab"
+    #cfp_edit_cfp: "Edit Call for Participation"
+    cfp_edit_cfp: "Editer l'appel à participation"
+    #cfp_new_cfp: "Launch a Call for Participation"
+    cfp_new_cfp: "Lancer un appel à participation"
+    #cfp_view: "Call for Participation"
+    cfp_view: "Appel à participation"
+
+  # Notifications
+  # -------------
+  alert_notifications:
+    #update_successful: "Changes saved successfully!"
+    update_successful: "Modifications sauvegardées."
+    #update_failed: "Failed to update"
+    update_failed: "Impossible d'enregistrer les modifications."
 
   # Page titles
   # -----------
   titles:
+    #person: "Person: %{person}"
     person: "Personne : %{person}"
+    #session_signup: "Create a new account"
     session_signup: "Création d'un nouveau compte"
+    #session_login: "Connection"
     session_login: "Connexion"
 
   # Modules
@@ -51,9 +92,13 @@ fr:
   devise:
     mailer:
       confirmation_instructions:
+        #headline: "Welcome %{email} !"
         headline: "Bienvenue, %{email} !"
+        #text: |
+        #  You should confirm your email adress with the following link:
         text: |
           Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
+        #link: "Confirm my account"
         link: "Confirmer mon compte"
     links:
         #no_unlock_instructions: "Didn't receive unlock instructions?"
@@ -66,3 +111,49 @@ fr:
   cfp:
     #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
+    #save_cfp: "Save the call for participation"
+    save_cfp: "Enregistrer l'appel à participation"
+    inputs:
+      #hard_deadline: "Hard deadline"
+      hard_deadline: "Date de fin finale"
+      #welcome_text: "Welcome text"
+      welcome_text: "Texte de bienvenue"
+      #info_url: "Information url"
+      info_url: "Url d'information"
+      #contact_email: "Contact email"
+      contact_email: "Email de contact"
+      hints:
+        #start_date: "Pick a date when your CfP should be open for the public."
+        start_date: "Sélectionnez la date à laquelle l'appel sera ouvert au public."
+        #end_date: "Pick a deadline for paper submission. This deadline will be displayed to the users but not otherwise enforced."
+        end_date: "Sélectionnez la date butoir pour la soumission de papiers. Cette date sera affichée mais ne clôturera pas les dépôts"
+        #hard_deadline: "Pick a hard deadline. No paper submission will be possible after this date. Leave empty if you want to allow submissions indefinitely."
+        hard_deadline: |
+          Sélectionez la date butoir finale. Aucun dépôt ne sera autorisé après cette date. Si vous souhaitez
+          laiser les dépôts ouverts indéfiniment, laissez ces champs vides.
+        #welcome_text: "Enter a welcome message or additional instructions you want to display to participants. (HTML)"
+        welcome_text: "Entrez un message de bienvenue ou des instructions supplémentaires que vous souhaitez afficher à vos participants. (HTML)"
+        #info_url: "A web page that contains additional information about the Call for Participation. Please enter a full URL including 'http://'"
+        info_url: "Une page web contenant des informations supplémentaires à propos de cet appel à participer. Veuiller entrer une url complète."
+        #contact_email: "An email address where participants can contact you in case they have any questions."
+        contact_email: "Une adresse email à laquelle vos participant·e·s peuvent vous contacter s'ils ont des questions."
+      notifications:
+        #launched: "Launched Call for Participation."
+        launched: "Appel à participation lancé."
+    show:
+      #submitters_interface_link: "The interface for submitters is available at:"
+      submitters_interface_link: "L'interface de soumission est dispoible ici :"
+      #dates_hint: "The call for papers starts at %{start_date} and ends at %{end_date}."
+      dates_hint: "L'appel commence le %{start_date} et se termine le %{end_date}."
+      #conference_empty_days: "Conference will not show up until days are added."
+      conference_empty_days: "La conférence ne s'affichera pas tant qu'aucun jour n'aura été ajouté."
+      #deadline_passed: "The hard cfp deadline has passed, no submissions are possible."
+      deadline_passed: "La date butoir finale est passée, aucune soumission n'est possible."
+      #empty_description: "The call for participation is running, but the description text is empty. frab won't link to the cfp."
+      empty_description: "L'appel à participation est en cours, mai la description est vide. Frab ne fera pas de lien vers cet appel."
+      #new_events_by_day: "New events by day"
+      new_events_by_day: "Nouveaux évènements par jour"
+      #total_event_count: "Total event count"
+      total_event_count: "Nombre total d'évènements"
+      #edit_cfp_hint: "Edit this Call for Paper's data"
+      edit_cfp_hint: "Editer les données de cet appel à participation"

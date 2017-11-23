@@ -1,17 +1,18 @@
 = simple_form_for @call_for_participation, url: call_for_participation_path do |f|
   %fieldset.inputs
-    = f.input :start_date, as: :date, hint: "Pick a date when your CfP should be open for the public."
-    = f.input :end_date, as: :date, hint: "Pick a deadline for paper submission. This deadline will be displayed to the users but not otherwise enforced."
-    = f.input :hard_deadline, as: :date, hint: "Pick a hard deadline. No paper submission will be possible after this date. Leave empty if you want to allow submissions indefinitely."
-    = f.input :welcome_text, hint: "Enter a welcome message or additional instructions you want to display to participants. (HTML)"
-    = f.input :info_url, hint: "A web page that contains additional information about the Call for Participation. Please enter a full URL including 'http://'"
-    = f.input :contact_email, hint: "An email address where participants can contact you in case they have any questions."
+    = f.input :start_date, as: :date, label: t('inputs.start_date'), hint: t('cfp.inputs.hints.start_date')
+    = f.input :end_date, as: :date, label: t('inputs.end_date'), hint: t('cfp.inputs.hints.end_date')
+    = f.input :hard_deadline, as: :date, label: t('cfp.inputs.hard_deadline'), hint: t('cfp.inputs.hints.hard_deadline')
+    = f.input :welcome_text, label: t('cfp.inputs.welcome_text'), hint: t('cfp.inputs.hints.welcome_text')
+    = f.input :info_url, label: t('cfp.inputs.info_url'), hint: t('cfp.inputs.hints.info_url')
+    = f.input :contact_email, label: t('cfp.inputs.contact_email'), hint: t('cfp.inputs.hints.contact_email')
   .actions
-    = link_to t('back'), call_for_participation_path, class: 'btn'
-    = f.button :submit, class: 'primary'
+    = link_to t('navigation.back'), call_for_participation_path, class: 'btn'
+    = f.button :submit, class: 'primary', value: t('cfp.save_cfp')
 
 %hr
 .row
   .span16
-    %h1 Preview
+    %h1
+      = t('preview')
     = render 'cfp/welcome/welcome_text'
