@@ -1,0 +1,30 @@
+---
+fr:
+  devise:
+    mailer:
+      confirmation_instructions:
+        headline: "Bienvenue, %{email} !"
+        text: |
+          Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
+        link: "Confirmer mon compte"
+  inputs:
+    password: "Mot de passe"
+    password_confirm: "Confirmation"
+    remember_me: "Se souvenir de moi"
+  session:
+    remember_me: "Se souvenir de moi"
+    login: "Connexion"
+    #no_unlock_instructions: "Didn't receive unlock instructions?"
+    no_unlock_instructions: "Vous n'avez pas reçu d'instructions de déverouillage ?"
+    #sign_in_with: "Sign in with %{provider}"
+    sign_in_with: "Se connecter avec %{provider}"
+    new_account: "Création d'un nouveau compte"
+    #<%= @minimum_password_length %> characters minimum
+    hint_min_pass_length: "Longueur minimum de %{length} caractères"
+    signup: "Créer mon compte"
+  page_titles:
+    welcome: "Bienvenue dans frab"
+    my_profile: "frab - Mon profil"
+  cfp:
+    #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
+    email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
