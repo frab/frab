@@ -1,0 +1,29 @@
+- content_for :title do
+  = link_to t('cfp.sign_up'), root_url, class: 'brand'
+
+%section
+  .page-header
+    %h1
+      = t('session.new_account')
+    .row
+      .span16
+
+        =simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults:{error: false}) do |f|
+
+          = devise_error_messages!
+
+          %fieldset.inputs
+            = f.input :email
+
+            - if @minimum_password_length
+              = f.input :password, autocomplete: 'off', hint: t('session.hint_min_pass_length', {length: @minimum_password_length}), label: t('inputs.password')
+            - else
+              = f.input :password_confirmation, autocomplete: 'off', label: t('inputs.password')
+
+            = f.input :password_confirmation, autocomplete: 'off', label: t('inputs.password_confirm')
+
+          .actions
+            = f.button :submit, class: 'primary', value: t('session.signup')
+
+
+= render 'devise/shared/links'
