@@ -80,7 +80,7 @@ fr:
     phone_numbers: "Numéros de téléphone"
     problem_sending_password_reset_instructions: "Impossible d'envoyer les instructions de changement de mot de passe. Veuillez vérifier l'adresse email entrée."
     public_name_hint: "C'est le nom qui sera affiché dans le programme public."
-    resend_confirmation_button: "Renvoyer les instructions de confirmation %{fun}"
+    resend_confirmation_button: "Renvoyer les instructions de confirmation"
     resend_confirmation_headline: "Renvoyer les instructions de confirmation"
     save_availability: "Sauvegarder la disponibilité"
     scheduled: "Heure prévue" # "Scheduled time"
