@@ -46,7 +46,7 @@ module EventState
   end
 
   def transition_possible?(transition)
-    self.class.state_machine.events_for(current_state).include?(transition)
+    self.class.state_machine.events_for(current_state).include?(transition.to_sym)
   end
 
   def notifiable
