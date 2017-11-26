@@ -7,13 +7,9 @@
     .row
       .span16
         .blank-slate
-          %p
-            The rooms for this conference can only be modified with
-            administration rights for the parent conference
-            ="'#{@conference.parent.title}'."
+          %p= t('rooms_modules.modify_room_with_parent', {parent: @conference.parent.title})
 
-          %p
-            The currently configured room are:
+          %p= t('rooms_module.configured_rooms')
 
           %ul
             - @conference.rooms.each do |room|
@@ -25,11 +21,7 @@
       .row
         .span16
           .blank-slate
-            %p
-              Here you can create and edit the rooms in which
-              your events take place. Please enter at least one
-              room. This is needed to determine the number of
-              columns in your program schedule.
+            %p= t('rooms_module.empty_rooms')
     .row
       .span16
         = render 'form_rooms'

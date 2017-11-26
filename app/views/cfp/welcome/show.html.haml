@@ -6,9 +6,7 @@
           - available_conference_locales.each do |locale|
             %li{class: (I18n.locale.to_s == locale.to_s) ? "active" : ""}
               = link_to locale.to_s, url_for( locale: locale )
-    %h1
-      = @conference.title
-      \- Call for Participation
+    %h1= t('titles.cfp_welcome', {conference: @conference.title})
 
   .row
     .span16

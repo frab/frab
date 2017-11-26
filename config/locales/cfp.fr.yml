@@ -21,7 +21,7 @@ fr:
     contact_headline: "Contact"
     create_event_headline: "Créer un nouvel évènement"
     current_password_hint: "nous avons besoin de votre mot de passe pour confirmer ces changements."
-    deadline_description: "Veuillez soumettre votre proposition avant"
+    #deadline_description: "Veuillez soumettre votre proposition avant"
     description_hint: "Une description plus longue de vous. Utilisez cet espace pour donner plus de détails que dans l'extrait. (HTML)"
     detailed_description: "Description détaillée"
     edit_account: "Editer votre compte"
