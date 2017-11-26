@@ -3,44 +3,36 @@
     .pull-right
       - if policy(@conference).orga?
         = action_button "primary", t('edit'), edit_call_for_participation_path, hint: t('cfp.show.edit_cfp_hint')
-    %h1
-      = t('page_titles.cfp_view')
+    %h1= t('titles.cfp_view')
 
   .row
     .span16
-      %p
-        = t('cfp.show.submitters_interface_link')
+      %p= t('cfp.show.submitters_interface_link')
         %a{href: new_user_session_url}= new_user_session_url
 
       - if @conference.call_for_participation.start_date
-        %p
-          = t('cfp.show.dates_hint', {start_date: l(@conference.call_for_participation.start_date), end_date: l(@conference.call_for_participation.end_date)})
+        %p= t('cfp.show.dates_hint', {start_date: l(@conference.call_for_participation.start_date), end_date: l(@conference.call_for_participation.end_date)})
 
       - if @conference.days.empty?
         %p
-          %b
-            = t('cfp.show.conference_empty_days')
+          %b= t('cfp.show.conference_empty_days')
 
       - if cfp_hard_deadline_over?
         %p
-          %b
-            = t('cfp.show.deadline_passed')
+          %b= t('cfp.show.deadline_passed')
 
       - if @conference.call_for_participation&.still_running? && @conference.call_for_participation.welcome_text.blank?
         %p
-          %b
-            = t('cfp.show.empty_description')
+          %b= t('cfp.show.empty_description')
 
   .row
     .span16
-      %h3
-        = t('cfp.show.new_events_by_day')
+      %h3= t('cfp.show.new_events_by_day')
       #submission_graph{style: "width: 800px; height: 300px;"}
 
   .row
     .span16
-      %h3
-        = t('cfp.show.total_event_count')
+      %h3= t('cfp.show.total_event_count')
       #submission_graph-sum_to_submission_time{style: "width: 800px; height: 300px;"}
 
 :javascript

@@ -103,7 +103,7 @@ fr:
 
   activerecord:
     models:
-      call_for_participation: "Appel à Participation"
+      call_for_participation: "Appel à participation"
       classifier: "classificateur"
       conference: "conférence"
       conference_user: "participant à la conférence" # "conference user"
@@ -125,6 +125,9 @@ fr:
       conference:
         email: "E-Mail"
         title: "Titre"
+        acronym: "Acronyme"
+      conference_user:
+        role: "Role"
       event:
         title: "Titre"
         state: "État"
@@ -144,7 +147,7 @@ fr:
         password_confirmation: "Confirmation du mot de passe"
         remember_me: "Se souvenir de moi"
       day:
-        start_date: "début"
+        start_date: "Début"
 
   mailers:
     user_mailer:

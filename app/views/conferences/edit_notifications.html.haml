@@ -7,7 +7,7 @@
   - locales_present = @conference.notifications.map(&:locale).uniq
 
   - if !(locales_needed - locales_present).empty?
-    .alert-message.error.span12 Can not send bulk notifications: Notification for locales #{ locales_needed - locales_present } missing
+    .alert-message.error.span12= t('notifications_module.missing_locale', {locales: locales_needed - locales_present })
   - else
     %h1 Send
     = render partial: 'notification_section', locals: { e: @conference.events.where(:state => 'accepting'), state: 'accepting', name: 'acceptance' }
@@ -18,7 +18,7 @@
 
   .row
     .span6.offset8.info-block
-      %h4 Possible variables
+      %h4= t('notifications_module.possible_variables')
       %dl.dl-horizontal
         - Notification::VARIABLES.each do |key, desc|
           %dt= "#{desc}:"

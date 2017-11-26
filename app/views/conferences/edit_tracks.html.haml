@@ -7,13 +7,9 @@
     .row
       .span16
         .blank-slate
-          %p
-            The tracks for this conference can only be modified with
-            administration rights for the parent conference
-            ="'#{@conference.parent.title}'."
+          %p= t('tracks_module.modify_track_with_parent', {parent: @conference.parent.title})
 
-          %p
-            The currently configured tracks are:
+          %p= t('tracks_module.configured_tracks')
 
           %ul
             - @conference.tracks.each do |track|
@@ -25,15 +21,8 @@
       .row
         .span16
           .blank-slate
-            %p
-              If you organize your conference into different tracks,
-              this is the place to create them. Even if you do not
-              have more than one track, go ahead and enter this
-              one track.
-            %p
-              Tracks have a name and a color. The color is used in
-              the web based program, so feel free to customize it
-              as much as you wish.
+            %p= t('tracks_module.empty_tracks')
+            %p= t('tracks_module.empty_tracks_more_infos')
     .row
       .span16
         = render 'form_tracks'

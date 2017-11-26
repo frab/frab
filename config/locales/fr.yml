@@ -97,7 +97,7 @@ fr:
       month: Mois
       second: Secondes
       year: Années
-  destroy: 'détruire' # 'destroy'
+  destroy: 'Détruire' # 'destroy'
   errors:
     # Pas modifié
     format: "%{attribute} %{message}"

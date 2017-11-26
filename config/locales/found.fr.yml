@@ -8,6 +8,28 @@ fr:
   preview: "Prévisualisation"
   users: "Utilisateurs"
   conferences: "Conférences"
+  #user: "User"
+  user: "Utilisateur"
+  #person: "Person"
+  person: "Personne"
+  #crew: "Crew"
+  crew: "Équipe"
+  #admin_accounts: "Admin Accounts"
+  admin_accounts: "Comptes administateurs"
+  #crew_accounts: "Crew Accounts"
+  crew_accounts: "Comptes des membres de l'équipe"
+  #are_you_sure: "Are you sure?"
+  are_you_sure: "Êtes-vous sûr·e?"
+  #all: "All"
+  all: "Tous"
+  #lectures_only: "Lectures only"
+  lectures_only: "Conférences seulement"
+  #workshops_only: "Workshops only"
+  workshops_only: "Ateliers seulement"
+  #others_only: "Others only"
+  others_only: "Autres seulement"
+  #accepted_only: "Accepted only"
+  accepted_only: "Seulement les acceptés" # Fem form ?
 
   # Form inputs. Specific inputs are in their own modules sections.
   # -----------
@@ -15,6 +37,7 @@ fr:
     hints:
       #password_length: "%{length} characters minimum"
       password_length: "Longueur minimum de %{length} caractères"
+
 
   # Session-related strings
   # -----------------------
@@ -41,14 +64,10 @@ fr:
     signup: "Inscription à frab"
     #login: "Login to frab"
     login: "Connexion à frab"
-    #cfp_edit_cfp: "Edit Call for Participation"
-    cfp_edit_cfp: "Editer l'appel à participation"
-    #cfp_new_cfp: "Launch a Call for Participation"
-    cfp_new_cfp: "Lancer un appel à participation"
-    #cfp_view: "Call for Participation"
-    cfp_view: "Appel à participation"
-    #cpf_event_confirm: "Confirm your attendance"
-    cpf_event_confirm: "Confirmez votre présence"
+    #admin_users: "frab - admin users"
+    admin_users: "frab - admin users"
+    #crew_users: "frab - crew users"
+    crew_users: "frab - Membres de l'équipe"
 
   # Notifications
   # -------------
@@ -64,9 +83,25 @@ fr:
     #person: "Person: %{person}"
     person: "Personne : %{person}"
     #session_signup: "Create a new account"
-    session_signup: "Création d'un nouveau compte"
+    session_signup: "Inscription"
     #session_login: "Connection"
     session_login: "Connexion"
+    #cfp_welcome: "%{conference} - Call for Participation"
+    cfp_welcome: "%{conference} - Appel à participation"
+    #cfp_new_cfp: "Launch a Call for Participation"
+    cfp_new_cfp: "Lancer un appel à participation"
+    #cfp_edit_cfp: "Edit Call for Participation"
+    cfp_edit_cfp: "Editer l'appel à participation"
+    #cfp_view: "Call for Participation"
+    cfp_view: "Appel à participation"
+    #cpf_event_confirm: "Confirm your attendance"
+    cpf_event_confirm: "Confirmez votre présence"
+    #admin_accounts: "List of admin accounts"
+    admin_accounts: "Liste des comptes administrateur"
+    #crew_users: "List of crew accounts"
+    crew_users: "Liste des comptes des membres de l'équipe"
+    #conferences_index: "List of conferences"
+    conferences_index: "Liste des conférences"
 
   # Modules
   # ---------------------------------------------------------------------------
@@ -172,3 +207,364 @@ fr:
       event_confirmation_request: "Your confirmation is required for the event **%{event}**."
       #event_confirm_attendence: "Confirm attendance"
       event_confirm_attendence: "Confirmer ma présence"
+      #conference_open_mode: "The conference is in open mode. Self scheduling is allowed"
+      conference_open_mode: "La conférence est en mode ouvert. l'auto-planification est autorisée"
+      #profile_data: "Profile data:"
+      profile_data: "Données du profil :"
+
+  # Conferences views
+  # -----------------
+  conferences_module:
+    #no_conferences: |
+    #  There is not a single conference yet.
+    #  Start adding a conference by clicking on the
+    #  button on the right.
+    no_conferences: |
+      Il n'y a pas encore de conférence. Commencez par en créer une
+      en cliquant sur le bouton de droite.
+    #new_welcome: |
+    #  Welcome! It looks as if this is your first time here.
+    #  To get started organizing a conference you need to first
+    #  enter some data about it. You can change most of what
+    #  you enter now later. But some things cannot be changed
+    #  easily after you submit this form, so please read the
+    #  hints for every form field carefully and double check
+    #  what you enter.
+    new_welcome: |
+      Bienvenue ! Il semble que c'est la première fois que vous
+      venez ici. Pour commencer à organiser une conférence, vous
+      devez entrer un peu d'informations la concernant. Vous
+      pourrez changer la prupart de ces informations plus tard,
+      mais certaines d'entre elles se seront pas modifiables aisemment;
+      Prenez le temps de lire les informations pour chacun des champs
+      et vérifiez bien l'ensemble avant de l'enregistrer.
+    #show_welcome: |
+    #  Welcome, you seem to have just created this
+    #  conference. A good first step would be to go
+    #  to the _Conference Settings_ tab above
+    #  and add a room to this conference. This will
+    #  be needed to schedule your program.
+    show_welcome: |
+      Bienvenue ! Il semble que vous venez tout juste de créer
+      cette conférence. Une bonne étape à faire serait d'aller
+      dans l'onglet "Paramètres de conférence" pour ajouter une
+      salle. Ce sera nécessaire pour préparer votre programmation.
+    #show_no_event: |
+    #  This conference does not yet have any events.
+    #  (Note that throughout the application, the
+    #  generic term 'event' is used to refer to all
+    #  sessions within your conference, no matter if
+    #  they are talks, workshops, panels or something
+    #  else entirely).
+    #
+    #  Start adding events by clicking on the
+    #  _Events_ tab above. Or start a call for
+    #  papers, to allow others to submit events for
+    #  you to review.
+    show_no_event: |
+      Cetteconférence n'a pas encre d'évènements. (Notez qu'à travers Frab, le
+      terme _évènement_ est utilisé en référence à chaque session de vos
+      conférences, peu importe si c'est un talk, un atelier ou quelquechose
+      d'autre.
+
+      Commencez à ajouter des évènements en cliquant sur l'onglet "Évènements".
+      Ou alors, démarrez un _Appel à participation_ pour permettre à d'autre
+      de proposer des évènements àpour la conférence.
+    #recent_changes: "Recent changes"
+    recent_changes: "Changements récents"
+    #recent_changes_text: |
+    #  Once you, or others start creating data for this
+    #  conference, you will find who changed what here.
+    #  This is especially interesting if you conduct a
+    #  call for papers. In this case, this area allows
+    #  you to quickly see if new submissions came in.
+    recent_changes_text: |
+      Une fois que vous ou d'autres crééent des données pour cette conférence,
+      vous trouverez les informations de modification ici. C'est très
+      intéressant dans le cas d'un _appel à participation_. Dans ce cas, cette
+      zone permet de rapidement voir d'où viennent les propositions.
+    #conference_in_past: "The conference days are in the past. No submissions are possible."
+    conference_in_past: "Les jours de la conférence sont passés. Aucune soumission n'est possible."
+    #statistics: "Statistics"
+    statistics: "Statistiques"
+    #statistics_empty: |
+    #  Once you created some events for this conference,
+    #  or gathered submissions through a call for papers,
+    #  you will find some statistics about them here.
+    statistics_empty: |
+      Vous trouverez des statistiques sur les évènements créés ou proposés
+      lors d'un _appel à participation_ ici.
+    #new: "New"
+    new: "Nouveau"
+    #review: "Review"
+    review: "Révision"
+    #withdrawn: "Withdrawn"
+    withdrawn: "Abandonné"
+    #accepting: "Accepting"
+    accepting: "Acceptation"
+    #unconfirmed: "Unconfirmed"
+    unconfirmed: "Non confirmé"
+    #confirmed: "Confirmed"
+    confirmed: "Confirmé"
+    #scheduled: "Scheduled"
+    scheduled: "Programmé"
+    #canceled: "Canceled"
+    canceled: "Annulé"
+    #rejecting: "Rejecting"
+    rejecting: "En cours de rejet"
+    #rejected: "Rejected"
+    rejected: "Rejeté"
+    #total: "Total"
+    total: "Total"
+
+    inputs:
+      hints:
+        #title: |
+        #  The name of your conference as it shall appear throughout the site.
+        #  Example: 'FrOSCon'
+        title: |
+          Le nom de la conférence, tel qu'il doit apparaître sur les différentes
+          pages du site. Exemple : "FrOSCon".
+        #acronym: |
+        #  A short and unique handle for your conference, using only lower-case
+        #  letters, numbers and underscores. This will be used to identify your
+        #  conference in URLs etc. Example: 'froscon2011'"
+        acronym: |
+          Un nom court et unique pour la conférence, n'utilisant que des lettres
+          minuscules, des nombres et tirets bas. Ce sera utilisé pour identifier
+          la conférence dans les URLs, etc... Exemple : "froscon_2011"
+        #email: |
+        #  Contact email address for your conference. Will be used as reply-to
+        #  address in emails sent out by the system.
+        email: |
+          Adresse email de contact pour la conférence. Elle sera utilisée comme
+          adresse de réponse pour les emails envoyés par le système.
+        #color: "You may define a color for your conference."
+        color: "Vous pouvez définir une couleur pour la conférence."
+        #timezone: |
+        #  Please select in what time zone your conference will take place.
+        #  This is needed to correctly display times for your events.
+        timezone: |
+          Veuillez sélectionner le fuseau horaire appliqué à la conférence.
+          C'est utilisé pour afficher des dates et heures correctes sur les
+          évènements.
+        #timeslot_duration: |
+        #  How long do you want the smallest timeslots to be? This essentially
+        #  defines the grid on which you can plan your program. WARNING: This
+        #  one is tricky and cannot be easily changed later, so give this some
+        #  thought. In general, larger timeslots make things a lot simpler, but
+        #  smaller ones make you more flexible. Example: If all you need is to
+        #  schedule 30 minute talks that perfectly align with full and half hours,
+        #  choose 30 minutes as slot size. If you have 1 hour long talks and
+        #  15 minute breaks between them, 15 minutes is the perfect slot size.
+        #  Note that you can make the slot size smaller later on, as long as the
+        #  old slot size is a multiple of the new one. So going from 15 minutes
+        #  down to 5 is fine, while going down to 10 minutes will not work.
+        timeslot_duration: |
+          Quelle est la longueur de la plus petite plage horaire ? C'est utilisé
+          essentiellement pour créer une grille de planification pour le programme.
+          ATTENTION: Cette option ne pourra PAS être modifiée plus tard, donc prenez
+          le temps d'y réfléchir. En général, des zones horaires larges rendent les
+          choses plus simples, mais de petites zones les rendent plus flexibles.
+          Exemple : si tout ce dont vous avez besoin est de planifier des conférences
+          de 30 minutes qui s'alignent parfaitement avec des heures complètes et des
+          demi-heures, choisissez 30 minutes. Si vous avez des discussions d'une
+          heure et des pauses de 15 minutes entre eux, 15 minutes est la taille
+          parfaite. Notez que vous pouvez réduire la taille de l'emplacement plus tard,
+          à condition que l'ancienne taille de l'emplacement soit un multiple du nouveau.
+          Donc passer de 15 minutes à 5, c'est bien, alors que passer de 15 à 10 minutes
+          ne marchera pas.
+        #default_timeslots: |
+        #  What is the default length of your events? Example: If you chose
+        #  a timeslot duration of 15 minutes to account for breaks, but your
+        #  talks are usually 1 hour long, select 4, because 4 times 15 minutes is one hour.
+        default_timeslots: |
+          Quelle est la durée par défaut d'un évènement ? Exemple :  Si vous
+          choisissez des plages de 15 minutes pour les pauses, mais que votre
+          talk moyen dure une heure, choisissez 4, car 4 * 15 min = 1 heure.
+        #max_timeslots: "What is the maximum length of a single event (e.g. a single talk)?"
+        max_timeslots: "Quelle est la durée maximum d'un évènement (un seul talk)?"
+        #event_languages: "Choose which languages events in this conference can be held in."
+        event_languages: "Choisissez les différentes lanqugues parlées pendant la conférence."
+        #event_state_visible: |
+        #  If you enable this, speakers will be able to look up the state
+        #  of their submission in the cfp interface and confirm their attendance
+        #  by pressing the confirm button.
+        event_state_visible: |
+          Si vous activez cette option, les orateurs pourront regarder
+          l'état de leurs soumissions dans l'interface de l'appel à propositions
+          et confirmer leur présence en cliquant sur le bouton associé.
+        #default_recording_license: "Default recording license for all talks"
+        default_recording_license: "License d'enregistrement par défaut pour un talk"
+        #feedback_enabled: |
+        #  If you enable this, your program export will include links to a feedback
+        #  form where attendees can rate an event.
+        feedback_enabled: |
+          Si vous activez cette option, l'export de votre programme incluera des liens
+          permettant aux visiteurs donner leur appréciation sur les évènements.
+        #expenses_enabled: "If you enable this, frab will allow you to track expenses of people"
+        expenses_enabled: |
+          Si vous activez cette option, frab vous permettra de suivre les dépenses
+          des personnes
+        #transport_needs_enabled: |
+        #  If you enable this, frab will allow you to track transportation needs of
+        #  people
+        transport_needs_enabled: |
+          Si vous activez cette option, frab ous permettra de suivre les besoins
+          de transports des personnes.
+        #bulk_notification_enabled: |
+        #  If you enable this, notifications will be sent out in bulk by mail
+        #  or ticket subsystem.
+        bulk_notification_enabled: |
+          Si vous activez cette option, les notifications seront envoyées en
+          masse par mail, ou par un sous-systeme de tickets.
+  # Schedules views
+  # ---------------
+  schedule:
+    inputs:
+      hints:
+        #schedule_version: "What is the current schedule version?"
+        schedule_version: "Quelle est la version actuelle de la programmation ?"
+        #schedule_public: |
+        #  Is the dynamic schedule public? You can still create static exports
+        #  regardless of this setting.
+        schedule_public: |
+          Est-ce que la programmtion synamique est publique ? Vous pourrez toujours
+          faire des exports statiques, peu importe ce paramètre.
+        #schedule_open: |
+        #  Allow speakers to self-schedule their talks. Everything will be
+        #  accpeted. Maybe e turn this of and check before scheduling.
+        schedule_open: |
+          Autoriser les orateurs à programmer leurs talks eux-même. Tout
+          sera accepté. Vous pouvez activer ce paramètre et le désactiver
+          avant vos propre revues.
+        #program_export_base_url: |
+        #  If you want to use the static program export, enter the URL where
+        #  you want to put the files under here. All references will be
+        #  generated using this as a prefix. This will be used for the QR code
+        #  linking to the schedule.
+        program_export_base_url: |
+          Si vous souhaitez utiliser l'export statique du programme, entrez
+          l'URL où vous allez mettre les fichiers. Toutes les références
+          seront générées en utilisant ce préfixe. Ce sera aussi utilisé pour
+          les QR codes menant au programme.
+        #schedule_custom_css: "Custom CSS added to the HTML export. (CSS)"
+        schedule_custom_css: "CSS personnalisé qui sera ajouté à l'export HTML. (CSS)"
+        #schedule_html_intro: "Intro text for the HTML export. (HTML)"
+        schedule_html_intro: "Texte d'introduction pour l'export HTML. (HTML)"
+  # Tickets views
+  # -------------
+  tickets:
+    inputs:
+      hints:
+        #url: "URL of your ticket system, for example https://localhost/otrs/"
+        url: "URL de votre système de tickets. Exemple : https://localhost/otrs/"
+        #queue: "Name of this events queue"
+        queue: "Nom de la liste d'évènements"
+        #user: "Username used to create tickets"
+        user: "Nom d'utilisateur utilisé pour le système de tickets"
+        #password: "Password or API access key used to log into ticket system"
+        password: "Mot de passe ou clé d'accès API utilisée pour s'identifier au système de tickets"
+  # Notifications views
+  # -------------------
+  notifications_module: # From conferences/notifiaction_fields.hmlt.haml. This should go to activerecord fields ?
+    #no_events_tickets: "No events with tickets"
+    no_events_tickets: "Pas d'évènements avec des tickets."
+    #send_notification: "send %{name} notifications to %{speakers} in %{count}"
+    send_notification: "Envoyer des notifications %{name} %{speakers} in %{count}"
+    inputs:
+      #accept_subject: "Accept subject"
+      accept_subject: "Acceptation - Sujet"
+      #accept_body: "Accept body"
+      accept_body: "Acceptation - Corps"
+      #reject_subject: "Reject subject"
+      reject_subject: "Rejet - Sujet"
+      #reject_body: "Reject body"
+      reject_body: "Rejet - Corps"
+      #schedule_subject: "Schedule subject"
+      schedule_subject: "Programmation - Sujet"
+      #schedule_body: "Schedule body"
+      schedule_body: "Programmation - Corps"
+      hints:
+       #locale: "Available locales for this conference and its speakers"
+       locale: "Langues disponibles pour cette conférence et ses orateurs."
+    #missing_locale: "Can not send bulk notifications: Notification for locales {%locales} missing"
+    missing_locale: "Impossible d'envoyer des notification groupées : les notification en {%locales} sont manquantes."
+    #possible_variables: "Possible variables"
+    possible_variables: "Variables possibles"
+  # Classifiers views
+  # -----------------
+  classifiers_module:
+    #modify_classifier_with_parent: |
+    #  The classifiers for this conference can only be modified with
+    #  administration rights for the parent conference %{parent}
+    modify_classifier_with_parent: |
+      Les classificateurs pour cette conférence peuvent être seulement
+      modifiés avec les droits d'administration de la conférence parente :
+      %{parent}
+    #current_classifiers: "The currently configured classifiers are:"
+    current_classifiers: "Les classificateurs actuellement configurés sont :"
+    #empty_classifiers: |
+    #  Here you can create and edit the classifiers which submitters
+    #  can give to their events
+    empty_classifiers: |
+      Vous pouvez créer et éditer les classificateurs que les personnes
+      peuvent donner à leurs évènements
+  days_module:
+    #inherited_conference_change: |
+    #  The days for this conference can only be modified with
+    #  administration rights for the parent conference %{parent}
+    #  and can only be changed through the administration
+    #  interface of that conference.
+    inherited_conference_change: |
+      Les jours pour cette conférence peuvent être seulement
+      modifiés avec les droits d'administration de la conférence parente :
+      %{parent} et ne peuvent être changés qu'à travers l'interface
+      d'administration de cette conférence.
+    #configured_days: "The currently configured days are:"
+    configured_days: "Les jours actuellement configurés sont :"
+    #empty_days: |
+    #  Here you can create and edit the conference days.
+    #  Your 'days' can start an end anytime, but should not
+    #  overlap.
+    empty_days: |
+      Ici, vous pouvez créer et éditer et les jours de la conférence.
+      Les "jours" peuvent démarrer d'inporte quand, mais ne doivent pas
+      se chevaucher.
+  rooms_module:
+    #modify_room_with_parent: |
+    #  The rooms for this conference can only be modified with
+    #  administration rights for the parent conference %{parent}
+    modify_room_with_parent: |
+      Les salles pour cette conférence peuvent être seulement
+      modifiés avec les droits d'administration de la conférence parente :
+      %{parent}
+    #configured_rooms: "The currently configured room are:"
+    configured_rooms: "Les salles actuellement configurées sont :"
+    #empty_rooms: |
+    #  Here you can create and edit the rooms in which
+    #  your events take place. Please enter at least one
+    #  room. This is needed to determine the number of
+    #  columns in your program schedule.
+    empty_rooms: |
+      Ici, vous pouvez créer et éditer des salles dans lesquelles
+      les évènements vont avoir lieu. Veuillez entrer au moins une
+      salle. Les salles détermineront le nombre de colonnes de votre
+      programme.
+  tracks_module:
+    modify_track_with_parent: |
+      The tracks for this conference can only be modified with
+      administration rights for the parent conference %{parent}
+    configured_tracks: "The currently configured tracks are:"
+    empty_tracks: |
+      If you organize your conference into different tracks,
+      this is the place to create them. Even if you do not
+      have more than one track, go ahead and enter this
+      one track.
+    empty_tracks_more_infos: |
+      Tracks have a name and a color. The color is used in
+      the web based program, so feel free to customize it
+      as much as you wish.
+# Checks
+# [ ] Activerecord field names
+# [ ] submit_tag('*') <- is it a tranlation somewhere, or a core string ?

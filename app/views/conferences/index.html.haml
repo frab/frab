@@ -3,14 +3,12 @@
     .pull-right
       - if policy(Conference).new?
         = action_button "primary", "Add conference", new_conference_path, hint: "Add a new conference"
-    %h1 List of conferences
+    %h1= t('titles.conferences_index')
   - if params[:term].blank? and Conference.all.empty?
     .row
       .span16
         .blank-slate
-          %p
-            There is not a single conference yet.
-            Start adding a conference by clicking on the
-            button on the right.
+          %p= t('conferences_module.no_conferences')
+
   - else
     = render 'shared/search_and_table', collection: @conferences
