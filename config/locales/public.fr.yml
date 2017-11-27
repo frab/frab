@@ -19,7 +19,7 @@ fr:
       index:
         day: "Jour %{index} – %{label}"
         events: "Évènements"
-        events_by_track: "Évènements par piste" # Events by track
+        events_by_track: "Évènements par canal" # Events by track
         schedule: "Programme – %{label}"
         schedule_index: "Aperçu du programme"
         speakers: "Orateurs"
@@ -37,7 +37,7 @@ fr:
         events: "Évènement"
         speakers: "Orateurs"
         title: "Titre"
-        track: "Piste" # "Track"
+        track: "Canal" # "Track"
 
       event:
         day: "Jour"
@@ -52,7 +52,7 @@ fr:
         room: "Salle"
         speakers: "Orateurs"
         start_time: "Début"
-        track: "Piste"
+        track: "Canal"
 
       speaker:
         contact: "Contact"
