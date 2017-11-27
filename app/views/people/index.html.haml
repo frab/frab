@@ -2,30 +2,19 @@
   .page-header
     .pull-right
       - if policy(@conference).manage?
-        = action_button "primary", "Add person", new_person_path, title: "Add a new person."
-    %h1 List of people
+        = action_button "primary", t('people_module.add_person'), new_person_path, title: t('people_module.add_person_hint')
+    %h1= t('people_module.list_of_people')
   %ul.tabs
-    %li.active= link_to "This conference", people_path
-    %li= link_to "Speakers", speakers_people_path
-    %li= link_to "All people", all_people_path
+    %li.active= link_to t('this_conference'), people_path
+    %li= link_to t('speakers'), speakers_people_path
+    %li= link_to t('people_module.all_people'), all_people_path
   - if params[:term].blank? and @people.all.empty?
     .row
       .span16
         .blank-slate
           - if Person.count <= 1
-            %p
-              You do not have any data on people yet.
-              Use the button on the right to start adding
-              people. Please note that they will not appear
-              here right away, unless they are involved
-              in any of this conference's events. Use the
-              <em>All people</em> tab above to see all
-              people across all your conferences.
+            %p= raw(GitHub::Markdown.render(t('people_module.no_people_data')))
           - else
-            %p
-              There are no people associated with this
-              conference yet. People will start appearing
-              here, once they take on a role in any of
-              this conference's events.
+            %p= raw(GitHub::Markdown.render(t('people_module.no_people_involved')))
   - else
     = render 'shared/search_and_table', collection: @people

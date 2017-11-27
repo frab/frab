@@ -2,9 +2,9 @@
   .row
     .span16
       - if @view_model.current_events.present?
-        %h2 Events in current conference
+        %h2= t('events_module.events_in_current_conference')
         = render "events/table", collection: @view_model.current_events
       - if @view_model.other_events.present?
-        %h2 Events in other conferences
+        %h2=t('events_module.events_in_other_conferences')
         = render "events_in_other_conferences_table", collection: @view_model.other_events
 
