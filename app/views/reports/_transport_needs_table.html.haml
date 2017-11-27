@@ -10,12 +10,12 @@
         %th= sort_link @search, :booked, :term => params[:term]
         %th= sort_link @search, :note, :term => params[:term]
       - else
-        %th Name
-        %th When
-        %th Type
-        %th # of seats
-        %th Booked
-        %th Note
+        %th= t('name')
+        %th= t('transport_needs_module.when')
+        %th= t('type')
+        %th= t('transport_needs_module.nb_seats')
+        %th= t('transport_needs_module.booked_question')
+        %th= t('note')
       %th.last
   %tbody
     - transport_needs.each do |tn|

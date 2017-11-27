@@ -7,8 +7,7 @@
     = t '.schedule', label: l(@view_model.day.date)
 
 .event-navigation
-  %p
-    Rooms:
+  %p= t('col_rooms')
   %ul
     - count_rooms = 0
     - @view_model.room_slice_names.each do |rooms|
