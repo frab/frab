@@ -4,6 +4,10 @@ fr:
   # ---------------------------------------------------------------------------
   # Misc strings
   # ------------
+  #edit_profile: "Profile"
+  edit_profile: "Profil"
+  #resend: "Resend"
+  resend: "Renvoyer"
   #available: "Available"
   available: "Disponible"
   #home: "Home"
@@ -284,6 +288,8 @@ fr:
     admin_users: "frab - admin users"
     #crew_users: "frab - crew users"
     crew_users: "frab - Membres de l'équipe"
+    #resend_confirmation: "frab - Resend confirmation instructions"
+    resend_confirmation: "frab - Renvoyer l'e-mail de confirmation"
 
   # Notifications
   # -------------
@@ -310,6 +316,8 @@ fr:
     session_signup: "Inscription"
     #session_login: "Connection"
     session_login: "Connexion"
+    #resend_confirmation_instructions: "Resend confirmation instructions"
+    resend_confirmation_instructions: "Renvoyer l'e-mail de confirmation"
     #cfp_welcome: "%{conference} - Call for Participation"
     cfp_welcome: "%{conference} - Appel à participation"
     #cfp_new_cfp: "Launch a Call for Participation"
@@ -363,6 +371,8 @@ fr:
   # Devise views
   # ------------
   devise:
+    unlock_my_account: "Unlock my account"
+    change_my_password: "Change my password"
     mailer:
       confirmation_instructions:
         #headline: "Welcome %{email} !"
@@ -373,6 +383,35 @@ fr:
           Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
         #link: "Confirm my account"
         link: "Confirmer mon compte"
+      email_change:
+        #headline: "Hello, %{email}!"
+        headline: "Bonjour, %{email} !"
+        text_being_changed: |
+          We're contacting you to notify you that your email is being changed to %{email}.
+        text_been_changed: |
+          We're contacting you to notify you that your email has been changed to %{email}.
+      password_change:
+        headline: "Bonjour, %{email} !"
+        text: |
+          We're contacting you to notify you that your password has been changed.
+      password_change_instructions:
+        headline: "Bonjour, %{email} !"
+        text: |
+          Someone has requested a link to change your password. You can do this through the link below.
+
+          %{link}
+
+          If you didn't request this, please ignore this email.
+
+          Your password won't change until you access the link above and create a new one.
+      unlock_instructions:
+        headline: "Bonjour, %{email} !"
+        text: |
+          Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+
+          Click the link below to unlock your account:
+
+          %{link}
     links:
         #no_unlock_instructions: "Didn't receive unlock instructions?"
         no_unlock_instructions: "Vous n'avez pas reçu d'instructions de déverouillage ?"

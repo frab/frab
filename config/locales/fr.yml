@@ -137,7 +137,7 @@ fr:
     template:
       body: 'Il y a des problèmes avec les champs suivants:'
       header:
-        one: 1 erreur a empêché ce %{model} d'être enregistré
+        one: "Une erreur a empêché ce %{model} d'être enregistré"
         other: "%{count} erreurs ont empêché ce %{model} d'être enregistré"
   helpers:
     select:
