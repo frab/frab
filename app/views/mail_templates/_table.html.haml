@@ -7,10 +7,10 @@
       %th= sort_link @search, :content, 'Content', term: params[:term]
       %th= sort_link @search, :created_at, term: params[:term]
     - else
-      %th Name
-      %th Subject
-      %th Content
-      %th Created at
+      %th= t('name')
+      %th= t('mail_subject')
+      %th= t('content')
+      %th= t('creation_date')
     %th.last
   %tbody
     - collection.each do |t|
@@ -20,7 +20,7 @@
         %td= t.content.truncate(100)
         %td= t.created_at
         %td.buttons
-          = action_button "small", 'Show', t
+          = action_button "small", t('show'), t
           - if policy(@conference).orga?
-            = action_button "small", 'Edit', edit_mail_template_path(t)
-            = action_button "small danger", 'Destroy', t, data: { confirm: 'Are you sure?' }, method: :delete
+            = action_button "small", t('edit'), edit_mail_template_path(t)
+            = action_button "small danger", t('destroy'), t, data: { confirm: t('are_you_sure') }, method: :delete
