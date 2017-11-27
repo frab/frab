@@ -1,13 +1,13 @@
 %section
   .page-header
-    %h1 Editing People for "#{@event.title}"
+    %h1= t('titles.edit_people_for_event', {event: @event.title})
   .row
     .span16
       = simple_form_for(@event, data: { persons: @persons }) do |f|
         = dynamic_association :event_people, nil, f
         .actions
           = f.button :submit, class: 'primary'
-          = link_to "Cancel", :back, class: "btn"
+          = link_to t('cancel'), :back, class: "btn"
 
 :javascript
   attach_filter = function(set) {

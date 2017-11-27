@@ -1,20 +1,17 @@
 %section
   .page-header
-    %h1 My events
+    %h1= t('events_module.my_events')
   %ul.tabs
-    %li= link_to "All Events", events_path
-    %li.active= link_to "My Events", my_events_path
-    %li= link_to "Event Ratings", ratings_events_path
+    %li= link_to t('events_module.all_events'), events_path
+    %li.active= link_to t('events_module.my_events'), my_events_path
+    %li= link_to t('events_module.event_ratings'), ratings_events_path
     - if @conference.feedback_enabled
-      %li= link_to "Event Feedbacks", feedbacks_events_path
+      %li= link_to t('events_module.event_feedbacks'), feedbacks_events_path
   - if params[:term].blank? and @events.all.empty?
     .row
       .span16
         .blank-slate
-          %p
-            You are not yet involved in any event in this
-            conference. Add yourself to an event in whatever
-            role you like and the event will appear in this
-            list.
+          %p= t('events_module.not_involved')
+
   - else
     = render 'shared/search_and_table', collection: @events
