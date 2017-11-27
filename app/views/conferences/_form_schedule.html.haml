@@ -1,13 +1,13 @@
 = simple_form_for(@conference, url: conference_path) do |f|
   %fieldset.inputs
     %legend= t(:schedule_configuration)
-    = f.input :schedule_version, hint: t('schedule.inputs.hints.schedule_version')
-    = f.input :schedule_public, hint: t('schedule.inputs.hints.schedule_public')
-    = f.input :schedule_open, hint: t('schedule.inputs.hints.schedule_open')
+    = f.input :schedule_version, hint: t('schedule_module.inputs.hints.schedule_version')
+    = f.input :schedule_public, hint: t('schedule_module.inputs.hints.schedule_public')
+    = f.input :schedule_open, hint: t('schedule_module.inputs.hints.schedule_open')
     %fieldset.inputs
       %legend= t(:static_program_export)
-      = f.input :program_export_base_url, hint: t('schedule.inputs.hints.program_export_base_url')
-      = f.input :schedule_custom_css, input_html: {rows: 4}, hint: t('schedule.inputs.hints.schedule_custom_css')
-      = f.input :schedule_html_intro, input_html: {rows: 4}, hint: t('schedule.inputs.hints.schedule_html_intro')
+      = f.input :program_export_base_url, hint: t('schedule_module.inputs.hints.program_export_base_url')
+      = f.input :schedule_custom_css, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_custom_css')
+      = f.input :schedule_html_intro, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_html_intro')
   .actions
     = f.button :submit, class: 'primary'

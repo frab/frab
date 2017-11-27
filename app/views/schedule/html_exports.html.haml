@@ -1,20 +1,20 @@
 %section
   .page-header
-    %h1 HTML Exports
+    %h1= t('schedule_module.html_exports')
   - if policy(@conference).read?
     .row
       .span8
         %table.zebra-striped
           %thead
             %tr
-              %th Create static schedule export
-              %th Download static schedule export
+              %th= t('schedule_module.create_static_export')
+              %th= t('schedule_module.download_static_export')
           %tbody
             - @conference.language_codes.each do |locale|
               - conference_export = @conference.conference_export(locale)
               %tr
                 %td
-                  = action_button '', "create #{locale}", schedule_create_static_export_path(export_locale: locale), method: :post, hint: "Create a static HTML export of your program schedule."
+                  = action_button '', t('schedule_module.create_locale', {locale: locale}), schedule_create_static_export_path(export_locale: locale), method: :post, hint: t('schedule_module.create_locale_hint')
                 %td
                   - if conference_export&.tarball&.path && File.readable?(conference_export.tarball.path)
                     - date = l(Time.at(conference_export.tarball.updated_at), format: :pretty_datetime)
