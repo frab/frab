@@ -19,6 +19,6 @@
                          "data-from" => availability.start_date.to_i,
                          "data-to" => availability.end_date.to_i}
     %span
-      = check_box_tag "available for day #{day.label}", '1', false, class: 'cbx'
-    available
+      = check_box_tag t('availabilities.alerts.available_for_day', {day: day.label}), '1', false, class: 'cbx'
+    = t('available')
 

@@ -13,8 +13,8 @@
       - if @user.is_crew?
         = dynamic_association :conference_users, t(:conference_user), f
       - else
-        %p.inline-hint You need to save before adding conferences to a crew member.
+        %p.inline-hint= t('users_module.save_needed_before_changes')
 
   .actions
     = f.button :submit, class: 'primary'
-    = link_to "Cancel", :back, class: "btn"
+    = link_to t('cancel'), :back, class: "btn"

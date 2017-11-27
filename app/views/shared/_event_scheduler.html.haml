@@ -6,39 +6,26 @@
   .row
     .span16
       .blank-slate
-        %p
-          Before you can schedule any events, you need
-          to have at least one room defined for this
-          conference. Go to <em>Settings</em>
-          above to enter a room.
+        %p= raw(GitHub::Markdown.render(t('events_module.error_no_room')))
 - elsif @conference.events.count == 0
   .row
     .span16
       .blank-slate
-        %p
-          This conference does not yet have any events.
-          Create some under the <em>Events</em> tab above,
-          or launch a call for papers to gather events.
-          Once you have events, you can schedule them
-          here.
+        %p= raw(GitHub::Markdown.render(t('events_module.error_no_event')))
 - elsif @conference.days.count == 0
   .row
     .span16
       .blank-slate
-        %p
-          Before you can schedule any events, you need
-          to have at least one day defined for this
-          conference. Go to <em>Conference Settings</em>
-          above to enter a day.
+        %p= raw(GitHub::Markdown.render(t('events_module.error_no_day')))
 - else
   .row
     .span16
       %p
-        %b Toggle rooms:
+        %b= t('events_module.col_toggle_rooms')
       %p
         - @conference.rooms.each do |room|
           = link_to room.name, "#", class: "btn small success toggle-room", data: {room: room.name.downcase}
-        = link_to "hide all", "#", id: "hide-all-rooms", class: "btn small danger"
+        = link_to t('events_module.hide_all'), "#", id: "hide-all-rooms", class: "btn small danger"
   .row
     .span16
       - @conference.rooms.each do |room|
@@ -68,8 +55,8 @@
         .modal-body
           %p
             = form_tag schedule_update_track_path, id: "update-track" do
-              = label_tag "track_select", "Filter by track"
-              = select_tag "track_select", content_tag(:option, "All", selected: true) + options_from_collection_for_select(@conference.tracks, :id, :name)
+              = label_tag "track_select", t('events_module.track_select')
+              = select_tag "track_select", content_tag(:option, t('all'), selected: true) + options_from_collection_for_select(@conference.tracks, :id, :name)
           %p
             %ul#unscheduled-events
               = render 'unscheduled_events'
