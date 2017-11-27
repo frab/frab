@@ -1,5 +1,5 @@
 - content_for :track_menu do
-  %p.tracks Tracks:
+  %p.tracks= t 'col_tracks'
   %ul.tracks
     - @view_model.events_by_track.each do |track_id, events|
       - if events.count > 0 && ! track_id.nil?
