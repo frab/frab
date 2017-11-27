@@ -14,7 +14,7 @@ fr:
   edit_conference_days: "Éditer les jours de la conférence"
   edit_conference_rooms: "Éditer les salles de la conférence"
   edit_conference_schedule: "Modifier la programmation de la conférence"
-  edit_conference_tracks: "Modifier les pistes de la conférence"
+  edit_conference_tracks: "Modifier les canaux de la conférence"
   edit_ticket_server: "Éditer le serveur de tickets"
   error_signing_in: "Email ou mot de passe invalide."
   event_languages: "Langues de l'évènement"
@@ -32,7 +32,7 @@ fr:
   submission_configuration: "Configuration des propositions"
   ticket_server: "Serveur de tickets"
   timeslot_configuration: "Configuration de l'intervalle de temps"
-  tracks: "Pistes" # "Tracks"
+  tracks: "Canaux" # "Tracks"
   your_submission: "Votre proposition"
 
   navigation:
@@ -118,7 +118,7 @@ fr:
       im_account: "compte de messagerie instantanée"
       phone_number: "numéro de téléphone"
       event_attachment: "fichier"
-      track: "piste" # "track"
+      track: "canal" # "track"
       room: "salle"
 
     attributes:
@@ -134,7 +134,7 @@ fr:
         subtitle: "Sous-titre"
         speakers: "Orateurs"
         event_type: "Type d'évènement"
-        track: "Piste"
+        track: "Canal"
         time_slots: "Plages horaires"
         language: "Langue"
         logo: "Logo"
