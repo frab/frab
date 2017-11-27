@@ -4,6 +4,8 @@ fr:
   # ---------------------------------------------------------------------------
   # Misc strings
   # ------------
+  #send: "Send"
+  send: "Envoyer"
   #conference_management: "Conference Management"
   conference_management: "Gestion de conférences"
   #logout: "Logout"
@@ -230,6 +232,10 @@ fr:
     frab: "frab - Gestion de conférences"
     #frab_conference: "%{conference} - Conference Management"
     frab_conference: "%{conference} - Gestion de la conférence"
+    #edit_mail_template: "Edit Mail template"
+    edit_mail_template: "Éditer un modèle d'e-mail"
+    #list_mail_templates: "List of mail templates"
+    list_mail_templates: "Liste des modèles d'e-mail"
   # Modules
   # ---------------------------------------------------------------------------
   # Availabilities views
@@ -938,6 +944,33 @@ fr:
     total_number_of_not_reviewed: "Évènements que vous n'avez pas révisé :"
     #show ratings: "Show Ratings"
     show_ratings: "Montrer les évaluations"
+  emails_module:
+    #mail_subject: "Subject"
+    mail_subject: "Sujet"
+    #placeholders_hint: |
+    #  The following place holders may be used in the `content` section of each
+    #  template.
+    placeholders_hint: |
+      Les emplacements suivants peuvent être utilisés dans la section `content`
+      de chaque modèle.
+    #send_mail: "Send Mail"
+    send_mail: "Evoyer l'e-mail"
+    #mail_template_hint: |
+    #  Use this mail template to send a mail to all people involved in the events
+    #  of this conference.
+    mail_template_hint: |
+      Utilisez ce modèle d'e-mail pour envoyer des e-mails à toutes les personnes
+      impliquées dans les évènements de cette conférence.
+    #add_mail_template: "Add mail template"
+    add_mail_template: "Ajouter un modèle d'e-mail"
+    #add_mail_template_hint: "Add a new mail template."
+    add_mail_template_hint: "Créée un nouveau modèle d'email."
+    #new_mail_template: "New mail template"
+    new_mail_template: "Nouveau modèle d'email"
+    edit_template: "Edit mail template"
+    edit_template_hint: "Edit this mail template."
+    edit_template_title: "Mail template \"%{template}\""
+    template_subject: "Subject: %{subject}"
 # Checks
 # [ ] Activerecord field names
 # [ ] submit_tag('*') <- is it a tranlation somewhere, or a core string ?
