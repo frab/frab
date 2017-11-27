@@ -1,12 +1,11 @@
 %section
   .page-header
-    %h1 Create account for #{@person.full_name}
+    %h1= t('titles.create_account', {person: @person.full_name})
   = render 'shared/people_tabs'
   .row
     .span16
       = content do
         = inner do
-          %p
-            #{@person.full_name} does not currently have a user account and thus cannot login.
-            You can create a user account right now by filling out this form.
+          %p= t('people_module.no_user_account_for_person', {person: @person.full_name})
+
           = render 'form'

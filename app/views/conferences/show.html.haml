@@ -18,7 +18,8 @@
 
     .row
       .span16
-        %h2= t('conferences_module.recent_changes')
+        %h2
+          = t('conferences_module.recent_changes')
           %small= link_to "more >>", recent_changes_path
         - if @versions.empty?
           .blank-slate

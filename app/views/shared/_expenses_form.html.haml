@@ -2,7 +2,7 @@
   %fieldset.inputs
     = f.input :name
     = f.input :value
-    = f.input :reimbursed, as: :inline_boolean, hint: "Has this expense been reimbursed yet?"
+    = f.input :reimbursed, as: :inline_boolean, hint: t('expenses_module.is_this_reimbursed_hint')
   .actions
     - if policy(@conference).manage?
       = f.button :submit, class: 'primary'

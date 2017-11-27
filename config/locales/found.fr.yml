@@ -4,6 +4,30 @@ fr:
   # ---------------------------------------------------------------------------
   # Misc strings
   # ------------
+  #available: "Available"
+  available: "Disponible"
+  #home: "Home"
+  home: "Accueil"
+  #import: "Import"
+  import: "Importer"
+  #user_account: "User account"
+  user_account: "Compte"
+  #reports: "Reports"
+  reports: "Rapports"
+  #launch_call_for_participation: "Launch Call for Participation"
+  launch_call_for_participation: "Lancer l'appel à participation"
+  #show_account: "Account"
+  show_account: "Compte"
+  #export_profile: "Export profile"
+  export_profile: "Exporter le profil"
+  #user_settings: "Settings"
+  user_settings: "Paramètres"
+  #manual: "Manual"
+  manual: "Manuel"
+  #switch_conference: "Switch conference"
+  switch_conference: "Changer de conférence"
+  #manage_conference: "Manage this conference"
+  manage_conference: "Gérer cette conférence"
   #version_on_item: "%{version} on %{item}"
   version_on_item: "%{version} sur %{item}"
   #detailed_changes: "Detailed Changes"
@@ -90,6 +114,8 @@ fr:
   non_reimbursed_expenses: "Dépenses non remboursées"
   #full_name: "Full name"
   full_name: "Nom complet"
+  #profile: "Profile"
+  profile: "Profil"
   #email: "Email"
   email: "E-mail"
   #total: "Total"
@@ -98,10 +124,20 @@ fr:
   public_name: "Nom public"
   #events_in: "Events in"
   events_in: "Dans les évènements"
+  #availability: "Availability"
+  availability: "Disponibilité"
+  #transport_needs: "Transport needs"
+  transport_needs: "Besoins de transports"
+  #col_last_login: "Last login:"
+  col_last_login: "Dernière connexion :"
+  #col_email_for_login: "Email for login:"
+  col_email_for_login: "E-mail de connexion :"
   #col_phone_number_with_type: "Phone number (%{type}):"
   col_phone_number_with_type: "Numéro de tél. (%{type}) :"
   #col_availability: "Availability:"
   col_availability: "Disponibilité:"
+  #col_role: "Role:"
+  col_role: "Rôle:"
   #col_event_state: "Event State"
   col_event_state: "Statut de l'évènement"
   #col_reimbursed_expenses: "Reimbursed expenses:"
@@ -123,9 +159,9 @@ fr:
   #col_email: "Email:"
   col_email: "E-mail :"
   #col_track: "Track :"
-  col_track: "Piste :"
+  col_track: "Voie :"
   #col_tracks: "Tracks :"
-  col_tracks: "Pistes :"
+  col_tracks: "Voies :"
   #col_ticket: "Ticket:"
   col_ticket: "Ticket :"
   #col_type: "Type:"
@@ -183,7 +219,7 @@ fr:
   #ticket: "Ticket"
   ticket: "Ticket"
   #track: "Track"
-  track: "Piste"
+  track: "Voie"
   #type: "Type"
   type: "Type"
   #created_at: "Created at"
@@ -304,6 +340,11 @@ fr:
     edit_mail_template: "Éditer un modèle d'e-mail"
     #list_mail_templates: "List of mail templates"
     list_mail_templates: "Liste des modèles d'e-mail"
+    #edit_account: "Edit Account: %{person}"
+    edit_account: "Edittion d'un compte : %{person}"
+    #create_account: "Create account for %{@person}"
+    create_account: "Créer un compte pour %{@person}"
+
   # Modules
   # ---------------------------------------------------------------------------
   # Availabilities views
@@ -316,6 +357,8 @@ fr:
       no_availabilities: |
         %{person} n'a pas de disponibilités actuellement.
         Vous devez remplir ce formulaire.
+      #available_for_day: "available for day %{day}"
+      available_for_day: "disponible pour le jour %{day}"
 
   # Devise views
   # ------------
@@ -341,6 +384,7 @@ fr:
   cfp:
     #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
+    #deadline_description: "You should submit your proposal before **%{date}**"
     deadline_description: "Veuillez soumettre votre proposition avant le **%{date}**"
     #fail_layout_use: "DO NOT USE CONFERENCE LAYOUT WITHOUT A CONFERENCE"
     fail_layout_use: "N'UTILISEZ PAS LE LAYOUT DE CONFÉRENCE SANS CONFÉRENCE"
@@ -680,24 +724,42 @@ fr:
         schedule_custom_css: "CSS personnalisé qui sera ajouté à l'export HTML. (CSS)"
         #schedule_html_intro: "Intro text for the HTML export. (HTML)"
         schedule_html_intro: "Texte d'introduction pour l'export HTML. (HTML)"
-    create_static_export: "Create static schedule export"
-    download_static_export: "Download static schedule export"
-    html_exports: "HTML Exports"
-    create_locale: "Create %{locale}"
-    create_locale_hint: "Create a static HTML export of your program schedule."
-    view_live_version_hint: "View the public live version of your schedule just like any attendee might see it."
-    create_pdf_export: "Create custom PDF export"
-    create_pdf_export_hint: "Create a PDF version of your program schedule that can easily be printed."
-    publish_html_export: "Publish HTML export"
-    publish_html_export_hint: "Create a HTML version of your program schedule that can be copied to another web server."
-    col_select_paper_format: "Select paper format:"
+    #create_static_export: "Create static schedule export"
+    create_static_export: "Créer un export statique du programme"
+    #download_static_export: "Download static schedule export"
+    download_static_export: "Télécharger l'export statique du programme"
+    #html_exports: "HTML Exports"
+    html_exports: "Exports HTML"
+    #create_locale: "Create %{locale}"
+    create_locale: "Créer %{locale}"
+    #create_locale_hint: "Create a static HTML export of your program schedule."
+    create_locale_hint: "Créée un export statique de votre programme au format HTML."
+    #view_live_version_hint: "View the public live version of your schedule just like any attendee might see it."
+    view_live_version_hint: "Afficher la version \"live\" publique du programme, comme n'importe quelle personne la verrait"
+    #create_pdf_export: "Create custom PDF export"
+    create_pdf_export: "Créer un export PDF personnalisé"
+    #create_pdf_export_hint: "Create a PDF version of your program schedule that can easily be printed."
+    create_pdf_export_hint: "Créée une version PDF de votre programme qui pourra facilement être imprimée."
+    #publish_html_export: "Publish HTML export"
+    publish_html_export: "Publier l'export HTML"
+    #publish_html_export_hint: "Create a HTML version of your program schedule that can be copied to another web server."
+    publish_html_export_hint: "Créée une version HTML du programme, qui peut être copiée sur un autre serveur web."
+    #col_select_paper_format: "Select paper format:"
+    col_select_paper_format: "Selectionnez un format de papier:"
+    #col_orientation: "Orientation:"
     col_orientation: "Orientation:"
-    col_select_day: "Select day:"
-    col_use_half_page: "Only use half page width:"
-    col_rooms_per_page: "Rooms to show per page:"
-    col_select_rooms: "Select rooms:"
-    select_all_none: "Select all/none"
-    create_pdf: "Create PDF"
+    #col_select_day: "Select day:"
+    col_select_day: "Selectionnez le jour:"
+    #col_use_half_page: "Only use half page width:"
+    col_use_half_page: "Utiliser seulement la moitié de la largeur de la page :"
+    #col_rooms_per_page: "Rooms to show per page:"
+    col_rooms_per_page: "Salle à montrer par page :"
+    #col_select_rooms: "Select rooms:"
+    col_select_rooms: "Selctionnez les salles:"
+    #select_all_none: "Select all/none"
+    select_all_none: "Selectionner tout/rien"
+    #create_pdf: "Create PDF"
+    create_pdf: "Créer un PDF"
   # Tickets views
   # -------------
   tickets:
@@ -812,14 +874,14 @@ fr:
     #  have more than one track, go ahead and enter this
     #  one track.
     empty_tracks: |
-      Si vous organisez votre conférence sur plusieur pistes, c'est l'endroit
-      pour les créer. Même si vous n'avez qu'une piste, entrez-la.
+      Si vous organisez votre conférence sur plusieur voies, c'est l'endroit
+      pour les créer. Même si vous n'avez qu'une voie, entrez-la.
     #empty_tracks_more_infos: |
     #  Tracks have a name and a color. The color is used in
     #  the web based program, so feel free to customize it
     #  as much as you wish.
     empty_tracks_more_infos: |
-      Les pistes ont un nom et une couleur. La couleur est utilisée dans
+      Les voies ont un nom et une couleur. La couleur est utilisée dans
       le programme web; n'hésitez pas à la modifier aussi souvent que
       nécessaire.
   events_module:
@@ -837,7 +899,10 @@ fr:
         tech_rider: "Que faut-il pour cet évènement ?"
         #recording_license: "Recording license for this talk"
         recording_license: "License d'enregistrement pour ce talk"
+    #event_attachments: "Uploaded files"
     event_attachments: "Fichiers uploadés"
+    #public_attachment_hint: "Is this attachment visible to the public?"
+    public_attachment_hint: "Cette pièce jointe sera-t-elle publique ?"
     #event_details: "Event details"
     event_details: "Détails de l'évènement"
     #no_attendee: "There is no attendee feedback for this event yet."
@@ -972,7 +1037,42 @@ fr:
     #events_in_current_conference: "Events in current conference"
     events_in_current_conference: "Évènements dans la conférence actuelle"
     #events_in_other_conferences: "Events in other conferences"
-    events_in_other_conferences: "vènements dans d'autres conférences"
+    events_in_other_conferences: "Évènements dans d'autres conférences"
+    #error_no_room: |
+    #  Before you can schedule any events, you need
+    #  to have at least one room defined for this
+    #  conference. Go to _Settings_
+    #  above to enter a room.
+    error_no_room: |
+      Avant de pouvoir programmer des évènements, vous devez au moins avoir
+      ajouté une salle pour cette conférence. Allez dans les _Paramètres_
+      au dessus, pour ajouter une salle.
+    #error_no_event: |
+    #  This conference does not yet have any events.
+    #  Create some under the _Events_ tab above,
+    #  or launch a call for papers to gather events.
+    #  Once you have events, you can schedule them
+    #  here.
+    error_no_event: |
+      Cette conférence n'a pas encore d'évènement. Crééz-en dans l'onglet
+      _Évènements_ ci dessus, ou lancez un appel à participation pour
+      en récupérer. Une fois que vous aurez des évènements, vous pourrez
+      les organiser ici.
+    #error_no_day: |
+    #  Before you can schedule any events, you need
+    #  to have at least one day defined for this
+    #  conference. Go to <em>Conference Settings</em>
+    #  above to enter a day.
+    error_no_day: |
+      Avant de pouvoir programmer des évènements, vous devez avoir au moins
+      une journée de définie pour cette conférence. Allez dans les
+      _Paramètres de la conférence_, ci dessus, pour ajouter une journée.
+    #col_toggle_rooms: "Toggle rooms:"
+    col_toggle_rooms: "Basculer les salles :"
+    #hide_all: "hide all"
+    hide_all: "tout cacher"
+    #track_select: "filter by track"
+    track_select: "filtrer par voie"
   expenses_module:
     #reimbursed: "Reimbursed"
     reimbursed: "Remboursé"
@@ -980,7 +1080,10 @@ fr:
     sum_reimbursed: "Somme de tous les remboursements"
     #sum_not_reimbursed: "Sum of all non-reimbursed"
     sum_not_reimbursed: "Somme de tous les non-remboursements"
-    new_expense: "New expense"
+    #new_expense: "New expense"
+    new_expense: "Nouvelle dépense"
+    #is_this_reimbursed_hint: "Has this expense been reimbursed yet?"
+    is_this_reimbursed_hint: "Cette dépense a-t-elle été remboursée ?"
   people_module:
     inputs:
       #notification_subject: "Notification subject"
@@ -1065,10 +1168,16 @@ fr:
     add_ticket: "Ajouter un ticket"
     #add_ticket_hint: "Create a ticket for this person."
     add_ticket_hint: "Créée un ticket pour cette personne."
-    no_user_account: "Person has no user account yet and cannot login. Click on the user tab to create an account."
+    #no_user_account: "Person has no user account yet and cannot login. Click on the user tab to create an account."
     no_user_account: |
       Cette personne n'a pas encore de compte utilisateur et ne peut donc pas se connecter.
       Cliquez sur l'onglet _Utilisateurs_ pour créer un compte.
+    #no_user_account_for_person: |
+    #  %{person} does not currently have a user account and thus cannot login.
+    #  You can create a user account right now by filling out this form.
+    no_user_account_for_person: |
+      %{person} n'a pas encore de compte et ne peut donc pas se connecter au site.
+      Vous pouvez créer un compte utilisateur dès maintenant en remplissant ce formulaire.
 
   ratings_module:
     #start_reviewing: "Start reviewing"
@@ -1146,8 +1255,16 @@ fr:
     nb_seats: "Nb. places"
     #booked_question: "Booked?"
     booked_question: "Réservé ?"
+    #what_type_id_needed_hints: "What type of transportation is needed?"
+    what_type_id_needed_hints: "Quel type de transport est requis ?"
+    #nb_seats_needed_hint: "How many seats are needed?"
+    nb_seats_needed_hint: "Combien de sièges sont requis ?"
+    #is_booked_hint: "Has this transportation been booked?"
+    is_booked_hint: "Ce transport a-t-il été réserve ?"
+    #new_transport_need: "New transport need"
+    new_transport_need: "Nouveau besoin de transport"
 
-  reports:
+  reports_module:
     #lectures_with_speaker: "lectures with speaker"
     lectures_with_speaker: "conférences avec conférencier"
     #lectures_not_confirmed: "lectures that are new or review"
@@ -1193,9 +1310,9 @@ fr:
     #event_timeslot_sum: "used timeslots (hours)"
     event_timeslot_sum: "intervalles de temps utilisés (heures)"
     #confirmed_events_by_track: "confirmed event numbers by track"
-    confirmed_events_by_track: "événements confirmés par piste"
+    confirmed_events_by_track: "événements confirmés par voie"
     #events_by_track: "event numbers by track"
-    events_by_track: "nombre d'événement par piste"
+    events_by_track: "nombre d'événement par voie"
     #people_speaking_by_day: "confirmed speakers by day with attendance status"
     people_speaking_by_day: "orateurs confirmés par jour avec statut de présence"
     #all: "overview on transport needs"
@@ -1204,8 +1321,20 @@ fr:
     query_speakers: "Interrogateurs"
     #available_reports: "Available Reports"
     available_reports: "Raports disponibles"
-    no_search_results: "Sorry, but your search yielded no results."
-    found_x_results: "Found %{nb} results."
+    #no_search_results: "Sorry, but your search yielded no results."
+    no_search_results: "Désolé, votre recherche n'a retourné aucun résultat."
+    #found_x_results: "Found %{nb} results."
+    found_x_results: "%{nb} résultat(s) trouvé(s) ."
+  users_module:
+    #save_needed_before_changes: "You need to save before adding conferences to a crew member."
+    save_needed_before_changes: "Vous devez sauvegarder avant d'ajouter des conférences à un membre d'équipe."
+    #edit_user_account: "Edit user account"
+    edit_user_account: "Editer le compte utilisateur"
+    #edit_user_account_hint: "Edit this user account."
+    edit_user_account_hint: "Edite le compte de cet utilisateur."
+    #not_in_crew: "This user is not yet part of any conference crew."
+    not_in_crew: "Cet utilisateur ne fait partie de l'équipe d'aucune conférence."
+
 # Checks
 # [ ] Activerecord field names
 # [ ] submit_tag('*') <- is it a tranlation somewhere, or a core string ?
