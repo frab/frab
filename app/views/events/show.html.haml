@@ -2,27 +2,27 @@
   .page-header
     .pull-right
       - if policy(@conference).manage?
-        = action_button "primary", "Edit event", edit_event_path(@event), hint: "Edit this event's data."
-        = action_button "primary", "Edit people", edit_people_event_path(@event), hint: "Edit this event's data."
+        = action_button "primary", t('events_module.edit_event'), edit_event_path(@event), hint: t('events_module.edit_event_hint')
+        = action_button "primary", t('persons_module.inputs.edit_people'), edit_people_event_path(@event), hint: t('persons_module.inputs.edit_people_hint')
         - if @conference.ticket_type == 'integrated' and !@conference.bulk_notification_enabled and @conference.call_for_participation.present?
           - if @event.transition_possible? :accept
-            = action_button "success", "Accept event", update_state_event_path(@event, transition: :accept, send_mail: true), method: :put, hint: "Accept this event. The speaker(s) will be notified of the acceptance via email. If they have access to the call for papers system, they will receive a link to confirm their attendance as well."
+            = action_button "success", t('events_module.accept_event'), update_state_event_path(@event, transition: :accept, send_mail: true), method: :put, hint: t('events_module.accept_event_hint')
           - if @event.transition_possible? :reject
-            = action_button "danger", "Reject event", update_state_event_path(@event, transition: :reject, send_mail: true), method: :put, confirm: "Are you sure?", hint: "Reject this event. The speaker(s) will be notified of the rejection via email."
+            = action_button "danger", t('events_module.reject_event') , update_state_event_path(@event, transition: :reject, send_mail: true), method: :put, confirm: t('are_you_sure'), hint: t('events_module.reject_event_hint')
         - if @event.transition_possible? :accept
-          = action_button "success", "Accept event (no email)", update_state_event_path(@event, transition: :accept), method: :put, hint: "Accept this event without sending an automated email."
+          = action_button "success", t('events_module.accept_event_no_email'), update_state_event_path(@event, transition: :accept), method: :put, hint: t('events_module.accept_event_no_email_hint')
         - if @event.transition_possible? :reject
-          = action_button "danger", "Reject event (no email)", update_state_event_path(@event, transition: :reject), method: :put, confirm: "Are you sure?", hint: "Reject this event without sending an automated email."
+          = action_button "danger", t('events_module.reject_event_no_email'), update_state_event_path(@event, transition: :reject), method: :put, confirm:t('are_you_sure'), hint: t('events_module.reject_event_no_email_hint')
         - if @event.transition_possible? :confirm
-          = action_button "", "Confirm event", update_state_event_path(@event, transition: :confirm), method: :put, hint: "Confirm that the speaker(s) will be present and that the event will actually take place."
+          = action_button "", t('events_module.confirm_event'), update_state_event_path(@event, transition: :confirm), method: :put, hint: t('events_module.confirm_event_hint')
         - if @event.transition_possible? :cancel
-          = action_button "danger", "Cancel event", update_state_event_path(@event, transition: :cancel), method: :put, hint: "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
+          = action_button "danger", t('events_module.cancel_event'), update_state_event_path(@event, transition: :cancel), method: :put, hint: t('events_module.cancel_event_hint')
         - if @event.transition_possible? :notify
-          = action_button "", "Custom notification", custom_notification_event_path(event_id: @event), method: :post, hint: "Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab."
+          = action_button "", t('events_module.custom_notification'), custom_notification_event_path(event_id: @event), method: :post, hint: t('events_module.custom_notification_hint')
         - if @conference.ticket_server_enabled?
           - unless @event.remote_ticket?
-            = action_button "primary", "Add Ticket", create_event_ticket_path(event_id: @event), method: :post, title: "Create a ticket for this event."
-    %h1 Event
+            = action_button "primary", t('events_module.add_ticket') , create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
+    %h1= t('event')
     %h2 #{@event.title}
   = render 'shared/events_tabs'
   .row
@@ -47,61 +47,61 @@
           = @event.state
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
-          %b Ticket:
+          %b= t('col_ticket')
           -if @conference.ticket_server.nil?
             = @event.ticket.remote_ticket_id
           -else
             = link_to @event.ticket.remote_ticket_id, get_ticket_view_url( @event.ticket.remote_ticket_id ), target: "_blank"
       %p
-        %b Language:
+        %b= t('col_language')
         = @event.language
       %p
-        %b Public:
+        %b= t('col_public')
         = check_box_tag :public, @event.public, @event.public, disabled: true
       %p
-        %b Average audience feedback:
+        %b= t('avg_audience_feedback')
         = number_with_precision @event.average_feedback, precision: 1
     .span6
       %h2= EventPerson.model_name.human(count: 2)
       %p= @event.speakers.map{ |p| link_to p.public_name, p}.join(", ").html_safe
-      %h2 Scheduling
+      %h2= t('scheduling')
       %p
-        %b Time slots:
+        %b= t('col_time_slots')
         = format_time_slots @event.time_slots
       - if policy(@conference).manage?
         %p
-          %b Start time:
+          %b= t('col_start_time')
           = event_start_time
       %p
-        %b Room:
+        %b= t('col_room')
         = @event.room.try(:name)
       -if @event.conference != @conference
-        %b Conference:
+        %b= t('col_conference')
         = @event.conference.acronym
     .span4
       = image_box @event.logo, :large
   .row
     .span16
-      %h2 Content
+      %h2= t('content')
   .row
     .span6
       %p
-        %b Abstract:
+        %b= t('col_abstract')
         = simple_format @event.abstract
     .span10
       %p
-        %b Description:
+        %b= t('col_description')
         = simple_format @event.description
       %p
         - if @event.links.any?
-          %b Links:
+          %b= t('col_links')
           %br/
           - @event.links.each do |link|
             = link_to link.title, fix_http_proto(link.url)
             %br/
       %p
         - if @event.event_attachments.any?
-          %b #{t('public.schedule.event.files')}:
+          %b=t('col_files')
           %ul
             - @event.event_attachments.each do |attachment|
               %li= link_to attachment.link_title, attachment.attachment.url
@@ -109,23 +109,23 @@
     .row
       .span6
         %p
-          %b Classifiers:
+          %b= t('col_classifiers')
           - @event.event_classifiers.each do |ec|
             %p
               %meter{ min: 0, max: 100, value: ec.value, class: 'classifier-meter' }
               = ec.classifier.name + ": " + ec.value.to_s + " %"
   .row
     .span16
-      %h2 Notes
+      %h2= t('notes')
   .row
     - if policy(@conference).manage?
       .span8
         %p
-          %b Notes(admin):
+          %b= t('col_notes_admin')
           = @event.note
     .span8
       %p
-        %b Submission Notes(user and admin):
+        %b= t('col_submission_notes')
         = @event.submission_note
   .row
     .span8

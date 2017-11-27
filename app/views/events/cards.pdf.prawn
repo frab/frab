@@ -71,7 +71,7 @@ prawn_document(page_layout: :landscape) do |pdf|
 
           # Speakers Column
           top = 200 - info_table.height
-          columns = [{text: "Speakers:\n", styles: [:bold], size: 12}]
+          columns = [{text: t('col_speakers') + "\n", styles: [:bold], size: 12}]
 
           add_speakers(columns, event)
           add_event_rating(columns, event)

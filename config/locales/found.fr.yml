@@ -6,8 +6,14 @@ fr:
   # ------------
   #preview: "Preview"
   preview: "Prévisualisation"
+  #users: "Users"
   users: "Utilisateurs"
+  #cancel: "Cancel"
+  cancel: "Annuler"
+  #conferences: "Conferences"
   conferences: "Conférences"
+  #event: "Event"
+  event: "Évènement"
   #user: "User"
   user: "Utilisateur"
   #person: "Person"
@@ -30,6 +36,88 @@ fr:
   others_only: "Autres seulement"
   #accepted_only: "Accepted only"
   accepted_only: "Seulement les acceptés" # Fem form ?
+  #people: "People"
+  people: "Personnes"
+  #ratings: "Ratings"
+  ratings: "Notations"
+  #rating: "Rating"
+  rating: "Notation"
+  #feedback: "Feedback"
+  feedback: "Retours"
+  #comments: "Comments"
+  comments: "Commentaires"
+  #comment: "Comment"
+  comment: "Commentaire"
+  #no_data: "No data"
+  no_data: "Pas de données"
+  #col_track: "Track :"
+  col_track: "Piste :"
+  #col_ticket: "Ticket:"
+  col_ticket: "Ticket :"
+  #col_type: "Type:"
+  col_type: "Type :"
+  #col_language: "Language:"
+  col_language: "Langue :"
+  #col_abstract: "Abstract:"
+  col_abstract: "Extrait :"
+  #col_links: "Links:"
+  col_links: "Liens :"
+  #col_description: "Description:"
+  col_description: "Description :"
+  #col_total: "Total:"
+  col_total: "Total :"
+  #col_filters: "Filters:"
+  col_filters: "Filtres :"
+  #col_public: "Public:"
+  col_public: "Publique :"
+  #col_avg_audience_feedback: "Average audience feedback:"
+  col_avg_audience_feedback: "Retours moyen :"
+  #col_time_slots: "Time slots:"
+  col_time_slots: "Plages horaires :"
+  #col_start_time: "Start time:"
+  col_start_time: "Début :"
+  #col_room: "Room:"
+  col_room: "Salle :"
+  #col_conference: "Conference:"
+  col_conference: "Conférence :"
+  #col_files: "Files:"
+  col_files: "Fichiers :"
+  #col_classifiers: "Classifiers:"
+  col_classifiers: "Catégories :"
+  #scheduling: "Scheduling"
+  scheduling: "Programmation"
+  #content: "Content"
+  content: "Contenu"
+  #remove: "Remove"
+  remove: "Enlever"
+  #links: "Links"
+  links: "Liens"
+  #state: "State"
+  state: "État"
+  #time_and_place: "Time and place"
+  time_and_place: "Heure et localisation"
+  #notes: "Notes"
+  notes: "Notes"
+  #col_notes_admin: "Notes (admin):"
+  col_notes_admin: "Notes (admin) :"
+  #col_submission_notes: "Submission Notes(user and admin):"
+  col_submission_notes: "Notes de soumission (user et admin) :"
+  #additional_resources: "Additional Resources"
+  additional_resources: "Ressources supplémentaires"
+  #title: "Title"
+  title: "Titre"
+  #ticket: "Ticket"
+  ticket: "Ticket"
+  #track: "Track"
+  track: "Piste"
+  #type: "Type"
+  type: "Type"
+  #created_at: "Created at"
+  created_at: "Créé le"
+  #name: "Name"
+  name: "Nom"
+  #user_role: "Role"
+  user_role: "Rôle"
 
   # Form inputs. Specific inputs are in their own modules sections.
   # -----------
@@ -82,6 +170,14 @@ fr:
   titles:
     #person: "Person: %{person}"
     person: "Personne : %{person}"
+    #edit_person: "Edit Person: %{person}"
+    edit_person: "Editer une personne : %{person}"
+    #edit_people_for_event: "Editing People for "%{@event}""
+    edit_people_for_event: "Edition des personnes pour \"%{event}\""
+    #event: "Event: %{event}"
+    event: "Évènement: %{event}"
+    #event_list: "List of events"
+    event_list: "Liste des dévènements"
     #session_signup: "Create a new account"
     session_signup: "Inscription"
     #session_login: "Connection"
@@ -102,6 +198,10 @@ fr:
     crew_users: "Liste des comptes des membres de l'équipe"
     #conferences_index: "List of conferences"
     conferences_index: "Liste des conférences"
+    #new_event: "New event"
+    new_event: "Nouvel évènement"
+    #event_ratings: "Event Ratings"
+    event_ratings: "Evaluation d'évènements"
 
   # Modules
   # ---------------------------------------------------------------------------
@@ -429,7 +529,7 @@ fr:
         #  Is the dynamic schedule public? You can still create static exports
         #  regardless of this setting.
         schedule_public: |
-          Est-ce que la programmtion synamique est publique ? Vous pourrez toujours
+          Est-ce que la programmtion dynamique est publique ? Vous pourrez toujours
           faire des exports statiques, peu importe ce paramètre.
         #schedule_open: |
         #  Allow speakers to self-schedule their talks. Everything will be
@@ -552,19 +652,230 @@ fr:
       salle. Les salles détermineront le nombre de colonnes de votre
       programme.
   tracks_module:
+    #modify_track_with_parent: |
+    #  The tracks for this conference can only be modified with
+    #  administration rights for the parent conference %{parent}
     modify_track_with_parent: |
       The tracks for this conference can only be modified with
       administration rights for the parent conference %{parent}
+    #configured_tracks: "The currently configured tracks are:"
     configured_tracks: "The currently configured tracks are:"
+    #empty_tracks: |
+    #  If you organize your conference into different tracks,
+    #  this is the place to create them. Even if you do not
+    #  have more than one track, go ahead and enter this
+    #  one track.
     empty_tracks: |
-      If you organize your conference into different tracks,
-      this is the place to create them. Even if you do not
-      have more than one track, go ahead and enter this
-      one track.
+      Si vous organisez votre conférence sur plusieur pistes, c'est l'endroit
+      pour les créer. Même si vous n'avez qu'une piste, entrez-la.
+    #empty_tracks_more_infos: |
+    #  Tracks have a name and a color. The color is used in
+    #  the web based program, so feel free to customize it
+    #  as much as you wish.
     empty_tracks_more_infos: |
-      Tracks have a name and a color. The color is used in
-      the web based program, so feel free to customize it
-      as much as you wish.
+      Les pistes ont un nom et une couleur. La couleur est utilisée dans
+      le programme web; n'hésitez pas à la modifier aussi souvent que
+      nécessaire.
+  events_module:
+    inputs:
+      hints:
+        #public: "Is this event visible in the public schedule?"
+        public: "Et-ce que cet évènement sera visible dans le programme public ?"
+        #note: "visibility: admin only."
+        note: "Visibilité : admins seulement."
+        #submission_note: "visibiliy: admin and user; additional information."
+        submission_note: "Visibilité : Admins et utilisateurs; information additionelle."
+        #do_not_record: "Will this event be recorded?"
+        do_not_record: "Est-ce que l'évènement sera enregistré ?"
+        #tech_rider: "What is needed for this event?"
+        tech_rider: "Que faut-il pour cet évènement ?"
+        #recording_license: "Recording license for this talk"
+        recording_license: "License d'enregistrement pour ce talk"
+    event_attachments: "Fichiers uploadés"
+    #event_details: "Event details"
+    event_details: "Détails de l'évènement"
+    #no_attendee: "There is no attendee feedback for this event yet."
+    no_attendee: "Il n'y a pas de retours venant des visiteurs pour le moment."
+    #no_attende_more_infos: |
+    #  Enable attendee feedback in the conference
+    #  settings and the web program schedule will include a
+    #  form for your attendees to provide feedback. This
+    #  feedback will appear here.
+    no_attende_more_infos: |
+      Activez les retours des visiteurs dans les paramètres de la conférence
+      et le programme incluera un formulaire pour qu'ils puissent commenter
+      les évènements. Ces commentaires apparaitront ici.
+    #average_feedback: "Average Feedback:"
+    average_feedback: "Retours moyen :"
+    #rate_next: "Rate next event"
+    rate_next: "Notez le prochain évènement"
+    #toggle_description: "Toggle Description >>"
+    toggle_description: "Basculer la description >>"
+    #average_speaker_feedback: "Average feedback as speaker:"
+    average_speaker_feedback: "Retours moyen par orateur :"
+    #my_rating: "My rating"
+    my_rating: "Ma note"
+    #my_ratings: "My ratings"
+    my_ratings: "Mes notes"
+    #all_rating: "All ratings"
+    all_rating: "Toutes les notes"
+    #all_events: "All events"
+    all_events: "Tous les évènements"
+    #event_ratings: "Event ratings"
+    event_ratings: "Notes de l'évènement"
+    #my_events: "My Events"
+    my_events: "Mes évènements"
+    #event_feedbacks: "Event Feedbacks"
+    event_feedbacks: "Retours sur les évènements"
+    #feedback_not_enabled: "The feedback system is not enabled."
+    feedback_not_enabled: "Le système de retours n'est pas activé."
+    #add_event: "Add event"
+    add_event: "Nouvel évènement"
+    #add_event_hint: "Add a new event."
+    add_event_hint: "Créée un nouvel évènement."
+    #print_cards: "Print cards"
+    print_cards: "Imprimer les cartes"
+    #print_cards_hint: |
+    #  Download a PDF with all events as cards (four cards per page). Print this
+    #  out to take your planning offline.
+    print_cards_hint: |
+      Téléchargez un PDF avec tous les évènements sour forme de carte (quatre par page).
+      Imprimez-le pour avoir un planning hors-ligne.
+    #print_accepted_cards: "Print cards (accepted only)"
+    print_accepted_cards: "Imprimer les cartes (accéptés seulement)"
+    #print_accepted_cards_hint: |
+    #  Download a PDF with only the accepted events as cards (four cards per page).
+    #  Especially useful to plan your program schedule offline.
+    print_accepted_cards_hint: |
+      Téléchargez un PDF avec les évènements accéptés seulement, sous forme de cartes.
+      Imprimez-le pour planifier votre programmation hors-ligne.
+    #no_events: |
+    #  This conference does not yet have any events. Start adding events by clicking on the
+    #  button on the right. Or start a call for papers, to allow others to submit events for
+    #  you to review.
+    no_events: |
+      Cette conférence n'a pas encore d'évènement. Commencez par en ajouter en cliquant sur
+      le bouton à droite, ou commencez un appel à participation pour permettre aux gens de
+      soummettre des propositions.
+    #no_ratings: |
+    #  No one has entered a rating for this event yet. Be the first
+    #  and rate the event using the form above.
+    no_ratings: |
+      Personne n'a noté cet évènement pour le moment. Soyez le premier en
+      utilisant le formulaire ci-dessous.
+    #event_classifiers: "Event classifiers"
+    event_classifiers: "Catégories d'évènement"
+    #not_involved: |
+    #  You are not yet involved in any event in this
+    #  conference. Add yourself to an event in whatever
+    #  role you like and the event will appear in this
+    #  list.
+    not_involved: |
+      Vous n'êtes pas encore impliqué dans un évènement pour cette conférence.
+      Ajoutez-vous à un évènement pour le rôle que vous souhaitez tenir, et
+      l'évènement apparaîtra dans la liste
+    #edit_event: "Edit Event"
+    edit_event: "Éditer l'évènement"
+    #edit_event_hint: "Edit this event's data."
+    edit_event_hint: "Edit this event's data."
+    accept_event_no_email: "Accept event (no email)"
+    accept_event_no_email_hint: "Accept this event without sending an automated email."
+    accept_event: "Accept event"
+    accept_event_hint: |
+      Accept this event. The speaker(s) will be notified of the acceptance via
+      email. If they have access to the call for papers system, they will
+      receive a link to confirm their attendance as well.
+    reject_event_no_email: "Reject event"
+    reject_event_no_email_hint: "Reject this event without sending an automated email."
+    reject_event: "Reject event"
+    reject_event_hint: "Reject this event. The speaker(s) will be notified of the rejection via email."
+    confirm_event: "Confirm event"
+    confirm_event_hint: "Confirm that the speaker(s) will be present and that the event will actually take place."
+    cancel_event: "Cancel event"
+    cancel_event_hint: "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
+    custom_notification: "Custom notification"
+    custom_notification_hint: "Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab."
+    add_ticket: "Add Ticket"
+    add_ticket_hint: "Create a ticket for this event."
+  persons_module:
+    inputs:
+      #notification_subject: "Notification subject"
+      notification_subject: "Notification subject"
+      #notification_body: "Notification body"
+      notification_body: "Notification body"
+      #edit_people: "Edit people"
+      edit_people: "Editer les personnes"
+      hints:
+        #person_filter: |
+        #  Filter persons in the options menu below by their first name, last
+        #  name, email address or user ID. Leave blank for no filtering."
+        person_filter: |
+          Filtrez les personnes par nom, prénom, adresse email ou id. Laissez vide
+          pour enlever les filtres.
+        #event_role: |
+        #  Coordinators are part of the conference team, they coordinate speaker
+        #  attendance and events. Submitters answer the cfp to enter events into frab.
+        #  Speakers take part in events, their availability matters. Moderators take
+        #  part in panel discussions, their availability matters."
+        event_role: |
+          Les coordinateurs font partie de l'équipe de la conférence. Ils coordinent le
+          passage des orateurs et autres évènements. Les soummeteurs sont les personnes
+          ayant répondu à l'appel à participation et qui ont entré des évènements dans
+          frab. Les orateurs participent aux évènements. Leur disponibilité importe.
+          Les modérateurs prennent part dans les discussions. Leur disponibilités importe.
+        #notification_body: "Valid variables: %{variables}"
+        notification_body: "Variables valides : %{variables}"
+      #edit_people_hint: "Add or remove people from this event."
+      edit_people_hint: "Ajouter ou enlever des personnes à cet évènement."
+      #no_people_in event: |
+      #  There are no people associated with this event yet.
+      #  Use the button on the right to add people. Please
+      #  note that you can only add people that are already
+      #  in the system. If the person you would like to add
+      #  is not yet in the system, go to the <em>People</em>
+      #  tab above and create this person first.
+      no_people_in event: |
+        Il n'y a pas de personne associée à cet évènement pour le moment.
+        Utilisez le bouton sur la droite pour en ajouter. Notez que vous
+        pouvez seulement ajouter des personnes qui sont déjà présentes dans le
+        système. Si vous voulez ajouter quelqu'un qui n'est pas encore dedans,
+        allez sur l'onglet _Personnes_ et créez cette personne en premier.
+  ratings_module:
+    #start_reviewing: "Start reviewing"
+    start_reviewing: "Commencer l'évaluation"
+    #start_reviewing_hint: |
+    #  Review a batch of events in a row. You will be presented with the event
+    #  that has the least ratings first and can easily navigate to the next
+    #  event in the row.
+    start_reviewing_hint: |
+      Révisez un lot d'évènements. L'évènement avec le moins d'évaluations
+      vous sera proposé en premier, et ous pourrez naviguer aisément vers
+      l'élément suivant de la liste.
+    #no_event: |
+    #  There are no events in this conference yet. Once
+    #  you add events, they will appear here together
+    #  with their current ratings. You can edit your
+    #  rating by clicking on an event, or you can use
+    #  the "Start reviewing" button on the right, to
+    #  rate a whole batch of events in a row.
+    no_event: |
+      Il n'y a pas d'évènement à valuer dans cette conférence pour le moment.
+      Une fois que vous aurez ajouté des évènements, ils apparaîtront ici, ainsi
+      que leurs évaluations. Vous pouvez éditer vos évaluations en cliquant sur
+      un évènement, ou vous pouvez utiliser le bouton "Commencer l'évaluation"
+      sur la droite, pour démarrer une évaluation de plusieur évènements.
+    #statistics: "Statistics"
+    statistics: "Statistiques"
+    #total_number_of_events: "Total number of events:"
+    total_number_of_events: "Total des évènements :"
+    #total_number_of_events_no_review: "Total number of events without review:"
+    total_number_of_events_no_review: "Total des évènements sans revue :"
+    #total_number_of_reviewed: "Events you have reviewed:"
+    total_number_of_reviewed: "Évènements que vous avez révisés:"
+    #total_number_of_not_reviewed: "Events you haven't reviewed:"
+    total_number_of_not_reviewed: "Évènements que vous n'avez pas révisé :"
+    #show ratings: "Show Ratings"
+    show_ratings: "Montrer les évaluations"
 # Checks
 # [ ] Activerecord field names
 # [ ] submit_tag('*') <- is it a tranlation somewhere, or a core string ?

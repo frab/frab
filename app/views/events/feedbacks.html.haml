@@ -2,16 +2,16 @@
   .page-header
     %h1 Event Feedbacks
   %ul.tabs
-    %li= link_to "All Events", events_path
-    %li= link_to "My Events", my_events_path
-    %li= link_to "Event Ratings", ratings_events_path
-    %li.active= link_to "Event Feedbacks", feedbacks_events_path
+    %li= link_to t('events_module.all_events'), events_path
+    %li= link_to t('events_module.my_events'), my_events_path
+    %li= link_to t('events_module.event_ratings'), ratings_events_path
+    %li.active= link_to t('events_module.event_feedbacks'), feedbacks_events_path
   - unless @conference.feedback_enabled
     .row
       .span16
         .blank-slate
-          %p
-            The feedback system is not enabled.
+          %p= t('events_module.feedback_not_enabled')
+
   - else
     .row
       .span16
@@ -21,7 +21,7 @@
               %th
               %th= sort_link @search, :title, term: params[:term]
               %th Speakers
-              %th= sort_link @search, :track_name, 'Track', term: params[:term]
+              %th= sort_link @search, :track_name, t('track'), term: params[:term]
               %th= sort_link @search, :average_feedback, term: params[:term]
               %th= sort_link @search, :event_feedbacks_count, term: params[:term]
           %tbody
