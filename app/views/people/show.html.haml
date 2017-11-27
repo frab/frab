@@ -2,33 +2,33 @@
   .page-header
     .pull-right
       - if policy(Conference).manage?
-        = action_button "primary", "Edit person", edit_person_path(@person), title: "Edit this person's data."
-        = action_button "add", "Add person", new_person_path, title: "Add a new person."
+        = action_button "primary", t('people_module.edit_person'), edit_person_path(@person), hint: t('people_module.edit_person_hint')
+        = action_button "add", t('people_module.add_person'), new_person_path, hint: t('people_module.add_person_hint')
       - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
-        = action_button "attend", "Attending", attend_person_path, title: "Mark person as present.", method: 'PUT'
+        = action_button "attend", t('people_module.attending'), attend_person_path, hint: t('people_module.attending_hint'), method: 'PUT'
       - if @view_model.can_add_ticket?
-        = action_button "primary", "Add Ticket", create_person_ticket_path(person_id: @person), method: :post, title: "Create a ticket for this person."
-    %h1 Person: #{@person.full_name}
+        = action_button "primary", t('people_module.add_ticket'), create_person_ticket_path(person_id: @person), method: :post, hint: t('people_module.add_ticket_hint')
+    %h1= t('titles.person', {person: @person.full_name})
   = render 'shared/people_tabs'
   - if policy(Conference).manage? && @person.user.nil?
     .row
       .span16
-        %p.message
-          Person has no user account yet and cannot login. Click on the user tab to create an account.
+        %p.message= raw(GitHub::Markdown.render(t('people_module.no_user_account')))
+
   .row
     .span6
-      %h2 Basic information
+      %h2= t('basic_information')
       %p
-        %b First name:
+        %b= t('col_first_name')
         = @person.first_name
       %p
-        %b Last name:
+        %b= t('col_last_name')
         = @person.last_name
       %p
-        %b Public name:
+        %b= t('col_public_name')
         = @person.public_name
       %p
-        %b Gender:
+        %b= t('col_gender')
         = @person.gender
 
       - if @conference
@@ -36,46 +36,43 @@
 
     - if policy(Conference).manage?
       .span6
-        %h2 Contact information
+        %h2= t('contact_information')
         %p
-          %b Email:
+          %b= t('col_email')
           = mail_to @person.email
-          (#{@person.email_public? ? "public" : "non-public"})
+          (#{@person.email_public? ? t('is_public') : t('is_not_public')})
         - @person.phone_numbers.each do |phone_number|
           %p
-            %b
-              Phone number (#{phone_number.phone_type}):
+            %b= t('col_phone_number_with_type', {type: phone_number.phone_type})
             = phone_number.phone_number
         - @person.im_accounts.each do |im_account|
           %p
-            %b
-              = im_account.im_type
-              \:
+            %b= t('col_col_template', {data: im_account.im_type})
             = im_account.im_address
     .span4
       = image_box @person.avatar, :large
 %section
   .row
     .span16
-      %h2 Bio
+      %h2=t('cfp.bio')
   .row
     .span6
       %p
-        %b Abstract:
+        %b= t('col_abstract')
         = simple_format @person.abstract
       %p
-        %b Links:
+        %b= t('col_links')
         %br/
         - @person.links.each do |link|
           = link_to link.title, link.url
           %br/
     .span10
       %p
-        %b Description:
+        %b= t('col_description')
         = simple_format @person.description
     .span10
       %p
-        %b Notes(admin):
+        %b= t('col_notes_admin')
         = @person.note
 
 = render 'conference_events'

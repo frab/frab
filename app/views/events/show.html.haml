@@ -3,7 +3,7 @@
     .pull-right
       - if policy(@conference).manage?
         = action_button "primary", t('events_module.edit_event'), edit_event_path(@event), hint: t('events_module.edit_event_hint')
-        = action_button "primary", t('persons_module.inputs.edit_people'), edit_people_event_path(@event), hint: t('persons_module.inputs.edit_people_hint')
+        = action_button "primary", t('people_module.edit_people'), edit_people_event_path(@event), hint: t('people_module.inputs.edit_people_hint')
         - if @conference.ticket_type == 'integrated' and !@conference.bulk_notification_enabled and @conference.call_for_participation.present?
           - if @event.transition_possible? :accept
             = action_button "success", t('events_module.accept_event'), update_state_event_path(@event, transition: :accept, send_mail: true), method: :put, hint: t('events_module.accept_event_hint')

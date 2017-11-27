@@ -8,7 +8,7 @@
     .row
       .span16
         .blank-slate
-          %p=raw(GithHub::Markdown.render(t('persons_module.inputs.no_people_in event')))
+          %p=raw(GithHub::Markdown.render(t('people_module.no_people_in event')))
 
   - else
     .row
@@ -18,7 +18,7 @@
             %tr
               %th.first
               %th= t('name')
-              %th= t('role')
+              %th= t('user_role')
               %th= t('state')
           %tbody
             - @event.event_people.each do |event_person|

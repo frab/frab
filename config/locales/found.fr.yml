@@ -4,6 +4,20 @@ fr:
   # ---------------------------------------------------------------------------
   # Misc strings
   # ------------
+  #this_conference: "This conference"
+  this_conference: "Cette conférence"
+  #speakers: "Speakers"
+  speakers: "Orateurs.trices"
+  #admin: "Admin"
+  admin: "Admin"
+  #admin_visibility_only_hint: "visibility: admin only."
+  admin_visibility_only_hint: "Visibilité: admin seulement."
+  #expenses: "Expenses"
+  expenses: "Dépenses"
+  #note: "Note"
+  note: "Note"
+  #conference: "Conference"
+  conference: "Conférence"
   #send: "Send"
   send: "Envoyer"
   #conference_management: "Conference Management"
@@ -56,6 +70,38 @@ fr:
   comment: "Commentaire"
   #no_data: "No data"
   no_data: "Pas de données"
+  #is_public: "public"
+  is_public: "publique"
+  #is_not_public: "non-public"
+  is_not_public: "non-publique"
+  #not_speaking: "not speaking"
+  not_speaking: "not speaking"
+  #contact_information: "Contact information"
+  contact_information: "Informations de contact"
+  #col_phone_number_with_type: "Phone number (%{type}):"
+  col_phone_number_with_type: "Numéro de tél. (%{type}) :"
+  #col_availability: "Availability:"
+  col_availability: "Disponibilité:"
+  #col_event_state: "Event State"
+  col_event_state: "Statut de l'évènement"
+  #col_reimbursed_expenses: "Reimbursed expenses:"
+  col_reimbursed_expenses: "Dépenses remboursées :"
+  #col_non_reimbursed_expenses: "Non-reimbursed expenses:"
+  col_non_reimbursed_expenses: "Dépenses non remboursées :"
+  #col_col_template: "%{data}:"
+  col_col_template: "%{data} :"
+  #col_full_name: "Full name:"
+  col_full_name: "Nom complet :"
+  #col_first_name: "First name:"
+  col_first_name: "Prénom :"
+  #col_last_name: "Last name:"
+  col_last_name: "Nom :"
+  #col_gender: "Gender:"
+  col_gender: "Genre :"
+  #col_public_name: "Public name:"
+  col_public_name: "Nom publique :"
+  #col_email: "Email:"
+  col_email: "E-mail :"
   #col_track: "Track :"
   col_track: "Piste :"
   #col_ticket: "Ticket:"
@@ -837,26 +883,56 @@ fr:
     #edit_event: "Edit Event"
     edit_event: "Éditer l'évènement"
     #edit_event_hint: "Edit this event's data."
-    edit_event_hint: "Edit this event's data."
-    accept_event_no_email: "Accept event (no email)"
-    accept_event_no_email_hint: "Accept this event without sending an automated email."
-    accept_event: "Accept event"
+    edit_event_hint: "Editer les données de cet évènement"
+    #accept_event_no_email: "Accept event (no email)"
+    accept_event_no_email: "Accepter  l'évènement (pas d'email)"
+    #accept_event_no_email_hint: "Accept this event without sending an automated email."
+    accept_event_no_email_hint: "Accepter cet évènement sans envoyer d'e-mail."
+    #accept_event: "Accept event"
+    accept_event: "Accepter l'évènement"
+    #accept_event_hint: |
+    #  Accept this event. The speaker(s) will be notified of the acceptance via
+    #  email. If they have access to the call for papers system, they will
+    #  receive a link to confirm their attendance as well.
     accept_event_hint: |
-      Accept this event. The speaker(s) will be notified of the acceptance via
-      email. If they have access to the call for papers system, they will
-      receive a link to confirm their attendance as well.
-    reject_event_no_email: "Reject event"
-    reject_event_no_email_hint: "Reject this event without sending an automated email."
-    reject_event: "Reject event"
-    reject_event_hint: "Reject this event. The speaker(s) will be notified of the rejection via email."
-    confirm_event: "Confirm event"
-    confirm_event_hint: "Confirm that the speaker(s) will be present and that the event will actually take place."
-    cancel_event: "Cancel event"
-    cancel_event_hint: "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
-    custom_notification: "Custom notification"
-    custom_notification_hint: "Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab."
-    add_ticket: "Add Ticket"
-    add_ticket_hint: "Create a ticket for this event."
+      Accepte l'évènement. Le(s) orateur.trices(s) seront notifié.e(s) du nouveau statut par
+      e-mail. Si ils/elles ont accès à l'appel à participation, il/elles reçevront aussi un lien
+      leur permettant de confirmer leur présence.
+    #reject_event_no_email: "Reject event (no-email)"
+    reject_event_no_email: "Rejeter l'évènement (pas d'e-mail)"
+    #reject_event_no_email_hint: "Reject this event without sending an automated email."
+    reject_event_no_email_hint: "Rejeter cet évènement sans envoyer d'e-mail automatique."
+    #reject_event: "Reject event"
+    reject_event: "Rejeter l'évènement"
+    #reject_event_hint: "Reject this event. The speaker(s) will be notified of the rejection via email."
+    reject_event_hint: |
+      Rejette cet évènement. Le(s) orateur.trices(s) seront notifié.es de ce rejet par e-mail.
+    #confirm_event: "Confirm event"
+    confirm_event: "Confirmer l'évènement"
+    #confirm_event_hint: "Confirm that the speaker(s) will be present and that the event will actually take place."
+    confirm_event_hint: |
+      Confirme que les orateurs.trices seront présents.es et que l'évènement va avoir lieu.
+    #cancel_event: "Cancel event"
+    cancel_event: "Annuler l'évènement"
+    #cancel_event_hint: "Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance."
+    cancel_event_hint: |
+      Définit cet évènement comme annulé. Généralement, celà veut dire que l'orateur.trice
+      a du annuler son talk.
+    #custom_notification: "Custom notification"
+    custom_notification: "Notification personnalisée"
+    #custom_notification_hint: "Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab."
+    custom_notification_hint: |
+      Ajoute des notifications personnalisées pour tou.te.s les orateur.trice.s.
+      Elles seront envoyées à la place de la notification par défaut lors du
+      prochain enoi groupé. Modifiez-les dans l'onglet "Éditer des personnes"
+    #add_ticket: "Add Ticket"
+    add_ticket: "Ajouter un ticket"
+    #add_ticket_hint: "Create a ticket for this event."
+    add_ticket_hint: "Créée un ticket pour cet évènement."
+    #events_in_current_conference: "Events in current conference"
+    events_in_current_conference: "Évènements dans la conférence actuelle"
+    #events_in_other_conferences: "Events in other conferences"
+    events_in_other_conferences: "vènements dans d'autres conférences"
   expenses_module:
     #reimbursed: "Reimbursed"
     reimbursed: "Remboursé"
@@ -865,7 +941,7 @@ fr:
     #sum_not_reimbursed: "Sum of all non-reimbursed"
     sum_not_reimbursed: "Somme de tous les non-remboursements"
     new_expense: "New expense"
-  persons_module:
+  people_module:
     inputs:
       #notification_subject: "Notification subject"
       notification_subject: "Notification subject"
@@ -900,7 +976,7 @@ fr:
       #  Use the button on the right to add people. Please
       #  note that you can only add people that are already
       #  in the system. If the person you would like to add
-      #  is not yet in the system, go to the <em>People</em>
+      #  is not yet in the system, go to the _People_
       #  tab above and create this person first.
       no_people_in event: |
         Il n'y a pas de personne associée à cet évènement pour le moment.
@@ -908,6 +984,52 @@ fr:
         pouvez seulement ajouter des personnes qui sont déjà présentes dans le
         système. Si vous voulez ajouter quelqu'un qui n'est pas encore dedans,
         allez sur l'onglet _Personnes_ et créez cette personne en premier.
+    #add_person: "Add person"
+    add_person: "Ajouter une personne"
+    #add_person_hint: "Add a new person."
+    add_person_hint: "Ajoute une nouvelle personne."
+    #list_of_people: "List of people"
+    list_of_people: "Liste des personnes"
+    #all_people: "All people"
+    all_people: "Toutes les personnes"
+    #edit_person: "Edit person"
+    edit_person: "Editer la personne"
+    #edit_person_hint: "Edit this person's data."
+    edit_person_hint: "Editer les données de la personne."
+    #no_people_data: |
+    #  You do not have any data on people yet. Use the button on the right to
+    #  start adding people. Please note that they will not appear here right
+    #  away, unless they are involved in any of this conference's events. Use the
+    #  _All people_ tab above to see all people across all your conferences.
+    no_people_data: |
+      Vous n'avez pas encore de données sur les gens pour le moment. Utilisez
+      le bouton de droite pour commencer à en ajouter. Veuillez noter que les
+      personnes n'apparîtront pas tant qu'elles ne sont pas impliquées dans
+      l'un des évènements d'une conférence. Utilisez le bouton _Toutes les
+      personnes_ pour voir toutes les personnes de toutes vos conférences.
+    #no_people_involved: |
+    #  There are no people associated with this conference yet. People will
+    #  start appearing here, once they take on a role in any of this
+    #  conference's events.
+    no_people_involved: |
+      Il n'y a pas de personne associée à cette conférence pour le moment.
+      Les gens vont commencer à apparître ici dès qu'ils auront pris un rôle
+      dans l'un des évènenents de cette conférence.
+    #new_person: "New Person"
+    new_person: "Nouvelle personne"
+    #attending: "Attending"
+    attending: "Sera présente"
+    #attending_hint: "Mark person as present."
+    attending_hint: "Marquer la personne comme présente."
+    #add_ticket: "Add ticket"
+    add_ticket: "Ajouter un ticket"
+    #add_ticket_hint: "Create a ticket for this person."
+    add_ticket_hint: "Créée un ticket pour cette personne."
+    no_user_account: "Person has no user account yet and cannot login. Click on the user tab to create an account."
+    no_user_account: |
+      Cette personne n'a pas encore de compte utilisateur et ne peut donc pas se connecter.
+      Cliquez sur l'onglet _Utilisateurs_ pour créer un compte.
+
   ratings_module:
     #start_reviewing: "Start reviewing"
     start_reviewing: "Commencer l'évaluation"
@@ -967,10 +1089,23 @@ fr:
     add_mail_template_hint: "Créée un nouveau modèle d'email."
     #new_mail_template: "New mail template"
     new_mail_template: "Nouveau modèle d'email"
-    edit_template: "Edit mail template"
-    edit_template_hint: "Edit this mail template."
-    edit_template_title: "Mail template \"%{template}\""
-    template_subject: "Subject: %{subject}"
+    #edit_template: "Edit mail template"
+    edit_template: "Editer le modèle"
+    #edit_template_hint: "Edit this mail template."
+    edit_template_hint: "Édite ce modèle d'e-mail."
+    #edit_template_title: "Mail template \"%{template}\""
+    edit_template_title: "Modèle d'e-mail \"%{template}\""
+    #template_subject: "Subject: %{subject}"
+    template_subject: "Sujet: %{subject}"
+  transport_needs_module:
+    #transport_needs: "Transport needs"
+    transport_needs: "Besoins de transports"
+    #when: "When"
+    when: "Quand"
+    #nb_seats: "# of seats"
+    nb_seats: "Nb. places"
+    #booked_question: "Booked?"
+    booked_question: "Réservé ?"
 # Checks
 # [ ] Activerecord field names
 # [ ] submit_tag('*') <- is it a tranlation somewhere, or a core string ?
