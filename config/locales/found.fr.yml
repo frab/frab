@@ -648,7 +648,7 @@ fr:
           masse par mail, ou par un sous-systeme de tickets.
   # Schedules views
   # ---------------
-  schedule:
+  schedule_module:
     inputs:
       hints:
         #schedule_version: "What is the current schedule version?"
@@ -680,6 +680,24 @@ fr:
         schedule_custom_css: "CSS personnalisé qui sera ajouté à l'export HTML. (CSS)"
         #schedule_html_intro: "Intro text for the HTML export. (HTML)"
         schedule_html_intro: "Texte d'introduction pour l'export HTML. (HTML)"
+    create_static_export: "Create static schedule export"
+    download_static_export: "Download static schedule export"
+    html_exports: "HTML Exports"
+    create_locale: "Create %{locale}"
+    create_locale_hint: "Create a static HTML export of your program schedule."
+    view_live_version_hint: "View the public live version of your schedule just like any attendee might see it."
+    create_pdf_export: "Create custom PDF export"
+    create_pdf_export_hint: "Create a PDF version of your program schedule that can easily be printed."
+    publish_html_export: "Publish HTML export"
+    publish_html_export_hint: "Create a HTML version of your program schedule that can be copied to another web server."
+    col_select_paper_format: "Select paper format:"
+    col_orientation: "Orientation:"
+    col_select_day: "Select day:"
+    col_use_half_page: "Only use half page width:"
+    col_rooms_per_page: "Rooms to show per page:"
+    col_select_rooms: "Select rooms:"
+    select_all_none: "Select all/none"
+    create_pdf: "Create PDF"
   # Tickets views
   # -------------
   tickets:
