@@ -1,0 +1,6 @@
+%p = t('devise.mailer.email_change.headline', {email: @email})
+
+- if @resource.try(:unconfirmed_email?)
+  %p= t('devise.mailer.email_change.text_being_changed', {email: @resource.unconfirmed_email})
+- else
+  %p= t('devise.mailer.email_change.text_been_changed', {email: @resource.email})

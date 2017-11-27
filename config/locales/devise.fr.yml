@@ -83,5 +83,5 @@ fr:
       not_found: "non trouvé"
       not_locked: "n'était pas vérouillé" # ·e ?
       not_saved:
-        one: "1 a empêché ce %{resource} d'être enregistré :" # ·tte ?
+        one: "Une erreur a empêché ce %{resource} d'être enregistré :" # ·tte ?
         other: "%{count} erreurs ont empêché ce %{resource} d'être enregistré :" # ·tte ?
