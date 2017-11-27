@@ -4,6 +4,10 @@ fr:
   # ---------------------------------------------------------------------------
   # Misc strings
   # ------------
+  #conference_management: "Conference Management"
+  conference_management: "Gestion de conférences"
+  #logout: "Logout"
+  logout: "Déconnexion"
   #preview: "Preview"
   preview: "Prévisualisation"
   #users: "Users"
@@ -222,7 +226,10 @@ fr:
     event_ratings: "Evaluation d'évènements"
     #conferences_list: "List of conferences"
     conferences_list: "Liste des conférences"
-
+    #frab: "frab - Conference Management"
+    frab: "frab - Gestion de conférences"
+    #frab_conference: "%{conference} - Conference Management"
+    frab_conference: "%{conference} - Gestion de la conférence"
   # Modules
   # ---------------------------------------------------------------------------
   # Availabilities views
@@ -261,6 +268,8 @@ fr:
     #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
     deadline_description: "Veuillez soumettre votre proposition avant le **%{date}**"
+    #fail_layout_use: "DO NOT USE CONFERENCE LAYOUT WITHOUT A CONFERENCE"
+    fail_layout_use: "N'UTILISEZ PAS LE LAYOUT DE CONFÉRENCE SANS CONFÉRENCE"
     #save_cfp: "Save the call for participation"
     save_cfp: "Enregistrer l'appel à participation"
     inputs:
@@ -454,6 +463,10 @@ fr:
     past_conferences: "Conférences passées"
     #no_conference: "There is not a single conference yet."
     no_conference: "Il n'y a pas encore de conférence pour le moment."
+    #version: "Version %{version}"
+    version: "Version %{version}"
+    #footer: "This schedule was generated with [frab](http://frab.github.io/frab/)."
+    footer: "Ce programme a été généré avec [frab](http://frab.github.io/frab/)."
     #no_conference_with_cfp: "There is no current conference with a call for participation. Maybe you need to log in?"
     no_conference_with_cfp: |
       Il n'y a pas encore de conférence avec un appel à participation. Peut-être que vous avez

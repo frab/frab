@@ -1,9 +1,7 @@
 !!!
 %html
   %head
-    %title
-      = @conference.title
-      \- Call for Participation
+    %title= t('titles.cfp_welcome', {conference: @conference.title})
     = stylesheet_link_tag "application"
     = javascript_include_tag "application", "admin"
     = csrf_meta_tags
@@ -12,7 +10,7 @@
       .topbar
         .fill
           .container
-            = link_to @conference.title + " - Call for Participation", root_url, class: 'brand'
+            = link_to t('titles.cfp_welcome', {conference: @conference.title}), root_url, class: 'brand'
 
             %ul.nav.secondary-nav.pull-right
               - if current_user and current_user.person
