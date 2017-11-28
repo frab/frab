@@ -7,7 +7,8 @@
 
   .row
     .span16
-      %p= t('cfp.show.submitters_interface_link')
+      %p
+        = t('cfp.show.submitters_interface_link')
         %a{href: new_user_session_url}= new_user_session_url
 
       - if @conference.call_for_participation.start_date
