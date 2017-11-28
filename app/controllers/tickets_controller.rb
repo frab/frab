@@ -14,7 +14,7 @@ class TicketsController < BaseConferenceController
                                               frab_url: event_url(@event),
                                               test_only: params[:test_only])
     rescue => ex
-      return redirect_to event_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_create', {error: ex.message})
+      return redirect_to event_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_create', {message: ex.message})
     end
 
     if remote_id.nil?
@@ -38,7 +38,7 @@ class TicketsController < BaseConferenceController
                                               frab_url: person_url(@person),
                                               test_only: params[:test_only])
     rescue => ex
-      return redirect_to person_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_create', {error: ex.message})
+      return redirect_to person_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_create', {message: ex.message})
     end
 
     if remote_id.nil?

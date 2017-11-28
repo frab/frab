@@ -1,5 +1,15 @@
 ---
 fr:
+  #edit_person: "Edit person"
+  edit_person: "Editer la personne"
+  #edit_account: "Edit account"
+  edit_account: "Editer le compte"
+  #default_text: "default text"
+  default_text: "Texte par défaut"
+  #hint: "Hint"
+  hint: "Info"
+  #clear: "Clear"
+  clear: "Effacer"
   #role_str: "Role"
   role_str: "Rôle"
   #lectures_commited: "Lectures commited"
@@ -549,6 +559,25 @@ fr:
       #profile_data: "Profile data:"
       profile_data: "Données du profil :"
   conferences_module:
+    variables:
+      #conference: "Conference name"
+      conference: "Nom de la conférence"
+      #public_name: "Speaker public name"
+      public_name: "Nom public de l'orateur"
+      #forename: "Speaker forename"
+      forename: "Prénom de l'orateur"
+      #surname: "Speaker surname"
+      surname: "Nom de famille de l'orateur"
+      #event: "Event title"
+      event: "Titre de l'évènement"
+      #link: "Confirmation link"
+      link: "Lien de confirmation"
+      #date: "Date of presentation"
+      date: "Date de présentation"
+      #time: "Time of presentation"
+      time: "Heure de présentation"
+      #room: "Room of presentation"
+      room: "Salle de présentation"
     #no_conferences: |
     #  There is not a single conference yet.
     #  Start adding a conference by clicking on the
@@ -579,7 +608,7 @@ fr:
     #  and add a room to this conference. This will
     #  be needed to schedule your program.
     show_welcome: |
-      Bienvenue ! Il semble que vous venez tout juste de créer
+      Bienvenue ! Il semble que vous veniez tout juste de créer
       cette conférence. Une bonne étape à faire serait d'aller
       dans l'onglet "Paramètres de conférence" pour ajouter une
       salle. Ce sera nécessaire pour préparer votre programmation.
@@ -596,7 +625,7 @@ fr:
     #  papers, to allow others to submit events for
     #  you to review.
     show_no_event: |
-      Cetteconférence n'a pas encre d'évènements. (Notez qu'à travers Frab, le
+      Cette conférence n'a pas encore d'évènements. (Notez qu'à travers Frab, le
       terme _évènement_ est utilisé en référence à chaque session de vos
       conférences, peu importe si c'est un talk, un atelier ou quelquechose
       d'autre.
@@ -901,10 +930,12 @@ fr:
       hints:
        #locale: "Available locales for this conference and its speakers"
        locale: "Langues disponibles pour cette conférence et ses orateurs."
-    #missing_locale: "Can not send bulk notifications: Notification for locales {%locales} missing"
-    missing_locale: "Impossible d'envoyer des notification groupées : les notification en {%locales} sont manquantes."
+    #missing_locale: "Can not send bulk notifications: Notification for locales %{locales} missing"
+    missing_locale: "Impossible d'envoyer des notification groupées : les notification en %{locales} sont manquantes."
     #possible_variables: "Possible variables"
     possible_variables: "Variables possibles"
+    #edit_send_notifications: "Edit and send notifications"
+    edit_send_notifications: "Editer/envoyer des notifications"
   classifiers_module:
     #modify_classifier_with_parent: |
     #  The classifiers for this conference can only be modified with
@@ -1009,7 +1040,7 @@ fr:
     #events_by_language: "Events by language"
     events_by_language: "Évènements par langue"
     #events_by_gender: "Events by gender"
-    events_by_genre: "Évènements par genre"
+    events_by_gender: "Évènements par genre"
     #public_attachment_hint: "Is this attachment visible to the public?"
     public_attachment_hint: "Cette pièce jointe sera-t-elle publique ?"
     #event_details: "Event details"

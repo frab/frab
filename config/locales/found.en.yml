@@ -1,5 +1,10 @@
 ---
 en:
+  edit_person: "Edit person"
+  edit_account: "Edit account"
+  default_text: "default text"
+  hint: "Hint"
+  clear: "Clear"
   role_str: "Role"
   lectures_commited: "Lectures commited"
   lectures_confirmed: "Lectures confirmed"
@@ -283,6 +288,16 @@ en:
       conference_open_mode: "The conference is in open mode. Self scheduling is allowed"
       profile_data: "Profile data:"
   conferences_module:
+    variables:
+      conference: "Conference name"
+      public_name: "Speaker public name"
+      forename: "Speaker forename"
+      surname: "Speaker surname"
+      event: "Event title"
+      link: "Confirmation link"
+      date: "Date of presentation"
+      time: "Time of presentation"
+      room: "Room of presentation"
     no_conferences: |
       There is not a single conference yet.
       Start adding a conference by clicking on the
@@ -419,6 +434,8 @@ en:
           linking to the schedule.
         schedule_custom_css: "Custom CSS added to the HTML export. (CSS)"
         schedule_html_intro: "Intro text for the HTML export. (HTML)"
+    preview_public_schedule: "Preview public schedule"
+    preview_schedule: "Preview schedule"
     create_static_export: "Create static schedule export"
     download_static_export: "Download static schedule export"
     html_exports: "HTML Exports"
@@ -464,8 +481,9 @@ en:
       schedule_body: "Schedule body"
       hints:
        locale: "Available locales for this conference and its speakers"
-    missing_locale: "Can not send bulk notifications: Notification for locales {%locales} missing"
+    missing_locale: "Can not send bulk notifications: Notification for locales %{locales} missing"
     possible_variables: "Possible variables"
+    edit_send_notifications: "Edit and send notifications"
   classifiers_module:
     modify_classifier_with_parent: |
       The classifiers for this conference can only be modified with

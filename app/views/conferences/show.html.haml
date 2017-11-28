@@ -23,7 +23,7 @@
           %small= link_to t('navigation.more'), recent_changes_path
         - if @versions.empty?
           .blank-slate
-            %p= t('conferences_module.recent_changes_text')
+            %p= raw(GitHub::Markdown.render(t('conferences_module.recent_changes_text')))
         - else
           = render "recent_changes/table"
           %p

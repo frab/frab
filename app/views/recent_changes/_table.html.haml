@@ -18,7 +18,7 @@
         %td
           - if version.item
             - if version.associated_id
-              = t('version_on_item', {version: version.item.to_s, item: associated_link_for(version)})
+              = raw(t('version_on_item', {version: version.item.to_s, item: associated_link_for(version)}))
             - else
               = link_to version.item.to_s, version.item
           - else

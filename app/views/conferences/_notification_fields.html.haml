@@ -1,6 +1,6 @@
 .nested-fields.notification
   %fieldset.inputs
-    = button_tag "default text", type: 'button', class: 'btn', style: 'float:right', data: { function: 'notification-defaults', args: { url: "#{ conferences_default_notifications_path(conference_acronym: @conference.acronym) }" } }
+    = button_tag t('default_text'), type: 'button', class: 'btn', style: 'float:right', data: { function: 'notification-defaults', args: { url: "#{ conferences_default_notifications_path(conference_acronym: @conference.acronym) }" } }
     = f.input :locale, as: :select, collection: available_locales(@conference), hint: t('notifications_module.inputs.hints.locale')
     = f.input "accept_subject",   label: t('notifications_module.inputs.accept_subject')
     = f.input "accept_body",      label: t('notifications_module.inputs.accept_body'), as: :text

@@ -126,6 +126,7 @@ fr:
         email: "E-Mail"
         title: "Titre"
         acronym: "Acronyme"
+        created_at: "Date de création"
       conference_user:
         role: "Role"
       event:
@@ -148,6 +149,8 @@ fr:
         remember_me: "Se souvenir de moi"
       day:
         start_date: "Début"
+      notification:
+        locale: "Langue"
 
   mailers:
     user_mailer:
