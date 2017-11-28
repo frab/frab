@@ -36,9 +36,9 @@
         %td.buttons
           = action_button "small", t('show'), person
           - if policy(person).manage?
-            = action_button "small", t('cfp.sign_up'), edit_person_path(person)
+            = action_button "small", t('edit_person'), edit_person_path(person)
             - if person.user.nil?
-              = action_button "small", t('edit_account'), new_person_user_path(person)
+              = action_button "small", t('cfp.sign_up'), new_person_user_path(person)
             - else
-              = action_button "small", t('edit_person'), edit_person_user_path(person)
+              = action_button "small", t('edit_account'), edit_person_user_path(person)
             = action_button "small danger", t('destroy'), person, data: { confirm: t('are_you_sure') }, method: :delete

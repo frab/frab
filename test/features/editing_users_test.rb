@@ -12,7 +12,7 @@ class EditingUsersTest < FeatureTest
     visit "/#{@conference.acronym}/people/all"
     assert_content page, @person.email
     within('tr', text: @person.email) do
-      click_on('User')
+      click_on('Sign Up')
     end
     assert_content page, "Create account for #{@person.public_name}"
 

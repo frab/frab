@@ -13,7 +13,7 @@ class OrgaAddsConferenceUserTest < FeatureTest
     visit "/#{@conference.acronym}/people/all"
     assert_content page, @person.email
     within('tr', text: @person.email) do
-      click_on('User')
+      click_on('Edit account')
     end
     assert_content page, "Edit Account: #{@person.public_name}"
 
