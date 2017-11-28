@@ -23,7 +23,7 @@ class Auth::SessionsController < Devise::SessionsController
     if @conference && policy(@conference).manage?
       conference_path(conference_acronym: session[:conference_acronym])
     elsif redirect_submitter_to_edit?
-      flash[:alert] = 'Your email address is not a valid public name, please change it.'
+      flash[:alert] = t('users_module.error_invalid_public_name')
       edit_cfp_person_path(conference_acronym: session[:conference_acronym])
     else
       cfp_person_path(conference_acronym: session[:conference_acronym])

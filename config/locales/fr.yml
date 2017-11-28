@@ -102,7 +102,7 @@ fr:
     # Pas modifié
     format: "%{attribute} %{message}"
     messages:
-      accepted: doit être accépté
+      accepted: doit être accepté
       blank: ne peut pas être vide
       present: doit être vide
       confirmation: ne correspond pas à %{attribute}

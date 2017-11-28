@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
     return unless params.key?(:conference_acronym)
 
     conference = Conference.includes(:parent).find_by(acronym: params[:conference_acronym])
-    raise ActionController::RoutingError, 'Specified conference not found' unless conference
+    raise ActionController::RoutingError, t('conferences_module.error_specified_conference_not_found') unless conference
     conference
   end
 

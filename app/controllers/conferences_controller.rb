@@ -105,7 +105,7 @@ class ConferencesController < BaseConferenceController
   def send_notification
     authorize @conference, :orga?
     SendBulkTicketJob.new.async.perform @conference, params[:notification]
-    redirect_to edit_notifications_conference_path, notice: 'Bulk notifications for events in ' + params[:notification] + ' enqueued.'
+    redirect_to edit_notifications_conference_path, notice: t('conferences_module.notice_bulk_notification_queued', {notification: params[:notification]})
   end
 
   # POST /conferences
@@ -119,7 +119,7 @@ class ConferencesController < BaseConferenceController
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to(conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
+        format.html { redirect_to(conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_created')) }
       else
         @possible_parents = Conference.where(parent: nil)
         flash[:errors] = @conference.errors.full_messages.join
@@ -133,7 +133,7 @@ class ConferencesController < BaseConferenceController
     authorize @conference, :orga?
     respond_to do |format|
       if @conference.update_attributes(existing_conference_params)
-        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
+        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_updated')) }
       else
         # redirect to the right nested form page
         flash[:errors] = @conference.errors.full_messages.join

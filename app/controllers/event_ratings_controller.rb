@@ -13,9 +13,9 @@ class EventRatingsController < BaseConferenceController
 
     @rating = new_event_rating
     if @rating.save
-      redirect_to event_event_rating_path, notice: 'Rating saved successfully.'
+      redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_created')
     else
-      flash[:alert] = 'Failed to create event rating: ' + @rating.errors.full_messages.join
+      flash[:alert] = t('ratings_module.error_creating', {error:  @rating.errors.full_messages.join})
       render action: 'show'
     end
   end
@@ -24,9 +24,9 @@ class EventRatingsController < BaseConferenceController
     @rating = @event.event_ratings.find_by!(person_id: current_user.person.id)
 
     if @rating.update_attributes(event_rating_params)
-      redirect_to event_event_rating_path, notice: 'Rating updated successfully.'
+      redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_updated')
     else
-      flash[:alert] = 'Failed to update event rating'
+      flash[:alert] = t('ratings_module.error_updating')
       render action: 'show'
     end
   end

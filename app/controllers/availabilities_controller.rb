@@ -3,7 +3,7 @@ class AvailabilitiesController < BaseConferenceController
 
   def new
     @availabilities = Availability.build_for(@conference)
-    flash[:alert] = "#{@person.full_name} does not currently have any availabilities."
+    flash[:alert] = t('availabilities.error_person_unavailable', {person: @person.full_name})
   end
 
   def edit
@@ -12,7 +12,7 @@ class AvailabilitiesController < BaseConferenceController
 
   def update
     @person.update_attributes_from_slider_form(person_params)
-    redirect_to(person_url(@person), notice: 'Availibility was successfully updated.')
+    redirect_to(person_url(@person), notice: t('availabilities.success_update'))
   end
 
   private
