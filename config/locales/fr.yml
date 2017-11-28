@@ -32,7 +32,6 @@ fr:
     - Vendredi
     - Samedi
     formats:
-      # Pas modifiés
       default: "%Y-%m-%d"
       long: "%B %d, %Y"
       short: "%b %d"
@@ -97,9 +96,8 @@ fr:
       month: Mois
       second: Secondes
       year: Années
-  destroy: 'Détruire' # 'destroy'
+  destroy: 'Détruire'
   errors:
-    # Pas modifié
     format: "%{attribute} %{message}"
     messages:
       accepted: doit être accepté
@@ -199,7 +197,6 @@ fr:
       last_word_connector: ", et "
       two_words_connector: " et "
       words_connector: ", "
-  # Section inchangée
   time:
     am: am
     formats:

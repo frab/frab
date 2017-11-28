@@ -2,18 +2,18 @@ fr:
   emails:
     event_acceptance:
       subject: "Votre demande pour %{conference}"
-      greeting: "Cher %{forename},"
+      greeting: "Cher·e %{forename},"
       accepted_event: |
         Nous sommes très heureux de vous annoncer que nous avons accepté votre proposition
         
         %{event}
       confirmation: |
-        Veuillez re-confirmer rapidement que vous serez présent et ferez bien votre
+        Veuillez re-confirmer rapidement que vous serez présent·e et ferez bien votre
         conférence, en utilisant le lien suivant :
 
         %{link}
       check_data: |
-        Pendant que vous y êtes : Après confirmation avec ce lien, vous serez
+        Pendant que vous y êtes : après confirmation avec ce lien, vous serez
         identifé·e dans le système de planning de conférence. Prenez le temps
         de vérifier vous information à ce moment. Les informations seront
         utilisées dans le programme officiel de la conférence. Vous pouvez
@@ -22,10 +22,10 @@ fr:
       goodbye: |
         Cordialement,
 
-        L'équipe de %{conference}
+        L'équipe %{conference}
     event_rejection:
       subject: "Votre proposition pour %{conference}"
-      greeting: "Cher %{forename},"
+      greeting: "Cher·e %{forename},"
       rejection: |
         Nous aimerions vous remercier pour votre proposition. Nous sommes
         surpris et débordés par la masse de propositions de haute qualité
@@ -42,10 +42,10 @@ fr:
       goodbye: |
         Cordialement,
 
-        L'équipe de %{conference}
+        L'équipe %{conference}
     event_schedule:
       subject: "Votre proposition pour %{conference} prévu le %{date} à %{time}"
-      greeting: "Cher %{forename},"
+      greeting: "Cher·e %{forename},"
       info: |
         Nous sommes heureux de vous informer que votre proposition
 
@@ -57,4 +57,4 @@ fr:
       goodbye: |
         Au plaisir de vous voir à %{conference}
 
-        L'équipe de %{conference}
+        L'équipe %{conference}
