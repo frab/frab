@@ -387,6 +387,10 @@ fr:
     error_person_unavailable: "%{person} n'a pas de disponibilités pour le moment."
     #success_update: "Availibility was successfully updated."
     success_update: "Disponibilité mise à jour avec succès."
+    #available_from: "from"
+    available_from: "de"
+    #available_to: "to"
+    available_to: "à"
   devise:
     #unlock_my_account: "Unlock my account"
     unlock_my_account: "Dévérouiller mon compte"
@@ -484,6 +488,12 @@ fr:
         #sign_in_with: "Sign in with %{provider}"
         sign_in_with: "Se connecter avec %{provider}"
   cfp:
+    #changed_from: "changed from"
+    changed_from: "changé de"
+    #to: "to"
+    to: "en"
+    #set_to: "set to"
+    set_to: "mis à"
     #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
     #deadline_description: "You should submit your proposal before **%{date}**"

@@ -198,6 +198,8 @@ en:
       available_for_day: "available for day %{day}"
     error_person_unavailable: "%{person} does not currently have any availabilities."
     success_update: "Availibility was successfully updated."
+    available_from: "from"
+    available_to: "to"
   devise:
     unlock_my_account: "Unlock my account"
     change_my_password: "Change my password"
@@ -249,6 +251,9 @@ en:
         no_unlock_instructions: "Didn't receive unlock instructions?"
         sign_in_with: "Sign in with %{provider}"
   cfp:
+    changed_from: "changed from"
+    to: "to"
+    set_to: "set to"
     email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     deadline_description: "You should submit your proposal before **%{date}**"
     fail_layout_use: "DO NOT USE CONFERENCE LAYOUT WITHOUT A CONFERENCE"
