@@ -8,7 +8,7 @@
           %li= link_to conference.acronym, conference_path(conference_acronym: conference.acronym)
       %li.divider/
       - if conferences.count > 1
-        %li= link_to t(:conferences, default: "more"), conference_index_path
+        %li= link_to t(:more, default: "more"), conference_index_path
       - if policy(Conference).orga?
         %li= link_to t(:create_new_conference, default: "Create new conference"), new_conference_path(conference_acronym: nil)
 - elsif policy(Conference).orga?

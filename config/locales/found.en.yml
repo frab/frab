@@ -1,5 +1,6 @@
 ---
 en:
+  more: "More..."
   edit_person: "Edit person"
   edit_account: "Edit account"
   default_text: "default text"
@@ -355,7 +356,7 @@ en:
     rejecting: "Rejecting"
     rejected: "Rejected"
     total: "Total"
-    add_conference: "Add Conference"
+    add_conference: "Add conference"
     add_conference_hint: "Add a new conference"
     manage_conferences: "Manage conferences"
     manage_conferences_hint: "Manage all conferences"

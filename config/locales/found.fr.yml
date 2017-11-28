@@ -1,5 +1,7 @@
 ---
 fr:
+  #more: "More..."
+  more: "Plus..."
   #edit_person: "Edit person"
   edit_person: "Editer la personne"
   #edit_account: "Edit account"
