@@ -1,9 +1,5 @@
 ---
 fr:
-  # General strings
-  # ---------------------------------------------------------------------------
-  # Misc strings
-  # ------------
   #role_str: "Role"
   role_str: "Rôle"
   #lectures_commited: "Lectures commited"
@@ -103,7 +99,7 @@ fr:
   #others_only: "Others only"
   others_only: "Autres seulement"
   #accepted_only: "Accepted only"
-  accepted_only: "Seulement les acceptés" # Fem form ?
+  accepted_only: "Seulement les acceptés"
   #people: "People"
   people: "Personnes"
   #ratings: "Ratings"
@@ -265,15 +261,10 @@ fr:
       Le [Manuel utilisateur (en)](https://github.com/frab/frab/wiki/Manual) est maintenu
       dans le [wiki](https://github.com/frab/frab/wiki/). Le code source est hébergé chez
       [Github](https://github.com/frab/frab).
-  # Form inputs. Specific inputs are in their own modules sections.
-  # -----------
   inputs:
     hints:
       #password_length: "%{length} characters minimum"
       password_length: "Longueur minimum de %{length} caractères"
-
-  # Session-related strings
-  # -----------------------
   session:
     #signup: "Signup"
     signup: "Créer mon compte"
@@ -281,15 +272,9 @@ fr:
     login: "Connexion"
     #update_password: "Update my password"
     update_password: "Changer mon mot de passe"
-
-  # Navigation-related string
-  # -------------------------
   navigation:
     #back: "Back"
     back: "Retours"
-
-  # Navbar titles
-  # -------------
   page_titles:
     #welcome: "Welcome to frab"
     welcome: "Bienvenue dans frab"
@@ -311,17 +296,11 @@ fr:
     edit_account: "frab - Editer un compte"
     #unlock_instructions: "frab - Unlock instructions"
     unlock_instructions: "frab - Instructions de dévérouillage"
-
-  # Notifications
-  # -------------
   alert_notifications:
     #update_successful: "Changes saved successfully!"
     update_successful: "Modifications sauvegardées."
     #update_failed: "Failed to update"
     update_failed: "Impossible d'enregistrer les modifications."
-
-  # Page titles
-  # -----------
   titles:
     #change_your_password: "Change your password"
     change_your_password: "Changez votre mot de passe"
@@ -381,11 +360,6 @@ fr:
     edit_an_account: "Editer %{name}"
     #unlock_instructions: "Unlock instructions"
     unlock_instructions: "Instructions de dévérouillage"
-
-  # Modules
-  # ---------------------------------------------------------------------------
-  # Availabilities views
-  # --------------------
   availabilities:
     alerts:
       #no_availabilities: |
@@ -400,9 +374,6 @@ fr:
     error_person_unavailable: "%{person} n'a pas de disponibilités pour le moment."
     #success_update: "Availibility was successfully updated."
     success_update: "Disponibilité mise à jour avec succès."
-
-  # Devise views
-  # ------------
   devise:
     #unlock_my_account: "Unlock my account"
     unlock_my_account: "Dévérouiller mon compte"
@@ -499,9 +470,6 @@ fr:
         no_unlock_instructions: "Vous n'avez pas reçu d'instructions de déverouillage ?"
         #sign_in_with: "Sign in with %{provider}"
         sign_in_with: "Se connecter avec %{provider}"
-
-  # Call for paper views
-  # --------------------
   cfp:
     #email_accept_upcoming_infos: "Do you want to receive information about upcoming conferences by mail?"
     email_accept_upcoming_infos: "Voulez-vous recevoir des informations par email sur les conférences à venir ?"
@@ -579,9 +547,6 @@ fr:
       conference_open_mode: "La conférence est en mode ouvert. l'auto-planification est autorisée"
       #profile_data: "Profile data:"
       profile_data: "Données du profil :"
-
-  # Conferences views
-  # -----------------
   conferences_module:
     #no_conferences: |
     #  There is not a single conference yet.
@@ -819,8 +784,6 @@ fr:
         bulk_notification_enabled: |
           Si vous activez cette option, les notifications seront envoyées en
           masse par mail, ou par un sous-systeme de tickets.
-  # Schedules views
-  # ---------------
   schedule_module:
     inputs:
       hints:
@@ -899,8 +862,6 @@ fr:
     notice_static_export_started: "L'export statique du programme a commencé. Veuillez recharger cette pâge dans une minute."
     #notice_no_export_found: "No export found to download."
     notice_no_export_found: "Aucun export trouvé."
-  # Tickets views
-  # -------------
   tickets:
     inputs:
       hints:
@@ -918,9 +879,7 @@ fr:
     error_failed_to_receive_id: "Impossible de récupérer l'ID distant."
     #error_no_ticket_server: "No ticket server configured"
     error_no_ticket_server: "Aucun serveur de ticket configuré."
-  # Notifications views
-  # -------------------
-  notifications_module: # From conferences/notifiaction_fields.hmlt.haml. This should go to activerecord fields ?
+  notifications_module:
     #no_events_tickets: "No events with tickets"
     no_events_tickets: "Pas d'évènements avec des tickets."
     #send_notification: "send %{name} notifications to %{speakers} in %{count}"
@@ -945,8 +904,6 @@ fr:
     missing_locale: "Impossible d'envoyer des notification groupées : les notification en {%locales} sont manquantes."
     #possible_variables: "Possible variables"
     possible_variables: "Variables possibles"
-  # Classifiers views
-  # -----------------
   classifiers_module:
     #modify_classifier_with_parent: |
     #  The classifiers for this conference can only be modified with
