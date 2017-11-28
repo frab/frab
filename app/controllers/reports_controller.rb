@@ -153,7 +153,8 @@ class ReportsController < BaseConferenceController
     when 'event_timeslot_sum'
       @data = []
       row = []
-      @labels = %w(LecturesCommited LecturesConfirmed LecturesUnconfirmed Lectures Workshops)
+      # @labels = %w(LecturesCommited LecturesConfirmed LecturesUnconfirmed Lectures Workshops)
+      @labels = [t('lectures_commited'), t('lectures_confirmed'), t('lectures_unconfirmed'), t('lectures'), t('workshops')]
       events = @conference.events.where(event_type: :lecture, state: [:accepting, :confirmed, :unconfirmed, :scheduled])
       row << @conference.event_duration_sum(events)
       events = @conference.events.where(event_type: :lecture, state: [:confirmed, :scheduled])
@@ -170,7 +171,7 @@ class ReportsController < BaseConferenceController
     when 'people_speaking_by_day'
       @data = []
       row = []
-      @labels = %w(Day FullName PublicName Email Event Role State) # TODO translate
+      @labels = [t('day'), t('full_name'), t('public_name'), t('email'), t('event'), t('role_str'), t('state')]
 
       @conference.days.each do |day|
         @conference.events.confirmed.no_conflicts.is_public.scheduled_on(day).order(:start_time).each do |event|

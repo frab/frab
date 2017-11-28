@@ -14,11 +14,11 @@ class TicketsController < BaseConferenceController
                                               frab_url: event_url(@event),
                                               test_only: params[:test_only])
     rescue => ex
-      return redirect_to event_path(id: params[:id], method: :get), alert: "Failed to create ticket: #{ex.message}"
+      return redirect_to event_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_create', {error: ex.message})
     end
 
     if remote_id.nil?
-      return redirect_to event_path(id: params[:id], method: :get), alert: 'Failed to receive remote id'
+      return redirect_to event_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_receive_id')
     end
 
     @event.ticket = Ticket.new if @event.ticket.nil?
@@ -38,11 +38,11 @@ class TicketsController < BaseConferenceController
                                               frab_url: person_url(@person),
                                               test_only: params[:test_only])
     rescue => ex
-      return redirect_to person_path(id: params[:id], method: :get), alert: "Failed to create ticket: #{ex.message}"
+      return redirect_to person_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_create', {error: ex.message})
     end
 
     if remote_id.nil?
-      return redirect_to person_path(id: params[:id], method: :get), alert: 'Failed to receive remote id'
+      return redirect_to person_path(id: params[:id], method: :get), alert: t('tickets.error_failed_to_receive_id')
     end
 
     @person.ticket = Ticket.new if @person.ticket.nil?
@@ -55,6 +55,6 @@ class TicketsController < BaseConferenceController
 
   def check_ticket_server
     return if @conference.ticket_server && @conference.ticket_server_enabled?
-    redirect_to edit_conference_path(conference_acronym: @conference.acronym), alert: 'No ticket server configured'
+    redirect_to edit_conference_path(conference_acronym: @conference.acronym), alert: t('tickets.error_no_ticket_server')
   end
 end

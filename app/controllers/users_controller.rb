@@ -32,7 +32,7 @@ class UsersController < BaseCrewController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to(edit_person_user_path(@person), notice: 'User was successfully created.') }
+        format.html { redirect_to(edit_person_user_path(@person), notice: t('users_module.notice_user_created')) }
       else
         format.html { render action: 'new' }
       end
@@ -57,7 +57,7 @@ class UsersController < BaseCrewController
       if @user.update_attributes(user_params)
         @user.confirm unless @user.confirmed?
         bypass_sign_in(@user) if current_user == @user
-        format.html { redirect_to(edit_crew_user_path(@person), notice: 'User was successfully updated.') }
+        format.html { redirect_to(edit_crew_user_path(@person), notice: t('users_module.notice_user_updated')) }
       else
         flash[:errors] = @user.errors.full_messages.join
         format.html { render action: 'edit' }
