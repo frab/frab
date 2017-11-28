@@ -1,6 +1,6 @@
 %section
   .page-header
-    %h1 Welcome
+    %h1= t('cfp.welcome')
   .row
     .span16
       - if @conference.rooms.count == 0
@@ -20,7 +20,7 @@
       .span16
         %h2
           = t('conferences_module.recent_changes')
-          %small= link_to "more >>", recent_changes_path
+          %small= link_to t('navigation.more'), recent_changes_path
         - if @versions.empty?
           .blank-slate
             %p= t('conferences_module.recent_changes_text')
@@ -34,7 +34,7 @@
         .blank-slate
           %p= t('conferences_module.statistics_empty')
       - else
-        %h4 Events by state
+        %h4= t('events_module.events_by_state')
         %p
           = link_to t('all'), "#", id: "events_all_types"
           |
@@ -72,7 +72,7 @@
               %td= @conference.events.where(state: :rejected).count
               %td= @conference.events.count
       - if @conference.languages.count > 1
-        %h4 Events by language
+        %h4= t('events_module.events_by_language')
         %p
           = link_to t('all'), "#", id: "languages_all_events"
           |
@@ -80,7 +80,7 @@
         #event_language_graph(style="width:400px;height:300px;")
 
       - if @conference.gender_breakdown.count > 1
-        %h4 Events by gender
+        %h4= t('events_module.events_by_gender')
         %p
           = link_to t('all'), "#", id: "gender_all_events"
           |

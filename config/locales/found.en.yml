@@ -1,5 +1,5 @@
 ---
-fr:
+en:
   role_str: "Role"
   lectures_commited: "Lectures commited"
   lectures_confirmed: "Lectures confirmed"
@@ -134,15 +134,16 @@ fr:
     hints:
       password_length: "%{length} characters minimum"
   session:
-    signup: "Signup"
-    login: "Login"
+    signup: "Sign up"
+    login: "Log in"
     update_password: "Update my password"
   navigation:
     back: "Back"
+    more: "More >>"
   page_titles:
     welcome: "Welcome to frab"
     my_profile: "frab - My profile"
-    signup: "Signup to frab"
+    signup: "Sign up to frab"
     login: "Login to frab"
     admin_users: "frab - admin users"
     crew_users: "frab - crew users"
@@ -158,11 +159,11 @@ fr:
     forgot_your_password: "Forgot your password?"
     person: "Person: %{person}"
     edit_person: "Edit Person: %{person}"
-    edit_people_for_event: "Editing People for \"%{@event}\""
+    edit_people_for_event: "Editing People for \"%{event}\""
     event: "Event: %{event}"
     event_list: "List of events"
     session_signup: "Create a new account"
-    session_login: "Connection"
+    session_login: "Log in"
     resend_confirmation_instructions: "Resend confirmation instructions"
     cfp_welcome: "%{conference} - Call for Participation"
     cfp_new_cfp: "Launch a Call for Participation"
@@ -180,7 +181,7 @@ fr:
     edit_mail_template: "Edit Mail template"
     list_mail_templates: "List of mail templates"
     edit_account: "Edit Account: %{person}"
-    create_account: "Create account for %{@person}"
+    create_account: "Create account for %{person}"
     edit_an_account: "Edit %{name}"
     unlock_instructions: "Unlock instructions"
   availabilities:
@@ -518,6 +519,9 @@ fr:
         tech_rider: "What is needed for this event?"
         recording_license: "Recording license for this talk"
     event_attachments: "Uploaded files"
+    events_by_state: "Events by state"
+    events_by_language: "Events by language"
+    events_by_gender: "Events by gender"
     public_attachment_hint: "Is this attachment visible to the public?"
     event_details: "Event details"
     no_attendee: "There is no attendee feedback for this event yet."
