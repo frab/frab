@@ -153,7 +153,6 @@ class ReportsController < BaseConferenceController
     when 'event_timeslot_sum'
       @data = []
       row = []
-      # @labels = %w(LecturesCommited LecturesConfirmed LecturesUnconfirmed Lectures Workshops)
       @labels = [t('lectures_commited'), t('lectures_confirmed'), t('lectures_unconfirmed'), t('lectures'), t('workshops')]
       events = @conference.events.where(event_type: :lecture, state: [:accepting, :confirmed, :unconfirmed, :scheduled])
       row << @conference.event_duration_sum(events)
