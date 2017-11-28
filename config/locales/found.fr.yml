@@ -185,9 +185,9 @@ fr:
   #col_email: "Email:"
   col_email: "E-mail :"
   #col_track: "Track :"
-  col_track: "Canal :"
+  col_track: "Fil :"
   #col_tracks: "Tracks :"
-  col_tracks: "Canaux :"
+  col_tracks: "Fils :"
   #col_ticket: "Ticket:"
   col_ticket: "Ticket :"
   #col_type: "Type:"
@@ -245,7 +245,7 @@ fr:
   #ticket: "Ticket"
   ticket: "Ticket"
   #track: "Track"
-  track: "Canal"
+  track: "Fil"
   #type: "Type"
   type: "Type"
   #created_at: "Created at"
@@ -557,7 +557,7 @@ fr:
       #event_confirm_attendence: "Confirm attendance"
       event_confirm_attendence: "Confirmer ma présence"
       #conference_open_mode: "The conference is in open mode. Self scheduling is allowed"
-      conference_open_mode: "La conférence est en mode ouvert. l'auto-planification est autorisée"
+      conference_open_mode: "La conférence est en mode ouvert. L'auto-planification est autorisée"
       #profile_data: "Profile data:"
       profile_data: "Données du profil :"
   conferences_module:
@@ -1010,14 +1010,14 @@ fr:
     #  have more than one track, go ahead and enter this
     #  one track.
     empty_tracks: |
-      Si vous organisez votre conférence sur plusieur canaux, c'est l'endroit
-      pour les créer. Même si vous n'avez qu'un canal, entrez-le.
+      Si vous organisez votre conférence sur plusieur fils, c'est l'endroit
+      pour les créer. Même si vous n'avez qu'un fil, entrez-le.
     #empty_tracks_more_infos: |
     #  Tracks have a name and a color. The color is used in
     #  the web based program, so feel free to customize it
     #  as much as you wish.
     empty_tracks_more_infos: |
-      Les canaux ont un nom et une couleur. La couleur est utilisée dans
+      Les fils ont un nom et une couleur. La couleur est utilisée dans
       le programme web; n'hésitez pas à la modifier aussi souvent que
       nécessaire.
   events_module:
@@ -1153,7 +1153,7 @@ fr:
     reject_event: "Rejeter l'évènement"
     #reject_event_hint: "Reject this event. The speaker(s) will be notified of the rejection via email."
     reject_event_hint: |
-      Rejette cet évènement. Le(s) orateur·trices(s) seront/sera notifié·e(s) de ce rejet par e-mail.
+      Rejette cet évènement. Les orateurs·trices seront notifiés·es de ce rejet par e-mail.
     #confirm_event: "Confirm event"
     confirm_event: "Confirmer l'évènement"
     #confirm_event_hint: "Confirm that the speaker(s) will be present and that the event will actually take place."
@@ -1214,7 +1214,7 @@ fr:
     #hide_all: "hide all"
     hide_all: "Tout cacher"
     #track_select: "filter by track"
-    track_select: "filtrer par canal"
+    track_select: "filtrer par fil"
   expenses_module:
     #reimbursed: "Reimbursed"
     reimbursed: "Remboursé"
@@ -1520,9 +1520,9 @@ fr:
     #event_timeslot_sum: "used timeslots (hours)"
     event_timeslot_sum: "intervalles de temps utilisés (heures)"
     #confirmed_events_by_track: "confirmed event numbers by track"
-    confirmed_events_by_track: "événements confirmés par canal"
+    confirmed_events_by_track: "événements confirmés par fil"
     #events_by_track: "event numbers by track"
-    events_by_track: "nombre d'événement par canal"
+    events_by_track: "nombre d'événement par fil"
     #people_speaking_by_day: "confirmed speakers by day with attendance status"
     people_speaking_by_day: "orateurs confirmés par jour avec statut de présence"
     #all: "overview on transport needs"
