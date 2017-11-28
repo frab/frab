@@ -1,0 +1,33 @@
+-# TODO See if this view has to be. It comes from Devise, and there is a route to the action but I don't think it should be.
+- content_for :title do
+  = link_to t('page_titles.edit_account'), root_url, class: 'brand'
+
+%section
+  .page-header
+    %h1= t('titles.edit_an_account', {name: resource_name.to_s.humanize})
+
+  .row
+    .span16
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, defaults:{error: false}) do |f|
+        = devise_error_messages!
+
+        %fieldset.inputs
+          = f.input :email
+
+          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+            = t('devise.waiting_for_confirmation', {email: resource.unconfirmed_email})
+
+          - if @minimum_password_length
+            = f.input :password, autocomplete: 'off', hint: t('devise.leave_password_blank_hint') + ' - ' + t('inputs.hints.password_length', {length: @minimum_password_length})
+          - else
+            = f.input :password, autocomplete: 'off', hint: t('devise.leave_password_blank_hint')
+
+          = f.input :password_confirmation, autocomplete: 'off'
+          = f.input :current_password, autocomplete: 'off', hint: t('devise.current_password_hint')
+
+        .actions
+          = f.button :submit, class: 'primary', value: t('devise.update_account')
+
+%h2= t('devise.cancel_account')
+= raw( t('devise.cancel_account_text', {link: button_to(t('devise.cancel_account'), registration_path(resource_name), data: { confirm: t('are_you_sure')}, method: :delete, class: "btn danger")}))
+= link_to t('navigation.back'), :back
