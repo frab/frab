@@ -63,7 +63,7 @@ module ApplicationHelper
     options[:class] = "btn #{button_type}"
     if options[:hint]
       options[:rel] = 'popover'
-      options['data-original-title'] = 'Hint'
+      options['data-original-title'] = t('hint')
       options['data-content'] = options[:hint]
       options['data-placement'] = 'below'
       options[:hint] = nil

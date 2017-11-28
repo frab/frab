@@ -1,8 +1,8 @@
 module ScheduleHelper
 
   def schedule_button_text
-    return 'Preview public schedule' if @conference.schedule_public
-    'Preview schedule'
+    return t('schedule_module.preview_public_schedule') if @conference.schedule_public
+    t('schedule_module.preview_schedule')
   end
 
   def day_active?(index)
