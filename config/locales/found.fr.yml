@@ -1054,7 +1054,7 @@ fr:
     #events_by_gender: "Events by gender"
     events_by_gender: "Évènements par genre"
     #public_attachment_hint: "Is this attachment visible to the public?"
-    public_attachment_hint: "Cette salle jointe sera-t-elle publique ?"
+    public_attachment_hint: "Cette pièce jointe sera-t-elle publique ?"
     #event_details: "Event details"
     event_details: "Détails de l'évènement"
     #no_attendee: "There is no attendee feedback for this event yet."
