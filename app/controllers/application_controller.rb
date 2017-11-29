@@ -23,11 +23,15 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    if %w(en de es fr pt-BR).include?(params[:locale])
+    supported_languages = %w[en de es pt-BR fr]
+
+    if supported_languages.include?(params[:locale])
       I18n.locale = params[:locale]
     else
-      I18n.locale = 'en'
-      params[:locale] = 'en'
+      preferred_language = http_accept_language.preferred_language_from(supported_languages)
+
+      I18n.locale     = preferred_language
+      params[:locale] = preferred_language
     end
   end
 
