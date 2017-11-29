@@ -23,7 +23,7 @@ fr:
   notifications: "Notifications"
   participate: "Participer"
   remove_association: "Enlever %{name}"
-  rooms: "Pièces"
+  rooms: "Salles"
   schedule: "Programme" # "Schedule"
   show: "Afficher"
   mail_templates: "Templates d'emails"
