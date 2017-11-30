@@ -266,6 +266,8 @@ fr:
   static_program_export: "Export statique du programme"
   #feedback_system: "Feedback system"
   feedback_system: "Système de retours"
+  #work_in_progress: "working..."
+  work_in_progress: "En cours..."
   activerecord:
     attributes:
       availability:
@@ -1268,6 +1270,12 @@ fr:
     possible_variables: "Variables possibles"
     #edit_send_notifications: "Edit and send notifications"
     edit_send_notifications: "Éditer/envoyer des notifications"
+    #send_notification_to_speakers: "Send %{name} notifications to %{speakers} in %{event}"
+    send_notification_to_speakers: "Envoyer les notifications %{name} à %{speakers} dans %{event}"
+    #send_notification_confirm: "Are you sure you want to send %{name} notifiactions for %{event}?"
+    send_notification_confirm: "Êtes-vous sûr·e de vouloir envoyer les notifications %{name} pour %{event}?"
+    #event_without_ticket_warning: "Warning: %{events} without ticket:"
+    event_without_ticket_warning: "Attention : %{events} sans ticket :"
   classifiers_module:
     #modify_classifier_with_parent: |
     #  The classifiers for this conference can only be modified with

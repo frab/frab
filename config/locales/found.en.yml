@@ -132,6 +132,7 @@ en:
   schedule_configuration: "Schedule configuration"
   static_program_export: "Static program export"
   feedback_system: "Feedback system"
+  work_in_progress: "working..."
   activerecord:
     attributes:
       availability:
@@ -663,6 +664,10 @@ en:
     missing_locale: "Can not send bulk notifications: Notification for locales %{locales} missing"
     possible_variables: "Possible variables"
     edit_send_notifications: "Edit and send notifications"
+    send_notification_to_speakers: "Send %{name} notifications to %{speakers} in %{event}"
+    send_notification_confirm: "Are you sure you want to send %{name} notifiactions for %{event}?"
+    event_without_ticket_warning: "Warning: %{events} without ticket:"
+    event_without_ticket_warning: "Attention : %{events} sans ticket :"
   classifiers_module:
     modify_classifier_with_parent: |
       The classifiers for this conference can only be modified with
