@@ -5,13 +5,13 @@
     = f.input :password_confirmation
 
     - if current_user.is_admin?
-      = f.input :role, as: :radio_buttons, collection: User::ROLES
+      = f.input :role, as: :radio_buttons, collection: translated_options(User::ROLES)
     - elsif policy(Conference).manage?
-      = f.input :role, as: :radio_buttons, collection: User::USER_ROLES
+      = f.input :role, as: :radio_buttons, collection: translated_options(User::USER_ROLES)
 
     - if policy(Conference).manage?
       - if @user.is_crew?
-        = dynamic_association :conference_users, t(:conference_user), f
+        = dynamic_association :conference_users, t('activerecord.models.conference_user'), f
       - else
         %p.inline-hint= t('users_module.save_needed_before_changes')
 

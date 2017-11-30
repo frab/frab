@@ -23,13 +23,13 @@ class EditingUsersTest < FeatureTest
     assert_content page, @person.public_name
     assert_content page, "Edit Account: #{@person.public_name}"
 
-    choose('crew')
+    choose('Crew')
     click_on 'Update User'
     assert_content page, "Edit Account: #{@person.public_name}"
     assert_content page, 'Admin'
 
     click_on 'Add conference user'
-    select 'orga', from: 'Role'
+    select 'Organisator', from: 'Role'
     select @conference.acronym, from: 'Conference'
     click_on 'Update User'
     @person.reload

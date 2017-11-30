@@ -18,7 +18,7 @@ class OrgaAddsConferenceUserTest < FeatureTest
     assert_content page, "Edit Account: #{@person.public_name}"
 
     click_on 'Add conference user'
-    select 'orga', from: 'Role'
+    select 'Organisator', from: 'Role'
     select @conference.acronym, from: 'Conference'
     click_on 'Update User'
     assert @crew_user.is_crew?

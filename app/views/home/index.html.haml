@@ -19,7 +19,7 @@
     .row
       .span16
         .blank-slate{style: 'padding-bottom: 33%'}
-          %p=t('conferences_module.no_conference')
+          %p= t('conferences_module.no_conference')
 
   - elsif @conferences.empty?
     .row
@@ -35,4 +35,4 @@
   %hr
 
   - content_for :footer do
-    .span16=raw(GitHub::Markdown.render(t('frab_footer')))
+    .span16= raw(GitHub::Markdown.render(t('frab_footer')))

@@ -37,6 +37,6 @@
     = f.input :bulk_notification_enabled, as: :inline_boolean, hint: t('conferences_module.inputs.hints.bulk_notification_enabled')
   %fieldset.inputs
     %legend= t(:ticket_server)
-    = f.input :ticket_type, as: :radio_buttons, collection: Conference::TICKET_TYPES
+    = f.input :ticket_type, as: :radio_buttons, collection: translated_options(Conference::TICKET_TYPES)
   .actions
     = f.button :submit, class: 'primary'

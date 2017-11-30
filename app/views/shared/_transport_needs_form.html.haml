@@ -1,7 +1,7 @@
 = simple_form_for [person, transport_need] do |f|
   %fieldset.inputs
     = f.input :at, html5: true, as: :datetime, hint: "yyyy-mm-dd hh:mm", input_html: { value: f.object.at.try(:strftime, '%Y-%m-%dT%H:%M') }
-    = f.input :transport_type, as: :select, collection: TransportNeed::TYPES, hint: t('transport_needs_module.what_type_id_needed')
+    = f.input :transport_type, as: :select, collection: translated_options(TransportNeed::TYPES), hint: t('transport_needs_module.what_type_id_needed')
     = f.input :seats, hint: t('transport_needs_module.nb_seats_needed_hint')
     = f.input :booked, as: :inline_boolean, hint: t('transport_needs_module.is_booked_hint')
     = f.input :note
