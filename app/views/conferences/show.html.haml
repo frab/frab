@@ -28,7 +28,7 @@
   - if policy(@conference).orga?
     .row
       .span16
-        - if @conference.in_the_past
+        - if @conference.in_the_past?
           %p
             The conference days are in the past. No submissions are possible.
     .row

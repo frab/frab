@@ -50,6 +50,7 @@ class Event < ApplicationRecord
   scope :with_more_than_one_speaker, -> { where('speaker_count > 1') }
 
   has_paper_trail
+  has_secure_token :invite_token
 
   def self.ids_by_least_reviewed(conference, reviewer)
     already_reviewed = connection.select_rows("SELECT events.id FROM events JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} AND event_ratings.person_id = #{reviewer.id}").flatten.map(&:to_i)

@@ -3,6 +3,7 @@
     %legend= t(:schedule_configuration)
     = f.input :schedule_version, hint: "What is the current schedule version?"
     = f.input :schedule_public, hint: "Is the dynamic schedule public? You can still create static exports regardless of this setting."
+    = f.input :schedule_open, hint: "Allow speakers to self-schedule their talks. Everything will be accpeted. Maybe e turn this of and check before scheduling."
     %fieldset.inputs
       %legend= t(:static_program_export)
       = f.input :program_export_base_url, hint: "If you want to use the static program export, enter the URL where you want to put the files under here. All references will be generated using this as a prefix. This will be used for the QR code linking to the schedule."

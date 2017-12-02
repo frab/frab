@@ -1,9 +1,12 @@
 %section
   .page-header
     .pull-right
-      - unless @conference.in_the_past
+      - unless @conference.in_the_past?
         - unless cfp_hard_deadline_over?
+          = action_button "primary", t("cfp.join_event"), cfp_events_join_path
           = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
+          - if @conference.schedule_open?
+            = action_button "primary", t("cfp.schedule"), cfp_schedule_path
         - if @person.availabilities_in(@conference).count == 0
           = action_button "", t("cfp.edit_availability"), new_cfp_person_availability_path
         - else
@@ -11,38 +14,30 @@
       = action_button "", t("cfp.edit_profile"), edit_cfp_person_path
       = action_button "", t("cfp.edit_account"), edit_cfp_user_path
     %h1=t("cfp.welcome")
+
   .row
     .span8
       %p=t("cfp.thanks_for_interest", title: @conference.title)
       - if cfp_hard_deadline_over?
         %p=t("cfp.hard_deadline_over")
-      - elsif @person.events_in(@conference).size > 0 and not @conference.in_the_past
-        - if @person.availabilities_in(@conference).count == 0
-          %p=t("cfp.specify_availability")
-          = action_button "success", t("cfp.edit_availability"), new_cfp_person_availability_path
-          .clear
-        %p=t("cfp.input_appreciation")
-        = action_button "success", t("cfp.submit_another_event"), new_cfp_event_path
-      - else
-        - unless @conference.in_the_past
-          %p=t("cfp.take_time_to_submit")
-          = action_button "success", t("cfp.submit_new_event"), new_cfp_event_path
-        .clear
-        %p=t("cfp.not_forget_personal_details")
-        = action_button "success", t("cfp.edit_profile"), edit_cfp_person_path
+
+      - elsif !@conference.in_the_past?
+        = render 'running_conference'
+
     .span8
       %h2=t("cfp.information_headline")
-      - unless @conference.call_for_participation.info_url.blank?
+      - if @conference.call_for_participation.info_url.present?
         %p=t("cfp.info_url_description_html", link: link_to(@conference.call_for_participation.info_url, @conference.call_for_participation.info_url))
       %p
-        - if @conference.in_the_past
+        - if @conference.in_the_past?
           =t("cfp.conference_in_the_past")
         - else
           =t("cfp.deadline_description")
           %b= l(@conference.call_for_participation.end_date)
-      - unless @conference.call_for_participation.contact_email.blank?
+      - if @conference.call_for_participation.contact_email.present?
         %h2=t("cfp.contact_headline")
         %p=t("cfp.contact_description_html", mail_to: mail_to(@conference.call_for_participation.contact_email))
+
   .row
     .span16
       - if @person.events_in(@conference).size > 0

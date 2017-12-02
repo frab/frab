@@ -19,12 +19,14 @@ class Auth::SessionsController < Devise::SessionsController
   protected
 
   def after_sign_in_path_for(resource)
-    goto = stored_location_for(resource)
-    return goto if goto.present?
-    if session[:conference_acronym]
-      cfp_root_path(conference_acronym: session[:conference_acronym])
+    return root_path unless session[:conference_acronym]
+    if @conference && policy(@conference).manage?
+      conference_path(conference_acronym: session[:conference_acronym])
+    elsif redirect_submitter_to_edit?
+      flash[:alert] = t('users_module.error_invalid_public_name')
+      edit_cfp_person_path(conference_acronym: session[:conference_acronym])
     else
-      root_path
+      cfp_person_path(conference_acronym: session[:conference_acronym])
     end
   end
 

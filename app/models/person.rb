@@ -148,6 +148,13 @@ class Person < ApplicationRecord
     availabilities
   end
 
+  def create_availabilities_for(conference)
+    Availability.build_for(conference).each do |a|
+      a.person = self
+      a.save
+    end
+  end
+
   def update_attributes_from_slider_form(params)
     # remove empty availabilities
     return unless params and params.key? 'availabilities_attributes'

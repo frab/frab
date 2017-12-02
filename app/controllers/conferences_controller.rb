@@ -103,6 +103,7 @@ class ConferencesController < BaseConferenceController
   end
 
   def send_notification
+    authorize @conference, :orga?
     SendBulkTicketJob.new.async.perform @conference, params[:notification]
     redirect_to edit_notifications_conference_path, notice: 'Bulk notifications for events in ' + params[:notification] + ' enqueued.'
   end
@@ -183,7 +184,7 @@ class ConferencesController < BaseConferenceController
     [
       :acronym, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
       :event_state_visible, :expenses_enabled, :feedback_enabled, :max_timeslots, :program_export_base_url,
-      :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_version, :ticket_type,
+      :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_open, :schedule_version, :ticket_type,
       :title, :transport_needs_enabled,
       languages_attributes: %i(language_id code _destroy id),
       ticket_server_attributes: %i(url user password queue _destroy id),

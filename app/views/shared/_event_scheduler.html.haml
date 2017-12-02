@@ -1,0 +1,80 @@
+%ul.tabs
+  - @conference.days.each_with_index do |day, index|
+    %li{class: day_active?(index)}
+      = link_to day.label, schedule_path(day: index)
+- if @conference.rooms.empty?
+  .row
+    .span16
+      .blank-slate
+        %p
+          Before you can schedule any events, you need
+          to have at least one room defined for this
+          conference. Go to <em>Settings</em>
+          above to enter a room.
+- elsif @conference.events.count == 0
+  .row
+    .span16
+      .blank-slate
+        %p
+          This conference does not yet have any events.
+          Create some under the <em>Events</em> tab above,
+          or launch a call for papers to gather events.
+          Once you have events, you can schedule them
+          here.
+- elsif @conference.days.count == 0
+  .row
+    .span16
+      .blank-slate
+        %p
+          Before you can schedule any events, you need
+          to have at least one day defined for this
+          conference. Go to <em>Conference Settings</em>
+          above to enter a day.
+- else
+  .row
+    .span16
+      %p
+        %b Toggle rooms:
+      %p
+        - @conference.rooms.each do |room|
+          = link_to room.name, "#", class: "btn small success toggle-room", data: {room: room.name.downcase}
+        = link_to "hide all", "#", id: "hide-all-rooms", class: "btn small danger"
+  .row
+    .span16
+      - @conference.rooms.each do |room|
+        - reset_cycle
+        %table.room{:"data-room" => room.name.downcase, :"data-room-id" => room.id}
+          %thead
+            %tr
+              %th= room.name
+          %tbody
+            - slot = 0
+            - each_timeslot do  |time|
+              %tr{class: cycle('odd', 'even')}
+                %td{:"data-time" => time.to_s(:rfc822)}
+                  - if slot % @conference.default_timeslots == 0
+                    = time.strftime("%H:%M")
+              - slot += 1
+      .clear
+      #event-pane
+        - @scheduled_events.each do |event|
+          = render 'event', event: event
+      #add-event-modal.modal{style: "display: none;"}
+        .modal-header
+          = link_to "×", "#", class: "close"
+          %h3
+            Add event at
+            %span#current-time &nbsp;
+        .modal-body
+          %p
+            = form_tag schedule_update_track_path, id: "update-track" do
+              = label_tag "track_select", "Filter by track"
+              = select_tag "track_select", content_tag(:option, "All", selected: true) + options_from_collection_for_select(@conference.tracks, :id, :name)
+          %p
+            %ul#unscheduled-events
+              = render 'unscheduled_events'
+        .modal-footer
+          &nbsp;
+
+= javascript_include_tag "schedule"
+

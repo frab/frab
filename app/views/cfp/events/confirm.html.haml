@@ -1,8 +1,9 @@
 %section
   .page-header
-    %h1=t("cfp.event_confirmed")
-  .row
-    .span16
-      = render "shared/flash", flash: flash
+    %h1 Confirm your attendance
+    = form_tag request.url do
       %p
-        = t("cfp.thanks_for_confirmation")
+        Your confirmation is required for the event
+        %b=@event.title
+      = submit_tag "Confirm attendance", class: 'btn btn-large btn-primary'
+

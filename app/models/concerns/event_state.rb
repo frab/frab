@@ -46,7 +46,7 @@ module EventState
   end
 
   def transition_possible?(transition)
-    self.class.state_machine.events_for(current_state).include?(transition)
+    self.class.state_machine.events_for(current_state).include?(transition.to_sym)
   end
 
   def notifiable
@@ -66,7 +66,7 @@ module EventState
       end
     end
     return unless options[:coordinator]
-    return if event_people.find_by(person_id: options[:coordinator].id, event_role: 'coordinator')
+    return if event_people.find_by(event_role: 'coordinator')
     event_people.create(person: options[:coordinator], event_role: 'coordinator')
   end
 
@@ -77,7 +77,7 @@ module EventState
       end
     end
     return unless options[:coordinator]
-    return if event_people.find_by(person_id: options[:coordinator].id, event_role: 'coordinator')
+    return if event_people.find_by(event_role: 'coordinator')
     event_people.create(person: options[:coordinator], event_role: 'coordinator')
   end
 

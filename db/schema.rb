@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022184419) do
+ActiveRecord::Schema.define(version: 20171110140104) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20171022184419) do
     t.string "logo_content_type"
     t.integer "logo_file_size"
     t.datetime "logo_updated_at"
+    t.boolean "schedule_open", default: false, null: false
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
@@ -213,9 +214,11 @@ ActiveRecord::Schema.define(version: 20171022184419) do
     t.text "target_audience_experience"
     t.text "target_audience_experience_text"
     t.text "tech_rider"
+    t.string "invite_token"
     t.index ["conference_id"], name: "index_events_on_conference_id"
     t.index ["event_type"], name: "index_events_on_type"
     t.index ["guid"], name: "index_events_on_guid", unique: true
+    t.index ["invite_token"], name: "index_events_on_invite_token", unique: true
     t.index ["state"], name: "index_events_on_state"
   end
 

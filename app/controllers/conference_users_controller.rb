@@ -2,6 +2,7 @@ class ConferenceUsersController < BaseCrewController
   def index
     @users = policy_scope(ConferenceUser.all)
       .includes(user: :person)
+      .includes(:conference)
       .order(:user_id, :role, :conference_id)
       .paginate(page: page_param)
   end

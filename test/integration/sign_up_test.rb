@@ -45,7 +45,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
     follow_redirect!
     follow_redirect!
     assert_includes @response.body, "#{@conference.title}\n- Call for Participation"
-    assert_includes @response.body, 'Welcome'
+    assert_includes @response.body, 'submit your proposal'
   end
 
   test 'can sign in and get redirected back to root if no recent conference' do

@@ -99,7 +99,9 @@ class Public::ScheduleController < ApplicationController
   end
 
   def maybe_authenticate_user!
-    authenticate_user! unless @conference.schedule_public
+    return if @conference.schedule_public
+    authenticate_user!
+    orga_only!
   end
 
   private

@@ -2,10 +2,12 @@ class Cfp::EventsController < ApplicationController
   layout 'cfp'
 
   before_action :authenticate_user!, except: :confirm
+  before_action :set_person
+  before_action :load_event, except: %i[index show new create confirm join]
 
   # GET /cfp/events
   def index
-    @events = current_user.person.events
+    @events = @person.events
     @events&.map(&:clean_event_attributes!)
 
     respond_to do |format|
@@ -30,15 +32,14 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1/edit
   def edit
-    @event = current_user.person.events.find(params[:id])
   end
 
   # POST /cfp/events
   def create
     @event = Event.new(event_params.merge(recording_license: @conference.default_recording_license))
     @event.conference = @conference
-    @event.event_people << EventPerson.new(person: current_user.person, event_role: 'submitter')
-    @event.event_people << EventPerson.new(person: current_user.person, event_role: 'speaker')
+    @event.event_people << EventPerson.new(person: @person, event_role: 'submitter')
+    @event.event_people << EventPerson.new(person: @person, event_role: 'speaker')
 
     respond_to do |format|
       if @event.save
@@ -51,7 +52,6 @@ class Cfp::EventsController < ApplicationController
 
   # PUT /cfp/events/1
   def update
-    @event = current_user.person.events.readonly(false).find(params[:id])
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
 
     respond_to do |format|
@@ -63,18 +63,32 @@ class Cfp::EventsController < ApplicationController
     end
   end
 
+  def accept
+    return redirect_to cfp_person_path, flash: { error: t('cfp.self_schedule_denied') } unless @conference.schedule_open?
+
+    if @person.availabilities_in(@conference).empty?
+      @person.create_availabilities_for(@conference)
+    end
+
+    @event.accept!({})
+    @event.confirm!
+    redirect_to(cfp_person_path, notice: t('cfp.self_schedule_accepted'))
+  end
+
   def withdraw
-    @event = current_user.person.events.find(params[:id], readonly: false)
     @event.withdraw!
     redirect_to(cfp_person_path, notice: t('cfp.event_withdrawn_notice'))
   end
 
   def confirm
-    event_people = event_people_from_params
-    if event_people.blank?
+    @event_people = event_people_from_params
+    if @event_people.blank?
       return redirect_to cfp_person_path, flash: { error: t('cfp.no_confirmation_token') }
     end
-    event_people.each(&:confirm!)
+    @event = @event_people.first.event
+    return unless request.post?
+
+    @event_people.each(&:confirm!)
 
     if current_user
       redirect_to cfp_person_path, notice: t('cfp.thanks_for_confirmation')
@@ -83,7 +97,38 @@ class Cfp::EventsController < ApplicationController
     end
   end
 
+  def join
+    @token = params[:token] || ''
+    @event = @token.blank? ? nil : Event.find_by(invite_token: @token)
+
+    deadline = @event&.conference&.call_for_participation&.hard_deadline
+    if deadline && Date.today > deadline
+      return redirect_to cfp_root_path, flash: { error: t('cfp.hard_deadline_over') }
+    end
+
+    return unless request.post?
+
+    if @event.nil?
+        return redirect_to cfp_join_event_path, flash: { error: t('cfp.join_token_unknown', token: @token) }
+    end
+
+    if @event.people.exists?(@person.id)
+      redirect_to edit_cfp_event_path(@event), notice: t('cfp.join_token_already_used')
+    else
+      @event.event_people << EventPerson.new(person: @person, event_role: 'speaker')
+      redirect_to edit_cfp_event_path(@event), notice: t('cfp.join_success')
+    end
+  end
+
   private
+
+  def set_person
+    @person = current_user&.person
+  end
+
+  def load_event
+    @event = current_user.person.events.find(params[:id])
+  end
 
   def event_people_from_params
     if params[:token]
@@ -92,7 +137,7 @@ class Cfp::EventsController < ApplicationController
       event_person.person.event_people.where(event_id: params[:id])
 
     elsif current_user
-      current_user.person.event_people.where(event_id: params[:id])
+      @person.event_people.where(event_id: params[:id])
     end
   end
 

@@ -160,7 +160,7 @@ class Conference < ApplicationRecord
     days.each(&block)
   end
 
-  def in_the_past
+  def in_the_past?
     return false if days.nil? or days.empty?
     return false if Time.now < days.last.end_date
     true
