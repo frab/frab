@@ -463,7 +463,7 @@ en:
       edit_cfp_hint: "Edit this Call for Paper's data"
     pages:
       thank_for_interest: "Thank you for your interest in participating in %{conference}."
-      inexistent_cfp: "Unfortunately, the Call for Participation does not (yet?) exist."
+      nonexistent_cfp: "Unfortunately, the Call for Participation does not (yet?) exist."
       not_started_cfp: |
         Unfortunately, the Call for Participation has not yet started. Please bear with us
         and leave us a little more time for our preparations.
