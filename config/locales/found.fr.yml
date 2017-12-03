@@ -883,8 +883,8 @@ fr:
     pages:
       #thank_for_interest: "Thank you for your interest in participating in %{conference}."
       thank_for_interest: "Merci pour votre intérêt pour %{conference}."
-      #nonexistent_cfp: "Unfortunately, the Call for Participation does not (yet?) exist."
-      nonexistent_cfp: "Malheureusement, l'appel à participation n'existe pas (encore ?)."
+      #unexisting_cfp: "Unfortunately, the Call for Participation does not (yet?) exist."
+      unexisting_cfp: "Malheureusement, l'appel à participation n'existe pas (encore ?)."
       #not_started_cfp: |
       #  Unfortunately, the Call for Participation has not yet started. Please bear with us
       #  and leave us a little more time for our preparations.
