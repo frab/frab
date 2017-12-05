@@ -1,13 +1,13 @@
 = simple_form_for(@conference, url: conference_path) do |f|
   %fieldset.inputs
     %legend= t(:schedule_configuration)
-    = f.input :schedule_version, hint: "What is the current schedule version?"
-    = f.input :schedule_public, hint: "Is the dynamic schedule public? You can still create static exports regardless of this setting."
-    = f.input :schedule_open, hint: "Allow speakers to self-schedule their talks. Everything will be accpeted. Maybe e turn this of and check before scheduling."
+    = f.input :schedule_version, hint: t('schedule_module.inputs.hints.schedule_version')
+    = f.input :schedule_public, hint: t('schedule_module.inputs.hints.schedule_public')
+    = f.input :schedule_open, hint: t('schedule_module.inputs.hints.schedule_open')
     %fieldset.inputs
       %legend= t(:static_program_export)
-      = f.input :program_export_base_url, hint: "If you want to use the static program export, enter the URL where you want to put the files under here. All references will be generated using this as a prefix. This will be used for the QR code linking to the schedule."
-      = f.input :schedule_custom_css, input_html: {rows: 4}, hint: "Custom CSS added to the HTML export. (CSS)"
-      = f.input :schedule_html_intro, input_html: {rows: 4}, hint: "Intro text for the HTML export. (HTML)"
+      = f.input :program_export_base_url, hint: t('schedule_module.inputs.hints.program_export_base_url')
+      = f.input :schedule_custom_css, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_custom_css')
+      = f.input :schedule_html_intro, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_html_intro')
   .actions
     = f.button :submit, class: 'primary'

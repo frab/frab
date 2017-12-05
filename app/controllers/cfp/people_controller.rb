@@ -13,7 +13,7 @@ class Cfp::PeopleController < ApplicationController
 
     return redirect_to action: 'new' unless @person
     if redirect_submitter_to_edit?
-      flash[:alert] = 'Your email address is not a valid public name, please change it.'
+      flash[:alert] = t('users_module.error_invalid_public_name')
       redirect_to action: 'edit'
     end
 
@@ -59,7 +59,7 @@ class Cfp::PeopleController < ApplicationController
   def edit
     @person = current_user.person
     if @person.nil?
-      flash[:alert] = 'Not a valid person'
+      flash[:alert] = t('users_module.error_invalid_person')
       return redirect_to action: :index
     end
   end

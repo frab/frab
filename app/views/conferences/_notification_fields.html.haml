@@ -1,11 +1,11 @@
 .nested-fields.notification
   %fieldset.inputs
-    = button_tag "default text", type: 'button', class: 'btn', style: 'float:right', data: { function: 'notification-defaults', args: { url: "#{ conferences_default_notifications_path(conference_acronym: @conference.acronym) }" } }
-    = f.input :locale, as: :select, collection: available_locales(@conference), hint: "Available locales for this conference and its speakers"
-    = f.input "accept_subject",   label: 'Accept subject'
-    = f.input "accept_body",      label: 'Accept body', as: :text
-    = f.input "reject_subject",   label: 'Reject subject'
-    = f.input "reject_body",      label: 'Reject body', as: :text
-    = f.input "schedule_subject", label: 'Schedule subject'
-    = f.input "schedule_body",    label: 'Schedule body', as: :text
+    = button_tag t('default_text'), type: 'button', class: 'btn', style: 'float:right', data: { function: 'notification-defaults', args: { url: "#{ conferences_default_notifications_path(conference_acronym: @conference.acronym) }" } }
+    = f.input :locale, as: :select, collection: available_locales(@conference), hint: t('notifications_module.inputs.hints.locale')
+    = f.input "accept_subject"
+    = f.input "accept_body", as: :text
+    = f.input "reject_subject"
+    = f.input "reject_body", as: :text
+    = f.input "schedule_subject"
+    = f.input "schedule_body", as: :text
     = remove_association_link :notification, f

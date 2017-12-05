@@ -1,86 +1,63 @@
 %section
   .page-header
-    %h1 Welcome
+    %h1= t('cfp.welcome')
   .row
     .span16
       - if @conference.rooms.count == 0
         .blank-slate
-          %p
-            Welcome, you seem to have just created this
-            conference. A good first step would be to go
-            to the <em>Conference Settings</em> tab above
-            and add a room to this conference. This will
-            be needed to schedule your program.
+          = raw(GitHub::Markdown.render(t('conferences_module.show_welcome')))
+
       - if @conference.events.count == 0 and @conference.call_for_participation.nil?
         .blank-slate
-          %p
-            This conference does not yet have any events.
-            (Note that throughout the application, the
-            generic term 'event' is used to refer to all
-            sessions within your conference, no matter if
-            they are talks, workshops, panels or something
-            else entirely).
-          %p
-            Start adding events by clicking on the
-            <em>Events</em> tab above. Or start a call for
-            papers, to allow others to submit events for
-            you to review.
+          = raw(GitHub::Markdown.render(t('conferences_module.show_no_event')))
   - if policy(@conference).orga?
     .row
       .span16
         - if @conference.in_the_past?
-          %p
-            The conference days are in the past. No submissions are possible.
+          %p= t('conferences_module.conference_in_past')
+
     .row
       .span16
         %h2
-          Recent changes
-          %small= link_to "more >>", recent_changes_path
+          = t('conferences_module.recent_changes')
+          %small= link_to t('navigation.more'), recent_changes_path
         - if @versions.empty?
           .blank-slate
-            %p
-              Once you, or others start creating data for this
-              conference, you will find who changed what here.
-              This is especially interesting if you conduct a
-              call for papers. In this case, this area allows
-              you to quickly see if new submissions came in.
+            %p= raw(GitHub::Markdown.render(t('conferences_module.recent_changes_text')))
         - else
           = render "recent_changes/table"
           %p
   .row
     .span16
-      %h2 Statistics
+      %h2= t('conferences_module.statistics')
       - if @conference.events.count == 0
         .blank-slate
-          %p
-            Once you created some events for this conference,
-            or gathered submissions through a call for papers,
-            you will find some statistics about them here.
+          %p= t('conferences_module.statistics_empty')
       - else
-        %h4 Events by state
+        %h4= t('events_module.events_by_state')
         %p
-          = link_to "All", "#", id: "events_all_types"
+          = link_to t('all'), "#", id: "events_all_types"
           |
-          = link_to "lectures only", "#", id: "events_lectures_only"
+          = link_to t('lectures_only'), "#", id: "events_lectures_only"
           |
-          = link_to "workshops only", "#", id: "events_workshops_only"
+          = link_to t('workshops_only'), "#", id: "events_workshops_only"
           |
-          = link_to "others only", "#", id: "events_others_only"
+          = link_to t('others_only'), "#", id: "events_others_only"
         #event_state_graph(style="width:600px;height:300px;")
         %table.zebra-stripe
           %thead
             %tr
-              %th new
-              %th review
-              %th withdrawn
-              %th accepting
-              %th unconfirmed
-              %th confirmed
-              %th scheduled
-              %th canceled
-              %th rejecting
-              %th rejected
-              %th total
+              %th= t('conference_module.new')
+              %th= t('conference_module.review')
+              %th= t('conference_module.withdrawn')
+              %th= t('conference_module.accepting')
+              %th= t('conference_module.unconfirmed')
+              %th= t('conference_module.confirmed')
+              %th= t('conference_module.scheduled')
+              %th= t('conference_module.canceled')
+              %th= t('conference_module.rejecting')
+              %th= t('conference_module.rejected')
+              %th= t('conference_module.total')
           %tbody
             %tr
               %td= @conference.events.where(state: :new).count
@@ -95,19 +72,19 @@
               %td= @conference.events.where(state: :rejected).count
               %td= @conference.events.count
       - if @conference.languages.count > 1
-        %h4 Events by language
+        %h4= t('events_module.events_by_language')
         %p
-          = link_to "All", "#", id: "languages_all_events"
+          = link_to t('all'), "#", id: "languages_all_events"
           |
-          = link_to "Accepted only", "#", id: "languages_accepted_events_only"
+          = link_to t('accepted_only'), "#", id: "languages_accepted_events_only"
         #event_language_graph(style="width:400px;height:300px;")
 
       - if @conference.gender_breakdown.count > 1
-        %h4 Events by gender
+        %h4= t('events_module.events_by_gender')
         %p
-          = link_to "All", "#", id: "gender_all_events"
+          = link_to t('all'), "#", id: "gender_all_events"
           |
-          = link_to "Accepted only", "#", id: "gender_accepted_events_only"
+          = link_to t('accepted_only'), "#", id: "gender_accepted_events_only"
         #event_gender_graph(style="width:400px;height:300px;")
 
 :coffeescript

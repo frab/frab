@@ -67,9 +67,9 @@ class ScheduleController < BaseConferenceController
   end
 
   def create_static_export
-    redirect_to schedule_path, notice: 'program_export_base_url needs to be set' if @conference.program_export_base_url.blank?
+    redirect_to schedule_path, notice: t('schedule_module.notice_no_base_url') if @conference.program_export_base_url.blank?
     StaticProgramExportJob.new.async.perform @conference, check_conference_locale(params[:export_locale])
-    redirect_to schedule_html_exports_path, notice: 'Static schedule export started. Please reload this page after a minute.'
+    redirect_to schedule_html_exports_path, notice: t('schedule_module.notice_static_export_started')
   end
 
   def download_static_export
@@ -77,7 +77,7 @@ class ScheduleController < BaseConferenceController
     if conference_export&.tarball && File.readable?(conference_export.tarball.path)
       send_file conference_export.tarball.path, type: 'application/x-tar-gz'
     else
-      redirect_to schedule_path, notice: 'No export found to download.'
+      redirect_to schedule_path, notice: t('schedule_module.notice_no_export_found')
     end
   end
 

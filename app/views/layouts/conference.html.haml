@@ -11,7 +11,7 @@
     .topbar
       .fill
         .container
-          - fail "DO NOT USE CONFERENCE LAYOUT WITHOUT A CONFERENCE" unless @conference
+          - fail t('cfp.fail_layout_use') unless @conference
           = link_to @conference.title, conference_path(conference_acronym: @conference.acronym), class: "brand"
           %ul.nav.pull-left
             %li= link_to t('home'), root_path

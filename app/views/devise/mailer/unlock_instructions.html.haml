@@ -1,0 +1,3 @@
+%p= t('devise.mailer.unlock_instructions.headline', {email: @resource.email})
+
+= raw(GitHub::Markdown.render(t('devise.mailer.unlock_instructions.text', {link: link_to(t('devise.unlock_my_account'), unlock_url(@resource, unlock_token: @token))})))

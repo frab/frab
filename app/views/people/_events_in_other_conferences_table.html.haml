@@ -3,19 +3,19 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :title, 'Title', term: params[:term]
-        %th= sort_link @search, :track_name, "Track", term: params[:term]
+        %th= sort_link @search, :title, t('title'), term: params[:term]
+        %th= sort_link @search, :track_name, t('track'), term: params[:term]
         %th= sort_link @search, :event_type, term: params[:term]
-        %th= sort_link @search, :state, 'State', term: params[:term]
-        %th= sort_link @search, :conference, 'Conference', term: params[:term]
+        %th= sort_link @search, :state, t('state'), term: params[:term]
+        %th= sort_link @search, :conference, t('conference'), term: params[:term]
         %th= sort_link @search, :created_at, term: params[:term]
       - else
-        %th Title
-        %th Track
-        %th Event type
-        %th State
-        %th Conference
-        %th Created at
+        %th= t('title')
+        %th= t('track')
+        %th= t('activerecord.attributes.event.event_type')
+        %th= t('state')
+        %th= t('conference')
+        %th= t('created_at')
       %th.last
   %tbody
     - collection.each do |event|
@@ -31,7 +31,7 @@
         %td= event.conference.acronym
         %td= l(event.created_at.to_date)
         %td.buttons
-          = action_button "small", 'Show', event
+          = action_button "small", t('show'), event
           - if policy(@conference).manage?
-            = action_button "small", 'Edit', edit_event_path(event)
-            = action_button "small danger", 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
+            = action_button "small", t('edit'), edit_event_path(event)
+            = action_button "small danger", t('destroy'), event, data: { confirm: t('are_you_sure') }, method: :delete

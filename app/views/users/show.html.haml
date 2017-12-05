@@ -1,24 +1,24 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit user account", edit_person_user_path(@person), title: "Edit this user account."
-    %h1 Person: #{@person.full_name}
+      = action_button "primary", t('users_module.edit_user_account'), edit_person_user_path(@person), hint: t('users_module.edit_user_account_hint')
+    %h1= t('titles.person', {person: @person.full_name})
   = render 'shared/people_tabs'
   .row
     .span16
       %p
-        %b Email for login:
+        %b= t('col_email_for_login')
         = @user.email
       %p
-        %b Role:
+        %b= t('col_role')
         = @user.role
       -if @user.is_crew? and @user.conference_users.empty?
-        %p
-          This user is not yet part of any conference crew.
+        %p= t('users_module.not_in_crew')
+
       -elsif @user.is_crew?
         %ul
           - @user.conference_users.each do |cu|
             %li= cu.conference.acronym + " - " + cu.role
       %p
-        %b Last login:
+        %b= t('col_last_login')
         = @user.last_sign_in_at

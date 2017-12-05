@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-    %h1 Person: #{@person.full_name}
+    %h1= t('titles.person', {person: @person.full_name})
   = render 'shared/people_tabs'
   .row
     .span16

@@ -1,17 +1,17 @@
 %section
   .page-header
     .pull-right
-    %h1 Person: #{@person.full_name}
+    %h1= t('titles.person', {person: @person.full_name})
   = render 'shared/people_tabs'
 
   - if @expenses.any?
     %table.zebra-striped
       %thead
         %tr
-          %th Date created
-          %th Name
-          %th Reimbursed
-          %th Value
+          %th= t('creation_date')
+          %th= t('name')
+          %th= t('expenses_module.reimbursed')
+          %th= t('value')
           %th
           %th
       %tbody
@@ -22,19 +22,19 @@
             %td= e.reimbursed
             %td= to_currency e.value
             %td
-              =action_button "small", 'Edit', edit_person_expense_path(@person, e)
-              =action_button "small danger", 'Destroy', person_expense_path(@person, e), data: { confirm: 'Are you sure?' }, method: :delete
+              =action_button "small", t('edit'), edit_person_expense_path(@person, e)
+              =action_button "small danger", t('destroy'), person_expense_path(@person, e), data: { confirm: t('are_you_sure') }, method: :delete
 
         %tr
           %td{ colspan: 3 }
-            %b Sum of all reimbursed
+            %b= t('expenses_module.sum_reimbursed')
           %td{ colspan: 2 }
             %b= to_currency @expenses_sum_reimbursed
         %tr
           %td{ colspan: 3 }
-            %b Sum of all non-reimbursed
+            %b= t('expenses_module.sum_not_reimbursed')
           %td{ colspan: 2 }
             %b= to_currency @expenses_sum_non_reimbursed
 
-  =action_button "small", 'New expense', new_person_expense_path
+  =action_button "small", t('expenses_module.new_expense'), new_person_expense_path
 

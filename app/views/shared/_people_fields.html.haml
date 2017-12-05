@@ -1,5 +1,5 @@
 %fieldset.inputs
-  %legend Basic
+  %legend= t('basic_information')
   = f.input :first_name
   = f.input :last_name
   = f.input :public_name, hint: t("cfp.public_name_hint")
@@ -12,7 +12,7 @@
   %legend= t("cfp.contact_data")
   = f.input :email, hint: t("cfp.email_hint")
   = f.input :email_public, as: :inline_boolean, hint: t("cfp.email_public_hint")
-  = f.input :include_in_mailings, as: :inline_boolean, hint: "Do you want to receive information about upcoming conferences by mail?"
+  = f.input :include_in_mailings, as: :inline_boolean, hint: t('cfp.email_accept_upcoming_infos')
   = dynamic_association :phone_numbers, t("cfp.phone_numbers"), f
   = dynamic_association :im_accounts, t("cfp.im_accounts"), f
 

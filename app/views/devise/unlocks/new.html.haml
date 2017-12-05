@@ -1,0 +1,19 @@
+- content_for :title do
+  = link_to t('page_titles.unlock_instructions'), root_url, class: 'brand'
+
+%section
+  .page-header
+    %h1= t('titles.unlock_instructions')
+
+  .row
+    .span16
+      = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }, defaults:{error: false}) do |f|
+        = devise_error_messages!
+
+        %fieldset.inputs
+          = f.input :email
+
+        .actions
+          = f.button :submit, class: 'primary', value: t('devise.resend_unlock_instructions')
+
+= render "devise/shared/links"

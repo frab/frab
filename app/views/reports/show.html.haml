@@ -1,19 +1,17 @@
 %section
   .page-header
-    %h1 Available Reports
+    %h1= t('reports_module.available_reports')
   = render 'report_menu'
   %h2 Results
   - if @people or @events
     = render 'shared/simple_search', path: request.path
   - unless @search_count.nil?
-    Found
-    = @search_count
-    results.
+    = t('reports_module.found_x_results', {nb: @search_count})
   - if not @people.nil? and not @people.empty?
     .row
       .span16
         - if @people.all.empty?
-          %p Sorry, but your search yielded no results.
+          %p= t('reports_module.no_search_results')
         - else
           = render 'people_table', people: @people
           = actions_bar do
@@ -22,7 +20,7 @@
     .row
       .span16
         - if @events.all.empty?
-          %p Sorry, but your search yielded no results.
+          %p= t('reports_module.no_search_results')
         - else
           = render 'events_table', events: @events
           = actions_bar do

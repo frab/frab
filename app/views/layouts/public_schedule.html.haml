@@ -43,12 +43,9 @@
 
       #main-content
         - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
-          %p.release
-            = "Version #{@conference.schedule_version}"
+          %p.release= t('conferences_module.version', {version: @conference.schedule_version})
 
         = yield
         %br.clear/
 
-    #footer
-      :markdown
-        This schedule was generated with [frab](http://frab.github.io/frab/).
+    #footer= raw(GitHub::Markdown.render(t('conferences_module.footer')))

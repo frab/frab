@@ -4,7 +4,7 @@
   .row
     .span16
       = form_tag(import_cfp_person_path, method: "post") do
-        = label_tag(:q, "Profile data:")
+        = label_tag(:q, t('cfp.pages.profile_data'))
         = text_area_tag(:foaf, @foaf)
         .actions
-          = submit_tag('Import')
+          = submit_tag t('import')

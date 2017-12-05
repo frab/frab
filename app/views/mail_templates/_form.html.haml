@@ -1,7 +1,5 @@
 %p
-  The following place holders may be used in the
-  %code content
-  section of each template.
+  = raw(GitHub::Markdown.render(t('emails_module.placeholders_hint')))
   %ul
     %li #first_name
     %li #last_name

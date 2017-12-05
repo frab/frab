@@ -1,0 +1,28 @@
+- content_for :title do
+  = link_to t('page_titles.signup'), root_url, class: 'brand'
+
+%section
+  .page-header
+    %h1
+      = t('titles.session_signup')
+  .row
+    .span16
+
+      =simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults:{error: false}) do |f|
+
+        = devise_error_messages!
+
+        %fieldset.inputs
+          = f.input :email
+
+          - if @minimum_password_length
+            = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', {length: @minimum_password_length})
+          - else
+            = f.input :password, autocomplete: 'off'
+
+          = f.input :password_confirmation, autocomplete: 'off'
+
+        .actions
+          = f.button :submit, class: 'primary', value: t('session.signup')
+
+= render 'devise/shared/links'

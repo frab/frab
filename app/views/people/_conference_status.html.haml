@@ -1,19 +1,19 @@
 %p
-  %b Event State:
+  %b= t('col_event_state')
   - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
     = @person.role_state(@conference)
   - else
-    not speaking
+    =t('not_speaking')
 
 - unless @view_model.availabilities.nil?
   %p.availability
-    %b Availability:
+    %b= t('col_availability')
     - @view_model.availabilities.each do |availability|
       %span= "#{availability.start_date.strftime("%d.%m. %H:%M")} - #{availability.end_date.strftime("%H:%M")}"
 
 - if @view_model.remote_ticket_present?
   %p
-    %b Ticket:
+    %b= t('col_ticket')
     -if @conference.ticket_server.nil?
       = @person.ticket.remote_ticket_id
     -else

@@ -1,0 +1,23 @@
+-# Note that this view has been created from the Devise one.
+-# Compared to the sessions/new.html.haml, it does not contain all the
+-# links depending on context. Anyway, sessions/new.html.haml seems not to be used...
+- content_for :title do
+  = link_to t('page_titles.login'), root_url, class: 'brand'
+
+%section
+  .page-header
+    %h1= t('titles.session_login')
+  .row
+    .span16
+
+      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+
+        %fieldset.inputs
+          = f.input :email
+          = f.input :password
+          = f.input :remember_me, as: :inline_boolean if devise_mapping.rememberable?
+
+        .actions
+          = f.button :submit, class: 'primary', value: t('session.login')
+
+= render 'devise/shared/links'

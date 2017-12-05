@@ -1,5 +1,5 @@
 <%= form_tag path, method: :get do %>
-  <p>Search:
-    <%= text_field_tag :term, params[:term] %> <%= link_to "clear",  path %>
+  <p><%= t('conferences_module.search') %>
+    <%= text_field_tag :term, params[:term] %> <%= link_to t('clear'),  path %>
   </p>
 <% end %>

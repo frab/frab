@@ -1,6 +1,6 @@
 %section
   .page-header
-    %h1 Edit Person: #{@person.full_name}
+    %h1= t('titles.edit_person', {person: @person.full_name})
   = render 'shared/people_tabs'
   .row
     .span16

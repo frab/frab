@@ -1,0 +1,21 @@
+- content_for :title do
+  = link_to t('page_titles.resend_confirmation'), root_url, class: 'brand'
+
+%section
+  .page-header
+    %h1
+      = t('titles.resend_confirmation_instructions')
+  .row
+    .span16
+
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, defaults:{error: false}) do |f|
+
+        = devise_error_messages!
+
+        %fieldset.inputs
+          = f.input :email, autofocus: true
+
+        .actions
+          = f.button :submit, class: 'primary', value: t('resend')
+
+= render "devise/shared/links"

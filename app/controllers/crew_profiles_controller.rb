@@ -8,7 +8,7 @@ class CrewProfilesController < BaseCrewController
 
     respond_to do |format|
       if @person.update_attributes(person_params)
-        format.html { redirect_to(edit_crew_profile_path, notice: 'Your profile was successfully updated.') }
+        format.html { redirect_to(edit_crew_profile_path, notice: t('users_module.notice_profile_updated')) }
       else
         format.html { render action: 'edit' }
       end

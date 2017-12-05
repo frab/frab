@@ -7,15 +7,10 @@
     .row
       .span16
         .blank-slate
-          %p
-            The classifiers for this conference can only be modified with
-            administration rights for the parent conference
-            ="'#{@conference.parent.title}'."
+          %p= raw(GitHub.render(t('classifiers_module.modify_classifier_with_parent', {parent: @conference.parent.title})))
+          %p= t('classifiers_module.current_classifiers')
 
-          %p
-            The currently configured classifiers are:
-
-          %ul
+          %uls
             - @conference.classifiers.each do |classifier|
               %li
                 ="#{classifier.name} (description: #{classifier.description})"
@@ -25,9 +20,7 @@
       .row
         .span16
           .blank-slate
-            %p
-              Here you can create and edit the classifiers which
-              submitters can give to their events
+            %p= t('classifiers_module.empty_classifiers')
     .row
       .span16
         = render 'form_classifiers'

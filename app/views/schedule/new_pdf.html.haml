@@ -1,31 +1,31 @@
 %section
   .page-header
-    %h1 Create a custom PDF export
+    %h1= t('schedule_module.create_pdf_export')
   .row
     .span16
       = form_tag schedule_custom_pdf_path do
         .clearfix
-          = label_tag "page_size", "Select paper format:"
+          = label_tag "page_size", t('schedule_module.col_select_paper_format')
           .input
             = select_tag "page_size", options_for_select(Prawn::Document::PageGeometry::SIZES.keys.sort)
         .clearfix
-          = label_tag "orientation", "Orientation:"
+          = label_tag "orientation", t('schedule_module.col_orientation')
           .input
             = select_tag "orientation", options_for_select(@orientations)
         .clearfix
-          = label_tag "date_id", "Select day:"
+          = label_tag "date_id", t('schedule_module.col_select_day')
           .input
             = select_tag "date_id", options_from_collection_for_select(@conference.days, "id", "label")
         .clearfix
-          = label_tag "half_page", "Only use half page width:"
+          = label_tag "half_page", t('schedule_module.col_use_half_page')
           .input
             = check_box_tag "half_page", false
         .clearfix
-          = label_tag "rooms_per_page", "Rooms to show per page:"
+          = label_tag "rooms_per_page", t('schedule_module.col_rooms_per_page')
           .input
             = text_field "", "rooms_per_page", value: "5"
         .clearfix
-          = label_tag "room_ids[]", "Select rooms:"
+          = label_tag "room_ids[]", t('schedule_module.col_select_rooms')
           .input
             %ul.inputs-list
               - @conference.rooms.each do |room|
@@ -34,10 +34,10 @@
                     = check_box_tag "room_ids[]", room.id
                     .span= room.name
         .clearfix
-          = label_tag "select_all_rooms", "Select all/none"
+          = label_tag "select_all_rooms", t('schedule_module.select_all_none')
           .input
             = check_box_tag "select_all_rooms", false
 
         .actions
-          = submit_tag "Create PDF", class: "btn primary"
+          = submit_tag t('schedule_module.create_pdf'), class: "btn primary"
       .clear

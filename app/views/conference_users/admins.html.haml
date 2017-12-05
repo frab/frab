@@ -1,13 +1,13 @@
 - content_for :title do
-  = link_to 'frab - admin users', root_url, class: 'brand'
+  = link_to t('page_titles.admin_users'), root_url, class: 'brand'
 
 %section
   .page-header
-    %h1 List of admin accounts
+    %h1= t('titles.admin_accounts')
 
   %ul.tabs
-    %li= link_to "Crew Accounts", conference_users_path
-    %li.active= link_to "Admin Accounts", admin_users_path
+    %li= link_to t('crew_accounts'), conference_users_path
+    %li.active= link_to t('admin_accounts'), admin_users_path
 
   .row
     - if @users.present?

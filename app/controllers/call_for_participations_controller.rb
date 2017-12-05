@@ -16,7 +16,7 @@ class CallForParticipationsController < BaseConferenceController
     @call_for_participation.conference = @conference
 
     if @call_for_participation.save
-      redirect_to edit_call_for_participation_path, notice: 'Launched Call for Participation.'
+      redirect_to edit_call_for_participation_path, notice: t('cfp.notifications.launched')
     else
       render action: 'new'
     end
@@ -31,9 +31,9 @@ class CallForParticipationsController < BaseConferenceController
     authorize @conference, :manage?
     @call_for_participation = @conference.call_for_participation
     if @call_for_participation.update_attributes(call_for_participation_params)
-      redirect_to edit_call_for_participation_path, notice: 'Changes saved successfully!'
+      redirect_to edit_call_for_participation_path, notice: t('alert_notifications.update_successful')
     else
-      flash[:alert] = 'Failed to update'
+      flash[:alert] = t('alert_notifications.update_failed')
       render action: 'edit'
     end
   end
