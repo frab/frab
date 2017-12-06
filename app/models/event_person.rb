@@ -79,8 +79,8 @@ class EventPerson < ApplicationRecord
 
     string.gsub! '%{room}', event.room.name if event.room.present?
     if event.start_time.present?
-      string.gsub! '%{date}', I18n.l(event.start_time.to_date, locale: locale)
-      string.gsub! '%{time}', I18n.l(event.start_time.to_time, locale: locale, format: '%X')
+      string.gsub! '%{date}', event.start_time.in_time_zone(conference&.timezone).strftime('%F')
+      string.gsub! '%{time}', event.start_time.in_time_zone(conference&.timezone).strftime('%H:%M %z %Z')
     end
 
     return string unless confirmation_token.present?
