@@ -1,3 +1,4 @@
+---
 en:
   more: "More..."
   edit_person: "Edit person"
@@ -286,7 +287,6 @@ en:
     workshop: "Workshop"
     female: "Female"
     male: "Male"
-    other: "Other"
     fax: "Fax"
     dect: "DECT"
     mobile: "Mobile"
@@ -300,7 +300,6 @@ en:
     jabber: "Jabber/XMPP"
     msn: "Msn"
     yahoo: "Yahoo"
-    skype: "Skype"
     otrs: "OTRS"
     rt: "Request Tracker"
     redmine: "Redmine"
@@ -317,7 +316,7 @@ en:
   frab_footer: |
     [frab](http://frab.github.io/frab/) is a conference planning and management system.
     It helps to collect submissions, manage talks and speakers and create a schedule.
-  
+
     The [users manual](https://github.com/frab/frab/wiki/Manual) is maintained in the
     [wiki](https://github.com/frab/frab/wiki/).  The source code is hosted on
     [Github](https://github.com/frab/frab).
@@ -418,19 +417,19 @@ en:
         text: |
           Someone has requested a link to change your password. You can do
           this through the link below.
-        
+
           %{link}
-        
+
           If you didn't request this, please ignore this email.
-        
+
           Your password won't change until you access the link above and create a new one.
       unlock_instructions:
         headline: "Hello, %{email} !"
         text: |
           Your account has been locked due to an excessive number of unsuccessful sign in attempts.
-        
+
           Click the link below to unlock your account:
-        
+
           %{link}
     links:
         no_unlock_instructions: "Didn't receive unlock instructions?"
@@ -447,7 +446,9 @@ en:
       hints:
         start_date: "Pick a date when your CfP should be open for the public."
         end_date: "Pick a deadline for paper submission. This deadline will be displayed to the users but not otherwise enforced."
-        hard_deadline: "Pick a hard deadline. No paper submission will be possible after this date. Leave empty if you want to allow submissions indefinitely."
+        hard_deadline: |
+          Pick a hard deadline. No paper submission will be possible after this date.
+          Leave empty if you want to allow submissions indefinitely.
         welcome_text: "Enter a welcome message or additional instructions you want to display to participants. (HTML)"
         info_url: "A web page that contains additional information about the Call for Participation. Please enter a full URL including 'http://'"
         contact_email: "An email address where participants can contact you in case they have any questions."
@@ -471,6 +472,7 @@ en:
       start_date_tip: |
         The Call for Participation will start on **%{start_date}**. Please return at or after this date.
         We are looking forward to your submission.
+      event_confirmation_request: "Your confirmation is required for the event **%{event}**."
       event_confirm_attendence: "Confirm attendance"
       conference_open_mode: "The conference is in open mode. Self scheduling is allowed"
       profile_data: "Profile data:"
@@ -510,7 +512,7 @@ en:
       sessions within your conference, no matter if
       they are talks, workshops, panels or something
       else entirely).
-    
+
       Start adding events by clicking on the
       _Events_ tab above. Or start a call for
       papers, to allow others to submit events for
@@ -553,7 +555,8 @@ en:
     no_conference: "There is not a single conference yet."
     version: "Version %{version}"
     footer: "This schedule was generated with [frab](http://frab.github.io/frab/)."
-    no_conference_with_cfp: "There is no current conference with a call for participation. Maybe you need to log in?"
+    no_conference_with_cfp: |
+      There is no current conference with a call for participation. Maybe you need to log in?
     error_specified_conference_not_found: "Specified conference not found"
     inputs:
       hints:
@@ -668,7 +671,6 @@ en:
     send_notification_to_speakers: "Send %{name} notifications to %{speakers} in %{event}"
     send_notification_confirm: "Are you sure you want to send %{name} notifiactions for %{event}?"
     event_without_ticket_warning: "Warning: %{events} without ticket:"
-    event_without_ticket_warning: "Attention : %{events} sans ticket :"
   classifiers_module:
     modify_classifier_with_parent: |
       The classifiers for this conference can only be modified with
