@@ -593,9 +593,9 @@ fr:
       - Novembre
       - Decembre
     order:
-      - ':year'
-      - ':month'
-      - ':day'
+      - :year
+      - :month
+      - :day
   date_not_set: Date non définie pour le moment
   datetime:
     distance_in_words:

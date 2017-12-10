@@ -283,9 +283,9 @@ de:
       - November
       - Dezember
     order:
-      - ':day'
-      - ':month'
-      - ':year'
+      - :day
+      - :month
+      - :year
   date_not_set: noch nicht gesetzt
   datetime:
     distance_in_words:

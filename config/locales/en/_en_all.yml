@@ -595,9 +595,9 @@ en:
       - November
       - December
     order:
-      - ':year'
-      - ':month'
-      - ':day'
+      - :year
+      - :month
+      - :day
   date_not_set: Date not set yet
   datetie:
     distance_in_words:
