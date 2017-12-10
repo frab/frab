@@ -1,0 +1,534 @@
+---
+es:
+  actions: Acciones
+  add_association: 'Agregar %{name}'
+  basic_information: Información básica
+  call_for_papers: Convocatoria
+  create_new_conference: Crear conferencia nueva
+  create_your_first_conference: Crea tu primera conferencia
+  days: Días
+  edit: editar
+  edit_conference: Editar conferencia
+  edit_conference_days: Editar días de conferencia
+  edit_conference_rooms: Editar las salas de conferencia
+  edit_conference_schedule: Editar programa de conferencia
+  edit_conference_tracks: Editar las áreas de conferencia
+  edit_ticket_server: Editar el servidor de tickets
+  error_signing_in: E-mail o contraseña inválidos
+  event_languages: Idiomas del evento
+  events: Eventos
+  feedback_system: Sistema de retroalimentación
+  launch_call_for_papers: Apertura de convocatoria
+  new_conference: Conferencia nueva
+  people: Personas
+  remove_association: 'Eliminar %{name}'
+  reports: Reportes
+  rooms: Salas
+  schedule: Programa
+  schedule_configuration: Configuración de programa
+  settings: Personalización
+  sign_in_successful: Se inició sesión exitosamente
+  static_program_export: Exportación de programa estático
+  switch_conference: Cambiar conferencia
+  ticket_server: Servidor de tickets
+  timeslot_configuration: Configuración de tiempos
+  tracks: Áreas
+  your_submission: Tu envío
+  cfp:
+    sign_in: "Iniciar sesión"
+    sign_up: "Registrarse"
+    signed_up: "Sólo falta confirmar tu registro. Las instrucciones para hacerlo se te han enviado a tu dirección de correo. Sigue las instrucciones para que tu registro quede completado."
+    updated: "Actualizado exitosamente."
+    password_updated: "Tu clave fue actualizada exitosamente."
+    confirmation_instructions_sent: "Las instrucciones de confirmación han sido enviadas a la dirección que proveíste."
+    sent_password_reset_instructions: "Las instrucciones para restablecer tu clave fueron enviadas a la direccion que proveíste."
+    error_sending_confirmation_instructions: "No se pudo enviar las instrucciones de confirmación. Por favor revisa la dirección de correo electrónico y que tu cuenta no esté ya confirmada."
+    successfully_confirmed: "Tu cuenta ha sido exitosamente confirmada."
+    error_confirming: "Algo falló al confirmar tu cuenta. Verifica haber pegado la liga completa del mensaje que enviamos y que no hayas confirmado ya la cuenta."
+    problem_sending_password_reset_instructions: "No se pudieron enviar las instrucciones para restablecer la clave. Por favor verifica que la dirección de correo electrónico sea correcta."
+    welcome_text: "Bienvenido a la Convocatoria de Presentaciones. Para crear o revisar tu compromiso es necesario iniciar sesión. Si eres nuevo en el %{title} necesitas registrarte."
+    login_existing_headline: "Iniciar sesión con una cuenta existente"
+    login_existing_description: "Puedes iniciar sesión si has creado una cuenta para esta convocatoria o cualquier evento previo."
+    sign_up_headline: "Registrarse para una cuenta nueva"
+    sign_up_description: "Si eres nuevo en %{title} por favor crea una cuenta nueva. Es fácil y breve."
+    forgot_password_headline: "Olvidaste tu clave?"
+    forgot_password_description: "Has estado aquí pero no recuerdas tu clave? Sabemos lo que es, así que siéntete en libertad de"
+    forgot_password_button: "Solicitar clave nueva"
+    confirmation_headline: "Ya me registré pero no he recibido las instrucciones de confirmación"
+    confirmation_description: "Podría ser una de esas raras ocasiones donde un correo electrónico no pudo entregarse. Si ya pasó un rato y ya revisaste tu carpeta de spam, haz clic en:"
+    confirmation_button: "Solicitar de nuevo las instrucciones de confirmación"
+    edit_account: "Editar tu cuenta"
+    password_hint: "Deja en blanco si no la quieres cambiar"
+    current_password_hint: "Necesitamos tu clave para confirmar los cambios"
+    update: "Actualizar"
+    back: "Regresar"
+    send_reset_instructions: "Mandarme instrucciones para restablecer mi clavecon"
+    change_password_headline: "Cambiar clave"
+    change_password_button: "Cambiar clave"
+    resend_confirmation_headline: "Reenviar instrucciones de confirmación"
+    resend_confirmation_button: "Reenviar instrucciones de confirmación"
+    welcome: "Bienvenido(a)"
+    thanks_for_interest: "Gracias por su interés en participar en %{title}."
+    hard_deadline_over: "Disculpe, la convocatoria ya ha sido cerrada."
+    specify_availability: "Por favor indíquenos a qué hora está disponible para su evento:"
+    edit_availability: "Editar disponibilidad"
+    input_appreciation: "Apreciamos su envío. Siéntase en libertad de enviar otro evento:"
+    submit_another_event: "Enviar otro evento"
+    take_time_to_submit: "Por favor tómese el tiempo para enviar su propuesta:"
+    submit_new_event: "Enviar un nuevo evento"
+    not_forget_personal_details: "No olvide llenar sus datos personales. Por favor recuerde que siempre es posible regresar y editar su perfil usando el botón en la barra lateral."
+    edit_profile: "Editar su perfil personal"
+    events_submitted: "Eventos ya enviados:"
+    withdraw: "retirar"
+    withdrawal_confirmation: "Realmente desea retirar esta propuesta de la convocatoria?"
+    information_headline: "Información"
+    info_url_description_html: "¿No está seguro de qué enviar? Lea las bases de convocatoria en: %{link}"
+    deadline_description: "Por favor envíe su propuesta antes de"
+    contact_headline: "Contacto"
+    contact_description_html: "Si algo sale mal con su envío o tiene alguna pregunta, no dude en ponerse en contacto con nosotros por medio de %{mail_to}"
+    personal_details_headline: "Detalles personales - Permítanos saber sobre usted"
+    personal_details_description: "Por favor llene la siguiente forma y permítanos saber acerca de usted y de los participantes de su evento."
+    personal_details_later: "Considere que es posible llenar sólo lo mínimo y regresar después para agregar más detalles."
+    public_name_hint: "Este es el nombre que aparecerá en el programa público."
+    avatar_hint: "Subir una foto nueva."
+    email_hint: "Por favor ingrese la dirección de correo electrónico que debemos usar como medio principal de contacto con usted."
+    email_public_hint: "Si gusta, esta dirección puede ser publicada en el programa."
+    phone_numbers: "Números telefónicos"
+    im_accounts: "Cuentas de mensajería instantánea"
+    bio: "Biografía"
+    abstract_hint: "Un párrafo corto que lo describa concretamente a usted. (HTML)"
+    description_hint: "Una descripción más extensa de usted. Use este espacio para dar detalles adicionales que no hayan cabido en el brevario. (HTML)"
+    links: "Enlaces"
+    languages_spoken: "Idiomas hablados"
+    contact_data: "Datos de contacto"
+    edit_event_headline: "Editando evento"
+    create_event_headline: "Crear un evento"
+    basic_information: "Información básica"
+    detailed_description: "Descripción detallada"
+    event_time_slots_hint: "Longitud de su evento en horas y minutos. Para presentaciones regulares deje el valor por defecto."
+    event_abstract_hint: "Un párrafo corto que describa concretamente el evento. (HTML)"
+    event_description_hint: "Una descripción más extensa sobre usted. Use este espacio para dar detalles adicionales que no hayan cabido en el brevario. Ambos, el brevario y la descripción, serán mostrados en el sitio Web de la conferencia. (HTML)"
+    uploaded_files: "Archivos subidos"
+    edit_availability_headline: "Editar disponibilidad"
+    edit_availability_description: "Permítanos saber cuándo estará usted disponible para llevar a cabo los eventos enviados. Haremos lo posible por considerar su disponibilidad al preparar el programa."
+    update_availability_notice: "Gracias por especificar su disponibilidad."
+    event_created_notice: "El evento fue exitosamente creado."
+    event_updated_notice: "El evento fue exitosamente actualizado."
+    event_withdrawn_notice: "Su envío ha sido retirado."
+    person_created_notice: "Su perfil ha sido exitosamente creado."
+    person_updated_notice: "Su perfil ha sido exitosamente actualizado."
+    save_availability: "Guardar disponibilidad"
+    event_confirmed: "Evento confirmado"
+    no_confirmation_token: "Su clave de confirmación no es válida. Por favor verifique el estado de su evento en la interfaz de la convocatoria."
+    thanks_for_confirmation: "Gracias por confirmar su participación"
+    confirm: "confirmar"
+  emails:
+      event_acceptance:
+        subject: "Su envío a %{title}"
+        greeting: "Estimado %{name},"
+        accepted_event: |
+          Nos complace anunciar que su propuesta ha sido aceptada
+
+          %{title}
+        confirmation: |
+          Por favor reconfirme que podrá llevar a cabo su presentación usando
+          la siguiente liga:
+
+          %{link}
+        check_data: |
+          Aprovechando: Tras confirmar su plática usando esta liga, iniciará
+          sesión al sistema de planeación de la conferencia. Por favor tome
+          unos minutos para confirmar sus datos, pues éstos serán usados en el
+          programa oficial al público. También puede indicar su disponibilidad
+          a lo largo del programa. Haremos lo posible por tomarla en
+          consideración al planear el programa final.
+        goodbye: |
+          Saludos afectuosos
+
+          El equipo de %{title}
+      event_rejection:
+        subject: "Su envío a %{title}"
+        greeting: "Estimado %{name},"
+        rejection: |
+          Queremos agradecerle su propuesta:
+
+          %{title}
+
+          Nos ha resultado sorpresiva el amplio número de propuestas de altísima
+          calidad que hemos recibido.
+
+          Después de un extenso proceso de selección, nos vimos en la necesidad
+          de rechazar su propuesta.
+
+          Le aseguramos que esta no fue una decisión fácil. Principalmente se
+          debe a las limitaciones de espacio disponible. Esperamos aún poderle
+          dar la bienvenida durante la conferencia.
+        goodbye: |
+          Saludos afectuosos
+
+          El equipo de %{title}
+  ability:
+    denied: "Esta acción no está permitida."
+  conflict:
+    events_overlap: "traslapa con"
+    has_no_availability: "aún no indica su disponibilidad."
+    person_unavailable: "no está disponible a la hora programada."
+  options:
+    lecture: "presentación"
+    workshop: "taller (hands-on)"
+    podium: "discurso"
+    lightning_talk: "charla relámpago"
+    meeting: "reunión"
+    other: "otra"
+    male: "masculino"
+    female: "femenino"
+    fax: "fax"
+    phone: "teléfono"
+    mobile: "móvil"
+    private: "privado"
+    business: "negocio"
+    skype: "skype"
+    secretary: "asistente"
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    abbr_day_names: [Dom, Lun, Mar, Mié, Jue, Vie, Sáb]
+    month_names: [~, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre]
+    abbr_month_names: [~, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic]
+    order:
+      - :day
+      - :month
+      - :year
+  time:
+    formats:
+      default: '%A, %d. %B %Y, %H:%M Uhr'
+      short: '%d. %B, %H:%M Uhr'
+      long: '%A, %d. %B %Y, %H:%M Uhr'
+      time: '%H:%M'
+      pretty_datetime: '%Y-%m-%d %H:%M'
+      short_datetime: '%d. %H:%M'
+      month_datetime: '%d. %b %H:%M'
+      day: "%A"
+    time_range_seperator: ' bis '
+
+    am: 'a. m.'
+    pm: 'p. m.'
+  datetime:
+    distance_in_words:
+      half_a_minute: 'medio minuto'
+      less_than_x_seconds:
+        one: 'menos de un segundo'
+        other: 'menos de %{count} segundos'
+      x_seconds:
+        one: 'un segundo'
+        other: '%{count} segundos'
+      less_than_x_minutes:
+        one: 'menos de un minuto'
+        other: 'menos de %{count} minutos'
+      x_minutes:
+        one: 'un minuto'
+        other: '%{count} minutos'
+      about_x_hours:
+        one: 'alrededor de una hora'
+        other: 'unas %{count} horas'
+      x_days:
+        one: 'un día'
+        other: '%{count} días'
+      about_x_months:
+        one: 'alrededor de un mes'
+        other: 'unos %{count} meses'
+      x_months:
+        one: 'un mes'
+        other: '%{count} meses'
+      almost_x_years:
+        one: 'casi un año'
+        other: 'casi %{count} años'
+      about_x_years:
+        one: 'alrededor de un año'
+        other: 'alrededor de %{count} años'
+      over_x_years:
+        one: 'más de un año'
+        other: 'más de %{count} años'
+    prompts:
+      second: "segundo"
+      minute: "minuto"
+      hour: "hora"
+      day: "día"
+      month: "mes"
+      year: "año"
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        unit: '$'
+        format: '%n%u'
+        separator: ","
+        delimiter: ""
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: mil
+          million: millones
+          billion:
+            one: millardo
+            others: mil millones
+          trillion: billones
+          quadrillion:
+            one: billardo
+            others: mil billones
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: ", "
+      last_word_connector: " y "
+    select:
+      prompt: "Por favor seleccione:"
+  activemodel:
+    errors:
+      template:
+        header:
+          one:    "Error al guardar: 1 %{model}"
+          other:  "Error al guardar: %{count} %{model}."
+        body: "Por favor verifique los siguientes campos:"
+  helpers:
+    select:
+      prompt: "Por favor seleccione:"
+
+    submit:
+      create: 'Crear %{model}'
+      update: 'Actualizar %{model}'
+      submit: 'Enviar %{model}'
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "no es un valor válido"
+      exclusion: "no está disponible"
+      invalid: "no es válido"
+      confirmation: "no corresponde con el acuerdo de confirmación"
+      accepted: "debe ser aceptado"
+      empty: "debe llenarse"
+      blank: "debe llenarse"
+      too_long: "está demasiado largo (debe contener máximo %{count} caracteres)"
+      too_short: "está demasiado corto (debe contener al menos %{count} caracteres)"
+      wrong_length: "es de longitud incorrecta (debe contener %{count} caracteres)"
+      not_a_number: "no es un número"
+      greater_than: "debe ser mayor a %{count}"
+      greater_than_or_equal_to: "debe ser mayor o igual a %{count}"
+      equal_to: "debe ser igual a %{count}"
+      less_than: "debe ser menor a %{count}"
+      less_than_or_equal_to: "debe ser menor o igual a %{count}"
+      odd: "debe ser impar"
+      even: "debe ser par"
+      not_an_integer: "debe ser un entero"
+  activerecord:
+    errors:
+      template:
+        header:
+          one:    "Error al guardar: 1 %{model}"
+          other:  "Error al guardar: %{count} %{model}."
+        body: "Por favor verifique los siguientes campos:"
+
+      messages:
+        taken: "ya está en uso"
+        record_invalid: "Registro inválido: %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute}%{message}"
+    models:
+      conference: "conferencia"
+      event: "evento"
+      person: "perfil"
+      event_person: "persona"
+      day: "día"
+      link: "enlace"
+      im_account: "cuenta de mensajería instantánea"
+      phone_number: "número telefónico"
+      event_attachment: "archivo"
+      language: "idioma"
+      track: "área"
+      room: "sala"
+    attributes:
+      conference:
+        title: "Título"
+        acronym: "Abreviación"
+        email: "E-Mail"
+        color: "Color"
+        timezone: "Huso horario"
+        timeslot_duration: "Duración de intervalo"
+        default_timeslots: "Intervalos por defecto"
+        max_timeslots: "Máximo de intervalos"
+        schedule_version: "Versión de programa"
+        schedule_public: "Programa público"
+        feedback_enabled: "Retroalimentación habilitada"
+      day:
+        start_date: "Fecha de inicio"
+        end_date: "Fecha de finalización"
+      track:
+        name: "Nombre"
+        color: "Color"
+      room:
+        name: "Nombre"
+        size: "Tamaño"
+        rank: "Rango"
+        public: "Público"
+      event:
+        title: "Título"
+        subtitle: "Subtítulo"
+        event_type: "Tipo de evento"
+        track: "Área"
+        time_slots: "Intervalos"
+        language: "Idioma"
+        logo: "Logo"
+        abstract: "Resumen"
+        description: "Descripción"
+        state: "Estado"
+      link:
+        title: "Título"
+        url: "URL"
+      event_attachment:
+        title: "Título"
+        attachment: "Adjunto"
+      person:
+        first_name: "Nombre"
+        last_name: "Apellidos"
+        public_name: "Nombre público"
+        gender: "Género"
+        avatar: "Foto"
+        email: "E-Mail"
+        email_public: "¿Publicar e-mail?"
+        abstract: "Resumen"
+        description: "Descripción"
+      language:
+        language: "Idioma"
+      phone_number:
+        phone_type: "Tipo"
+        phone_number: "Número"
+      im_account:
+        im_type: "Tipo"
+        im_address: "Dirección / identificador"
+      user:
+        email: "E-Mail"
+        password: "Clave"
+        password_confirmation: "Confirmación de clave"
+        current_password: "Clave actual"
+        remember_me: "Recordarme"
+      event_feedback:
+        rating: "Calificación"
+        comment: "Comentario"
+  mailers:
+    user_mailer:
+      confirmation_instructions: "Actvación de cuenta"
+      password_reset_instructions: "Restablecer contraseña"
+  formtastic:
+    actions:
+      create: "Crear %{model}"
+      update: "Actualizar %{model}"
+  public:
+      schedule:
+        title: "Programa %{title}"
+
+        nav:
+          index: "Índice"
+          day: "Día %{index}"
+          schedule: "Programa"
+          speakers: "Presentadores"
+          events: "Eventos"
+          qrcode: "QR-Code"
+
+        index:
+          schedule_index: "Índice de programa"
+          day: "Día %{index} – %{label}"
+          schedule: "Programa – %{label}"
+          speakers: "Presentadores"
+          events: "Eventos"
+
+        day:
+          schedule_for_day: "Programa para el día %{index} – %{label}"
+          schedule: "Programa – %{label}"
+
+        speakers:
+          speakers: "Presentadores"
+          name: "Nombre"
+          events: "Eventos"
+
+        events:
+          events: "Eventos"
+          title: "Título"
+          track: "Área"
+          speakers: "Presentador"
+
+        event:
+          info: "Información"
+          day: "Día"
+          start_time: "Inicio"
+          language: "Idioma"
+          room: "Sala"
+          duration: "Duración"
+          track: "Área"
+          links: "Enlaces"
+          files: "Archivos"
+          feedback: "Retroalimentación"
+          feedback_link: "Haga clic aquí para indicarnos su opinión del evento."
+          speakers: "Presentadores"
+          no_recording: "Este evento no será grabado"
+          concurrent_events: "Eventos concurrents"
+
+        speaker:
+          speaker: "Presentador"
+          contact: "Contacto"
+          email: "Dirección de correo electrónico"
+          links: "Enlaces"
+          events_in_this_conference: "Eventos en esta conferencia"
+
+      feedback:
+        new:
+          feedback_for: "Retroalimentación para: %{title}"
+          please_let_us_know: "Indíquenos su opinión sobre este evento:"
+          how_would_you_rate: "¿Cómo calificaría este evento? 5 es la mejor calificación, 1 es la peor."
+          what_did_you_like: "¿Qué le gustó? ¿Qué no le gustó? ¿Cómo podría mejorar el evento? Compártanos su opinión."
+          submit_feedback: "Enviar retroalimentación"
+
+        thank_you:
+          thank_you: "¡Gracias!"
+          thank_you_for_helping_us: "Gracias por permitirnos mejorar nuestros eventos. Por favor califique tantos eventos a los que haya asistido como sea posible."
+          return: "Regresar al programa"
