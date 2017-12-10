@@ -1865,7 +1865,6 @@ de:
   total: Total
   track: Track
   tracks: Tracks
-  your_submission: Dein Vortrag
 
   # ----
   # Tracks
@@ -1940,4 +1939,4 @@ de:
 #  work_in_progress: working...
 #  workshops: Workshops
 #  workshops_only: Workshops only
-#  your_submission: Your Submission
+  your_submission: Dein Vortrag
