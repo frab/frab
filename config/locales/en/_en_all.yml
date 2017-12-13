@@ -124,7 +124,7 @@ en:
       im_account:
         im_address: Address
         im_type: IM Type
-      langage:
+      language:
         code: Code
         language: Language
       link:
@@ -200,12 +200,31 @@ en:
     errors:
 #      full_messages:
 #        format: '%{attribute}%{message}'
-#      messages:
+      messages:
+#        accepted: debe ser aceptado
+#        blank: debe llenarse
+#        confirmation: no corresponde con el acuerdo de confirmación
+#        empty: debe llenarse
+#        equal_to: 'debe ser igual a %{count}'
+#        even: debe ser par
+#        exclusion: no está disponible
+#        greater_than: 'debe ser mayor a %{count}'
+#        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
+#        inclusion: no es un valor válido
+#        invalid: no es válido
+#        less_than: 'debe ser menor a %{count}'
+#        less_than_or_equal_to: 'debe ser menor o igual a %{count}'
+#        not_a_number: no es un número
+#        not_an_integer: debe ser un entero
+#        odd: debe ser impar
 #        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
 #        taken: ist bereits vergeben
-#      template:
+#        too_long: 'está demasiado largo (debe contener máximo %{count} caracteres)'
+#        too_short: 'está demasiado corto (debe contener al menos %{count} caracteres)'
+#        wrong_length: 'es de longitud incorrecta (debe contener %{count} caracteres)'
+      template:
 #        body: 'Bitte überprüfen Sie die folgenden Felder:'
-#        header:
+        header:
 #          one: 'Konnte %{model} nicht speichern: ein Fehler.'
 #          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
     # ----
@@ -371,7 +390,7 @@ en:
     login: Log-in
     login_existing_description: 'You can sign in if you created an account for this Call for Participation, or for any previous event.'
     login_existing_headline: Log in with an existing account
-    looking_for_login_form: Suchen Sie den Login für Vortragende?
+#    looking_for_login_form: Suchen Sie den Login für Vortragende?
     no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for papers interface.
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
     notifications:
@@ -676,9 +695,9 @@ en:
       short: '%b %d'
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     order:
-      - :day
-      - :month
       - :year
+      - :month
+      - :day
   # ----
   # /Date
   # ----
@@ -1193,6 +1212,18 @@ en:
   features: Additional features
   feedback: Feedback
   feedback_system: Feedback system
+
+  # ----
+  # Formtastic
+  # ----
+  formtastic:
+    actions:
+#      create: 'Crear %{model}'
+#      update: 'Actualizar %{model}'
+  # ----
+  # /Formtastic
+  # ----
+
   frab_footer: |
     [frab](http://frab.github.io/frab/) is a conference planning and management system.
     It helps to collect submissions, manage talks and speakers and create a schedule.
@@ -1327,12 +1358,16 @@ en:
           billion:
             one: Billion
             other: Billions
-          million: Million
+          million:
+            one: Million
+            other: Millions
           quadrillion:
             one: Quadrillion
             other: Quadrillions
           thousand: Thousand
-          trillion: Trillion
+          trillion:
+            one: Trillion
+            other: Trillions
           unit: ''
       format:
         delimiter: ''
@@ -1521,6 +1556,7 @@ en:
         schedule: 'Schedule – %{label}'
         schedule_for_day: 'Schedule for day %{index} – %{label}'
       event:
+#        concurrent_events: Eventos concurrents
         day: Day
         duration: Duration
         feedback: Feedback
