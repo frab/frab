@@ -1,8 +1,34 @@
+---
 fr:
+  # ----
+  # Ability
+  # ----
   ability:
     denied: Cette action est interdite.
+  # ----
+  # /Ability
+  # ----
+
   accepted_only: Seulement les acceptés
   actions: Actions
+
+  # ----
+  # Active Model
+  # ----
+#  activemodel:
+#      errors:
+#        template:
+#          body: 'Bitte überprüfen Sie die folgenden Felder:'
+#          header:
+#            one: 'Konnte %{model} nicht speichern: ein Fehler.'
+#            other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  # ----
+  # /Active Model
+  # ----
+
+  # ----
+  # Active Records
+  # ----
   activerecord:
     attributes:
       availability:
@@ -79,6 +105,7 @@ fr:
         title: Titre
         track: Fil
       event_attachment:
+        attachment: Pièce jointe
         public: Publique
         title: Titre
       event_classifier:
@@ -86,6 +113,7 @@ fr:
       event_feedback:
         comment: Commentaire
         note: Note
+        rating: Évaluation
       event_rating:
         comment: Commentaire
         rating: Évaluation
@@ -96,8 +124,9 @@ fr:
       im_account:
         im_adress: Adresse
         im_type: Type
-      langage:
+      language:
         code: Langue
+        language: Langue
       link:
         title: Titre
         url: Adresse
@@ -115,6 +144,7 @@ fr:
         schedule_subject: Programmation - Sujet
       person:
         abstract: Extrait
+        avatar: Avatar
         description: Description
         email: E-mail
         email_public: Email publique
@@ -129,6 +159,7 @@ fr:
         phone_type: Type
       room:
         name: Nom
+        public: Publique
         rank: Rang
         size: Taille
       ticket:
@@ -150,6 +181,7 @@ fr:
         seats: Nb. sièges
         transport_type: Type de transport
       user:
+        current_password: Mot de passe actuel
         email: E-mail
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
@@ -158,6 +190,50 @@ fr:
       video:
         mimetype: Type mime
         url: Adresse
+    # ----
+    # /Active Records
+    # ----
+
+    # ----
+    # Errors
+    # ----
+    errors:
+#      full_messages:
+#        format: '%{attribute}%{message}'
+#      messages:
+#        accepted: debe ser aceptado
+#        blank: debe llenarse
+#        confirmation: no corresponde con el acuerdo de confirmación
+#        empty: debe llenarse
+#        equal_to: 'debe ser igual a %{count}'
+#        even: debe ser par
+#        exclusion: no está disponible
+#        greater_than: 'debe ser mayor a %{count}'
+#        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
+#        inclusion: no es un valor válido
+#        invalid: no es válido
+#        less_than: 'debe ser menor a %{count}'
+#        less_than_or_equal_to: 'debe ser menor o igual a %{count}'
+#        not_a_number: no es un número
+#        not_an_integer: debe ser un entero
+#        odd: debe ser impar
+#        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+#        taken: ist bereits vergeben
+#        too_long: 'está demasiado largo (debe contener máximo %{count} caracteres)'
+#        too_short: 'está demasiado corto (debe contener al menos %{count} caracteres)'
+#        wrong_length: 'es de longitud incorrecta (debe contener %{count} caracteres)'
+#      template:
+#        body: 'Bitte überprüfen Sie die folgenden Felder:'
+#        header:
+#          one: 'Konnte %{model} nicht speichern: ein Fehler.'
+#          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+    # ----
+    # /Errors
+    # ----
+
+    # ----
+    # Models
+    # ----
     models:
       call_for_participation: Appel à participation
       classifier: classificateur
@@ -166,26 +242,50 @@ fr:
       day: jour
       event: évènement
       event_attachment: fichier
-      event_classifier: catégorie
-      event_person: personne
+      event_classifier:
+        one: catégorie
+        other: catégories
+      event_feedback: Feedback
+      event_person:
+        one: Personne
+        other: Personnes
+      event_rating: Event rating
       im_account: compte de messagerie instantanée
       language: langue
       link: lien
       notification: Notification
-      person: profil
+      person:
+        one: Profil
+        other: Profils
       phone_number: numéro de téléphone
       room: salle
       track: fil
+    # ----
+    # /Models
+    # ----
+
   add_association: 'Ajouter %{name}'
   additional_resources: Ressources supplémentaires
   admin: Admin
   admin_accounts: Comptes administateurs
   admin_visibility_only_hint: 'Visibilité: admin seulement.'
+
+  # ----
+  # Alert Notifications
+  # ----
   alert_notifications:
     update_failed: Impossible d'enregistrer les modifications.
     update_successful: Modifications sauvegardées.
+  # ----
+  # /Alert Notifications
+  # ----
+
   all: Tous
   are_you_sure: Êtes-vous sûr·e?
+
+  # ----
+  # Availabilities
+  # ----
   availabilities:
     alerts:
       available_for_day: 'disponible pour le jour %{day}'
@@ -196,11 +296,19 @@ fr:
     available_to: à
     error_person_unavailable: '%{person} n''a pas de disponibilités pour le moment.'
     success_update: Disponibilité mise à jour avec succès.
+  # ----
+  # /Avalabilities
+  # ----
+
   availability: Disponibilité
   available: Disponible
   basic_information: Informations de base
   call_for_participation: Appel à participation
   cancel: Annuler
+
+  # ----
+  # CFP
+  # ----
   cfp:
     abstract_hint: Un petit paragraphe qui vous décrit succintement. (HTML)
     avatar_hint: Uploader une nouvelle photo.
@@ -349,7 +457,15 @@ fr:
     welcome_text: 'Bienvenue dans l''Appel à participation. Pour créer ou gérer vos propositions, vous devez vous identifier. Si vous ête nouveau·elle sur %{title}, vous aurez besoin de créer un compte.'
     withdraw: retirer
     withdrawal_confirmation: Êtes-vous sûr·e de vouloir supprimer cet évènement de l'Appel à participation ?
+  # ----
+  # /CFP
+  # ----
+
   classifiers: Classificateurs
+
+  # ----
+  # Classifiers
+  # ----
   classifiers_module:
     current_classifiers: 'Les classificateurs actuellement configurés sont :'
     empty_classifiers: |
@@ -359,6 +475,10 @@ fr:
       Les classificateurs pour cette conférence peuvent être seulement
       modifiés avec les droits d'administration de la conférence parente :
       %{parent}
+  # ----
+  # /Classifiers
+  # ----
+
   clear: Effacer
   col_abstract: 'Extrait :'
   col_availability: 'Disponibilité:'
@@ -400,6 +520,10 @@ fr:
   conference: Conférence
   conference_management: Gestion de conférences
   conferences: Conférences
+
+  # ----
+  # Conferences
+  # ----
   conferences_module:
     accepting: Acceptation
     add_conference: Ajouter une conférence
@@ -530,11 +654,22 @@ fr:
       time: Heure de présentation
     version: 'Version %{version}'
     withdrawn: Abandonné
+  # ----
+  # /Conferences
+  # ----
+
+  # ----
+  # Conflict
+  # ----
   conflict:
     events_overlap: se chevauche avec
     has_no_availability: n'a pas encore entré ses disponibilités.
     person_already_speaking: parle déjà à
     person_unavailable: n'est pas disponible dans la plage prévue.
+  # ----
+  # /Conflict
+  # ----
+
   contact_information: Informations de contact
   content: Contenu
   create_new_conference: Créer une nouvelle conférence
@@ -543,60 +678,33 @@ fr:
   creation_date: Date de création
   crew: Équipe
   crew_accounts: Comptes des membres de l'équipe
+
+  # ----
+  # Date
+  # ----
   date:
-    abbr_day_names:
-      - Lun
-      - Mar
-      - Mer
-      - Jeu
-      - Ven
-      - Sam
-      - Dim
-    abbr_month_names:
-      - null
-      - Jan
-      - Fév
-      - Mar
-      - Avr
-      - Mai
-      - Jun
-      - Jul
-      - Aou
-      - Sep
-      - Oct
-      - Nov
-      - Dec
-    day_names:
-      - Dimanche
-      - Lundi
-      - Mardi
-      - Mercredi
-      - Jeudi
-      - Vendredi
-      - Samedi
+    abbr_day_names: [Lun, Mar, Mer, Jeu, Ven, Sam, Dim]
+    abbr_month_names: [~, Jan, Fév, Mar, Avr, Mai, Jun, Jul, Aou, Sep, Oct, Nov, Dec]
+    names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
     formats:
       default: '%Y-%m-%d'
       long: '%B %d, %Y'
+#      only_day: '%e'
       short: '%b %d'
-    month_names:
-      - null
-      - Janvier
-      - Février
-      - Mars
-      - Avril
-      - Mai
-      - Juin
-      - Juillet
-      - Août
-      - Septembre
-      - Octobre
-      - Novembre
-      - Decembre
+    month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Decembre]
     order:
-      - :year
-      - :month
       - :day
+      - :month
+      - :year
+  # ----
+  # /Date
+  # ----
+
   date_not_set: Date non définie pour le moment
+
+  # ----
+  # Datetime
+  # ----
   datetime:
     distance_in_words:
       about_x_hours:
@@ -640,8 +748,16 @@ fr:
       month: Mois
       second: Secondes
       year: Années
+  # ----
+  # /Datetime
+  # ----
+
   day: Jour
   days: Jours
+
+  # ----
+  # Days
+  # ----
   days_module:
     configured_days: 'Les jours actuellement configurés sont :'
     empty_days: |
@@ -653,10 +769,18 @@ fr:
       modifiés avec les droits d'administration de la conférence parente :
       %{parent} et ne peuvent être changés qu'à travers l'interface
       d'administration de cette conférence.
+  # ----
+  # /Days
+  # ----
+
   default_text: Texte par défaut
   destroy: Détruire
   detailed_changes: Changements détaillés
   details: Détails
+
+  # ----
+  # Devise
+  # ----
   devise:
     cancel_account: Supprimer mon compte
     cancel_account_text: 'Vous n''êtes pas content·e ? %{link}'
@@ -773,6 +897,10 @@ fr:
       unlocked: Votre compte a été dévérouillé avec succès. Veuillez vous identifier  pour continuer
     update_account: Mettre à jour mon compte
     waiting_for_confirmation: 'En attente de confirmation pour l''adresse %{email}'
+  # ----
+  # /Devise
+  # ----
+
   edit: Éditer
   edit_account: Éditer le compte
   edit_conference: Éditer la conférence
@@ -785,6 +913,10 @@ fr:
   edit_profile: Profil
   edit_ticket_server: Éditer le serveur de tickets
   email: E-mail
+
+  # ----
+  # Emails
+  # ----
   emails:
     event_acceptance:
       accepted_event: |
@@ -843,6 +975,13 @@ fr:
 
         Vous parlerez dans %{room}
       subject: "Votre proposition pour %{conference} prévu le %{date} à %{time}"
+  # ----
+  # /Emails
+  # ----
+
+  # ----
+  # Emails_module
+  # ----
   emails_module:
     add_mail_template: Ajouter un modèle d'e-mail
     add_mail_template_hint: Créée un nouveau modèle d'email.
@@ -878,7 +1017,15 @@ fr:
       de chaque modèle.
     send_mail: Evoyer l'e-mail
     template_subject: 'Sujet: %{subject}'
+  # ----
+  # /Emails_module
+  # ----
+
   error_signing_in: Email ou mot de passe invalide.
+
+  # ----
+  # Errors
+  # ----
   errors:
     format: '%{attribute} %{message}'
     messages:
@@ -927,10 +1074,18 @@ fr:
       header:
         one: 'Une erreur a empêché ce %{model} d''être enregistré'
         other: '%{count} erreurs ont empêché ce %{model} d''être enregistré'
+  # ----
+  # /Errors
+  # ----
+
   event: Évènement
   event_languages: Langues de l'évènement
   events: Évènements
   events_in: Dans les évènements
+
+  # ----
+  # Events
+  # ----
   events_module:
     accept_event: Accepter l'évènement
     accept_event_hint: |
@@ -1032,7 +1187,15 @@ fr:
     reject_event_no_email_hint: Rejeter cet évènement sans envoyer d'e-mail automatique.
     toggle_description: Basculer la description >>
     track_select: filtrer par fil
+  # ----
+  # /Events
+  # ----
+
   expenses: Dépenses
+
+  # ----
+  # Expenses
+  # ----
   expenses_module:
     error_person_have_no_expense: '%{person} n''a pas de dépenses actuellement.'
     is_this_reimbursed_hint: Cette dépense a-t-elle été remboursée ?
@@ -1044,10 +1207,26 @@ fr:
     reimbursed: Remboursé
     sum_not_reimbursed: Somme de tous les non-remboursements
     sum_reimbursed: Somme de tous les remboursements
+  # ----
+  # /Expenses
+  # ----
+
   export_profile: Exporter le profil
   features: Caractéristiques additionnelles
   feedback: Retour
   feedback_system: Système de retours
+
+  # ----
+  # Formtastic
+  # ----
+  formtastic:
+    actions:
+#      create: 'Crear %{model}'
+#      update: 'Actualizar %{model}'
+  # ----
+  # /Formtastic
+  # ----
+
   frab_footer: |
     [frab](http://frab.github.io/frab/) est un système de gestion de conférences.
     Il permet de gérer les soumissions, les talks et orateurs, ainsi que de créer les
@@ -1057,6 +1236,10 @@ fr:
     dans le [wiki](https://github.com/frab/frab/wiki/). Le code source est hébergé chez
     [Github](https://github.com/frab/frab).
   full_name: Nom complet
+
+  # ----
+  # Helpers
+  # ----
   helpers:
     select:
       prompt: Veuillez selectionner
@@ -1064,12 +1247,24 @@ fr:
       create: 'Créer %{model}'
       submit: 'Sauvegarder %{model}'
       update: 'Mettre à jour %{model}'
+  # ----
+  # /Helpers
+  # ----
+
   hint: Info
   home: Accueil
   import: Importer
+
+  # ----
+  # Inputs
+  # ----
   inputs:
     hints:
       password_length: 'Longueur minimum de %{length} caractères'
+  # ----
+  # /Inputs
+  # ----
+
   is_not_public: non-publique
   is_public: publique
   launch_call_for_participation: Lancer l'appel à participation
@@ -1081,14 +1276,26 @@ fr:
   links: Liens
   logout: Déconnexion
   mail_templates: Templates d'emails
+
+  # ----
+  # Mailers
+  # ----
   mailers:
     user_mailer:
       confirmation_instructions: Activation de compte
       password_reset_instructions: Changement de mot de passe
+  # ----
+  # /Mailers
+  # ----
+
   manage_conference: Gérer cette conférence
   manual: Manuel
   more: Plus...
   name: Nom
+
+  # ----
+  # Navigation
+  # ----
   navigation:
     back: Retour
     conferences: Conférences
@@ -1098,13 +1305,21 @@ fr:
     people: Personnes
     ratings: Notes
     users: Utilisateurs
+  # ----
+  # /Navigation
+  # ----
+
   new_conference: Nouvelle conférence
   no_data: Pas de données
   non_reimbursed_expenses: Dépenses non remboursées
-  not_speaking: not speaking
+  not_speaking: ne parlera pas
   note: Note
   notes: Notes
   notifications: Notifications
+
+  # ----
+  # Notifications
+  # ----
   notifications_module:
     edit_send_notifications: Éditer/envoyer des notifications
     event_without_ticket_warning: 'Attention : %{events} sans ticket :'
@@ -1117,6 +1332,13 @@ fr:
     send_notification: 'Envoyer des notifications %{name} %{speakers} in %{count}'
     send_notification_confirm: 'Êtes-vous sûr·e de vouloir envoyer les notifications %{name} pour %{event}?'
     send_notification_to_speakers: 'Envoyer les notifications %{name} à %{speakers} dans %{event}'
+  # ----
+  # /Notifications
+  # ----
+
+  # ----
+  # Number
+  # ----
   number:
     currency:
       format:
@@ -1137,9 +1359,13 @@ fr:
       decimal_units:
         format: '%n %u'
         units:
-          billion: Milliard
+          billion:
+            one: Milliard
+            other: Milliards
           million: Million
-          quadrillion: Quadrillion
+          quadrillion:
+            one: Quadrillion
+            other: Quadrillions
           thousand: Mille
           trillion: Billion
           unit: ' '
@@ -1165,6 +1391,13 @@ fr:
     precision:
       format:
         delimiter: ' '
+  # ----
+  # /Number
+  # ----
+
+  # ----
+  # Options
+  # ----
   options:
     admin: Administrateur
     aim: AIM
@@ -1212,7 +1445,15 @@ fr:
     work: Travail
     workshop: Atelier
     yahoo: Yahoo
+  # ----
+  # /Options
+  # ----
+
   others_only: Autres seulement
+
+  # ----
+  # Page titles
+  # ----
   page_titles:
     admin_users: frab - admin users
     change_password: frab - Changement de mot de passe
@@ -1224,8 +1465,16 @@ fr:
     signup: Inscription à frab
     unlock_instructions: frab - Instructions de dévérouillage
     welcome: Bienvenue dans frab
+  # ----
+  # /Page titles
+  # ----
+
   participate: Participer
   people: Personnes
+
+  # ----
+  # People
+  # ----
   people_module:
     add_person: Ajouter une personne
     add_person_hint: Ajoute une nouvelle personne.
@@ -1278,9 +1527,17 @@ fr:
       Vous pouvez créer un compte utilisateur dès maintenant en remplissant ce formulaire.
     notice_person_created: La personne a été créée avec succès.
     notice_person_updated: La personne a été mise à jour avec succès.
+  # ----
+  # /People
+  # ----
+
   person: Personne
   preview: Prévisualisation
   profile: Profil
+
+  # ----
+  # Public
+  # ----
   public:
     feedback:
       new:
@@ -1302,6 +1559,7 @@ fr:
         schedule: 'Programme – %{label}'
         schedule_for_day: 'Programme du jour %{index} – %{label}'
       event:
+#        concurrent_events: Eventos concurrents
         day: Jour
         duration: Durée
         feedback: Commentaires
@@ -1349,9 +1607,17 @@ fr:
         name: Nom
         speakers: Orateurs
       title: 'Programmer %{title}'
+  # ----
+  # /Public
+  # ----
+
   public_name: Nom public
   rating: Notation
   ratings: Notations
+
+  # ----
+  # Ratings
+  # ----
   ratings_module:
     error_creating: 'Impossible de créer la note : %{error}'
     error_updating: Impossible de mettre à jour la note
@@ -1375,9 +1641,17 @@ fr:
     total_number_of_events_no_review: 'Total des évènements sans revue :'
     total_number_of_not_reviewed: 'Évènements que vous n''avez pas révisé :'
     total_number_of_reviewed: 'Évènements que vous avez révisés:'
+  # ----
+  # /Ratings
+  # ----
+
   remove: Enlever
   remove_association: 'Enlever %{name}'
   reports: Rapports
+
+  # ----
+  # Reports
+  # ----
   reports_module:
     all_transportation_needs: vue d'ensemble sur les besoins de transport
     available_reports: Raports disponibles
@@ -1409,9 +1683,17 @@ fr:
     query_speakers: Interrogateurs
     speakers_without_availabilities: orateurs sans disponibilités
     unconfirmed_events: événements non confirmés
+  # ----
+  # /Reports
+  # ----
+
   resend: Renvoyer
   role_str: Rôle
   rooms: Salles
+
+  # ----
+  # Rooms
+  # ----
   rooms_module:
     configured_rooms: 'Les salles actuellement configurées sont :'
     empty_rooms: |
@@ -1423,8 +1705,16 @@ fr:
       Les salles pour cette conférence peuvent être seulement
       modifiés avec les droits d'administration de la conférence parente :
       %{parent}
+  # ----
+  # /Rooms
+  # ----
+
   schedule: Programme
   schedule_configuration: Configuration du programme
+
+  # ----
+  # Schedule
+  # ----
   schedule_module:
     col_orientation: 'Orientation:'
     col_rooms_per_page: 'Salle à montrer par page :'
@@ -1467,17 +1757,33 @@ fr:
     publish_html_export: Publier l'export HTML
     publish_html_export_hint: 'Créée une version HTML du programme, qui peut être copiée sur un autre serveur web.'
     select_all_none: Selectionner tout/rien
-    view_live_version_hint: 'Afficher la version "live" publique du programme, comme n''importe quelle personne la verrait'
+    view_live_version_hint: "Afficher la version \"live\" publique du programme, comme n'importe quelle personne la verrait"
+  # ----
+  # /Schedule
+  # ----
+
   scheduling: Programmation
   send: Envoyer
+
+  # ----
+  # Session
+  # ----
   session:
     login: Connexion
     signup: Créer mon compte
     update_password: Changer mon mot de passe
+  # ----
+  # /Session
+  # ----
+
   settings: Paramètres
   show: Afficher
   show_account: Compte
   sign_in_successful: Identifié avec succès.
+
+  # ----
+  # Simple form
+  # ----
   simple_form:
     error_notification:
       default_message: 'Veuillez passer en revue les problèmes ci-dessous:'
@@ -1486,19 +1792,37 @@ fr:
       mark: '*'
       text: requis
     'yes': Oui
+  # ----
+  # /Simple form
+  # ----
+
   speakers: Orateurs·trices
   state: État
   static_program_export: Export statique du programme
   submission_configuration: Configuration des propositions
+
+  # ----
+  # Support
+  # ----
   support:
     array:
       last_word_connector: ', et'
       two_words_connector: ' et'
       words_connector: ', '
+    select:
+      prompt: 'Veuillez sélectionner :'
+  # ----
+  # /Support
+  # ----
+
   switch_conference: Changer de conférence
   this_conference: Cette conférence
   ticket: Ticket
   ticket_server: Serveur de tickets
+
+  # ----
+  # Tickets
+  # ----
   tickets:
     error_failed_to_create: 'Impossible de créer le ticket : %{message}'
     error_failed_to_receive_id: Impossible de récupérer l'ID distant.
@@ -1509,6 +1833,13 @@ fr:
         queue: Nom de la liste d'évènements
         url: 'URL de votre système de tickets. Exemple : https://localhost/otrs/'
         user: Nom d'utilisateur utilisé pour le système de tickets
+  # ----
+  # /Tickets
+  # ----
+
+  # ----
+  # Time
+  # ----
   time:
     am: am
     formats:
@@ -1522,9 +1853,17 @@ fr:
       time: '%H:%M'
     pm: pm
     time_range_seperator: ' à'
+  # ----
+  # /Time
+  # ----
+
   time_and_place: Heure et localisation
   timeslot_configuration: Configuration des intervalles de temps
   title: Titre
+
+  # ----
+  # Titles
+  # ----
   titles:
     admin_accounts: Liste des comptes administrateur
     cfp_edit_cfp: Éditer l'appel à participation
@@ -1555,9 +1894,17 @@ fr:
     session_login: Connexion
     session_signup: Inscription
     unlock_instructions: Instructions de dévérouillage
+  # ----
+  # /Titles
+  # ----
+
   total: Total
   track: Fil
   tracks: Fils
+
+  # ----
+  # Tracks
+  # ----
   tracks_module:
     configured_tracks: 'The currently configured tracks are:'
     empty_tracks: |
@@ -1570,7 +1917,15 @@ fr:
     modify_track_with_parent: |
       The tracks for this conference can only be modified with
       administration rights for the parent conference %{parent}
+  # ----
+  # /Tracks
+  # ----
+
   transport_needs: Besoins de transports
+
+  # ----
+  # Transports
+  # ----
   transport_needs_module:
     booked_question: Réservé ?
     is_booked_hint: Ce transport a-t-il été réserve ?
@@ -1584,6 +1939,10 @@ fr:
     transport_needs: Besoins de transports
     what_type_id_needed_hints: Quel type de transport est requis ?
     when: Quand
+  # ----
+  # /Transports
+  # ----
+
   type: Type
   unknown_id: Id inconnu
   user: Utilisateur
@@ -1591,6 +1950,10 @@ fr:
   user_role: Rôle
   user_settings: Paramètres
   users: Utilisateurs
+
+  # ----
+  # Users
+  # ----
   users_module:
     edit_user_account: Éditer le compte utilisateur
     edit_user_account_hint: Édite le compte de cet utilisateur.
@@ -1601,6 +1964,10 @@ fr:
     notice_user_created: Utilisateur créé avec succès.
     notice_user_updated: Utilisateur mis à jour avec succès.
     save_needed_before_changes: Vous devez sauvegarder avant d'ajouter des conférences à un membre d'équipe.
+  # ----
+  # /Users
+  # ----
+
   value: Valeur
   version_on_item: '%{version} sur %{item}'
   work_in_progress: En cours...
