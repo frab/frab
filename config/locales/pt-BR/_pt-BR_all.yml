@@ -1626,7 +1626,7 @@ pt-BR:
 #      rate a whole batch of events in a row.
 #    notice_already_rated_everything: 'You have already reviewed all events:'
 #    notice_rating_created: Rating saved successfully.
-#    notice_rating_saved: Rating updated successfully.
+#    notice_rating_updated: Rating updated successfully.
 #    show ratings: Show Ratings
 #    start_reviewing: Start reviewing
 #    start_reviewing_hint: |
