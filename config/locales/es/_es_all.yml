@@ -1214,10 +1214,18 @@ es:
 #  features: Additional features
 #  feedback: Feedback
   feedback_system: Sistema de retroalimentación
+
+  # ----
+  # Formtastic
+  # ----
   formtastic:
     actions:
       create: 'Crear %{model}'
       update: 'Actualizar %{model}'
+  # ----
+  # /Formtastic
+  # ----
+
 #  frab_footer: |
 #    [frab](http://frab.github.io/frab/) is a conference planning and management system.
 #    It helps to collect submissions, manage talks and speakers and create a schedule.
@@ -1352,12 +1360,16 @@ es:
           billion:
             one: millardo
             other: mil millones
-          million: millones
+          million:
+#            one: Million
+#            other: Millions
           quadrillion:
             one: billardo
             other: mil billones
           thousand: mil
-          trillion: billones
+          trillion:
+#            one: Trillion
+#            other: Trillions
           unit: ''
       format:
         delimiter: ''
@@ -1616,7 +1628,7 @@ es:
 #      rate a whole batch of events in a row.
 #    notice_already_rated_everything: 'You have already reviewed all events:'
 #    notice_rating_created: Rating saved successfully.
-#    notice_rating_saved: Rating updated successfully.
+#    notice_rating_updated: Rating updated successfully.
 #    show ratings: Show Ratings
 #    start_reviewing: Start reviewing
 #    start_reviewing_hint: |

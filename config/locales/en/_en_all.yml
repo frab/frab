@@ -390,7 +390,7 @@ en:
     login: Log-in
     login_existing_description: 'You can sign in if you created an account for this Call for Participation, or for any previous event.'
     login_existing_headline: Log in with an existing account
-#    looking_for_login_form: Suchen Sie den Login für Vortragende?
+    looking_for_login_form: You're searching the speakers login page?
     no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for papers interface.
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
     notifications:
@@ -1626,7 +1626,7 @@ en:
       rate a whole batch of events in a row.
     notice_already_rated_everything: 'You have already reviewed all events:'
     notice_rating_created: Rating saved successfully.
-    notice_rating_saved: Rating updated successfully.
+    notice_rating_updated: Rating updated successfully.
     show ratings: Show Ratings
     start_reviewing: Start reviewing
     start_reviewing_hint: |

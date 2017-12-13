@@ -1362,12 +1362,16 @@ fr:
           billion:
             one: Milliard
             other: Milliards
-          million: Million
+          million:
+            one: Million
+            other: Millions
           quadrillion:
             one: Quadrillion
             other: Quadrillions
           thousand: Mille
-          trillion: Billion
+          trillion:
+            one: Billion
+            other: Billions
           unit: ' '
       format:
         delimiter: ' '

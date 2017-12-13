@@ -201,8 +201,27 @@ de:
       full_messages:
         format: '%{attribute}%{message}'
       messages:
+#        accepted: debe ser aceptado
+#        blank: debe llenarse
+#        confirmation: no corresponde con el acuerdo de confirmación
+#        empty: debe llenarse
+#        equal_to: 'debe ser igual a %{count}'
+#        even: debe ser par
+#        exclusion: no está disponible
+#        greater_than: 'debe ser mayor a %{count}'
+#        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
+#        inclusion: no es un valor válido
+#        invalid: no es válido
+#        less_than: 'debe ser menor a %{count}'
+#        less_than_or_equal_to: 'debe ser menor o igual a %{count}'
+#        not_a_number: no es un número
+#        not_an_integer: debe ser un entero
+#        odd: debe ser impar
         record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
         taken: ist bereits vergeben
+#        too_long: 'está demasiado largo (debe contener máximo %{count} caracteres)'
+#        too_short: 'está demasiado corto (debe contener al menos %{count} caracteres)'
+#        wrong_length: 'es de longitud incorrecta (debe contener %{count} caracteres)'
       template:
         body: 'Bitte überprüfen Sie die folgenden Felder:'
         header:
@@ -244,6 +263,7 @@ de:
     # ----
     # /Models
     # ----
+
   add_association: '%{name} hinzufügen'
 #  additional_resources: Additional Resources
 #  admin: Admin
@@ -648,16 +668,14 @@ de:
     has_no_availability: hat bisher keine Angaben zur Verfügbarkeit gemacht.
     person_already_speaking: 'hält gleichzeitig folgenden Vortrag:'
     person_unavailable: ist nicht verfügbar zu dieser Zeit.
-  create_new_conference: Neue Konferenz erstellen
-  create_your_first_conference: Erste Konferenz erstellen
   # ----
   # /Conflict
   # ----
 
 #  contact_information: Contact information
 #  content: Content
-#  create_new_conference: Create new conference
-#  create_your_first_conference: Create your first conference
+  create_new_conference: Neue Konferenz erstellen
+  create_your_first_conference: Erste Konferenz erstellen
 #  created_at: Created at
 #  creation_date: Date created
 #  crew: Crew
@@ -1198,6 +1216,18 @@ de:
   features: Zusatzfunktionen
 #  feedback: Feedback
 #  feedback_system: Feedback system
+
+  # ----
+  # Formtastic
+  # ----
+  formtastic:
+    actions:
+#      create: 'Crear %{model}'
+#      update: 'Actualizar %{model}'
+  # ----
+  # /Formtastic
+  # ----
+
 #  frab_footer: |
 #    [frab](http://frab.github.io/frab/) is a conference planning and management system.
 #    It helps to collect submissions, manage talks and speakers and create a schedule.
@@ -1332,12 +1362,16 @@ de:
           billion:
             one: Milliarde
             other: Milliarden
-          million: Millionen
+          million:
+#            one: Million
+#            other: Millions
           quadrillion:
             one: Billiarde
             other: Billiarden
           thousand: Tausend
-          trillion: Billionen
+          trillion:
+#            one: Trillion
+#            other: Trillions
           unit: ''
       format:
         delimiter: ''
@@ -1407,6 +1441,7 @@ de:
 #    reviewer: Reviewer
     rt: Request Tracker
     secretary: Sekretärin/Vorzimmer
+#    shuttle: Shuttle
     skype: Skype
     submitter: Submitter
     talk: Vortrag
@@ -1525,6 +1560,7 @@ de:
         schedule: 'Zeitplan – %{label}'
         schedule_for_day: 'Zeitplan für Tag %{index} – %{label}'
       event:
+#        concurrent_events: Eventos concurrents
         day: Tag
         duration: Dauer
         feedback: Feedback
@@ -1594,7 +1630,7 @@ de:
 #      rate a whole batch of events in a row.
 #    notice_already_rated_everything: 'You have already reviewed all events:'
 #    notice_rating_created: Rating saved successfully.
-#    notice_rating_saved: Rating updated successfully.
+#    notice_rating_updated: Rating updated successfully.
 #    show ratings: Show Ratings
 #    start_reviewing: Start reviewing
 #    start_reviewing_hint: |
@@ -1654,7 +1690,6 @@ de:
 
   resend: Resend
   role_str: Role
-  rooms: Rooms
   rooms: Räume
 
   # ----
