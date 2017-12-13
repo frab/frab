@@ -25,8 +25,6 @@ class ApplicationController < ActionController::Base
   def set_locale
     supported_languages = %w[en de es pt-BR fr]
 
-    supported_languages.each { |l| I18n.load_path += Dir[Rails.root.join('config', 'locales', l, '*.yml').to_s] }
-
     if supported_languages.include?(params[:locale])
       I18n.locale = params[:locale]
     else
