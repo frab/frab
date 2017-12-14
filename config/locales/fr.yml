@@ -69,14 +69,14 @@ fr:
         other: presque %{count} ans
       half_a_minute: une demi minute
       less_than_x_minutes:
-        one: moins d'1 minute
-        other: moins d'%{count} minutes
+        one: moins d’1 minute
+        other: moins d’%{count} minutes
       less_than_x_seconds:
-        one: moins d'1 seconde
-        other: moins d'%{count} secondes
+        one: moins d’1 seconde
+        other: moins d’%{count} secondes
       over_x_years:
-        one: plus d'1 an
-        other: plus d'%{count} ans
+        one: plus d’1 an
+        other: plus d’%{count} ans
       x_days:
         one: 1 jour
         other: "%{count} jours"
@@ -110,17 +110,17 @@ fr:
       exclusion: est réservé
       greater_than: doit être plus grand que %{count}
       greater_than_or_equal_to: doit être plus grand ou égal à %{count}
-      inclusion: n'est pas inclus dans la liste
+      inclusion: n’est pas inclus dans la liste
       invalid: est invalide
       less_than: doit être inférieur à %{count}
       less_than_or_equal_to: doit être inférieur ou égal à %{count}
-      not_a_number: n'est pas un nombre
+      not_a_number: n’est pas un nombre
       not_an_integer: doit être un nombre entier
       odd: doit être impair
       record_invalid: 'La validation a échouée: %{errors}'
       restrict_dependent_destroy:
-        one: Impossible de supprimer l'enregistrement car un enregistrement dépendant %{record} existe
-        many: Impossible de supprimer l'enregistrement car des enregistrements dépendants %{record} existe
+        one: Impossible de supprimer l’enregistrement car un enregistrement dépendant %{record} existe
+        many: Impossible de supprimer l’enregistrement car des enregistrements dépendants %{record} existe
       taken: est déjà pris
       too_long:
         one: est trop long (le maximum est 1 caractère)
@@ -135,8 +135,8 @@ fr:
     template:
       body: 'Il y a des problèmes avec les champs suivants:'
       header:
-        one: "Une erreur a empêché ce %{model} d'être enregistré"
-        other: "%{count} erreurs ont empêché ce %{model} d'être enregistré"
+        one: "Une erreur a empêché ce %{model} d’être enregistré"
+        other: "%{count} erreurs ont empêché ce %{model} d’être enregistré"
   helpers:
     select:
       prompt: Veuillez selectionner

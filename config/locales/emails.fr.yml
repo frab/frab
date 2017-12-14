@@ -8,13 +8,12 @@ fr:
         
         %{event}
       confirmation: |
-        Veuillez re-confirmer rapidement que vous serez présent·e et ferez bien votre
-        conférence, en utilisant le lien suivant :
+        Veuillez re-confirmer rapidement que vous serez présent(e), en utilisant le lien suivant :
 
         %{link}
       check_data: |
         Pendant que vous y êtes : après confirmation avec ce lien, vous serez
-        identifé·e dans le système de planning de conférence. Prenez le temps
+        identifé(e) dans le système de planning de conférence. Prenez le temps
         de vérifier vous information à ce moment. Les informations seront
         utilisées dans le programme officiel de la conférence. Vous pouvez
         aussi spécifier vos disponibilités pour d'autres horaires. Nous allons
@@ -25,7 +24,7 @@ fr:
         L'équipe %{conference}
     event_rejection:
       subject: "Votre proposition pour %{conference}"
-      greeting: "Cher·e %{forename},"
+      greeting: "Cher(e) %{forename},"
       rejection: |
         Nous aimerions vous remercier pour votre proposition. Nous sommes
         surpris et débordés par la masse de propositions de haute qualité

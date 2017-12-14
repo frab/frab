@@ -4,9 +4,13 @@ fr:
       time: "%H:%M"
       day: "%A"
 
+  layouts:
+    public_schedule:
+      booklet: "Livret"
+
   public:
     schedule:
-      title: "Programmer %{title}" # "Schedule %{title}"
+      title: "Programme %{title}" # "Schedule %{title}"
 
       nav:
         day: "Jour %{index}"
@@ -23,6 +27,12 @@ fr:
         schedule: "Programme – %{label}"
         schedule_index: "Aperçu du programme"
         speakers: "Orateurs"
+
+      events_by_track:
+        events: "Évènements par fil"
+
+      booklet:
+        events: "Événements"
 
       day:
         schedule_for_day: "Programme du jour %{index} – %{label}"
@@ -53,10 +63,11 @@ fr:
         speakers: "Orateurs"
         start_time: "Début"
         track: "Fil"
+        concurrent_events: "Événements concomitants"
 
       speaker:
         contact: "Contact"
-        email: "E-Mail"
+        email: "Courriel"
         events_in_this_conference: "Évènements dans cette conférence"
         links: "Liens"
         speaker: "Orateur"
@@ -71,7 +82,7 @@ fr:
         feedback_for: "Retours pour : %{title}"
         how_would_you_rate: "Comment noteriez-vous cet évènement ? Sur une échelle de 1 à 5, avec 1 la moins bonne note."
         please_let_us_know: "Laissez-nous connaître votre ressenti sur cet évènement :"
-        submit_feedback: "Envoyer mon retours"
+        submit_feedback: "Envoyer mon retour"
         what_did_you_like: "Qu'avez-vous aimé ? Detesté ? Comment peut-on améliorer cet évènement ? Merci de partager vôtre ressenti."
 
       thank_you:
@@ -79,5 +90,5 @@ fr:
         # "[...] If you watched the streams, tell us about the quality."
         thank_you_for_helping_us: |
           Merci de nous aider à améliorer nos évènements. Continuez de donner vos impressions sur le maximum d'évènements
-          auxquels vous participez. Si vous avez regardé en srteaming, vous pouvez noter la qualité.
-        return: "Retours au programme"
+          auxquels vous participez. Si vous avez regardé en streaming, vous pouvez noter la qualité.
+        return: "Retour au programme"
