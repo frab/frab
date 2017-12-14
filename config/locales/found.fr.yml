@@ -1,7 +1,7 @@
 ---
 fr:
   #more: "More..."
-  more: "Plus..."
+  more: "Plus…"
   #edit_person: "Edit person"
   edit_person: "Éditer la personne"
   #edit_account: "Edit account"
@@ -61,11 +61,11 @@ fr:
   #this_conference: "This conference"
   this_conference: "Cette conférence"
   #speakers: "Speakers"
-  speakers: "Orateurs·trices"
+  speakers: "Orateurs"
   #admin: "Admin"
   admin: "Admin"
   #admin_visibility_only_hint: "visibility: admin only."
-  admin_visibility_only_hint: "Visibilité: admin seulement."
+  admin_visibility_only_hint: "Visibilité : admin seulement."
   #expenses: "Expenses"
   expenses: "Dépenses"
   #note: "Note"
@@ -449,7 +449,7 @@ fr:
         #include_in_mailings: "Include in mailings"
         include_in_mailings: "Inclus dans le publipostage"
         #last_name: "Last name"
-        last_name: "Nom de famille"
+        last_name: "Nom"
         #public_name: "Public name"
         public_name: "Nom public"
         #use_gravatar: "Use Gravatar"
@@ -1179,7 +1179,7 @@ fr:
         schedule_open: |
           Autoriser les orateurs à programmer leurs talks eux-même. Tout
           sera accepté. Vous pouvez activer ce paramètre et le désactiver
-          avant vos propre revues.
+          avant vos propres revues.
         #program_export_base_url: |
         #  If you want to use the static program export, enter the URL where
         #  you want to put the files under here. All references will be
