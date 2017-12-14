@@ -1368,7 +1368,7 @@ fr:
     inputs:
       hints:
         #public: "Is this event visible in the public schedule?"
-        public: "Et-ce que cet évènement sera visible dans le programme public ?"
+        public: "Est-ce que cet évènement sera visible dans le programme public ?"
         #note: "visibility: admin only."
         note: "Visibilité : admins seulement."
         #submission_note: "visibiliy: admin and user; additional information."
@@ -1873,7 +1873,7 @@ fr:
     #query_speakers: "Query Speakers"
     query_speakers: "Interrogateurs"
     #available_reports: "Available Reports"
-    available_reports: "Raports disponibles"
+    available_reports: "Rapports disponibles"
     #no_search_results: "Sorry, but your search yielded no results."
     no_search_results: "Désolé, votre recherche n’a retourné aucun résultat."
     #found_x_results: "Found %{nb} results."
