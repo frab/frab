@@ -670,7 +670,7 @@ fr:
     #event: "Event: %{event}"
     event: "Évènement: %{event}"
     #event_list: "List of events"
-    event_list: "Liste des dévènements"
+    event_list: "Liste d'évènements"
     #session_signup: "Create a new account"
     session_signup: "Inscription"
     #session_login: "Connection"
