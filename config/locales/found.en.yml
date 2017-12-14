@@ -770,6 +770,8 @@ en:
       list.
     edit_event: "Edit Event"
     edit_event_hint: "Edit this event's data."
+    edit_people: "Edit people"
+    edit_people_hint: "Add or remove people from this event."
     accept_event_no_email: "Accept event (no email)"
     accept_event_no_email_hint: "Accept this event without sending an automated email."
     accept_event: "Accept event"
@@ -825,7 +827,6 @@ en:
     inputs:
       notification_subject: "Notification subject"
       notification_body: "Notification body"
-      edit_people: "Edit people"
       hints:
         person_filter: |
           Filter persons in the options menu below by their first name, last
@@ -836,7 +837,6 @@ en:
           Speakers take part in events, their availability matters. Moderators take
           part in panel discussions, their availability matters."
         notification_body: "Valid variables: %{variables}"
-      edit_people_hint: "Add or remove people from this event."
       no_people_in event: |
         There are no people associated with this event yet.
         Use the button on the right to add people. Please

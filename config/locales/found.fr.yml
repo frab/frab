@@ -1475,6 +1475,10 @@ fr:
     edit_event: "Éditer l’évènement"
     #edit_event_hint: "Edit this event’s data."
     edit_event_hint: "Éditer les données de cet évènement"
+    #edit_people: "Edit people"
+    edit_people: "Éditer les personnes"
+    #edit_people_hint: "Add or remove people from this event."
+    edit_people_hint: "Ajouter ou enlever des personnes à cet évènement."
     #accept_event_no_email: "Accept event (no email)"
     accept_event_no_email: "Accepter  l’évènement (pas d’email)"
     #accept_event_no_email_hint: "Accept this event without sending an automated email."
@@ -1586,8 +1590,6 @@ fr:
       notification_subject: "Notification subject"
       #notification_body: "Notification body"
       notification_body: "Notification body"
-      #edit_people: "Edit people"
-      edit_people: "Éditer les personnes"
       hints:
         #person_filter: |
         #  Filter persons in the options menu below by their first name, last
@@ -1608,8 +1610,6 @@ fr:
           Les modérateurs prennent part dans les discussions. Leur disponibilités importe.
         #notification_body: "Valid variables: %{variables}"
         notification_body: "Variables valides : %{variables}"
-      #edit_people_hint: "Add or remove people from this event."
-      edit_people_hint: "Ajouter ou enlever des personnes à cet évènement."
       #no_people_in event: |
       #  There are no people associated with this event yet.
       #  Use the button on the right to add people. Please
