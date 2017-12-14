@@ -912,6 +912,8 @@ en:
     custom_notification_hint: Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab.
     edit_event: Edit Event
     edit_event_hint: Edit this event's data.
+    edit_people: Edit people
+    edit_people_hint: Add or remove people from this event.
     error_no_day: |
       Before you can schedule any events, you need
       to have at least one day defined for this
@@ -1694,8 +1696,6 @@ en:
     edit_person: Edit person
     edit_person_hint: Edit this person's data.
     inputs:
-      edit_people: Edit people
-      edit_people_hint: Add or remove people from this event.
       hints:
         event_role: |
           Coordinators are part of the conference team, they coordinate speaker

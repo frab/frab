@@ -967,6 +967,8 @@ fr:
       prochain enoi groupé. Modifiez-les dans l'onglet "Éditer des personnes"
     edit_event: Éditer l'évènement
     edit_event_hint: Éditer les données de cet évènement
+    edit_people: Éditer les personnes
+    edit_people_hint: Ajouter ou enlever des personnes à cet évènement.
     error_no_day: |
       Avant de pouvoir programmer des évènements, vous devez avoir au moins
       une journée de définie pour cette conférence. Allez dans les
@@ -1747,8 +1749,6 @@ fr:
     edit_person: Éditer la personne
     edit_person_hint: Éditer les données de la personne.
     inputs:
-      edit_people: Éditer les personnes
-      edit_people_hint: Ajouter ou enlever des personnes à cet évènement.
       hints:
         event_role: |
           Les coordinateurs font partie de l'équipe de la conférence. Ils coordinent le
