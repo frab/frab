@@ -196,6 +196,8 @@ fr:
   col_language: "Langue :"
   #col_abstract: "Abstract:"
   col_abstract: "Extrait :"
+  #col_speakers: "Speakers:"
+  col_speakers: "Orateur(s) :"
   #col_links: "Links:"
   col_links: "Liens :"
   #col_description: "Description:"
