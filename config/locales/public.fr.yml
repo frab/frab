@@ -56,7 +56,7 @@ fr:
 
       speaker:
         contact: "Contact"
-        email: "E-Mail"
+        email: "Courriel"
         events_in_this_conference: "Évènements dans cette conférence"
         links: "Liens"
         speaker: "Orateur"
@@ -79,5 +79,5 @@ fr:
         # "[...] If you watched the streams, tell us about the quality."
         thank_you_for_helping_us: |
           Merci de nous aider à améliorer nos évènements. Continuez de donner vos impressions sur le maximum d'évènements
-          auxquels vous participez. Si vous avez regardé en srteaming, vous pouvez noter la qualité.
-        return: "Retours au programme"
+          auxquels vous participez. Si vous avez regardé en streaming, vous pouvez noter la qualité.
+        return: "Retour au programme"

@@ -16,7 +16,7 @@ fr:
   edit_conference_schedule: "Modifier la programmation de la conférence"
   edit_conference_tracks: "Modifier les fils de la conférence"
   edit_ticket_server: "Éditer le serveur de tickets"
-  error_signing_in: "Email ou mot de passe invalide."
+  error_signing_in: "Courriel ou mot de passe invalide."
   event_languages: "Langues de l'évènement"
   features: "Caractéristiques additionnelles" # "Additional features"
   new_conference: "Nouvelle conférence"
@@ -26,7 +26,7 @@ fr:
   rooms: "Salles"
   schedule: "Programme" # "Schedule"
   show: "Afficher"
-  mail_templates: "Templates d'emails"
+  mail_templates: "Templates de courriel"
   settings: "Paramètres"
   sign_in_successful: "Identifié avec succès."
   submission_configuration: "Configuration des propositions"
@@ -90,7 +90,7 @@ fr:
 
     attributes:
       conference:
-        email: "E-Mail"
+        email: "Courriel"
         title: "Titre"
         acronym: "Acronyme"
       conference_user:
@@ -109,7 +109,7 @@ fr:
         time_slots: "Plages horaires"
         track: "Fil"
       user:
-        email: "E-mail"
+        email: "Courriel"
         password: "Mot de passe"
         password_confirmation: "Confirmation du mot de passe"
         remember_me: "Se souvenir de moi"
