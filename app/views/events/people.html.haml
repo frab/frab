@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", t('edit'), edit_people_event_path(@event), hint: t('titles.edit_people_for_event')
+      = action_button "primary", t('edit'), edit_people_event_path(@event), hint: t('titles.edit_people_for_event', {event: @event.title})
     %h1= t('titles.event', {event: @event.title})
   = render 'shared/events_tabs'
   - if @event.event_people.count == 0
