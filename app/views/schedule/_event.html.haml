@@ -4,6 +4,7 @@
         :"data-update-url" => schedule_update_event_path(id: event.id),
         :"data-room" => event.room ? event.room.name.downcase : nil,
         :"data-time" => event.start_time ? event.start_time.to_s(:rfc822) : nil }
+  .color-preview{ style: "background-color: ##{event.track.try(:color)}" }
   = link_to event.title, event
   %p.small
     = by_speakers(event)
