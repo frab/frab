@@ -1610,19 +1610,6 @@ fr:
           Les modérateurs prennent part dans les discussions. Leur disponibilités importe.
         #notification_body: "Valid variables: %{variables}"
         notification_body: "Variables valides : %{variables}"
-      #no_people_in event: |
-      #  There are no people associated with this event yet.
-      #  Use the button on the right to add people. Please
-      #  note that you can only add people that are already
-      #  in the system. If the person you would like to add
-      #  is not yet in the system, go to the _People_
-      #  tab above and create this person first.
-      no_people_in event: |
-        Il n’y a pas de personne associée à cet évènement pour le moment.
-        Utilisez le bouton sur la droite pour en ajouter. Notez que vous
-        pouvez seulement ajouter des personnes qui sont déjà présentes dans le
-        système. Si vous voulez ajouter quelqu’un qui n’est pas encore dedans,
-        allez sur l’onglet _Personnes_ et créez cette personne en premier.
     #add_person: "Add person"
     add_person: "Ajouter une personne"
     #add_person_hint: "Add a new person."
@@ -1654,6 +1641,19 @@ fr:
       Il n’y a pas de personne associée à cette conférence pour le moment.
       Les gens vont commencer à apparître ici dès qu’ils auront pris un rôle
       dans l’un des évènenents de cette conférence.
+    #no_people_in event: |
+    #  There are no people associated with this event yet.
+    #  Use the button on the right to add people. Please
+    #  note that you can only add people that are already
+    #  in the system. If the person you would like to add
+    #  is not yet in the system, go to the _People_
+    #  tab above and create this person first.
+    no_people_in_event: |
+      Il n’y a pas de personne associée à cet évènement pour le moment.
+      Utilisez le bouton sur la droite pour en ajouter. Notez que vous
+      pouvez seulement ajouter des personnes qui sont déjà présentes dans le
+      système. Si vous voulez ajouter quelqu’un qui n’est pas encore dedans,
+      allez sur l’onglet _Personnes_ et créez cette personne en premier.
     #new_person: "New Person"
     new_person: "Nouvelle personne"
     #attending: "Attending"

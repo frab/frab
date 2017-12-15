@@ -837,13 +837,6 @@ en:
           Speakers take part in events, their availability matters. Moderators take
           part in panel discussions, their availability matters."
         notification_body: "Valid variables: %{variables}"
-      no_people_in event: |
-        There are no people associated with this event yet.
-        Use the button on the right to add people. Please
-        note that you can only add people that are already
-        in the system. If the person you would like to add
-        is not yet in the system, go to the _People_
-        tab above and create this person first.
     add_person: "Add person"
     add_person_hint: "Add a new person."
     list_of_people: "List of people"
@@ -859,6 +852,13 @@ en:
       There are no people associated with this conference yet. People will
       start appearing here, once they take on a role in any of this
       conference's events.
+    no_people_in_event: |
+      There are no people associated with this event yet.
+      Use the button on the right to add people. Please
+      note that you can only add people that are already
+      in the system. If the person you would like to add
+      is not yet in the system, go to the _People_
+      tab above and create this person first.
     new_person: "New Person"
     attending: "Attending"
     attending_hint: "Mark person as present."
