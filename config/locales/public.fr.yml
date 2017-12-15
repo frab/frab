@@ -6,7 +6,7 @@ fr:
 
   public:
     schedule:
-      title: "Programmer %{title}" # "Schedule %{title}"
+      title: "Programme %{title}" # "Schedule %{title}"
 
       nav:
         day: "Jour %{index}"

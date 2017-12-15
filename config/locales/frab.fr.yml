@@ -26,7 +26,7 @@ fr:
   rooms: "Salles"
   schedule: "Programme" # "Schedule"
   show: "Afficher"
-  mail_templates: "Templates de courriel"
+  mail_templates: "Modèles de courriel"
   settings: "Paramètres"
   sign_in_successful: "Identifié avec succès."
   submission_configuration: "Configuration des propositions"

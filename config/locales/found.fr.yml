@@ -41,7 +41,7 @@ fr:
   #reports: "Reports"
   reports: "Rapports"
   #launch_call_for_participation: "Launch Call for Participation"
-  launch_call_for_participation: "Lancer l’appel à participation"
+  launch_call_for_participation: "Appel à participation"
   #show_account: "Account"
   show_account: "Compte"
   #export_profile: "Export profile"
@@ -1171,7 +1171,7 @@ fr:
         #  Is the dynamic schedule public? You can still create static exports
         #  regardless of this setting.
         schedule_public: |
-          Est-ce que la programmtion dynamique est publique ? Vous pourrez toujours
+          Est-ce que le programme dynamique est publique ? Vous pourrez toujours
           faire des exports statics, peu importe ce paramètre.
         #schedule_open: |
         #  Allow speakers to self-schedule their talks. Everything will be
@@ -1211,13 +1211,13 @@ fr:
     #view_live_version_hint: "View the public live version of your schedule just like any attendee might see it."
     view_live_version_hint: "Afficher la version publique du programme, comme n’importe quelle personne la verrait"
     #create_pdf_export: "Create custom PDF export"
-    create_pdf_export: "Créer un export PDF personnalisé"
+    create_pdf_export: "Exporter en PDF"
     #create_pdf_export_hint: "Create a PDF version of your program schedule that can easily be printed."
-    create_pdf_export_hint: "Créée une version PDF de votre programme qui pourra facilement être imprimée."
+    create_pdf_export_hint: "Créer une version PDF de votre programme qui pourra facilement être imprimée."
     #publish_html_export: "Publish HTML export"
-    publish_html_export: "Publier l’export HTML"
+    publish_html_export: "Exporter en HTML"
     #publish_html_export_hint: "Create a HTML version of your program schedule that can be copied to another web server."
-    publish_html_export_hint: "Créée une version HTML du programme, qui peut être copiée sur un autre serveur web."
+    publish_html_export_hint: "Créer une version HTML du programme, qui peut être copiée sur un autre serveur web."
     #col_select_paper_format: "Select paper format:"
     col_select_paper_format: "Format de papier :"
     #col_orientation: "Orientation:"
