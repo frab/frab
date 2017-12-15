@@ -121,7 +121,7 @@ fr:
   #unknown_id: "Unknown id"
   unknown_id: "Id inconnu"
   #feedback: "Feedback"
-  feedback: "Retour"
+  feedback: "Retours"
   #comments: "Comments"
   comments: "Commentaires"
   #comment: "Comment"
@@ -209,7 +209,7 @@ fr:
   #col_public: "Public:"
   col_public: "Public :"
   #col_avg_audience_feedback: "Average audience feedback:"
-  col_avg_audience_feedback: "Retours moyen :"
+  col_avg_audience_feedback: "Moyenne des retours :"
   #col_time_slots: "Time slots:"
   col_time_slots: "Plages horaires :"
   #col_start_time: "Start time:"
@@ -350,7 +350,7 @@ fr:
         end_date: "Fin"
       event:
         #average_feedback: "Average feedback"
-        average_feedback: "Retour moyen"
+        average_feedback: "Moyenne des retours"
         #average_rating: "Average rating"
         average_rating: "Notation moyenne"
         #do_not_record: "Do not record"
@@ -1403,7 +1403,7 @@ fr:
       et le programme incluera un formulaire pour qu’ils puissent commenter
       les évènements. Ces commentaires apparaitront ici.
     #average_feedback: "Average Feedback:"
-    average_feedback: "Retour moyen :"
+    average_feedback: "Moyenne des retours :"
     #rate_next: "Rate next event"
     rate_next: "Notez le prochain évènement"
     #toggle_description: "Toggle Description >>"
