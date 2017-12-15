@@ -1172,7 +1172,7 @@ fr:
         #  regardless of this setting.
         schedule_public: |
           Est-ce que la programmtion dynamique est publique ? Vous pourrez toujours
-          faire des exports statiques, peu importe ce paramètre.
+          faire des exports statics, peu importe ce paramètre.
         #schedule_open: |
         #  Allow speakers to self-schedule their talks. Everything will be
         #  accpeted. Maybe e turn this of and check before scheduling.
@@ -1186,7 +1186,7 @@ fr:
         #  generated using this as a prefix. This will be used for the QR code
         #  linking to the schedule.
         program_export_base_url: |
-          Si vous souhaitez utiliser l’export statique du programme, entrez
+          Si vous souhaitez utiliser l’export static du programme, entrez
           l’URL où vous allez mettre les fichiers. Toutes les références
           seront générées en utilisant ce préfixe. Ce sera aussi utilisé pour
           les QR codes menant au programme.
@@ -1199,15 +1199,15 @@ fr:
     #preview_schedule: "Preview schedule"
     preview_schedule: "Prévisualiser le programme"
     #create_static_export: "Create static schedule export"
-    create_static_export: "Créer un export statique du programme"
+    create_static_export: "Créer un export static du programme"
     #download_static_export: "Download static schedule export"
-    download_static_export: "Télécharger l’export statique du programme"
+    download_static_export: "Télécharger l’export static du programme"
     #html_exports: "HTML Exports"
     html_exports: "Exports HTML"
     #create_locale: "Create %{locale}"
     create_locale: "Créer %{locale}"
     #create_locale_hint: "Create a static HTML export of your program schedule."
-    create_locale_hint: "Créée un export statique de votre programme au format HTML."
+    create_locale_hint: "Créer un export static de votre programme au format HTML."
     #view_live_version_hint: "View the public live version of your schedule just like any attendee might see it."
     view_live_version_hint: "Afficher la version publique du programme, comme n’importe quelle personne la verrait"
     #create_pdf_export: "Create custom PDF export"
@@ -1241,7 +1241,7 @@ fr:
     #notice_no_base_url: "program_export_base_url needs to be set"
     notice_no_base_url: "program_export_base_url doit être défini"
     #notice_static_export_started: "Static schedule export started. Please reload this page after a minute."
-    notice_static_export_started: "L’export statique du programme a commencé. Veuillez recharger cette pâge dans une minute."
+    notice_static_export_started: "L’export static du programme a commencé. Veuillez recharger cette pâge dans une minute."
     #notice_no_export_found: "No export found to download."
     notice_no_export_found: "Aucun export trouvé."
   tickets:
