@@ -7,10 +7,10 @@ module TicketServerAdapter
   end
 
   def get_ticket_view_url(remote_id)
-    fail 'not implemented'
+    fail t('helpers.not_implemented')
   end
 
   def create_remote_ticket(args = {})
-    fail 'not implemented'
+    fail t('helpers.not_implemented')
   end
 end

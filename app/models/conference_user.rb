@@ -14,10 +14,10 @@ class ConferenceUser < ApplicationRecord
   private
 
   def role_is_valid
-    errors.add(:role, 'You need to select a valid role') unless ROLES.include? role
+    errors.add(:role, I18n.t('errors.messages.invalid_role')) unless ROLES.include? role
   end
 
   def user_role_is_crew
-    errors.add(:role, 'User role is not crew') unless user and user.is_crew?
+    errors.add(:role, I18n.t('users_module.role_not_crew')) unless user and user.is_crew?
   end
 end

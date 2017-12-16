@@ -6,13 +6,13 @@ en:
   # ----
   # Active Model
   # ----
-#  activemodel:
-#    errors:
-#      template:
-#        body: 'Bitte überprüfen Sie die folgenden Felder:'
-#        header:
-#          one: 'Konnte %{model} nicht speichern: ein Fehler.'
-#          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  activemodel:
+    errors:
+      template:
+        body: 'Please check the following fields:'
+        header:
+          one: "Can't save %{model}: there is an error."
+          other: "Can't save %{model}: there are %{count} errors."
   # ----
   # /Active Model
   # ----
@@ -189,35 +189,35 @@ en:
     # Errors
     # ----
     errors:
-#      full_messages:
-#        format: '%{attribute}%{message}'
+      full_messages:
+        format: '%{attribute}%{message}'
       messages:
-#        accepted: debe ser aceptado
-#        blank: debe llenarse
-#        confirmation: no corresponde con el acuerdo de confirmación
-#        empty: debe llenarse
-#        equal_to: 'debe ser igual a %{count}'
-#        even: debe ser par
-#        exclusion: no está disponible
-#        greater_than: 'debe ser mayor a %{count}'
-#        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
-#        inclusion: no es un valor válido
-#        invalid: no es válido
-#        less_than: 'debe ser menor a %{count}'
-#        less_than_or_equal_to: 'debe ser menor o igual a %{count}'
-#        not_a_number: no es un número
-#        not_an_integer: debe ser un entero
-#        odd: debe ser impar
-#        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
-#        taken: ist bereits vergeben
-#        too_long: 'está demasiado largo (debe contener máximo %{count} caracteres)'
-#        too_short: 'está demasiado corto (debe contener al menos %{count} caracteres)'
-#        wrong_length: 'es de longitud incorrecta (debe contener %{count} caracteres)'
+        accepted: must be accepted
+        blank: is empty
+        confirmation: does not correspond with the confirmation field
+        empty: is empty
+        equal_to: 'should be equal to %{count}'
+        even: should be even
+        exclusion: is not available
+        greater_than: 'should be greater than %{count}'
+        greater_than_or_equal_to: 'should be greater than or equal to %{count}'
+        inclusion: is not a valid value
+        invalid: is invalid
+        less_than: 'should be less than %{count}'
+        less_than_or_equal_to: 'should be less than or equal to %{count}'
+        not_a_number: is not a number
+        not_an_integer: is not an integer
+        odd: should be odd
+        record_invalid: 'Validity check failed: %{errors}'
+        taken: is already taken
+        too_long: 'is too long (must contain %{count} characters at most)'
+        too_short: 'is too short (must contain at least %{count} characters)'
+        wrong_length: 'is of incorrect length (must contain %{count} characters)'
       template:
-#        body: 'Bitte überprüfen Sie die folgenden Felder:'
+        body: 'Please check the following fields:'
         header:
-#          one: 'Konnte %{model} nicht speichern: ein Fehler.'
-#          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+          one: "Can't save %{model}: there is an error."
+          other: "Can't save %{model}: there are %{count} errors."
     # ----
     # /Errors
     # ----
@@ -1025,21 +1025,31 @@ en:
     format: '%{attribute} %{message}'
     messages:
       accepted: must be accepted
+      acl_error: 'should not happen: user without acl'
+      after_start_date: should be after start date
       already_confirmed: 'was already confirmed, please try signing in'
       blank: can't be blank
       confirmation: "doesn't match %{attribute}"
       confirmation_period_expired: 'needs to be confirmed within %{period}, please request a new one'
+      day_overlapping_with_day: "day overlapping with day %{day} from this conference"
+      day_overlaps: 'day %{day} overlaps with day before'
       empty: can't be empty
       equal_to: 'must be equal to %{count}'
       even: must be even
       exclusion: is reserved
       expired: 'has expired, please request a new one'
+      field_not_found: 'Field %{state}_%{field} not found'
       greater_than: 'must be greater than %{count}'
       greater_than_or_equal_to: 'must be greater than or equal to %{count}'
       inclusion: is not included in the list
       invalid: is invalid
+      invalid_date: not a valid date
+      invalid_role: You need to select a valid role
       less_than: 'must be less than %{count}'
       less_than_or_equal_to: 'must be less than or equal to %{count}'
+      locale_already_added: '%{locale} already added to this cfp'
+      missing_field_on_user: Missing fields on conference user.
+      no_multiple_roles: User cannot have multiple roles in one conference.
       not_a_number: is not a number
       not_an_integer: must be an integer
       not_found: not found
@@ -1047,6 +1057,7 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: '%{count} errors prohibited this %{resource} from being saved:'
+      notification_not_found: "Notification for %{locale} not found"
       odd: must be odd
       other_than: 'must be other than %{count}'
       present: must be blank
@@ -1054,6 +1065,7 @@ en:
       restrict_dependent_destroy:
         many: 'Cannot delete record because dependent %{record} exist'
         one: 'Cannot delete record because a dependent %{record} exists'
+      role_not_crew: User role is not crew
       taken: has already been taken
       too_long:
         one: is too long (maximum is 1 character)
@@ -1242,6 +1254,10 @@ en:
       create: 'Create %{model}'
       submit: 'Save %{model}'
       update: 'Update %{model}'
+    has_deleted: deleted
+    has_created: created
+    has_updated: updated
+    not_implemented: not implemented
   # ----
   # /Helpers
   # ----
@@ -1457,6 +1473,7 @@ en:
     admin_users: frab - admin users
     change_password: frab - Password change
     crew_users: frab - crew users
+    default: frab - home
     edit_account: frab - Edit account
     login: Login to frab
     my_profile: frab - My profile
@@ -1896,6 +1913,7 @@ en:
     resend_confirmation_instructions: Resend confirmation instructions
     session_login: Log in
     session_signup: Create a new account
+    suffix: '- Conference Management'
     unlock_instructions: Unlock instructions
   # ----
   # /Titles
@@ -1975,6 +1993,7 @@ en:
 
   value: Value
   version_on_item: '%{version} on %{item}'
+  video_recording: Video Recording
   work_in_progress: working...
   workshops: Workshops
   workshops_only: Workshops only

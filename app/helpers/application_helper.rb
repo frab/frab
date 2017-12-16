@@ -7,12 +7,12 @@ module ApplicationHelper
     elsif @person.present?
       title += "- #{@person.full_name}"
     end
-    title += '- Conference Management'
+    title += t('titles.suffix')
     title
   end
 
   def home_page_title
-    'frab - home'
+    t('page_titles.default')
   end
 
   def accessible_conferences
@@ -127,6 +127,6 @@ module ApplicationHelper
     return t('options.reviewer') if current_user.has_role?(@conference, 'reviewer')
     return t('options.crew') if current_user.is_crew?
     return t('options.submitter') if current_user.is_submitter?
-    fail 'should not happen: user without acl'
+    fail t('errors.messages.acl_error')
   end
 end

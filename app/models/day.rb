@@ -14,15 +14,15 @@ class Day < ApplicationRecord
   validate :does_not_overlap
 
   def start_date_before_end_date
-    errors.add(:end_date, 'should be after start date') if start_date >= end_date
+    errors.add(:end_date, I18n.t('errors.messages.after_start_date')) if start_date >= end_date
   end
 
   def does_not_overlap
     return if conference.nil?
     conference.days.each { |day|
       next if day == self
-      errors.add(:start_date, "day overlapping with day #{day.label} from this conference") if start_date.between?(day.start_date, day.end_date)
-      errors.add(:end_date, "day overlapping with day #{day.label} from this conference") if end_date.between?(day.start_date, day.end_date)
+      errors.add(:start_date, I18n.t('errors.messages.day_overlapping_with_day', {day: day.label})) if start_date.between?(day.start_date, day.end_date)
+      errors.add(:end_date, I18n.t('errors.messages.day_overlapping_with_day', {day: day.label})) if end_date.between?(day.start_date, day.end_date)
     }
   end
 

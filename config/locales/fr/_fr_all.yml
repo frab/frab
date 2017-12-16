@@ -6,13 +6,13 @@ fr:
   # ----
   # Active Model
   # ----
-#  activemodel:
-#    errors:
-#      template:
-#        body: 'Bitte überprüfen Sie die folgenden Felder:'
-#        header:
-#          one: 'Konnte %{model} nicht speichern: ein Fehler.'
-#          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  activemodel:
+    errors:
+      template:
+        body: 'Veuillez vérifier les champs suivants :'
+        header:
+          one: 'Impossible de sauvegarder %{model}: il y a eu une erreur.'
+          other: 'Impossible de sauvegarder %{model}: il y a eu %{count} erreurs.'
   # ----
   # /Active Model
   # ----
@@ -189,35 +189,35 @@ fr:
     # Errors
     # ----
     errors:
-#      full_messages:
-#        format: '%{attribute}%{message}'
-#      messages:
-#        accepted: debe ser aceptado
-#        blank: debe llenarse
-#        confirmation: no corresponde con el acuerdo de confirmación
-#        empty: debe llenarse
-#        equal_to: 'debe ser igual a %{count}'
-#        even: debe ser par
-#        exclusion: no está disponible
-#        greater_than: 'debe ser mayor a %{count}'
-#        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
-#        inclusion: no es un valor válido
-#        invalid: no es válido
-#        less_than: 'debe ser menor a %{count}'
-#        less_than_or_equal_to: 'debe ser menor o igual a %{count}'
-#        not_a_number: no es un número
-#        not_an_integer: debe ser un entero
-#        odd: debe ser impar
-#        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
-#        taken: ist bereits vergeben
-#        too_long: 'está demasiado largo (debe contener máximo %{count} caracteres)'
-#        too_short: 'está demasiado corto (debe contener al menos %{count} caracteres)'
-#        wrong_length: 'es de longitud incorrecta (debe contener %{count} caracteres)'
-#      template:
-#        body: 'Bitte überprüfen Sie die folgenden Felder:'
-#        header:
-#          one: 'Konnte %{model} nicht speichern: ein Fehler.'
-#          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+      full_messages:
+        format: '%{attribute}%{message}'
+      messages:
+        accepted: doit être accepté
+        blank: est vide
+        confirmation: ne correspond pas au champ de confiramtion
+        empty: est vide
+        equal_to: 'devrait être égal à %{count}'
+        even: devrait être pair
+        exclusion: n’est pas disponible
+        greater_than: 'devrait être supérieur à %{count}'
+        greater_than_or_equal_to: 'devrait être superieur ou égal à %{count}'
+        inclusion: n’est pas une valeur valide
+        invalid: est invalide
+        less_than: 'devrait être inferieur à %{count}'
+        less_than_or_equal_to: 'devrait être inferieur ou égal à%{count}'
+        not_a_number: n’est pas un nombre
+        not_an_integer: n’est pas un entier
+        odd: dervait être impar
+        record_invalid: 'Le test de validité aéchoué : %{errors}'
+        taken: est déjà pris
+        too_long: 'est trop long (max. de %{count} caractères)'
+        too_short: 'est trop court (min. de %{count} caractères)'
+        wrong_length: 'est de longueur incorrecte (doit être de %{count} caractères)'
+      template:
+        body: 'Veuillez vérifier les champs suivants :'
+        header:
+          one: "Impossible de sauvegarder %{model}: il y a une erreur."
+          other: "Impossible de sauvegarder %{model}: il y a %{count} erreurs."
     # ----
     # /Errors
     # ----
@@ -1028,21 +1028,31 @@ fr:
     format: '%{attribute} %{message}'
     messages:
       accepted: doit être accepté
+      acl_error: 'ne devrait pas arriver : utilisateur sans contrôle d’accès'
+      after_start_date: doit être après la date de début
       already_confirmed: 'a déjà été confirmé, essayez de vous connecter'
       blank: ne peut pas être vide
       confirmation: 'ne correspond pas à %{attribute}'
       confirmation_period_expired: 'doit être confirmé avant %{period}, veuillez faire une nouvelle demande'
+      day_overlapping_with_day: "jour se chevauchant avec %{day} de cette conférence"
+      day_overlaps: 'jour %{day} se cehvauche avec le jour précédent'
       empty: ne peut pas être vide
       equal_to: 'doit être égal à %{count}'
       even: doit être pareil
       exclusion: est réservé
       expired: 'a expiré, veuillez faire une nouvelle demande'
+      field_not_found: 'Champ %{state}_%{field} non trouvé'
       greater_than: 'doit être plus grand que %{count}'
       greater_than_or_equal_to: 'doit être plus grand ou égal à %{count}'
       inclusion: n’est pas inclus dans la liste
       invalid: est invalide
+      invalid_date: n’est pas une date valide
+      invalid_role: Vous devez selectionner un rôle valide
       less_than: 'doit être inférieur à %{count}'
       less_than_or_equal_to: 'doit être inférieur ou égal à %{count}'
+      locale_already_added: '%{locale} est déjà dans cette conférence'
+      missing_field_on_user: Champs manquants sur l’utilisateur de la conférence.
+      no_multiple_roles: Un utilisteur ne peut avoir plusieur rôles dans une même conférence.
       not_a_number: n’est pas un nombre
       not_an_integer: doit être un nombre entier
       not_found: non trouvé
@@ -1050,6 +1060,7 @@ fr:
       not_saved:
         one: 'Une erreur a empêché ce %{resource} d’être enregistré :'
         other: '%{count} erreurs ont empêché ce %{resource} d’être enregistré :'
+      notification_not_found: "La notification for %{locale} n’a pas été trouvée"
       odd: doit être impair
       other_than: 'doit être différent de %{count}'
       present: doit être vide
@@ -1057,6 +1068,7 @@ fr:
       restrict_dependent_destroy:
         many: 'Impossible de supprimer l’enregistrement car des enregistrements dépendants %{record} existe'
         one: 'Impossible de supprimer l’enregistrement car un enregistrement dépendant %{record} existe'
+      role_not_crew: L’utilisateur n'a pas le rôle "Membre de l’équipe"
       taken: est déjà pris
       too_long:
         one: est trop long (le maximum est 1 caractère)
@@ -1247,6 +1259,10 @@ fr:
       create: 'Créer %{model}'
       submit: 'Sauvegarder %{model}'
       update: 'Mettre à jour %{model}'
+    has_deleted: a supprimé
+    has_created: a créé
+    has_updated: a mis à jour
+    not_implemented: non implémenté
   # ----
   # /Helpers
   # ----
@@ -1462,6 +1478,7 @@ fr:
     admin_users: frab - admin users
     change_password: frab - Changement de mot de passe
     crew_users: frab - Membres de l’équipe
+    default: frab - accueil
     edit_account: frab - Éditer un compte
     login: Connexion à frab
     my_profile: frab - Mon profil
@@ -1907,6 +1924,7 @@ fr:
     resend_confirmation_instructions: Renvoyer le courriel de confirmation
     session_login: Connexion
     session_signup: Inscription
+    suffix: '- Gestion de conférence'
     unlock_instructions: Instructions de dévérouillage
   # ----
   # /Titles
@@ -1984,6 +2002,7 @@ fr:
 
   value: Valeur
   version_on_item: '%{version} sur %{item}'
+  video_recording: Enregistrement vidéo
   work_in_progress: En cours…
   workshops: Ateliers
   workshops_only: Ateliers seulement

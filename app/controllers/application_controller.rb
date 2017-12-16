@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_submitter!
-    redirect_to cfp_person_path, alert: 'This action is not allowed' if current_user&.is_submitter?
+    redirect_to cfp_person_path, alert: t('denied') if current_user&.is_submitter?
   end
 
   def orga_only!

@@ -302,6 +302,7 @@ de:
   # ----
   cfp:
     abstract_hint: 'Ein kurzer, prägnanter Absatz zu Ihrer Person. (HTML)'
+#    accept: Accept
     avatar_hint: Laden Sie ein neues Bild hoch.
     back: Zurück
     basic_information: Basisinformationen
@@ -1028,21 +1029,31 @@ de:
     format: '%{attribute} %{message}'
     messages:
       accepted: muss akzeptiert werden
+#      acl_error: 'should not happen: user without acl'
+#      after_start_date: should be after start date
 #      already_confirmed: 'was already confirmed, please try signing in'
       blank: muss ausgefüllt werden
       confirmation: 'stimmt nicht mit %{attribute} überein'
 #      confirmation_period_expired: 'needs to be confirmed within %{period}, please request a new one'
+#      day_overlapping_with_day: "day overlapping with day %{day} from this conference"
+#      day_overlaps: 'day %{day} overlaps with day before'
       empty: muss ausgefüllt werden
       equal_to: 'muss genau %{count} sein'
       even: muss gerade sein
       exclusion: ist nicht verfügbar
 #      expired: 'has expired, please request a new one'
+#      field_not_found: 'Field %{state}_%{field} not found'
       greater_than: 'muss größer als %{count} sein'
       greater_than_or_equal_to: 'muss größer oder gleich %{count} sein'
       inclusion: ist kein gültiger Wert
       invalid: ist nicht gültig
+#      invalid_date: not a valid date
+#      invalid_role: You need to select a valid role
       less_than: 'muss kleiner als %{count} sein'
       less_than_or_equal_to: 'muss kleiner oder gleich %{count} sein'
+#      locale_already_added: '%{locale} already added to this cfp'
+#      missing_field_on_user: Missing fields on conference user.
+#      no_multiple_roles: User cannot have multiple roles in one conference.
       not_a_number: ist keine Zahl
       not_an_integer: muss ganzzahlig sein
 #      not_found: not found
@@ -1050,6 +1061,7 @@ de:
 #      not_saved:
 #        one: '1 error prohibited this %{resource} from being saved:'
 #        other: '%{count} errors prohibited this %{resource} from being saved:'
+#      notification_not_found: "Notification for %{locale} not found"
       odd: muss ungerade sein
       other_than: 'darf nicht gleich %{count} sein'
       present: darf nicht ausgefüllt werden
@@ -1057,6 +1069,7 @@ de:
       restrict_dependent_destroy:
         many: 'Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.'
         one: 'Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz existiert.'
+#      role_not_crew: User role is not crew
       taken: ist bereits vergeben
       too_long:
         one: ist zu lang (mehr als 1 Zeichen)
@@ -1245,6 +1258,10 @@ de:
       create: '%{model} erstellen'
       submit: '%{model} speichern'
       update: '%{model} aktualisieren'
+#    has_deleted: deleted
+#    has_created: created
+#    has_updated: updated
+#    not_implemented: not implemented
   # ----
   # /Helpers
   # ----
@@ -1460,6 +1477,7 @@ de:
 #    admin_users: frab - admin users
 #    change_password: frab - Password change
 #    crew_users: frab - crew users
+#    default: frab - home
 #    edit_account: frab - Edit account
 #    login: Login to frab
 #    my_profile: frab - My profile
@@ -1899,6 +1917,7 @@ de:
 #    resend_confirmation_instructions: Resend confirmation instructions
 #    session_login: Log in
 #    session_signup: Create a new account
+#    suffix: '- Conference Management'
 #    unlock_instructions: Unlock instructions
   # ----
   # /Titles
@@ -1978,6 +1997,7 @@ de:
 
 #  value: Value
 #  version_on_item: '%{version} on %{item}'
+#  video_recording: Video Recording
 #  work_in_progress: working...
 #  workshops: Workshops
 #  workshops_only: Workshops only

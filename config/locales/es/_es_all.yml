@@ -1027,21 +1027,31 @@ es:
     format: '%{attribute} %{message}'
     messages:
       accepted: debe ser aceptado
+#      acl_error: 'should not happen: user without acl'
+#      after_start_date: should be after start date
 #      already_confirmed: 'was already confirmed, please try signing in'
       blank: debe llenarse
       confirmation: no corresponde con el acuerdo de confirmación
 #      confirmation_period_expired: 'needs to be confirmed within %{period}, please request a new one'
+#      day_overlapping_with_day: "day overlapping with day %{day} from this conference"
+#      day_overlaps: 'day %{day} overlaps with day before'
       empty: debe llenarse
       equal_to: 'debe ser igual a %{count}'
       even: debe ser par
       exclusion: no está disponible
 #      expired: 'has expired, please request a new one'
+#      field_not_found: 'Field %{state}_%{field} not found'
       greater_than: 'debe ser mayor a %{count}'
       greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
       inclusion: no es un valor válido
       invalid: no es válido
+#      invalid_date: not a valid date
+#      invalid_role: You need to select a valid role
       less_than: 'debe ser menor a %{count}'
       less_than_or_equal_to: 'debe ser menor o igual a %{count}'
+#      locale_already_added: '%{locale} already added to this cfp'
+#      missing_field_on_user: Missing fields on conference user.
+#      no_multiple_roles: User cannot have multiple roles in one conference.
       not_a_number: no es un número
       not_an_integer: debe ser un entero
 #      not_found: not found
@@ -1049,6 +1059,7 @@ es:
       not_saved:
 #        one: '1 error prohibited this %{resource} from being saved:'
 #        other: '%{count} errors prohibited this %{resource} from being saved:'
+#      notification_not_found: "Notification for %{locale} not found"
       odd: debe ser impar
 #      other_than: 'must be other than %{count}'
 #      present: must be blank
@@ -1056,6 +1067,7 @@ es:
       restrict_dependent_destroy:
 #        many: 'Cannot delete record because dependent %{record} exist'
 #        one: 'Cannot delete record because a dependent %{record} exists'
+#      role_not_crew: User role is not crew
 #      taken: has already been taken
       too_long:
 #        one: is too long (maximum is 1 character)
@@ -1244,6 +1256,10 @@ es:
       create: 'Crear %{model}'
       submit: 'Enviar %{model}'
       update: 'Actualizar %{model}'
+#    has_deleted: deleted
+#    has_created: created
+#    has_updated: updated
+#    not_implemented: not implemented
   # ----
   # /Helpers
   # ----
@@ -1459,6 +1475,7 @@ es:
 #    admin_users: frab - admin users
 #    change_password: frab - Password change
 #    crew_users: frab - crew users
+#    default: frab - home
 #    edit_account: frab - Edit account
 #    login: Login to frab
 #    my_profile: frab - My profile
@@ -1898,6 +1915,7 @@ es:
 #    resend_confirmation_instructions: Resend confirmation instructions
 #    session_login: Log in
 #    session_signup: Create a new account
+#    suffix: '- Conference Management'
 #    unlock_instructions: Unlock instructions
   # ----
   # /Titles
@@ -1977,6 +1995,7 @@ es:
 
 #  value: Value
 #  version_on_item: '%{version} on %{item}'
+#  video_recording: Video Recording
 #  work_in_progress: working...
 #  workshops: Workshops
 #  workshops_only: Workshops only
