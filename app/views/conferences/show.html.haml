@@ -47,17 +47,17 @@
         %table.zebra-stripe
           %thead
             %tr
-              %th= t('conference_module.new')
-              %th= t('conference_module.review')
-              %th= t('conference_module.withdrawn')
-              %th= t('conference_module.accepting')
-              %th= t('conference_module.unconfirmed')
-              %th= t('conference_module.confirmed')
-              %th= t('conference_module.scheduled')
-              %th= t('conference_module.canceled')
-              %th= t('conference_module.rejecting')
-              %th= t('conference_module.rejected')
-              %th= t('conference_module.total')
+              %th= t('conferences_module.new')
+              %th= t('conferences_module.review')
+              %th= t('conferences_module.withdrawn')
+              %th= t('conferences_module.accepting')
+              %th= t('conferences_module.unconfirmed')
+              %th= t('conferences_module.confirmed')
+              %th= t('conferences_module.scheduled')
+              %th= t('conferences_module.canceled')
+              %th= t('conferences_module.rejecting')
+              %th= t('conferences_module.rejected')
+              %th= t('conferences_module.total')
           %tbody
             %tr
               %td= @conference.events.where(state: :new).count
