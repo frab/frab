@@ -1,14 +1,5 @@
 ---
 de:
-  # ----
-  # Ability
-  # ----
-  ability:
-    denied: Der Vorgang ist nicht erlaubt.
-  # ----
-  # /Ability
-  # ----
-
 #  accepted_only: Accepted only
   actions: Aktionen
 
@@ -780,6 +771,7 @@ de:
   # ----
 
 #  default_text: default text
+  denied: Der Vorgang ist nicht erlaubt.
 #  destroy: destroy
 #  detailed_changes: Detailed Changes
 #  details: Details

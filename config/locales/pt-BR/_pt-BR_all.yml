@@ -1,14 +1,5 @@
 ---
 pt-BR:
-  # ----
-  # Ability
-  # ----
-  ability:
-    denied: Esta ação não é permitida.
-  # ----
-  # /Ability
-  # ----
-
 #  accepted_only: Accepted only
   actions: Ações
 
@@ -781,6 +772,7 @@ pt-BR:
   # ----
 
 #  default_text: default text
+  denied: Esta ação não é permitida.
 #  destroy: destroy
 #  detailed_changes: Detailed Changes
 #  details: Details

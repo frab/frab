@@ -1,14 +1,5 @@
 ---
 es:
-  # ----
-  # Ability
-  # ----
-  ability:
-    denied: Esta acción no está permitida.
-  # ----
-  # /Ability
-  # ----
-
 #  accepted_only: Accepted only
   actions: Acciones
 
@@ -781,6 +772,7 @@ es:
   # ----
 
 #  default_text: default text
+  denied: Esta acción no está permitida.
 #  destroy: destroy
 #  detailed_changes: Detailed Changes
 #  details: Details
