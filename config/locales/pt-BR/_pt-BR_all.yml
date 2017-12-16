@@ -506,6 +506,7 @@ pt-BR:
 #  col_reimbursed_expenses: 'Reimbursed expenses:'
 #  col_role: 'Role:'
 #  col_room: 'Room:'
+#  col_speakers: 'Speakers:'
 #  col_start_time: 'Start time:'
 #  col_submission_notes: 'Submission Notes(user and admin):'
 #  col_ticket: 'Ticket:'
@@ -1116,6 +1117,8 @@ pt-BR:
 #      Modify them in 'Edit people' tab.
 #    edit_event: Edit Event
 #    edit_event_hint: Edit this event's data.
+#    edit_people: Edit people
+#    edit_people_hint: Add or remove people from this event.
 #    error_no_day: |
 #      Before you can schedule any events, you need to have at least
 #      one day defined for this conference. Go to _Conference Settings_
@@ -1514,6 +1517,11 @@ pt-BR:
 #      start adding people. Please note that they will not appear here right
 #      away, unless they are involved in any of this conference's events. Use the
 #      _All people_ tab above to see all people across all your conferences.
+#    no_people_in_event: |
+#      There are no people associated with this event yet. Use the button on the right
+#      to add some. Note that you can only add people that are already present in the
+#      system. If you want to add someone who isn't, go to the _People_ tab and create
+#      this person first.
 #    no_people_involved: |
 #      There are no people associated with this conference yet. People will
 #      start appearing here, once they take on a role in any of this
@@ -1627,7 +1635,7 @@ pt-BR:
 #    notice_already_rated_everything: 'You have already reviewed all events:'
 #    notice_rating_created: Rating saved successfully.
 #    notice_rating_updated: Rating updated successfully.
-#    show ratings: Show Ratings
+#    show_ratings: Show Ratings
 #    start_reviewing: Start reviewing
 #    start_reviewing_hint: |
 #      Review a batch of events in a row. You will be presented with the event

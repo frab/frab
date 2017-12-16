@@ -16,12 +16,12 @@ fr:
   # Active Model
   # ----
 #  activemodel:
-#      errors:
-#        template:
-#          body: 'Bitte überprüfen Sie die folgenden Felder:'
-#          header:
-#            one: 'Konnte %{model} nicht speichern: ein Fehler.'
-#            other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+#    errors:
+#      template:
+#        body: 'Bitte überprüfen Sie die folgenden Felder:'
+#        header:
+#          one: 'Konnte %{model} nicht speichern: ein Fehler.'
+#          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
   # ----
   # /Active Model
   # ----
