@@ -36,7 +36,7 @@ module Frab
     config.filter_parameters += [:password, :password_confirmation]
 
     # Localization
-    I18n.load_path += Dir["config/locales/*/*.yml"]
+    config.i18n.load_path += Dir["config/locales/*/*.yml"]
 
     # smaller whitelist of allowed tags
     # TODO config.action_view.sanitized_allowed_tags.delete 'img'
