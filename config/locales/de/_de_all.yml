@@ -423,6 +423,8 @@ de:
     save_availability: Verfügbarkeit speichern
 #    save_cfp: Save the call for participation
     scheduled: Geplante Zeit
+#    self_schedule_accepted: Self planning accepted
+#    self_schedule_denied: Self planning denied
     send_reset_instructions: Passwortreset-Anweisungen zusenden
     sent_password_reset_instructions: 'Eine E-Mail mit Hinweisen, wie Sie Ihr Passwort ändern können, wurde an Ihre E-Mailadresse gesendet.'
     set_to: set to
@@ -506,6 +508,7 @@ de:
 #  col_reimbursed_expenses: 'Reimbursed expenses:'
 #  col_role: 'Role:'
 #  col_room: 'Room:'
+#  col_rooms: 'Rooms:'
 #  col_speakers: 'Speakers:'
 #  col_start_time: 'Start time:'
 #  col_submission_notes: 'Submission Notes(user and admin):'
@@ -1588,19 +1591,23 @@ de:
         title: Titel
         track: Track
       index:
+#        booklet: Booklet
         day: 'Tag %{index} – %{label}'
         events: Veranstaltungen
 #        events_by_track: Events by track
         schedule: 'Zeitplan – %{label}'
         schedule_index: Programmübersicht
         speakers: Referenten
+#        timeline: Timeline
       nav:
+#        booklet: Booklet
         day: 'Tag %{index}'
         events: Veranstaltungen
         index: Übersicht
         qrcode: QR-Code
         schedule: Zeitplan
         speakers: Referenten
+#        timeline: Timeline
       qrcode:
         link_to_public_schedule: |
           Diese QR-Code enthält die URL zur maschinenlesbaren Verion der öffentlichen Programmübersicht.
@@ -1662,7 +1669,7 @@ de:
   # Reports
   # ----
   reports_module:
-#    all: overview on transport needs
+#    all_transportation_needs: overview on transport needs
 #    available_reports: Available Reports
 #    confirmed_events_by_track: confirmed event numbers by track
 #    do_not_record_events: events with 'do not record' flag set
@@ -1946,7 +1953,7 @@ de:
 #    notice_need_disabled: Transport needs are not enabled for this conference.
 #    notice_need_updated: Transport need was successfully updated.
 #    transport_needs: Transport needs
-#    what_type_id_needed_hints: What type of transportation is needed?
+#    what_type_id_needed_hint: What type of transportation is needed?
 #    when: When
   # ----
   # /Transports

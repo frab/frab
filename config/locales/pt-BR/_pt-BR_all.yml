@@ -311,6 +311,7 @@ pt-BR:
   # ----
   cfp:
     abstract_hint: Um pequeno parágrafo que descreva sucintamente você.
+#    accept: Accept
     avatar_hint: Carregar um novo avatar.
     back: Voltar
     basic_information: Informações básicas
@@ -423,6 +424,8 @@ pt-BR:
     save_availability: Salvar disponibilidade
 #    save_cfp: Save the call for participation
 #    scheduled: Scheduled time
+#    self_schedule_accepted: Self planning accepted
+#    self_schedule_denied: Self planning denied
     send_reset_instructions: Envie-me instruções para reiniciar senha
     sent_password_reset_instructions: As instruções de como reiniciar sua senha foram enviadas para o endereço de email que você informou.
 #    set_to: set to
@@ -506,9 +509,10 @@ pt-BR:
 #  col_reimbursed_expenses: 'Reimbursed expenses:'
 #  col_role: 'Role:'
 #  col_room: 'Room:'
+#  col_rooms: 'Rooms:'
 #  col_speakers: 'Speakers:'
 #  col_start_time: 'Start time:'
-#  col_submission_notes: 'Submission Notes(user and admin):'
+#  col_submission_notes: 'Submission Notes (user and admin):'
 #  col_ticket: 'Ticket:'
 #  col_time_slots: 'Time slots:'
 #  col_total: 'Total:'
@@ -696,9 +700,9 @@ pt-BR:
       short: '%d de %B'
     month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
     order:
-      - ':day'
-      - ':month'
-      - ':year'
+      - :day
+      - :month
+      - :year
   # ----
   # /Date
   # ----
@@ -1584,19 +1588,23 @@ pt-BR:
         title: Título
         track: Trilha
       index:
+#        booklet: Booklet
         day: 'Dia %{index} – %{label}'
         events: Eventos
 #        events_by_track: Events by track
         schedule: 'Programação – %{label}'
         schedule_index: Índice da programação
         speakers: Palestrantes
+#        timeline: Timeline
       nav:
+#        booklet: Booklet
         day: 'Dia %{index}'
         events: Eventos
         index: Índice
         qrcode: QR-Code
         schedule: Programação
         speakers: Palestrantes
+#        timeline: Timeline
       qrcode:
 #        link_to_public_schedule: |
 #          This QR code contains the URL to the machine-readable version of the public schedule file.
@@ -1659,7 +1667,7 @@ pt-BR:
   # Reports
   # ----
   reports_module:
-#    all: overview on transport needs
+#    all_transportation_needs: overview on transport needs
 #    available_reports: Available Reports
 #    confirmed_events_by_track: confirmed event numbers by track
 #    do_not_record_events: events with 'do not record' flag set
@@ -1943,7 +1951,7 @@ pt-BR:
 #    notice_need_disabled: Transport needs are not enabled for this conference.
 #    notice_need_updated: Transport need was successfully updated.
 #    transport_needs: Transport needs
-#    what_type_id_needed_hints: What type of transportation is needed?
+#    what_type_id_needed_hint: What type of transportation is needed?
 #    when: When
   # ----
   # /Transports
