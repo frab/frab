@@ -85,7 +85,7 @@ prawn_document(page_layout: :landscape) do |pdf|
 
           # Abstract Column
           pdf.formatted_text_box(
-            [{text: "Abstract:\n", styles: [:bold], size: 12},
+            [{text: t('col_abstract') + "\n", styles: [:bold], size: 12},
              {text: abstract(event), size: 12}],
             at: [100,top],
             width: 200,

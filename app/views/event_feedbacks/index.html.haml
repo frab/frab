@@ -2,7 +2,7 @@
   .page-header
     %h1= t('titles.event', {event: @event.title})
   %ul.tabs
-    %li= link_to t('event_details'), @event
+    %li= link_to t('events_module.event_details'), @event
     %li= link_to t('people'), people_event_path(@event)
     %li= link_to t('ratings'), event_event_rating_path(@event)
     %li.active= link_to t('feedback'), event_event_feedbacks_path(@event)

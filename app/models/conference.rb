@@ -210,7 +210,7 @@ class Conference < ApplicationRecord
     yesterday = days[0]
     days[1..-1].each { |day|
       if day.start_date < yesterday.end_date
-        errors.add(:days, "day #{day} overlaps with day before")
+        errors.add(:days, I18n.t('errors.messages.day_overlaps', {day: day}))
       end
     }
   end

@@ -45,7 +45,7 @@ class EventPerson < ApplicationRecord
     conference = event.conference
     locale = person.locale_for_mailing(conference)
     notification = conference.notifications.with_locale(locale).first
-    raise NotificationMissingException, "Notification for #{locale} not found" if notification.nil?
+    raise NotificationMissingException, I18n.t('errors.messages.notification_not_found', {locale: locale}) if notification.nil?
 
     self.notification_subject = notification[state + '_subject'] unless notification_subject.present?
     self.notification_body = notification[state + '_body'] unless notification_body.present?
@@ -66,9 +66,9 @@ class EventPerson < ApplicationRecord
       save
     else
       notification = conference.notifications.with_locale(locale).first
-      fail "Notification for #{locale} not found" if notification.nil?
+      fail I18n.t('errors.messages.notification_not_found', {locale: locale}) if notification.nil?
       string = notification[state + '_' + field.to_s]
-      fail "Field #{state}_#{field} not found" unless string.present?
+      fail I18n.t('errors.messages.field_not_found', {state: state, field: field}) unless string.present?
     end
 
     string.gsub! '%{conference}', conference.title

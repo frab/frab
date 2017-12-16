@@ -8,7 +8,7 @@
         %th= t("cfp.scheduled")
       - if @conference.feedback_enabled
         %th
-        %th= t(:event_feedback)
+        %th= t('activerecord.models.event_feedback')
       %th.last= t(:actions)
   %tbody
     - collection.each do |event|

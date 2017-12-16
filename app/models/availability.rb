@@ -42,7 +42,7 @@ class Availability < ApplicationRecord
   end
 
   def start_date_before_end_date?
-    errors.add(:end_date, 'should be after start date') if end_date < start_date
+    errors.add(:end_date, I18n.t('errors.messages.after_start_date')) if end_date < start_date
   end
 
   def year_valid?(year)
@@ -51,7 +51,7 @@ class Availability < ApplicationRecord
   end
 
   def dates_valid?
-    errors.add(:start_date, 'not a valid date') unless year_valid?(start_date.year)
-    errors.add(:end_date, 'not a valid date') unless year_valid?(end_date.year)
+    errors.add(:start_date, I18n.t('errors.messages.invalid_date')) unless year_valid?(start_date.year)
+    errors.add(:end_date, I18n.t('errors.messages.invalid_date')) unless year_valid?(end_date.year)
   end
 end

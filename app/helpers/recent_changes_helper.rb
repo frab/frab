@@ -20,7 +20,11 @@ module RecentChangesHelper
   def verb_for(event)
     case event
     when 'destroy'
-      'deleted'
+      t('helpers.has_deleted')
+    when('create')
+      t('helpers.has_created')
+    when('update')
+      t('helpers.has_updated')
     else
       "#{event}d"
     end

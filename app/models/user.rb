@@ -92,7 +92,7 @@ class User < ApplicationRecord
 
   def conference_user_fields_present
     return if conference_users.map { |cu| cu.conference.nil? || cu.role.nil? }.none?
-    errors.add(:role, 'Missing fields on conference user.')
+    errors.add(:role, I18n.t('errors.messages.missing_field_on_user'))
   end
 
   def only_one_role_per_conference
@@ -100,7 +100,7 @@ class User < ApplicationRecord
     conference_users.each { |cu|
       next if cu.conference.nil?
       if seen.key? cu.conference.id
-        errors.add(:role, 'User cannot have multiple roles in one conference')
+        errors.add(:role, I18n.t('errors.messages.no_multiple_roles'))
         return
       end
       seen[cu.conference.id] = 1

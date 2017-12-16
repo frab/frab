@@ -1,7 +1,7 @@
 module CrewRolesHelper
   def assert_ability_denied
     assert_response :redirect
-    assert_equal I18n.t(:"ability.denied"), flash[:notice]
+    assert_equal I18n.t(:"denied"), flash[:notice]
   end
 
   def create_conference

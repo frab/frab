@@ -9,7 +9,7 @@
             %a{href: "\##{track.name.downcase}" }= track.name
 
 
-%h2.title= t '.events'
+%h2.title= t 'events'
 
 - @view_model.events_by_track.each do |track_id, events|
   - if events.count >  0 && ! track_id.nil?
@@ -21,9 +21,9 @@
       %thead
         %tr
           %th &nbsp;
-          %th= t '.title'
-          %th= t '.track'
-          %th= t '.speakers'
+          %th= t 'title'
+          %th= t 'track'
+          %th= t 'speakers'
       %tbody
         - events.each do |event|
           %tr

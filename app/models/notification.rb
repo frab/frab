@@ -62,7 +62,7 @@ BODY
     return if conference.nil?
     conference.notifications.each { |n|
       if n.id != id and n.locale == locale
-        errors.add(:locale, "#{n.locale} already added to this cfp")
+        errors.add(:locale, I18n.t('errors.messages.locale_already_added', {locale: n.locale}))
       end
     }
   end

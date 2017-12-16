@@ -203,8 +203,8 @@ class Person < ApplicationRecord
     ticket.present? and ticket.remote_ticket_id.present?
   end
 
-  def merge_with(doppelgaenger, keep_last_updated = false)
-    MergePersons.new(keep_last_updated).combine!(self, doppelgaenger)
+  def merge_with(doppelganger, keep_last_updated = false)
+    MergePersons.new(keep_last_updated).combine!(self, doppelganger)
   end
 
   def default_avatar_url(style = :small)
