@@ -16,7 +16,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
 
     post '/users', params: {
       'user' => { 'email' => 'test2@example.org', 'password' => 'frab12345', 'password_confirmation' => 'frab12345' },
-      'commit' => 'Sign Up', 'conference_acronym' => @conference.acronym, 'locale' => 'en'
+      'commit' => 'Sign up', 'conference_acronym' => @conference.acronym, 'locale' => 'en'
     }
     follow_redirect!
     assert_includes @response.body, 'confirmation link'
@@ -31,7 +31,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
     }
     follow_redirect!
     assert_includes @response.body, "#{@conference.title} - Call for Participation"
-    assert_includes @response.body, 'Update Profile'
+    assert_includes @response.body, 'Update profile'
   end
 
   test 'can sign in and get redirected to cfp page' do
