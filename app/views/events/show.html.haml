@@ -59,7 +59,7 @@
         %b= t('col_public')
         = check_box_tag :public, @event.public, @event.public, disabled: true
       %p
-        %b= t('avg_audience_feedback')
+        %b= t('col_avg_audience_feedback')
         = number_with_precision @event.average_feedback, precision: 1
     .span6
       %h2= EventPerson.model_name.human(count: 2)

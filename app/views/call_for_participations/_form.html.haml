@@ -1,11 +1,11 @@
 = simple_form_for @call_for_participation, url: call_for_participation_path do |f|
   %fieldset.inputs
-    = f.input :start_date, as: :date, label: t('inputs.start_date'), hint: t('cfp.inputs.hints.start_date')
-    = f.input :end_date, as: :date, label: t('inputs.end_date'), hint: t('cfp.inputs.hints.end_date')
-    = f.input :hard_deadline, as: :date, label: t('cfp.inputs.hard_deadline'), hint: t('cfp.inputs.hints.hard_deadline')
-    = f.input :welcome_text, label: t('cfp.inputs.welcome_text'), hint: t('cfp.inputs.hints.welcome_text')
-    = f.input :info_url, label: t('cfp.inputs.info_url'), hint: t('cfp.inputs.hints.info_url')
-    = f.input :contact_email, label: t('cfp.inputs.contact_email'), hint: t('cfp.inputs.hints.contact_email')
+    = f.input :start_date, as: :date, hint: t('cfp.inputs.hints.start_date')
+    = f.input :end_date, as: :date, hint: t('cfp.inputs.hints.end_date')
+    = f.input :hard_deadline, as: :date, hint: t('cfp.inputs.hints.hard_deadline')
+    = f.input :welcome_text, hint: t('cfp.inputs.hints.welcome_text')
+    = f.input :info_url, hint: t('cfp.inputs.hints.info_url')
+    = f.input :contact_email, hint: t('cfp.inputs.hints.contact_email')
   .actions
     = link_to t('navigation.back'), call_for_participation_path, class: 'btn'
     = f.button :submit, class: 'primary', value: t('cfp.save_cfp')

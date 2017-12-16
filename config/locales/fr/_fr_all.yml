@@ -236,7 +236,7 @@ fr:
     # ----
     models:
       call_for_participation: Appel à participation
-      classifier: classificateur
+      classifier: catégorie
       conference: conférence
       conference_user: Participant aux conférences
       day: jour
@@ -311,6 +311,7 @@ fr:
   # ----
   cfp:
     abstract_hint: Un petit paragraphe qui vous décrit succintement. (HTML)
+    accept: Accepter
     avatar_hint: Uploader une nouvelle photo.
     back: Retour
     basic_information: Informations de base
@@ -423,6 +424,8 @@ fr:
     save_availability: Sauvegarder la disponibilité
     save_cfp: Enregistrer l’appel à participation
     scheduled: Heure prévue
+    self_schedule_accepted: Auto-planning accepté
+    self_schedule_denied: Auto-planning refusé
     send_reset_instructions: Renvoyez-moi les instruction de changement de mot de passe
     sent_password_reset_instructions: Les instructions de changement de mot de passe ont été envoyée à l’adresse email que vous nous avez donné·e.
     set_to: mis à
@@ -461,18 +464,18 @@ fr:
   # /CFP
   # ----
 
-  classifiers: Classificateurs
+  classifiers: Catégories
 
   # ----
   # Classifiers
   # ----
   classifiers_module:
-    current_classifiers: 'Les classificateurs actuellement configurés sont :'
+    current_classifiers: 'Les catégories actuellement configurés sont :'
     empty_classifiers: |
-      Vous pouvez créer et éditer les classificateurs que les personnes
+      Vous pouvez créer et éditer les catégories que les personnes
       peuvent donner à leurs évènements
     modify_classifier_with_parent: |
-      Les classificateurs pour cette conférence peuvent être seulement
+      Les catégories pour cette conférence peuvent être seulement
       modifiés avec les droits d’administration de la conférence parente :
       %{parent}
   # ----
@@ -507,6 +510,7 @@ fr:
   col_reimbursed_expenses: 'Dépenses remboursées :'
   col_role: 'Rôle:'
   col_room: 'Salle :'
+  col_rooms: 'Salles :'
   col_speakers: 'Orateur(s) :'
   col_start_time: 'Début :'
   col_submission_notes: 'Notes de soumission (user et admin) :'
@@ -610,6 +614,7 @@ fr:
     notice_bulk_notification_queued: 'Groupe de notifications pour les évènements dans %{notification} mises en file d’attente..'
     notice_conference_created: Conférence créée avec succès.
     notice_conference_updated: Conférence mise à jour avec succès.
+    parent_conference: Conférence mère
     past_conferences: Conférences passées
     recent_changes: Changements récents
     recent_changes_text: |
@@ -686,7 +691,7 @@ fr:
   date:
     abbr_day_names: [Lun, Mar, Mer, Jeu, Ven, Sam, Dim]
     abbr_month_names: [~, Jan, Fév, Mar, Avr, Mai, Jun, Jul, Aou, Sep, Oct, Nov, Dec]
-    names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
+    day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
     formats:
       default: '%Y-%m-%d'
       long: '%B %d, %Y'
@@ -905,7 +910,7 @@ fr:
   edit: Éditer
   edit_account: Éditer le compte
   edit_conference: Éditer la conférence
-  edit_conference_classifiers: Éditer les classificateurs de la conférence
+  edit_conference_classifiers: Éditer les catégories de la conférence
   edit_conference_days: Éditer les jours de la conférence
   edit_conference_rooms: Éditer les salles de la conférence
   edit_conference_schedule: Modifier la programmation de la conférence
@@ -1572,7 +1577,7 @@ fr:
         schedule: 'Programme – %{label}'
         schedule_for_day: 'Programme du jour %{index} – %{label}'
       event:
-#        concurrent_events: Eventos concurrents
+        concurrent_events: Évènements concourrant
         day: Jour
         duration: Durée
         feedback: Commentaires
@@ -1592,19 +1597,23 @@ fr:
         title: Titre
         track: Fil
       index:
+        booklet: Brochure
         day: 'Jour %{index} – %{label}'
         events: Évènements
         events_by_track: Évènements par fil
         schedule: 'Programme – %{label}'
         schedule_index: Aperçu du programme
         speakers: Orateurs
+        timeline: Chronologie
       nav:
+        booklet: Brochure
         day: 'Jour %{index}'
         events: Évènements
         index: Aperçu
         qrcode: QR-Code
         schedule: Programme
         speakers: Orateurs
+        timeline: Chronologie
       qrcode:
         link_to_public_schedule: |
           Ce QR-code contient l’URL vers la version lisible par ordinateur du programme public.
@@ -1950,7 +1959,7 @@ fr:
     notice_need_disabled: Les besoins de transport sont désactivés pour cette conférence.
     notice_need_updated: Besoin de transport mis à jour avec succès.
     transport_needs: Besoin de transports
-    what_type_id_needed_hints: Quel type de transport est requis ?
+    what_type_id_needed_hint: Quel type de transport est requis ?
     when: Quand
   # ----
   # /Transports

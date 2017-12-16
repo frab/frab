@@ -1,12 +1,12 @@
 = simple_form_for(@conference, url: @conference.new_record? ? create_conference_path : conference_path) do |f|
   - if @conference.new_record? && @possible_parents.any?
     %fieldset.inputs
-      %legend= t(:parent_conference)
+      %legend= t('conferences_module.parent_conference')
       = f.input :parent_id, as: :select, collection: @possible_parents, hint: "Please select a parent for this new conference. A conferences nested under a parent will inherit the days and some settings (such as time slots and time zones etc.) from the parent, and the configuration of rooms and tracks may only be done with administation right for the parent conference. The parent's schedule export will also include events from the sub-conferences. If you don't know what this means, just leave this field blank, but note that this setting cannot be changed after the conference has been created."
 
   - elsif @conference.sub_conference?
     %fieldset.inputs
-      %legend= t(:parent_conference)
+      %legend= t('conferences_module.parent_conference')
       .input
         This conference is a sub-conference of
         ="'#{@conference.parent.title}'."
@@ -23,7 +23,7 @@
       = f.input :timezone, as: :time_zone, hint: t('conferences_module.inputs.hints.timezone')
       = f.input :timeslot_duration, as: :select, collection: timeslot_durations(@conference), hint: t('conferences_module.inputs.hints.timeslot_duration')
       = f.input :default_timeslots, as: :select, collection: 1..20, hint: t('conferences_module.inputs.hints.default_timeslots')
-      = f.input :max_timeslots, as: :select, collection: 1..100, hint: t('conferences_module.inputs.hints.')
+      = f.input :max_timeslots, as: :select, collection: 1..100, hint: t('conferences_module.inputs.hints.max_timeslots')
   = dynamic_association :languages, t(:event_languages), f, hint: t('conferences_module.inputs.hints.event_languages')
   %fieldset.inputs
     %legend= t(:submission_configuration)
