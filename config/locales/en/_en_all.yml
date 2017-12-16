@@ -255,8 +255,8 @@ en:
       link: link
       notification: Notification
       person:
-        one: Profile
-        other: Profiles
+        one: profile
+        other: profiles
       phone_number: phone number
       room: room
       track: track
