@@ -97,6 +97,7 @@ en:
   col_type: "Type:"
   col_language: "Language:"
   col_abstract: "Abstract:"
+  col_speakers: "Speakers:"
   col_links: "Links:"
   col_description: "Description:"
   col_total: "Total:"
