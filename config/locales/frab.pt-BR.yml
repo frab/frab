@@ -70,11 +70,9 @@ pt-BR:
     human:
       decimal_units:
         units:
-          million: Milhão
           billion:
             one: Bilhão
             others: Bilhões
-          trillion: Trilhões
           quadrillion:
             one: Quatrilhão
             others: Quatrilhões
