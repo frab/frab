@@ -86,6 +86,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'letter_opener'
   gem 'faker'
+  gem 'i18n-tasks'
 end
 
 group :test do
