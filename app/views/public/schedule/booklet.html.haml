@@ -30,3 +30,7 @@
             %p= event.abstract.truncate(250)
           - if event.description.present?
             %p= event.description.truncate(1200)
+          .speakers
+            %ul
+              - event.speakers.each do |speaker|
+                %li= link_to speaker.public_name, public_speaker_path(id: speaker.id)
