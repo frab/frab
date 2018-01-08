@@ -1,5 +1,239 @@
 ---
 de:
+  ability:
+    denied: Der Vorgang ist nicht erlaubt.
+  actions: Aktionen
+  activemodel:
+    errors:
+      template:
+        body: 'Bitte überprüfen Sie die folgenden Felder:'
+        header:
+          one: 'Konnte %{model} nicht speichern: ein Fehler.'
+          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  activerecord:
+    attributes:
+      conference:
+        acronym: Kürzel
+        color: Farbe
+        default_timeslots: Standard-Anzahl Zeitslots
+        email: E-Mail
+        feedback_enabled: Feedback aktiviert
+        max_timeslots: Maximale Anzahl Zeitslots
+        schedule_public: Zeitplan öffentlich
+        schedule_version: Version des Zeitplans
+        timeslot_duration: Dauer der Zeitslots
+        timezone: Zeitzone
+        title: Titel
+      day:
+        end_date: Ende
+        start_date: Anfang
+      event:
+        abstract: Abstract
+        description: Beschreibung
+        event_type: Art der Veranstaltung
+        language: Sprache
+        logo: Logo
+        state: Status
+        submission_note: Details zur Einreichung
+        subtitle: Untertitel
+        tech_rider: Material
+        time_slots: Dauer
+        title: Titel
+        track: Track
+      event_attachment:
+        attachment: Datei
+        title: Titel
+      event_feedback:
+        comment: Kommentar
+        rating: Bewertung
+      im_account:
+        im_address: Adresse/Username
+        im_type: Typ
+      language:
+        language: Sprache
+      link:
+        title: Titel
+        url: URL
+      person:
+        abstract: Abstract
+        avatar: Profilbild
+        description: Beschreibung
+        email: E-Mail
+        email_public: E-Mail öffentlich?
+        first_name: Vorname
+        gender: Geschlecht
+        last_name: Nachname
+        public_name: Öffentlicher Name
+      phone_number:
+        phone_number: Nummer
+        phone_type: Typ
+      room:
+        name: Name
+        public: Öffentlich
+        rank: Rang
+        size: Größe
+      track:
+        color: Farbe
+        name: Name
+      user:
+        current_password: Aktuelles Passwort
+        email: E-Mail
+        password: Passwort
+        password_confirmation: Passwort wiederholen
+        remember_me: An diesem Computer eingeloggt bleiben
+    errors:
+      full_messages:
+        format: "%{attribute}%{message}"
+      messages:
+        confirmation: stimmt nicht mit der Bestätigung überein
+        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+        taken: ist bereits vergeben
+      template:
+        body: 'Bitte überprüfen Sie die folgenden Felder:'
+        header:
+          one: 'Konnte %{model} nicht speichern: ein Fehler.'
+          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+    models:
+      call_for_participation: Aufruf
+      classifier: Classifier
+      conference: Konferenz
+      day: Tag
+      event: Einreichung
+      event_attachment: Datei
+      event_classifier:
+        one: Kategorie
+        other: Kategorien
+      event_feedback: Feedback
+      event_person:
+        one: Person
+        other: Personen
+      event_rating: Bewertung
+      im_account: IM-Account
+      language: Sprache
+      link: Link
+      person:
+        one: Profil
+        other: Profile
+      phone_number: Telefonnummer
+      room: Raum
+      track: Track
+  add_association: "%{name} hinzufügen"
+  basic_information: Grundlegende Informationen
+  call_for_participation: Call for Participation
+  cfp:
+    abstract_hint: Ein kurzer, prägnanter Absatz zu Ihrer Person. (HTML)
+    avatar_hint: Laden Sie ein neues Bild hoch.
+    back: Zurück
+    basic_information: Basisinformationen
+    bio: Beschreibung Ihrer Person
+    change_password_button: Passwort ändern
+    change_password_headline: Passwort ändern
+    classifiers_hint: Durch 'classifier' können Sie der Veranstaltungs-Organisation und Ihrem Publikum helfen, die Einreichung besser einzuordnen. Wählen Sie die zutreffenden Kategorien für Ihre Einreichung und wichten Sie sie mithilfe der Slider.
+    confirm: bestätigen
+    confirm_attendance: Teilnahme bestätigen
+    confirm_attendance_explanation: 'Bitte bestätigen Sie Ihre Teilnahme am Vortrag '
+    confirmation_button: Bestätigungsmail erneut anfordern
+    confirmation_description: 'Gelegentlich kann eine E-Mail nicht zugestellt werden. Wenn Sie bereits einige Zeit warten und auch schon Ihrem Spam-Ordner überprüft haben, klicken Sie bitten hier:'
+    confirmation_headline: Ich bin bereits registriert, habe aber keine Bestätigungsmail erhalten
+    confirmation_instructions_sent: Eine E-Mail mit Hinweisen, wie Ihr Konto bestätigt werden kann, wurde an Ihre E-Mailadresse gesendet.
+    contact_data: Kontaktdaten
+    contact_description_html: 'Haben Sie Probleme mit der Einreichung oder Fragen dazu, dann zögern Sie nicht, uns zu kontaktieren: %{mail_to}'
+    contact_headline: Kontakt
+    create_event_headline: Neuen Vorschlag einreichen
+    current_password_hint: wir benötigen Ihr aktuelles Passwort, um die Änderungen zu bestätigen
+    deadline_description: 'Bitte erstellen Sie alle Einreichungen bis zum:'
+    description_hint: Eine längere Beschreibung Ihrer Person. Für alles, was nicht in den Abstract passt. (HTML)
+    detailed_description: Detaillierte Beschreibung
+    edit_account: Account bearbeiten
+    edit_availability: Verfügbarkeit bearbeiten
+    edit_availability_description: Bitte lassen Sie uns wissen, zu welchen Zeiten Sie zur Verfügung stehen. Wir versuchen dies bei der Programmplanung zu berücksichtigen.
+    edit_availability_headline: Verfügbarkeit bearbeiten
+    edit_event_headline: Einreichung bearbeiten
+    edit_profile: Persönliches Profil bearbeiten
+    email_hint: Bitte geben Sie eine E-Mailadresse an, unter der wir Sie kontaktieren können.
+    email_public_hint: Wenn Sie mögen, veröffentlichen wir diese Adresse auch im Programm.
+    error_confirming: Bei der Bestätigung ist ein Fehler aufgetreten. Bitte stellen Sie sicher, dass sie den Link aus der E-Mail vollständig kopiert haben und dass Ihr Konto nicht bereits bestätigt ist.
+    error_sending_confirmation_instructions: Die E-Mail konnte nicht gesendet werden. Bitte stellen Sie sicher, dass die eingegebene Adresse korrekt ist und dass Ihr Konto nicht bereits bestätigt ist.
+    event_abstract_hint: Kurzer Absatz, der Ihren Vorschlag prägnant beschreibt. (HTML)
+    event_confirmed: Event bestätigt
+    event_created_notice: Vorschlag wurde eingereicht.
+    event_description_hint: Eine längere Beschreibung Ihres Vorschlags. Hier kann alles rein, was nicht in den Abstract passt. (HTML)
+    event_time_slots_hint: Länge Ihrer Veranstaltung in Stunden und Minuten. Für normale Vorträge sollte in der Regel der Standardwert übernommen werden.
+    event_updated_notice: Einreichung wurde bearbeitet.
+    event_withdrawn_notice: Ihre Einreichung wurde zurückgezogen.
+    events_submitted: 'Ihre bisherigen Einreichungen:'
+    forgot_password_button: Ein neues Passwort anfordern
+    forgot_password_description: 'Sie sind bereits registriert, aber können sich nicht mehr an Ihr Passwort erinnern? Keine Sorge, klicken Sie einfach hier:'
+    forgot_password_headline: Passwort vergessen?
+    hard_deadline_over: Es tut uns sehr leid, aber der Zeitraum zur Einreichung ist verstrichen.
+    im_accounts: Instant Messaging Accounts
+    info_url_description_html: 'Sind Sie unsicher, was Sie einreichen sollen? Alle Infos zum Call for Participation gibt es hier: %{link}'
+    information_headline: Information
+    input_appreciation: 'Vielen Dank für Ihre bisherigen Einreichungen. Gerne können Sie einen weiteren Vorschlag einreichen:'
+    join_alternative: 'Alternativ können Sie nach einem anderen Event suchen:'
+    join_confirm: Wollen Sie dem Event als Speaker beitreten?
+    join_description: 'Mit dem angegebenen Token können Sie sich als Speaker zum diesem Event eintragen:'
+    join_event: Event beitreten
+    join_submitters_hint: Verteilen Sie dieses Token an weitere Speaker für das Event. Nachdem diese einen Account angelegt haben, können sie das Token in der Ansicht 'Event beitreten' im Call for Paper benutzen.
+    join_success: Sie sind nun als Speaker für das Event eingetragen.
+    join_token_already_used: Für das Event waren Sie bereits als Speaker eingetragen.
+    join_token_link: Mit diesem Link können Sie direkt auf die 'Event beitreten'-Seite für dieses Event verweisen.
+    join_token_lookup: Event suchen
+    join_token_lookup_description: Bitte geben Sie das Token an, mit dem Sie einem Event als Speaker beitreten können.
+    join_token_lookup_hint: 'Tip: Das Token wird dem ursprüngliche Einreicher im der Ansicht ''Bearbeiten'' für das Event angezeigt.'
+    join_token_unknown: Das Token %{token} konnte nicht gefunden werden.
+    languages_spoken: Gesprochene Sprachen
+    links: Links
+    login_existing_description: Sie können sich anmelden, wenn Sie bereits für diesen, oder einen früheren Call for Participation, registriert sind.
+    login_existing_headline: Einloggen mit existierendem Account
+    looking_for_login_form: Suchen Sie den Login für Vortragende?
+    no_confirmation_token: Kein Bestätigungsschlüssel gefunden. Vermutlich haben Sie den Schlüssel bereits erfolgreich zuvor verwendet. Bitte loggen Sie sich ein und prüfen Sie den Status Ihrer Einreichung.
+    not_forget_personal_details: Und vergessen Sie nicht, Ihr Profil auszufüllen. Sie können Ihr Profil jederzeit über den Button in der rechten Seitenleiste ändern.
+    password_hint: leer lassen, wenn Sie es nicht ändern möchten
+    password_updated: Das Passwort wurde geändert.
+    person_created_notice: Profil erfolgreich angelegt.
+    person_updated_notice: Profil erfolgreich bearbeitet.
+    personal_details_description: Bitte füllen Sie das Formular aus, um sich uns (und bei Annahme Ihrer Einreichung natürlich auch den Konferenzteilnehmern) ein wenig vorzustellen.
+    personal_details_headline: Persönliches Profil
+    personal_details_later: Bitte beachten Sie, dass es reicht, die Pflichtfelder auszufüllen. Weitere Details können Sie später jederzeit ergänzen.
+    phone_numbers: Telefonnummern
+    problem_sending_password_reset_instructions: Die E-Mail konnte nicht gesendet werden. Bitte stellen Sie sicher, dass die eingegebene Adresse korrekt ist und dass Ihr Konto nicht bereits bestätigt ist.
+    public_name_hint: Name, der im Programm abgedruckt wird.
+    resend_confirmation_button: Bestätigungsmail erneut versenden
+    resend_confirmation_headline: Bestätigungsmail erneut versenden
+    save_availability: Verfügbarkeit speichern
+    scheduled: Geplante Zeit
+    send_reset_instructions: Passwortreset-Anweisungen zusenden
+    sent_password_reset_instructions: Eine E-Mail mit Hinweisen, wie Sie Ihr Passwort ändern können, wurde an Ihre E-Mailadresse gesendet.
+    sign_in: Einloggen
+    sign_up: Registrieren
+    sign_up_description: Wenn Sie hier zum ersten mal teilnehmen, nehmen Sie sich bitte die Zeit, sich zu registrieren. Das geht schnell und unkompliziert.
+    sign_up_headline: Neu registrieren
+    signed_up: Sie haben sich erfolgreich registriert. Um die Registrierung abzuschliessen, folgen Sie bitte der Anleitung in der Bestätigungsmail, die an Ihre E-Mailadresse gesendet wurde.
+    specify_availability: 'Lassen Sie uns wissen, zu welchen Zeiten Sie verfügbar sind:'
+    submission_note_hint: Wird nicht veröffentlicht
+    submit_another_event: Einen weiteren Vorschlag einreichen
+    submit_new_event: Vorschlag einreichen
+    successfully_confirmed: Ihr Konto ist bestätigt. Vielen Dank für die Registrierung.
+    take_time_to_submit: 'Bitte nehmen Sie sich die Zeit, eine Einreichung zu erstellen:'
+    thanks_for_confirmation: Vielen Dank, dass Sie Ihre Teilnahme bestätigt haben.
+    thanks_for_interest: Vielen Dank für Ihr Interesse an einer Teilname an unserer Veranstaltung, %{title}.
+    update: Speichern
+    update_availability_notice: Vielen Dank, dass Sie Ihre Verfügbarkeit angegeben haben.
+    updated: Erfolgreich gespeichert.
+    uploaded_files: Hochgeladene Dateien
+    welcome: Willkommen
+    welcome_text: Willkommen beim Call for Participation. Zum Erstellen oder Bearbeiten von Einreichungen muss man eingeloggt sein. Wenn Sie hier neu sind, müssen Sie sich kurz registrieren.
+    withdraw: zurückziehen
+    withdrawal_confirmation: Wollen Sie diesen Vorschlag wirklich zurückziehen?
+  classifiers: Classifiers
+  conflict:
+    events_overlap: überschneidet sich mit
+    has_no_availability: hat bisher keine Angaben zur Verfügbarkeit gemacht.
+    person_already_speaking: 'hält gleichzeitig folgenden Vortrag:'
+    person_unavailable: ist nicht verfügbar zu dieser Zeit.
+  create_new_conference: Neue Konferenz erstellen
+  create_your_first_conference: Erste Konferenz erstellen
   date:
     abbr_day_names:
     - So
@@ -34,6 +268,7 @@ de:
     formats:
       default: "%d.%m.%Y"
       long: "%e. %B %Y"
+      only_day: "%e"
       short: "%e. %b"
     month_names:
     - 
@@ -53,56 +288,122 @@ de:
     - :day
     - :month
     - :year
+  date_not_set: noch nicht gesetzt
   datetime:
     distance_in_words:
       about_x_hours:
-        one: vor etwa einer Stunde
-        other: vor etwa %{count} Stunden
+        one: etwa eine Stunde
+        other: etwa %{count} Stunden
       about_x_months:
-        one: vor etwa einem Monat
-        other: vor etwa %{count} Monaten
+        one: etwa ein Monat
+        other: etwa %{count} Monate
       about_x_years:
-        one: vor etwa einem Jahr
-        other: vor etwa %{count} Jahren
+        one: etwa ein Jahr
+        other: etwa %{count} Jahre
       almost_x_years:
-        one: vor fast einem Jahr
-        other: vor fast %{count} Jahren
-      half_a_minute: vor einer halben Minute
+        one: fast ein Jahr
+        other: fast %{count} Jahre
+      half_a_minute: eine halbe Minute
       less_than_x_minutes:
-        one: vor weniger als einer Minute
-        other: vor weniger als %{count} Minuten
+        one: weniger als eine Minute
+        other: weniger als %{count} Minuten
       less_than_x_seconds:
-        one: vor weniger als eine Sekunde
-        other: vor weniger als %{count} Sekunden
+        one: weniger als eine Sekunde
+        other: weniger als %{count} Sekunden
       over_x_years:
-        one: vor mehr als einem Jahr
-        other: vor mehr als %{count} Jahren
+        one: mehr als ein Jahr
+        other: mehr als %{count} Jahre
       x_days:
-        one: vor einem Tag
-        other: "vor %{count} Tagen"
+        one: ein Tag
+        other: "%{count} Tage"
       x_minutes:
-        one: vor einer Minute
-        other: "vor %{count} Minuten"
+        one: eine Minute
+        other: "%{count} Minuten"
       x_months:
-        one: vor einem Monat
-        other: "vor %{count} Monaten"
+        one: ein Monat
+        other: "%{count} Monate"
       x_seconds:
-        one: vor einer Sekunde
-        other: "vor %{count} Sekunden"
+        one: eine Sekunde
+        other: "%{count} Sekunden"
     prompts:
       day: Tag
       hour: Stunden
-      minute: Minute
+      minute: Minuten
       month: Monat
-      second: Sekunde
-      year: Jahr //all are in singular now
+      second: Sekunden
+      year: Jahr
+  days: Tage
+  edit: Bearbeiten
+  edit_conference: Konferenz bearbeiten
+  edit_conference_classifiers: Classifiers bearbeiten
+  edit_conference_days: Konferenz-Tage bearbeiten
+  edit_conference_rooms: Konferenz-Räume bearbeiten
+  edit_conference_schedule: Zeitplan bearbeiten
+  edit_conference_tracks: Konferenz-Tracks bearbeiten
+  edit_ticket_server: Ticket-Server bearbeiten
+  emails:
+    event_acceptance:
+      accepted_event: |
+        wir freuen uns, Dir mitteilen zu dürfen, dass Dein Vortrag
+
+        %{event}
+
+        angenommen wurde.
+      check_data: |
+        Und wenn Du schon dabei bist: Nach dem Bestätigen landest
+        Du in unserem Konferenzplanungssystem. Bitte nimm Dir kurz
+        Zeit, nochmal Deine Daten dort zu überprüfen. Diese werden
+        im offiziellen Konferenzprogramm verwendet. Außerdem kannst
+        Du auch noch Deine Verfügbarkeit zu verschiedenen Zeiten
+        angeben. Wir werden versuchen, diese bei der Zeitplanung zu
+        berücksichtigen.
+      confirmation: |
+        Bitte bestätige uns kurz, dass Du auf der Konferenz anwesend
+        sein und den Vortrag halten wirst. Dazu kannst Du ganz
+        einfach folgenden Link nutzen:
+
+        %{link}
+      goodbye: "Schöne Grüße \n\nDas %{conference}-Team\n"
+      greeting: Hallo %{forename},
+      subject: Deine Einreichung zur %{conference}
+    event_rejection:
+      goodbye: "Schöne Grüße \n\nDas %{conference}-Team\n"
+      greeting: Hallo %{forename},
+      rejection: |
+        wir möchten Dir ganz herzlich danken für Deine Einreichung. Wir
+        waren überrascht und überwältigt von der Fülle und Qualität der
+        Einreichungen, die wir erhalten haben.
+
+        Nach einem aufwändigen Auswahlprozess mussten wir uns schweren
+        Herzens entscheiden, Deine folgende Einreichung abzulehnen:
+
+        %{event}
+
+        Wir möchten Dir versichern, dass uns die Entscheidung nicht
+        leicht gefallen ist. Wir würden uns dennoch sehr freuen, Dich
+        auf der Konferenz begrüßen zu können.
+      subject: Deine Einreichung zur %{conference}
+    event_schedule:
+      goodbye: |
+        Schöne Grüße
+
+        Das %{conference}-Team
+      greeting: Hallo %{forename},
+      info: |
+        Wir freuen uns, mitteilen zu können, dass Deine Einreichung
+
+        %{event}
+
+        einen Platz im Programm gefunden hat. Sie findet am %{date}
+        um %{time} in %{room} statt.
+      subject: Deine Einreichung zur %{conference} am %{date} um %{time}
+  error_signing_in: E-Mailadresse oder Passwort ungültig.
   errors:
     format: "%{attribute} %{message}"
     messages:
       accepted: muss akzeptiert werden
       blank: muss ausgefüllt werden
-      present: darf nicht ausgefüllt werden
-      confirmation: stimmt nicht mit %{attribute} überein
+      confirmation: stimmt nicht mit der Bestätigung überein
       empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
@@ -116,11 +417,12 @@ de:
       not_a_number: ist keine Zahl
       not_an_integer: muss ganzzahlig sein
       odd: muss ungerade sein
+      other_than: darf nicht gleich %{count} sein
+      present: darf nicht ausgefüllt werden
       record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
       restrict_dependent_destroy:
-        one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
-          existiert.
         many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
+        one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz existiert.
       taken: ist bereits vergeben
       too_long:
         one: ist zu lang (mehr als 1 Zeichen)
@@ -131,12 +433,14 @@ de:
       wrong_length:
         one: hat die falsche Länge (muss genau 1 Zeichen haben)
         other: hat die falsche Länge (muss genau %{count} Zeichen haben)
-      other_than: darf nicht gleich %{count} sein
     template:
       body: 'Bitte überprüfen Sie die folgenden Felder:'
       header:
         one: 'Konnte %{model} nicht speichern: ein Fehler.'
         other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  event_languages: Veranstaltungssprachen
+  events: Veranstaltungen
+  features: Zusatzfunktionen
   helpers:
     select:
       prompt: Bitte wählen
@@ -144,11 +448,539 @@ de:
       create: "%{model} erstellen"
       submit: "%{model} speichern"
       update: "%{model} aktualisieren"
+  languages:
+    ab: Abchasisch
+    ace: Aceh-Sprache
+    ach: Acholi-Sprache
+    ada: Adangme
+    ady: Adygeisch
+    ae: Avestisch
+    af: Afrikaans
+    afa: Afroasiatisch
+    afh: Afrihili
+    ain: Ainu-Sprache
+    ak: Akan
+    akk: Akkadisch
+    ale: Aleutisch
+    alg: Algonkin-Sprache
+    alt: Süd-Altaisch
+    am: Amharisch
+    an: Aragonesisch
+    ang: Altenglisch
+    anp: Angika
+    apa: Apache-Sprache
+    ar: Arabisch
+    arc: Aramäisch
+    arn: Araukanisch
+    arp: Arapaho-Sprache
+    art: Kunstsprache
+    arw: Arawak-Sprache
+    as: Assamesisch
+    asa: Asu (Tanzania)
+    ast: Asturianisch
+    ath: Athapaskisch
+    aus: Australisch
+    av: Awarisch
+    awa: Awadhi
+    ay: Aymara
+    az: Aserbaidschanisch
+    ba: Baschkirisch
+    bad: Banda-Sprache
+    bai: Bamileke-Sprache
+    bal: Belutschisch
+    ban: Balinesisch
+    bas: Basaa-Sprache
+    bat: Baltisch
+    be: Weißrussisch
+    bej: Bedauye
+    bem: Bemba-Sprache
+    ber: Berbersprache
+    bez: Bena (Tanzania)
+    bg: Bulgarisch
+    bh: Biharisch
+    bho: Bhodschpuri
+    bi: Bislama
+    bik: Bikol-Sprache
+    bin: Bini-Sprache
+    bla: Blackfoot-Sprache
+    bm: Bambara-Sprache
+    bn: Bengalisch
+    bnt: Bantusprache
+    bo: Tibetisch
+    br: Bretonisch
+    bra: Braj-Bhakha
+    brx: brx
+    bs: Bosnisch
+    btk: Batak
+    bua: Burjatisch
+    bug: Buginesisch
+    byn: Blin
+    ca: Katalanisch
+    cad: Caddo
+    cai: Zentralamerikanische Indianersprache
+    car: Karibisch
+    cau: Kaukasisch
+    cch: Atsam
+    ce: Tschetschenisch
+    ceb: Cebuano
+    cel: Keltisch
+    ch: Chamorro-Sprache
+    chb: Chibcha-Sprache
+    chg: Tschagataisch
+    chk: Trukesisch
+    chm: Tscheremissisch
+    chn: Chinook
+    cho: Choctaw
+    chp: Chipewyan
+    chr: Cherokee
+    chy: Cheyenne
+    cmc: Cham-Sprache
+    co: Korsisch
+    cop: Koptisch
+    cpe: Kreolisch-Englische Sprache
+    cpf: Kreolisch-Französische Sprache
+    cpp: Kreolisch-Portugiesische Sprache
+    cr: Cree
+    crh: Krimtatarisch
+    crp: Kreolische Sprache
+    cs: Tschechisch
+    csb: Kaschubisch
+    cu: Kirchenslawisch
+    cus: Kuschitisch
+    cv: Tschuwaschisch
+    cy: Walisisch
+    da: Dänisch
+    dak: Dakota-Sprache
+    dar: Darginisch
+    day: Dajak
+    de: Deutsch
+    de-AT: Österreichisches Deutsch
+    de-CH: Schweizer Hochdeutsch
+    del: Delaware-Sprache
+    den: Slave
+    dgr: Dogrib
+    din: Dinka-Sprache
+    doi: Dogri
+    dra: Drawidisch
+    dsb: Niedersorbisch
+    dua: Duala
+    dum: Mittelniederländisch
+    dv: Maledivisch
+    dyu: Dyula-Sprache
+    dz: Bhutanisch
+    ebu: Kiembu
+    ee: Ewe-Sprache
+    efi: Efik
+    egy: Ägyptisch
+    eka: Ekajuk
+    el: Griechisch
+    elx: Elamisch
+    en: Englisch
+    en-AU: Australisches Englisch
+    en-CA: Kanadisches Englisch
+    en-GB: Britisches Englisch
+    en-US: Amerikanisches Englisch
+    enm: Mittelenglisch
+    eo: Esperanto
+    es: Spanisch
+    es-ES: Iberisches Spanisch
+    et: Estnisch
+    eu: Baskisch
+    ewo: Ewondo
+    fa: Persisch
+    'false': Norwegisch
+    fan: Pangwe-Sprache
+    fat: Fanti-Sprache
+    ff: Ful
+    fi: Finnisch
+    fil: Filipino
+    fiu: Finnougrisch
+    fj: Fidschianisch
+    fo: Färöisch
+    fon: Fon-Sprache
+    fr: Französisch
+    fr-CA: Kanadisches Französisch
+    fr-CH: Schweizer Französisch
+    frm: Mittelfranzösisch
+    fro: Altfranzösisch
+    frr: Nordfriesisch
+    frs: Ostfriesisch
+    fur: Friulisch
+    fy: Friesisch
+    ga: Irisch
+    gaa: Ga-Sprache
+    gay: Gayo
+    gba: Gbaya-Sprache
+    gd: Schottisches Gälisch
+    gem: Germanisch
+    gez: Geez
+    gil: Gilbertesisch
+    gl: Galizisch
+    gmh: Mittelhochdeutsch
+    gn: Guarani
+    goh: Althochdeutsch
+    gon: Gondi-Sprache
+    gor: Mongondou
+    got: Gotisch
+    grb: Grebo-Sprache
+    grc: Altgriechisch
+    gsw: Schweizerdeutsch
+    gu: Gujarati
+    gv: Manx
+    gwi: Kutchin-Sprache
+    ha: Hausa
+    hai: Haida-Sprache
+    haw: Hawaiisch
+    he: Hebräisch
+    hi: Hindi
+    hil: Hiligaynon-Sprache
+    him: Himachali
+    hit: Hethitisch
+    hmn: Miao-Sprache
+    ho: Hiri-Motu
+    hr: Kroatisch
+    hsb: Obersorbisch
+    ht: Haitianisch
+    hu: Ungarisch
+    hup: Hupa
+    hy: Armenisch
+    hz: Herero-Sprache
+    ia: Interlingua
+    iba: Iban
+    id: Indonesisch
+    ie: Interlingue
+    ig: Igbo-Sprache
+    ii: Sichuan Yi
+    ijo: Ijo-Sprache
+    ik: Inupiak
+    ilo: Ilokano-Sprache
+    inc: Indoarisch
+    ine: Indogermanisch
+    inh: Inguschisch
+    io: Ido-Sprache
+    ira: Iranische Sprache
+    iro: Irokesische Sprache
+    is: Isländisch
+    it: Italienisch
+    iu: Inukitut
+    ja: Japanisch
+    jbo: Lojban
+    jpr: Jüdisch-Persisch
+    jrb: Jüdisch-Arabisch
+    jv: Javanisch
+    ka: Georgisch
+    kaa: Karakalpakisch
+    kab: Kabylisch
+    kac: Kachin-Sprache
+    kaj: Jju
+    kam: Kamba
+    kar: Karenisch
+    kaw: Kawi
+    kbd: Kabardinisch
+    kcg: Tyap
+    kea: Kabuverdianu
+    kfo: Koro
+    kg: Kongo
+    kha: Khasi-Sprache
+    khi: Khoisan-Sprache
+    kho: Sakisch
+    ki: Kikuyu-Sprache
+    kj: Kwanyama
+    kk: Kasachisch
+    kl: Grönländisch
+    km: Kambodschanisch
+    kmb: Kimbundu-Sprache
+    kn: Kannada
+    ko: Koreanisch
+    kok: Konkani
+    kos: Kosraeanisch
+    kpe: Kpelle-Sprache
+    kr: Kanuri-Sprache
+    krc: Karatschaiisch-Balkarisch
+    krl: Karelisch
+    kro: Kru-Sprache
+    kru: Oraon-Sprache
+    ks: Kaschmirisch
+    ku: Kurdisch
+    kum: Kumükisch
+    kut: Kutenai-Sprache
+    kv: Komi-Sprache
+    kw: Kornisch
+    ky: Kirgisisch
+    la: Latein
+    lad: Ladino
+    lah: Lahnda
+    lam: Lamba-Sprache
+    lb: Luxemburgisch
+    lez: Lesgisch
+    lg: Ganda-Sprache
+    li: Limburgisch
+    ln: Lingala
+    lo: Laotisch
+    lol: Mongo
+    loz: Rotse-Sprache
+    lt: Litauisch
+    lu: Luba-Katanga
+    lua: Luba-Lulua
+    lui: Luiseno-Sprache
+    lun: Lunda-Sprache
+    luo: Luo-Sprache
+    lus: Lushai-Sprache
+    luy: Olulujia
+    lv: Lettisch
+    mad: Maduresisch
+    mag: Khotta
+    mai: Maithili
+    mak: Makassarisch
+    man: Manding-Sprache
+    map: Austronesisch
+    mas: Massai-Sprache
+    mdf: Moksha
+    mdr: Mandaresisch
+    men: Mende-Sprache
+    mg: Malagassi-Sprache
+    mga: Mittelirisch
+    mh: Marschallesisch
+    mi: Maori
+    mic: Micmac-Sprache
+    min: Minangkabau-Sprache
+    mis: "(andere Sprache)"
+    mk: Mazedonisch
+    mkh: Mon-Khmer-Sprache
+    ml: Malayalam
+    mn: Mongolisch
+    mnc: Mandschurisch
+    mni: Meithei-Sprache
+    mno: Manobo-Sprache
+    mo: Moldauisch
+    moh: Mohawk-Sprache
+    mos: Mossi-Sprache
+    mr: Marathi
+    ms: Malaiisch
+    mt: Maltesisch
+    mul: Mehrsprachig
+    mun: Munda-Sprache
+    mus: Muskogee-Sprache
+    mwl: Mirandesisch
+    mwr: Marwari
+    my: Birmanisch
+    myn: Maya-Sprache
+    myv: Ersja-Mordwinisch
+    na: Nauruisch
+    nah: Nahuatl
+    nai: Nordamerikanische Indianersprache
+    nap: Neapolitanisch
+    nb: Norwegisch Bokmål
+    nd: Nord-Ndebele-Sprache
+    nds: Niederdeutsch
+    ne: Nepalesisch
+    new: Newari
+    ng: Ndonga
+    nia: Nias-Sprache
+    nic: Nigerkordofanisch
+    niu: Niue-Sprache
+    nl: Niederländisch
+    nl-BE: Flämisch
+    nn: Norwegisch Nynorsk
+    nog: Nogai
+    non: Altnordisch
+    nqo: N’Ko
+    nr: Süd-Ndebele-Sprache
+    nso: Nord-Sotho-Sprache
+    nub: Nubisch
+    nv: Navajo
+    nwc: Alt-Newari
+    ny: Nyanja-Sprache
+    nym: Nyamwezi-Sprache
+    nyn: Nyankole
+    nyo: Nyoro
+    nzi: Nzima
+    oc: Okzitanisch
+    oj: Ojibwa-Sprache
+    om: Oromo
+    or: Orija
+    os: Ossetisch
+    osa: Osage-Sprache
+    ota: Osmanisch
+    oto: Otomangue-Sprache
+    pa: Pandschabisch
+    paa: Papuasprache
+    pag: Pangasinan-Sprache
+    pal: Mittelpersisch
+    pam: Pampanggan-Sprache
+    pap: Papiamento
+    pau: Palau
+    peo: Altpersisch
+    phi: Philippinen-Austronesisch
+    phn: Phönikisch
+    pi: Pali
+    pl: Polnisch
+    pon: Ponapeanisch
+    pra: Prakrit
+    pro: Altprovenzalisch
+    ps: Paschtu
+    pt: Portugiesisch
+    pt-BR: Brasilianisches Portugiesisch
+    pt-PT: Iberisches Portugiesisch
+    qu: Quechua
+    raj: Rajasthani
+    rap: Osterinsel-Sprache
+    rar: Rarotonganisch
+    rm: Rätoromanisch
+    rn: Rundi-Sprache
+    ro: Rumänisch
+    roa: Romanische Sprache
+    rof: rof
+    rom: Romani
+    ru: Russisch
+    rup: Aromunisch
+    rw: Ruandisch
+    rwk: rwk
+    sa: Sanskrit
+    sad: Sandawe-Sprache
+    sah: Jakutisch
+    sai: Südamerikanische Indianersprache
+    sal: Salish-Sprache
+    sam: Samaritanisch
+    sas: Sasak
+    sat: Santali
+    sc: Sardisch
+    scn: Sizilianisch
+    sco: Schottisch
+    sd: Sindhi
+    se: Nord-Samisch
+    sel: Selkupisch
+    sem: Semitisch
+    sg: Sango
+    sga: Altirisch
+    sgn: Gebärdensprache
+    sh: Serbo-Kroatisch
+    shn: Schan-Sprache
+    si: Singhalesisch
+    sid: Sidamo
+    sio: Sioux-Sprache
+    sit: Sinotibetisch
+    sk: Slowakisch
+    sl: Slowenisch
+    sla: Slawisch
+    sm: Samoanisch
+    sma: Süd-Samisch
+    smi: Lappisch
+    smj: Lule-Lappisch
+    smn: Inari-Lappisch
+    sms: Skolt-Lappisch
+    sn: Shona
+    snk: Soninke-Sprache
+    so: Somali
+    sog: Sogdisch
+    son: Songhai-Sprache
+    sq: Albanisch
+    sr: Serbisch
+    srn: Srananisch
+    srr: Serer-Sprache
+    ss: Swazi
+    ssa: Nilosaharanisch
+    st: Süd-Sotho-Sprache
+    su: Sundanesisch
+    suk: Sukuma-Sprache
+    sus: Susu
+    sux: Sumerisch
+    sv: Schwedisch
+    sw: Suaheli
+    swb: Komorisch
+    syc: Altsyrisch
+    syr: Syrisch
+    ta: Tamilisch
+    tai: Tai-Sprache
+    te: Telugu
+    tem: Temne
+    ter: Tereno-Sprache
+    tet: Tetum-Sprache
+    tg: Tadschikisch
+    th: Thailändisch
+    ti: Tigrinja
+    tig: Tigre
+    tiv: Tiv-Sprache
+    tk: Turkmenisch
+    tkl: Tokelauanisch
+    tl: Tagalog
+    tlh: Klingonisch
+    tli: Tlingit-Sprache
+    tmh: Tamaseq
+    tn: Tswana-Sprache
+    to: Tongaisch
+    tog: Tsonga-Sprache
+    tpi: Neumelanesisch
+    tr: Türkisch
+    ts: Tsonga
+    tsi: Tsimshian-Sprache
+    tt: Tatarisch
+    tum: Tumbuka-Sprache
+    tup: Tupi-Sprache
+    tut: Altaisch
+    tvl: Elliceanisch
+    tw: Twi
+    ty: Tahitisch
+    tyv: Tuwinisch
+    udm: Udmurtisch
+    ug: Uigurisch
+    uga: Ugaritisch
+    uk: Ukrainisch
+    umb: Mbundu-Sprache
+    und: Unbestimmte Sprache
+    ur: Urdu
+    uz: Usbekisch
+    vai: Vai-Sprache
+    ve: Venda-Sprache
+    vi: Vietnamesisch
+    vo: Volapük
+    vot: Wotisch
+    wa: Wallonisch
+    wak: Wakashanisch
+    wal: Walamo-Sprache
+    war: Waray
+    was: Washo-Sprache
+    wen: Sorbisch
+    wo: Wolof
+    xal: Kalmückisch
+    xh: Xhosa
+    yao: Yao-Sprache
+    yap: Yapesisch
+    yi: Jiddisch
+    yo: Yoruba
+    ypk: Yupik-Sprache
+    yue: Kantonesisch
+    za: Zhuang
+    zap: Zapotekisch
+    zbl: Bliss-Symbole
+    zen: Zenaga
+    zh: Chinesisch
+    zh-Hans: Chinesisch (vereinfacht)
+    zh-Hant: Chinesisch (traditionell)
+    znd: Zande-Sprache
+    zu: Zulu
+    zun: Zuni-Sprache
+    zxx: Keine Sprachinhalte
+    zza: Zaza
+  launch_call_for_participation: Aufruf starten
+  mail_templates: Mailvorlagen
+  mailers:
+    user_mailer:
+      confirmation_instructions: Account aktivieren
+      password_reset_instructions: Password zurücksetzen
+  navigation:
+    conferences: Konferenzen
+    event: Details
+    feedbacks: Feedbacks
+    people: Personen
+    ratings: Bewertungen
+    users: Benutzer
+  new_conference: Neue Konferenz
   number:
     currency:
       format:
-        delimiter: "."
-        format: "%n %u"
+        delimiter: ''
+        format: "%n%u"
         precision: 2
         separator: ","
         significant: false
@@ -167,16 +999,18 @@ de:
           billion:
             one: Milliarde
             other: Milliarden
+            others: Milliarden
           million: Millionen
           quadrillion:
             one: Billiarde
             other: Billiarden
+            others: Billiarden
           thousand: Tausend
           trillion: Billionen
           unit: ''
       format:
         delimiter: ''
-        precision: 3
+        precision: 1
         significant: true
         strip_insignificant_zeros: true
       storage_units:
@@ -196,15 +1030,132 @@ de:
     precision:
       format:
         delimiter: ''
+  options:
+    business: Geschäftlich
+    concert: Konzert
+    dect: DECT
+    djset: DJ-Set
+    fax: Fax
+    female: weiblich
+    film: Film
+    lecture: Vortrag
+    lightning_talk: Lightning Talk
+    male: männlich
+    meeting: Meeting
+    mobile: Mobil
+    other: Andere
+    performance: Theater/Performance
+    phone: Telefon
+    podium: Podiumsdiskussion
+    private: Privat
+    secretary: Sekretärin/Vorzimmer
+    skype: Skype
+    talk: Vortrag
+    work: Arbeit
+    workshop: Workshop
+  participate: Teilnehmen
+  people: Personen
+  public:
+    feedback:
+      new:
+        feedback_for: 'Feedback zu: %{title}'
+        how_would_you_rate: Wie fandest du diese Veranstaltung? 5 ist die beste Bewertung und 1 die schlechteste.
+        please_let_us_know: Uns interessiert deine Meinung!
+        submit_feedback: Feedback abschicken
+        what_did_you_like: Was hat dir gefallen? Was nicht? Wie könnte man die Veranstaltung verbessern? War der Stream gut gemacht?
+      thank_you:
+        return: Zurück zum Zeitplan
+        thank_you: Danke!
+        thank_you_for_helping_us: Danke für deine Hilfe bei der Verbesserung unserer Veranstaltungen. Bitte bewerte so viele Veranstaltungen, auf denen du warst, wie möglich.
+    schedule:
+      day:
+        schedule: Zeitplan – %{label}
+        schedule_for_day: Zeitplan für Tag %{index} – %{label}
+      event:
+        day: Tag
+        duration: Dauer
+        feedback: Feedback
+        feedback_link: Uns interessiert deine Meinung! Wie fandest du diese Veranstaltung?
+        files: Dateien
+        info: Info
+        language: Sprache
+        links: Links
+        no_recording: Diese Veranstaltung wird nicht aufgezeichnet
+        room: Raum
+        speakers: Referenten
+        start_time: Anfang
+        track: Track
+      events:
+        events: Veranstaltungen
+        speakers: Referenten
+        title: Titel
+        track: Track
+      index:
+        day: Tag %{index} – %{label}
+        events: Veranstaltungen
+        schedule: Zeitplan – %{label}
+        schedule_index: Programmübersicht
+        speakers: Referenten
+      nav:
+        day: Tag %{index}
+        events: Veranstaltungen
+        index: Übersicht
+        qrcode: QR-Code
+        schedule: Zeitplan
+        speakers: Referenten
+      qrcode:
+        link_to_public_schedule: |
+          Diese QR-Code enthält die URL zur maschinenlesbaren Verion der öffentlichen Programmübersicht.
+          Er kann von Apps wie Giggity oder BarfBag gescannt werden, um die Daten zu importieren.
+      speaker:
+        contact: Kontakt
+        email: E-Mail
+        events_in_this_conference: Veranstaltungen auf dieser Konferenz
+        links: Links
+        speaker: Referent
+      speakers:
+        events: Veranstaltungen
+        name: Name
+        speakers: Referenten
+      title: Programm %{title}
+  remove_association: "%{name} entfernen"
+  reports: Berichte
+  role:
+    admin: Admin
+    coordinator: Koordinator
+    crew: Crew
+    orga: Orga
+    reviewer: Reviewer
+    submitter: Einreicher
+  rooms: Räume
+  schedule: Zeitplan
+  schedule_configuration: Konfiguration des Zeitplans
+  settings: Einstellungen
+  sign_in_successful: Erfolgreich eingeloggt.
+  static_program_export: Statischer Programm-Export
+  submission_configuration: Konfiguration Einreichungen
   support:
     array:
       last_word_connector: " und "
       two_words_connector: " und "
       words_connector: ", "
+    select:
+      prompt: 'Bitte wählen:'
+  switch_conference: Konferenz wechseln
+  ticket_server: Ticket-Server
   time:
     am: vormittags
     formats:
+      day: "%A"
       default: "%A, %d. %B %Y, %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
+      month_datetime: "%d. %b %H:%M"
+      pretty_datetime: "%Y-%m-%d %H:%M"
       short: "%d. %B, %H:%M Uhr"
+      short_datetime: "%d. %H:%M"
+      time: "%H:%M"
     pm: nachmittags
+    time_range_seperator: " bis "
+  timeslot_configuration: Konfiguration der Zeiteinheiten
+  tracks: Tracks
+  your_submission: Dein Vortrag
