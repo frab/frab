@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :room_names do |n|
     "Room #{n}"
   end

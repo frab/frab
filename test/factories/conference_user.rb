@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   trait :conference_orga_role do
     role 'orga'
   end

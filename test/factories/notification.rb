@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :notification do
     reject_body 'reject body text'
     reject_subject 'rejected subject'

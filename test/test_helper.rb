@@ -12,7 +12,7 @@ Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f }
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
@@ -36,7 +36,7 @@ class ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   def login_as(role)
-    user = FactoryGirl.create(:user, role: role.to_s)
+    user = FactoryBot.create(:user, role: role.to_s)
     sign_in(user)
     user
   end

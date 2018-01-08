@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   trait :admin_role do
     role 'admin'
   end

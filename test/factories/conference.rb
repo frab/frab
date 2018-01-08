@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :conference_acronym do |n|
     "frabcon#{n}"
   end

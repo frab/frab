@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :event_title do |n|
     "Introducing frap part #{n}"
   end
