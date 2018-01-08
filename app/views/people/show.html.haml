@@ -29,7 +29,7 @@
         = @person.public_name
       %p
         %b= t('col_gender')
-        = @person.gender
+        = t("options.#{@person.gender}") if @person.gender
 
       - if @conference
         = render 'conference_status'
