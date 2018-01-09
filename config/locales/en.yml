@@ -1705,13 +1705,6 @@ en:
         person_filter: |
           Filter persons in the options menu below by their first name, last
           name, email address or user ID. Leave blank for no filtering."
-      no_people_in event: |
-        There are no people associated with this event yet.
-        Use the button on the right to add people. Please
-        note that you can only add people that are already
-        in the system. If the person you would like to add
-        is not yet in the system, go to the _People_
-        tab above and create this person first.
       notification_body: Notification body
       notification_subject: Notification subject
     list_of_people: List of people
@@ -1725,6 +1718,13 @@ en:
       There are no people associated with this conference yet. People will
       start appearing here, once they take on a role in any of this
       conference's events.
+    no_people_in_event: |
+      There are no people associated with this event yet.
+      Use the button on the right to add people. Please
+      note that you can only add people that are already
+      in the system. If the person you would like to add
+      is not yet in the system, go to the _People_
+      tab above and create this person first.
     no_user_account: Person has no user account yet and cannot login. Click on the user tab to create an account.
     no_user_account_for_person: |
       %{person} does not currently have a user account and thus cannot login.
