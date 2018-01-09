@@ -83,7 +83,7 @@ en:
         reimbursed: Reimbursed
         value: Value
       im_account:
-        im_adress: Address
+        im_address: Address
         im_type: IM Type
       langage:
         code: Code
@@ -663,7 +663,7 @@ en:
         headline: Welcome %{email} !
         link: Confirm my account
         subject: Confirmation instructions
-        text: 'You should confirm your email adress with the following link:
+        text: 'You should confirm your email address with the following link:
 
 '
       email_change:

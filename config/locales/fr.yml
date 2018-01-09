@@ -95,7 +95,7 @@ fr:
         reimbursed: Remboursée
         value: Montant
       im_account:
-        im_adress: Adresse
+        im_address: Adresse
         im_type: Type
       langage:
         code: Langue
