@@ -107,7 +107,7 @@ module ApplicationHelper
   def by_speakers(event)
     speakers = event.speakers.map { |p| link_to(p.public_name, p) }
     if speakers.present?
-      'by '.html_safe + safe_join(speakers, ', ')
+      (t('by') + ' ').html_safe + safe_join(speakers, ', ')
     else
       ''
     end
