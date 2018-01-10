@@ -1760,12 +1760,6 @@ fr:
         person_filter: |
           Filtrez les personnes par nom, prénom, adresse email ou id. Laissez vide
           pour enlever les filtres.
-      no_people_in event: |
-        Il n'y a pas de personne associée à cet évènement pour le moment.
-        Utilisez le bouton sur la droite pour en ajouter. Notez que vous
-        pouvez seulement ajouter des personnes qui sont déjà présentes dans le
-        système. Si vous voulez ajouter quelqu'un qui n'est pas encore dedans,
-        allez sur l'onglet _Personnes_ et créez cette personne en premier.
       notification_body: Notification body
       notification_subject: Notification subject
     list_of_people: Liste des personnes
@@ -1780,6 +1774,12 @@ fr:
       Il n'y a pas de personne associée à cette conférence pour le moment.
       Les gens vont commencer à apparître ici dès qu'ils auront pris un rôle
       dans l'un des évènenents de cette conférence.
+    no_people_in_event: |
+      Il n'y a pas de personne associée à cet évènement pour le moment.
+      Utilisez le bouton sur la droite pour en ajouter. Notez que vous
+      pouvez seulement ajouter des personnes qui sont déjà présentes dans le
+      système. Si vous voulez ajouter quelqu'un qui n'est pas encore dedans,
+      allez sur l'onglet _Personnes_ et créez cette personne en premier.
     no_user_account: |
       Cette personne n'a pas encore de compte utilisateur et ne peut donc pas se connecter.
       Cliquez sur l'onglet _Utilisateurs_ pour créer un compte.
