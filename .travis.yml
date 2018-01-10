@@ -1,7 +1,8 @@
 language: ruby
 dist: precise
 rvm:
-  - 2.4.1
+  - 2.4.3
+  - 2.5.0
 env:
   - DB=mysql
   - DB=postgresql
