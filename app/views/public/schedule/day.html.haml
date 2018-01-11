@@ -6,14 +6,15 @@
   - else
     = t '.schedule', label: l(@view_model.day.date)
 
-.event-navigation
-  %p= t('col_rooms')
-  %ul
-    - count_rooms = 0
-    - @view_model.room_slice_names.each do |rooms|
-      %li
-        %a{ href: "\##{count_rooms}"}= rooms.join(', ')
-        - count_rooms =+ 1
+- if @view_model.room_slice_names.count > 1
+  .event-navigation
+    %p= t('col_rooms')
+    %ul
+      - count_rooms = 0
+      - @view_model.room_slice_names.each do |rooms|
+        %li
+          %a{ href: "\##{count_rooms}"}= rooms.join(', ')
+          - count_rooms =+ 1
 
 %br.clear/
 #main-table
@@ -21,10 +22,11 @@
   - count = 0
   - @view_model.room_slices do |rooms|
     #conference-rooms{ id: count }
-      %hr
-      %h2= @view_model.room_slice_names[count].join(', ')
-      %a{ name: "#{count}"}
-      - count =+ 1
+      - if @view_model.room_slice_names.count > 1
+        %hr
+        %h2= @view_model.room_slice_names[count].join(', ')
+        %a{ name: "#{count}"}
+        - count =+ 1
       %table.rooms-table
         %thead
           %tr
