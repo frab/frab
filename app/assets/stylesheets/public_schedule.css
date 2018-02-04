@@ -21,33 +21,7 @@ body {
 }
 
 #header h1 {
-  -x-system-font: none;
   color: #fff;
-  font-family: sans-serif;
-  font-feature-settings: normal;
-  font-kerning: auto;
-  font-language-override: normal;
-  font-size: 4em;
-  font-size-adjust: none;
-  font-stretch: normal;
-  font-style: normal;
-  font-synthesis: weight style;
-  font-variant-alternates: normal;
-  font-variant-caps: normal;
-  font-variant-east-asian: normal;
-  font-variant-ligatures: normal;
-  font-variant-numeric: normal;
-  font-variant-position: normal;
-  font-weight: 300;
-  line-height: 1em;
-  margin-bottom: 0;
-  margin-left: 20px;
-  margin-right: 0;
-  margin-top: 0;
-  padding-bottom: 5px;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 10px;
 }
 
 #navigation p.tracks {
@@ -109,7 +83,6 @@ body {
   text-decoration:none;
   color:#494947;
   text-align:center;
-  font:400 1.12em/1.4em 'Open Sans', sans-serif;
   margin:0;
   border-bottom:5px solid transparent;
 }
@@ -117,7 +90,6 @@ body {
 #navigation ul li a:hover {
   text-decoration: underline;
 }
-
 
 .clear {
   clear: both;
@@ -197,7 +169,6 @@ table.rooms-table td.cell-time, table.rooms-table th.cell-time {
   border-bottom: 1px solid #9D9D9D;
   vertical-align: top;
   text-align: center;
-  font: bold 12px verdana, sans-serif;
   color:#666;
   background: #fff;
 }
@@ -496,7 +467,6 @@ dt {
   text-decoration:none;
   color:#494947;
   text-align:center;
-  font:400 1.12em/1.4em 'Open Sans', sans-serif;
   margin:0;
   border-bottom:5px solid transparent;
 }
