@@ -11,9 +11,9 @@
           - if conference.logo.present?
             = image_box conference&.logo, :small
         %td
-          = l(conference.days.first.start_date.to_date)
+          = l(conference.start_date.to_date)
           \-
-          = l(conference.days.last.end_date.to_date)
+          = l(conference.end_date.to_date)
         %td= conference.title
         %td
           - if show_cfp?(current_user, conference)

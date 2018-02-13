@@ -14,6 +14,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_response :success
     assert_includes response.body, '>present conference'
     assert_includes response.body, '>future conference'
+    assert_includes response.body, '>future conference sub'
     refute_includes response.body, '>past conference'
     refute_includes response.body, '>other conference'
   end

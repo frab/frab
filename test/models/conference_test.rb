@@ -79,7 +79,7 @@ class ConferenceTest < ActiveSupport::TestCase
     create(:future_call_for_participation, conference: future)
     future = create(:three_day_conference, title: 'future conference')
     create(:future_call_for_participation, conference: future)
-    assert_equal 2, Conference.future.count
+    assert_equal 4, Conference.future.count
   end
 
   test 'inherits from parent conference' do

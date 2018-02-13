@@ -1,6 +1,9 @@
 class Day < ApplicationRecord
   include HumanizedDateRange
 
+  after_commit :update_conference_date
+  after_destroy :update_conference_date
+
   belongs_to :conference
   has_many :availabilities, dependent: :destroy
 
@@ -71,5 +74,15 @@ class Day < ApplicationRecord
 
   def to_s
     "#{model_name.human}: #{label}"
+  end
+
+  private
+
+  def update_conference_date
+    return if conference.new_record?
+    start_date = conference.days.pluck(:start_date).min
+    end_date = conference.days.pluck(:end_date).min
+    conference.update(start_date: start_date, end_date: end_date)
+    Conference.where(parent_id: conference.id).update_all(start_date: start_date, end_date: end_date)
   end
 end

@@ -24,4 +24,13 @@ class DayTest < ActiveSupport::TestCase
     conference.days[1].start_date = conference.days[0].end_date.ago(2.hours)
     assert_equal false, conference.days[1].valid?
   end
+
+  test 'updating day updates conference' do
+    conference = create(:three_day_conference)
+    conference.reload
+    assert conference.start_date
+    assert conference.end_date
+    assert conference.subs.last.start_date
+    assert conference.subs.last.end_date
+  end
 end
