@@ -8,7 +8,7 @@
         %th= sort_link @search, :created_at, term: params[:term]
         %th= sort_link @search, :email, term: params[:term]
       - else
-        %th= t('activerecord.attributes.conference.acronym')
+        %th= Conference.human_attribute_name('acronym')
         %th= t('title')
         %th= t('created_at')
         %th= t('email')
