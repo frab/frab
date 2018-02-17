@@ -11,9 +11,9 @@ module CapybaraHelper
     sign_in(user.email, 'frab123')
   end
 
-  def visit_conference_settings
+  def visit_conference_settings(matcher = :first)
     click_on 'Conferences'
-    click_on 'Show'
+    click_on 'Show', match: matcher
     find('ul.nav:eq(2)').click_link('Settings')
   end
 end
