@@ -200,7 +200,7 @@ module StaticSchedule
     end
 
     def unlock_schedule
-      Conference.paper_trail.disable
+      PaperTrail.request.disable_model(Conference)
       @conference.schedule_public = true
       @conference.save!
     end
@@ -208,7 +208,7 @@ module StaticSchedule
     def lock_schedule
       @conference.schedule_public = @original_schedule_public
       @conference.save!
-      Conference.paper_trail.enable
+      PaperTrail.request.enable_model(Conference)
     end
   end
 end
