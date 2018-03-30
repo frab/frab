@@ -174,7 +174,7 @@ de:
     join_confirm: Wollen Sie dem Event als Speaker beitreten?
     join_description: 'Mit dem angegebenen Token können Sie sich als Speaker zum diesem Event eintragen:'
     join_event: Event beitreten
-    join_submitters_hint: Verteilen Sie dieses Token an weitere Speaker für das Event. Nachdem diese einen Account angelegt haben, können sie das Token in der Ansicht 'Event beitreten' im Call for Paper benutzen.
+    join_submitters_hint: Verteilen Sie dieses Token an weitere Speaker für das Event. Nachdem diese einen Account angelegt haben, können sie das Token in der Ansicht 'Event beitreten' im Call for Participation benutzen.
     join_success: Sie sind nun als Speaker für das Event eingetragen.
     join_token_already_used: Für das Event waren Sie bereits als Speaker eingetragen.
     join_token_link: Mit diesem Link können Sie direkt auf die 'Event beitreten'-Seite für dieses Event verweisen.

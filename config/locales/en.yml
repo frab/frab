@@ -241,8 +241,8 @@ en:
     inputs:
       hints:
         contact_email: An email address where participants can contact you in case they have any questions.
-        end_date: Pick a deadline for paper submission. This deadline will be displayed to the users but not otherwise enforced.
-        hard_deadline: Pick a hard deadline. No paper submission will be possible after this date. Leave empty if you want to allow submissions indefinitely.
+        end_date: Pick a deadline for participants' submission. This deadline will be displayed to the users but not otherwise enforced.
+        hard_deadline: Pick a hard deadline. No submission will be possible after this date. Leave empty if you want to allow submissions indefinitely.
         info_url: A web page that contains additional information about the Call for Participation. Please enter a full URL including 'http://'
         start_date: Pick a date when your CfP should be open for the public.
         welcome_text: Enter a welcome message or additional instructions you want to display to participants. (HTML)
@@ -264,7 +264,7 @@ en:
     login_existing_description: You can sign in if you created an account for this Call for Participation, or for any previous event.
     login_existing_headline: Log in with an existing account
     looking_for_login_form: Are you looking for the login of submitters?
-    no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for papers interface.
+    no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface.
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
     notifications:
       launched: Launched Call for Participation.
@@ -300,9 +300,9 @@ en:
     set_to: set to
     show:
       conference_empty_days: Conference will not show up until days are added.
-      dates_hint: The call for papers starts at %{start_date} and ends at %{end_date}.
+      dates_hint: The call for participation starts at %{start_date} and ends at %{end_date}.
       deadline_passed: The hard cfp deadline has passed, no submissions are possible.
-      edit_cfp_hint: Edit this Call for Paper's data
+      edit_cfp_hint: Edit this Call for Participation's data
       empty_description: The call for participation is running, but the description text is empty. frab won't link to the cfp.
       new_events_by_day: New events by day
       submitters_interface_link: 'The interface for submitters is available at:'
@@ -463,8 +463,8 @@ en:
     recent_changes_text: |
       Once you, or others start creating data for this
       conference, you will find who changed what here.
-      This is especially interesting if you conduct a
-      call for papers. In this case, this area allows
+      This is especially interesting if you conduct a call
+      for participation. In this case, this area allows
       you to quickly see if new submissions came in.
     rejected: Rejected
     rejecting: Rejecting
@@ -482,8 +482,8 @@ en:
 
       Start adding events by clicking on the
       _Events_ tab above. Or start a call for
-      papers, to allow others to submit events for
-      you to review.
+      participation, to allow others to submit
+      events for you to review.
     show_welcome: |
       Welcome, you seem to have just created this
       conference. A good first step would be to go
@@ -493,7 +493,7 @@ en:
     statistics: Statistics
     statistics_empty: |
       Once you created some events for this conference,
-      or gathered submissions through a call for papers,
+      or gathered submissions through a call for participation,
       you will find some statistics about them here.
     total: Total
     unconfirmed: Unconfirmed
@@ -891,7 +891,7 @@ en:
     accept_event: Accept event
     accept_event_hint: |
       Accept this event. The speaker(s) will be notified of the acceptance via
-      email. If they have access to the call for papers system, they will
+      email. If they have access to the call for participation system, they will
       receive a link to confirm their attendance as well.
     accept_event_no_email: Accept event (no email)
     accept_event_no_email_hint: Accept this event without sending an automated email.
@@ -922,7 +922,7 @@ en:
     error_no_event: |
       This conference does not yet have any events.
       Create some under the _Events_ tab above,
-      or launch a call for papers to gather events.
+      or launch a call for participation to gather events.
       Once you have events, you can schedule them
       here.
     error_no_room: |
@@ -961,7 +961,7 @@ en:
     no_attendee: There is no attendee feedback for this event yet.
     no_events: |
       This conference does not yet have any events. Start adding events by clicking on the
-      button on the right. Or start a call for papers, to allow others to submit events for
+      button on the right. Or start a call for participation, to allow others to submit events for
       you to review.
     no_ratings: |
       No one has entered a rating for this event yet. Be the first
@@ -1886,7 +1886,7 @@ en:
     col_orientation: 'Orientation:'
     col_rooms_per_page: 'Rooms to show per page:'
     col_select_day: 'Select day:'
-    col_select_paper_format: 'Select paper format:'
+    col_select_paper_format: 'Select participation format:'
     col_select_rooms: 'Select rooms:'
     col_use_half_page: 'Only use half page width:'
     create_locale: Create %{locale}
