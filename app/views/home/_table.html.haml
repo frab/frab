@@ -1,8 +1,8 @@
 %table.zebra-striped
   %thead
     %th.first
-    %th= t('activerecord.attributes.day.start_date')
-    %th= t('activerecord.attributes.conference.title')
+    %th= Day.human_attribute_name('start_date')
+    %th= Conference.human_attribute_name('title')
     %th= t(:actions)
   %tbody
     - collection.each do |conference|
