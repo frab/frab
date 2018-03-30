@@ -21,9 +21,9 @@
       %thead
         %tr
           %th &nbsp;
-          %th= t '.title'
-          %th= t '.track'
-          %th= t '.speakers'
+          %th= Event.human_attribute_name('title')
+          %th= Event.human_attribute_name('track')
+          %th= Event.human_attribute_name('speakers')
       %tbody
         - events.each do |event|
           %tr

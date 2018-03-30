@@ -12,7 +12,7 @@
       - else
         %th= t('title')
         %th= t('track')
-        %th= t('activerecord.attributes.event.event_type')
+        %th= Event.human_attribute_name('event_type')
         %th= t('state')
         %th= t('conference')
         %th= t('created_at')
