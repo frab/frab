@@ -210,11 +210,6 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.string "guid", limit: 255
     t.boolean "do_not_record", default: false
     t.string "recording_license", limit: 255
-    t.integer "number_of_repeats", default: 1
-    t.text "other_locations"
-    t.text "methods"
-    t.text "target_audience_experience"
-    t.text "target_audience_experience_text"
     t.text "tech_rider"
     t.string "invite_token"
     t.index ["conference_id"], name: "index_events_on_conference_id"
