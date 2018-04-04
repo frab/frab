@@ -45,6 +45,7 @@ class MailTemplatesController < BaseConferenceController
         format.xml  { head :ok }
         format.js   { head :ok }
       else
+        flash_model_errors(@mail_template)
         format.html { render action: 'edit' }
         format.xml  { render xml: @mail_template.errors, status: :unprocessable_entity }
       end

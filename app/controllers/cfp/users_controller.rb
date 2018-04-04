@@ -11,6 +11,7 @@ class Cfp::UsersController < ApplicationController
     if @user.update_attributes(user_params)
       redirect_to cfp_person_path(@user.person), notice: t(:"cfp.updated")
     else
+      flash_model_errors(@user)
       render action: 'edit'
     end
   end

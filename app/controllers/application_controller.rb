@@ -78,6 +78,10 @@ class ApplicationController < ActionController::Base
     current_user.person.public_name == current_user.email
   end
 
+  def flash_model_errors(model)
+    flash[:errors] = model.errors.full_messages.join
+  end
+
   private
 
   def user_not_authorized(ex)

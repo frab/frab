@@ -90,6 +90,7 @@ class Cfp::PeopleController < ApplicationController
         format.html { redirect_to(cfp_person_path, notice: t('cfp.person_updated_notice')) }
         format.xml  { head :ok }
       else
+        flash_model_errors(@person)
         format.html { render action: 'edit' }
         format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end

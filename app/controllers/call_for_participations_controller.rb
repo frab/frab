@@ -34,6 +34,7 @@ class CallForParticipationsController < BaseConferenceController
       redirect_to edit_call_for_participation_path, notice: t('alert_notifications.update_successful')
     else
       flash[:alert] = t('alert_notifications.update_failed')
+      flash_model_errors(@conference)
       render action: 'edit'
     end
   end

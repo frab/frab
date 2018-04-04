@@ -135,8 +135,7 @@ class ConferencesController < BaseConferenceController
       if @conference.update_attributes(existing_conference_params)
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_updated')) }
       else
-        # redirect to the right nested form page
-        flash[:errors] = @conference.errors.full_messages.join
+        flash_model_errors(@conference)
         format.html { render action: get_previous_nested_form(existing_conference_params) }
       end
     end

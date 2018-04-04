@@ -159,6 +159,7 @@ class EventsController < BaseConferenceController
         format.html { redirect_to(@event, notice: t('cfp.event_updated_notice')) }
         format.js   { head :ok }
       else
+        flash_model_errors(@event)
         @start_time_options = PossibleStartTimes.new(@event).all
         format.html { render action: 'edit' }
         format.js { render json: @event.errors, status: :unprocessable_entity }
