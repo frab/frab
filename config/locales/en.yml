@@ -207,7 +207,7 @@ en:
     contact_headline: Contact
     create_event_headline: Create a new event
     current_password_hint: we need your current password to confirm your changes
-    deadline_description: Please make sure to submit your proposal until
+    deadline_description: 'Please make sure to submit your proposal until **%{date}**'
     description_hint: A longer description of yourself. Use this to give additional details that did not fit in the abstract. (HTML)
     detailed_description: Detailed description
     edit_account: Edit your account
@@ -532,7 +532,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -558,7 +558,7 @@ en:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    - 
+    -
     - January
     - February
     - March

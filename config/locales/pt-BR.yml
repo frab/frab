@@ -121,7 +121,7 @@ pt-BR:
     contact_headline: Contato
     create_event_headline: Criar um  novo evento
     current_password_hint: precisamos de sua senha atual para confirmar as alterações
-    deadline_description: 'Por favor, certifique-se de enviar a sua proposta até:'
+    deadline_description: 'Por favor, certifique-se de enviar a sua proposta até: **%{date}**'
     description_hint: Uma longa descrição de si mesmo. Use isso para dar mais detalhes a seu respeito.
     detailed_description: Descrição Detalhada
     edit_account: Editar sua conta
@@ -203,7 +203,7 @@ pt-BR:
     - Sex
     - Sáb
     abbr_month_names:
-    - 
+    -
     - Jan
     - Fev
     - Mar
@@ -230,7 +230,7 @@ pt-BR:
       only_day: "%e"
       short: "%d de %B"
     month_names:
-    - 
+    -
     - Janeiro
     - Fevereiro
     - Março

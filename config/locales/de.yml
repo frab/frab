@@ -141,7 +141,7 @@ de:
     contact_headline: Kontakt
     create_event_headline: Neuen Vorschlag einreichen
     current_password_hint: wir benötigen Ihr aktuelles Passwort, um die Änderungen zu bestätigen
-    deadline_description: 'Bitte erstellen Sie alle Einreichungen bis zum:'
+    deadline_description: 'Bitte erstellen Sie alle Einreichungen bis zum: **%{date}**'
     description_hint: Eine längere Beschreibung Ihrer Person. Für alles, was nicht in den Abstract passt. (HTML)
     detailed_description: Detaillierte Beschreibung
     edit_account: Account bearbeiten

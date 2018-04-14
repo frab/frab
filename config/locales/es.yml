@@ -143,7 +143,7 @@ es:
     contact_headline: Contacto
     create_event_headline: Crear un evento
     current_password_hint: Necesitamos tu clave para confirmar los cambios
-    deadline_description: Por favor envíe su propuesta antes de
+    deadline_description: 'Por favor envíe su propuesta antes de **%{date}**'
     description_hint: Una descripción más extensa de usted. Use este espacio para dar detalles adicionales que no hayan cabido en el brevario. (HTML)
     detailed_description: Descripción detallada
     edit_account: Editar tu cuenta
@@ -229,7 +229,7 @@ es:
     - Vie
     - Sáb
     abbr_month_names:
-    - 
+    -
     - ene
     - feb
     - mar
@@ -256,7 +256,7 @@ es:
       only_day: "%e"
       short: "%e. %b"
     month_names:
-    - 
+    -
     - enero
     - febrero
     - marzo
