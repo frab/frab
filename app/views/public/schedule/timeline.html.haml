@@ -23,7 +23,7 @@
                 .subtitle
                   = event.subtitle
                 %i
-                  = event.room.name
+                  = event.room&.name
                   - if @conference.languages_including_subs.count > 1
                     = "(#{event.language})"
 

@@ -22,7 +22,7 @@
               %span= event.subtitle
               \-
             %span{class: track_class(event)}
-              = event.room.name
+              = event.room&.name
               - if event.language.present? && @conference.languages_including_subs.count > 1
                 = "(#{event.language})"
 
