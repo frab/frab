@@ -556,7 +556,7 @@ fr:
     - Sam
     - Dim
     abbr_month_names:
-    - 
+    -
     - Jan
     - Fév
     - Mar
@@ -582,7 +582,7 @@ fr:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    - 
+    -
     - Janvier
     - Février
     - Mars
