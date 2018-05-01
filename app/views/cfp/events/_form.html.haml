@@ -24,6 +24,7 @@
     = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
   .actions
     = f.button :submit, class: 'primary'
+    = link_to t('cancel'), :back, class: "btn"
 
 - if @event.present? && @event.invite_token.present?
   %div
