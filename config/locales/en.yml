@@ -366,6 +366,8 @@ en:
   col_reimbursed_expenses: 'Reimbursed expenses:'
   col_role: 'Role:'
   col_room: 'Room:'
+  col_room: 'Rooms:'
+  col_speakers: 'Speakers:'
   col_start_time: 'Start time:'
   col_submission_notes: 'Submission Notes(user and admin):'
   col_ticket: 'Ticket:'
