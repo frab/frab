@@ -20,6 +20,7 @@ en:
         description: Description
         name: Name
       conference:
+        acronym: Acronym
         bulk_notification_enabled: Bulk notifications enabled
         color: Color
         default_recording_license: Default recording license
@@ -44,6 +45,7 @@ en:
         locale: Locale
       conference_user:
         conference_id: Conference
+        role: Role
       conflict:
         conflict_type: Conflict type
         conflicting_event_id: Conflicting event
@@ -52,21 +54,31 @@ en:
         end_date: End date
         start_date: start
       event:
+        abstract: summary
         average_feedback: Average feedback
         average_rating: Average rating
+        description: Description
         do_not_record: Do not record
         event_feedback_count: Event feedback count
         event_ratings_count: Event ratings count
+        event_type: Event type
         guid: GUID
         invite_token: Invite token
+        language: Language
+        logo: Logo
         note: Note
         public: Public
         recording_license: Recording license
         speaker_count: Speaker count
+        speakers: speakers
         start_time: Start time
         state: state
+        submission_note: Submission notes
+        subtitle: Subtitle
         tech_rider: Tech rider
+        time_slots: Time slots
         title: title
+        track: track
       event_attachment:
         public: Public
         title: Title
@@ -97,6 +109,7 @@ en:
       notification:
         accept_body: Accept body
         accept_subject: Accept subject
+        locale: Language
         reject_body: Reject body
         reject_subject: Reject subject
         schedule_body: Schedule body
@@ -137,6 +150,12 @@ en:
         note: Note
         seats: Seats
         transport_type: Transport type
+      user:
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        remember_me: Remember me
+        role: Role
       video:
         mimetype: Mimetype
         url: Address
@@ -207,7 +226,7 @@ en:
     contact_headline: Contact
     create_event_headline: Create a new event
     current_password_hint: we need your current password to confirm your changes
-    deadline_description: 'Please make sure to submit your proposal until **%{date}**'
+    deadline_description: Please make sure to submit your proposal until **%{date}**
     description_hint: A longer description of yourself. Use this to give additional details that did not fit in the abstract. (HTML)
     detailed_description: Detailed description
     edit_account: Edit your account
@@ -271,6 +290,7 @@ en:
     pages:
       conference_open_mode: The conference is in open mode. Self scheduling is allowed
       event_confirm_attendence: Confirm attendance
+      event_confirmation_request: 'Your confirmation is required for the event: ** %{event} **.'
       not_started_cfp: |
         Unfortunately, the Call for Participation has not yet started. Please bear with us
         and leave us a little more time for our preparations.
@@ -365,8 +385,8 @@ en:
   col_public_name: 'Public name:'
   col_reimbursed_expenses: 'Reimbursed expenses:'
   col_role: 'Role:'
-  col_room: 'Room:'
   col_room: 'Rooms:'
+  col_rooms: 'Rooms:'
   col_speakers: 'Speakers:'
   col_start_time: 'Start time:'
   col_submission_notes: 'Submission Notes(user and admin):'
@@ -1029,6 +1049,7 @@ en:
   is_not_public: non-public
   is_public: public
   languages:
+    Ga: Irish
     ab: Abkhazian
     ace: Achinese
     ach: Acoli
@@ -1534,6 +1555,10 @@ en:
     zxx: No linguistic content
     zza: Zaza
   launch_call_for_participation: Launch Call for Participation
+  layouts:
+    public_schedule:
+      booklet: book
+      timeline: timeline
   lectures: Lectures
   lectures_commited: Lectures commited
   lectures_confirmed: Lectures confirmed
@@ -1667,6 +1692,7 @@ en:
     secretary: Secrétary
     shuttle: Shuttle
     skype: Skype
+    speaker: Speaker
     submitter: Submitter
     talk: Talk
     unclear: Unclear
@@ -1717,10 +1743,6 @@ en:
       start adding people. Please note that they will not appear here right
       away, unless they are involved in any of this conference's events. Use the
       _All people_ tab above to see all people across all your conferences.
-    no_people_involved: |
-      There are no people associated with this conference yet. People will
-      start appearing here, once they take on a role in any of this
-      conference's events.
     no_people_in_event: |
       There are no people associated with this event yet.
       Use the button on the right to add people. Please
@@ -1728,6 +1750,10 @@ en:
       in the system. If the person you would like to add
       is not yet in the system, go to the _People_
       tab above and create this person first.
+    no_people_involved: |
+      There are no people associated with this conference yet. People will
+      start appearing here, once they take on a role in any of this
+      conference's events.
     no_user_account: Person has no user account yet and cannot login. Click on the user tab to create an account.
     no_user_account_for_person: |
       %{person} does not currently have a user account and thus cannot login.
@@ -1750,10 +1776,13 @@ en:
         thank_you: Thank you!
         thank_you_for_helping_us: Thanks for helping us improve our events. Please rate as many events that you attended as possible. If you watched the streams, tell us about the quality.
     schedule:
+      booklet:
+        events: Events
       day:
         schedule: Schedule – %{label}
         schedule_for_day: Schedule for day %{index} – %{label}
       event:
+        concurrent_events: Concurrent Events
         day: Day
         duration: Duration
         feedback: Feedback
@@ -1772,13 +1801,17 @@ en:
         speakers: Speakers
         title: Title
         track: Track
+      events_by_track:
+        events: Events by track
       index:
+        booklet: book
         day: Day %{index} – %{label}
         events: Events
         events_by_track: Events by track
         schedule: Schedule – %{label}
         schedule_index: Schedule overview
         speakers: Speakers
+        timeline: Timeline
       nav:
         day: Day %{index}
         events: Events
@@ -1800,6 +1833,8 @@ en:
         events: Events
         name: Name
         speakers: Speakers
+      timeline:
+        events: Events
       title: Schedule %{title}
   public_name: Public name
   rating: Rating
@@ -1817,7 +1852,8 @@ en:
     notice_already_rated_everything: 'You have already reviewed all events:'
     notice_rating_created: Rating saved successfully.
     notice_rating_saved: Rating updated successfully.
-    show ratings: Show Ratings
+    notice_rating_updated: Note updated successfully.
+    show_ratings: Show Ratings
     start_reviewing: Start reviewing
     start_reviewing_hint: |
       Review a batch of events in a row. You will be presented with the event
@@ -1833,6 +1869,7 @@ en:
   reports: Reports
   reports_module:
     all: overview on transport needs
+    all_transportation_needs: overview of transport needs
     available_reports: Available Reports
     confirmed_events_by_track: confirmed event numbers by track
     do_not_record_events: events with 'do not record' flag set
@@ -1933,6 +1970,7 @@ en:
     signup: Sign up
     update_password: Update my password
   settings: Settings
+  show: Show
   show_account: Account
   sign_in_successful: Successfully signed in.
   simple_form:
