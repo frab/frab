@@ -6,6 +6,8 @@ class Room < ApplicationRecord
 
   default_scope -> { order(:rank) }
 
+  validates :name, presence: true
+
   def to_s
     "#{model_name.human}: #{name}"
   end
