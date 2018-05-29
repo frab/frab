@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/elabs/pundit.git
-  revision: 001d3fc16d8fc7e2e8500c668792d1a2b8ee8d44
+  revision: 711df4c359d8298e6f760a616de5468ebfbb6918
   branch: master
   specs:
     pundit (1.1.0)
@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/activeresource.git
-  revision: b71ded7e1b9004c7a24f28203c35c7ad24da6617
+  revision: 44c1325eb5a2aa4dd760c73ec6116a2184c600b5
   branch: master
   specs:
     activeresource (5.0.0)
@@ -85,7 +85,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (8.0.0)
     ast (2.4.0)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     builder (3.2.3)
     bullet (5.7.5)
       activesupport (>= 3.0.0)
@@ -129,18 +129,18 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    crass (1.0.3)
-    database_cleaner (1.6.2)
+    crass (1.0.4)
+    database_cleaner (1.7.0)
     devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
-    dotenv (2.2.1)
-    dotenv-rails (2.2.1)
-      dotenv (= 2.2.1)
-      railties (>= 3.2, < 5.2)
+    dotenv (2.4.0)
+    dotenv-rails (2.4.0)
+      dotenv (= 2.4.0)
+      railties (>= 3.2, < 6.0)
     easy_translate (0.5.1)
       thread
       thread_safe
@@ -149,10 +149,10 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
-    factory_bot (4.8.2)
+    factory_bot (4.10.0)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.8.2)
-      factory_bot (~> 4.8.2)
+    factory_bot_rails (4.10.0)
+      factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
@@ -167,7 +167,7 @@ GEM
     http_accept_language (2.1.1)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
-    i18n (1.0.0)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.21)
       activesupport (>= 4.0.2)
@@ -183,7 +183,7 @@ GEM
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jquery-migrate-rails (1.2.1)
-    jquery-rails (4.3.1)
+    jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -226,15 +226,15 @@ GEM
       minitest-rails (~> 3.0)
     multi_json (1.13.1)
     multi_xml (0.6.0)
-    mysql2 (0.5.0)
+    mysql2 (0.5.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
-    nio4r (2.3.0)
+    nio4r (2.3.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
-    paper_trail (9.0.0)
+    paper_trail (9.1.0)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
     paperclip (6.0.0)
@@ -243,12 +243,12 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
-    parser (2.5.0.5)
+    parser (2.5.1.0)
       ast (~> 2.4.0)
     pdf-core (0.1.6)
     pg (1.0.0)
-    poltergeist (1.17.0)
-      capybara (~> 2.1)
+    poltergeist (1.18.1)
+      capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
     polyamorous (1.3.3)
@@ -268,8 +268,8 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.2)
-    puma (3.11.3)
-    rack (2.0.4)
+    puma (3.11.4)
+    rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.1.6)
@@ -340,9 +340,9 @@ GEM
     shoulda-context (1.2.2)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    simple_form (3.5.1)
-      actionpack (> 4, < 5.2)
-      activemodel (> 4, < 5.2)
+    simple_form (4.0.1)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -351,7 +351,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13)
-    sshkit (1.16.0)
+    sshkit (1.16.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     sucker_punch (2.0.4)
@@ -369,9 +369,9 @@ GEM
     ttfunk (1.1.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.8)
+    uglifier (4.1.10)
       execjs (>= 0.3.0, < 3)
-    unicode-display_width (1.3.0)
+    unicode-display_width (1.3.3)
     uniform_notifier (1.11.0)
     warden (1.2.7)
       rack (>= 1.0)
@@ -379,9 +379,9 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
     will_paginate (3.1.6)
-    xpath (3.0.0)
+    xpath (3.1.0)
       nokogiri (~> 1.8)
-    yard (0.9.12)
+    yard (0.9.13)
 
 PLATFORMS
   ruby
