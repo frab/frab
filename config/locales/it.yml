@@ -556,7 +556,7 @@ it:
     - Sam
     - Sun.
     abbr_month_names:
-    - 
+    -
     - gennaio
     - febbraio
     - marzo
@@ -578,11 +578,11 @@ it:
     - venerdì
     - sabato
     formats:
-      default: "% Y-% m-% d"
-      long: "% B% d,% Y"
-      short: "% b% d"
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
     month_names:
-    - 
+    -
     - gennaio
     - febbraio
     - Marte
@@ -1636,8 +1636,8 @@ it:
   number:
     currency:
       format:
-        delimiter: " "
-        format: "% N% u"
+        delimiter: ","
+        format: "%u%n"
         precision: 2
         separator: ","
         significant: false
@@ -1651,7 +1651,7 @@ it:
       strip_insignificant_zeros: false
     human:
       decimal_units:
-        format: "% n% u"
+        format: "%n %u"
         units:
           billion: miliardo
           million: milione
@@ -1665,7 +1665,7 @@ it:
         significant: true
         strip_insignificant_zeros: true
       storage_units:
-        format: "% n% u"
+        format: "%n %u"
         units:
           byte:
             one: byte
@@ -1677,7 +1677,7 @@ it:
     percentage:
       format:
         delimiter: ''
-        format: "% N%"
+        format: "%n%"
     precision:
       format:
         delimiter: ''
@@ -2041,14 +2041,14 @@ it:
   time:
     am: sono
     formats:
-      day: A%
-      default: "% A,% d. % B% Y,% H:% M"
-      long: "% A,% d. % B% Y,% H:% M"
-      month_datetime: "% D. % b% H:% M"
-      pretty_datetime: "% Y-% m-% d% H:% M"
-      short: "% D. % B,% H:% M"
-      short_datetime: "% D. % H:% M"
-      time: "% H:% M"
+      day: "%A"
+      default: "%A, %d. %B %Y, %H:%M"
+      long: "%A, %d. %B %Y, %H:%M"
+      month_datetime: "%d. %b %H:%M"
+      pretty_datetime: "%Y-%m-%d %H:%M"
+      short: "%d. %B, %H:%M"
+      short_datetime: "%d. %H:%M"
+      time: "%H:%M"
     pm: pm
     time_range_seperator: " a"
   time_and_place: Ora e luogo

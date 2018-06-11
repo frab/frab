@@ -1612,8 +1612,8 @@ zh:
   number:
     currency:
       format:
-        delimiter: "，"
-        format: "％联合国"
+        delimiter: ","
+        format: "%u%n"
         precision: 2
         separator: "。"
         significant: false
@@ -1627,7 +1627,7 @@ zh:
       strip_insignificant_zeros: false
     human:
       decimal_units:
-        format: "％n％u"
+        format: "%n %u"
         units:
           billion: 十亿
           million: 百万
@@ -1641,7 +1641,7 @@ zh:
         significant: true
         strip_insignificant_zeros: true
       storage_units:
-        format: "％n％u"
+        format: "%n %u"
         units:
           byte:
             one: 字节
@@ -1653,7 +1653,7 @@ zh:
     percentage:
       format:
         delimiter: ''
-        format: "％N％"
+        format: "%n%"
     precision:
       format:
         delimiter: ''
