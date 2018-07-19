@@ -135,8 +135,8 @@ class Event < ApplicationRecord
     ).to_str
   end
 
-  def static_url
-    File.join conference.program_export_base_url, "events/#{id}.html"
+  def static_url(c = conference)
+    File.join c.program_export_base_url, "events/#{id}.html"
   end
 
   def logo_path(size = :large)
