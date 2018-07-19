@@ -65,7 +65,7 @@ module StaticSchedule
     end
 
     def events
-      @conference.events.is_public.confirmed.scheduled.each do |event|
+      @conference.schedule_events.each do |event|
         @paths << {
           action: :event,
           assigns: { view_model: @renderer.view_model.for_event(event.id) },
