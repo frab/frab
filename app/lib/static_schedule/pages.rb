@@ -81,12 +81,14 @@ module StaticSchedule
     end
 
     def speakers
-      Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
-        @paths << {
-          action: :speaker,
-          assigns: { view_model: @renderer.view_model.for_speaker(speaker.id) },
-          target: "speakers/#{speaker.id}.html"
-        }
+      @conference.include_subs.each do |conference|
+        Person.publicly_speaking_at(conference).confirmed(conference).each do |speaker|
+          @paths << {
+            action: :speaker,
+            assigns: { view_model: @renderer.view_model.for_speaker(speaker.id) },
+            target: "speakers/#{speaker.id}.html"
+          }
+        end
       end
     end
 
