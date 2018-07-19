@@ -14,6 +14,13 @@ class CallForParticipation < ApplicationRecord
   end
 
   def still_running?
-    end_date > Date.today
+    deadline > Date.today
+  end
+
+  private
+
+  def deadline
+    return hard_deadline if hard_deadline
+    end_date
   end
 end
