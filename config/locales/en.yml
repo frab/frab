@@ -281,6 +281,8 @@ en:
     links: Links
     login: Log-in
     login_existing_description: You can sign in if you created an account for this Call for Participation, or for any previous event.
+    login_required_title: Sign In To Participate
+    login_required: After signing in you can enter your submission.
     login_existing_headline: Log in with an existing account
     looking_for_login_form: Are you looking for the login of submitters?
     no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface.

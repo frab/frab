@@ -7,7 +7,7 @@ class SubmitEventTest < FeatureTest
   end
 
   def sign_up_steps
-    click_on 'Sign Up'
+    click_on 'Sign Up', match: :first
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: @user.password
     fill_in 'Password confirmation', with: @user.password
@@ -18,7 +18,7 @@ class SubmitEventTest < FeatureTest
   end
 
   def sign_in_steps
-    click_on 'Log-in'
+    click_on 'Log-in', match: :first
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: @user.password
     click_on 'Log in'
