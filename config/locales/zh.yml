@@ -1935,7 +1935,7 @@ zh:
     col_select_paper_format: 选择参与格式：
     col_select_rooms: 选择客房：
     col_use_half_page: 只使用半页宽：
-    create_locale: 创建%{locale}
+    create_locale: 创建%{export_locale}
     create_locale_hint: 创建您的节目时间表的静态HTML导出。
     create_pdf: 创建PDF
     create_pdf_export: 创建自定义PDF导出

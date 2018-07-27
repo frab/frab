@@ -1935,7 +1935,7 @@ ru:
     col_select_paper_format: 'Выберите формат участия:'
     col_select_rooms: 'Выберите номера:'
     col_use_half_page: 'Используйте только половину ширины страницы:'
-    create_locale: Создать %{locale}
+    create_locale: Создать %{export_locale}
     create_locale_hint: Создайте статический экспорт HTML вашего расписания.
     create_pdf: Создать PDF-файл
     create_pdf_export: Создание пользовательского экспорта в формате PDF

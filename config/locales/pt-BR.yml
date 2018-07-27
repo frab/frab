@@ -1969,7 +1969,7 @@ pt-BR:
     col_select_paper_format: 'Selecione o formato de participação:'
     col_select_rooms: 'Selecione quartos:'
     col_use_half_page: 'Use apenas meia largura da página:'
-    create_locale: Crie %{locale}
+    create_locale: Crie %{export_locale}
     create_locale_hint: Crie uma exportação HTML estática da programação do seu programa.
     create_pdf: Crie PDF
     create_pdf_export: Crie uma exportação em PDF personalizada

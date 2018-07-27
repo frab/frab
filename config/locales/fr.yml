@@ -1957,7 +1957,7 @@ fr:
     col_select_paper_format: 'Format de papier :'
     col_select_rooms: 'Salles :'
     col_use_half_page: 'Utiliser seulement la moitié de la largeur de la page :'
-    create_locale: Créer %{locale}
+    create_locale: Créer %{export_locale}
     create_locale_hint: Créer un export static de votre programme au format HTML.
     create_pdf: Créer un PDF
     create_pdf_export: Exporter en PDF

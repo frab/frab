@@ -1961,7 +1961,7 @@ it:
     col_select_paper_format: 'Formato carta:'
     col_select_rooms: 'camere:'
     col_use_half_page: 'Usa solo metà della larghezza della pagina:'
-    create_locale: Crea %{locale}
+    create_locale: Crea %{export_locale}
     create_locale_hint: Crea un'esportazione statica del tuo programma in formato HTML.
     create_pdf: Crea un PDF
     create_pdf_export: Esporta in PDF

@@ -1930,7 +1930,7 @@ en:
     col_select_paper_format: 'Select participation format:'
     col_select_rooms: 'Select rooms:'
     col_use_half_page: 'Only use half page width:'
-    create_locale: Create %{locale}
+    create_locale: Create %{export_locale}
     create_locale_hint: Create a static HTML export of your program schedule.
     create_pdf: Create PDF
     create_pdf_export: Create custom PDF export
