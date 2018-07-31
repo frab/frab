@@ -1,5 +1,5 @@
 json.id person.id
-json.image person.avatar_path
+json.image person.avatar_path(:original)
 json.full_public_name person.public_name
 json.public_name person.public_name
 json.abstract person.abstract
