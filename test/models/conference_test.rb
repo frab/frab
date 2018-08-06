@@ -1,25 +1,6 @@
 require 'test_helper'
 
 class ConferenceTest < ActiveSupport::TestCase
-  should have_many :availabilities
-  should have_many :classifiers
-  should have_many :conference_users
-  should have_many :days
-  should have_many :events
-  should have_many :languages
-  should have_many :notifications
-  should have_many :rooms
-  should have_many :tracks
-  should have_many :conference_exports
-  should have_one :call_for_participation
-  should have_one :ticket_server
-  should validate_presence_of :title
-  should validate_presence_of :acronym
-  should validate_presence_of :default_timeslots
-  should validate_presence_of :max_timeslots
-  should validate_presence_of :timeslot_duration
-  should validate_presence_of :timezone
-
   test 'current returns the newest conference' do
     time = Time.now
     create(:conference, created_at: time.ago(3.hour))

@@ -445,7 +445,6 @@ DEPENDENCIES
   roust!
   rqrcode
   sass-rails
-  shoulda
   simple_form
   sqlite3
   sucker_punch

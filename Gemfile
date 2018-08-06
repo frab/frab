@@ -92,7 +92,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
-  gem 'shoulda'
   gem 'rails-controller-testing'
   gem 'minitest-rails-capybara'
   gem 'poltergeist'
