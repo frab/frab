@@ -25,6 +25,7 @@ class Event < ApplicationRecord
   has_attached_file :logo,
     styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },
     default_url: 'event_:style.png'
+  #has_one_attached :logo
 
   accepts_nested_attributes_for :event_people, allow_destroy: true, reject_if: proc { |attr| attr[:person_id].blank? }
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank

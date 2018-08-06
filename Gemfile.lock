@@ -168,6 +168,9 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
+    image_processing (1.6.0)
+      mini_magick (~> 4.0)
+      ruby-vips (>= 2.0.11, < 3)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -198,6 +201,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
     mimemagic (0.3.3)
+    mini_magick (4.8.0)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -317,6 +321,8 @@ GEM
     ri_cal (0.8.8)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
+    ruby-vips (2.0.13)
+      ffi (~> 1.9)
     ruby_dep (1.5.0)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
@@ -398,6 +404,7 @@ DEPENDENCIES
   haml
   http_accept_language
   i18n-tasks
+  image_processing (~> 1.2)
   jbuilder
   jquery-migrate-rails
   jquery-rails

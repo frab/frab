@@ -129,4 +129,12 @@ module ApplicationHelper
     return t('role.submitter') if current_user.is_submitter?
     fail 'should not happen: user without acl'
   end
+
+  def large(attachment)
+    attachment.variant(resize_to_fit: [128, 128])
+  end
+
+  def small(attachment)
+    attachment.variant(resize_to_fit: [32, 32])
+  end
 end

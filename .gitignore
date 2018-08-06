@@ -30,3 +30,4 @@ config/deploy/*.rb
 config/puma.rb
 contrib/
 db/development.sqlite3.*
+storage/
