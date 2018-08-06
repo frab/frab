@@ -405,6 +405,7 @@ DEPENDENCIES
   letter_opener
   listen
   localized_language_select!
+  mini_magick
   minitest-rails-capybara
   mysql2
   nokogiri
