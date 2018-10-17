@@ -1,0 +1,2138 @@
+---
+it:
+  ability:
+    denied: Questa azione è proibita.
+  accepted_only: Accettato solo
+  actions: stock
+  activerecord:
+    attributes:
+      availability:
+        end_date: il
+        start_date: del
+      call_for_participation:
+        contact_email: Email di contatto
+        end_date: Data di fine
+        hard_deadline: Data di fine finale
+        info_url: URL di informazioni
+        start_date: Data di apertura
+        welcome_text: Testo di benvenuto
+      classifier:
+        description: descrizione
+        name: Nome
+      conference:
+        acronym: acronimo
+        bulk_notification_enabled: Notifiche di gruppo
+        color: colore
+        default_recording_license: Licenza di registrazione predefinita
+        default_timeslots: Intervallo di tempo predefinito
+        email: e-mail
+        event_state_visible: Stato visibile degli eventi
+        expenses enabled: Spese attivate
+        feedback_enabled: Restituzioni abilitate
+        max_timeslots: Numero di tracce max.
+        program_export_base_url: Programma l'URL di esportazione
+        schedule_custom_css: CSS personalizzato per il programma
+        schedule_html_intro: Introduzione HTML del programma
+        schedule_open: Programmazione aperta
+        schedule_public: Programma pubblico
+        schedule_version: Versione del programma
+        ticket_type: Servizio biglietteria
+        timeslot_duration: Intervallo di tempo
+        timezone: fuso orario
+        title: titolo
+        transport_needs_enabled: Hai bisogno di trasporto abilitato
+      conference_export:
+        locale: Lingua
+      conference_user:
+        conference_id: conferenza
+        role: ruolo
+      conflict:
+        conflict_type: Tipo di conflitto
+        conflicting_event_id: Evento in conflitto
+        severity: gravità
+      day:
+        end_date: fine
+        start_date: inizio
+      event:
+        abstract: riassunto
+        average_feedback: Rendimenti medi
+        average_rating: Valutazione media
+        description: descrizione
+        do_not_record: Non salvare
+        event_feedback_count: Nb. ritorna
+        event_ratings_count: Nb. valutazioni
+        event_type: Tipo di evento
+        guid: GUID
+        invite_token: Gettone invito
+        language: Lingua
+        logo: logo
+        note: nota
+        public: pubblico
+        recording_license: Licenza di registrazione
+        speaker_count: Nb. altoparlanti
+        speakers: altoparlanti
+        start_time: Ora di inizio
+        state: stato
+        submission_note: Note di presentazione
+        subtitle: sottotitolo
+        tech_rider: Requisiti tecnici
+        time_slots: Spiagge orarie
+        title: titolo
+        track: filo
+      event_attachment:
+        public: pubblico
+        title: titolo
+      event_classifier:
+        value: valore
+      event_feedback:
+        comment: commento
+        note: nota
+      event_rating:
+        comment: commento
+        rating: valutazione
+      expense:
+        name: Nome
+        reimbursed: rimborsato
+        value: importo
+      im_account:
+        im_address: indirizzo
+        im_type: tipo
+      langage:
+        code: Lingua
+      link:
+        title: titolo
+        url: indirizzo
+      mail_template:
+        content: contenuto
+        name: Nome
+        subject: Soggetto
+      notification:
+        accept_body: Accettazione - Corpo
+        accept_subject: Accettazione - Oggetto
+        locale: Lingua
+        reject_body: Rifiuto - Corpo
+        reject_subject: Rifiuta - Oggetto
+        schedule_body: Programmazione - Corpo
+        schedule_subject: Programmazione - Oggetto
+      person:
+        abstract: riassunto
+        description: descrizione
+        email: e-mail
+        email_public: Email pubblica
+        first_name: conome
+        gender: tipo
+        include_in_mailings: Incluso nella posta diretta
+        last_name: Nome
+        public_name: Nome pubblico
+        use_gravatar: Usa Gravatar
+      phone_number:
+        phone_number: Numero di telefono
+        phone_type: tipo
+      room:
+        name: Nome
+        rank: rango
+        size: Formato
+      ticket:
+        object_id: id
+        object_type: tipo
+        remote_ticket_id: Biglietto remoto
+      ticket_server:
+        password: password
+        queue: coda
+        url: URL del server
+        user: utente
+      track:
+        color: colore
+        name: Nome
+      transport_need:
+        at: il
+        booked: riservato
+        note: nota
+        seats: Nb. posti a sedere
+        transport_type: Tipo di trasporto
+      user:
+        email: e-mail
+        password: password
+        password_confirmation: Conferma della password
+        remember_me: Ricordati di me
+        role: ruolo
+      video:
+        mimetype: Tipo MIME
+        url: indirizzo
+    models:
+      call_for_participation: Invito alla partecipazione
+      classifier: classificatore
+      conference: conferenza
+      conference_user: Partecipante alla conferenza
+      day: giorno
+      event: evento
+      event_attachment: file
+      event_classifier: categoria
+      event_person: nessuno
+      im_account: account di messaggistica istantanea
+      language: Lingua
+      link: collegamento
+      notification: notifica
+      person: profilo
+      phone_number: numero di telefono
+      room: sala
+      track: filo
+  add_association: Aggiungi %{name}
+  additional_resources: Risorse aggiuntive
+  admin: Admin
+  admin_accounts: Account amministrativi
+  admin_visibility_only_hint: 'Visibilità: solo admin.'
+  alert_notifications:
+    update_failed: Impossibile salvare le modifiche
+    update_successful: Modifiche salvate.
+  all: Tutti
+  are_you_sure: Sei sicuro?
+  availabilities:
+    alerts:
+      available_for_day: disponibile per il giorno %{day}
+      no_availabilities: |
+        %{person} attualmente non ha alcuna disponibilità.
+        Devi completare questo modulo.
+    available_from: di
+    available_to: a
+    error_person_unavailable: "%{person} non ha disponibilità per il momento."
+    success_update: Disponibilità aggiornata con successo.
+  availability: disponibilità
+  available: disponibile
+  basic_information: Informazioni di base
+  by: da
+  call_for_participation: Invito alla partecipazione
+  cancel: annullare
+  cfp:
+    abstract_hint: Un piccolo paragrafo che ti descrive succintamente. (HTML)
+    avatar_hint: Carica una nuova foto.
+    back: ritorno
+    basic_information: Informazioni di base
+    bio: Bio
+    change_password_button: Cambia la mia password
+    change_password_headline: Cambia la tua password
+    changed_from: cambiato da
+    classifiers_hint: Aiuta il tuo pubblico e i revisori a capire la tua proposta. Quindi scegliere e ponderare le categorie appropriate.
+    conference_in_the_past: Non puoi offrire un discorso, perché questa conferenza è finita.
+    confirm: confermare
+    confirm_attendance: Conferma la presenza
+    confirm_attendance_explanation: Clicca sul pulsante per riconfermare che parlerai a questo evento
+    confirmation_button: Richiedi nuovamente le istruzioni di conferma
+    confirmation_description: Questa potrebbe essere una delle rare occasioni in cui non è stata ricevuta un'e-mail. Se hai già aspettato e controllato la tua cartella spam, per favore
+    confirmation_headline: Mi sono registrato ma non ho ricevuto l'email di istruzioni
+    confirmation_instructions_sent: Le istruzioni di conferma sono state inviate all'indirizzo che hai specificato.
+    contact_data: Dati di contatto
+    contact_description_html: Se hai un problema o una domanda, non esitare a contattarci su %{mail_to}
+    contact_headline: contatto
+    create_event_headline: Crea un nuovo evento
+    current_password_hint: abbiamo bisogno della tua password per confermare queste modifiche.
+    deadline_description: Si prega di inviare la proposta prima ** %{date} **
+    description_hint: Una descrizione più lunga di te. Usa questo spazio per dare più dettagli rispetto all'estratto. (HTML)
+    detailed_description: Descrizione dettagliata
+    edit_account: Modifica il tuo account
+    edit_availability: Modifica la tua disponibilità
+    edit_availability_description: Fateci sapere la vostra disponibilità per gli eventi che proponete. Faremo del nostro meglio per tenerne conto durante la creazione del programma.
+    edit_availability_headline: Edizione di disponibilità
+    edit_event_headline: Modifica degli eventi
+    edit_profile: Modifica il tuo profilo personale
+    email_accept_upcoming_infos: Volete ricevere informazioni e-mail sulle prossime conferenze?
+    email_hint: Per favore inserisci il tuo indirizzo e-mail che useremo come modo principale per contattarti.
+    email_public_hint: Se lo desideri, questo indirizzo email potrebbe essere visibile nel nostro programma pubblico.
+    error_confirming: Si è verificato un errore durante la conferma del tuo account. Verifica di aver incollato il link completo dall'email e di non aver ancora attivato il tuo account.
+    error_sending_confirmation_instructions: Non è possibile inviare istruzioni di conferma. Verifica di aver inserito un indirizzo email corretto e che il tuo account non sia già stato creato.
+    event_abstract_hint: Un piccolo paraprafo che descrive succintamente l'evento. (HTML)
+    event_confirmed: Evento confermato
+    event_created_notice: L'evento è stato creato con successo.
+    event_description_hint: Una descrizione più lunga dell'evento. Usa questo spazio per dare maggiori dettagli. L'estratto e la descrizione saranno visibili sul sito web della conferenza. (HTML)
+    event_time_slots_hint: Durata del tuo evento, in ore e minuti. Per conversazioni standard, lasciare le impostazioni predefinite.
+    event_updated_notice: L'evento è stato aggiornato con successo.
+    event_withdrawn_notice: La tua proposta è stata ritirata.
+    events_submitted: 'Eventi che hai già proposto:'
+    fail_layout_use: NON USARE LAYOUT CONFERENCE CONFERENCE
+    forgot_password_button: Richiedi una nuova password
+    forgot_password_description: Sei già venuto ma non ricordi la tua password? È fastidioso, ma puoi farlo
+    forgot_password_headline: Hai dimenticato la password?
+    hard_deadline_over: Ci dispiace, ma la scadenza per l'invio è scaduta.
+    im_accounts: Account di messaggistica istantanea
+    info_url_description_html: 'Non sei sicuro di cosa inviare? Leggi la chiamata per partecipare qui: %{link}'
+    information_headline: informazioni
+    input_appreciation: 'Apprezziamo molto la tua partecipazione. Non esitate a proporre o partecipare a un altro evento:'
+    inputs:
+      hints:
+        contact_email: Un indirizzo email dove i partecipanti possono contattarti se hanno domande.
+        end_date: Seleziona la scadenza per la presentazione dei documenti. Questa data verrà visualizzata ma non chiuderà i repository
+        hard_deadline: |
+          Seleziona la scadenza finale. Nessun deposito sarà consentito dopo questa data. Se lo desideri
+          aprire i repository indefinitamente, lasciare questi campi vuoti.
+        info_url: Una pagina web contenente informazioni aggiuntive su questo invito a partecipare. Si prega di inserire un URL completo.
+        start_date: Seleziona la data in cui la chiamata sarà aperta al pubblico.
+        welcome_text: Immettere un messaggio di benvenuto o ulteriori istruzioni che si desidera visualizzare ai partecipanti. (HTML)
+    join_alternative: 'Dove trovare un altro token di invito:'
+    join_confirm: Vuoi accettare l'invito?
+    join_description: 'Con il token fornito, puoi partecipare a questo evento come oratore:'
+    join_event: Partecipa all'evento
+    join_submitters_hint: Condividi questo token con gli altoparlanti che desideri consentire di partecipare a questo evento. Una volta creato l'account, possono utilizzare il token nell'interfaccia "Partecipa a un evento".
+    join_success: Sei stato aggiunto come relatore a questo evento.
+    join_token_already_used: Sei già stato un oratore su questo evento.
+    join_token_link: Questo link porta direttamente alla pagina "Partecipa ad un evento" per questo evento.
+    join_token_lookup: Token di ricerca
+    join_token_lookup_description: Inserisci il token che ti consente di partecipare a questo evento come oratore.
+    join_token_lookup_hint: 'Aiuto: il token può essere visto dal mittente originale nella vista di modifica dell''evento.'
+    join_token_unknown: Token %{token} sconosciuto.
+    languages_spoken: Lingue parlate
+    links: connessioni
+    login: Entra
+    login_existing_description: È possibile accedere se è stato creato un account per questo invito a partecipare o per un evento precedente.
+    login_existing_headline: Identificazione con un account esistente
+    looking_for_login_form: Cerchi la pagina di accesso per gli oratori?
+    no_confirmation_token: La tua chiave di conferma non è valida. Si prega di verificare lo stato dell'evento sull'interfaccia Call for Participation.
+    not_forget_personal_details: E non dimenticare di inserire i tuoi dati personali se non lo hai già fatto. Tieni presente che puoi sempre tornare indietro e modificare il tuo profilo utilizzando il pulsante nella barra laterale destra.
+    notifications:
+      launched: Invito alla partecipazione.
+    pages:
+      conference_open_mode: La conferenza è in modalità aperta. L'auto-pianificazione è consentita
+      event_confirm_attendence: Conferma la mia presenza
+      event_confirmation_request: 'La tua conferma è richiesta per l''evento: ** %{event} **.'
+      not_started_cfp: |
+        Sfortunatamente, la richiesta di partecipazione non è ancora iniziata. Ci scusiamo
+        e dacci un po 'più di tempo per prepararlo.
+      profile_data: 'Dati profilo:'
+      start_date_tip: |
+        La chiamata di partecipazione inizierà su ** %{start_date} **. Per favore ritorna in questo momento,
+        guarderemo la tua proposta.
+      thank_for_interest: Grazie per l'interesse dimostrato per %{conference}.
+      unexisting_cfp: Sfortunatamente, la richiesta di partecipazione non esiste (ancora?).
+    password_hint: lascia vuoto se non vuoi cambiarlo
+    password_updated: Password aggiornata correttamente.
+    person_created_notice: Profilo creato con successo.
+    person_updated_notice: Profilo aggiornato correttamente.
+    personal_details_description: Si prega di compilare il seguente modulo per noi (e, se le vostre proposte sono accettate, i partecipanti) per conoscervi un po 'meglio.
+    personal_details_headline: Dati personali - Fateci sapere
+    personal_details_later: Puoi riempire il minimo indispensabile e tornare più tardi per completare.
+    phone_numbers: Numeri di telefono
+    problem_sending_password_reset_instructions: Impossibile inviare le istruzioni per modificare la password. Per favore controlla l'e-mail che hai inserito.
+    public_name_hint: Questo è il nome che verrà visualizzato nel programma pubblico.
+    resend_confirmation_button: Istruzioni per la conferma del reso
+    resend_confirmation_headline: Istruzioni per la conferma del reso
+    save_availability: Risparmia disponibilità
+    save_cfp: Salva la chiamata di partecipazione
+    scheduled: Tempo stimato
+    send_reset_instructions: Rimandami le istruzioni per cambiare la password
+    sent_password_reset_instructions: Le istruzioni per la modifica della password sono state inviate all'indirizzo che ci hai fornito.
+    set_to: impostato su
+    show:
+      conference_empty_days: La conferenza non verrà visualizzata fino a quando non è stato aggiunto un giorno.
+      dates_hint: La chiamata avvia %{start_date} e termina %{end_date}.
+      deadline_passed: La scadenza finale è passata, nessuna presentazione è possibile.
+      edit_cfp_hint: Modifica i dati da questo invito alla partecipazione
+      empty_description: La richiesta di partecipazione è in corso, ma la descrizione è vuota. Frab non collegherà a questa chiamata.
+      new_events_by_day: Nuovi eventi al giorno
+      submitters_interface_link: 'L''interfaccia di invio è disponibile qui:'
+      total_event_count: Numero totale di eventi
+    sign_in: Entra
+    sign_up: iscrizione
+    sign_up_description: Se sei nuovo su %{title}, prenditi il ​​tempo necessario per creare un account. È facile e veloce.
+    sign_up_headline: Crea un nuovo account
+    signed_up: Sei registrato. Un'e-mail con le istruzioni di conferma è stata inviata all'indirizzo fornito. Si prega di seguire queste istruzioni per convalidare la registrazione.
+    specify_availability: 'Per favore dicci la tua disponibilità per questo evento:'
+    submission_note_hint: Visibile agli amministratori e agli utenti, contiene informazioni aggiuntive.
+    submit_another_event: Suggerisci un altro evento
+    submit_new_event: Invia un nuovo evento
+    successfully_confirmed: Il tuo account è stato confermato Grazie per esserti unito a noi!
+    take_time_to_submit: 'Si prega di prendere il tempo per inviare la proposta o partecipare a un evento esistente:'
+    thanks_for_confirmation: Grazie per aver confermato la tua partecipazione.
+    thanks_for_interest: Grazie per il tuo interesse a partecipare a %{title}.
+    to: in
+    update: aggiornare
+    update_availability_notice: Grazie per aver specificato la tua disponibilità.
+    updated: Aggiornato con successo.
+    uploaded_files: File caricati
+    welcome: benvenuto
+    welcome_text: Benvenuti nel bando di partecipazione. Per creare o gestire le tue proposte, devi identificarti. Se sei nuovo su %{title}, dovrai creare un account.
+    withdraw: ritirarsi
+    withdrawal_confirmation: Sei sicuro di voler eliminare questo evento dall'invito a partecipare?
+  classifiers: classificatori
+  classifiers_module:
+    current_classifiers: 'I classificatori attualmente configurati sono:'
+    empty_classifiers: |
+      Puoi creare e modificare classificatori come persone
+      può dare ai loro eventi
+    modify_classifier_with_parent: |
+      I classificatori per questa conferenza possono essere solo
+      modificato con i diritti di amministrazione della conferenza principale:
+      %{parent}
+  clear: cancellare
+  col_abstract: 'Riassunto :'
+  col_availability: 'Disponibilità:'
+  col_avg_audience_feedback: 'Rendimenti medi:'
+  col_classifiers: 'categorie:'
+  col_col_template: "%{data}:"
+  col_conference: 'Conferenza:'
+  col_description: 'Descrizione:'
+  col_email: 'e-mail:'
+  col_email_for_login: 'Connessione e-mail:'
+  col_event_state: 'Stato dell''evento:'
+  col_files: 'file:'
+  col_filters: 'filtri:'
+  col_first_name: 'Conome :'
+  col_full_name: 'Nome completo:'
+  col_gender: 'Genere:'
+  col_language: 'Lingua :'
+  col_last_login: 'Ultimo accesso:'
+  col_last_name: 'Nome :'
+  col_links: 'links:'
+  col_non_reimbursed_expenses: 'Spese non rimborsate:'
+  col_notes_admin: 'Note (amministratore):'
+  col_phone_number_with_type: 'Numero di telefono (%{type}):'
+  col_public: 'pubblica:'
+  col_public_name: 'Nome pubblico:'
+  col_reimbursed_expenses: 'Spese rimborsate:'
+  col_role: 'ruolo:'
+  col_room: 'camera:'
+  col_rooms: 'camere:'
+  col_speakers: Altoparlanti
+  col_start_time: 'inizio:'
+  col_submission_notes: 'Note di invio (utente e amministratore):'
+  col_ticket: 'biglietto:'
+  col_time_slots: 'Spiagge orarie:'
+  col_total: 'totale:'
+  col_track: 'filetto:'
+  col_tracks: 'figlio:'
+  col_type: 'tipo:'
+  comment: commento
+  comments: commenti
+  conference: conferenza
+  conference_management: Gestione delle conferenze
+  conferences: conferenze
+  conferences_module:
+    accepting: accettazione
+    add_conference: Aggiungi una conferenza
+    add_conference_hint: Crea una nuova conferenza
+    canceled: annullato
+    conference_in_past: I giorni della conferenza sono finiti. Nessuna sottomissione è possibile.
+    confirmed: confermato
+    current_conferences: Conferenze attuali
+    error_specified_conference_not_found: Conferenza specificata non trovata.
+    footer: Questo programma è stato generato con [frab] (http://frab.github.io/frab/).
+    inputs:
+      hints:
+        acronym: |
+          Un nome breve e univoco per la conferenza, utilizzando solo lettere
+          minuscoli, numeri e caratteri di sottolineatura. Questo sarà usato per identificare
+          la conferenza negli URL, ecc. Esempio: "froscon_2011"
+        bulk_notification_enabled: |
+          Se abiliti questa opzione, le notifiche verranno inviate
+          massa per posta, o da un sottosistema di biglietti.
+        color: È possibile impostare un colore per la conferenza.
+        default_recording_license: Licenza di registrazione predefinita per un talk
+        default_timeslots: |
+          Qual è la durata predefinita di un evento? Esempio: se tu
+          scegli intervalli di 15 minuti per le pause ma le tue
+          la conversazione media dura un'ora, scegli 4 perché 4 * 15 min = 1 ora.
+        email: |
+          Indirizzo di contatto per la conferenza. Sarà usato come
+          indirizzo di risposta per le e-mail inviate dal sistema.
+        event_languages: Scegli le diverse lingue parlate durante la conferenza.
+        event_state_visible: |
+          Se abiliti questa opzione, i diffusori saranno in grado di guardare
+          lo stato delle loro comunicazioni nell'interfaccia dell'invito a presentare proposte
+          e confermare la loro presenza facendo clic sul pulsante associato.
+        expenses_enabled: |
+          Se abiliti questa opzione, frab ti permetterà di tenere traccia delle spese
+          persone
+        feedback_enabled: |
+          Se abiliti questa opzione, l'esportazione del tuo programma includerà i collegamenti
+          permettendo ai visitatori di dare il loro apprezzamento degli eventi.
+        max_timeslots: Qual è la durata massima di un evento (un discorso)?
+        timeslot_duration: |
+          Qual è la lunghezza della più piccola fascia oraria? È usato
+          fondamentalmente per creare una griglia di pianificazione per il programma.
+          ATTENZIONE: questa opzione NON può essere modificata in seguito, quindi prendi
+          il momento di pensarci. In generale, i fusi orari sono ampi
+          cose più semplici, ma le piccole aree le rendono più flessibili.
+          Esempio: se tutto ciò che serve è pianificare conferenze
+          30 minuti che si allineano perfettamente con le ore complete e
+          mezz'ora, scegli 30 minuti. Se hai discussioni su a
+          ora e si interrompe 15 minuti tra di loro, 15 minuti è la dimensione
+          perfetto. Nota che puoi ridurre la dimensione del sito in un secondo momento,
+          a condizione che la vecchia dimensione del sito sia un multiplo del nuovo.
+          Quindi andare da 15 minuti a 5 è possibile mentre si passa da 15 a 10 minuti
+          non lo è.
+        timezone: |
+          Si prega di selezionare il fuso orario applicato alla conferenza.
+          Questo è usato per visualizzare date e orari corretti
+          eventi.
+        title: |
+          Il nome della conferenza, come apparirà sul diverso
+          pagine del sito. Esempio: "FrOSCon".
+        transport_needs_enabled: |
+          Se abiliti questa opzione, sarai in grado di seguire i requisiti
+          trasporto di persone.
+    manage_conferences: Gestisci conferenze
+    manage_conferences_hint: Gestisci tutte le conferenze
+    new: nuovo
+    new_welcome: |
+      Benvenuto! Sembra che questa sia la prima volta che tu
+      vieni qui Per iniziare a organizzare una conferenza, tu
+      deve inserire alcune informazioni a riguardo. Voi
+      può cambiare la maggior parte di queste informazioni in seguito,
+      ma alcuni di loro non saranno facilmente cambiati;
+      Prenditi il ​​tempo di leggere le informazioni per ciascuno dei campi
+      e controlla tutto prima di registrare.
+    no_conference: Non c'è ancora una conferenza.
+    no_conference_with_cfp: |
+      Non c'è ancora una conferenza con una richiesta di partecipazione. Forse hai
+      bisogno di identificarti.
+    no_conferences: |
+      Non c'è ancora una conferenza. Inizia creando uno
+      cliccando sul tasto destro.
+    notice_bulk_notification_queued: Gruppo di notifica per eventi in %{notification} in coda.
+    notice_conference_created: Conferenza creata con successo.
+    notice_conference_updated: Conferenza aggiornata con successo.
+    past_conferences: Conferenze passate
+    recent_changes: Cambiamenti recenti
+    recent_changes_text: |
+      Una volta che tu o altri, create i dati per questa conferenza,
+      troverai le informazioni sulla modifica qui. È molto
+      interessante nel caso di _Call alla partecipazione_. In questo caso, questo
+      area ti consente di vedere rapidamente da dove provengono le proposte.
+    rejected: respinto
+    rejecting: Essere respinto
+    review: revisione
+    scheduled: programmato
+    search: ricercare
+    search_hint: Cerca conferenze
+    show_no_event: |
+      Questa conferenza non ha ancora eventi. (Si noti che attraverso Frab, il
+      term _evement_ è usato con riferimento ad ogni sessione del tuo
+      conferenze, non importa se si tratta di un discorso, un seminario o qualsiasi altra cosa.
+
+      Inizia ad aggiungere eventi facendo clic sulla scheda "Eventi".
+      In alternativa, avvia una _P Call di chiamata_ per consentire ad altri
+      proporre eventi per la conferenza.
+    show_welcome: |
+      Benvenuto! Sembra che tu abbia appena creato
+      questa conferenza. Un buon passo avanti sarebbe andare
+      nella scheda "Impostazioni conferenza" per aggiungere a
+      stanza. Questo sarà necessario per preparare la tua programmazione.
+    statistics: statistica
+    statistics_empty: |
+      Troverai statistiche sugli eventi creati o proposti
+      durante una chiamata _Partecipazione_ qui.
+    total: totale
+    unconfirmed: Non confermato
+    variables:
+      conference: Nome della conferenza
+      date: Data di presentazione
+      event: Titolo dell'evento
+      forename: Nome del relatore
+      link: Link di conferma
+      public_name: Nome pubblico dell'altoparlante
+      room: Sala di presentazione
+      surname: Nome dell'altoparlante
+      time: Tempo di presentazione
+    version: Versione %{version}
+    withdrawn: abbandonato
+  conflict:
+    events_overlap: si sovrappone a
+    has_no_availability: non ha ancora inserito le sue disponibilità.
+    person_already_speaking: già parlando con
+    person_unavailable: non è disponibile nell'intervallo previsto.
+  contact_information: Informazioni di contatto
+  content: contenuto
+  create_new_conference: Crea una nuova conferenza
+  create_your_first_conference: Crea la tua prima conferenza
+  created_at: Creato
+  creation_date: Data di creazione
+  crew: squadra
+  crew_accounts: Conti dei membri del team
+  date:
+    abbr_day_names:
+    - Mon.
+    - marzo
+    - mare
+    - gioco
+    - Fri
+    - Sam
+    - Sun.
+    abbr_month_names:
+    -
+    - gennaio
+    - febbraio
+    - marzo
+    - aprile
+    - maggio
+    - Giugno
+    - Luglio
+    - Agosto
+    - settembre
+    - ottobre
+    - novembre
+    - dicembre
+    day_names:
+    - domenica
+    - lunedi
+    - martedì
+    - mercoledì
+    - giovedi
+    - venerdì
+    - sabato
+    formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    month_names:
+    -
+    - gennaio
+    - febbraio
+    - Marte
+    - aprile
+    - maggio
+    - giugno
+    - luglio
+    - agosto
+    - settembre
+    - ottobre
+    - novembre
+    - dicembre
+    order:
+    - :year
+    - :month
+    - :day
+  date_not_set: Data non ancora definita
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: circa 1 ora
+        other: circa %{count} ore
+      about_x_months:
+        one: circa 1 mese
+        other: circa %{count} mesi
+      about_x_years:
+        one: circa 1 anno
+        other: circa %{count} anni
+      almost_x_years:
+        one: quasi 1 anno
+        other: quasi %{count} anni
+      half_a_minute: mezzo minuto
+      less_than_x_minutes:
+        one: meno di 1 minuto
+        other: meno di %{count} minuti
+      less_than_x_seconds:
+        one: meno di 1 secondo
+        other: meno di %{count} secondi
+      over_x_years:
+        one: più di 1 anno
+        other: più di %{count} anni
+      x_days:
+        one: 1 giorno
+        other: "%{count} giorni"
+      x_minutes:
+        one: 1 minuto
+        other: "%{count} minuti"
+      x_months:
+        one: 1 mese
+        other: "%{count} mesi"
+      x_seconds:
+        one: 1 secondo
+        other: "%{count} secondi"
+    prompts:
+      day: giorno
+      hour: tempo
+      minute: minuto
+      month: mese
+      second: secondi
+      year: anni
+  day: giorno
+  days: giorni
+  days_module:
+    configured_days: 'I giorni attualmente configurati sono:'
+    empty_days: |
+      Qui puoi creare e modificare e i giorni della conferenza.
+      I "giorni" possono iniziare in qualsiasi momento, ma non devono
+      sovrapposizione.
+    inherited_conference_change: |
+      I giorni per questa conferenza potrebbero essere solo
+      modificato con i diritti di amministrazione della conferenza principale:
+      %{parent} e può essere modificato solo tramite l'interfaccia
+      di questa conferenza.
+  default_text: Testo predefinito
+  destroy: distruggere
+  detailed_changes: Modifiche dettagliate
+  details: dettagli
+  devise:
+    cancel_account: Elimina il mio account
+    cancel_account_text: Non sei felice? %{link}
+    change_my_password: Cambia password
+    confirmations:
+      confirmed: Il tuo indirizzo email è stato confermato con successo.
+      send_instructions: |
+        Riceverai un'email con le istruzioni di conferma di
+        il tuo indirizzo tra pochi minuti.
+      send_paranoid_instructions: |
+        Se il tuo indirizzo e-mail esiste nel nostro database, riceverai
+        un'e-mail con le istruzioni di conferma in pochi minuti.
+    current_password_hint: Per favore inserisci la tua password attuale
+    failure:
+      already_authenticated: Sei già consapevole.
+      inactive: Il tuo account non è ancora stato attivato.
+      invalid: "%{authentication_keys} o password non valida."
+      last_attempt: Hai ancora una prova prima di bloccare il tuo account.
+      locked: Il tuo account è bloccato.
+      not_found_in_database: "%{authentication_keys} o password non valida."
+      timeout: La tua sessione è scaduta. Riconnetti per continuare.
+      unauthenticated: Devi essere loggato per continuare.
+      unconfirmed: Devi convalidare il tuo indirizzo email per continuare.
+    leave_password_blank_hint: Lascia vuoto se non vuoi cambiarlo
+    links:
+      no_unlock_instructions: Non hai ricevuto alcuna istruzione di sblocco?
+      sign_in_with: Connettiti con %{provider}
+    mailer:
+      confirmation_instructions:
+        headline: Benvenuto, %{email}!
+        link: Conferma il mio account
+        subject: Istruzioni di conferma
+        text: 'Ora devi confermare il tuo account cliccando sul seguente link:
+
+'
+      email_change:
+        headline: Ciao, %{email}!
+        text_been_changed: |
+          Ti contatteremo per informarti che il tuo indirizzo email è stato cambiato
+          per %{email}.
+        text_being_changed: |
+          Ti contatteremo per informarti che il tuo indirizzo email sarà cambiato
+          per %{email}.
+      email_changed:
+        subject: Indirizzo email cambiato
+      password_change:
+        headline: Ciao, %{email}!
+        subject: Password cambiata
+        text: |
+          Ti contatteremo per informarti che la tua password è stata
+          stato cambiato
+      password_change_instructions:
+        headline: Ciao, %{email}!
+        text: |
+          Qualcuno ha chiesto un link per cambiare la password.
+          Puoi farlo seguendo il link sottostante.
+
+          %{link}
+
+          Se non hai fatto questa richiesta, per favore ignora questo messaggio.
+
+          La tua password non cambierà fino a quando non segui
+          il link sopra e non l'hai cambiato.
+      reset_password_instructions:
+        subject: Istruzioni per la modifica della password
+      unlock_instructions:
+        headline: Ciao, %{email}!
+        subject: Istruzioni di avvolgimento
+        text: |
+          Il tuo account è stato bloccato a causa di tentativi eccessivi
+          di connessioni.
+
+          Clicca sul seguente link per sbloccare il tuo account.
+
+          %{link}
+    omniauth_callbacks:
+      failure: Impossibile identificarti da %{kind} perché "%{reason}".
+      success: Identificazione riuscita con il tuo account %{kind}.
+    passwords:
+      no_token: |
+        Non puoi accedere a questa pagina senza venire da una e-mail di modifica
+        dedicato. Se provieni da una password cambia email,
+        controlla di aver usato il link corretto.
+      send_instructions: |
+        Riceverai un'email con le istruzioni di modifica della parola
+        passare in pochi minuti.
+      send_paranoid_instructions: |
+        Se il tuo indirizzo esiste nel nostro database, lo riceverai
+        un'e-mail con le istruzioni per cambiare la password in pochi
+        minuti.
+      updated: La tua password è stata cambiata con successo. Ora sei identificato.
+      updated_not_active: La tua password è stata cambiata con successo.
+    registrations:
+      destroyed: Arrivederci ! Il tuo account è stato cancellato. Speriamo di rivederti presto.
+      signed_up: Benvenuto! La tua registrazione è un successo.
+      signed_up_but_inactive: |
+        Sei registrato ma non possiamo identificarti perché sei il tuo
+        l'account non è ancora stato attivato.
+      signed_up_but_locked: Le tue credenziali sono corrette ma il tuo account è bloccato.
+      signed_up_but_unconfirmed: |
+        Un messaggio con un link di conferma è stato inviato al tuo indirizzo email.
+        Segui il link per attivare il tuo account.
+      update_needs_confirmation: |
+        Hai aggiornato correttamente il tuo account. Tuttavia, dobbiamo controllare
+        il tuo nuovo indirizzo Si prega di seguire il link di conferma inviato all'indirizzo indicato.
+      updated: Il tuo account è stato aggiornato con successo.
+    resend_password_instructions: Restituzione delle istruzioni di modifica
+    resend_unlock_instructions: Invia di nuovo le istruzioni per lo sblocco
+    sessions:
+      already_signed_out: Disconnesso con successo.
+      signed_in: Identificato con successo.
+      signed_out: Disconnesso con successo.
+    unlock_my_account: Sblocca il mio account
+    unlocks:
+      send_instructions: |
+        Riceverai un'email con le istruzioni di sblocco in
+        pochi minuti.
+      send_paranoid_instructions: |
+        Se il tuo account esiste, riceverai un'email con le istruzioni
+        sblocco in pochi minuti.
+      unlocked: Il tuo account è stato sbloccato con successo. Effettua il login per continuare
+    update_account: Aggiorna il mio account
+    waiting_for_confirmation: In attesa di conferma per l'indirizzo %{email}
+  edit: modifica
+  edit_account: Modifica account
+  edit_conference: Modifica conferenza
+  edit_conference_classifiers: Modifica i classificatori di conferenza
+  edit_conference_days: Modifica i giorni della conferenza
+  edit_conference_rooms: Modifica sale conferenza
+  edit_conference_schedule: Modifica la programmazione della conferenza
+  edit_conference_tracks: Modifica i thread di conferenza
+  edit_person: Modifica la persona
+  edit_profile: profilo
+  edit_ticket_server: Modifica il server dei ticket
+  email: e-mail
+  emails:
+    event_acceptance:
+      accepted_event: |
+        Siamo molto felici di annunciare che abbiamo accettato la tua proposta
+
+        %{event}
+      check_data: |
+        Mentre sei lì: dopo la conferma con questo link, lo sarai
+        identificato nel sistema di gestione della conferenza. Prenditi il ​​tempo
+        per controllare le informazioni in questo momento. Questa informazione sarà
+        utilizzato nel programma ufficiale della conferenza. Potete
+        specificare anche le vostre disponibilità per altri programmi. Noi andiamo
+        tenere conto di queste ore per il programma finale.
+      confirmation: |
+        Conferma rapidamente che sarai presente, utilizzando il seguente link:
+
+        %{link}
+      goodbye: |
+        Cordiali saluti,
+
+        Il team %{conference}
+      greeting: Caro %{forename},
+      subject: La tua richiesta per %{conference}
+    event_rejection:
+      goodbye: |
+        Cordiali saluti,
+
+        Il team %{conference}
+      greeting: Caro %{forename},
+      rejection: |
+        Vorremmo ringraziarvi per la vostra proposta. Siamo
+        sorpreso e sopraffatto dalla massa di proposte di alta qualità
+        che riceviamo.
+
+        Dopo una selezione intensiva, ci dispiace doverlo fare
+        declina il tuo.
+
+        %{event}
+
+        Non è stata una decisione facile da prendere.
+        Speriamo di darvi il benvenuto alla conferenza.
+      subject: La tua proposta per %{conference}
+    event_schedule:
+      goodbye: |
+        Non vedo l'ora di vedervi su %{conference}
+
+        Il team %{conference}
+      greeting: Caro %{forename},
+      info: |
+        Siamo lieti di informarti che la tua proposta
+
+        %{event}
+
+        è stato programmato per %{date}, su %{time}.
+
+        Parlerai in %{room}
+      subject: La tua proposta per %{conference} si aspettava che %{date} %{time}
+  emails_module:
+    add_mail_template: Aggiungi un modello di email
+    add_mail_template_hint: Creato un nuovo modello di email.
+    edit_template: Modifica il modello
+    edit_template_hint: Pubblica questo modello di email.
+    edit_template_title: Modello di email "%{template}"
+    error_failed_setting_notification: 'Impossibile impostare la notifica predefinita: %{ex}.'
+    error_missing_conference_email: 'Non è possibile inviare e-mail: specificare un indirizzo e-mail per questa conferenza.'
+    error_missing_notification_text: |
+      Testo di notifica mancante. Per favore cambia il testo predefinito
+      in base alle tue esigenze, prima di accettare / rifiutare gli eventi.
+    error_missing_speaker_email: 'Le e-mail non possono essere inviate: non tutti gli oratori hanno un indirizzo e-mail.'
+    error_state_update: Impossibile aggiornare lo stato.
+    error_state_update_ex: 'Impossibile aggiornare lo stato: %{ex}.'
+    error_unnotifiable_state: L'evento non è in uno stato di notifica.
+    filters:
+      all_speakers_in_confirmed_events: Tutti i relatori in tutti gli eventi confermati
+      all_speakers_in_scheduled_event: Tutti i relatori in tutti gli eventi programmati
+      all_speakers_in_unconfirmed_events: Tutti i relatori in tutti gli eventi non confermati
+    mail_subject: Soggetto
+    mail_template_hint: |
+      Utilizza questo modello di email per inviare email a tutti
+      coinvolto negli eventi di questa conferenza.
+    new_mail_template: Nuovo modello di email
+    notice_event_updated: Evento aggiornato con successo.
+    notice_mails_delivered: Email inviate.
+    notice_mails_queued: Email in coda
+    notice_template_destroyed: Modello di email eliminato con successo.
+    notice_template_updated: Modello email aggiornato correttamente.
+    notice_transport_need_added: Hai bisogno di trasporto aggiunto con successo.
+    placeholders_hint: |
+      Le seguenti posizioni possono essere utilizzate nella sezione `content`
+      di ogni modello.
+    send_mail: Invia email
+    template_subject: 'Oggetto: %{subject}'
+  error_signing_in: Email o password non valida.
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: deve essere accettato
+      already_confirmed: è già stato confermato, prova a connetterti
+      blank: non può essere vuoto
+      confirmation: non corrisponde a %{attribute}
+      confirmation_period_expired: deve essere confermato prima di %{period}, si prega di fare una nuova richiesta
+      empty: non può essere vuoto
+      equal_to: deve essere uguale a %{count}
+      even: deve essere lo stesso
+      exclusion: è prenotato
+      expired: è scaduto, si prega di fare una nuova richiesta
+      greater_than: deve essere più grande di %{count}
+      greater_than_or_equal_to: deve essere maggiore o uguale a %{count}
+      inclusion: non è incluso nella lista
+      invalid: non è valido
+      less_than: deve essere inferiore a %{count}
+      less_than_or_equal_to: deve essere minore o uguale a %{count}
+      not_a_number: non è un numero
+      not_an_integer: deve essere un numero intero
+      not_found: non trovato
+      not_locked: non era bloccato
+      not_saved:
+        one: 'Un errore ha impedito a questo %{resource} di essere registrato:'
+        other: 'errori %{count} hanno impedito a questo %{resource} di essere salvato:'
+      odd: deve essere strano
+      other_than: deve essere diverso da %{count}
+      present: deve essere vuoto
+      record_invalid: 'Convalida fallita: %{errors}'
+      restrict_dependent_destroy:
+        many: Impossibile eliminare il record perché esistono record dipendenti %{record}
+        one: Impossibile eliminare il record perché esiste un record dipendente %{record}
+      taken: è già stato preso
+      too_long:
+        one: è troppo lungo (il massimo è 1 carattere)
+        other: è troppo lungo (il massimo è caratteri %{count})
+      too_short:
+        one: è troppo corto (il minimo è 1 carattere)
+        other: è troppo corto (il minimo è caratteri %{count})
+      wrong_length:
+        one: è di cattiva lunghezza (deve essere 1 carattere)
+        other: è di cattiva lunghezza (deve essere %{count} caratteri)
+    template:
+      body: 'Ci sono problemi con i seguenti campi:'
+      header:
+        one: Un errore ha impedito a questo %{model} di essere registrato
+        other: errori %{count} hanno impedito a questo %{model} di essere registrato
+  event: evento
+  event_languages: Lingue dell'evento
+  events: eventi
+  events_in: Negli eventi
+  events_module:
+    accept_event: Accetta l'evento
+    accept_event_hint: |
+      Accetta l'evento. I relatori riceveranno notifica del nuovo stato entro
+      e-mail. Se hanno accesso alla chiamata per la partecipazione, riceveranno anche un link
+      permettendo loro di confermare la loro presenza.
+    accept_event_no_email: Accetta l'evento (nessuna email)
+    accept_event_no_email_hint: Accetta questo evento senza inviare un'e-mail.
+    add_event: Nuovo evento
+    add_event_hint: Crea un nuovo evento.
+    add_ticket: Aggiungi un biglietto
+    add_ticket_hint: Crea un ticket per questo evento.
+    all_events: Tutti gli eventi
+    all_rating: Tutte le note
+    average_feedback: 'Rendimenti medi:'
+    average_speaker_feedback: 'Rendimenti medi per oratore:'
+    cancel_event: Annulla l'evento
+    cancel_event_hint: |
+      Imposta questo evento come cancellato. Generalmente, ciò significa che l'oratore
+      ha dovuto cancellare la sua sessione.
+    col_toggle_rooms: 'Seleziona stanze:'
+    confirm_event: Conferma l'evento
+    confirm_event_hint: Confermare che i relatori saranno presenti e che l'evento avrà luogo.
+    custom_notification: Notifica personalizzata
+    custom_notification_hint: |
+      Aggiunge notifiche personalizzate per tutti gli altoparlanti.
+      Verranno inviati al posto della notifica predefinita quando
+      prossimo lotto. Modificali nella scheda "Modifica persone"
+    edit_event: Modifica evento
+    edit_event_hint: Modifica i dati di questo evento
+    edit_people: Modifica persone
+    edit_people_hint: Aggiungi o rimuovi persone a questo evento.
+    error_no_day: |
+      Prima di poter pianificare gli eventi, è necessario averlo almeno
+      un giorno fissato per questa conferenza. Vai a
+      _Parametri della conferenza_, sopra, per aggiungere un giorno.
+    error_no_event: |
+      Questa conferenza non ha ancora nessun evento. Crealo nella scheda
+      _Evènements_ sopra, o richiedere la partecipazione per
+      per recuperare. Una volta che hai degli eventi, puoi
+      organizzali qui.
+    error_no_room: |
+      Prima di poter pianificare gli eventi, è necessario averlo almeno
+      aggiungi una stanza per questa conferenza.
+      Vai a _Parameters_, per aggiungere una stanza.
+    event_attachments: File caricati
+    event_classifiers: Categorie di eventi
+    event_details: Dettagli dell'evento
+    event_feedbacks: Resi sugli eventi
+    event_ratings: Note dell'evento
+    events_by_gender: Eventi per genere
+    events_by_language: Eventi per lingua
+    events_by_state: Eventi per stato
+    events_in_current_conference: Eventi nella conferenza in corso
+    events_in_other_conferences: Eventi in altre conferenze
+    feedback_not_enabled: Il sistema di restituzione non è attivato.
+    hide_all: Nascondi tutto
+    inputs:
+      hints:
+        do_not_record: L'evento sarà salvato?
+        note: 'Visibilità: solo amministratori.'
+        public: Questo evento sarà visibile nel programma pubblico?
+        recording_license: Licenza di registrazione per questo discorso
+        submission_note: 'Visibilità: amministratori e utenti; informazioni aggiuntive.'
+        tech_rider: Cosa serve per questo evento?
+    my_events: I miei eventi
+    my_rating: La mia nota
+    my_ratings: I miei appunti
+    no_attende_more_infos: |
+      Abilita il feedback dei visitatori nelle impostazioni della conferenza
+      e il programma includerà un modulo per loro di commentare
+      eventi. Questi commenti appariranno qui.
+    no_attendee: Non ci sono ancora feedback da parte dei visitatori.
+    no_events: |
+      Questa conferenza non ha ancora nessun evento. Inizia aggiungendo o lanciando un invito alla partecipazione per consentire alle persone di farlo
+      presentare proposte.
+    no_ratings: |
+      Nessuno ha ancora valutato questo evento. Sii il primo a
+      utilizzando il modulo sottostante.
+    not_involved: |
+      Non sei ancora coinvolto in un evento per questa conferenza.
+      Aggiungi te stesso a un evento per il ruolo che vuoi tenere, e
+      l'evento apparirà nella lista
+    print_accepted_cards: Stampa le carte (accettate solo)
+    print_accepted_cards_hint: |
+      Scarica un PDF con gli eventi accettati solo sotto forma di carte.
+      Stampa per pianificare la programmazione offline.
+    print_cards: Stampa le carte
+    print_cards_hint: |
+      Scarica un PDF con tutti gli eventi come una mappa (quattro per pagina).
+      Stampa per avere un programma offline.
+    public_attachment_hint: Questo allegato sarà pubblico?
+    rate_next: Valuta il prossimo evento
+    reject_event: Rifiuta l'evento
+    reject_event_hint: Rifiuta questo evento. I relatori saranno informati di questo rifiuto via e-mail.
+    reject_event_no_email: Rifiuta l'evento (nessuna email)
+    reject_event_no_email_hint: Rifiuta questo evento senza inviare un'e-mail automatica.
+    toggle_description: Mostra descrizione >>
+    track_select: filtro per filo
+  expenses: la spesa
+  expenses_module:
+    error_person_have_no_expense: "%{person} non ha alcuna spesa al momento."
+    is_this_reimbursed_hint: Questa spesa è stata rimborsata?
+    new_expense: Nuova spesa
+    notice_expense_created: Spese create con successo.
+    notice_expense_destroyed: Spese soppresse con successo.
+    notice_expense_updated: Spese aggiornate correttamente.
+    notice_expenses_disabled: Le spese non sono attivate per questa conferenza.
+    reimbursed: rimborsato
+    sum_not_reimbursed: Somma di tutti i non rimborsi
+    sum_reimbursed: Somma di tutti i rimborsi
+  export_profile: Esporta profilo
+  features: Funzionalità aggiuntive
+  feedback: Restituisce
+  feedback_system: Restituisce il sistema
+  frab_footer: |
+    [frab] (http://frab.github.io/frab/) è un sistema di gestione delle conferenze.
+    Permette di gestire le presentazioni, i discorsi e gli oratori, oltre a creare il
+    programmi
+
+    Il [manuale dell'utente] (https://github.com/frab/frab/wiki/Manual) viene mantenuto
+    nel [wiki] (https://github.com/frab/frab/wiki/). Il codice sorgente è ospitato su
+    [Github] (https://github.com/frab/frab).
+  full_name: Nome completo
+  helpers:
+    select:
+      prompt: Per favore seleziona
+    submit:
+      create: Crea %{model}
+      submit: Salva %{model}
+      update: Aggiorna %{model}
+  hint: Info
+  home: accoglienza
+  import: importazione
+  inputs:
+    hints:
+      password_length: Lunghezza minima dei caratteri %{length}
+  is_not_public: Non pubblici
+  is_public: pubblico
+  languages:
+    Ga: irlandese
+    ab: abkhazo
+    ace: Acehnesi
+    ach: Acoli
+    ada: Adangme
+    ady: adyghe
+    ae: Avestico
+    af: afrikaans
+    afa: Lingua afro-asiatica
+    afh: afrihili
+    ain: Ainu
+    ak: Akan
+    akk: accadico
+    ale: Aleut
+    alg: Lingua algonchina
+    alt: Sud Altai
+    am: amarico
+    an: aragonese
+    ang: Inglese antico
+    anp: angika
+    apa: Linguaggio Apache
+    ar: arabo
+    arc: aramaico
+    arn: Araucanian
+    arp: Arapaho
+    art: Linguaggio artificiale
+    arw: Arawak
+    as: assamese
+    ast: asturiano
+    ath: Lingua athapascana
+    aus: Lingua australiana
+    av: Avaro
+    awa: Awadhi
+    ay: aymara
+    az: Azero
+    ba: baschiro
+    bad: banda
+    bai: Lingua bamileke
+    bal: Baluchi
+    ban: balinese
+    bas: Basa
+    bat: Lingua baltica
+    be: bielorusso
+    bej: Beja
+    bem: Bemba
+    ber: berbero
+    bg: bulgaro
+    bh: Bihari
+    bho: Bhojpuri
+    bi: Bislama
+    bik: Bikol
+    bin: Bini
+    bla: Siksika
+    bm: bambara
+    bn: bengalese
+    bnt: bantù
+    bo: tibetano
+    br: bretone
+    bra: Braj
+    bs: bosniaco
+    btk: Batak
+    bua: Buriat
+    bug: buginese
+    byn: Blin
+    ca: catalano
+    cad: Caddo
+    cai: Lingua indiana centroamericana
+    car: carib
+    cau: Lingua caucasica
+    cch: atsam
+    ce: chechen
+    ceb: Cebuano
+    cel: Linguaggio celtico
+    ch: Chamorro
+    chb: Chibcha
+    chg: Chagatai
+    chk: Chuukais
+    chm: marito
+    chn: Chinook Jargon
+    cho: Choctaw
+    chp: Chipewyan
+    chr: cherokee
+    chy: cheyenne
+    cmc: Lingua Chamic
+    co: Corsica
+    cop: copto
+    cpe: Creolo o pidgin inglese
+    cpf: Creolo o pidgin francese
+    cpp: Creolo o pidgin portoghese
+    cr: grido
+    crh: Turco della Crimea
+    crp: Creolo o pidgin
+    cs: ceco
+    csb: Kashubian
+    cu: Chiesa slava
+    cus: Linguaggio cushitico
+    cv: Chuvash
+    cy: gallese
+    da: danese
+    dak: Dakota
+    dar: dargwa
+    day: dayak
+    de: tedesco
+    de-AT: Tedesco austriaco
+    de-CH: svizzero tedesco
+    del: Delaware
+    den: slavo
+    dgr: Dogrib
+    din: Dinka
+    doi: Dogri
+    dra: Lingua dravidica
+    dsb: Basso sorabo
+    dua: Duala
+    dum: Medio olandese
+    dv: Dhivehi
+    dyu: dyula
+    dz: Dzongkha
+    ee: pecora
+    efi: EFik
+    egy: '"Antico egiziano"'
+    eka: ekajuk
+    el: greco
+    elx: Elamite
+    en: inglese
+    en-AU: Inglese australiano
+    en-CA: Inglese canadese
+    en-GB: Inglese britannico
+    en-US: Inglese americano
+    enm: Inglese medio
+    eo: esperanto
+    es: spagnolo
+    es-ES: Iberico spagnolo
+    et: estone
+    eu: basco
+    ewo: Ewondo
+    fa: persiano
+    'false': norvegese
+    fan: zanna
+    fat: Fanti
+    ff: Fulah
+    fi: finlandese
+    fil: filippina
+    fiu: Linguaggio finnico-ugro
+    fj: fijian
+    fo: Faroe
+    fon: fon
+    fr: Francese
+    fr-CA: Canadese francese
+    fr-CH: Svizzera francese
+    frm: Medio francese
+    fro: Vecchio francese
+    frr: Frisone del Nord
+    frs: Frisone orientale
+    fur: friulana
+    fy: Frisia occidentale
+    gaa: ga
+    gay: Gayo
+    gba: gbaya
+    gd: Gaelico scozzese
+    gem: Lingua germanica
+    gez: Accidenti
+    gil: gilbertese
+    gl: Gallego
+    gmh: Medio alto tedesco
+    gn: guarani
+    goh: Vecchio alto tedesco
+    gon: Gondi
+    gor: Gorontalo
+    got: gotico
+    grb: Grebo
+    grc: Greco antico
+    gsw: Tedesco svizzero
+    gu: Gujarati
+    gv: Manx
+    gwi: Gwich'in
+    ha: Hausa
+    hai: Haida
+    haw: hawaiano
+    he: ebraico
+    hi: hindi
+    hil: hiligayna
+    him: Himachali
+    hit: ittita
+    hmn: Hmong
+    ho: Hiri Motu
+    hr: croato
+    hsb: Alto sorabo
+    ht: Haiti
+    hu: ungherese
+    hup: Hupa
+    hy: armeno
+    hz: Herero
+    ia: interlingua
+    iba: iban
+    id: indonesiano
+    ie: Interlingue
+    ig: Igbo
+    ii: Sichuan Yi
+    ijo: Ijo
+    ik: Inupiaq
+    ilo: Ilocano
+    inc: Linguaggio indizio
+    ine: Lingua indoeuropea
+    inh: ingusci
+    io: ido
+    ira: Lingua iraniana
+    iro: Lingua irochese
+    is: islandese
+    it: italiano
+    iu: Inuktitut
+    ja: giapponese
+    jbo: lojban
+    jpr: Giudeo-persiana
+    jrb: Arabo-ebraica
+    jv: giavanese
+    ka: georgiano
+    kaa: Kara-Kalpak
+    kab: kabyle
+    kac: Kachin
+    kaj: JJU
+    kam: Kamba
+    kar: karen
+    kaw: Kawi
+    kbd: Kabardien
+    kcg: tyap
+    kfo: koro
+    kg: kongo
+    kha: Khasi
+    khi: Lingua khoisan
+    kho: khotanais
+    ki: Kikuyu
+    kj: Kuanyama
+    kk: kazakh
+    kl: kalaallisut
+    km: khmer
+    kmb: Kimbundu
+    kn: kannada
+    ko: coreano
+    kok: konkani
+    kos: Kosraean
+    kpe: Kpelle
+    kr: Kanuri
+    krc: Karachay-Balkar
+    krl: Carelia
+    kro: kru
+    kru: Kurukh
+    ks: Kashmiri
+    ku: curdo
+    kum: kumyk
+    kut: kutenai
+    kv: komi
+    kw: della Cornovaglia
+    ky: kirghiso
+    la: latino
+    lad: ladino
+    lah: lahnda
+    lam: lamba
+    lb: lussemburghese
+    lez: lezghian
+    lg: ganda
+    li: Limburger
+    ln: Lingala
+    lo: lao
+    lol: mongo
+    loz: Lozi
+    lt: lituano
+    lu: Luba-Katanga
+    lua: Luba-Lulua
+    lui: Luiseno
+    lun: Lunda
+    luo: luo
+    lus: lushai
+    lv: lettone
+    mad: Madurese
+    mag: Magahi
+    mai: Maithili
+    mak: Makasar
+    man: Mandingo
+    map: Lingua austronesiana
+    mas: Masai
+    mdf: Moksha
+    mdr: Mandar
+    men: Mende
+    mg: malgascio
+    mga: Medio irlandese
+    mh: Marshallese
+    mi: maori
+    mic: micmac
+    min: Minangkabau
+    mis: Linguaggio diverso
+    mk: macedone
+    mkh: Lingua Mon-Khmer
+    ml: Malayalam
+    mn: mongolo
+    mnc: mancese
+    mni: Manipuri
+    mno: Lingua manobo
+    mo: moldavo
+    moh: mohawk
+    mos: Mossi
+    mr: marathi
+    ms: malese
+    mt: maltese
+    mul: Diverse lingue
+    mun: Lingua Munda
+    mus: ruscello
+    mwl: mirandese
+    mwr: marwari
+    my: birmano
+    myn: Lingua maya
+    myv: erzya
+    na: nauru
+    nah: nahuatl
+    nai: Lingua indiana del Nord America
+    nap: napoletano
+    nb: Norvegese Bokmål
+    nd: Nord Ndebele
+    nds: Basso tedesco
+    ne: nepali
+    new: newari
+    ng: Ndonga
+    nia: Nias
+    nic: Lingua niger-kordofaniana
+    niu: Niuean
+    nl: olandese
+    nl-BE: fiammingo
+    nn: Norvegese Nynorsk
+    nog: Nogai
+    non: Vecchio norvegese
+    nqo: N'Ko
+    nr: Sud Ndebele
+    nso: Sotho settentrionale
+    nub: Lingua nubiana
+    nv: navajo
+    nwc: Newari classico
+    ny: Nyanja
+    nym: nyamwezi
+    nyn: nyankole
+    nyo: nyoro
+    nzi: Nzima
+    oc: occitano
+    oj: Ojibwa
+    om: Oromo
+    or: Oriya
+    os: Ossétique
+    osa: osage
+    ota: Ottomano turco
+    oto: Linguaggio Otomiano
+    pa: punjabi
+    paa: Linguaggio papuistico
+    pag: Pangasinan
+    pal: Pahlavi
+    pam: Pampanga
+    pap: Papiamento
+    pau: Palauan
+    peo: Vecchia Persia
+    phi: Lingua filippina
+    phn: fenicio
+    pi: pali
+    pl: polacco
+    pon: Pohnpeian
+    pra: Linguaggio Prakrite
+    pro: Antico provenzale
+    ps: Pashto
+    pt: portoghese
+    pt-BR: Portoghese brasiliano
+    pt-PT: Portoghese iberico
+    qu: quechua
+    raj: rajasthani
+    rap: Rapanui
+    rar: Rarotongan
+    rm: Retoromanzo
+    rn: Rundi
+    ro: rumeno
+    roa: Lingue romanze
+    rom: zingaro
+    ru: russo
+    rup: aroumain
+    rw: kinyarwanda
+    sa: sanscrito
+    sad: Sandawe
+    sah: Yakut
+    sai: Lingua indiana del Sud America
+    sal: Lingua di Salishan
+    sam: Samaritano aramaico
+    sas: Sasak
+    sat: Santali
+    sc: sardo
+    scn: siciliano
+    sco: scozzese
+    sd: Sindhi
+    se: Sami settentrionali
+    sel: selkup
+    sem: Linguaggio semitico
+    sg: sango
+    sga: Vecchio irlandese
+    sgn: Linguaggio dei segni
+    sh: Serbo-croato
+    shn: shan
+    si: singalese
+    sid: Sidamo
+    sio: Lingua di Siouan
+    sit: Lingua sino-tibetana
+    sk: slovacco
+    sl: sloveno
+    sla: Lingua slava
+    sm: samoan
+    sma: Sami del sud
+    smi: Lingua sami
+    smj: Lule Sami
+    smn: Inari Sami
+    sms: Skolt Sami
+    sn: shona
+    snk: soninke
+    so: somalo
+    sog: sogdien
+    son: Songhai
+    sq: albanese
+    sr: serbo
+    srn: Sranan Tongo
+    srr: Serer
+    ss: Swati
+    ssa: Lingua nilo-sahariana
+    st: Sotho meridionale
+    su: Sudanese
+    suk: Sukuma
+    sus: susu
+    sux: sumera
+    sv: svedese
+    sw: swahili
+    syc: Siriaco classico
+    syr: siriaco
+    ta: tamil
+    tai: Linguaggio Tai
+    te: telugu
+    tem: timne
+    ter: tereno
+    tet: tetum
+    tg: Tajik
+    th: Thai
+    ti: Tigrino
+    tig: Tigris
+    tiv: Tiv
+    tk: turkmeno
+    tkl: Tokelau
+    tl: tagalog
+    tlh: Klingon
+    tli: Tlingit
+    tmh: Tamashek
+    tn: tswana
+    to: tonga
+    tog: Nyasa Tonga
+    tpi: Tok Pisin
+    tr: turco
+    trv: Taroko
+    ts: Tsonga
+    tsi: Tsimshian
+    tt: Tatar
+    tum: tumbuka
+    tup: Lingua Tupi
+    tut: Lingua altaica
+    tvl: Tuvalu
+    tw: twi
+    ty: tahitiano
+    tyv: Tuvinien
+    udm: Udmurt
+    ug: Uighur
+    uga: ugaritico
+    uk: ucraino
+    umb: Umbundu
+    und: Lingua sconosciuta o non valida
+    ur: Urdu
+    uz: uzbeko
+    vai: vai
+    ve: Venda
+    vi: vietnamita
+    vo: Volapük
+    vot: Votic
+    wa: vallone
+    wak: Lingua Wakashan
+    wal: walamo
+    war: waray
+    was: Washo
+    wen: Lingua soraba
+    wo: Wolof
+    xal: Kalmyk
+    xh: Xhosa
+    yao: Yao
+    yap: Yapese
+    yi: yiddish
+    yo: yoruba
+    ypk: Linguaggio Yupik
+    za: zhuang
+    zap: Zapotec
+    zbl: Blissymbols
+    zen: Zenaga
+    zh: cinese
+    zh-Hans: Cinese semplificato
+    zh-Hant: Cinese tradizionale
+    znd: Zande
+    zu: zulù
+    zun: zuni
+    zxx: Nessun contenuto linguistico
+    zza: zaza
+  launch_call_for_participation: Invito alla partecipazione
+  layouts:
+    public_schedule:
+      booklet: libro
+      timeline: cronologia
+  lectures: conferenze
+  lectures_commited: conferenze impegnate
+  lectures_confirmed: Conferenze confermate
+  lectures_only: Solo conferenze
+  lectures_unconfirmed: Conferenze non confermate
+  links: connessioni
+  logout: Esci
+  mail_templates: Modelli di posta elettronica
+  mailers:
+    user_mailer:
+      confirmation_instructions: Attivazione dell'account
+      password_reset_instructions: Cambio di password
+  manage_conference: Gestisci questa conferenza
+  manual: manuale
+  more: Più ...
+  name: Nome
+  navigation:
+    back: ritorno
+    conferences: conferenze
+    event: Dettagli dell'evento
+    feedbacks: Feedback degli utenti
+    more: Altro >>
+    people: persone
+    ratings: Note
+    users: utenti
+  new_conference: Nuova conferenza
+  no_data: Nessun dato
+  non_reimbursed_expenses: Spese non rimborsate
+  not_speaking: Non è un oratore
+  note: nota
+  notes: Note
+  notifications: notifiche
+  notifications_module:
+    edit_send_notifications: Modifica / invia notifiche
+    event_without_ticket_warning: 'Attenzione: %{events} senza biglietto:'
+    inputs:
+      hints:
+        locale: Lingue disponibili per questa conferenza e i suoi relatori.
+    missing_locale: 'Impossibile inviare notifiche collettive: mancano le notifiche %{locales}.'
+    no_events_tickets: Nessun evento con i biglietti.
+    possible_variables: Possibili variabili
+    send_notification: Invia notifiche %{name} %{speakers} in %{count}
+    send_notification_confirm: Sei sicuro di voler inviare notifiche %{name} per %{event}?
+    send_notification_to_speakers: Invia notifiche %{name} a %{speakers} in %{event}
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+    format:
+      delimiter: " "
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: miliardo
+          million: milione
+          quadrillion: dieci alla ventiquattresima
+          thousand: mille
+          trillion: trilioni di
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: byte
+            other: byte
+          gb: gb
+          kb: kb
+          mb: mb
+          tb: Tb
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  options:
+    admin: amministratore
+    aim: AIM
+    attending: assist
+    bus: Pulman
+    business: affari
+    canceled: annullato
+    concert: concerto
+    confirmed: confermato
+    coordinator: coordinatore
+    crew: Membro della squadra
+    declined: diminuito
+    dect: DECT
+    djset: DJ set
+    fax: fax
+    female: femminile
+    film: film
+    icq: ICQ
+    idea: forse
+    integrated: integrato
+    jabber: Jabber / XMPP
+    lecture: conferenza
+    lightning_talk: Conferenza Flash
+    male: maschio
+    meeting: incontro
+    mobile: mobile
+    msn: msn
+    offer: applicazione
+    orga: organizzatore
+    other: altro
+    otrs: OTRS
+    performance: Rappresentanza / prestazioni
+    phone: telefono
+    podium: podio
+    private: privato
+    redmine: Redmine
+    reviewer: critico
+    rt: Richiedi tracciatore
+    secretary: segreteria
+    shuttle: navetta
+    skype: Skype
+    speaker: altoparlante
+    submitter: depositante
+    talk: conferenza
+    unclear: incerto
+    work: lavoro
+    workshop: Officina
+    yahoo: Yahoo
+  others_only: Solo altro
+  page_titles:
+    admin_users: frab - Amministratori
+    change_password: frab - Cambia password
+    crew_users: frab - Membri del team
+    edit_account: frab - Modifica un account
+    login: Connessione a fragile
+    my_profile: frab - Il mio profilo
+    resend_confirmation: frab - Rispedisci le istruzioni di conferma
+    signup: Registrazione a frab
+    unlock_instructions: frab - Istruzioni di unwrapping
+    welcome: Benvenuto a frab
+  participate: partecipare
+  people: persone
+  people_module:
+    add_person: Aggiungi una persona
+    add_person_hint: Aggiungi una nuova persona
+    add_ticket: Aggiungi un biglietto
+    add_ticket_hint: Crea un biglietto per questa persona.
+    all_people: Tutte le persone
+    attending: Sarà presente
+    attending_hint: Segna la persona come presente.
+    edit_person: Modifica la persona
+    edit_person_hint: Modifica i dati della persona.
+    inputs:
+      hints:
+        event_role: |
+          I coordinatori fanno parte del team della conferenza. Coordinano il
+          passaggio di oratori e altri eventi. I candidati sono le persone
+          ha risposto all'appello per la partecipazione e ha inserito eventi in
+          frab. I relatori partecipano agli eventi. I moderatori prendono parte alle discussioni.
+          Importante: la disponibilità di relatori e moderatori deve essere correttamente compilata.
+        notification_body: 'Variabili valide: %{variables}'
+        person_filter: |
+          Filtra le persone per cognome, nome, indirizzo email o id. Lascia vuoto
+          rimuovere i filtri.
+      notification_body: Notifica del corpo
+      notification_subject: Soggetto di notifica
+    list_of_people: Elenco di persone
+    new_person: Nuova persona
+    no_people_data: |
+      Non hai ancora dati sulle persone. uso
+      il tasto giusto per iniziare ad aggiungere. Si prega di notare che
+      le persone non appariranno finché non saranno coinvolte
+      uno degli eventi di una conferenza. Utilizza il pulsante _All
+      people_ per vedere tutte le persone di tutte le tue conferenze.
+    no_people_in_event: |
+      Non ci sono persone associate a questo evento.
+      Usa il pulsante a destra per aggiungere. Nota che tu
+      posso solo aggiungere persone che sono già presenti nel
+      sistema. Se vuoi aggiungere qualcuno al sistema,
+      vai alla scheda _Personnes_ e crea questa persona.
+    no_people_involved: |
+      Non ci sono ancora persone associate a questa conferenza.
+      Le persone inizieranno ad apparire qui non appena assumono un ruolo
+      in uno degli eventi di questa conferenza.
+    no_user_account: |
+      Questa persona non ha ancora un account utente e non può accedere.
+      Fai clic sulla scheda _Useri_ per creare un account.
+    no_user_account_for_person: |
+      %{person} non ha ancora un account e quindi non può connettersi al sito.
+      È possibile creare un account utente ora compilando questo modulo.
+    notice_person_created: La persona è stata creata con successo.
+    notice_person_updated: La persona è stata aggiornata con successo.
+  person: Nessuno
+  preview: anteprima
+  profile: profilo
+  public:
+    feedback:
+      new:
+        feedback_for: 'Restituisce per: %{title}'
+        how_would_you_rate: Come valuteresti questo evento? Su una scala da 1 a 5, dove 1 è il peggiore.
+        please_let_us_know: 'Facci sapere come ti senti su questo evento:'
+        submit_feedback: Invia il mio ritorno
+        what_did_you_like: Cosa ti è piaciuto? L'odiano? Come possiamo migliorare questo evento? Grazie per aver condiviso il tuo sentito.
+      thank_you:
+        return: Torna al programma
+        thank_you: Grazie !
+        thank_you_for_helping_us: |
+          Grazie per averci aiutato a migliorare i nostri eventi. Continua a dare le tue impressioni sul massimo degli eventi
+          a cui partecipi. Se guardi lo streaming, puoi valutare la qualità.
+    schedule:
+      booklet:
+        events: eventi
+      day:
+        schedule: Programma - %{label}
+        schedule_for_day: Programma del giorno %{index} - %{label}
+      event:
+        concurrent_events: Eventi concomitanti
+        day: giorno
+        duration: durata
+        feedback: commenti
+        feedback_link: Clicca qui per farci sapere che ti è piaciuto questo evento.
+        files: file
+        info: Info
+        language: Lingua
+        links: connessioni
+        no_recording: Questo evento sarà registrato
+        room: sala
+        speakers: altoparlanti
+        start_time: inizio
+        track: filo
+      events:
+        events: eventi
+        speakers: altoparlanti
+        title: titolo
+        track: filo
+      events_by_track:
+        events: Eventi via filo
+      index:
+        booklet: libro
+        day: Giorno %{index} - %{label}
+        events: eventi
+        events_by_track: Eventi via filo
+        schedule: Programma - %{label}
+        schedule_index: Panoramica del programma
+        speakers: altoparlanti
+        timeline: cronologia
+      nav:
+        day: Giorno %{index}
+        events: eventi
+        index: sondaggio
+        qrcode: QR-Code
+        schedule: programma
+        speakers: altoparlanti
+      qrcode:
+        link_to_public_schedule: |
+          Questo codice QR contiene l'URL della versione leggibile dal computer del programma pubblico.
+          Scansionalo con un'applicazione come Giggty o BarfBag per importare il programma di questa conferenza.
+      speaker:
+        contact: contatto
+        email: e-mail
+        events_in_this_conference: Eventi in questa conferenza
+        links: connessioni
+        speaker: altoparlante
+      speakers:
+        events: eventi
+        name: Nome
+        speakers: altoparlanti
+      timeline:
+        events: eventi
+      title: Programma %{title}
+  public_name: Nome pubblico
+  rating: notazione
+  ratings: notazioni
+  ratings_module:
+    error_creating: 'Impossibile creare note: %{error}'
+    error_updating: Impossibile aggiornare la nota
+    no_event: |
+      Al momento non ci sono eventi da valutare in questa conferenza.
+      Una volta aggiunti gli eventi, appariranno con i loro
+      le loro valutazioni. Puoi modificare le tue valutazioni cliccando su
+      un evento in cui è possibile utilizzare il pulsante "Avvia la valutazione"
+      , per iniziare una valutazione di diversi eventi.
+    notice_already_rated_everything: 'Hai già recensito tutti gli eventi:'
+    notice_rating_created: Nota creata con successo.
+    notice_rating_updated: Nota aggiornata correttamente.
+    show_ratings: Mostra recensioni
+    start_reviewing: Inizia la valutazione
+    start_reviewing_hint: |
+      Rivedi un sacco di eventi. L'evento con il minor numero di valutazioni
+      ti verrà offerto prima. Puoi facilmente navigare
+      l'elemento successivo nell'elenco.
+    statistics: statistica
+    total_number_of_events: 'Eventi totali:'
+    total_number_of_events_no_review: 'Eventi totali senza revisione:'
+    total_number_of_not_reviewed: 'Eventi che non hai recensito:'
+    total_number_of_reviewed: 'Eventi che hai recensito:'
+  remove: rimuovere
+  remove_association: Rimuovi %{name}
+  reports: relazioni
+  reports_module:
+    all_transportation_needs: panoramica delle esigenze di trasporto
+    available_reports: Rapporti disponibili
+    confirmed_events_by_track: eventi confermati dal thread
+    do_not_record_events: eventi con l'opzione "non salvare"
+    event_timeslot_deviation: elenca tutte le conferenze con intervalli di tempo personalizzati
+    event_timeslot_sum: intervalli di tempo utilizzati (ore)
+    events_by_track: numero di eventi per filo
+    events_not_public: eventi non pubblici
+    events_that_are_no_lectures: eventi che non sono né conferenze né workshop
+    events_that_are_workshops: elenco di tutti i workshop
+    events_with_a_note: eventi con una nota
+    events_with_more_than_one_speaker: eventi con più di un oratore
+    events_with_tech_rider: elenca tutti gli eventi in programma con le esigenze materiali
+    events_with_unusual_state_speakers: eventi con relatori in uno stato problematico
+    events_without_abstract: eventi senza sintesi
+    events_without_speaker: eventi senza relatore
+    expected_speakers: altoparlanti mancanti per le prossime 4 ore
+    found_x_results: risultato (s) %{nb} trovato.
+    lectures_not_confirmed: conferenze nuove o di revisione
+    lectures_with_speaker: lezioni con relatore
+    no_search_results: Siamo spiacenti, la tua ricerca non ha prodotto risultati.
+    non_attending_speakers: relatori che non parteciperanno alle prossime 2 ore
+    people_speaking_at: relatori confermati alla conferenza
+    people_speaking_by_day: altoparlanti confermati al giorno con stato di presenza
+    people_with_a_note: persone con una nota nella loro presentazione
+    people_with_more_than_one: persone con più di una presentazione
+    people_with_non_reimbursed_expenses: persone con spese non rimborsate
+    query_speakers: interrogatori
+    speakers_without_availabilities: altoparlanti senza disponibilità
+    unconfirmed_events: eventi non confermati
+  resend: ritorno
+  role:
+    admin: amministratore
+    coordinator: coordinatore
+    crew: Membro della squadra
+    orga: organizzatore
+    reviewer: critico
+    submitter: depositante
+  role_str: ruolo
+  rooms: Salles
+  rooms_module:
+    configured_rooms: 'Le stanze attualmente configurate sono:'
+    empty_rooms: |
+      Qui puoi creare e modificare le stanze in cui
+      gli eventi si svolgeranno. Si prega di inserire almeno uno
+      stanza. Le stanze determineranno il numero di colonne nel tuo
+      programma.
+    modify_room_with_parent: |
+      Le sale per questa conferenza possono essere solo
+      modificato con i diritti di amministrazione della conferenza principale:
+      %{parent}
+  schedule: programma
+  schedule_configuration: Configurazione del programma
+  schedule_module:
+    col_orientation: 'Orientamento:'
+    col_rooms_per_page: 'Stanze per pagina:'
+    col_select_day: 'giorno:'
+    col_select_paper_format: 'Formato carta:'
+    col_select_rooms: 'camere:'
+    col_use_half_page: 'Usa solo metà della larghezza della pagina:'
+    create_locale: Crea %{export_locale}
+    create_locale_hint: Crea un'esportazione statica del tuo programma in formato HTML.
+    create_pdf: Crea un PDF
+    create_pdf_export: Esporta in PDF
+    create_pdf_export_hint: Crea una versione PDF del tuo programma che può essere facilmente stampata.
+    create_static_export: Creare un'esportazione statica del programma
+    download_static_export: Scarica l'esportazione statica del programma
+    error_day_not_found: Non riesci a trovare il giorno.
+    error_event_not_public: Nessun evento è pubblico e programmato.
+    html_exports: Esportazioni HTML
+    inputs:
+      hints:
+        program_export_base_url: |
+          Se si desidera utilizzare l'esportazione statica del programma, immettere
+          l'URL dove mettere i file. Tutti i riferimenti
+          verrà generato utilizzando questo prefisso. Sarà anche usato per
+          i codici QR che portano al programma.
+        schedule_custom_css: CSS personalizzato che verrà aggiunto all'esportazione HTML. (CSS)
+        schedule_html_intro: Testo introduttivo per l'esportazione HTML. (HTML)
+        schedule_open: |
+          Consenti agli oratori di programmare le loro sessioni da soli. tutto
+          sarà accettato È possibile abilitare questa impostazione e disabilitarla
+          prima dei tuoi diari.
+        schedule_public: |
+          Il programma dinamico è pubblico? Puoi sempre
+          per fare esportazioni di statiche, non importa quale parametro.
+        schedule_version: Qual è l'attuale versione della programmazione?
+    notice_no_base_url: program_export_base_url deve essere definito
+    notice_no_export_found: Nessuna esportazione trovata.
+    notice_static_export_started: L'esportazione statica del programma è iniziata. Si prega di ricaricare questo impasto in un minuto.
+    preview_public_schedule: Visualizza l'anteprima del programma pubblico
+    preview_schedule: Visualizza l'anteprima del programma
+    publish_html_export: Esporta in HTML
+    publish_html_export_hint: Creare una versione HTML del programma, che può essere copiata su un altro server web.
+    select_all_none: Selezione (Tutti / Nessuno)
+    view_live_version_hint: Visualizza la versione pubblica del programma, come chiunque vorrebbe vederlo
+  scheduling: programmazione
+  send: mandare
+  session:
+    login: Entra
+    signup: Crea il mio account
+    update_password: Cambia la mia password
+  settings: impostazioni
+  show: Affiggere
+  show_account: conto
+  sign_in_successful: Identificato con successo.
+  simple_form:
+    error_notification:
+      default_message: 'Si prega di rivedere i problemi di seguito:'
+    'no': non
+    required:
+      mark: "*"
+      text: richiesto
+    'yes': sì
+  speakers: altoparlanti
+  state: stato
+  static_program_export: Esportazione statica del programma
+  submission_configuration: Configurazione della proposta
+  support:
+    array:
+      last_word_connector: e
+      two_words_connector: " e"
+      words_connector: ","
+  switch_conference: Conferenza delle modifiche
+  this_conference: Questa conferenza
+  ticket: biglietto
+  ticket_server: Ticket server
+  tickets:
+    error_failed_to_create: 'Impossibile creare il ticket: %{message}'
+    error_failed_to_receive_id: Impossibile recuperare l'ID remoto.
+    error_no_ticket_server: Nessun ticket server configurato.
+    inputs:
+      hints:
+        password: Password o chiave di accesso API utilizzata per identificarsi con il sistema di ticket
+        queue: Nome dell'elenco eventi
+        url: 'URL del tuo sistema di ticket. Esempio: https: // localhost / otrs /'
+        user: Nome utente utilizzato per il sistema di ticket
+  time:
+    am: sono
+    formats:
+      day: "%A"
+      default: "%A, %d. %B %Y, %H:%M"
+      long: "%A, %d. %B %Y, %H:%M"
+      month_datetime: "%d. %b %H:%M"
+      pretty_datetime: "%Y-%m-%d %H:%M"
+      short: "%d. %B, %H:%M"
+      short_datetime: "%d. %H:%M"
+      time: "%H:%M"
+    pm: pm
+    time_range_seperator: " a"
+  time_and_place: Ora e luogo
+  timeslot_configuration: Configurazione dello slot di tempo
+  title: titolo
+  titles:
+    admin_accounts: Elenco di account amministratore
+    cfp_edit_cfp: Modifica l'invito per la partecipazione
+    cfp_new_cfp: Avvia un invito alla partecipazione
+    cfp_view: Invito alla partecipazione
+    cfp_welcome: "%{conference} - Invito alla partecipazione"
+    change_your_password: Cambia la tua password
+    conferences_index: Elenco delle conferenze
+    conferences_list: Elenco delle conferenze
+    cpf_event_confirm: Conferma la tua presenza
+    create_account: Crea un account per %{person}
+    crew_users: Elenco dei conti dei membri del team
+    edit_account: 'Modifica un account: %{person}'
+    edit_an_account: Modifica %{name}
+    edit_mail_template: Modifica un modello di email
+    edit_people_for_event: Modifica di persone per "%{event}"
+    edit_person: 'Modifica qualcuno: %{person}'
+    event: 'Evento: %{event}'
+    event_list: Elenco degli eventi
+    event_ratings: Valutazione degli eventi
+    forgot_your_password: Hai dimenticato la password?
+    frab: fragile - Gestione della conferenza
+    frab_conference: "%{conference} - Gestione conferenze"
+    list_mail_templates: Elenco di modelli di email
+    new_event: Nuovo evento
+    person: 'Persona: %{person}'
+    resend_confirmation_instructions: Restituire l'e-mail di conferma
+    session_login: Entra
+    session_signup: iscrizione
+    unlock_instructions: Istruzioni di avvolgimento
+  total: totale
+  track: filo
+  tracks: figlio
+  tracks_module:
+    configured_tracks: 'I fili configurati sono:'
+    empty_tracks: |
+      Se stai organizzando la tua conferenza su più thread, questo è il posto giusto
+      per crearli. Anche se hai solo un thread, inseriscilo.
+    empty_tracks_more_infos: |
+      I fili hanno un nome e un colore. Il colore è usato in
+      il programma HTML; non esitate a modificarlo tutte le volte che
+      necessario.
+    modify_track_with_parent: |
+      Le tracce per questa conferenza possono essere modificate
+      amministrazione per la conferenza principale %{parent}
+  transport_needs: Hai bisogno di trasporto
+  transport_needs_module:
+    booked_question: Riservato?
+    is_booked_hint: Questo trasporto è stato prenotato?
+    nb_seats: Nb. posti a sedere
+    nb_seats_needed_hint: Quanti posti sono richiesti?
+    new_transport_need: Nuova necessità di trasporto
+    notice_need_created: Hai bisogno di trasporto creato con successo.
+    notice_need_destroyed: Bisogno di trasporto rimosso con successo.
+    notice_need_disabled: I requisiti di trasporto sono disabilitati per questa conferenza.
+    notice_need_updated: Bisogno di trasporto aggiornato correttamente.
+    transport_needs: Hai bisogno di trasporto
+    what_type_id_needed_hints: Che tipo di trasporto è richiesto?
+    when: quando
+  type: tipo
+  unknown_id: ID sconosciuto
+  user: utente
+  user_account: conto
+  user_role: ruolo
+  user_settings: impostazioni
+  users: utenti
+  users_module:
+    edit_user_account: Modifica l'account utente
+    edit_user_account_hint: Pubblica l'account di questo utente.
+    error_invalid_person: Non una persona valida
+    error_invalid_public_name: Nome pubblico valido. Per favore cambiala.
+    not_in_crew: Questo utente non fa parte del team di alcuna conferenza.
+    notice_profile_updated: Profilo aggiornato correttamente.
+    notice_user_created: Utente creato con successo.
+    notice_user_updated: Utente aggiornato correttamente.
+    save_needed_before_changes: È necessario salvare prima di aggiungere conferenze a un membro del team.
+  value: valore
+  version_on_item: "%{version} su %{item}"
+  work_in_progress: In corso ...
+  workshops: workshop
+  workshops_only: Solo seminari
+  your_submission: La tua proposta

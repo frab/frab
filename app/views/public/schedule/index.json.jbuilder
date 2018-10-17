@@ -27,7 +27,7 @@ json.schedule do
             if @conference.program_export_base_url.blank?
               json.url url_for(public_event_url(id: event.id))
             else
-              json.url url_for(event.static_url)
+              json.url url_for(event.static_url(@conference))
             end
             json.id event.id
             json.guid event.guid

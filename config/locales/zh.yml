@@ -1,0 +1,2113 @@
+---
+zh:
+  ability:
+    denied: 此操作是不允许的。
+  accepted_only: 仅接受
+  actions: 操作
+  activerecord:
+    attributes:
+      availability:
+        end_date: 结束日期
+        start_date: 开始日期
+      call_for_participation:
+        contact_email: 联系电子邮件
+        end_date: 结束日期
+        hard_deadline: 严格的截止日期
+        info_url: 信息URL
+        start_date: 开始日期
+        welcome_text: 欢迎文字
+      classifier:
+        description: 描述
+        name: 名称
+      conference:
+        acronym: 缩写
+        bulk_notification_enabled: 批量通知已启用
+        color: 颜色
+        default_recording_license: 默认录制许可证
+        default_timeslots: 默认时隙
+        email: 电子邮件
+        event_state_visible: 事件状态可见
+        expenses enabled: 支出已启用
+        feedback_enabled: 已启用反馈
+        max_timeslots: 最大。时隙
+        program_export_base_url: 节目导出网址
+        schedule_custom_css: 计划自定义CSS
+        schedule_html_intro: 计划HTML介绍
+        schedule_open: 计划打开
+        schedule_public: 公开日程
+        schedule_version: 计划版本
+        ticket_type: 票类型
+        timeslot_duration: 时隙持续时间
+        timezone: 时区
+        title: 标题
+        transport_needs_enabled: 运输需求启用
+      conference_export:
+        locale: 语言环境
+      conference_user:
+        conference_id: 会议
+        role: 角色
+      conflict:
+        conflict_type: 冲突类型
+        conflicting_event_id: 冲突事件
+        severity: 严重
+      day:
+        end_date: 结束日期
+        start_date: 开始
+      event:
+        abstract: 概要
+        average_feedback: 平均反馈
+        average_rating: 平均评分
+        description: 描述
+        do_not_record: 不要录制
+        event_feedback_count: 事件反馈计数
+        event_ratings_count: 事件评分数
+        event_type: 事件类型
+        guid: GUID
+        invite_token: 邀请令牌
+        language: 语言
+        logo: 商标
+        note: 注意
+        public: 上市
+        recording_license: 录制许可证
+        speaker_count: 演讲者数量
+        speakers: 音箱
+        start_time: 开始时间
+        state: 州
+        submission_note: 提交说明
+        subtitle: 字幕
+        tech_rider: 技术车手
+        time_slots: 时隙
+        title: 标题
+        track: 跟踪
+      event_attachment:
+        public: 上市
+        title: 标题
+      event_classifier:
+        value: 值
+      event_feedback:
+        comment: 评论
+        note: 注意
+      event_rating:
+        comment: 评论
+        rating: 评分
+      expense:
+        name: 名称
+        reimbursed: 报销
+        value: 值
+      im_account:
+        im_address: 地址
+        im_type: IM类型
+      langage:
+        code: 码
+      link:
+        title: 标题
+        url: 地址
+      mail_template:
+        content: 内容
+        name: 名称
+        subject: 学科
+      notification:
+        accept_body: 接受身体
+        accept_subject: 接受主题
+        locale: 语言
+        reject_body: 拒绝身体
+        reject_subject: 拒绝主题
+        schedule_body: 附表正文
+        schedule_subject: 附表科目
+      person:
+        abstract: 抽象
+        description: 描述
+        email: 电子邮件
+        email_public: 公共邮件
+        first_name: 名字
+        gender: 性别
+        include_in_mailings: 包含在邮件中
+        last_name: 姓
+        public_name: 公共名称
+        use_gravatar: 使用Gravatar
+      phone_number:
+        phone_number: 电话号码
+        phone_type: 类型
+      room:
+        name: 名称
+        rank: 秩
+        size: 尺寸
+      ticket:
+        object_id: ID
+        object_type: 类型
+        remote_ticket_id: 遥控门票
+      ticket_server:
+        password: 密码
+        queue: 队列
+        url: 服务器URL
+        user: 用户
+      track:
+        color: 颜色
+        name: 名称
+      transport_need:
+        at: 在
+        booked: 预订
+        note: 注意
+        seats: 座位
+        transport_type: 运输类型
+      user:
+        email: 电子邮件
+        password: 密码
+        password_confirmation: 确认密码
+        remember_me: 记住我
+        role: 角色
+      video:
+        mimetype: MIMETYPE
+        url: 地址
+    models:
+      call_for_participation: 呼吁参与
+      classifier: 分类
+      conference: 会议
+      conference_user: 会议用户
+      day: 天
+      event: 事件
+      event_attachment: 文件
+      event_classifier: 类别
+      event_person: 人
+      im_account: IM帐户
+      language: 语言
+      link: 链接
+      notification: 通知
+      person: 轮廓
+      phone_number: 电话号码
+      room: 房间
+      track: 跟踪
+  add_association: 添加%{name}
+  additional_resources: 其他资源
+  admin: 管理员
+  admin_accounts: 管理帐户
+  admin_visibility_only_hint: 可见性：仅限管理员。
+  alert_notifications:
+    update_failed: 无法更新
+    update_successful: 更改已成功保存！
+  all: 所有
+  are_you_sure: 你确定？
+  availabilities:
+    alerts:
+      available_for_day: 可用于一天%{day}
+      no_availabilities: |
+        %{person}目前没有任何可用性。
+        您需要提交此表单。
+    available_from: 从
+    available_to: 至
+    error_person_unavailable: "%{person}目前没有任何可用性。"
+    success_update: 可用性已成功更新。
+  availability: 可用性
+  available: 可得到
+  basic_information: 基本信息
+  by: 通过
+  call_for_participation: 呼吁参与
+  cancel: 取消
+  cfp:
+    abstract_hint: 一个简短的段落，简洁地描述你。 (HTML)
+    avatar_hint: 上传一张新照片。
+    back: 背部
+    basic_information: 基本信息
+    bio: 生物
+    change_password_button: 修改我的密码
+    change_password_headline: 更改您的密码
+    changed_from: 从改变
+    classifiers_hint: 帮助您的听众和评论者了解您的提交。选择并为您的提交加权适当的类别。
+    conference_in_the_past: 你不能提交一个演讲，因为这个会议过去了。
+    confirm: 确认
+    confirm_attendance: 确认出席
+    confirm_attendance_explanation: 请点击按钮重新确认您将在活动中发言
+    confirmation_button: 再次请求确认指示
+    confirmation_description: 这可能是电子邮件实际上未送达的罕见事件之一。如果您已经等了一段时间并检查了垃圾邮件文件夹，请
+    confirmation_headline: 我已注册但未收到我的确认说明
+    confirmation_instructions_sent: 确认说明已发送到您提供的地址。
+    contact_data: 联系人数据
+    contact_description_html: 如果您的提交有任何问题或者如果您有任何问题，请随时与我们联系%{mail_to}
+    contact_headline: 联系
+    create_event_headline: 创建一个新事件
+    current_password_hint: 我们需要您当前的密码来确认您的更改
+    deadline_description: 请确保提交您的建议，直到** %{date} **
+    description_hint: 更长的描述你自己。使用它来提供不符合摘要的其他细节。 (HTML)
+    detailed_description: 详细说明
+    edit_account: 编辑您的帐户
+    edit_availability: 编辑可用性
+    edit_availability_description: 请让我们知道您何时可以举办您提交的活动。规划时间表时，我们会尽力将这些愿望纳入其中。
+    edit_availability_headline: 编辑可用性
+    edit_event_headline: 编辑活动
+    edit_profile: 编辑您的个人资料
+    email_accept_upcoming_infos: 你想通过邮件接收即将举行的会议的信息吗？
+    email_hint: 请输入我们应该使用的电子邮件地址作为我们与您联系的主要方式。
+    email_public_hint: 如果您愿意，可以在我们的公共计划中发布此电子邮件地址。
+    error_confirming: 确认您的帐户时出错。请确保您已粘贴电子邮件中的完整链接，并确认您之前未确认过该帐户。
+    error_sending_confirmation_instructions: 无法发送确认说明。请确保您输入了正确的电子邮件地址，并且您的帐户尚未确认。
+    event_abstract_hint: 简短地描述事件的一小段。 (HTML)
+    event_confirmed: 活动已确认
+    event_created_notice: 事件已成功创建。
+    event_description_hint: 对事件的更长描述。使用它来提供不符合摘要的其他细节。会议网站上均会显示摘要和说明。 (HTML)
+    event_time_slots_hint: 以小时和分钟为单位的活动时长。对于定期会谈等，只使用默认值。
+    event_updated_notice: 活动已成功更新。
+    event_withdrawn_notice: 您的提交已被撤回。
+    events_submitted: 您已提交的事件：
+    fail_layout_use: 不要在会议中使用会议布局
+    forgot_password_button: 请求一个新的密码
+    forgot_password_description: 在此之前，但不记得你的密码？我们知道它是如何，所以请随时
+    forgot_password_headline: 忘记密码了吗？
+    hard_deadline_over: 对不起，提交活动的截止日期已经结束。
+    im_accounts: 即时消息帐户
+    info_url_description_html: 不确定要提交什么？请阅读%{link}的“参与呼吁”全文
+    information_headline: 信息
+    input_appreciation: 我们非常感谢您的输入。随意提交或加入其他活动：
+    inputs:
+      hints:
+        contact_email: 一个电子邮件地址，如果有任何问题，参与者可以与您联系。
+        end_date: 选择参加者提交的截止日期。此截止日期将显示给用户，但不会强制执行。
+        hard_deadline: 选择一个艰难的最后期限。此日期之后将不可能提交。如果您想无限期允许提交，请留空。
+        info_url: 包含有关参与呼叫的其他信息的网页。请输入完整的网址，包括'http：//'
+        start_date: 选择一个您的CfP应该向公众开放的日期。
+        welcome_text: 输入欢迎信息或您想要向参与者显示的其他说明。 (HTML)
+    join_alternative: 或查找另一个邀请令牌：
+    join_confirm: 你想接受邀请吗？
+    join_description: 提供令牌后，您可以作为演讲者加入此活动：
+    join_event: 加入活动
+    join_submitters_hint: 与您想允许加入此活动的发言人共享此令牌。创建帐户后，他们可以在“加入事件”界面中使用该标记。
+    join_success: 您已被添加为此活动的发言人。
+    join_token_already_used: 你已经是这个事件的发言人。
+    join_token_link: 此链接直接导致此活动的“加入活动”页面。
+    join_token_lookup: 查找令牌
+    join_token_lookup_description: 输入让您以演讲者身份加入活动的令牌。
+    join_token_lookup_hint: 提示：标记可以由原始提交者在事件的编辑视图中查看。
+    join_token_unknown: 令牌%{token}未知。
+    languages_spoken: 使用的语言
+    links: 链接
+    login: 登录
+    login_existing_description: 如果您为此参与呼叫或任何以前的活动创建了帐户，则可以登录。
+    login_existing_headline: 使用现有帐户登录
+    looking_for_login_form: 你在寻找提交者的登录名吗？
+    no_confirmation_token: 您的确认密钥无效。请在参与界面的电话中查看您的活动状态。
+    not_forget_personal_details: 如果您还没有填写您的个​​人资料，请不要忘记填写。请记住，您可以随时返回并使用右侧边栏中的按钮编辑您的个人资料。
+    notifications:
+      launched: 发起呼吁参与。
+    pages:
+      conference_open_mode: 会议处于开放模式。自我调度是允许的
+      event_confirm_attendence: 确认出席
+      event_confirmation_request: 您的确认是必需的事件：** %{event} **。
+      not_started_cfp: |
+        不幸的是，参与呼吁尚未开始。请与我们联系
+        并为我们的准备留出更多时间。
+      profile_data: 资料数据：
+      start_date_tip: |
+        参与呼吁将从** %{start_date} **开始。请在此日期或之后返回。
+        我们期待您的提交。
+      thank_for_interest: 感谢您对参与%{conference}的兴趣。
+      unexisting_cfp: 不幸的是，呼吁参与还没有(还)？存在。
+    password_hint: 如果您不想更改它，请留空
+    password_updated: 成功更新您的密码。
+    person_created_notice: 配置文件已成功创建。
+    person_updated_notice: 个人资料已成功更新。
+    personal_details_description: 请填写下面的表格让我们(如果您选择了参赛作品，参加会议的人)知道你会更好一点。
+    personal_details_headline: 个人资料 - 让我们知道你
+    personal_details_later: 请注意，您现在可以填写最低限额，并且稍后再回来添加更多详细信息。
+    phone_numbers: 电话号码
+    problem_sending_password_reset_instructions: 无法发送密码重置说明。请确保您输入了正确的电子邮件地址。
+    public_name_hint: 这是将在公共计划中显示的名称。
+    resend_confirmation_button: 重新发送确认说明
+    resend_confirmation_headline: 重新发送确认说明
+    save_availability: 保存可用性
+    save_cfp: 保存参与的呼叫
+    scheduled: 计划的时间
+    send_reset_instructions: 发送重置密码说明
+    sent_password_reset_instructions: 说明如何重置密码已发送到您提供的电子邮件地址。
+    set_to: 设置
+    show:
+      conference_empty_days: 会议将不会出现，直到添加日子。
+      dates_hint: 参与呼吁从%{start_date}开始，到%{end_date}结束。
+      deadline_passed: 艰难的CFP截止日期已过，没有意见可能。
+      edit_cfp_hint: 编辑此参与者的数据呼叫
+      empty_description: 参与呼叫正在运行，但说明文字为空。 frab不会链接到cfp。
+      new_events_by_day: 白天的新活动
+      submitters_interface_link: 提交者界面位于：
+      total_event_count: 事件总数
+    sign_in: 签到
+    sign_up: 注册
+    sign_up_description: 如果您是%{title}的新手，请花时间创建一个帐户。这非常简单快捷。
+    sign_up_headline: 注册一个新帐户
+    signed_up: 您已成功注册。包含确认说明的电子邮件已发送至您提供的地址。请按照这些说明完成注册。
+    specify_availability: 请让我们知道，您可以在什么时间举办活动：
+    submission_note_hint: 对管理员和用户可见，包含其他信息。
+    submit_another_event: 提交另一个事件
+    submit_new_event: 提交新活动
+    successfully_confirmed: 您的帐户已成功确认。谢谢您注册！
+    take_time_to_submit: 请花时间提交您的提案或加入现有活动：
+    thanks_for_confirmation: 感谢您确认您的参与。
+    thanks_for_interest: 感谢您对参与%{title}的兴趣。
+    to: 至
+    update: 更新
+    update_availability_notice: 感谢您指定您的可用性。
+    updated: 成功更新。
+    uploaded_files: 上传的文件
+    welcome: 欢迎
+    welcome_text: 欢迎参加呼吁。要创建或审核您提交的内容，您需要登录。如果您是%{title}的新手，则需要注册一个帐户。
+    withdraw: 收回
+    withdrawal_confirmation: 真的从参与征集中撤回这个活动？
+  classifiers: 分类
+  classifiers_module:
+    current_classifiers: 当前配置的分类器是：
+    empty_classifiers: |
+      在这里您可以创建和编辑提交者的分类器
+      可以给他们的事件
+    modify_classifier_with_parent: |
+      此会议的分类器只能使用修改
+      父会议%{parent}的管理权限
+  clear: 明确
+  col_abstract: 抽象：
+  col_availability: 可用性：
+  col_avg_audience_feedback: 平均观众反馈：
+  col_classifiers: 分类：
+  col_col_template: "%{data}："
+  col_conference: 会议：
+  col_description: 描述：
+  col_email: 电子邮件：
+  col_email_for_login: 登录电子邮件：
+  col_event_state: 事件状态
+  col_files: 文件：
+  col_filters: 过滤器：
+  col_first_name: 名字：
+  col_full_name: 全名：
+  col_gender: 性别：
+  col_language: 语言：
+  col_last_login: 上次登录：
+  col_last_name: 姓：
+  col_links: 链接：
+  col_non_reimbursed_expenses: 未报销费用：
+  col_notes_admin: Notes(管理员)：
+  col_phone_number_with_type: 电话号码(%{type})：
+  col_public: 上市：
+  col_public_name: 公开名称：
+  col_reimbursed_expenses: 报销费用：
+  col_role: 角色：
+  col_room: 客房：
+  col_rooms: 客房：
+  col_speakers: 演讲嘉宾：
+  col_start_time: 开始时间：
+  col_submission_notes: 提交注释(用户和管理员)：
+  col_ticket: 票：
+  col_time_slots: 时隙：
+  col_total: 总：
+  col_track: 跟踪：
+  col_tracks: 曲目：
+  col_type: 类型：
+  comment: 评论
+  comments: 注释
+  conference: 会议
+  conference_management: 会议管理
+  conferences: 会议
+  conferences_module:
+    accepting: 验收
+    add_conference: 添加会议
+    add_conference_hint: 添加一个新的会议
+    canceled: 取消
+    conference_in_past: 会议日在过去。没有提交是可能的。
+    confirmed: 确认
+    current_conferences: 当前会议
+    error_specified_conference_not_found: 指定的会议未找到
+    footer: 这个时间表是用[frab](http://frab.github.io/frab/)生成的。
+    inputs:
+      hints:
+        acronym: |
+          为您的会议提供一个简短而独特的手柄，仅使用小写字母
+          字母，数字和下划线。这将用于识别你的
+          网址会议等。例如：'froscon2011''“
+        bulk_notification_enabled: |
+          如果您启用此功能，通知将通过邮件批量发送
+          或票子系统。
+        color: 您可以为会议定义颜色。
+        default_recording_license: 所有会谈的默认录制许可证
+        default_timeslots: |
+          什么是您的事件的默认长度？例如：如果你选择
+          15分钟的时隙持续时间来计算休息时间，但是你的
+          谈话通常是1小时，选择4，因为4次15分钟是1小时。
+        email: |
+          联系您的会议电子邮件地址。将用作回复
+          系统发送的电子邮件地址。
+        event_languages: 选择会议中可以容纳哪些语言的活动。
+        event_state_visible: |
+          如果启用此功能，扬声器将能够查看状态
+          他们在cfp界面提交并确认他们的出席
+          按下确认按钮。
+        expenses_enabled: 如果启用此功能，frab将允许您跟踪人员的开支
+        feedback_enabled: |
+          如果您启用此功能，则您的程序导出将包含指向反馈的链接
+          形成与会者可以评估活动的位置。
+        max_timeslots: 单个事件的最大长度是多少(例如单个谈话)？
+        timeslot_duration: |
+          你想要最短的时间段是多久？这基本上
+          定义您可以计划您的程序的网格。警告：这个
+          一个很棘手，以后不能轻易改变，所以给一些
+          思想。一般来说，更大的时隙使事情变得更简单，但是
+          较小的使你更加灵活。例如：如果你只需要
+          安排与完整和半小时完美对应的30分钟会谈，
+          选择30分钟作为插槽大小。如果你有1小时的会谈和
+          他们之间15分钟的休息时间，15分钟是完美的插槽大小。
+          请注意，您可以稍后缩小插槽大小，只要
+          旧插槽大小是新插槽的倍数。所以从15分钟开始
+          下降到5是好的，而下降到10分钟是行不通的。
+        timezone: |
+          请选择您的会议将在什么时区发生。
+          这是正确显示事件的时间所必需的。
+        title: |
+          您的会议名称将在整个网站中显示。
+          示例：'FrOSCon'
+        transport_needs_enabled: |
+          如果启用此功能，frab将允许您跟踪运输需求
+          人
+    manage_conferences: 管理会议
+    manage_conferences_hint: 管理所有会议
+    new: 新
+    new_welcome: |
+      欢迎！看起来这是你第一次来这里。
+      要开始组织会议，您需要先完成
+      输入一些关于它的数据。你可以改变大部分内容
+      你稍后进入。但有些东西不能改变
+      在您提交此表格后，请轻松阅读
+      仔细检查每个表单域的提示，然后仔细检查
+      你输入的内容。
+    no_conference: 还没有一个会议。
+    no_conference_with_cfp: 目前没有参加会议的呼吁。也许你需要登录？
+    no_conferences: |
+      还没有一个会议。
+      点击开始添加会议
+      按钮在右边。
+    notice_bulk_notification_queued: 批量通知%{notification}中的事件入队。
+    notice_conference_created: 会议成功创建。
+    notice_conference_updated: 会议已成功更新。
+    past_conferences: 过去的会议
+    recent_changes: 近期变动
+    recent_changes_text: |
+      一旦你或其他人开始为此创建数据
+      会议，你会发现谁在这里改变了什么。
+      如果您打电话，这特别有趣
+      参与。在这种情况下，这个区域允许
+      你很快看到是否有新的提交进来。
+    rejected: 拒绝
+    rejecting: 拒绝
+    review: 评论
+    scheduled: 计划
+    search: 搜索
+    search_hint: 搜索会议
+    show_no_event: |
+      这次会议还没有任何事件。
+      (请注意，在整个应用程序中，
+      通用术语“事件”用于指所有
+      无论如何，你的会议中的会话
+      他们是会谈，讲习班，小组讨论会等等
+      其他完全)。
+
+      点击开始添加事件
+      上面的_Events_标签。或者打个电话
+      参与，允许他人提交
+      事件供您审查。
+    show_welcome: |
+      欢迎，你似乎刚刚创建了这个
+      会议。一个好的第一步将是去
+      到上面的_Conference Settings_选项卡
+      并为此次会议增加一个空间。这会
+      需要安排您的计划。
+    statistics: 统计
+    statistics_empty: |
+      一旦您为此次会议创建了一些活动，
+      或通过呼吁参与收集意见书，
+      你会在这里找到关于它们的一些统计数据
+    total: 总
+    unconfirmed: 未经证实
+    variables:
+      conference: 会议名称
+      date: 介绍日期
+      event: 活动标题
+      forename: 扬声器的名字
+      link: 确认链接
+      public_name: 演讲者公开名称
+      room: 介绍室
+      surname: 发言人姓氏
+      time: 演示时间
+    version: 版本%{version}
+    withdrawn: 取消
+  conflict:
+    events_overlap: 与...重叠
+    has_no_availability: 尚未输入任何可用性。
+    person_already_speaking: 已经在讲话了
+    person_unavailable: 在预定的时间不可用。
+  contact_information: 联系信息
+  content: 内容
+  create_new_conference: 创建新的会议
+  create_your_first_conference: 创建你的第一个会议
+  created_at: 创建于
+  creation_date: 创建日期
+  crew: 船员
+  crew_accounts: 船员帐户
+  date:
+    abbr_day_names:
+    - 太阳
+    - 周一
+    - 星期二
+    - 星期三
+    - 星期四
+    - 周五
+    - 星期六
+    abbr_month_names:
+    -
+    - 一月
+    - 二月
+    - 损伤
+    - 四月
+    - 可能
+    - 君
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
+    day_names:
+    - 星期日
+    - 星期一
+    - 星期二
+    - 星期三
+    - 星期四
+    - 星期五
+    - 星期六
+    formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    month_names:
+    -
+    - 一月
+    - 二月
+    - 游行
+    - 四月
+    - 可能
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
+    order:
+    - :year
+    - :month
+    - :day
+  date_not_set: 尚未设定日期
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: 大约1小时
+        other: 约%{count}小时
+      about_x_months:
+        one: 大约1个月
+        other: 约%{count}个月
+      about_x_years:
+        one: 大约1年
+        other: 约%{count}年
+      almost_x_years:
+        one: 差不多一年
+        other: 几乎%{count}年
+      half_a_minute: 半分钟
+      less_than_x_minutes:
+        one: 不到一分钟
+        other: 小于%{count}分钟
+      less_than_x_seconds:
+        one: 少于1秒
+        other: 小于%{count}秒
+      over_x_years:
+        one: 超过1年
+        other: 超过%{count}年
+      x_days:
+        one: 1天
+        other: "%{count}天"
+      x_minutes:
+        one: 1分钟
+        other: "%{count}分钟"
+      x_months:
+        one: 1个月
+        other: "%{count}个月"
+      x_seconds:
+        one: 1秒
+        other: "%{count}秒"
+    prompts:
+      day: 天
+      hour: 小时
+      minute: 分钟
+      month: 月
+      second: 秒
+      year: 年
+  day: 天
+  days: 天
+  days_module:
+    configured_days: 当前配置的日期是：
+    empty_days: |
+      在这里，您可以创建和编辑会议日。
+      你的'日子'可以随时开始结束，但不应该
+      交叠。
+    inherited_conference_change: |
+      这次会议的日子只能使用修改
+      父会议%{parent}的管理权限
+      只能通过管理来改变
+      该会议的界面。
+  default_text: 默认文本
+  destroy: 破坏
+  detailed_changes: 详细的更改
+  details: 细节
+  devise:
+    cancel_account: 取消我的帐户
+    cancel_account_text: 不开心？ %{link}
+    change_my_password: 修改我的密码
+    confirmations:
+      confirmed: 您的电子邮件地址已成功确认。
+      send_instructions: 您将收到一封电子邮件，其中包含有关如何在几分钟内确认您的电子邮件地址的说明。
+      send_paranoid_instructions: 如果您的电子邮件地址存在于我们的数据库中，您将收到一封电子邮件，其中包含如何在几分钟内确认您的电子邮件地址的说明
+    current_password_hint: 我们需要您当前的密码来确认您的更改
+    failure:
+      already_authenticated: 您已经登录。
+      inactive: 您的帐户尚未激活。
+      invalid: 无效的%{authentication_keys}或密码。
+      last_attempt: 在您的帐户被锁定之前，您还有一次尝试。
+      locked: 您的帐户已锁定。
+      not_found_in_database: 无效的%{authentication_keys}或密码。
+      timeout: 您的会话已过期。请再次登录以继续。
+      unauthenticated: 在继续之前，您需要登录或注册。
+      unconfirmed: 在继续之前，您必须确认您的电子邮件地址。
+    leave_password_blank_hint: 如果你不想改变它，留空
+    links:
+      no_unlock_instructions: 没有收到解锁指示？
+      sign_in_with: 用%{provider}登录
+    mailer:
+      confirmation_instructions:
+        headline: 欢迎%{email}！
+        link: 确认我的帐户
+        subject: 确认说明
+        text: '您应该使用以下链接确认您的电子邮件地址：
+
+'
+      email_change:
+        headline: 你好，%{email}！
+        text_been_changed: '我们正在与您联系，通知您您的电子邮件已更改为%{email}。
+
+'
+        text_being_changed: '我们正在与您联系，通知您电子邮件正在更改为%{email}。
+
+'
+      email_changed:
+        subject: 电子邮件已更改
+      password_change:
+        headline: 你好，%{email}！
+        subject: 密码已更改
+        text: |
+          我们正在与您联系，通知您您的密码已经存在
+          改变。
+      password_change_instructions:
+        headline: 你好，%{email}！
+        text: |
+          有人要求链接更改您的密码。你可以做
+          这通过下面的链接。
+
+          %{link}
+
+          如果您没有请求，请忽略此电子邮件。
+
+          在访问上面的链接并创建一个新链接之前，您的密码不会更改。
+      reset_password_instructions:
+        subject: 重置密码说明
+      unlock_instructions:
+        headline: 你好，%{email}！
+        subject: 解锁说明
+        text: |
+          由于登录尝试失败次数过多，您的帐户已被锁定。
+
+          点击下面的链接解锁您的帐户：
+
+          %{link}
+    omniauth_callbacks:
+      failure: 由于“%{reason}”，无法从%{kind}验证您的身份。
+      success: 已成功从%{kind}帐户进行身份验证。
+    passwords:
+      no_token: 如果您不是来自密码重置电子邮件，则无法访问此页面。如果您确实来自密码重置电子邮件，请确保您使用了提供的完整网址。
+      send_instructions: 您将收到一封电子邮件，其中包含有关如何在几分钟内重置密码的说明。
+      send_paranoid_instructions: 如果您的电子邮件地址存在于我们的数据库中，您将在几分钟内在您的电子邮件地址收到密码恢复链接。
+      updated: 你已经成功更改密码。您现在已登录。
+      updated_not_active: 你已经成功更改密码。
+    registrations:
+      destroyed: 再见！您的帐户已成功取消。我们希望很快再见到你。
+      signed_up: 欢迎！您已成功注册。
+      signed_up_but_inactive: 您已成功注册。但是，我们无法登录您，因为您的帐户尚未激活。
+      signed_up_but_locked: 您已成功注册。但是，由于您的帐户被锁定，我们无法登录您。
+      signed_up_but_unconfirmed: 带有确认链接的邮件已发送至您的电子邮件地址。请按照链接激活您的帐户。
+      update_needs_confirmation: 您已成功更新您的帐户，但我们需要验证您的新电子邮件地址。请检查您的电子邮件并按照确认链接确认您的新电子邮件地址。
+      updated: 您的帐户已成功更新。
+    resend_password_instructions: 发送重置密码说明
+    resend_unlock_instructions: 重新发送解锁说明
+    sessions:
+      already_signed_out: 成功签署。
+      signed_in: 成功签署。
+      signed_out: 成功签署。
+    unlock_my_account: 解锁我的帐户
+    unlocks:
+      send_instructions: 您将收到一封电子邮件，其中包含有关如何在几分钟内解锁您的帐户的说明。
+      send_paranoid_instructions: 如果您的帐户存在，您将收到一封电子邮件，其中包含有关如何在几分钟内解锁的说明。
+      unlocked: 您的帐户已成功解锁。请登录以继续。
+    update_account: 更新我的帐户
+    waiting_for_confirmation: 目前正在等待确认：%{email}
+  edit: 编辑
+  edit_account: 编辑帐户
+  edit_conference: 编辑会议
+  edit_conference_classifiers: 编辑会议分类
+  edit_conference_days: 编辑会议日期
+  edit_conference_rooms: 编辑会议室
+  edit_conference_schedule: 编辑会议日程
+  edit_conference_tracks: 编辑会议轨道
+  edit_person: 编辑人员
+  edit_profile: 轮廓
+  edit_ticket_server: 编辑票务服务器
+  email: 电子邮件
+  emails:
+    event_acceptance:
+      accepted_event: |
+        我们很高兴地告诉你，我们接受了你的提交
+
+        %{event}
+      check_data: |
+        当你在这里：确认使用该链接后，你会
+        登录到会议计划系统。请花时间
+        在那里检查你的数据。这些数据将在官方使用
+        会议程序。您也可以在指定您的可用性
+        有不同的时间。我们会在规划时尝试考虑这一点
+        最终时间表。
+      confirmation: |
+        请快速再次确认您将会出席并交付
+        你的谈话，使用以下链接：
+
+        %{link}
+      goodbye: |
+        亲切的问候
+
+        %{conference}团队
+      greeting: 亲爱的%{forename}，
+      subject: 您提交给%{conference}
+    event_rejection:
+      goodbye: |
+        亲切的问候
+
+        %{conference}团队
+      greeting: 亲爱的%{forename}，
+      rejection: |
+        我们非常感谢您的提交。我们曾经
+        高品质的绝对数量感到惊讶和不知所措
+        我们收到的意见书。
+
+        经过广泛的选择过程后，我们不得不拒绝你的
+        服从
+
+        %{event}
+
+        我们可以向你保证，这不是一个容易做出的决定。
+        我们希望在会议上我们仍然欢迎你。
+      subject: 您提交给%{conference}
+    event_schedule:
+      goodbye: |
+        在%{conference}见
+
+        %{conference}团队
+      greeting: 亲爱的%{forename}，
+      info: |
+        我们很高兴通知您您的提交
+
+        %{event}
+
+        已经安排在%{time}的%{date}上。
+
+        你将在%{room}上发言。
+      subject: 您提交到%{date}的%{conference}，时间为%{time}
+  emails_module:
+    add_mail_template: 添加邮件模板
+    add_mail_template_hint: 添加一个新的邮件模板。
+    edit_template: 编辑邮件模板
+    edit_template_hint: 编辑这个邮件模板。
+    edit_template_title: 邮件模板“%{template}”
+    error_failed_setting_notification: 无法设置默认通知：%{ex}。
+    error_missing_conference_email: 无法发送邮件：请为此会议指定一个电子邮件地址。
+    error_missing_notification_text: |
+      没有通知文本。请更改您的默认文本
+      需求，在接受/拒绝事件之前。
+    error_missing_speaker_email: 无法发送邮件：并非所有发言者都有电子邮件地址。
+    error_state_update: 无法更新状态。
+    error_state_update_ex: 无法更新状态：%{ex}。
+    error_unnotifiable_state: 事件不在通知状态。
+    filters:
+      all_speakers_in_confirmed_events: 所有发言人都参与了所有确认的事件
+      all_speakers_in_scheduled_event: 所有演讲者都参与了所有预定的活动
+      all_speakers_in_unconfirmed_events: 所有发言人都参与了所有未经证实的事件
+    mail_subject: 学科
+    mail_template_hint: |
+      使用此邮件模板向参与事件的所有人员发送邮件
+      这次会议。
+    new_mail_template: 新的邮件模板
+    notice_event_updated: 活动已成功更新。
+    notice_mails_delivered: 邮件已发送。
+    notice_mails_queued: 邮件投递排队。
+    notice_template_destroyed: 邮件模板已成功销毁。
+    notice_template_updated: 邮件模板已成功更新。
+    notice_transport_need_added: 运输需求已成功添加。
+    placeholders_hint: |
+      以下占位符可用于每个的“内容”部分
+      模板。
+    send_mail: 发送邮件
+    template_subject: 主题：%{subject}
+  error_signing_in: 无效的电子邮件或密码。
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: 必须被接受
+      already_confirmed: 已经确认，请尝试登录
+      blank: 不能为空
+      confirmation: 与%{attribute}不匹配
+      confirmation_period_expired: 需要在%{period}中确认，请申请一个新的
+      empty: 不能为空
+      equal_to: 必须等于%{count}
+      even: 一定是平等的
+      exclusion: 被预定了
+      expired: 已过期，请申请一个新的
+      greater_than: 必须大于%{count}
+      greater_than_or_equal_to: 必须大于或等于%{count}
+      inclusion: 不在列表中
+      invalid: 是无效的
+      less_than: 必须小于%{count}
+      less_than_or_equal_to: 必须小于或等于%{count}
+      not_a_number: 不是一个数字
+      not_an_integer: 必须是整数
+      not_found: 未找到
+      not_locked: 没有锁定
+      not_saved:
+        one: 1个错误禁止这个%{resource}被保存：
+        other: "%{count}错误禁止保存这个%{resource}："
+      odd: 一定是奇怪的
+      other_than: 必须不是%{count}
+      present: 必须是空白的
+      record_invalid: 验证失败：%{errors}
+      restrict_dependent_destroy:
+        many: 无法删除记录，因为依赖%{record}存在
+        one: 由于存在从属%{record}，无法删除记录
+      taken: 已经被拿走了
+      too_long:
+        one: 太长(最多1个字符)
+        other: 太长(最大是%{count}个字符)
+      too_short:
+        one: 太短(最少为1个字符)
+        other: 太短(最小为%{count}个字符)
+      wrong_length:
+        one: 是错误的长度(应该是1个字符)
+        other: 是错误的长度(应该是%{count}个字符)
+    template:
+      body: 以下领域存在问题：
+      header:
+        one: 1个错误禁止这个%{model}被保存
+        other: "%{count}错误禁止保存此%{model}"
+  event: 事件
+  event_languages: 事件语言
+  events: 活动
+  events_in: 事件在
+  events_module:
+    accept_event: 接受事件
+    accept_event_hint: |
+      接受这个事件。演讲者将通过接受通知
+      电子邮件。如果他们有机会参与参与系统的呼叫，他们会
+      接收链接以确认他们的出席。
+    accept_event_no_email: 接受事件(无电子邮件)
+    accept_event_no_email_hint: 接受此事件而不发送自动电子邮件。
+    add_event: 添加活动
+    add_event_hint: 添加一个新事件。
+    add_ticket: 添加票据
+    add_ticket_hint: 为此活动创建一张票。
+    all_events: 所有事件
+    all_rating: 所有评级
+    average_feedback: 平均反馈：
+    average_speaker_feedback: 以演讲者的平均反馈：
+    cancel_event: 取消活动
+    cancel_event_hint: 将此事件标记为已取消。通常这意味着扬声器必须取消它们的外观。
+    col_toggle_rooms: 切换房间：
+    confirm_event: 确认活动
+    confirm_event_hint: 确认发言人将出席并且事件将实际发生。
+    custom_notification: 自定义通知
+    custom_notification_hint: 为所有扬声器添加自定义通知。这些将在下次批量通知运行时发送，而不是默认通知。在“编辑人员”选项卡中修改它们。
+    edit_event: 编辑事件
+    edit_event_hint: 编辑此事件的数据。
+    edit_people: 编辑人员
+    edit_people_hint: 在此活动中添加或删除人员。
+    error_no_day: |
+      在您可以安排任何活动之前，您需要
+      至少为此定义一天
+      会议。转到<em>会议设置</ em>
+      上面输入一天。
+    error_no_event: |
+      这次会议还没有任何事件。
+      在上面的_Events_标签下创建一些，
+      或发起参与的要求收集活动。
+      一旦你有事件，你可以安排它们
+      这里。
+    error_no_room: |
+      在您可以安排任何活动之前，您需要
+      至少为此定义一个房间
+      会议。前往设置_
+      上面进入一个房间。
+    event_attachments: 上传的文件
+    event_classifiers: 事件分类器
+    event_details: 活动详情
+    event_feedbacks: 事件反馈
+    event_ratings: 事件评级
+    events_by_gender: 性别事件
+    events_by_language: 语言事件
+    events_by_state: 国家事件
+    events_in_current_conference: 当前会议中的事件
+    events_in_other_conferences: 其他会议中的活动
+    feedback_not_enabled: 反馈系统未启用。
+    hide_all: 全部藏起来
+    inputs:
+      hints:
+        do_not_record: 这个事件会被记录吗？
+        note: 可见性：仅限管理员。
+        public: 这个事件是否在公开时间表中可见？
+        recording_license: 录制本次演讲的许可证
+        submission_note: visibiliy：管理员和用户;附加信息。
+        tech_rider: 这个活动需要什么？
+    my_events: 我的活动
+    my_rating: 我的评价
+    my_ratings: 我的评分
+    no_attende_more_infos: |
+      在会议中启用与会者反馈
+      设置和网络节目安排将包括一个
+      形式为您的与会者提供反馈。这个
+      反馈将出现在这里。
+    no_attendee: 没有与会者对此事件的反馈。
+    no_events: |
+      这次会议还没有任何事件。点击开始添加事件
+      按钮在右边。或者开始参与的呼叫，以允许其他人提交活动
+      你来审查。
+    no_ratings: |
+      尚未有人为此活动输入评分。成为第一个
+      并使用上面的表格对事件进行评分。
+    not_involved: |
+      您尚未参与此活动
+      会议。把自己添加到任何事件中
+      你喜欢的角色和事件将出现在这里
+      名单。
+    print_accepted_cards: 打印卡(仅接受)
+    print_accepted_cards_hint: |
+      只下载PDF格式的接受事件(每页四张)。
+      特别有用的离线计划你的节目时间表。
+    print_cards: 打印卡片
+    print_cards_hint: |
+      将所有事件下载为卡片(每页四张卡片)。打印这个
+      让您的计划脱机。
+    public_attachment_hint: 这个附件是否对公众可见？
+    rate_next: 给下一个事件评分
+    reject_event: 拒绝事件
+    reject_event_hint: 拒绝此事件。发言者将通过电子邮件通知拒绝。
+    reject_event_no_email: 拒绝活动(无电子邮件)
+    reject_event_no_email_hint: 拒绝此事件而不发送自动电子邮件。
+    toggle_description: 切换说明>>
+    track_select: 按轨道过滤
+  expenses: 花费
+  expenses_module:
+    error_person_have_no_expense: "%{person}目前没有任何费用。"
+    is_this_reimbursed_hint: 这笔费用是否已经报销？
+    new_expense: 新的费用
+    notice_expense_created: 费用已成功添加。
+    notice_expense_destroyed: 费用已成功销毁。
+    notice_expense_updated: 费用已成功更新。
+    notice_expenses_disabled: 这次会议没有启用费用
+    reimbursed: 报销
+    sum_not_reimbursed: 所有未报销的总和
+    sum_reimbursed: 全部报销的总和
+  export_profile: 导出配置文件
+  features: 附加功能
+  feedback: 反馈
+  feedback_system: 反馈系统
+  frab_footer: |
+    [frab](http://frab.github.io/frab/)是一个会议计划和管理系统。
+    它有助于收集提交内容，管理讲座和演讲者并创建时间表。
+
+    在[用户手册](https://github.com/frab/frab/wiki/Manual)中维护着
+    [维基](https://github.com/frab/frab/wiki/)。源代码托管在
+    [Github上](https://github.com/frab/frab)。
+  full_name: 全名
+  helpers:
+    select:
+      prompt: 请选择
+    submit:
+      create: 创建%{model}
+      submit: 保存%{model}
+      update: 更新%{model}
+  hint: 暗示
+  home: 家
+  import: 进口
+  inputs:
+    hints:
+      password_length: "%{length}个字符最小"
+  is_not_public: 非公开
+  is_public: 上市
+  languages:
+    Ga: 爱尔兰的
+    ab: 阿布哈兹
+    ace: 亚齐
+    ach: 阿乔利
+    ada: 阿当梅语
+    ady: 阿迪格语
+    ae: 阿维斯陀
+    af: 南非荷兰语
+    afa: 非洲亚洲语言
+    afh: Afrihili
+    ain: 虾夷人
+    ak: 阿寒湖
+    akk: 阿卡德
+    ale: 阿留申
+    alg: Algonquian语言
+    alt: 南阿尔泰
+    am: 阿姆哈拉语
+    an: 阿拉贡
+    ang: 古英语
+    anp: Angika
+    apa: Apache语言
+    ar: 阿拉伯
+    arc: 阿拉姆
+    arn: 阿劳坎
+    arp: 阿拉帕霍
+    art: 人工语言
+    arw: 阿拉瓦克
+    as: 阿萨姆
+    ast: 阿斯图里亚斯
+    ath: 阿塔帕斯卡语言
+    aus: 澳大利亚语
+    av: 阿瓦尔
+    awa: 阿瓦迪
+    ay: 艾马拉
+    az: 阿塞拜疆
+    ba: 巴什基尔
+    bad: 班达亚齐
+    bai: Bamileke语言
+    bal: 俾路支
+    ban: 巴厘
+    bas: 巴萨
+    bat: 波罗的语言
+    be: 白俄罗斯
+    bej: 贝雅
+    bem: 本巴
+    ber: 柏柏尔
+    bg: 保加利亚语
+    bh: 比哈里
+    bho: 博杰普尔
+    bi: 比斯拉马语
+    bik: Bikol
+    bin: 比尼
+    bla: Siksika
+    bm: 班巴拉
+    bn: 孟加拉
+    bnt: 班图
+    bo: 藏
+    br: 布列塔尼
+    bra: Braj
+    bs: 波斯尼亚
+    btk: 巴塔克
+    bua: 布里亚特
+    bug: 布吉文
+    byn: 布兰
+    ca: 加泰罗尼亚
+    cad: 卡多
+    cai: 中美洲印度语
+    car: 加勒比语
+    cau: 高加索语言
+    cch: Atsam
+    ce: 车臣
+    ceb: 宿务
+    cel: 凯尔特语言
+    ch: 查莫洛
+    chb: Chibcha
+    chg: 察合台
+    chk: Chuukese
+    chm: 马里
+    chn: Chinook行话
+    cho: 乔克托
+    chp: 奇佩维安
+    chr: 切诺基
+    chy: 夏安
+    cmc: Chamic语言
+    co: 科西嘉
+    cop: 科普特
+    cpe: 基于英语的克里奥尔语或Pidgin
+    cpf: 法国的克里奥尔或Pidgin
+    cpp: 葡萄牙克里奥尔语或Pidgin
+    cr: 克里
+    crh: 克里米亚土耳其
+    crp: 克里奥尔语或Pidgin
+    cs: 捷克
+    csb: 卡舒
+    cu: 教会斯拉夫语
+    cus: Cushitic语言
+    cv: 楚瓦什
+    cy: 威尔士语
+    da: 丹麦
+    dak: 达科他州
+    dar: 达尔格瓦文
+    day: 达雅
+    de: 德语
+    de-AT: 奥地利德语
+    de-CH: 瑞士高等德国人
+    del: 特拉华
+    den: 奴隶
+    dgr: 多吉
+    din: 丁卡
+    doi: Dogri
+    dra: 德拉威语言
+    dsb: 下索布族
+    dua: Duala
+    dum: 中荷兰语
+    dv: 迪维希
+    dyu: Dyula
+    dz: 不丹文
+    ee: 母羊
+    efi: 埃菲克
+    egy: 古埃及人
+    eka: Ekajuk
+    el: 希腊语
+    elx: 埃兰
+    en: 英语
+    en-AU: 澳大利亚英语
+    en-CA: 加拿大英语
+    en-GB: 英式英语
+    en-US: 美国英语
+    enm: 中古英语
+    eo: 世界语
+    es: 西班牙语
+    es-ES: 伊比利亚西班牙语
+    et: 爱沙尼亚语
+    eu: 巴斯克
+    ewo: Ewondo
+    fa: 波斯语
+    'false': 挪威
+    fan: 方
+    fat: 阿凡提
+    ff: 富拉语
+    fi: 芬兰
+    fil: 菲律宾
+    fiu: 芬兰 - 乌戈尔语言
+    fj: 斐济
+    fo: 法罗群岛
+    fon: 丰文
+    fr: 法国
+    fr-CA: 加拿大法语
+    fr-CH: 瑞士法语
+    frm: 中古法语
+    fro: 古法语
+    frr: 北弗里西亚语
+    frs: 东弗里斯兰语
+    fur: 弗留利
+    fy: 西弗里斯兰语
+    ga: 爱尔兰的
+    gaa: 嘎
+    gay: 咖幼
+    gba: Gbaya
+    gd: 苏格兰盖尔语
+    gem: 日耳曼语言
+    gez: 吉兹
+    gil: 吉尔伯特
+    gl: 加利西亚
+    gmh: 中高德语
+    gn: 瓜拉尼
+    goh: 老高德语
+    gon: Gondi
+    gor: 哥伦打洛
+    got: 哥特
+    grb: 格雷波
+    grc: 古希腊
+    gsw: 瑞士德语
+    gu: 古吉拉特语
+    gv: 马恩岛
+    gwi: 吉维克琴文
+    ha: 豪萨语
+    hai: 海达
+    haw: 夏威夷
+    he: 希伯来语
+    hi: 印地语
+    hil: 希利盖农文
+    him: Himachali
+    hit: 赫梯
+    hmn: 苗族
+    ho: Hiri Motu
+    hr: 克罗地亚
+    hsb: 上索布族
+    ht: 海地
+    hu: 匈牙利
+    hup: 石杉碱甲
+    hy: 亚美尼亚
+    hz: 赫勒娄族
+    ia: 国际语
+    iba: 伊班
+    id: 印度尼西亚
+    ie: 国际语
+    ig: 伊博
+    ii: 四川彝族
+    ijo: 黄麻
+    ik: 依努皮亚
+    ilo: 伊洛卡诺语
+    inc: 印度语
+    ine: 印欧语言
+    inh: 印古什
+    io: 我做
+    ira: 伊朗语
+    iro: 易洛魁语言
+    is: 冰岛的
+    it: 意大利
+    iu: 因纽特语
+    ja: 日本
+    jbo: 逻辑语
+    jpr: 犹太 - 波斯语
+    jrb: 犹太 - 阿拉伯语
+    jv: 爪哇
+    ka: 格鲁吉亚
+    kaa: 卡拉卡尔帕克文
+    kab: 卡拜尔
+    kac: 克钦
+    kaj: JJU
+    kam: 康巴
+    kar: 卡伦
+    kaw: 卡维
+    kbd: 卡巴尔达
+    kcg: Tyap
+    kfo: 少佐
+    kg: 金刚
+    kha: 卡西
+    khi: 科伊桑语
+    kho: 于阗
+    ki: 基库尤
+    kj: Kuanyama
+    kk: 哈萨克人
+    kl: 格陵兰
+    km: 高棉
+    kmb: 金邦杜
+    kn: 卡纳达语
+    ko: 朝鲜的
+    kok: 孔卡尼语
+    kos: Kosraean
+    kpe: Kpelle
+    kr: 卡努里
+    krc: 卡拉恰伊 - 巴尔卡尔
+    krl: 卡累利阿
+    kro: 克鲁
+    kru: Kurukh
+    ks: 克什米尔
+    ku: 库尔德
+    kum: 库梅克文
+    kut: Kutenai
+    kv: 科米
+    kw: 康沃尔
+    ky: 吉尔吉斯人
+    la: 拉丁
+    lad: 拉迪诺
+    lah: Lahnda
+    lam: 兰巴
+    lb: 卢森堡
+    lez: Lezghian
+    lg: 甘达
+    li: 林堡
+    ln: 林加拉语
+    lo: 老挝
+    lol: 蒙戈
+    loz: 洛子峰
+    lt: 立陶宛
+    lu: 卢巴 - 加丹加
+    lua: 卢巴 -  Lulua
+    lui: Luiseno
+    lun: 隆达
+    luo: 罗
+    lus: Lushai
+    lv: 拉脱维亚
+    mad: 马都拉
+    mag: Magahi
+    mai: 迈蒂利
+    mak: Makasar
+    man: 曼丁哥
+    map: Austronesian语言
+    mas: 马赛
+    mdf: 莫克沙
+    mdr: Mandar
+    men: 闷得
+    mg: 马尔加什
+    mga: 中间爱尔兰人
+    mh: 马绍尔
+    mi: 毛利
+    mic: 米克马克
+    min: 米南加保
+    mis: 杂项语言
+    mk: 马其顿
+    mkh: 孟高棉语
+    ml: 马拉雅拉姆语
+    mn: 蒙
+    mnc: 中国满洲的
+    mni: 曼尼普尔
+    mno: Manobo语言
+    mo: 摩尔多瓦
+    moh: 莫霍克
+    mos: 莫西
+    mr: 马拉
+    ms: 马来语
+    mt: 马耳他语
+    mul: 多种语言
+    mun: 蒙达语言
+    mus: 溪
+    mwl: Mirandese
+    mwr: 马尔瓦尔
+    my: 缅甸语
+    myn: 玛雅语言
+    myv: 俄日亚文
+    na: 瑙鲁
+    nah: 纳瓦特尔语
+    nai: 北美印第安语言
+    nap: 那不勒斯
+    nb: 挪威Bokmål
+    nd: 北Ndebele
+    nds: 低德语
+    ne: 尼泊尔
+    new: 尼瓦尔
+    ng: Ndonga
+    nia: 尼亚斯
+    nic: 尼日尔 - 科尔多凡尼语言
+    niu: 纽埃
+    nl: 荷兰人
+    nl-BE: 佛兰芒语
+    nn: 挪威尼诺斯克
+    nog: 诺盖
+    non: 老北欧人
+    nqo: 西非书面语
+    nr: 南Ndebele
+    nso: 北索托
+    nub: 努比亚语言
+    nv: 纳瓦霍
+    nwc: 古典Newari
+    ny: 尼扬贾文
+    nym: Nyamwezi
+    nyn: Nyankole
+    nyo: Nyoro
+    nzi: Nzima
+    oc: 奥克
+    oj: 奥吉布瓦
+    om: 奥罗莫
+    or: 奥里亚语
+    os: 奥塞梯语
+    osa: 奥沙
+    ota: 奥斯曼土耳其人
+    oto: 奥托米亚语言
+    pa: 旁遮普
+    paa: 巴布亚语言
+    pag: 邦阿西楠
+    pal: 巴列维
+    pam: 邦板牙
+    pap: 帕皮阿门托
+    pau: 帕劳
+    peo: 老波斯人
+    phi: 菲律宾语言
+    phn: 腓尼基
+    pi: 八里
+    pl: 抛光
+    pon: Pohnpeian
+    pra: Prakrit语言
+    pro: 老普罗旺斯
+    ps: 普什图语
+    pt: 葡萄牙语
+    pt-BR: 巴西葡萄牙语
+    pt-PT: 伊比利亚葡萄牙语
+    qu: 克丘亚语
+    raj: 拉贾斯坦
+    rap: 拉帕努伊
+    rar: 拉罗
+    rm: 里托罗曼
+    rn: 隆迪语
+    ro: 罗马尼亚
+    roa: 浪漫语言
+    rom: 吉普赛
+    ru: 俄语
+    rup: 亚美尼亚语
+    rw: 卢旺达语
+    sa: 梵文
+    sad: Sandawe
+    sah: 雅库特
+    sai: 南美洲印度语
+    sal: 萨利珊语言
+    sam: 撒玛利亚阿拉姆语
+    sas: Sasak
+    sat: 檀香
+    sc: 撒丁岛
+    scn: 西西里
+    sco: 苏格兰
+    sd: 信德
+    se: 北萨米人
+    sel: 塞尔库普文
+    sem: 闪族语言
+    sg: 三乡
+    sga: 老爱尔兰人
+    sgn: 标志语言
+    sh: 塞尔维亚 - 克罗地亚语
+    shn: 山
+    si: 僧伽罗语
+    sid: 西达莫
+    sio: 苏语
+    sit: 汉藏语言
+    sk: 斯洛伐克
+    sl: 斯洛文尼亚
+    sla: 斯拉夫语言
+    sm: 萨摩亚
+    sma: 南萨米人
+    smi: 萨米语
+    smj: Lule Sami
+    smn: 伊纳里萨米
+    sms: Skolt Sami
+    sn: 绍纳语
+    snk: 索宁克
+    so: 索马里
+    sog: Sogdien
+    son: 桑海
+    sq: 阿尔巴尼亚人
+    sr: 塞尔维亚
+    srn: Sranan Tongo
+    srr: 塞雷尔语
+    ss: 斯瓦特
+    ssa: 尼罗 - 撒哈拉语言
+    st: 南索托
+    su: 巽
+    suk: 苏库玛
+    sus: 苏苏
+    sux: 苏美尔
+    sv: 瑞典
+    sw: 斯瓦希里
+    syc: 古典叙利亚语
+    syr: 叙利亚
+    ta: 泰米尔人
+    tai: 泰语
+    te: 泰卢固语
+    tem: Timne
+    ter: Tereno
+    tet: 德顿语
+    tg: 塔吉克
+    th: 泰国
+    ti: 提格雷语
+    tig: 蒂格雷
+    tiv: 蒂夫
+    tk: 土库曼
+    tkl: 托克劳
+    tl: 他加禄语
+    tlh: 克林贡语
+    tli: 特林基特
+    tmh: Tamashek
+    tn: 茨瓦纳语
+    to: 汤加
+    tog: 尼亚萨汤加
+    tpi: Tok Pisin
+    tr: 土耳其
+    trv: 太鲁阁
+    ts: 特松加
+    tsi: 茨姆
+    tt: 鞑靼
+    tum: 图姆布卡文
+    tup: 图皮语言
+    tut: 阿尔泰语言
+    tvl: 图瓦卢
+    tw: TWI
+    ty: 大溪地
+    tyv: 图瓦
+    udm: 乌德穆尔特
+    ug: 维吾尔
+    uga: 乌加里特
+    uk: 乌克兰
+    umb: 姆班杜语
+    und: 未知或无效的语言
+    ur: 乌尔都语
+    uz: 乌兹别克
+    vai: 奥钢联
+    ve: 文达
+    vi: 越南
+    vo: 沃拉普克文
+    vot: 沃提克文
+    wa: 华隆人
+    wak: Wakashan语言
+    wal: Walamo
+    war: 瓦赖文
+    was: Washo
+    wen: 索比语言
+    wo: 沃洛夫语
+    xal: 卡尔梅克
+    xh: 科萨
+    yao: 姚明
+    yap: Yapese
+    yi: 意第绪语
+    yo: 约鲁巴
+    ypk: Yupik语言
+    za: 庄
+    zap: 萨波蒂克
+    zbl: 布列斯符号
+    zen: Zenaga
+    zh: 中文
+    zh-Hans: 简体中文
+    zh-Hant: 繁体中文
+    znd: 赞德
+    zu: 祖鲁
+    zun: 祖尼
+    zxx: 没有语言内容
+    zza: 扎扎
+  launch_call_for_participation: 发起呼吁参与
+  layouts:
+    public_schedule:
+      booklet: 书
+      timeline: 时间线
+  lectures: 讲座
+  lectures_commited: 讲座承诺
+  lectures_confirmed: 讲座确认
+  lectures_only: 只有讲座
+  lectures_unconfirmed: 讲座未经证实
+  links: 链接
+  logout: 登出
+  mail_templates: 邮件模板
+  mailers:
+    user_mailer:
+      confirmation_instructions: 帐号激活
+      password_reset_instructions: 重设密码
+  manage_conference: 管理这个会议
+  manual: 手册
+  more: 更多...
+  name: 名称
+  navigation:
+    back: 背部
+    conferences: 会议
+    event: 活动详情
+    feedbacks: 反馈
+    more: 更多>>
+    people: 人
+    ratings: 评级
+    users: 用户
+  new_conference: 新会议
+  no_data: 没有数据
+  non_reimbursed_expenses: 未报销的费用
+  not_speaking: 不说话
+  note: 注意
+  notes: 笔记
+  notifications: 通知
+  notifications_module:
+    edit_send_notifications: 编辑并发送通知
+    event_without_ticket_warning: 注意：%{events} sans ticket：
+    inputs:
+      hints:
+        locale: 此会议及其发言者的可用语言环境
+    missing_locale: 无法发送批量通知：缺少地区%{locales}的通知
+    no_events_tickets: 没有门票事件
+    possible_variables: 可能的变量
+    send_notification: 将%{name}通知发送到%{count}中的%{speakers}
+    send_notification_confirm: 您确定要为%{event}发送%{name} notifiactions吗？
+    send_notification_to_speakers: 将%{name}通知发送到%{event}中的%{speakers}
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "。"
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "$"
+    format:
+      delimiter: "，"
+      precision: 3
+      separator: "。"
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: 十亿
+          million: 百万
+          quadrillion: 万亿
+          thousand: 千
+          trillion: 兆
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: 字节
+            other: 字节
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  options:
+    admin: 管理员
+    aim: 目标
+    attending: 参加
+    bus: 总线
+    business: 商业
+    canceled: 取消
+    concert: 音乐会
+    confirmed: 确认
+    coordinator: 协调员
+    crew: 船员
+    declined: 下降
+    dect: DECT
+    djset: DJ集
+    fax: 传真
+    female: 女
+    film: 电影
+    icq: ICQ
+    idea: 理念
+    integrated: 集成
+    jabber: 的Jabber / XMPP
+    lecture: 演讲
+    lightning_talk: 闪电谈话
+    male: 男
+    meeting: 会议
+    mobile: 移动
+    msn: MSN
+    offer: 提供
+    orga: Organisator
+    other: 其他
+    otrs: OTRS
+    performance: 戏剧/性能
+    phone: 电话
+    podium: 讲台
+    private: 私人的
+    redmine: 管理平台
+    reviewer: 评论家
+    rt: 请求跟踪器
+    secretary: 秘书
+    shuttle: 穿梭
+    skype: Skype的
+    speaker: 扬声器
+    submitter: 提交
+    talk: 谈论
+    unclear: 不清楚
+    work: 工作
+    workshop: 作坊
+    yahoo: 雅虎
+  others_only: 仅限其他人
+  page_titles:
+    admin_users: frab  - 管理员用户
+    change_password: frab  - 密码更改
+    crew_users: 船员用户
+    edit_account: frab  - 编辑帐户
+    login: 登录frab
+    my_profile: frab  - 我的个人资料
+    resend_confirmation: frab  - 重新发送确认说明
+    signup: 注册frab
+    unlock_instructions: frab  - 解锁指令
+    welcome: 欢迎来到frab
+  participate: 参加
+  people: 人
+  people_module:
+    add_person: 添加人员
+    add_person_hint: 添加一个新人。
+    add_ticket: 添加票
+    add_ticket_hint: 为此人创建一张票。
+    all_people: 所有人
+    attending: 参加
+    attending_hint: 将人标记为礼物。
+    edit_person: 编辑人员
+    edit_person_hint: 编辑此人的数据。
+    inputs:
+      hints:
+        event_role: |
+          协调员是会议团队的一员，他们协调发言人
+          出席和事件。提交者回答cfp将事件输入frab。
+          发言人参加活动，他们的可用性很重要。主持人拿
+          部分在小组讨论中，他们的可用性很重要。“
+        notification_body: 有效变量：%{variables}
+        person_filter: |
+          在下面的选项菜单中按名称过滤人员，最后一个
+          姓名，电子邮件地址或用户ID。留空白以便不过滤。“
+      notification_body: 通知机构
+      notification_subject: 通知主题
+    list_of_people: 人名单
+    new_person: 新人
+    no_people_data: |
+      你还没有关于人的任何数据。使用右侧的按钮
+      开始添加人员。请注意，他们不会出现在这里的权利
+      除非他们参与了这次会议的任何活动。使用
+      在上面的所有人员标签中，查看所有会议中的所有人。
+    no_people_in_event: |
+      没有人与此事件相关联。
+      使用右侧的按钮添加人员。请
+      请注意，您只能添加已有的人员
+      在系统中。如果你想添加的人
+      尚未在系统中，请转到_People_
+      选项卡上方，并先创建此人。
+    no_people_involved: |
+      目前还没有与此会议相关的人员。人们会
+      开始出现在这里，一旦他们在任何一个角色扮演角色
+      会议的事件。
+    no_user_account: 人员尚无用户帐户，无法登录。点击用户标签来创建一个帐户。
+    no_user_account_for_person: |
+      %{person}目前没有用户帐户，因此无法登录。
+      您现在可以通过填写此表单来创建用户帐户。
+    notice_person_created: 人成功创建。
+    notice_person_updated: 人已成功更新。
+  person: 人
+  preview: 预习
+  profile: 轮廓
+  public:
+    feedback:
+      new:
+        feedback_for: 反馈：%{title}
+        how_would_you_rate: 你如何评价这个事件？ 5是最好的评级，1是最差的。
+        please_let_us_know: 请让我们知道你喜欢这个活动：
+        submit_feedback: 提交反馈
+        what_did_you_like: 你喜欢什么？你不喜欢什么？这个事件如何改善？请分享你的想法。
+      thank_you:
+        return: 返回到时间表
+        thank_you: 谢谢！
+        thank_you_for_helping_us: 感谢您帮助我们改进活动。请尽可能多地评价您参加的活动。如果你看了溪流，告诉我们关于质量的问题。
+    schedule:
+      booklet:
+        events: 活动
+      day:
+        schedule: 计划 -  %{label}
+        schedule_for_day: 日程安排为%{index}  -  %{label}
+      event:
+        concurrent_events: 同期活动
+        day: 天
+        duration: 持续时间
+        feedback: 反馈
+        feedback_link: 点击这里让我们知道你是如何喜欢这个活动的。
+        files: 档
+        info: 信息
+        language: 语言
+        links: 链接
+        no_recording: 这个事件不会被记录下来
+        room: 房间
+        speakers: 音箱
+        start_time: 开始时间
+        track: 跟踪
+      events:
+        events: 活动
+        speakers: 音箱
+        title: 标题
+        track: 跟踪
+      events_by_track:
+        events: 赛道赛事
+      index:
+        booklet: 书
+        day: 日%{index}  -  %{label}
+        events: 活动
+        events_by_track: 赛道赛事
+        schedule: 计划 -  %{label}
+        schedule_index: 时间表概述
+        speakers: 音箱
+        timeline: 时间线
+      nav:
+        day: 日%{index}
+        events: 活动
+        index: 概观
+        qrcode: 二维码
+        schedule: 时间表
+        speakers: 音箱
+      qrcode:
+        link_to_public_schedule: |
+          此QR码包含公用日程表文件的机器可读版本的URL。
+          使用Giggity或BarfBag等应用程序对其进行扫描，以导入此会议的时间表。
+      speaker:
+        contact: 联系
+        email: 电子邮件
+        events_in_this_conference: 本次会议中的活动
+        links: 链接
+        speaker: 扬声器
+      speakers:
+        events: 活动
+        name: 名称
+        speakers: 音箱
+      timeline:
+        events: 活动
+      title: 计划%{title}
+  public_name: 公共名称
+  rating: 评分
+  ratings: 评级
+  ratings_module:
+    error_creating: 无法创建事件评级：%{error}
+    error_updating: 无法更新事件评分
+    no_event: |
+      这次会议没有任何活动。一旦
+      你添加事件，他们会一起出现在这里
+      与他们目前的收视率。你可以编辑你的
+      点击一个事件评级，或者您可以使用
+      在右侧的“开始审查”按钮
+      对整批事件进行排序。
+    notice_already_rated_everything: 您已经查看了所有活动：
+    notice_rating_created: 评分已成功保存。
+    notice_rating_saved: 评分已成功更新。
+    notice_rating_updated: 注意已成功更新。
+    show ratings: 显示评分
+    show_ratings: 显示评论
+    start_reviewing: 开始审查
+    start_reviewing_hint: |
+      连续查看一批事件。你将会看到这个活动
+      首先收视率最低，并且可以轻松导航到下一个
+      该行中的事件。
+    statistics: 统计
+    total_number_of_events: 事件总数：
+    total_number_of_events_no_review: 没有评论的事件总数：
+    total_number_of_not_reviewed: 您尚未查看的活动：
+    total_number_of_reviewed: 您已回顾的事件：
+  remove: 去掉
+  remove_association: 删除%{name}
+  reports: 报告
+  reports_module:
+    all: 概述运输需求
+    all_transportation_needs: 运输需求概述
+    available_reports: 可用报告
+    confirmed_events_by_track: 通过跟踪确认的事件数量
+    do_not_record_events: "'不记录'标志设置的事件"
+    event_timeslot_deviation: 列出所有演讲与非默认时隙
+    event_timeslot_sum: 使用时隙(小时)
+    events_by_track: 赛道号码
+    events_not_public: 不公开的事件
+    events_that_are_no_lectures: 既不是讲座也不是讲习班的活动
+    events_that_are_workshops: 所有研讨会的名单
+    events_with_a_note: 事件与笔记
+    events_with_more_than_one_speaker: 有多个演讲者的事件
+    events_with_tech_rider: 列出与技术车手的所有计划赛事
+    events_with_unusual_state_speakers: 发言人处于问题状态
+    events_without_abstract: 没有摘要的事件
+    events_without_speaker: 没有演讲者的活动
+    expected_speakers: 在接下来的4个小时里缺少扬声器
+    found_x_results: 找到%{nb}结果。
+    lectures_not_confirmed: 是新的或复习的讲座
+    lectures_with_speaker: 与演讲者讲课
+    no_search_results: 对不起，你的搜索没有结果。
+    non_attending_speakers: 未来2小时不参加演讲者
+    people_speaking_at: 确认人们在会议上发言
+    people_speaking_by_day: 确认发言人天与出席状态
+    people_with_a_note: 在提交中有一个笔记的人
+    people_with_more_than_one: 提交超过一次的人
+    people_with_non_reimbursed_expenses: 没有报销费用的人
+    query_speakers: 查询演讲者
+    speakers_without_availabilities: 没有可用性的扬声器
+    unconfirmed_events: 未经证实的事件
+  resend: 重发
+  role:
+    admin: 管理员
+    coordinator: 协调员
+    crew: 船员
+    orga: 奥尔加
+    reviewer: 评论家
+    submitter: 提交
+  role_str: 角色
+  rooms: 客房
+  rooms_module:
+    configured_rooms: 当前配置的房间是：
+    empty_rooms: |
+      在这里您可以创建和编辑其中的房间
+      你的事件发生。请至少输入一个
+      房间。这是确定数量所需要的
+      节目时间表中的列。
+    modify_room_with_parent: |
+      此会议的房间只能使用修改
+      父会议%{parent}的管理权限
+  schedule: 时间表
+  schedule_configuration: 计划配置
+  schedule_module:
+    col_orientation: 方向：
+    col_rooms_per_page: 每页显示的房间数量：
+    col_select_day: 选择日期：
+    col_select_paper_format: 选择参与格式：
+    col_select_rooms: 选择客房：
+    col_use_half_page: 只使用半页宽：
+    create_locale: 创建%{export_locale}
+    create_locale_hint: 创建您的节目时间表的静态HTML导出。
+    create_pdf: 创建PDF
+    create_pdf_export: 创建自定义PDF导出
+    create_pdf_export_hint: 创建一个可以轻松打印的节目时间表的PDF版本。
+    create_static_export: 创建静态时间表导出
+    download_static_export: 下载静态时间表导出
+    error_day_not_found: 无法找到一天。
+    error_event_not_public: 没有事件是公开的和预定的。
+    html_exports: HTML导出
+    inputs:
+      hints:
+        program_export_base_url: |
+          如果要使用静态程序导出，请在其中输入URL
+          你想把这些文件放在这里。所有参考将是
+          使用此作为前缀生成。这将用于QR码
+          链接到时间表。
+        schedule_custom_css: 自定义CSS添加到HTML导出。 (CSS)
+        schedule_html_intro: 用于HTML导出的简介文本。 (HTML)
+        schedule_open: |
+          让发言者自行安排他们的谈话。一切都会
+          accpeted。也许在调度之前打开它并检查。
+        schedule_public: |
+          动态时间表是公开的吗？您仍然可以创建静态导出
+          不管这个设置如何。
+        schedule_version: 目前的时间表版本是什么？
+    notice_no_base_url: 需要设置program_export_base_url
+    notice_no_export_found: 未找到要下载的导出。
+    notice_static_export_started: 静态计划导出已启动。请在一分钟后重新加载此页面。
+    preview_public_schedule: 预览公共时间表
+    preview_schedule: 预览时间表
+    publish_html_export: 发布HTML导出
+    publish_html_export_hint: 创建一个可以复制到另一个Web服务器的程序计划的HTML版本。
+    select_all_none: 选择全部/无
+    view_live_version_hint: 查看您的日程表的公开现场版本，就像任何与会者可能看到的一样。
+  scheduling: 调度
+  send: 发送
+  session:
+    login: 登录
+    signup: 注册
+    update_password: 更新我的密码
+  settings: 设置
+  show: 显示
+  show_account: 帐户
+  sign_in_successful: 成功登录。
+  simple_form:
+    error_notification:
+      default_message: 请查看下面的问题：
+    'no': 没有
+    required:
+      mark: "*"
+      text: 需要
+    'yes': 是
+  speakers: 音箱
+  state: 州
+  static_program_export: 静态程序导出
+  submission_configuration: 提交配置
+  support:
+    array:
+      last_word_connector: "，和"
+      two_words_connector: " 和"
+      words_connector: "，"
+  switch_conference: 切换会议
+  this_conference: 这次会议
+  ticket: 票
+  ticket_server: 票务服务器
+  tickets:
+    error_failed_to_create: 无法创建票证：%{message}
+    error_failed_to_receive_id: 无法接收远程ID
+    error_no_ticket_server: 没有配置售票服务器
+    inputs:
+      hints:
+        password: 用于登录票证系统的密码或API访问密钥
+        queue: 此事件队列的名称
+        url: 您的故障单系统的URL，例如https：// localhost / otrs /
+        user: 用于创建故障单的用户名
+  time:
+    am: 上午
+    formats:
+      day: "%A"
+      default: "%A, %d. %B %Y, %H:%M"
+      long: "%A, %d. %B %Y, %H:%M"
+      month_datetime: "%d. %b %H:%M"
+      pretty_datetime: "%Y-%m-%d %H:%M"
+      short: "%d. %B, %H:%M"
+      short_datetime: "%d. %H:%M"
+      time: "%H:%M"
+    pm: 下午
+    time_range_seperator: " 至"
+  time_and_place: 时间和地点
+  timeslot_configuration: 时隙配置
+  title: 标题
+  titles:
+    admin_accounts: 管理员帐户列表
+    cfp_edit_cfp: 编辑呼叫参与
+    cfp_new_cfp: 发起参与呼吁
+    cfp_view: 呼吁参与
+    cfp_welcome: "%{conference}  - 呼吁参与"
+    change_your_password: 更改您的密码
+    conferences_index: 会议列表
+    conferences_list: 会议列表
+    cpf_event_confirm: 确认你的出席
+    create_account: 为%{person}创建帐户
+    crew_users: 机组人员名单
+    edit_account: 编辑帐户：%{person}
+    edit_an_account: 编辑%{name}
+    edit_mail_template: 编辑邮件模板
+    edit_people_for_event: 编辑“%{event}”的人员
+    edit_person: 编辑人员：%{person}
+    event: 事件：%{event}
+    event_list: 活动列表
+    event_ratings: 事件评级
+    forgot_your_password: 忘记密码了吗？
+    frab: frab  - 会议管理
+    frab_conference: "%{conference}  - 会议管理"
+    list_mail_templates: 邮件模板列表
+    new_event: 新事件
+    person: 个人：%{person}
+    resend_confirmation_instructions: 重新发送确认说明
+    session_login: 登录
+    session_signup: 创建一个新账户
+    unlock_instructions: 解锁说明
+  total: 总
+  track: 跟踪
+  tracks: 曲目
+  tracks_module:
+    configured_tracks: 当前配置的轨道是：
+    empty_tracks: |
+      如果您将会议组织到不同的轨道中，
+      这是创建它们的地方。即使你没有
+      有多个轨道，请继续并输入
+      一个轨道。
+    empty_tracks_more_infos: |
+      曲目有一个名称和一种颜色。该颜色用于
+      基于网络的程序，所以随意定制它
+      尽可能多的你想。
+    modify_track_with_parent: |
+      此会议的曲目只能使用修改
+      父会议%{parent}的管理权限
+  transport_needs: 运输需求
+  transport_needs_module:
+    booked_question: 预订？
+    is_booked_hint: 此交通是否已预订？
+    nb_seats: 座位数
+    nb_seats_needed_hint: 需要多少个座位？
+    new_transport_need: 新的运输需求
+    notice_need_created: 运输需求已成功添加。
+    notice_need_destroyed: 运输需求已成功销毁。
+    notice_need_disabled: 运输需求未启用此会议。
+    notice_need_updated: 运输需求已成功更新。
+    transport_needs: 运输需求
+    what_type_id_needed_hints: 需要什么类型的交通工具？
+    when: 什么时候
+  type: 类型
+  unknown_id: 未知的ID
+  user: 用户
+  user_account: 用户帐号
+  user_role: 角色
+  user_settings: 设置
+  users: 用户
+  users_module:
+    edit_user_account: 编辑用户帐户
+    edit_user_account_hint: 编辑此用户帐户。
+    error_invalid_person: 不是有效的人
+    error_invalid_public_name: 您的电子邮件地址不是有效的公开名称，请更改。
+    not_in_crew: 此用户尚未成为任何会议工作人员的一部分。
+    notice_profile_updated: 您的个人资料已成功更新。
+    notice_user_created: 用户已成功创建。
+    notice_user_updated: 用户已成功更新。
+    save_needed_before_changes: 在向船员添加会议之前，您需要保存。
+  value: 值
+  version_on_item: "%{item}上的%{version}"
+  work_in_progress: 加工...
+  workshops: 研讨会
+  workshops_only: 只有研讨会
+  your_submission: 您所提交

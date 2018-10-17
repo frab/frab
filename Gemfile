@@ -13,7 +13,7 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
 
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.2.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -92,7 +92,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
-  gem 'shoulda'
   gem 'rails-controller-testing'
   gem 'minitest-rails-capybara'
   gem 'poltergeist'

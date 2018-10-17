@@ -67,7 +67,7 @@ class ScheduleController < BaseConferenceController
   end
 
   def create_static_export
-    redirect_to schedule_path, notice: t('schedule_module.notice_no_base_url') if @conference.program_export_base_url.blank?
+    return redirect_to schedule_path, notice: t('schedule_module.notice_no_base_url') if @conference.program_export_base_url.blank?
     StaticProgramExportJob.new.async.perform @conference, check_conference_locale(params[:export_locale])
     redirect_to schedule_html_exports_path, notice: t('schedule_module.notice_static_export_started')
   end

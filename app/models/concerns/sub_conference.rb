@@ -11,7 +11,7 @@ module SubConference
   end
 
   def include_subs
-    [self, subs].flatten.uniq
+    [self] + subs
   end
 
   def events_including_subs

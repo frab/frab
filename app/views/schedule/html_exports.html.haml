@@ -14,7 +14,7 @@
               - conference_export = @conference.conference_export(locale)
               %tr
                 %td
-                  = action_button '', t('schedule_module.create_locale', {locale: locale}), schedule_create_static_export_path(export_locale: locale), method: :post, hint: t('schedule_module.create_locale_hint')
+                  = action_button '', t('schedule_module.create_locale', {export_locale: locale}), schedule_create_static_export_path(export_locale: locale), method: :post, hint: t('schedule_module.create_locale_hint')
                 %td
                   - if conference_export&.tarball&.path && File.readable?(conference_export.tarball.path)
                     - date = l(Time.at(conference_export.tarball.updated_at), format: :pretty_datetime)
