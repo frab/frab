@@ -1951,7 +1951,7 @@ de:
     col_select_paper_format: 'Wählen Sie das Teilnahmeformat aus:'
     col_select_rooms: 'Begrenzen auf Räume:'
     col_use_half_page: 'Halbe Seitenbreite:'
-    create_locale: Erstelle %{locale}
+    create_locale: Erstelle %{export_locale}
     create_locale_hint: Erstellen Sie einen statischen HTML-Export Ihres Programms.
     create_pdf: PDF erstellen
     create_pdf_export: Erstellen Sie einen benutzerdefinierten PDF-Export
