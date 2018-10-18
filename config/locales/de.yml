@@ -1911,7 +1911,7 @@ de:
     events_without_abstract: Events ohne Zusammenfassung
     events_without_speaker: Events ohne Sprecher
     expected_speakers: fehlende Sprecher in den nächsten vier Stunden
-    found_x_results: %{nb} Ergebnisse gefunden.
+    found_x_results: Es wurden %{nb} Ergebnisse gefunden.
     lectures_not_confirmed: Vorträge, die im Status neu oder review sind
     lectures_with_speaker: Vorträge mit Sprechern
     no_search_results: Tut uns leid, Ihre Suche ergab keine Ergebnisse.
