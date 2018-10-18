@@ -418,7 +418,7 @@ en:
         acronym: |
           A short and unique handle for your conference, using only lower-case
           letters, numbers and underscores. This will be used to identify your
-          conference in URLs etc. Example: 'froscon2011'"
+          conference in URLs etc. Example: 'froscon2011'
         bulk_notification_enabled: |
           If you enable this, notifications will be sent out in bulk by mail
           or ticket subsystem.
