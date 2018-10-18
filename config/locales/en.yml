@@ -395,8 +395,8 @@ en:
   col_ticket: 'Ticket:'
   col_time_slots: 'Time slots:'
   col_total: 'Total:'
-  col_track: 'Track :'
-  col_tracks: 'Tracks :'
+  col_track: 'Track:'
+  col_tracks: 'Tracks_Conference Settings_:'
   col_type: 'Type:'
   comment: Comment
   comments: Comments
@@ -649,7 +649,7 @@ en:
     configured_days: 'The currently configured days are:'
     empty_days: |
       Here you can create and edit the conference days.
-      Your 'days' can start an end anytime, but should not
+      Your 'days' can start and end anytime, but should not
       overlap.
     inherited_conference_change: |
       The days for this conference can only be modified with
@@ -1951,7 +1951,7 @@ en:
         schedule_html_intro: Intro text for the HTML export. (HTML)
         schedule_open: |
           Allow speakers to self-schedule their talks. Everything will be
-          accpeted. Maybe e turn this of and check before scheduling.
+          auto-accepted. Maybe we turn this of and check before scheduling.
         schedule_public: |
           Is the dynamic schedule public? You can still create static exports
           regardless of this setting.
