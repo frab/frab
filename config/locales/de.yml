@@ -452,33 +452,33 @@ de:
           Zahlen und Unterstrichen besteht. Wird später in URLs verwendet. Beispiel: 'froscon2011'
         bulk_notification_enabled: |
           Wenn aktiviert, werden die Einreicher über angenommene oder abgelehnte Events nicht sofort
-		  informiert, sondern gesammelt in Massen-Mailings über das eingebaute E-Mail-System oder einen
-		  Ticket-Server.
+          informiert, sondern gesammelt in Massen-Mailings über das eingebaute E-Mail-System oder einen
+          Ticket-Server.
         color: Sie können eine Farbe für Ihre Konferenz definieren.
         default_recording_license: Standard-Aufzeichnungslizenz für alle Events
         default_timeslots: |
           Wie ist die Standarddauer der Events? Beispiel: Wenn Sie ein Zeit-Slot von 15 Minuten
-		  definiert haben und Ihre Events in der Regel eine Stunde dauern, wählen Sie hier 4.
+          definiert haben und Ihre Events in der Regel eine Stunde dauern, wählen Sie hier 4.
         email: |
           E-Mail-Adresse für Ihre Konferenz. Wird als Reply-To-Adresse in E-Mails verwendet, die vom
-		  eingebauten E-Mail-System gesendet werden.
+          eingebauten E-Mail-System gesendet werden.
         event_languages: Wählen Sie, in welchen Sprachen Events auf dieser Konferenz gehalten werden können.
         event_state_visible: |
           Wenn aktiviert, können die Einreicher den Status ihrer Einreichung in der CfP-Seite sehen
-		  und dort ihre Teilnahme bestätigen.
+          und dort ihre Teilnahme bestätigen.
         expenses_enabled: Wenn aktiviert, können Sie mit frab Spesen von Personen verwalten
         feedback_enabled: |
           Wenn aktiviert, enthält Ihr Programm-Export Links zu einem Feedback-Formular, in dem Teilnehmer
-		  ein Ereignis bewerten können.
+          ein Ereignis bewerten können.
         max_timeslots: Was ist die maximale Länge einer Einreichung (gerechnet in Zeit-Slots)?
         timeslot_duration: |
           Wie lange sollen die kleinsten Zeit-Slots dauern? Hierdurch wird das grundlegende Zeit-Raster
-		  der Veranstaltungs aufgespannt, mit dem Vorträge und Pausen geplant werden können. WARNUNG:
-		  der Wert kann später nicht mehr so leicht geändert werden und ist für Ungeübte schwer abzusehen.
-		  Als Tip: Im Allgemeinen machen größere Zeitfenster die Planung einfacher, aber kleinere flexibler.
-		  Beispiel: Wenn Sie nur mit halbstündigen Vorträgen planen, die auch genau zu vollen oder halben
-		  Stunden beginnen, wählen Sie 30 Minuten als Zeit-Slot. Wenn Sie nur mit ganzstündigen Vorträge
-		  planen und dazwischen 15 Minuten Pausen, ist 15 Minuten eine gute Wahl.
+          der Veranstaltungs aufgespannt, mit dem Vorträge und Pausen geplant werden können. WARNUNG:
+          der Wert kann später nicht mehr so leicht geändert werden und ist für Ungeübte schwer abzusehen.
+          Als Tip: Im Allgemeinen machen größere Zeitfenster die Planung einfacher, aber kleinere flexibler.
+          Beispiel: Wenn Sie nur mit halbstündigen Vorträgen planen, die auch genau zu vollen oder halben
+          Stunden beginnen, wählen Sie 30 Minuten als Zeit-Slot. Wenn Sie nur mit ganzstündigen Vorträge
+          planen und dazwischen 15 Minuten Pausen, ist 15 Minuten eine gute Wahl.
           Beachten Sie, dass Sie die Größe des Slots später verkleinern können, solange die
           alte Slot-Größe ein Vielfaches der neuen ist. Also 15-Minuten-Slots auf 5 zu verringern funktioniert,
           während eine Änderung auf 10 Minuten nicht möglich ist.
@@ -496,8 +496,8 @@ de:
     new_welcome: |
       Herzlich willkommen! Es sieht so aus, als wären Sie zum ersten Mal hier.
       Um mit der Konferenz-Organisation zu beginnen, müssen Sie zuerst einige Daten angeben.
-	  Sie können das meiste (mit Ausnahmen) später noch ändern. Daher lesen Sie die Hinweise
-	  bitte sorgfältig durch.
+      Sie können das meiste (mit Ausnahmen) später noch ändern. Daher lesen Sie die Hinweise
+      bitte sorgfältig durch.
     no_conference: Es gibt noch keine Konferenzen.
     no_conference_with_cfp: Es gibt keine aktuelle Konferenz mit einem Call for Participation. Vielleicht müssen Sie sich zuerst einloggen?
     no_conferences: |
@@ -509,8 +509,8 @@ de:
     past_conferences: Frühere Konferenzen
     recent_changes: Letzte Änderungen
     recent_changes_text: |
-	  Wenn Sie oder andere Änderungen an der Konferenz oder Einreichungen vornehmen, können Sie
-	  diese hier zusammengefasst überblicken.
+      Wenn Sie oder andere Änderungen an der Konferenz oder Einreichungen vornehmen, können Sie
+      diese hier zusammengefasst überblicken.
     rejected: rejected
     rejecting: rejecting
     review: review
@@ -520,17 +520,17 @@ de:
     show_no_event: |
       Diese Konferenz hat noch keine Einreichungen.
 
-	  Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
-	  Participation starten, damit Teilnehmer Events einreichen können.
+      Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
+      Participation starten, damit Teilnehmer Events einreichen können.
     show_welcome: |
-	  Willkommen, Sie scheinen die Konferenz neu angelegt zu haben. Ein guter
-	  erster Schritt wäre, oben im Reiter Einstellungen einen Raum und Tage
-	  für die Konferenz einzurichten. Danach können Sie mit der weiteren Planung
-	  loslegen.
+      Willkommen, Sie scheinen die Konferenz neu angelegt zu haben. Ein guter
+      erster Schritt wäre, oben im Reiter Einstellungen einen Raum und Tage
+      für die Konferenz einzurichten. Danach können Sie mit der weiteren Planung
+      loslegen.
     statistics: Statistiken
     statistics_empty: |
       Sobald es Events in dieser Konferenz gibt, finden Sie hier einige Statistiken
-	  über die Konferenz.
+      über die Konferenz.
     total: Gesamt
     unconfirmed: unconfirmed
     variables:
@@ -663,10 +663,10 @@ de:
     empty_days: |
       Hier können Sie die Tage für Ihre Konferenz erstellen und bearbeiten.
       Diese 'Tage' können unterschiedliche Start- und Endzeiten haben, sollten dabei
-	  aber nicht überlappen.
+      aber nicht überlappen.
     inherited_conference_change: |
       Die Tage für diese Konferenz können nur mit Administratorrechten für die Parent-Konferenz
-	  %{parent} und auch nur in deren Einstellungen (also nicht hier) geändert werden.
+      %{parent} und auch nur in deren Einstellungen (also nicht hier) geändert werden.
   default_text: Standardtext
   destroy: löschen
   detailed_changes: Detaillierte Änderungen
@@ -859,7 +859,7 @@ de:
     mail_subject: Subject
     mail_template_hint: |
       Verwenden Sie diese E-Mail-Vorlage, um eine E-Mail an alle Personen zu senden, die an einem
-	  Event dieser Konferenz beteiligt sind.
+      Event dieser Konferenz beteiligt sind.
     new_mail_template: Neue Mailvorlage
     notice_event_updated: Das Event wurde erfolgreich aktualisiert.
     notice_mails_delivered: E-Mails wurden ausgeliefert.
@@ -929,9 +929,9 @@ de:
     accept_event: Event akzeptieren
     accept_event_hint: |
       Setzt den Status des Events auf accepted. Der / die Sprecher werden über die Annahme per
-	  E-Mail oder gegebenenfalls später im Ticket-System informiert.
+      E-Mail oder gegebenenfalls später im Ticket-System informiert.
       Wenn die Einreicher Zugriff auf das System zum Call for Participation haben, beinhaltet
-	  diese E-Mail einen Link, mit dem sie ihre Teilnahme bestätigen können.
+      diese E-Mail einen Link, mit dem sie ihre Teilnahme bestätigen können.
     accept_event_no_email: Event accepten (ohne E-Mail)
     accept_event_no_email_hint: Setzt den Status des Events auf accepted, ohne eine automatisierte E-Mail zu senden.
     add_event: Event hinzufügen
@@ -955,15 +955,15 @@ de:
     edit_people_hint: Fügen Sie Personen zu diesem Event hinzu oder entfernen Sie sie.
     error_no_day: |
       Bevor Sie Events anlegen können, müssen Sie für die Konferenz mindestens einen Tag
-	  eingerichtet haben. Dies können Sie im Reiter <em> Einstellungen </ em> tun.
+      eingerichtet haben. Dies können Sie im Reiter <em> Einstellungen </ em> tun.
     error_no_event: |
       Diese Konferenz hat noch keine Einreichungen.
 
-	  Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
-	  Participation starten, damit Teilnehmer Events einreichen können.
+      Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
+      Participation starten, damit Teilnehmer Events einreichen können.
     error_no_room: |
       Bevor Sie Events anlegen können, müssen Sie für die Konferenz mindestens einen Raum
-	  eingerichtet haben. Dies können Sie im Reiter <em> Einstellungen </ em> tun.
+      eingerichtet haben. Dies können Sie im Reiter <em> Einstellungen </ em> tun.
     event_attachments: Hochgeladene Dateien
     event_classifiers: Classifier
     event_details: Event-Details
@@ -995,14 +995,14 @@ de:
     no_events: |
       Diese Konferenz hat noch keine Einreichungen.
 
-	  Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
-	  Participation starten, damit Teilnehmer Events einreichen können.
+      Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
+      Participation starten, damit Teilnehmer Events einreichen können.
     no_ratings: |
       Bisher hat noch niemand eine Bewertung für dieses Event abgegeben. Seien Sie der erste
       und bewerten Sie das Event mit dem obigen Formular.
     not_involved: |
       Sie sind für diese Konferenz in keinem Event involviert. Wenn Sie ein Event einreichen
-	  oder einem beitreten, taucht er in dieser Liste auf.
+      oder einem beitreten, taucht er in dieser Liste auf.
     print_accepted_cards: Druckkarten (nur accepted)
     print_accepted_cards_hint: |
       Laden Sie ein PDF mit nur den Event im Zustand accepted als Karten herunter (vier Karten pro Seite).
@@ -1015,8 +1015,8 @@ de:
     rate_next: Bewerten Sie das nächste Event
     reject_event: Event rejecten
     reject_event_hint: |
-	  Setzt den Status des Events auf rejected. Der / die Einreicher werden über die Ablehnung per
-	  E-Mail oder gegebenenfalls später im Ticket-System informiert.
+      Setzt den Status des Events auf rejected. Der / die Einreicher werden über die Ablehnung per
+      E-Mail oder gegebenenfalls später im Ticket-System informiert.
     reject_event_no_email: Event rejecten (ohne E-Mail)
     reject_event_no_email_hint: Setzt den Status des Events auf rejected, ohne eine automatisierte E-Mail zu senden.
     toggle_description: Beschreibung umschalten >>
@@ -1761,7 +1761,7 @@ de:
         notification_body: 'Gültige Variablen: %{variables}'
         person_filter: |
           Sie können das Drop-Down-Menu vorfiltern, indem Sie hier Bestandteile von Vornamen, Nachnamen,
-		  E-Mail-Adresse oder Benutzer-ID eintragen.
+          E-Mail-Adresse oder Benutzer-ID eintragen.
       notification_body: E-Mail-Body der Benachrichtigung
       notification_subject: Subject der Benachrichtigung
     list_of_people: Liste von Personen
@@ -1772,13 +1772,13 @@ de:
       weg, es sei denn, sie sind an einer der Veranstaltungen dieser Konferenz beteiligt. Benutze die
       _Alle Personen_ Tab oben, um alle Personen auf all Ihren Konferenzen zu sehen.
     no_people_in_event: |
-	  In diesem Event sind noch keine Pesonen involviert. Verwenden Sie den "Bearbeiten"-Knopf rechts,
-	  um Personen zu diesem Event hinzuzufügen.
+      In diesem Event sind noch keine Pesonen involviert. Verwenden Sie den "Bearbeiten"-Knopf rechts,
+      um Personen zu diesem Event hinzuzufügen.
       Bitte Beachten Sie, dass Sie nur Personen hinzufügen können, die bereits eine Konto haben.
-	  Um eine neue Person anzulegen, benutzen Sie den "Personen"-Reiter oben.
+      Um eine neue Person anzulegen, benutzen Sie den "Personen"-Reiter oben.
     no_people_involved: |
       In dieser Konferenz sind noch keine Personen involviert. Sobald Personen für Events in dieser
-	  Konferenz eine Rolle übernehmen, erscheinen sie hier.
+      Konferenz eine Rolle übernehmen, erscheinen sie hier.
     no_user_account: Die Person hat noch kein Benutzerkonto und kann sich nicht anmelden. Klicken Sie auf den Benutzer-Reiter, um ein Konto zu erstellen.
     no_user_account_for_person: |
       %{person} hat derzeit kein Benutzerkonto und kann sich daher nicht anmelden.
@@ -1870,9 +1870,9 @@ de:
     no_event: |
       Diese Konferenz hat noch keine Einreichungen.
 
-	  Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
-	  Participation starten, damit Teilnehmer Events einreichen können.
-	  Sobald die ersten Events angelegt sind, können Sie mit dem Review beginnen.
+      Sie können Events im Reiter 'Events' hinzufügen oder einen Call for
+      Participation starten, damit Teilnehmer Events einreichen können.
+      Sobald die ersten Events angelegt sind, können Sie mit dem Review beginnen.
     notice_already_rated_everything: 'Sie haben bereits alle Events reviewed:'
     notice_rating_created: Bewertung wurde erfolgreich gespeichert.
     notice_rating_saved: Bewertung wurde erfolgreich aktualisiert.
@@ -1882,8 +1882,8 @@ de:
     start_reviewing: Beginne mit dem Review
     start_reviewing_hint: |
       Reviewen Sie einen mehrere Events am Stück. Die Events werden nach der
-	  Anzahl der Review sortiert – wenigste zuerst. Nach dem Review wird das
-	  nächste Event angezeigt.
+      Anzahl der Review sortiert – wenigste zuerst. Nach dem Review wird das
+      nächste Event angezeigt.
     statistics: Statistiken
     total_number_of_events: 'Gesamtzahl der Events:'
     total_number_of_events_no_review: 'Gesamtzahl der Events ohne Review:'
@@ -1965,8 +1965,8 @@ de:
       hints:
         program_export_base_url: |
           Wenn Sie den statischen Programm-Export verwenden möchten, geben Sie hier die Basis-URL ein,
-		  unter der dieser später abgerufen wird. Alle Links werden relativ dazu berechnet und auch die
-		  QR-Codes verwenden diesen Präfix.
+          unter der dieser später abgerufen wird. Alle Links werden relativ dazu berechnet und auch die
+          QR-Codes verwenden diesen Präfix.
         schedule_custom_css: Benutzerdefiniertes CSS, das zum HTML-Export hinzugefügt wird. (CSS)
         schedule_html_intro: Intro-Text für den HTML-Export. (HTML)
         schedule_open: |
@@ -1974,7 +1974,7 @@ de:
           automatisch accepted. Vor dem Programm-Export sollte diese Option eventuell ausgeschaltet werden.
         schedule_public: |
           Ist das dynamische Programm öffentlich? Sie können unabhängig von dieser Einstellung weiterhin
-		  statische Exporte erstellen.
+          statische Exporte erstellen.
         schedule_version: Was ist die aktuelle Programmversion?
     notice_no_base_url: program_export_base_url muss festgelegt werden
     notice_no_export_found: Kein Export zum Herunterladen gefunden.
@@ -2082,10 +2082,10 @@ de:
     empty_tracks: |
       Wenn Sie Ihre Konferenz in verschiedenen Themen-Tracks organisieren,
       ist dies der Ort, welche zu erzeugen. Selbst wenn es nur einen Track gibt,
-	  muss dieser angelegt werden.
+      muss dieser angelegt werden.
     empty_tracks_more_infos: |
       Tracks haben einen Namen und eine Farbe. Die Farbe wird unter anderem im
-	  Programm-Export verwendet. Vergeben Sie hier Farben für die Tracks.
+      Programm-Export verwendet. Vergeben Sie hier Farben für die Tracks.
     modify_track_with_parent: |
       Die Tracks für diese Konferenz können nur mit geändert werden
       Administrationsrechte für die Elternkonferenz %{parent}
