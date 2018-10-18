@@ -81,7 +81,7 @@ class Day < ApplicationRecord
   def update_conference_date
     return if conference.new_record?
     start_date = conference.days.pluck(:start_date).min
-    end_date = conference.days.pluck(:end_date).min
+    end_date = conference.days.pluck(:end_date).max
     conference.update(start_date: start_date, end_date: end_date)
     Conference.where(parent_id: conference.id).update_all(start_date: start_date, end_date: end_date)
   end
