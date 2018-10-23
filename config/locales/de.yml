@@ -34,7 +34,7 @@ de:
         default_timeslots: Standard-Anzahl Zeitslots
         email: E-Mail
         event_state_visible: Einreichern Status ihrer Events anzeigen
-        expenses enabled: Spesen aktiviert
+        expenses_enabled: Spesen aktiviert
         feedback_enabled: Feedback aktiviert
         max_timeslots: Maximale Anzahl Zeitslots
         program_export_base_url: URL des Programm-Exports
@@ -1733,10 +1733,10 @@ de:
     change_password: Frab - Passwort ändern
     crew_users: Benutzer mit Crew-Rechten
     edit_account: Frab - Konto bearbeiten
-    login: Loggen Sie sich frab ein
+    login: Loggen Sie sich im frab ein
     my_profile: Frab - Mein Profil
     resend_confirmation: frab - Bestätigungsanweisungen erneut senden
-    signup: Melden Sie sich bei frab an
+    signup: Erstellen Sie ein Konto im frab
     unlock_instructions: frab - Anweisungen zum Entsperren des Kontos
     welcome: Willkommen bei frab
   participate: Teilnehmen
@@ -1767,10 +1767,10 @@ de:
     list_of_people: Liste von Personen
     new_person: Neue Person
     no_people_data: |
-      Sie haben noch keine Daten über Personen. Benutzen Sie den Knopf rechts neben
-      fange an, Leute hinzuzufügen. Bitte beachten Sie, dass sie hier nicht richtig angezeigt werden
-      weg, es sei denn, sie sind an einer der Veranstaltungen dieser Konferenz beteiligt. Benutze die
-      _Alle Personen_ Tab oben, um alle Personen auf all Ihren Konferenzen zu sehen.
+      Sie haben noch keine Daten über Personen. Benutzen Sie den Knopf rechts, um Leute hinzuzufügen.
+      Bitte beachten Sie, dass diese hier nicht sofort angezeigt werden, es sei denn, sie sind an
+      einer der Veranstaltungen dieser Konferenz beteiligt. Benutz Sie den obigenReiter "Alle Personen",
+      um alle Personen auf all Ihren Konferenzen zu sehen.
     no_people_in_event: |
       In diesem Event sind noch keine Pesonen involviert. Verwenden Sie den "Bearbeiten"-Knopf rechts,
       um Personen zu diesem Event hinzuzufügen.
@@ -2108,7 +2108,7 @@ de:
   user: Benutzer
   user_account: Benutzerkonto
   user_role: Rolle
-  user_settings: die Einstellungen
+  user_settings: Einstellungen
   users: Benutzer
   users_module:
     edit_user_account: Benutzerkonto bearbeiten
@@ -2119,10 +2119,10 @@ de:
     notice_profile_updated: Ihr Profil wurde erfolgreich aktualisiert.
     notice_user_created: Benutzer wurde erfolgreich angelegt.
     notice_user_updated: Benutzer wurde erfolgreich aktualisiert.
-    save_needed_before_changes: Sie müssen speichern, bevor Sie einem Besatzungsmitglied Konferenzen hinzufügen.
+    save_needed_before_changes: Sie müssen speichern, bevor Sie einem Crew-Mitglied Konferenzen hinzufügen.
   value: Wert
   version_on_item: "%{version} auf %{item}"
   work_in_progress: Arbeite …
   workshops: Workshops
   workshops_only: Nur Workshops
-  your_submission: Deine Einreichung
+  your_submission: Ihre Einreichung
