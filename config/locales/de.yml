@@ -33,13 +33,13 @@ de:
         default_recording_license: Standard-Aufnahmelizenz
         default_timeslots: Standard-Anzahl Zeitslots
         email: E-Mail
-        event_state_visible: Einreichern Status ihrer Events anzeigen
+        event_state_visible: Eventstatus für Einreichende sichtbar
         expenses_enabled: Spesen aktiviert
         feedback_enabled: Feedback aktiviert
         max_timeslots: Maximale Anzahl Zeitslots
         program_export_base_url: URL des Programm-Exports
         schedule_custom_css: Benutzerdefiniertes CSS im Programm-Export
-        schedule_html_intro: Begrüßung im Programm-HTML
+        schedule_html_intro: Begrüßung im Programm-Export (HTML)
         schedule_open: Zeiten der Events von den Einreichungen selber änderbar
         schedule_public: Programm öffentlich einsehbar
         schedule_version: Version des Programm-Exports
@@ -61,13 +61,13 @@ de:
         end_date: Enddatum
         start_date: Anfangsdatum
       event:
-        abstract: Abstract
+        abstract: Zusammenfassung
         average_feedback: Durchschnittliches Publikums-Feedback
         average_rating: Durchschnittliches Bewertung der Reviewer
         description: Beschreibung
         do_not_record: Keine Aufzeichnung
-        event_feedback_count: Anzahl des Publikums-Feedbacks
-        event_ratings_count: Anzahl der Bewertung durch Reviewer
+        event_feedback_count: Publikumsrückmeldungen
+        event_ratings_count: Anzahl der Bewertungen durch Reviewer
         event_type: Art des Events
         guid: GUID
         invite_token: Invite-Token
@@ -75,7 +75,7 @@ de:
         logo: Logo
         note: Hinweis
         public: öffentlich
-        recording_license: Lizenz
+        recording_license: Aufzeichnungslizenz
         speaker_count: Anzahl der Sprecher
         speakers: Sprecher
         start_time: Startzeit
@@ -116,15 +116,15 @@ de:
       mail_template:
         content: Inhalt
         name: Name
-        subject: Subject
+        subject: Betreff
       notification:
-        accept_body: E-Mail-Body für Annahmebenachrichtigung
-        accept_subject: Subject
+        accept_body: E-Mail-Inhalt für Annahmebenachrichtigung
+        accept_subject: Betreff
         locale: Sprache
-        reject_body: E-Mail-Body für Ablehnungsbenachrichtigung
-        reject_subject: Subject
-        schedule_body: E-Mail-Body für Terminbenachrichtigung
-        schedule_subject: Subject
+        reject_body: E-Mail-Inhalt für Ablehnungsbenachrichtigung
+        reject_subject: Betreff
+        schedule_body: E-Mail-Inhalt für Terminbenachrichtigung
+        schedule_subject: Betreff
       person:
         abstract: Abstract
         avatar: Profilbild
@@ -246,7 +246,7 @@ de:
     change_password_button: Passwort ändern
     change_password_headline: Passwort ändern
     changed_from: geändert von
-    classifiers_hint: Durch 'classifier' können Sie der Veranstaltungs-Organisation und Ihrem Publikum helfen, die Einreichung besser einzuordnen. Wählen Sie die zutreffenden Kategorien für Ihre Einreichung und wichten Sie sie mithilfe der Slider.
+    classifiers_hint: Durch 'classifier' können Sie der Veranstaltungs-Organisation und Ihrem Publikum helfen, die Einreichung besser einzuordnen. Wählen Sie die zutreffenden Kategorien für Ihre Einreichung und gewichten Sie sie mithilfe der Slider.
     conference_in_the_past: Sie können keinen Vortrag einreichen, da diese Konferenz in der Vergangenheit liegt.
     confirm: bestätigen
     confirm_attendance: Teilnahme bestätigen
@@ -258,7 +258,7 @@ de:
     contact_data: Kontaktdaten
     contact_description_html: 'Haben Sie Probleme mit der Einreichung oder Fragen dazu, dann zögern Sie nicht, uns zu kontaktieren: %{mail_to}'
     contact_headline: Kontakt
-    create_event_headline: Neuen Event einreichen
+    create_event_headline: Neues Event einreichen
     current_password_hint: wir benötigen Ihr aktuelles Passwort, um die Änderungen zu bestätigen
     deadline_description: 'Bitte erstellen Sie alle Einreichungen bis zum: **%{date}**'
     description_hint: Eine längere Beschreibung Ihrer Person. Für alles, was nicht in den Abstract passt. (HTML)
@@ -290,7 +290,7 @@ de:
     im_accounts: Instant-Messaging-Konto
     info_url_description_html: 'Sind Sie unsicher, was Sie einreichen sollen? Alle Infos zum Call for Participation gibt es hier: %{link}'
     information_headline: Informationen
-    input_appreciation: 'Vielen Dank für Ihre Einreichung. Gerne können Sie einen weiteren Event einreichen:'
+    input_appreciation: 'Vielen Dank für Ihre Einreichung. Gerne können Sie ein weiteres Event einreichen:'
     inputs:
       hints:
         contact_email: Eine E-Mail-Adresse, unter der die Teilnehmer Sie kontaktieren können, falls sie Fragen haben sollten.
@@ -363,7 +363,7 @@ de:
       total_event_count: Gesamtzahl der Events
     sign_in: Einloggen
     sign_up: Registrieren
-    sign_up_description: Wenn Sie hier zum ersten mal teilnehmen, nehmen Sie sich bitte die Zeit, sich zu registrieren. Das geht schnell und unkompliziert.
+    sign_up_description: Wenn Sie hier zum ersten Mal teilnehmen, nehmen Sie sich bitte die Zeit, sich zu registrieren. Das geht schnell und unkompliziert.
     sign_up_headline: Neu registrieren
     signed_up: Sie haben sich erfolgreich registriert. Um die Registrierung abzuschliessen, folgen Sie bitte der Anleitung in der Bestätigungsmail, die an Ihre E-Mailadresse gesendet wurde.
     specify_availability: 'Lassen Sie uns wissen, zu welchen Zeiten Sie verfügbar sind:'
@@ -393,7 +393,7 @@ de:
       Die Classifiers für diese Konferenz können nur von Adminstratoren der
       Parent-Konferenz %{parent} verändert werden.
   clear: löschen
-  col_abstract: 'Abstrakt:'
+  col_abstract: 'Zusammenfassung:'
   col_availability: 'Verfügbarkeit:'
   col_avg_audience_feedback: 'Durchschnittliches Feedback der Zuschauer:'
   col_classifiers: 'Classifiers:'
@@ -440,7 +440,7 @@ de:
     add_conference: Konferenz hinzufügen
     add_conference_hint: Fügen Sie eine neue Konferenz hinzu
     canceled: canceled
-    conference_in_past: Die Konferenz liegt in der Vergangenheit. Keine Einreichungen sind möglich.
+    conference_in_past: Die Konferenz liegt in der Vergangenheit, daher sind keine Einreichungen mehr möglich.
     confirmed: confirmed
     current_conferences: Aktuelle Konferenzen
     error_specified_conference_not_found: Angegebene Konferenz nicht gefunden
@@ -448,7 +448,7 @@ de:
     inputs:
       hints:
         acronym: |
-          Ein eindeutiges Kürzel für Ihre Konferenz, die nur aus Kleinbuchstaben,
+          Ein eindeutiges Kürzel für Ihre Konferenz, das nur aus Kleinbuchstaben,
           Zahlen und Unterstrichen besteht. Wird später in URLs verwendet. Beispiel: 'froscon2011'
         bulk_notification_enabled: |
           Wenn aktiviert, werden die Einreicher über angenommene oder abgelehnte Events nicht sofort
@@ -550,7 +550,7 @@ de:
     has_no_availability: hat bisher keine Angaben zur Verfügbarkeit gemacht.
     person_already_speaking: 'hält gleichzeitig folgenden Vortrag:'
     person_unavailable: ist nicht verfügbar zu dieser Zeit.
-  contact_information: Kontakt-Informationen
+  contact_information: Kontaktdaten
   content: Inhalt
   create_new_conference: Neue Konferenz erstellen
   create_your_first_conference: Erste Konferenz erstellen
@@ -856,7 +856,7 @@ de:
       all_speakers_in_confirmed_events: Alle Sprecher an allen bestätigten Veranstaltungen
       all_speakers_in_scheduled_event: Alle Sprecher an allen Veranstaltungen, die mit Raum und Anfangszeit im Programm gesetzt sind
       all_speakers_in_unconfirmed_events: Alle Sprecher an allen unbestätigten Veranstaltungen
-    mail_subject: Subject
+    mail_subject: Betreff
     mail_template_hint: |
       Verwenden Sie diese E-Mail-Vorlage, um eine E-Mail an alle Personen zu senden, die an einem
       Event dieser Konferenz beteiligt sind.
@@ -880,12 +880,12 @@ de:
       already_confirmed: wurde bereits bestätigt, bitte versuchen Sie sich anzumelden
       blank: muss ausgefüllt werden
       confirmation: stimmt nicht mit der Bestätigung überein
-      confirmation_period_expired: muss innerhalb von %{period} bestätigt werden, bitte fordern Sie einen neuen an
+      confirmation_period_expired: muss innerhalb von %{period} bestätigt werden, bitte fordern Sie einen Neuen an
       empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
       exclusion: ist nicht verfügbar
-      expired: ist abgelaufen, bitte fordern Sie einen neuen an
+      expired: ist abgelaufen, bitte fordern Sie einen Neuen an
       greater_than: muss größer als %{count} sein
       greater_than_or_equal_to: muss größer oder gleich %{count} sein
       inclusion: ist kein gültiger Wert
@@ -948,7 +948,7 @@ de:
     confirm_event: Bestätigen Sie das Event
     confirm_event_hint: Bestätigen Sie, dass der / die Sprecher anwesend sind und dass das Event tatsächlich stattfindet.
     custom_notification: Benutzerdefinierte Benachrichtigung
-    custom_notification_hint: Fügen Sie benutzerdefinierte Benachrichtigungen für alle Sprecher dieses Events hinzu. Bei der nächsten Benachrichtig-Runde wird dann diese Nachricht anstelle der Standardbenachrichtigung gesendet. Sie können die einzlenen personalisierten Nachrichten im Reiter "Personen bearbeiten" ändern.
+    custom_notification_hint: Fügen Sie benutzerdefinierte Benachrichtigungen für alle Sprecher dieses Events hinzu. Bei der nächsten Benachrichtigungs-Runde wird dann diese Nachricht anstelle der Standardbenachrichtigung gesendet. Sie können die einzlenen personalisierten Nachrichten im Reiter "Personen bearbeiten" ändern.
     edit_event: Event bearbeiten
     edit_event_hint: Bearbeiten Sie die Daten dieses Events.
     edit_people: Personen bearbeiten
@@ -1005,13 +1005,14 @@ de:
       oder einem beitreten, taucht er in dieser Liste auf.
     print_accepted_cards: Druckkarten (nur accepted)
     print_accepted_cards_hint: |
-      Laden Sie ein PDF mit nur den Event im Zustand accepted als Karten herunter (vier Karten pro Seite).
-      Besonders nützlich, um Ihr Programm offline zu planen.
+      Laden Sie ein PDF herunter, in dem nur alle Events im Zustand accepted als Karten
+      angezeigt werden (vier Karten pro Seite). Besonders nützlich, um Ihr Programm offline
+      zu planen.
     print_cards: Karten drucken
     print_cards_hint: |
       Laden Sie ein PDF mit allen Events als Karten herunter (vier Karten pro Seite).
       Besonders nützlich, um Ihren Programm offline zu planen.
-    public_attachment_hint: Ist dieses Attachment öffentlich?
+    public_attachment_hint: Ist dieser Anhang öffentlich?
     rate_next: Bewerten Sie das nächste Event
     reject_event: Event rejecten
     reject_event_hint: |
@@ -1689,7 +1690,7 @@ de:
     concert: Konzert
     confirmed: confirmed
     coordinator: Koordinator
-    crew: Besatzungsmitglied
+    crew: Crew-Mitglied
     declined: Abgelehnt
     dect: DECT
     djset: DJ-Set
@@ -1727,14 +1728,14 @@ de:
     work: Arbeit
     workshop: Workshop
     yahoo: Yahoo
-  others_only: Nur 'others'
+  others_only: Nur Einreichungen vom Typ 'others'
   page_titles:
     admin_users: frab - Benutzer mit Admininstrator-Rechten
-    change_password: Frab - Passwort ändern
+    change_password: frab - Passwort ändern
     crew_users: Benutzer mit Crew-Rechten
-    edit_account: Frab - Konto bearbeiten
+    edit_account: frab - Konto bearbeiten
     login: Loggen Sie sich im frab ein
-    my_profile: Frab - Mein Profil
+    my_profile: frab - Mein Profil
     resend_confirmation: frab - Bestätigungsanweisungen erneut senden
     signup: Erstellen Sie ein Konto im frab
     unlock_instructions: frab - Anweisungen zum Entsperren des Kontos
@@ -1747,8 +1748,8 @@ de:
     add_ticket: Ticket hinzufügen
     add_ticket_hint: Erstellen Sie ein Ticket für diese Person.
     all_people: Alle Personen
-    attending: Vor Ort
-    attending_hint: Markieren Sie die Person als vor Ort.
+    attending: erschienen
+    attending_hint: Markieren Sie die Person als "erschienen".
     edit_person: Person bearbeiten
     edit_person_hint: Bearbeiten Sie diese Person.
     inputs:
@@ -1762,19 +1763,19 @@ de:
         person_filter: |
           Sie können das Drop-Down-Menu vorfiltern, indem Sie hier Bestandteile von Vornamen, Nachnamen,
           E-Mail-Adresse oder Benutzer-ID eintragen.
-      notification_body: E-Mail-Body der Benachrichtigung
-      notification_subject: Subject der Benachrichtigung
+      notification_body: E-Mail-Inhalt der Benachrichtigung
+      notification_subject: Betreff der Benachrichtigung
     list_of_people: Liste von Personen
     new_person: Neue Person
     no_people_data: |
       Sie haben noch keine Daten über Personen. Benutzen Sie den Knopf rechts, um Leute hinzuzufügen.
       Bitte beachten Sie, dass diese hier nicht sofort angezeigt werden, es sei denn, sie sind an
-      einer der Veranstaltungen dieser Konferenz beteiligt. Benutz Sie den obigenReiter "Alle Personen",
+      einer der Veranstaltungen dieser Konferenz beteiligt. Benutzen Sie den obigen Reiter "Alle Personen",
       um alle Personen auf all Ihren Konferenzen zu sehen.
     no_people_in_event: |
       In diesem Event sind noch keine Pesonen involviert. Verwenden Sie den "Bearbeiten"-Knopf rechts,
       um Personen zu diesem Event hinzuzufügen.
-      Bitte Beachten Sie, dass Sie nur Personen hinzufügen können, die bereits eine Konto haben.
+      Bitte beachten Sie, dass Sie nur Personen hinzufügen können, die bereits eine Konto haben.
       Um eine neue Person anzulegen, benutzen Sie den "Personen"-Reiter oben.
     no_people_involved: |
       In dieser Konferenz sind noch keine Personen involviert. Sobald Personen für Events in dieser
