@@ -1,4 +1,6 @@
 class Track < ApplicationRecord
+  after_destroy :update_events
+
   belongs_to :conference
   has_many :events
 
@@ -11,5 +13,11 @@ class Track < ApplicationRecord
 
   def to_s
     "#{model_name.human}: #{name}"
+  end
+
+  private
+
+  def update_events
+    events.update(track_id: nil)
   end
 end

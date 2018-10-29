@@ -77,4 +77,13 @@ class ConferenceTest < ActiveSupport::TestCase
     sub_conference.days.destroy_all
     assert_equal sub_conference.days.count, parent_conference.days.count
   end
+
+  test 'deleted tracks are removed from events' do
+    conference = create(:three_day_conference_with_events, title: 'conference')
+    event = conference.events.first
+    track = create(:track, conference: conference)
+    event.update(track: track)
+    track.destroy
+    assert_nil event.reload.track_id
+  end
 end
