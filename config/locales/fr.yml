@@ -766,7 +766,7 @@ fr:
     resend_unlock_instructions: Renvoyer les instructions de dévérouillage
     sessions:
       already_signed_out: Déconnecté(e) avec succès.
-      signed_in: Indentifié(e) avec succès.
+      signed_in: Identifié(e) avec succès.
       signed_out: Déconnecté(e) avec succès.
     unlock_my_account: Dévérouiller mon compte
     unlocks:
