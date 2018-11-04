@@ -213,7 +213,7 @@ class EventsController < BaseConferenceController
 
     begin
       @event.event_people.presenter.each { |p| p.set_default_notification(state) }
-    rescue NotificationMissingException => ex
+    rescue Errors::NotificationMissingException => ex
       return redirect_to(@event, alert: t('emails_module.error_failed_setting_notification', {ex: ex}))
     end
 
