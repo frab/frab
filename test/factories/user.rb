@@ -1,20 +1,20 @@
 FactoryBot.define do
   trait :admin_role do
-    role 'admin'
+    role { 'admin' }
   end
 
   trait :crew_role do
-    role 'crew'
+    role { 'crew' }
   end
 
   trait :submitter_role do
-    role 'submitter'
+    role { 'submitter' }
   end
 
   factory :user do
     person
     email { generate(:email) }
-    password 'frab123'
+    password { 'frab123' }
     confirmed_at { Time.now }
 
     factory :admin_user, traits: [:admin_role]

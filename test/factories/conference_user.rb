@@ -1,14 +1,14 @@
 FactoryBot.define do
   trait :conference_orga_role do
-    role 'orga'
+    role { 'orga' }
   end
 
   trait :conference_coordinator_role do
-    role 'coordinator'
+    role { 'coordinator' }
   end
 
   trait :conference_reviewer_role do
-    role 'reviewer'
+    role { 'reviewer' }
   end
 
   factory :conference_user do

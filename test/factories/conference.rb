@@ -83,17 +83,17 @@ FactoryBot.define do
   end
 
   factory :conference do
-    title 'FrabCon'
+    title { 'FrabCon' }
     acronym { generate(:conference_acronym) }
-    timeslot_duration 15
-    default_timeslots 4
-    max_timeslots 20
-    feedback_enabled true
-    expenses_enabled true
-    transport_needs_enabled true
-    schedule_public true
-    timezone 'Berlin'
-    parent nil
+    timeslot_duration { 15 }
+    default_timeslots { 4 }
+    max_timeslots { 20 }
+    feedback_enabled { true }
+    expenses_enabled { true }
+    transport_needs_enabled { true }
+    schedule_public { true }
+    timezone { 'Berlin' }
+    parent { nil }
 
     factory :three_day_conference, traits: [:three_days, :with_sub_conference]
     factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference]
