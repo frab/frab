@@ -16,13 +16,13 @@ GIT
 
 GIT
   remote: https://github.com/frab/roust.git
-  revision: 3cf3c48c4ede34674a3ccc8a174df3921b74dbe9
+  revision: 209b636f6fc59dbf8d33eafdc4ee6cd79f9c0b62
   branch: disallowed-ticket-1-fix
   specs:
     roust (1.8.9)
       activesupport (>= 4.0.10)
       httparty (>= 0.13.1)
-      mail (>= 2.5.4)
+      mail (= 2.6.6)
 
 GIT
   remote: https://github.com/rails/activeresource.git
@@ -132,7 +132,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.3)
     crass (1.0.4)
     database_cleaner (1.7.0)
     devise (4.5.0)
@@ -201,8 +201,8 @@ GEM
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.1)
-      mini_mime (>= 0.1.1)
+    mail (2.6.6)
+      mime-types (>= 1.16, < 4)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (0.9.1)
