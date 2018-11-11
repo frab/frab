@@ -22,6 +22,10 @@ class SignUpTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, 'confirmation link'
     assert_includes @response.body, "#{@conference.title} - Call for Participation"
 
+    mail = ActionMailer::Base.deliveries.last
+    assert_includes mail.to, 'test2@example.org'
+    assert_includes mail.content_type, 'text/plain'
+
     user = User.last
     user.confirm
 
