@@ -14,6 +14,7 @@ module StaticSchedule
     def initialize(conference, locale = 'en', destination = EXPORT_PATH)
       @conference = conference
       @locale = locale
+      I18n.locale = locale
       @renderer = ProgramRenderer.new(@conference, @locale)
       @pages = Pages.new(@renderer, @conference)
       @destination = destination || EXPORT_PATH
