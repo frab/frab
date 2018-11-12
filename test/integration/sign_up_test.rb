@@ -25,6 +25,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
     mail = ActionMailer::Base.deliveries.last
     assert_includes mail.to, 'test2@example.org'
     assert_includes mail.content_type, 'text/plain'
+    assert_includes mail.body.to_s, 'You should confirm your email'
 
     user = User.last
     user.confirm
