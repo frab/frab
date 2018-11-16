@@ -1977,12 +1977,12 @@ de:
         links: Links
         no_recording: Dieses Event wird nicht aufgezeichnet
         room: Raum
-        speakers: Referenten
+        speakers: ReferentInnen
         start_time: Anfangszeit
         track: Track
       events:
         events: Events
-        speakers: Referenten
+        speakers: ReferentInnen
         title: Titel
         track: Track
       events_by_track:
@@ -1994,7 +1994,7 @@ de:
         events_by_track: Events nach Titel
         schedule: Programm – %{label}
         schedule_index: Programmübersicht
-        speakers: Referenten
+        speakers: ReferentInnen
         timeline: Zeitleiste
       nav:
         day: Tag %{index}
@@ -2002,7 +2002,7 @@ de:
         index: Übersicht
         qrcode: QR-Code
         schedule: Programm
-        speakers: Referenten
+        speakers: ReferentInnen
       qrcode:
         link_to_public_schedule: |
           Diese QR-Code enthält die URL zur maschinenlesbaren Verion der öffentlichen Programmübersicht.
