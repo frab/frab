@@ -943,7 +943,7 @@ de:
     average_feedback: 'Durchschnittliches Feedback:'
     average_speaker_feedback: 'Durchschnittliches Feedback als Sprecher:'
     cancel_event: Event absagen
-    cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die Referenten ihren Auftritt absagen mussten.
+    cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die ReferentInnen ihren Auftritt absagen mussten.
     col_toggle_rooms: 'Räume wechseln:'
     confirm_event: Bestätigen Sie das Event
     confirm_event_hint: Bestätigen Sie, dass der / die Sprecher anwesend sind und dass das Event tatsächlich stattfindet.
