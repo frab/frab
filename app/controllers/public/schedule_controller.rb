@@ -95,16 +95,16 @@ class Public::ScheduleController < ApplicationController
   def find_day(day_index)
     return @conference.days.first if day_index < 1
     return @conference.days.last if day_index > @conference.days.count
+
     @conference.days[day_index - 1]
   end
 
   def maybe_authenticate_user!
     return if @conference.schedule_public
+
     authenticate_user!
     manage_only!
   end
-
-  private
 
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
