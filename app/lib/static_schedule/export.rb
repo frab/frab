@@ -13,11 +13,12 @@ module StaticSchedule
     # @param destination [String] export into this directory
     def initialize(conference, locale = 'en', destination = EXPORT_PATH)
       @conference = conference
-      @locale = locale
-      I18n.locale = locale
+      @locale = locale || 'en'
+      @destination = destination || EXPORT_PATH
+
+      I18n.locale = @locale
       @renderer = ProgramRenderer.new(@conference, @locale)
       @pages = Pages.new(@renderer, @conference)
-      @destination = destination || EXPORT_PATH
     end
 
     # create a tarball from the conference export directory
