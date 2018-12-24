@@ -18,7 +18,7 @@ module Public::ScheduleHelper
   end
 
   def event_title_with_type(event)
-    event_type = if event.event_type
+    event_type = if event.event_type.present?
                    t("options.#{event.event_type}")
                  else
                    t('options.other')
