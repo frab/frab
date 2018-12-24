@@ -79,11 +79,9 @@ class Conference < ApplicationRecord
     (Conference.has_submission(user.person) | Conference.future).select(&:call_for_participation).sort_by(&:created_at)
   end
 
-  alias own_days days
-
   def days
     return parent.days if sub_conference?
-    own_days
+    super
   end
 
   def cfp_open?
@@ -206,9 +204,10 @@ class Conference < ApplicationRecord
   # if a conference has multiple days, they sould not overlap
   def days_do_not_overlap
     return if days.count < 2
-    days = self.days.sort_by(&:start_date)
-    yesterday = days[0]
-    days[1..-1].each { |day|
+
+    sorted_days = days.sort_by(&:start_date)
+    yesterday = sorted_days[0]
+    sorted_days[1..-1].each { |day|
       if day.start_date < yesterday.end_date
         errors.add(:days, "day #{day} overlaps with day before")
       end
