@@ -285,7 +285,7 @@ es:
     email_public_hint: Si gusta, esta dirección puede ser publicada en el programa.
     error_confirming: Algo falló al confirmar tu cuenta. Verifica haber pegado la liga completa del mensaje que enviamos y que no hayas confirmado ya la cuenta.
     error_sending_confirmation_instructions: No se pudo enviar las instrucciones de confirmación. Por favor revisa la dirección de correo electrónico y que tu cuenta no esté ya confirmada.
-    event_abstract_hint: Un párrafo corto que describa concretamente el evento. (HTML)
+    event_abstract_hint: Un párrafo corto que describa concretamente el evento.
     event_confirmed: Evento confirmado
     event_created_notice: El evento fue exitosamente creado.
     event_description_hint: Una descripción más extensa sobre usted. Use este espacio para dar detalles adicionales que no hayan cabido en el brevario. Ambos, el brevario y la descripción, serán mostrados en el sitio Web de la conferencia. (HTML)

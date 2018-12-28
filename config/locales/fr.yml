@@ -240,7 +240,7 @@ fr:
     email_public_hint: Si vous le souhaitez, cette adresse de courriel peut être visible dans notre programme public.
     error_confirming: Une erreur est survenue lors de la confirmation de votre compte. Veuillez vérifier que vous avez collé le lien complet depuis le courriel et que vous n’avez pas déjà activé votre compte.
     error_sending_confirmation_instructions: Impossible d’envoyer les instructions de confirmation. Veuillez vérifier que vous avez entré une adresse de courriel correcte et que votre compte n’est pas déjà créé.
-    event_abstract_hint: Un petit parapgraphe décrivant succintement l’évènement. (HTML)
+    event_abstract_hint: Un petit parapgraphe décrivant succintement l’évènement.
     event_confirmed: Évènement confirmé
     event_created_notice: L’évènement a été créé avec succès.
     event_description_hint: Une description plus longue de l’évènement. Utilisez cet espace pour donner plus de détails. L’extrait et la description seront visibles sur le site de la conférence. (HTML)

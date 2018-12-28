@@ -240,7 +240,7 @@ it:
     email_public_hint: Se lo desideri, questo indirizzo email potrebbe essere visibile nel nostro programma pubblico.
     error_confirming: Si è verificato un errore durante la conferma del tuo account. Verifica di aver incollato il link completo dall'email e di non aver ancora attivato il tuo account.
     error_sending_confirmation_instructions: Non è possibile inviare istruzioni di conferma. Verifica di aver inserito un indirizzo email corretto e che il tuo account non sia già stato creato.
-    event_abstract_hint: Un piccolo paraprafo che descrive succintamente l'evento. (HTML)
+    event_abstract_hint: Un piccolo paraprafo che descrive succintamente l'evento.
     event_confirmed: Evento confermato
     event_created_notice: L'evento è stato creato con successo.
     event_description_hint: Una descrizione più lunga dell'evento. Usa questo spazio per dare maggiori dettagli. L'estratto e la descrizione saranno visibili sul sito web della conferenza. (HTML)
