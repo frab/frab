@@ -99,7 +99,7 @@ class ConferencesControllerTest < ActionController::TestCase
       put :update, params: { conference: params, conference_acronym: @conference.acronym }
     end
     @conference.reload
-    assert_equal max_date.to_s, @conference.end_date.to_s
+    assert_equal max_date.to_i, @conference.end_date.to_i
 
     params = conference_params.merge(
       days_attributes: [
@@ -109,7 +109,7 @@ class ConferencesControllerTest < ActionController::TestCase
     put :update, params: { conference: params, conference_acronym: @conference.acronym }
     assert_response :redirect
     @conference.reload
-    assert_equal min_date.to_s, @conference.start_date.to_s
+    assert_equal min_date.to_i, @conference.start_date.to_i
   end
 
   test 'should create conference with feedback disabled' do
