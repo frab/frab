@@ -44,6 +44,9 @@
     %li= link_to "iCalendar", public_event_path(id: event.id, format: :ics)
     - event.links.each do |link|
       %li= link_to link.title, link.url
+    - if event.video_url
+      %li= link_to 'Video', event.video_url
+
   - if event.event_attachments.is_public.any?
     %h3= t '.files'
     %ul
