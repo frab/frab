@@ -40,7 +40,6 @@ class ImportExportHelper
       dump 'people_availabilities', Availability.where(conference: @conference, person: people)
       dump_has_many 'users', people, 'user'
       # TODO languages
-      # TODO videos
       # TODO notifications
       export_paperclip_files(events, people, attachments)
     end

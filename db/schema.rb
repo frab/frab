@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219153146) do
+ActiveRecord::Schema.define(version: 2018_12_30_031926) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -415,15 +415,6 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.string "associated_type", limit: 255
     t.text "object_changes", limit: 4194304
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  end
-
-  create_table "videos", force: :cascade do |t|
-    t.integer "event_id"
-    t.string "url", limit: 255
-    t.string "mimetype", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_videos_on_event_id"
   end
 
 end

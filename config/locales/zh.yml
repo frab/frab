@@ -156,9 +156,6 @@ zh:
         password_confirmation: 确认密码
         remember_me: 记住我
         role: 角色
-      video:
-        mimetype: MIMETYPE
-        url: 地址
     models:
       call_for_participation: 呼吁参与
       classifier: 分类
