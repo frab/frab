@@ -156,9 +156,6 @@ fr:
         password_confirmation: Confirmation du mot de passe
         remember_me: Se souvenir de moi
         role: Rôle
-      video:
-        mimetype: Type mime
-        url: Adresse
     models:
       call_for_participation: Appel à participation
       classifier: classificateur

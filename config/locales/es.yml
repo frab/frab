@@ -170,9 +170,6 @@ es:
         password_confirmation: Confirmación de clave
         remember_me: Recordarme
         role: Papel
-      video:
-        mimetype: Tipo MIME
-        url: Dirección
     errors:
       full_messages:
         format: "%{attribute}%{message}"

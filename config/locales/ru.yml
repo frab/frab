@@ -156,9 +156,6 @@ ru:
         password_confirmation: Подтверждение пароля
         remember_me: Запомни меня
         role: Роль
-      video:
-        mimetype: Mimetype
-        url: Адрес
     models:
       call_for_participation: Призыв к участию
       classifier: классификатор

@@ -170,9 +170,6 @@ pt-BR:
         password_confirmation: Confirmação de Senha
         remember_me: Lembrar de mim neste computador
         role: Função
-      video:
-        mimetype: Mimetype
-        url: Endereço
     errors:
       full_messages:
         format: "%{attribute}%{message}"

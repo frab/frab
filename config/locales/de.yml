@@ -170,9 +170,6 @@ de:
         password_confirmation: Passwort wiederholen
         remember_me: An diesem Computer eingeloggt bleiben
         role: Rolle
-      video:
-        mimetype: Mime-Type
-        url: URL
     errors:
       full_messages:
         format: "%{attribute}%{message}"

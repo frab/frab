@@ -17,7 +17,6 @@ class Event < ApplicationRecord
   has_many :event_classifiers, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :people, through: :event_people
-  has_many :videos, dependent: :destroy
 
   belongs_to :conference
   belongs_to :track, optional: true
