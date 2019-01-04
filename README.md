@@ -24,7 +24,7 @@ The frab wiki hosts a [list of conferences using frab](https://github.com/frab/f
 *Feel free to add your conference to the wiki*.
 
 Take a look at the [screenshots](https://github.com/frab/frab/wiki/Screenshots)
-to get an idea of what frab does. frab implements some The [full
+to get an idea of what frab does. The [full
 manual](https://github.com/frab/frab/wiki/Manual) can be found in the wiki.
 
 ## Installing
