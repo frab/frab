@@ -1,5 +1,6 @@
 !!! XML
 %schedule
+  %generator{name: 'frab', version: '0.7'}
   - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
     %version= @conference.schedule_version
   %conference
