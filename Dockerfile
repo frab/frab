@@ -31,7 +31,6 @@ ENV RACK_ENV=production \
     FROM_EMAIL=frab@localhost \
     SMTP_ADDRESS=172.17.0.1 \
     SMTP_PORT=25 \
-    SMTP_NOTLS=true \
     DATABASE_URL=sqlite3://localhost/home/frab/data/database.db
 
 CMD ["/home/frab/app/docker-cmd.sh"]
