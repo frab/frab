@@ -9,7 +9,7 @@ unless Rails.env.development?
       ActionMailer::Base.smtp_settings[setting.downcase.to_sym] = ENV["SMTP_#{setting}"]
     end
   end
-  if ENV['SMTP_NOTLS'].present?
+  if ENV.fetch('SMTP_NOTLS', 'false') == 'true'
     ActionMailer::Base.smtp_settings.merge!(
       enable_starttls_auto: false,
       ssl: false,
