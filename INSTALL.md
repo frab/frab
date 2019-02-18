@@ -102,3 +102,5 @@ Note that when seeding the database in production mode, the password for
 admin@example.org will be a random one. It will be printed to the console
 in when `rake db:seed` is invoked.
 
+Note: frab does not scale horizontally.
+
