@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get clean && \ 
     rm -rf /var/lib/apt/lists/*
 
-RUN adduser --disabled-password --gecos "FRAB" --uid 1000 frab
+RUN adduser --disabled-password --gecos "FRAB" --uid 2000 frab
 
 COPY . /home/frab/app
 RUN chown -R frab:frab /home/frab/app
