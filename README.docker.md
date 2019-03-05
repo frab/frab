@@ -40,6 +40,8 @@ At a minimum you should change the default `SECRET_KEY_BASE` variable.
 
 The default setup uses a sqlite3 database located in `/home/frab/data`. If you want it to persist across container restarts you should add a docker volume to that directory. Alternatively you can pass a `DATABASE_URL` environment variable to use another database like postgresql or mysql.
 
+Similiary, you'd want to mount /home/frab/app/public to persistent storage, since this is where event attachments are saved.
+
 The example docker-compose file used another postgres container as a database.
 
 # Running
