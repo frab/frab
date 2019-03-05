@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get clean && \ 
     rm -rf /var/lib/apt/lists/*
 
-ARG FRAB_UID="1000"
+ARG FRAB_UID="2000"
 
 RUN adduser --disabled-password --gecos "FRAB" --uid $FRAB_UID frab
 
