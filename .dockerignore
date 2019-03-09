@@ -1,4 +1,6 @@
 .git/
 Dockerfile
 docker-compose.yml
+contrib/
+tmp/
 

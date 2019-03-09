@@ -27,6 +27,7 @@ ENV RACK_ENV=production \
     FRAB_HOST=localhost \
     FRAB_PROTOCOL=http \
     RAILS_SERVE_STATIC_FILES=true \
+    RAILS_LOG_TO_STDOUT=true \
     CAP_USER=frab \
     FROM_EMAIL=frab@localhost \
     SMTP_ADDRESS=172.17.0.1 \
