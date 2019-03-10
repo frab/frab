@@ -565,7 +565,7 @@ de:
     - Fr
     - Sa
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mär
@@ -592,7 +592,7 @@ de:
       only_day: "%e"
       short: "%e. %b"
     month_names:
-    - 
+    -
     - Januar
     - Februar
     - März
