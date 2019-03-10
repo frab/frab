@@ -342,7 +342,7 @@ en:
     to: to
     update: Update
     update_availability_notice: Thank you for specifying your availability.
-    updated: Successfully updated.
+    updated: Successfully updated. New email addresses have to reconfirmed.
     uploaded_files: Uploaded files
     welcome: Welcome
     welcome_text: Welcome to the Call for Participation. To create or review your submissions you need to login. If you are new to %{title} you need to sign up for an account.
