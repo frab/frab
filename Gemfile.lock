@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/elabs/pundit.git
-  revision: 290536f71edd0a06670af36193165fe2389bb686
-  branch: master
-  specs:
-    pundit (2.0.0)
-      activesupport (>= 3.0.0)
-
-GIT
   remote: https://github.com/frab/localized_language_select.git
   revision: 85df6b97789de6e29c630808b630e56a1b76f80c
   branch: master
@@ -23,16 +15,6 @@ GIT
       activesupport (>= 4.0.10)
       httparty (>= 0.13.1)
       mail (= 2.6.6)
-
-GIT
-  remote: https://github.com/rails/activeresource.git
-  revision: 326b452d59e8b9207069642fa6f1bf2e9b3907f1
-  branch: master
-  specs:
-    activeresource (5.1.0)
-      activemodel (>= 5.0, < 7)
-      activemodel-serializers-xml (~> 1.0)
-      activesupport (>= 5.0, < 7)
 
 GEM
   remote: https://rubygems.org/
@@ -73,6 +55,10 @@ GEM
       activemodel (= 5.2.2)
       activesupport (= 5.2.2)
       arel (>= 9.0)
+    activeresource (5.1.0)
+      activemodel (>= 5.0, < 7)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (>= 5.0, < 7)
     activestorage (5.2.2)
       actionpack (= 5.2.2)
       activerecord (= 5.2.2)
@@ -273,6 +259,8 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.3)
     puma (3.12.0)
+    pundit (2.0.1)
+      activesupport (>= 3.0.0)
     rack (2.0.6)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -388,7 +376,7 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel-serializers-xml
-  activeresource!
+  activeresource
   acts_as_commentable
   bcrypt
   bootsnap
@@ -429,7 +417,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma
-  pundit!
+  pundit
   rails (~> 5.2.0)
   rails-controller-testing
   rangesliderjs-rails (~> 2.3)
