@@ -48,3 +48,5 @@
           - if policy(@conference).manage?
             = action_button "small", t('edit'), edit_event_path(event)
             = action_button "small danger", t('destroy'), event, data: { confirm: t('are_you_sure')}, method: :delete
+          - elsif current_user.is_speaker_in?(event)
+            = action_button "small", t('edit'), edit_cfp_event_path(event)

@@ -88,6 +88,10 @@ class User < ApplicationRecord
     conference_users.map(&:conference).last
   end
 
+  def is_speaker_in?(event)
+    person.events.exists?(event.id)
+  end
+
   private
 
   def conference_user_fields_present
