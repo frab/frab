@@ -14,7 +14,11 @@ class Cfp::UsersController < ApplicationController
 
     if @user.update_attributes(user_params)
       bypass_sign_in(@user) if Devise.sign_in_after_reset_password
-      redirect_to cfp_person_path, notice: t(:"cfp.updated")
+      if @conference
+        redirect_to cfp_person_path, notice: t(:"cfp.updated")
+      else
+        redirect_to edit_cfp_user_path, notice: t(:"cfp.updated")
+      end
 
     else
       flash_model_errors(@user)

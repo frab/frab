@@ -24,6 +24,11 @@ Rails.application.routes.draw do
     patch '/user/:person_id' => 'users#update', as: 'crew_user'
     post '/user/:person_id' => 'users#create'
 
+    # submitters without a conference
+    namespace :cfp do
+      resource :user, except: %i(new create)
+    end
+
     scope path: '/:conference_acronym' do
       namespace :public do
         get '/schedule' => 'schedule#index', as: 'schedule_index'
