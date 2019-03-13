@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  prepend_view_path 'app/views/custom'
+
   protected
 
   def layout_if_conference
