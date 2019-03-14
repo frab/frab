@@ -28,17 +28,7 @@ class Person < ApplicationRecord
 
   has_paper_trail
 
-  has_attached_file :avatar,
-    styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },
-    default_url: ':default_avatar_url',
-    escape_url: false
-
-  Paperclip.interpolates :default_avatar_url do |avatar, style|
-    style = :small if style.blank? || style.eql?(:original)
-    avatar.instance.default_avatar_url(style)
-  end
-
-  validates_attachment_content_type :avatar, content_type: [/jpg/, /jpeg/, /png/, /gif/]
+  has_one_attached :avatar
 
   validates :public_name, :email, presence: true
 
