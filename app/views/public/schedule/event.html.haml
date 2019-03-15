@@ -51,7 +51,7 @@
     %h3= t '.files'
     %ul
       - event.event_attachments.is_public.each do |attachment|
-        %li= link_to attachment.link_title, attachment.attachment.url
+        %li= link_to attachment.link_title, attachment.attachment.variant(medium)
   - if @conference.feedback_enabled?
     %h3= t '.feedback'
     %p
@@ -75,7 +75,6 @@
           %td= link_to speaker.public_name, public_speaker_path(id: speaker.id)
 
 %script{:type => 'application/ld+json'}
-  - performers = event.speakers.map { |speaker| { name: speaker.public_name, '@type': 'Person', sameAs: public_speaker_path(:id => speaker.id), image: image_path(speaker.avatar.url(:small)) } }
   :plain
     {
       "@context" : "http://schema.org",
@@ -88,7 +87,7 @@
       },
       "startDate" : "#{event.start_time.strftime("%F")}T#{event.start_time.strftime("%T%z")}",
       "endDate" : "#{event.end_time.strftime("%F")}T#{event.end_time.strftime("%T%z")}",
-      "performer" : #{performers.to_json},
+      "performer" : #{event.performers.to_json},
       "inLanguage" : "#{event.language}",
       "superEvent" : {
         "@type" : "Event",

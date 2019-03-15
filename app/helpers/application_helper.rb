@@ -41,13 +41,25 @@ module ApplicationHelper
 
   def image_box(image, size)
     content_tag(:div, class: "image #{size}") do
-      image_tag image.url(size)
+      image_tag image.variant(resolution(size)) if image.attached?
     end
   end
 
+  def resolution(size)
+    case size.to_s
+    when 'small'
+      small
+    when 'medium'
+      medium
+    when 'large'
+      large
+    end
+  end
+
+
   def image_input_box(image)
     content_tag(:div, class: 'clearfix input image small') do
-      image_tag image.url(:small)
+      image_tag image.variant(small) if image.attached?
     end
   end
 
@@ -130,11 +142,15 @@ module ApplicationHelper
     fail 'should not happen: user without acl'
   end
 
-  def large(attachment)
-    attachment.variant(resize_to_fit: [128, 128])
+  def small
+    { resize: '32x32' }
   end
 
-  def small(attachment)
-    attachment.variant(resize_to_fit: [32, 32])
+  def medium
+    { resize: '64x64' }
+  end
+
+  def large
+    { resize: '128x128' }
   end
 end

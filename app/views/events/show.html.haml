@@ -107,7 +107,7 @@
           %b=t('col_files')
           %ul
             - @event.event_attachments.each do |attachment|
-              %li= link_to attachment.link_title, attachment.attachment.url
+              %li= link_to attachment.link_title, attachment.attachment.variant(medium)
   -if @event.event_classifiers.any?
     .row
       .span6

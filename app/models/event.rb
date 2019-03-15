@@ -87,6 +87,18 @@ class Event < ApplicationRecord
     event_people.presenter.includes(:person).all.map(&:person)
   end
 
+  def performers
+    speakers.map do |speaker|
+      image = image_path(speaker.avatar.variant(small)) if speaker.avatar.attached?
+      {
+        name: speaker.public_name,
+        '@type': 'Person',
+        sameAs: public_speaker_path(:id => speaker.id),
+        image: image
+      }
+    end
+  end
+
   def humanized_time_str
     return '' unless start_time.present?
     I18n.localize(start_time, format: :time) + I18n.t('time.time_range_seperator') + I18n.localize(end_time, format: :time)
@@ -131,7 +143,17 @@ class Event < ApplicationRecord
   end
 
   def logo_path(size = :large)
-    logo(size) if logo.present?
+    resolution = case size
+    when :small
+       '32x32'
+    when :medium
+       '64x64'
+    when :large
+       '128x128'
+    end
+
+    return logo.variant(resize: resolution) if logo.attached?
+    ''
   end
 
   def clean_event_attributes!

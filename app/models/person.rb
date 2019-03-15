@@ -74,7 +74,7 @@ class Person < ApplicationRecord
   end
 
   def avatar_path(size = :large)
-    avatar(size) if avatar.present?
+    avatar(size) if avatar.present? && avatar.attached?
   end
 
   def involved_in?(conference)

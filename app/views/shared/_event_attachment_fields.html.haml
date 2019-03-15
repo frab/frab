@@ -8,5 +8,5 @@
       = f.input :title
       = f.input :public, as: :inline_boolean, hint: t('events_module.public_attachment_hint')
       .input
-        = link_to f.object.attachment_file_name, f.object.attachment.url, style: 'float:left'
+        = link_to f.object.attachment_file_name, f.object.attachment.variant(medium), style: 'float:left'
     = remove_association_link :event_attachment, f

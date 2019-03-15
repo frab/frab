@@ -61,7 +61,7 @@
             %b #{t('public.schedule.files')}:
             %br/
             - @event.event_attachments.is_public.each do |attachment|
-              = link_to attachment.link_title, attachment.attachment.url
+              = link_to attachment.link_title, attachment.attachment.variant(medium)
               %br/
       .span10
         %p
