@@ -3,4 +3,7 @@ Dockerfile
 docker-compose.yml
 contrib/
 tmp/
+log/
+db/
+public/system
 
