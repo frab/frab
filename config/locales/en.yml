@@ -803,7 +803,7 @@ en:
         %{event}
 
         We can assure you that this was not an easy decision to make.
-        We hope we can still  welcome you at the conference.
+        We hope we can still welcome you at the conference.
       subject: Your submission to %{conference}
     event_schedule:
       goodbye: |
