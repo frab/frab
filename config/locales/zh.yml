@@ -1604,7 +1604,7 @@ zh:
     no_events_tickets: 没有门票事件
     possible_variables: 可能的变量
     send_notification: 将%{name}通知发送到%{count}中的%{speakers}
-    send_notification_confirm: 您确定要为%{event}发送%{name} notifiactions吗？
+    send_notification_confirm: 您确定要为%{event}发送%{name} notifications吗？
     send_notification_to_speakers: 将%{name}通知发送到%{event}中的%{speakers}
   number:
     currency:

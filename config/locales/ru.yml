@@ -1604,7 +1604,7 @@ ru:
     no_events_tickets: Нет событий с билетами
     possible_variables: Возможные переменные
     send_notification: отправлять %{name} уведомления %{speakers} в %{count}
-    send_notification_confirm: Вы действительно хотите отправить %{name} notifiactions для %{event}?
+    send_notification_confirm: Вы действительно хотите отправить %{name} notifications для %{event}?
     send_notification_to_speakers: Отправить %{name} уведомления %{speakers} в %{event}
   number:
     currency:
