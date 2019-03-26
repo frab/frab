@@ -1600,7 +1600,7 @@ en:
     no_events_tickets: No events with tickets
     possible_variables: Possible variables
     send_notification: send %{name} notifications to %{speakers} in %{count}
-    send_notification_confirm: Are you sure you want to send %{name} notifiactions for %{event}?
+    send_notification_confirm: Are you sure you want to send %{name} notifications for %{event}?
     send_notification_to_speakers: Send %{name} notifications to %{speakers} in %{event}
   number:
     currency:
