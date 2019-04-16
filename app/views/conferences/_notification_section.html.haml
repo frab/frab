@@ -6,7 +6,11 @@
     - nospeakers = e.select { |e| e.speakers.count == 0 }
     - if noticket.count > 0
       %p
-        = link_to(t('notifications_module.event_without_ticket_warning', {events: pluralize(noticket.count, "event" )}), events_path(:event_state => state, 'q[s]' => 'ticket_id'))
+        - if @conference.ticket_server_enabled?
+          - path = { :event_state => state, 'q[s]' => 'ticket_id' }
+        - else
+          - path = { :event_state => state }
+        = link_to(t('notifications_module.event_without_ticket_warning', events: pluralize(noticket.count, "event")), events_path(path))
         - noticket.each do |e|
           = link_to e.title, e
     - if nospeakers.count > 0
@@ -16,6 +20,6 @@
           = link_to e.title, e
     %p
     - if noticket.count == e.count
-      =button_to(t('notifications_module.no_events_tickets'), {}, { disabled: true, class: "btn disabled"})
+      = button_to(t('notifications_module.no_events_tickets'), {}, { disabled: true, class: "btn disabled"})
     - else
-      =button_to(t('notifications_module.send_notification_to_speakers', {name: name, speakers: pluralize( speakers, 'speaker'), event: pluralize( e.count - noticket.count, 'event')}), { action: 'send_notification', notification: state }, { class: "btn danger", data: { confirm: t('notifications_module.send_notification_confirm', {name: name, event: pluralize(e.count - noticket.count, 'event')}), disable_with: t('work_in_progress') }})
+      = button_to(t('notifications_module.send_notification_to_speakers', {name: name, speakers: pluralize( speakers, 'speaker'), event: pluralize( e.count - noticket.count, 'event')}), { action: 'send_notification', notification: state }, { class: "btn danger", data: { confirm: t('notifications_module.send_notification_confirm', {name: name, event: pluralize(e.count - noticket.count, 'event')}), disable_with: t('work_in_progress') }})

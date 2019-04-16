@@ -1592,7 +1592,7 @@ en:
   notifications: Notifications
   notifications_module:
     edit_send_notifications: Edit and send notifications
-    event_without_ticket_warning: 'Attention : %{events} sans ticket :'
+    event_without_ticket_warning: 'Attention : %{events} without ticket:'
     inputs:
       hints:
         locale: Available locales for this conference and its speakers
