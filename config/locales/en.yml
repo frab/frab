@@ -1663,6 +1663,7 @@ en:
     crew: Crew member
     declined: Declined
     dect: DECT
+    demo: Demo
     djset: DJ set
     fax: Fax
     female: Female
@@ -1671,7 +1672,7 @@ en:
     idea: Idea
     integrated: Integrated
     jabber: Jabber/XMPP
-    lecture: Lecture
+    lecture: Lecture (Presentation)
     lightning_talk: Lightning talk
     male: Male
     meeting: Meeting
@@ -1684,6 +1685,7 @@ en:
     performance: Theater/Performance
     phone: Phone
     podium: Podium
+    poster: Poster
     private: Private
     redmine: Redmine
     reviewer: Reviewer
