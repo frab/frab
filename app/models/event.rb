@@ -6,7 +6,7 @@ class Event < ApplicationRecord
 
   before_create :generate_guid
 
-  TYPES = %i(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
+  TYPES = %i(lecture workshop demo poster other).freeze
   ACCEPTED = %w(accepting unconfirmed confirmed scheduled).freeze
 
   has_one :ticket, as: :object, dependent: :destroy
