@@ -10,9 +10,17 @@
     .alert-message.error.span12= t('notifications_module.missing_locale', {locales: locales_needed - locales_present })
   - else
     %h1= t('send')
-    = render partial: 'notification_section', locals: { e: @conference.events.where(:state => 'accepting'), state: 'accepting', name: 'acceptance' }
-    = render partial: 'notification_section', locals: { e: @conference.events.where(:state => 'rejecting'), state: 'rejecting', name: 'rejection' }
-    = render partial: 'notification_section', locals: { e: @conference.events.where(:state => 'confirmed').scheduled, state: 'confirmed', name: 'scheduling' }
+
+  - if @conference.ticket_server_enabled?
+    - partial = 'notification_section_ticket'
+  - else
+    - partial = 'notification_section'
+  - if @accepting.count > 0
+    = render partial: partial, locals: { e: @accepting, state: 'accepting', name: 'acceptance' }
+  - if @rejecting.count > 0
+    = render partial: partial, locals: { e: @rejecting, state: 'rejecting', name: 'rejection' }
+  - if @confirmed.count > 0
+    = render partial: partial, locals: { e: @confirmed, state: 'confirmed', name: 'scheduling' }
 
   %h1= t('edit')
 

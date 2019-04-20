@@ -55,6 +55,9 @@ class ConferencesController < BaseConferenceController
 
   def edit_notifications
     authorize @conference, :orga?
+    @accepting = @conference.events.where(state: 'accepting')
+    @rejecting = @conference.events.where(state: 'rejecting')
+    @confirmed = @conference.events.where(state: 'confirmed').scheduled
     respond_to do |format|
       format.html
     end
