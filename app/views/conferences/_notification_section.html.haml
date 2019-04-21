@@ -1,25 +1,12 @@
 .bulk-notification
-  - if e.count > 0
-    %h3 #{ pluralize( e.count, "event" ) } in state #{ state }
-    - noticket = e.select { |e| e.ticket == nil }
-    - speakers = e.map { |e| e.speakers.count }.sum
-    - nospeakers = e.select { |e| e.speakers.count == 0 }
-    - if noticket.count > 0
-      %p
-        - if @conference.ticket_server_enabled?
-          - path = { :event_state => state, 'q[s]' => 'ticket_id' }
-        - else
-          - path = { :event_state => state }
-        = link_to(t('notifications_module.event_without_ticket_warning', events: pluralize(noticket.count, "event")), events_path(path))
-        - noticket.each do |e|
-          = link_to e.title, e
-    - if nospeakers.count > 0
-      %p
-        Warning: #{ pluralize(nospeakers.count, "event" ) } without speakers:
-        - nospeakers.each do |e|
-          = link_to e.title, e
+  %h3 #{pluralize(e.count, "event")} in state #{state}
+  - speakers = e.map { |e| e.speakers.count }.sum
+  - nospeakers = e.select { |e| e.speakers.count == 0 }
+  - if nospeakers.count > 0
     %p
-    - if noticket.count == e.count
-      = button_to(t('notifications_module.no_events_tickets'), {}, { disabled: true, class: "btn disabled"})
-    - else
-      = button_to(t('notifications_module.send_notification_to_speakers', {name: name, speakers: pluralize( speakers, 'speaker'), event: pluralize( e.count - noticket.count, 'event')}), { action: 'send_notification', notification: state }, { class: "btn danger", data: { confirm: t('notifications_module.send_notification_confirm', {name: name, event: pluralize(e.count - noticket.count, 'event')}), disable_with: t('work_in_progress') }})
+      Warning: #{ pluralize(nospeakers.count, "event") } without speakers:
+      - nospeakers.each do |e|
+        = link_to e.title, e
+  %p
+
+  = button_to(t('notifications_module.send_notification_to_speakers', {name: name, speakers: pluralize(speakers, 'speaker'), event: pluralize(e.count, 'event')}), { action: 'send_notification', notification: state }, { class: "btn danger", data: { confirm: t('notifications_module.send_notification_confirm', {name: name, event: pluralize(e.count, 'event')}), disable_with: t('work_in_progress') }})
