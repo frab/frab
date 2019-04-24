@@ -1050,7 +1050,7 @@ es:
     rate_next: Califica el próximo evento
     reject_event: Rechazar evento
     reject_event_hint: Rechazar este evento El o los oradores serán notificados del rechazo por correo electrónico.
-    reject_event_no_email: Rechazar evento (no-email)
+    reject_event_no_email: Rechazar evento (sin correo electrónico)
     reject_event_no_email_hint: Rechace este evento sin enviar un correo electrónico automático.
     toggle_description: Alternar Descripción >>
     track_select: filtrar por la pista
