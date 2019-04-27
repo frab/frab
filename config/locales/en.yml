@@ -1004,7 +1004,7 @@ en:
     rate_next: Rate next event
     reject_event: Reject event
     reject_event_hint: Reject this event. The speaker(s) will be notified of the rejection via email.
-    reject_event_no_email: Reject event (no-email)
+    reject_event_no_email: Reject event (no email)
     reject_event_no_email_hint: Reject this event without sending an automated email.
     toggle_description: Toggle Description >>
     track_select: filter by track
