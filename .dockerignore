@@ -5,5 +5,8 @@ contrib/
 tmp/
 log/
 db/
+!db/schema.rb
+!db/seeds.rb
+!db/migrate/
 public/system
 
