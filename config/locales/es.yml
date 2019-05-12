@@ -28,14 +28,14 @@ es:
         name: Nombre
       conference:
         acronym: Abreviación
-        bulk_notification_enabled: Notificaciones masivas habilitadas
+        bulk_notification_enabled: Notificaciones masivas
         color: Color
         default_recording_license: Licencia de grabación predeterminada
         default_timeslots: Intervalos por defecto
         email: E-Mail
         event_state_visible: Estado del evento visible
-        expenses enabled: Gastos habilitados
-        feedback_enabled: Retroalimentación habilitada
+        expenses_enabled: Gastos
+        feedback_enabled: Retroalimentación
         max_timeslots: Máximo de intervalos
         program_export_base_url: URL de exportación del programa
         schedule_custom_css: Programar CSS personalizado
@@ -47,7 +47,7 @@ es:
         timeslot_duration: Duración de intervalo
         timezone: Huso horario
         title: Título
-        transport_needs_enabled: Necesidades de transporte habilitadas
+        transport_needs_enabled: Necesidades de transporte
       conference_export:
         locale: Lugar
       conference_user:
@@ -476,7 +476,7 @@ es:
           Si habilita esto, los oradores podrán buscar el estado
           de su presentación en la interfaz de cfp y confirmar su asistencia
           presionando el botón confirmar.
-        expenses_enabled: Si habilita esto, frab le permitirá rastrear los gastos de las personas
+        expenses_enabled: Si habilita esto, frab le permitirá rastrear los gastos de las personas.
         feedback_enabled: |
           Si habilita esto, la exportación de su programa incluirá enlaces a comentarios
           formulario donde los asistentes pueden calificar un evento.

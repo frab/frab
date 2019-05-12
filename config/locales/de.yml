@@ -28,14 +28,14 @@ de:
         name: Name
       conference:
         acronym: Kürzel
-        bulk_notification_enabled: Massen-Mailings aktiviert
+        bulk_notification_enabled: Massen-Mailings
         color: Farbe
         default_recording_license: Standard-Aufnahmelizenz
         default_timeslots: Standard-Anzahl Zeitslots
         email: E-Mail
         event_state_visible: Eventstatus für Einreichende sichtbar
-        expenses_enabled: Spesen aktiviert
-        feedback_enabled: Feedback aktiviert
+        expenses_enabled: Spesenverfolgung
+        feedback_enabled: Feedback
         max_timeslots: Maximale Anzahl Zeitslots
         program_export_base_url: URL des Programm-Exports
         schedule_custom_css: Benutzerdefiniertes CSS im Programm-Export
@@ -47,7 +47,7 @@ de:
         timeslot_duration: Dauer eines Zeitslots
         timezone: Zeitzone
         title: Titel
-        transport_needs_enabled: Transportbedarf aktiviert
+        transport_needs_enabled: Transportbedarfsnachverfolgung
       conference_export:
         locale: Gebietsschema
       conference_user:
@@ -486,7 +486,7 @@ de:
           Der Name der Konferenz, wie sie auf der gesamten Website erscheinen soll.
           Beispiel: 'FrOSCon'
         transport_needs_enabled: |
-          Wenn aktiviert, können Sie mit frab den Transportbedarf der Sprecher verwalten
+          Wenn aktiviert, können Sie mit frab den Transportbedarf der Sprecher verwalten.
     manage_conferences: Konferenzen verwalten
     manage_conferences_hint: Verwalten Sie alle Konferenzen
     new: Neu
