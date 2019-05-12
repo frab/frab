@@ -27,8 +27,8 @@ fr:
         default_timeslots: Plage horaire par défaut
         email: Courriel
         event_state_visible: Statut visible des évènements
-        expenses enabled: Dépenses activées
-        feedback_enabled: Retours activés
+        expenses_enabled: Dépenses
+        feedback_enabled: Retours
         max_timeslots: Nombre de plages max.
         program_export_base_url: URL d’export du programme
         schedule_custom_css: CSS personalisé pour le programme
@@ -40,7 +40,7 @@ fr:
         timeslot_duration: Plage horaire
         timezone: Fuseau horaire
         title: Titre
-        transport_needs_enabled: Besoin de transport activé
+        transport_needs_enabled: Besoin de transport
       conference_export:
         locale: Langue
       conference_user:
@@ -436,7 +436,7 @@ fr:
           et confirmer leur présence en cliquant sur le bouton associé.
         expenses_enabled: |
           Si vous activez cette option, frab vous permettra de suivre les dépenses
-          des personnes
+          des personnes.
         feedback_enabled: |
           Si vous activez cette option, l’export de votre programme incluera des liens
           permettant aux visiteurs donner leur appréciation sur les évènements.

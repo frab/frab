@@ -27,7 +27,7 @@ zh:
         default_timeslots: 默认时隙
         email: 电子邮件
         event_state_visible: 事件状态可见
-        expenses enabled: 支出已启用
+        expenses_enabled: 支出已启用
         feedback_enabled: 已启用反馈
         max_timeslots: 最大。时隙
         program_export_base_url: 节目导出网址

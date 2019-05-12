@@ -28,14 +28,14 @@ pt-BR:
         name: Nome
       conference:
         acronym: Acrônimo
-        bulk_notification_enabled: Notificações em massa ativadas
+        bulk_notification_enabled: Notificações em massa
         color: Cor
         default_recording_license: Licença de gravação padrão
         default_timeslots: Duração Padrão dos Slots
         email: E-Mail
         event_state_visible: Estado do evento visível
-        expenses enabled: Despesas habilitadas
-        feedback_enabled: Comentários habilitados
+        expenses_enabled: Despesas
+        feedback_enabled: Comentários
         max_timeslots: Duração Máxima dos Slots
         program_export_base_url: URL de exportação do programa
         schedule_custom_css: Agendar CSS personalizado
@@ -47,7 +47,7 @@ pt-BR:
         timeslot_duration: Duração dos Slots
         timezone: Fuso Horário
         title: Título
-        transport_needs_enabled: Necessidades de transporte ativadas
+        transport_needs_enabled: Necessidades de transporte
       conference_export:
         locale: Localidade
       conference_user:
@@ -453,7 +453,7 @@ pt-BR:
           Se você ativar isso, os falantes poderão procurar o estado
           de sua apresentação na interface cfp e confirmar sua presença
           pressionando o botão confirmar.
-        expenses_enabled: Se você ativar isso, frab permitirá que você controle as despesas de pessoas
+        expenses_enabled: Se você ativar isso, frab permitirá que você controle as despesas de pessoas.
         feedback_enabled: |
           Se você habilitar isso, a exportação do seu programa incluirá links para um feedback
           formulário onde os participantes podem avaliar um evento.
@@ -478,7 +478,7 @@ pt-BR:
           Exemplo: 'FrOSCon'
         transport_needs_enabled: |
           Se você ativar isso, o frab permitirá que você rastreie as necessidades de transporte de
-          pessoas
+          pessoas.
     manage_conferences: Gerenciar conferências
     manage_conferences_hint: Gerenciar todas as conferências
     new: Novo
