@@ -27,7 +27,7 @@ ru:
         default_timeslots: временные интервалы по умолчанию
         email: Эл. почта
         event_state_visible: Состояние события видимо
-        expenses enabled: Расходы включены
+        expenses_enabled: Расходы включены
         feedback_enabled: Обратная связь включена
         max_timeslots: Максимум. временные интервалы
         program_export_base_url: URL-адрес экспорта программы

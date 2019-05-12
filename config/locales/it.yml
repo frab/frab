@@ -27,8 +27,8 @@ it:
         default_timeslots: Intervallo di tempo predefinito
         email: e-mail
         event_state_visible: Stato visibile degli eventi
-        expenses enabled: Spese attivate
-        feedback_enabled: Restituzioni abilitate
+        expenses_enabled: Spese attivate
+        feedback_enabled: Restituzioni
         max_timeslots: Numero di tracce max.
         program_export_base_url: Programma l'URL di esportazione
         schedule_custom_css: CSS personalizzato per il programma
@@ -40,7 +40,7 @@ it:
         timeslot_duration: Intervallo di tempo
         timezone: fuso orario
         title: titolo
-        transport_needs_enabled: Hai bisogno di trasporto abilitato
+        transport_needs_enabled: Hai bisogno di trasporto
       conference_export:
         locale: Lingua
       conference_user:
@@ -436,7 +436,7 @@ it:
           e confermare la loro presenza facendo clic sul pulsante associato.
         expenses_enabled: |
           Se abiliti questa opzione, frab ti permetterà di tenere traccia delle spese
-          persone
+          persone.
         feedback_enabled: |
           Se abiliti questa opzione, l'esportazione del tuo programma includerà i collegamenti
           permettendo ai visitatori di dare il loro apprezzamento degli eventi.

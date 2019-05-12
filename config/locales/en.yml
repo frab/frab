@@ -21,14 +21,14 @@ en:
         name: Name
       conference:
         acronym: Acronym
-        bulk_notification_enabled: Bulk notifications enabled
+        bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license
         default_timeslots: default timeslots
         email: E-Mail
         event_state_visible: Event state visible
-        expenses enabled: Expenses enabled
-        feedback_enabled: Feedback enabled
+        expenses_enabled: Expense tracking
+        feedback_enabled: Feedback
         max_timeslots: Max. timeslots
         program_export_base_url: Program export URL
         schedule_custom_css: Schedule custom CSS
@@ -40,7 +40,7 @@ en:
         timeslot_duration: Timeslot duration
         timezone: Timezone
         title: title
-        transport_needs_enabled: Transport needs enabled
+        transport_needs_enabled: Transport needs tracking
       conference_export:
         locale: Locale
       conference_user:
@@ -433,7 +433,7 @@ en:
           If you enable this, speakers will be able to look up the state
           of their submission in the cfp interface and confirm their attendance
           by pressing the confirm button.
-        expenses_enabled: If you enable this, frab will allow you to track expenses of people
+        expenses_enabled: If you enable this, frab will allow you to track expenses of people.
         feedback_enabled: |
           If you enable this, your program export will include links to a feedback
           form where attendees can rate an event.
@@ -458,7 +458,7 @@ en:
           Example: 'FrOSCon'
         transport_needs_enabled: |
           If you enable this, frab will allow you to track transportation needs of
-          people
+          people.
     manage_conferences: Manage conferences
     manage_conferences_hint: Manage all conferences
     new: New
