@@ -8,6 +8,6 @@
 
   %p
     - if @conference.program_export_base_url.present?
-      = link_to t('.return'), public_program_event_url(event)
+      = link_to t('.return'), public_program_event_url(@event)
     - else
       = link_to t('.return'), public_schedule_path(day: @conference.day_at(@event.start_time))
