@@ -29,6 +29,7 @@
     %legend= t(:submission_configuration)
     = f.input :event_state_visible, as: :inline_boolean, hint: t('conferences_module.inputs.hints.event_state_visible')
     = f.input :default_recording_license, hint: t('conferences_module.inputs.hints.default_recording_license')
+    = f.input :max_attachment_size_mb, hint: t('conferences_module.inputs.hints.max_attachment_size_mb')
   %fieldset.inputs
     %legend= t(:features)
     = f.input :feedback_enabled, as: :inline_boolean, hint: t('conferences_module.inputs.hints.feedback_enabled')

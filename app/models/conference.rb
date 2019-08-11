@@ -30,6 +30,7 @@ class Conference < ApplicationRecord
     :acronym,
     :default_timeslots,
     :max_timeslots,
+    :max_attachment_size_mb,
     :timeslot_duration,
     :timezone, presence: true
   validates :feedback_enabled,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_30_033823) do
+ActiveRecord::Schema.define(version: 2019_08_11_101826) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2018_12_30_033823) do
     t.boolean "schedule_open", default: false, null: false
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer "max_attachment_size_mb", default: 42
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
