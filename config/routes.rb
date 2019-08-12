@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'auth/registrations',
-    sessions: 'auth/sessions'
+    sessions: 'auth/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   scope '(:locale)' do

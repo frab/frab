@@ -1,9 +1,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :timeoutable and :omniauthable
+  # :timeoutable 
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable,
-    :confirmable, :lockable
+    :confirmable, :lockable, 
+    :omniauthable, omniauth_providers: Devise.omniauth_providers
 
   ROLES = %w(submitter crew admin).freeze
   USER_ROLES = %w(submitter crew).freeze
@@ -34,6 +35,18 @@ class User < ApplicationRecord
     self.role ||= 'submitter'
     self.sign_in_count ||= 0
     self.person ||= Person.new(email: email, public_name: email)
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.person ||= Person.new(email: auth.info.email, 
+                                 public_name: auth.info.name, 
+                                 first_name: auth.info.first_name, 
+                                 last_name: auth.info.last_name)
+      user.skip_confirmation!
+    end
   end
 
   def newer_than?(user)
