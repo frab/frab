@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_30_033823) do
+ActiveRecord::Schema.define(version: 2019_08_11_121538) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -398,6 +398,8 @@ ActiveRecord::Schema.define(version: 2018_12_30_033823) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.string "provider"
+    t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
