@@ -255,6 +255,20 @@ Devise.setup do |config|
     config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], skip_jwt: true
   end
 
+  if ENV['LDAP_HOST'].present?
+    config.omniauth :ldap,
+      :strategy_class => OmniAuth::Strategies::LDAP,
+      :title => ENV['LDAP_PROMPT_TITLE'],
+      :host => ENV['LDAP_HOST'],
+      :port => ENV['LDAP_PORT'],
+      :method => ENV.fetch('LDAP_METHOD','').downcase.to_sym,
+      :base => ENV['LDAP_BASE_DN'],
+      :uid => ENV['LDAP_UID'],
+      :name_proc => Proc.new {|name| name.gsub(/@.*$/,'')},
+      :bind_dn => ENV['LDAP_BIND_DN'],
+      :password => ENV['LDAP_BIND_PASSWORD']
+  end
+
   OmniAuth.config.logger = Rails.logger if Rails.env.development?
 
   # ==> Warden configuration
