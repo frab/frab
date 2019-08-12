@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  protect_from_forgery :except => [:failure]
+  protect_from_forgery :except => [:failure, :ldap]
 
   def all
     @user = User.from_omniauth(request.env['omniauth.auth'])
@@ -13,6 +13,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to root_path, alert: @user.errors.full_messages.join("\n") 
     end
   end
+  
+  alias :ldap :all
 
   alias :google_oauth2 :all
 
