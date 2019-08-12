@@ -682,6 +682,7 @@
       no_unlock_instructions: Didn't receive unlock instructions?
       sign_in_with: Sign in with %{provider}
       google_oauth2: Google
+      ldap: LDAP server
     mailer:
       confirmation_instructions:
         headline: Welcome %{email} !
