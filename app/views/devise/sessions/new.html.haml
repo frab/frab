@@ -7,17 +7,18 @@
 %section
   .page-header
     %h1= t('titles.session_login')
-  .row
-    .span16
-
-      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-
-        %fieldset.inputs
-          = f.input :email
-          = f.input :password
-          = f.input :remember_me, as: :inline_boolean if devise_mapping.rememberable?
-
-        .actions
+  - if devise_mapping.registerable?
+    .row
+      .span16
+    
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    
+          %fieldset.inputs
+            = f.input :email
+            = f.input :password
+            = f.input :remember_me, as: :inline_boolean if devise_mapping.rememberable?
+    
+          .actions
           = f.button :submit, class: 'primary', value: t('session.login')
 
 = render 'devise/shared/links'
