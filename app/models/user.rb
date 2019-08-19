@@ -32,7 +32,11 @@ class User < ApplicationRecord
   self.per_page = 10
 
   def setup_default_values
-    self.role ||= 'submitter'
+    if ENV.fetch('FRAB_EMAILS_OF_ADMINS','').downcase.split(',').include? (email.downcase)
+      self.role = 'admin'
+    else  
+      self.role ||= 'submitter'
+    end  
     self.sign_in_count ||= 0
     self.person ||= Person.new(email: email, public_name: email)
   end
