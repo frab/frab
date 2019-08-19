@@ -322,7 +322,7 @@ en:
       dates_hint: The call for participation starts at %{start_date} and ends at %{end_date}.
       deadline_passed: The hard cfp deadline has passed, no submissions are possible.
       edit_cfp_hint: Edit this Call for Participation's data
-      empty_description: The call for participation is running, but the description text is empty. frab won't link to the cfp.
+      empty_description: The call for participation is running, but the "Welcome Text" is empty. frab won't link to the cfp.
       new_events_by_day: New events by day
       submitters_interface_link: 'The interface for submitters is available at:'
       total_event_count: Total event count
