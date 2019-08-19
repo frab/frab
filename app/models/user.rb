@@ -1,10 +1,17 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :timeoutable 
-  devise :database_authenticatable, :registerable,
+ 
+  allow_registration_and_login_using_db = true unless ENV['DISABLE_FRAB_DIRECT_LOGIN']=='1'
+  
+  if allow_registration_and_login_using_db
+    devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable,
     :confirmable, :lockable, 
     :omniauthable, omniauth_providers: Devise.omniauth_providers
+  else
+    devise :database_authenticatable, 
+    :rememberable, :trackable, :validatable,
+    :omniauthable, omniauth_providers: Devise.omniauth_providers
+  end
 
   ROLES = %w(submitter crew admin).freeze
   USER_ROLES = %w(submitter crew).freeze
@@ -49,7 +56,7 @@ class User < ApplicationRecord
                                  public_name: auth.info.name, 
                                  first_name: auth.info.first_name, 
                                  last_name: auth.info.last_name)
-      user.skip_confirmation!
+      user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
     end
   end
 

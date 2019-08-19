@@ -14,7 +14,8 @@
     .span8
       %h2= t("cfp.sign_up_headline")
       %p= t("cfp.sign_up_description", title: @conference.title)
-      %p= action_button "", t("cfp.sign_up"), new_user_registration_path
+      - if Devise.mappings[:user].registerable?
+        %p= action_button "", t("cfp.sign_up"), new_user_registration_path
   .row
     .span8
       %h2= t("cfp.forgot_password_headline")

@@ -16,7 +16,8 @@
           %p
             =t("cfp.login_required")
             = action_button "small primary", t("cfp.login"), new_user_session_path
-            = action_button "small", t("cfp.sign_up"), new_user_registration_path
+            - if Devise.mappings[:user].registerable?
+              = action_button "small", t("cfp.sign_up"), new_user_registration_path
 
   .row
     .span16
