@@ -14,4 +14,4 @@ json.extract! person,
   :email, :email_public, :include_in_mailings,
   :gender,
   :abstract, :description
-json.set! :avatar, Base64.encode64(Paperclip.io_adapters.for(person.avatar).read) if person.avatar.present?
+json.set! :avatar, Base64.encode64(person.avatar.download) if person.avatar.present?

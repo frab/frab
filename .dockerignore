@@ -9,4 +9,4 @@ db/
 !db/seeds.rb
 !db/migrate/
 public/system
-
+storage/

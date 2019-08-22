@@ -7,6 +7,6 @@ json.links event.links do |link|
   json.title link.title
 end
 json.attachments event.event_attachments.is_public.each do |attachment|
-  json.url attachment.attachment.url
+  json.url attachment.attachment.variant(medium)
   json.title attachment.link_title
 end
