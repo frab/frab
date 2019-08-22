@@ -934,6 +934,7 @@ en:
     confirm_event_hint: Confirm that the speaker(s) will be present and that the event will actually take place.
     custom_notification: Custom notification
     custom_notification_hint: Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab.
+    delete_rating: Delete Event rating
     edit_event: Edit Event
     edit_event_hint: Edit this event's data.
     edit_people: Edit people
@@ -1853,6 +1854,7 @@ en:
       rate a whole batch of events in a row.
     notice_already_rated_everything: 'You have already reviewed all events:'
     notice_rating_created: Rating saved successfully.
+    notice_rating_deleted: Rating deleted successfully.
     notice_rating_saved: Rating updated successfully.
     notice_rating_updated: Note updated successfully.
     show_ratings: Show Ratings

@@ -76,7 +76,9 @@
           = f.input :rating, as: :rating
           = f.input :comment, input_html: {rows: 3}
         .actions
-          = f.button :submit, class: 'primary'
+          = f.button :submit,  class: 'primary'
+          - if @rating.persisted?
+            = f.button :submit, t('events_module.delete_rating'), name: 'delete_rating'
   .row
     .span16
       %h2= t('events_module.all_rating')
