@@ -59,6 +59,7 @@ class ReportsController < BaseConferenceController
     end
     respond_to do |format|
       format.html { render :show }
+      format.json
     end
   end
 
@@ -122,6 +123,7 @@ class ReportsController < BaseConferenceController
     end
     respond_to do |format|
       format.html { render :show }
+      format.json
     end
   end
 
@@ -187,6 +189,7 @@ class ReportsController < BaseConferenceController
 
     respond_to do |format|
       format.html { render :show }
+      format.json { render json: @data.to_json }
     end
   end
 
@@ -195,6 +198,9 @@ class ReportsController < BaseConferenceController
     @transport_needs = @search.result
     @report_type = params[:id]
 
-    render :show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @transport_needs.to_json }
+    end
   end
 end
