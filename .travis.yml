@@ -2,7 +2,8 @@ language: ruby
 dist: trusty
 rvm:
   - 2.4.4
-  - 2.5.1
+  - 2.5.4
+  - 2.6.3
 env:
   - DB=mysql
   - DB=postgresql
