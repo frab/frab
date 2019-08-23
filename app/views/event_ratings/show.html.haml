@@ -78,7 +78,7 @@
         .actions
           = f.button :submit,  class: 'primary'
           - if @rating.persisted?
-            = f.button :submit, t('events_module.delete_rating'), name: 'delete_rating'
+            = action_button "small danger", t('events_module.delete_rating'), event_event_rating_path(@event), data: { confirm: t('are_you_sure')}, method: :delete
   .row
     .span16
       %h2= t('events_module.all_rating')

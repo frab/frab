@@ -25,4 +25,14 @@ class EventRatingsControllerTest < ActionController::TestCase
     assert_redirected_to event_event_rating_path
     assert_equal 1.0, event_rating.reload.rating
   end
+
+  test 'should destroy rating' do
+    event_rating = create :event_rating, event: @event, person: @user.person
+
+    assert_difference('EventRating.count', -1) do
+      delete :destroy, params: { id: event_rating.to_param, event_id: @event.id, conference_acronym: @conference.acronym}
+    end
+
+    assert_redirected_to event_event_rating_path
+  end
 end

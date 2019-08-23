@@ -22,15 +22,24 @@ class EventRatingsController < BaseConferenceController
 
   def update
     @rating = @event.event_ratings.find_by!(person_id: current_user.person.id)
-    
-    if params[:delete_rating]
-      @rating.delete
-      redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_deleted')
-    elsif @rating.update_attributes(event_rating_params)
+
+    if @rating.update_attributes(event_rating_params)
       redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_updated')
     else
       flash[:alert] = t('ratings_module.error_updating')
       render action: 'show'
+    end
+  end
+
+  # DELETE /event_ratings/1
+  def destroy
+    @rating = @event.event_ratings.find_by!(person_id: current_user.person.id)
+    @rating.delete
+
+    respond_to do |format|
+      format.html do
+        redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_deleted')
+      end
     end
   end
 
