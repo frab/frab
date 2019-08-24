@@ -31,6 +31,18 @@ class EventRatingsController < BaseConferenceController
     end
   end
 
+  # DELETE /event_ratings/1
+  def destroy
+    @rating = @event.event_ratings.find_by!(person_id: current_user.person.id)
+    @rating.delete
+
+    respond_to do |format|
+      format.html do
+        redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_deleted')
+      end
+    end
+  end
+
   protected
 
   def setup_batch_reviews_next_event

@@ -2,11 +2,13 @@ language: ruby
 dist: trusty
 rvm:
   - 2.4.4
-  - 2.5.1
+  - 2.6.3
 env:
   - DB=mysql
   - DB=postgresql
   - DB=sqlite
+before_install:
+  - gem install -N bundler
 bundler_args: --without capistrano doc production --jobs 2
 before_script:
   - cp config/database.yml.travis config/database.yml

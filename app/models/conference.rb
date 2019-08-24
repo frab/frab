@@ -37,7 +37,7 @@ class Conference < ApplicationRecord
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
   validates :acronym, uniqueness: true
-  validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
+  validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
 

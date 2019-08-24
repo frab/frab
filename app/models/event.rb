@@ -57,6 +57,11 @@ class Event < ApplicationRecord
     least_reviewed -= already_reviewed
     least_reviewed
   end
+  
+  def localized_event_type(locale = nil)
+    return '' unless event_type.present?
+    I18n.t(event_type, scope: 'options', locale: locale)
+  end
 
   def track_name
     track.try(:name)

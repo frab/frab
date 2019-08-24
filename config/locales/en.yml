@@ -322,7 +322,7 @@ en:
       dates_hint: The call for participation starts at %{start_date} and ends at %{end_date}.
       deadline_passed: The hard cfp deadline has passed, no submissions are possible.
       edit_cfp_hint: Edit this Call for Participation's data
-      empty_description: The call for participation is running, but the description text is empty. frab won't link to the cfp.
+      empty_description: The call for participation is running, but the "Welcome Text" is empty. frab won't link to the cfp.
       new_events_by_day: New events by day
       submitters_interface_link: 'The interface for submitters is available at:'
       total_event_count: Total event count
@@ -527,7 +527,10 @@ en:
       public_name: Speaker public name
       room: Room of presentation
       surname: Speaker surname
+      subtitle: Subtitle
       time: Time of presentation
+      track: Track name
+      type: Event type
     version: Version %{version}
     withdrawn: Withdrawn
   conflict:
@@ -934,6 +937,7 @@ en:
     confirm_event_hint: Confirm that the speaker(s) will be present and that the event will actually take place.
     custom_notification: Custom notification
     custom_notification_hint: Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab.
+    delete_rating: Delete Event rating
     edit_event: Edit Event
     edit_event_hint: Edit this event's data.
     edit_people: Edit people
@@ -1853,6 +1857,7 @@ en:
       rate a whole batch of events in a row.
     notice_already_rated_everything: 'You have already reviewed all events:'
     notice_rating_created: Rating saved successfully.
+    notice_rating_deleted: Rating deleted successfully.
     notice_rating_saved: Rating updated successfully.
     notice_rating_updated: Note updated successfully.
     show_ratings: Show Ratings
