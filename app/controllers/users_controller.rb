@@ -52,7 +52,9 @@ class UsersController < BaseCrewController
 
     respond_to do |format|
       if @user.update_attributes(user_params)
-        @user.confirm unless @user.confirmed?
+        if @user.respond_to?(:confirm)
+          @user.confirm unless @user.confirmed?
+        end
         bypass_sign_in(@user) if current_user == @user
         format.html { redirect_to(edit_crew_user_path(@person), notice: t('users_module.notice_user_updated')) }
       else
