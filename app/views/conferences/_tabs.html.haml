@@ -14,6 +14,8 @@
       = link_to t(:ticket_server), edit_ticket_server_conference_path
   - conference_tab(:classifiers, active) do
     = link_to t(:classifiers), edit_classifiers_conference_path
+  - conference_tab(:review_metrics, active) do
+    = link_to t(:review_metrics), edit_review_metrics_conference_path
   - if @conference.ticket_type == 'integrated' or @conference.bulk_notification_enabled
     - conference_tab(:notifications, active) do
       = link_to t('notifications'), edit_notifications_conference_path

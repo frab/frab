@@ -173,6 +173,7 @@ en:
       person: profile
       phone_number: phone number
       room: room
+      review_metric: Review metric
       track: track
   add_association: Add %{name}
   additional_resources: Additional Resources
@@ -1907,6 +1908,12 @@ en:
     speakers_without_availabilities: speakers without availabilities
     unconfirmed_events: events that are unconfirmed
   resend: Resend
+  review_metrics: Review metrics
+  review_metrics_module:
+      empty_review_metrics: |
+        You can ask submission reviewers to focus on specific
+        aspects of each submission while reviewing, by adding
+        review metrics to this list.
   role:
     admin: Admin
     coordinator: Coordinator

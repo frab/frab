@@ -105,6 +105,13 @@ class ConferencesController < BaseConferenceController
     end
   end
 
+  def edit_review_metrics
+    authorize @conference, :orga?
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def send_notification
     authorize @conference, :orga?
     SendBulkTicketJob.new.async.perform @conference, params[:notification]
@@ -169,7 +176,7 @@ class ConferencesController < BaseConferenceController
       next if attribs.nil?
       next unless attribs.positive?
       test = name.gsub('_attributes', '')
-      next unless %w(rooms days schedule notifications tracks classifiers ticket_server).include?(test)
+      next unless %w(rooms days schedule notifications tracks review_metrics classifiers ticket_server).include?(test)
       return "edit_#{test}"
     }
     'edit'
@@ -223,7 +230,8 @@ class ConferencesController < BaseConferenceController
 
     if @conference.main_conference? || policy(@conference.parent).manage?
       allowed += [
-	classifiers_attributes: %i(name description _destroy id),
+        classifiers_attributes: %i(name description _destroy id),
+        review_metrics_attributes: %i(name description _destroy id),
         rooms_attributes: %i(name size public rank _destroy id),
         tracks_attributes: %i(name color _destroy id)
       ]
