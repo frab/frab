@@ -1,6 +1,7 @@
 class ReviewScore < ApplicationRecord
   belongs_to :event_rating
   belongs_to :review_metric
+  has_one :event, through: :event_rating
   has_one :conference, through: :event_rating
 
   after_save :update_average
@@ -12,6 +13,6 @@ class ReviewScore < ApplicationRecord
   protected
 
   def update_average
-    # TODO event_rating.event.recalculate_average_rating!
+    event_rating.event.recalculate_review_averages!
   end
 end

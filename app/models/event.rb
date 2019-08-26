@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   include ActionView::Helpers::TextHelper
   include EventState
   include HasEventConflicts
-
+  
   before_create :generate_guid
 
   TYPES = %i(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
@@ -14,6 +14,8 @@ class Event < ApplicationRecord
   has_many :event_feedbacks, dependent: :destroy
   has_many :event_people, dependent: :destroy
   has_many :event_ratings, dependent: :destroy
+  has_many :review_scores, through: :event_ratings
+  has_many :average_review_scores, dependent: :destroy
   has_many :event_classifiers, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :people, through: :event_people
@@ -32,6 +34,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :ticket, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :event_classifiers, allow_destroy: true
   accepts_nested_attributes_for :event_ratings, allow_destroy: true
+  accepts_nested_attributes_for :average_review_scores, allow_destroy: true
 
   validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
@@ -97,6 +100,13 @@ class Event < ApplicationRecord
 
   def recalculate_average_rating!
     update_attributes(average_rating: average(:event_ratings), event_ratings_count: event_ratings.where.not(rating: [nil, 0]).count )
+  end
+
+  def recalculate_review_averages!
+    conference.review_metrics.each do |review_metric|
+      avg = average_of_nonzeros(review_scores.where(review_metric: review_metric).pluck(:score))
+      average_review_scores.find_or_create_by(review_metric: review_metric).update_attributes(score: avg)
+    end
   end
 
   def speakers
@@ -175,5 +185,12 @@ class Event < ApplicationRecord
     end
     return nil if rating_count.zero?
     result.to_f / rating_count
+  end
+  
+  def average_of_nonzeros(list)
+    return nil unless list
+    list=list.select{ |x| x && x>0 }
+    return nil if list.empty?
+    list.reduce(:+).to_f / list.size 
   end
 end
