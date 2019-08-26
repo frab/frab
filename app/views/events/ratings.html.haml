@@ -37,6 +37,7 @@
         - if @events.empty?
           %p= t('reports_module.no_search_results')
         - else
+          - review_metrics = @conference.review_metrics.all
           %table.zebra-striped
             %thead
               %tr
@@ -48,6 +49,8 @@
                   %th= sort_link @search, :state, term: params[:term]
                 %th= sort_link @search, :average_rating, term: params[:term]
                 %th= sort_link @search, :event_ratings_count, term: params[:term]
+                - review_metrics.each do |review_metric|
+                  %th= review_metric.name
                 %th
             %tbody
               - @events.includes(:track).each do |event|
@@ -65,6 +68,9 @@
                     - if event.average_rating
                       = raty_for("event_rating_#{event.id}", event.average_rating)
                   %td= event.event_ratings_count
+                  - review_metrics.each do |review_metric|
+                    - avg = event[review_metric.safe_name]
+                    %td= avg.round(2) unless avg.nil?
                   %td
                     = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn small"
           = actions_bar do

@@ -212,6 +212,10 @@ class Conference < ApplicationRecord
       .scheduled
   end
 
+  def events_with_review_averages
+    events.with_review_averages(self)
+  end
+
   def to_s
     "#{model_name.human}: #{title} (#{acronym})"
   end

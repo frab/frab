@@ -14,6 +14,8 @@ class Event < ApplicationRecord
   has_many :event_feedbacks, dependent: :destroy
   has_many :event_people, dependent: :destroy
   has_many :event_ratings, dependent: :destroy
+  has_many :review_scores, through: :event_ratings
+  has_many :average_review_scores, dependent: :destroy
   has_many :event_classifiers, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :people, through: :event_people
@@ -32,6 +34,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :ticket, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :event_classifiers, allow_destroy: true
   accepts_nested_attributes_for :event_ratings, allow_destroy: true
+  accepts_nested_attributes_for :average_review_scores, allow_destroy: true
 
   validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
@@ -49,6 +52,14 @@ class Event < ApplicationRecord
   scope :with_speaker, -> { where('speaker_count > 0') }
   scope :with_more_than_one_speaker, -> { where('speaker_count > 1') }
 
+  scope :with_review_averages, ->(conference) {
+    e = select(column_names, conference.review_metrics.map{|rm| "#{rm.safe_name}.score AS #{rm.safe_name}"})
+    conference.review_metrics.each do |rm|
+      e = e.joins("LEFT OUTER JOIN average_review_scores #{rm.safe_name} ON #{rm.safe_name}.event_id=events.id AND #{rm.safe_name}.review_metric_id=#{rm.id}")
+    end
+    e
+  }
+
   has_paper_trail
   has_secure_token :invite_token
 
@@ -64,7 +75,7 @@ class Event < ApplicationRecord
     least_reviewed -= already_reviewed
     least_reviewed
   end
-  
+
   def localized_event_type(locale = nil)
     return '' unless event_type.present?
     I18n.t(event_type, scope: 'options', locale: locale, default: event_type)
@@ -77,7 +88,7 @@ class Event < ApplicationRecord
   def end_time
     start_time.since((time_slots * conference.timeslot_duration).minutes)
   end
-  
+
   def people_involved_or_reviewing
     ids = event_ratings.pluck(:person_id) + event_people.pluck(:person_id)
     Person.where(id: ids.uniq)
@@ -102,6 +113,13 @@ class Event < ApplicationRecord
 
   def recalculate_average_rating!
     update_attributes(average_rating: average_of_nonzeros(event_ratings.pluck(:rating)), event_ratings_count: event_ratings.where.not(rating: [nil, 0]).count )
+  end
+
+  def recalculate_review_averages!
+    conference.review_metrics.each do |review_metric|
+      avg = average_of_nonzeros(review_scores.where(review_metric: review_metric).pluck(:score))
+      average_review_scores.find_or_create_by(review_metric: review_metric).update_attributes(score: avg)
+    end
   end
 
   def speakers
