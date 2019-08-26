@@ -218,6 +218,7 @@ es:
       notification: Notificación
       person: perfil
       phone_number: número telefónico
+      review_metric: Revisar métrica
       room: sala
       track: área
   add_association: Agregar %{name}
@@ -2030,6 +2031,16 @@ es:
     speakers_without_availabilities: altavoces sin disponibilidad
     unconfirmed_events: eventos que no están confirmados
   resend: Reenviar
+  reviewing: Revisando
+  reviewing_module:
+    current_review_metrics: 'Las métricas de revisión configuradas actualmente son:'
+    empty_review_metrics: |
+      Puede solicitar a los revisores de envío que se centren en
+      aspectos de cada presentación durante la revisión, agregando
+      revise las métricas de esta lista.
+    modify_review_metric_with_parent: |
+      Las métricas de revisión para esta conferencia solo se pueden modificar con
+      derechos de administración para la conferencia de padres %{parent}
   role:
     admin: Administración
     assistant: Asistente

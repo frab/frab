@@ -5,6 +5,7 @@ class Conference < ApplicationRecord
 
   has_many :availabilities, dependent: :destroy
   has_many :classifiers, dependent: :destroy
+  has_many :review_metrics, dependent: :destroy
   has_many :conference_users, dependent: :destroy
   has_many :days, dependent: :destroy
   has_many :events, dependent: :destroy
@@ -21,6 +22,7 @@ class Conference < ApplicationRecord
 
   accepts_nested_attributes_for :rooms, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :classifiers, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :review_metrics, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :notifications, allow_destroy: true
   accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
