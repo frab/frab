@@ -1,14 +1,14 @@
 class User < ApplicationRecord
- 
+
   allow_registration_and_login_using_db = true unless ENV['DISABLE_FRAB_DIRECT_LOGIN']=='1'
-  
+
   if allow_registration_and_login_using_db
     devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable,
-    :confirmable, :lockable, 
+    :confirmable, :lockable,
     :omniauthable, omniauth_providers: Devise.omniauth_providers
   else
-    devise :database_authenticatable, 
+    devise :database_authenticatable,
     :rememberable, :trackable, :validatable,
     :omniauthable, omniauth_providers: Devise.omniauth_providers
   end
@@ -39,11 +39,11 @@ class User < ApplicationRecord
   self.per_page = 10
 
   def setup_default_values
-    if ENV.fetch('FRAB_EMAILS_OF_ADMINS','').downcase.split(',').include? (email.downcase)
+    if email && ENV.fetch('FRAB_EMAILS_OF_ADMINS','').downcase.split(',').include?(email.downcase)
       self.role = 'admin'
-    else  
+    else
       self.role ||= 'submitter'
-    end  
+    end
     self.sign_in_count ||= 0
     self.person ||= Person.new(email: email, public_name: email)
   end
@@ -52,9 +52,9 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.person ||= Person.new(email: auth.info.email, 
-                                 public_name: auth.info.name, 
-                                 first_name: auth.info.first_name, 
+      user.person ||= Person.new(email: auth.info.email,
+                                 public_name: auth.info.name,
+                                 first_name: auth.info.first_name,
                                  last_name: auth.info.last_name)
       user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
     end
