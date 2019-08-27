@@ -1,5 +1,6 @@
 class ReviewMetric < ApplicationRecord
   belongs_to :conference
+  has_many :review_score, dependent: :destroy
   
   has_paper_trail meta: { associated_id: :conference_id, associated_type: 'Conference' }
 
