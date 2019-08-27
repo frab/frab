@@ -1053,6 +1053,7 @@ fr:
     no_ratings: |
       Personne n’a noté cet évènement pour le moment. Soyez le premier en
       utilisant le formulaire ci-dessous.
+    not_applicable: N/A
     not_involved: |
       Vous n’êtes pas encore impliqué dans un évènement pour cette conférence.
       Ajoutez-vous à un évènement pour le rôle que vous souhaitez tenir, et

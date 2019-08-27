@@ -1042,6 +1042,7 @@ pt-BR:
     no_ratings: |
       Ninguém inseriu uma classificação para este evento ainda. Seja o primeiro
       e avalie o evento usando o formulário acima.
+    not_applicable: N/A
     not_involved: |
       Você ainda não está envolvido em nenhum evento neste
       conferência. Adicione-se a um evento em qualquer

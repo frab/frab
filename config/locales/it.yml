@@ -1057,6 +1057,7 @@ it:
     no_ratings: |
       Nessuno ha ancora valutato questo evento. Sii il primo a
       utilizzando il modulo sottostante.
+    not_applicable: N/A
     not_involved: |
       Non sei ancora coinvolto in un evento per questa conferenza.
       Aggiungi te stesso a un evento per il ruolo che vuoi tenere, e

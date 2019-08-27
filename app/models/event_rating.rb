@@ -1,6 +1,7 @@
 class EventRating < ApplicationRecord
   belongs_to :event
   has_one :conference, through: :event
+  has_many :review_scores, dependent: :destroy
   belongs_to :person
 
   after_save :update_average
@@ -8,6 +9,8 @@ class EventRating < ApplicationRecord
   
   validates :event, presence: true
   validates :person, presence: true
+  
+  accepts_nested_attributes_for :review_scores, allow_destroy: true
 
   protected
 

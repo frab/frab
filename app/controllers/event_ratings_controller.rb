@@ -4,6 +4,12 @@ class EventRatingsController < BaseConferenceController
 
   def show
     @rating = @event.event_ratings.find_by(person_id: current_user.person.id) || EventRating.new
+    
+    # Add any review_metrics missing from @rating
+    missing_ids = @conference.review_metrics.pluck(:id) - (@rating.review_scores.pluck(:review_metric_id))
+    
+    @rating.review_scores_attributes = missing_ids.map{ |rmid| { review_metric_id: rmid, score: 0} }
+      
     setup_batch_reviews_next_event
   end
 
@@ -67,6 +73,6 @@ class EventRatingsController < BaseConferenceController
   end
 
   def event_rating_params
-    params.require(:event_rating).permit(:rating, :comment, :text)
+    params.require(:event_rating).permit(:rating, :comment, :text, review_scores_attributes: [:score, :review_metric_id, :id])
   end
 end

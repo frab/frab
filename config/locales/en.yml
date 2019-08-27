@@ -1025,6 +1025,7 @@ en:
     no_ratings: |
       No one has entered a rating for this event yet. Be the first
       and rate the event using the form above.
+    not_applicable: N/A
     not_involved: |
       You are not yet involved in any event in this
       conference. Add yourself to an event in whatever
