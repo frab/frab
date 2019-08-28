@@ -34,7 +34,7 @@ class EventRatingsController < BaseConferenceController
   # DELETE /event_ratings/1
   def destroy
     @rating = @event.event_ratings.find_by!(person_id: current_user.person.id)
-    @rating.delete
+    @rating.destroy
 
     respond_to do |format|
       format.html do
