@@ -109,6 +109,8 @@
                 %th
                 %th= t('user')
                 %th= t('rating')
+                - @conference.review_metrics.each do |review_metric|
+                  %th=review_metric.name
                 %th= t('comment')
             %tbody
               - @event_ratings.each do |event_rating|
@@ -119,4 +121,7 @@
                     %td=event_rating.person.full_name
                     %td
                       = raty_for("event_rating_#{event_rating.id}", event_rating.rating)
+                    - @conference.review_metrics.each do |review_metric|
+                      - score=event_rating.review_scores.find_by(review_metric: review_metric)&.score
+                      %td=score if score and score>0
                     %td=event_rating.comment
