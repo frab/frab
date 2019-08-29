@@ -52,8 +52,14 @@ class Event < ApplicationRecord
   has_secure_token :invite_token
 
   def self.ids_by_least_reviewed(conference, reviewer)
-    already_reviewed = connection.select_rows("SELECT events.id FROM events JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} AND event_ratings.person_id = #{reviewer.id}").flatten.map(&:to_i)
-    least_reviewed = connection.select_rows("SELECT events.id FROM events LEFT OUTER JOIN event_ratings ON events.id = event_ratings.event_id WHERE events.conference_id = #{conference.id} GROUP BY events.id ORDER BY COUNT(event_ratings.id) ASC, events.id ASC").flatten.map(&:to_i)
+    already_reviewed = connection.select_rows("SELECT events.id 
+                                               FROM events 
+                                               JOIN event_ratings ON events.id = event_ratings.event_id 
+                                               WHERE events.conference_id = #{conference.id}
+                                               AND   event_ratings.person_id = #{reviewer.id} 
+                                               AND   event_ratings.rating IS NOT NULL 
+                                               AND   event_ratings.rating <> 0").flatten.map(&:to_i)
+    least_reviewed = conference.events.order(event_ratings_count: :asc).pluck(:id)
     least_reviewed -= already_reviewed
     least_reviewed
   end
@@ -89,7 +95,7 @@ class Event < ApplicationRecord
   end
 
   def recalculate_average_rating!
-    update_attributes(average_rating: average(:event_ratings))
+    update_attributes(average_rating: average(:event_ratings), event_ratings_count: event_ratings.where.not(rating: [nil, 0]).count )
   end
 
   def speakers
