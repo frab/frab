@@ -94,7 +94,7 @@ class EventsController < BaseConferenceController
     @events_no_review_total = @events_total - @events_reviewed_total
 
     # current_user rated:
-    @events_reviewed = @conference.events.joins(:event_ratings).where('event_ratings.person_id' => current_user.person.id).count
+    @events_reviewed = @conference.events.joins(:event_ratings).where('event_ratings.person_id' => current_user.person.id).where.not('event_ratings.rating' => [nil, 0]).count
     @events_no_review = @events_total - @events_reviewed
   end
 
