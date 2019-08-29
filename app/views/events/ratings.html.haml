@@ -1,7 +1,7 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", t('ratings_module.start_reviewing'), start_review_events_path, hint: t('ratings_module.start_reviewing_hint')
+      = action_button "primary", t('ratings_module.start_reviewing'), start_review_events_path, hint: t('ratings_module.start_reviewing_hint'), disabled: @events_no_review == 0
     %h1= t('titles.event_ratings')
   %ul.tabs
     %li= link_to t('events_module.all_events'), events_path
