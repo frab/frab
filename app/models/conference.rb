@@ -32,7 +32,8 @@ class Conference < ApplicationRecord
     :max_timeslots,
     :timeslot_duration,
     :timezone, presence: true
-  validates :feedback_enabled,
+  validates :attachment_title_is_freeform,
+    :feedback_enabled,
     :expenses_enabled,
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
