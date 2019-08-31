@@ -184,6 +184,13 @@ fr:
     update_successful: Modifications sauvegardées.
   all: Tous
   are_you_sure: Êtes-vous sûr(e)?
+  attachments_overview_module:
+    attachments: pièces jointes
+    no_attachments: |
+      Il n'y a pas encore de fichier attaché à aucun des événements. Une fois les gens
+      commencer à télécharger des fichiers à leurs événements, vous pourrez
+      voir toutes les pièces jointes dans cet écran.
+    no_event: Il n'y a pas encore d'événements dans cette conférence. Une fois que les événements comportant des pièces jointes sont ajoutés, ils apparaissent ici.
   availabilities:
     alerts:
       available_for_day: disponible pour le jour %{day}
@@ -945,8 +952,10 @@ fr:
     add_event_hint: Créé un nouvel évènement.
     add_ticket: Ajouter un ticket
     add_ticket_hint: Créé un ticket pour cet évènement.
+    ago: il y a %{time_ago}
     all_events: Tous les évènements
     all_rating: Toutes les notes
+    attachments_overview: Les pièces jointes
     average_feedback: 'Moyenne des retours :'
     average_speaker_feedback: 'Moyenne des retours par orateur :'
     cancel_event: Annuler l’évènement
@@ -2049,6 +2058,7 @@ fr:
   title: Titre
   titles:
     admin_accounts: Liste des comptes administrateur
+    attachments_overview: Aperçu des pièces jointes
     cfp_edit_cfp: Éditer l’appel à participation
     cfp_new_cfp: Lancer un appel à participation
     cfp_view: Appel à participation

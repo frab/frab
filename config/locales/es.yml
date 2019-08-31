@@ -228,6 +228,13 @@ es:
     update_successful: "¡Los cambios se guardaron exitosamente!"
   all: Todas
   are_you_sure: "¿Estás seguro?"
+  attachments_overview_module:
+    attachments: archivos adjuntos
+    no_attachments: |
+      Aún no hay archivos adjuntos a ninguno de los eventos. Una vez que la gente
+      comience a subir archivos a sus eventos, podrá
+      ver todos los archivos adjuntos en esta pantalla.
+    no_event: Aún no hay eventos en esta conferencia. Una vez que se agregan los eventos con archivos adjuntos, aparecerán aquí.
   availabilities:
     alerts:
       available_for_day: disponible para el día %{day}
@@ -966,8 +973,10 @@ es:
     add_event_hint: Agrega un nuevo evento.
     add_ticket: Agregar ticket
     add_ticket_hint: Crea un boleto para este evento.
+    ago: hace %{time_ago}
     all_events: Todos los eventos
     all_rating: Todas las calificaciones
+    attachments_overview: Archivos adjuntos
     average_feedback: 'Comentarios promedio:'
     average_speaker_feedback: 'Comentarios promedio como ponente:'
     cancel_event: Cancelar evento
@@ -2078,6 +2087,7 @@ es:
   title: Título
   titles:
     admin_accounts: Lista de cuentas de administrador
+    attachments_overview: Resumen de archivos adjuntos
     cfp_edit_cfp: Editar convocatoria de participación
     cfp_new_cfp: Lanzar una convocatoria de participación
     cfp_view: Llamada para Participación
