@@ -60,7 +60,7 @@ namespace :frab do
                                 abstract: Faker::Hipster.paragraph,
                                 description: Faker::Hipster.paragraph,
                                 time_slots: rand(10),
-                                track: Track.all.sample,
+                                track: conference.tracks.all.sample,
                                 language: conference.languages.all.sample.code,
                                 public: Faker::Boolean.boolean,
                                 do_not_record: Faker::Boolean.boolean,
