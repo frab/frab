@@ -51,7 +51,19 @@ class Event < ApplicationRecord
   scope :without_speaker, -> { where('speaker_count = 0') }
   scope :with_speaker, -> { where('speaker_count > 0') }
   scope :with_more_than_one_speaker, -> { where('speaker_count > 1') }
-
+  
+  # define some scopes which will be used for sorting the event rating view
+  # PostgreSQL reqruies the ORDER BY term to appear in the SELECT clause; otherwise we could
+  # have used order('score is null').order('score #{dir}'). Instead we also override the SELECT clause.
+  ReviewMetric.pluck(:id).each do |rmid|
+    ['asc', 'desc'].each do |dir|
+      scope :"sort_by_review_metric_#{rmid}_#{dir}", lambda { 
+        joins("LEFT OUTER JOIN average_review_scores ars ON ars.event_id=events.id AND ars.review_metric_id=#{rmid}")
+        .select("events.*, COALESCE(ars.score,#{dir=='asc'? 100 : 0}) AS ordering_term")
+        .order("ordering_term #{dir}")}
+    end
+  end
+  
   has_paper_trail
   has_secure_token :invite_token
 

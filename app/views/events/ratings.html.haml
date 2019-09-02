@@ -46,7 +46,7 @@
               %th= sort_link @search, :average_rating, term: params[:term]
               %th= sort_link @search, :event_ratings_count, term: params[:term]
               - review_metrics.each do |review_metric|
-                %th= review_metric.name
+                %th= sort_link @search, "review_metric_#{review_metric.id}", review_metric.name, term: params[:term]
               %th
           %tbody
             - @events.each do |event|
@@ -65,8 +65,8 @@
                     = raty_for("event_rating_#{event.id}", event.average_rating)
                 %td= event.event_ratings_count
                 - review_metrics.each do |review_metric|
-                  - avg = event.average_review_scores.where(review_metric: review_metric)
-                  %td= avg.first.score unless avg.empty?
+                  - avg = event.average_review_scores.where(review_metric: review_metric).where.not(score: [nil, 0]).first
+                  %td= avg.score unless avg.nil?
                 %td
                   = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn small"
         = actions_bar do
