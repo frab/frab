@@ -50,7 +50,7 @@
                 %th= sort_link @search, :average_rating, term: params[:term]
                 %th= sort_link @search, :event_ratings_count, term: params[:term]
                 - review_metrics.each do |review_metric|
-                  %th= review_metric.name
+                  %th= sort_link @search, review_metric.safe_name, review_metric.name, term: params[:term]
                 %th
             %tbody
               - @events.includes(:track).each do |event|
@@ -75,3 +75,4 @@
                     = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn small"
           = actions_bar do
             = will_paginate @events
+

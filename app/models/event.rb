@@ -60,6 +60,12 @@ class Event < ApplicationRecord
     e
   }
 
+  ReviewMetric.all.each do |rm|
+    ransacker rm.safe_name do
+      Arel.sql(rm.safe_name)
+    end
+  end
+
   has_paper_trail
   has_secure_token :invite_token
 
@@ -208,6 +214,6 @@ class Event < ApplicationRecord
     return nil unless list
     list=list.select{ |x| x && x>0 }
     return nil if list.empty?
-    list.reduce(:+).to_f / list.size 
+    list.reduce(:+).to_f / list.size
   end
 end
