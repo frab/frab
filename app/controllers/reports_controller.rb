@@ -126,32 +126,16 @@ class ReportsController < BaseConferenceController
       format.json
     end
   end
-
+  
   def show_statistics
     @report_type = params[:id]
     @search_count = 0
 
     case @report_type
     when 'confirmed_events_by_track'
-      @data = []
-      row = []
-      @labels = @conference.tracks.collect(&:name)
-      @labels.each { |track|
-        row << @conference.events.confirmed.joins(:track).where(tracks: { name: track }).count
-      }
-      @data << row
-      @search_count = row.inject(:+)
-
+      statistics_for_events_by_track(@conference.events.confirmed)
     when 'events_by_track'
-      @data = []
-      row = []
-      @labels = @conference.tracks.collect(&:name)
-      @labels.each { |track|
-        row << @conference.events.candidates.joins(:track).where(tracks: { name: track }).count
-      }
-      @data << row
-      @search_count = row.inject(:+)
-
+      statistics_for_events_by_track(@conference.events.candidates)
     when 'event_timeslot_sum'
       @data = []
       row = []
@@ -203,4 +187,23 @@ class ReportsController < BaseConferenceController
       format.json { render json: @transport_needs.to_json }
     end
   end
+  
+  protected
+  
+  def statistics_for_events_by_track(events)
+    @data = []
+    row = []
+    @labels = @conference.tracks.collect(&:name)
+    @labels.each { |track|
+      row << events.joins(:track).where(tracks: { name: track }).count
+    }
+    number_of_trackless = events.count - row.inject(:+)
+    if number_of_trackless > 0
+      @labels << t('not_specified')
+      row << number_of_trackless
+    end  
+    @data << row
+    @search_count = row.inject(:+)
+  end
+
 end
