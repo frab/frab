@@ -25,5 +25,5 @@
               %tr
                 %td= image_box event_person.person.avatar, :small
                 %td= link_to event_person.person.full_name, event_person.person
-                %td= event_person.event_role
-                %td= event_person.role_state
+                %td= t(event_person.event_role, scope: 'role') unless event_person.event_role.blank?
+                %td= t(event_person.role_state, scope: 'options') unless event_person.role_state.blank?
