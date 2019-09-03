@@ -21,6 +21,7 @@ fr:
         name: Nom
       conference:
         acronym: Acronyme
+        allowed_event_types_as_list: Types d'événements autorisés
         attachment_title_is_freeform: Le titre de la pièce jointe est de forme libre
         bulk_notification_enabled: Notifications de groupe
         color: Couleur
@@ -184,6 +185,8 @@ fr:
     update_failed: Impossible d’enregistrer les modifications.
     update_successful: Modifications sauvegardées.
   all: Tous
+  allowed_event_types: Types d'événements autorisés
+  allowed_event_types_extras: Types d'événements autorisés supplémentaires
   are_you_sure: Êtes-vous sûr(e)?
   attachments_overview_module:
     attachments: pièces jointes
@@ -428,6 +431,14 @@ fr:
           Un nom court et unique pour la conférence, n’utilisant que des lettres
           minuscules, des nombres et tirets bas. Ce sera utilisé pour identifier
           la conférence dans les URLs, etc. Exemple : "froscon_2011"
+        allowed_event_types: |
+          Ici, vous pouvez choisir les types d’événements acceptés comme soumissions à
+          cette conférence. Cette liste concerne uniquement les nouvelles soumissions. Soumissions existantes
+          ne sera pas modifié si vous modifiez cette liste.
+        allowed_event_types_extras: |
+          Si vous souhaitez que la conférence accepte les soumissions d'événements avec d'autres types
+          que ceux disponibles ci-dessus, écrivez les types d’événements ici. Séparer différent
+          types d'événements avec point-virgule. Exemple: 'jeu;panneau de discussion'
         attachment_title_is_freeform: |
           Si cette option est sélectionnée, les émetteurs peuvent fournir le titre de leur choix.
           pour les fichiers téléchargés en pièces jointes. Si cette option est désélectionnée, ils

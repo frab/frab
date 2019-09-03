@@ -28,6 +28,7 @@ de:
         name: Name
       conference:
         acronym: Kürzel
+        allowed_event_types_as_list: Zulässige Ereignistypen
         attachment_title_is_freeform: Der Titel des Anhangs ist Freiform
         bulk_notification_enabled: Massen-Mailings
         color: Farbe
@@ -212,6 +213,8 @@ de:
     update_failed: Fehler beim Aktualisieren
     update_successful: Änderungen erfolgreich gespeichert!
   all: Alle
+  allowed_event_types: Zulässige Ereignistypen
+  allowed_event_types_extras: Zusätzliche zulässige Ereignistypen
   are_you_sure: Sind Sie sicher?
   attachments_overview_module:
     attachments: Anhänge
@@ -452,6 +455,14 @@ de:
         acronym: |
           Ein eindeutiges Kürzel für Ihre Konferenz, das nur aus Kleinbuchstaben,
           Zahlen und Unterstrichen besteht. Wird später in URLs verwendet. Beispiel: 'froscon2011'
+        allowed_event_types: |
+          Hier können Sie auswählen, welche Arten von Ereignissen als Einreichungen für akzeptiert werden
+          diese Konferenz. Diese Liste betrifft nur neue Einreichungen. Bestehende Einreichungen
+          wird nicht geändert, wenn Sie diese Liste ändern.
+        allowed_event_types_extras: |
+          Wenn Sie möchten, dass die Konferenz Ereignisübermittlungen mit anderen Typen akzeptiert
+          Schreiben Sie hier die Ereignistypen, die über den oben aufgeführten Angaben liegen. Unterschiedlich trennen
+          Ereignistypen mit Semikolon. Beispiel: 'Spiel;Diskussionsrunde'
         attachment_title_is_freeform: |
           Wenn diese Option ausgewählt ist, können Einreicher einen beliebigen Titel angeben
           für Dateien laden sie als Anhänge hoch. Wenn diese Option deaktiviert ist, werden sie

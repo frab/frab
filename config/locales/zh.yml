@@ -21,6 +21,7 @@ zh:
         name: 名称
       conference:
         acronym: 缩写
+        allowed_event_types_as_list: 允许的事件类型
         attachment_title_is_freeform: 附件标题为自由格式
         bulk_notification_enabled: 批量通知已启用
         color: 颜色
@@ -184,6 +185,8 @@ zh:
     update_failed: 无法更新
     update_successful: 更改已成功保存！
   all: 所有
+  allowed_event_types: 允许的事件类型
+  allowed_event_types_extras: 其他允许的事件类型
   are_you_sure: 你确定？
   attachments_overview_module:
     attachments: 附件
@@ -425,6 +428,14 @@ zh:
           为您的会议提供一个简短而独特的手柄，仅使用小写字母
           字母，数字和下划线。这将用于识别你的
           网址会议等。例如：'froscon2011''“
+        allowed_event_types: |
+          在这里，您可以选择接受哪些类型的事件作为提交给
+          这个会议。此列表仅影响新提交。现有提交
+          如果您更改此列表，则不会被修改。
+        allowed_event_types_extras: |
+          如果您希望会议接受其他类型的事件提交
+          比上面可用的事件类型，请在此处写下事件类型。分开不同
+          分号的事件类型。示例：“游戏；讨论面板”
         attachment_title_is_freeform: |
           如果选择此选项，提交者可以提供他们想要的任何标题
           他们以附件形式上传的文件。如果取消选择此选项，则它们

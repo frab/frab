@@ -37,6 +37,7 @@ class Conference < ApplicationRecord
     :expenses_enabled,
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
+  validates :allowed_event_types_as_list, presence: { message: :blank }
   validates :acronym, uniqueness: true
   validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
@@ -100,7 +101,35 @@ class Conference < ApplicationRecord
     return parent.timeslot_duration if sub_conference?
     attributes['timeslot_duration']
   end
+  
+  def allowed_event_types_presets
+    Event::TYPES & allowed_event_types_as_list
+  end
+  
+  def allowed_event_types_presets=(list)
+     unchanged_extras = allowed_event_types_as_list - Event::TYPES
+     new_presets = list & Event::TYPES
+     update_attributes(allowed_event_types_as_list: unchanged_extras + new_presets)
+  end
 
+  def allowed_event_types_extras
+    (allowed_event_types_as_list - Event::TYPES).join(';')
+  end
+  
+  def allowed_event_types_extras=(s)
+     new_extras = s.split(';').map(&:strip) - Event::TYPES
+     unchanged_presets = allowed_event_types_as_list & Event::TYPES
+     update_attributes(allowed_event_types_as_list: new_extras + unchanged_presets)
+  end
+  
+  def allowed_event_types_as_list
+    (allowed_event_types || '').split(';').map(&:strip)
+  end
+  
+  def allowed_event_types_as_list=(list)
+    update_attributes(allowed_event_types: list.reject(&:empty?).sort.uniq.join(';'))
+  end
+  
   def submission_data
     result = {}
     events = self.events.order(:created_at)

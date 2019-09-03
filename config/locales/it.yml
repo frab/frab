@@ -21,6 +21,7 @@ it:
         name: Nome
       conference:
         acronym: acronimo
+        allowed_event_types_as_list: Tipi di eventi consentiti
         attachment_title_is_freeform: Il titolo dell'allegato è a mano libera
         bulk_notification_enabled: Notifiche di gruppo
         color: colore
@@ -184,6 +185,8 @@ it:
     update_failed: Impossibile salvare le modifiche
     update_successful: Modifiche salvate.
   all: Tutti
+  allowed_event_types: Tipi di eventi consentiti
+  allowed_event_types_extras: Altri tipi di eventi consentiti
   are_you_sure: Sei sicuro?
   attachments_overview_module:
     attachments: allegati
@@ -428,6 +431,14 @@ it:
           Un nome breve e univoco per la conferenza, utilizzando solo lettere
           minuscoli, numeri e caratteri di sottolineatura. Questo sarà usato per identificare
           la conferenza negli URL, ecc. Esempio: "froscon_2011"
+        allowed_event_types: |
+          Qui puoi scegliere quali tipi di eventi sono accettati come invii a
+          questa conferenza. Questo elenco riguarda solo i nuovi invii. Contributi esistenti
+          non verrà modificato se si modifica questo elenco.
+        allowed_event_types_extras: |
+          Se si desidera che la conferenza accetti invii di eventi con altri tipi
+          rispetto a quelli disponibili sopra, scrivi qui i tipi di evento. Separare diversamente
+          tipi di evento con punto e virgola. Esempio: "gioco;riquadro di discussione"
         attachment_title_is_freeform: |
           Se questa opzione è selezionata, i mittenti possono fornire qualsiasi titolo desiderino
           per i file caricati come allegati. Se questa opzione è deselezionata, essi

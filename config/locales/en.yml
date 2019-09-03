@@ -22,6 +22,7 @@ en:
       conference:
         acronym: Acronym
         attachment_title_is_freeform: Attachment title is freeform
+        allowed_event_types_as_list: Allowed event types
         bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license
@@ -184,6 +185,8 @@ en:
     update_failed: Failed to update
     update_successful: Changes saved successfully!
   all: All
+  allowed_event_types: Allowed event types
+  allowed_event_types_extras: Additional allowed event types
   are_you_sure: Are you sure?
   attachments_overview_module:
     attachments: attachments
@@ -425,6 +428,14 @@ en:
           A short and unique handle for your conference, using only lower-case
           letters, numbers and underscores. This will be used to identify your
           conference in URLs etc. Example: 'froscon2011'
+        allowed_event_types: |
+          Here you can pick which types of events are accepted as submissions to
+          this conference. This list affects only new submissions. Existing submissions
+          will not be modified if you alter this list.
+        allowed_event_types_extras: |
+          If you want the conference to accept event submissions with other types
+          than the ones available above, write the event types here. Separate different
+          event types with semicolon. Example: 'game;discussion panel'
         attachment_title_is_freeform: |
           If this option is selected, submitters can provide any title they want
           for files they upload as attachments. If this option is deselected, they
