@@ -54,7 +54,7 @@ en:
         end_date: End date
         start_date: start
       event:
-        abstract: summary
+        abstract: Summary
         average_feedback: Average feedback
         average_rating: Average rating
         description: Description
@@ -70,15 +70,15 @@ en:
         public: Public
         recording_license: Recording license
         speaker_count: Speaker count
-        speakers: speakers
+        speakers: Speakers
         start_time: Start time
-        state: state
+        state: State
         submission_note: Submission notes
         subtitle: Subtitle
         tech_rider: Tech rider
         time_slots: Time slots
-        title: title
-        track: track
+        title: Title
+        track: Track
       event_attachment:
         public: Public
         title: Title
