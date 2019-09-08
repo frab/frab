@@ -117,6 +117,7 @@ class ImportExportHelper
             current_sign_in_at current_sign_in_ip last_sign_in_at
             last_sign_in_ip encrypted_password
             remember_created_at remember_token
+            provider uid
             reset_password_token role sign_in_count updated_at).each { |var|
           obj.send("#{var}=", yaml[var])
         }
