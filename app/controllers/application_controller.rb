@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
   end
 
   def flash_model_errors(model)
-    flash[:errors] = model.errors.full_messages.join
+    flash[:errors] = model.errors.full_messages.join('; ')
   end
 
   private
