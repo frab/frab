@@ -24,6 +24,7 @@ class ImportExportHelper
       dump 'conference_ticket_server', @conference.ticket_server
       dump 'conference_rooms', @conference.rooms
       dump 'conference_days', @conference.days
+      dump 'conference_review_metrics', @conference.review_metrics
       dump 'conference_languages', @conference.languages
       events = dump 'events', @conference.events
       dump_has_many 'tickets', @conference.events, 'ticket'
@@ -33,6 +34,7 @@ class ImportExportHelper
       dump_has_many 'event_links', @conference.events, 'links'
       attachments = dump_has_many 'event_attachments', @conference.events, 'event_attachments'
       dump_has_many 'event_ratings', @conference.events, 'event_ratings'
+      dump_has_many 'event_review_scores', @conference.events, 'review_scores'
       dump_has_many 'people_phone_numbers', people, 'phone_numbers'
       dump_has_many 'people_im_accounts', people, 'im_accounts'
       dump_has_many 'people_links', people, 'links'
@@ -55,9 +57,10 @@ class ImportExportHelper
 
     # old => new
     @mappings = {
-      conference: {}, tracks: {}, cfp: {}, rooms: {}, days: {},
+      conference: {}, tracks: {}, cfp: {}, rooms: {}, days: {}, review_metrics: {},
       people: {}, users: {},
       events: {},
+      event_ratings: {},
       people_user: {}
     }
 
@@ -138,6 +141,7 @@ class ImportExportHelper
       @mappings[:events][id] = obj.id
     end
 
+    # updates the mappings: event_ratings
     # uses mappings: events, people
     restore_events_data
 
@@ -181,6 +185,13 @@ class ImportExportHelper
       obj.attachable_id = @conference_id
       obj.save!
     end
+        
+    restore_multiple('conference_review_metrics', ReviewMetric) do |id, obj|
+      obj.conference_id = @conference_id
+      obj.save!
+      @mappings[:review_metrics][id] = obj.id
+    end
+
   end
 
   def restore_events_data
@@ -203,6 +214,13 @@ class ImportExportHelper
     restore_multiple('event_ratings', EventRating) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.person_id = @mappings[:people][obj.person_id]
+      obj.save! if obj.valid?
+      @mappings[:event_ratings][_id] = obj.id
+    end
+
+    restore_multiple('event_review_scores', ReviewScore) do |_id, obj|
+      obj.event_rating_id = @mappings[:event_ratings][obj.event_rating_id]
+      obj.review_metric_id = @mappings[:review_metrics][obj.review_metric_id]
       obj.save! if obj.valid?
     end
 
@@ -357,6 +375,7 @@ class ImportExportHelper
     ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
     update_event_average('event_ratings', 'average_rating')
     update_event_average('event_feedbacks', 'average_feedback')
+    Event.all.each(&:recalculate_review_averages!)
   end
 
   def update_event_average(table, field)
