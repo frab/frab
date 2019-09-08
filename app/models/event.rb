@@ -70,6 +70,11 @@ class Event < ApplicationRecord
   def end_time
     start_time.since((time_slots * conference.timeslot_duration).minutes)
   end
+  
+  def people_involved_or_reviewing
+    ids = event_ratings.pluck(:person_id) + event_people.pluck(:person_id)
+    Person.where(id: ids.uniq)
+  end
 
   def duration_in_minutes
     (time_slots * conference.timeslot_duration).minutes
