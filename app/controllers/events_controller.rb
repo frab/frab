@@ -220,7 +220,7 @@ class EventsController < BaseConferenceController
     redirect_to @event, notice: t('emails_module.notice_event_updated')
   end
 
-  # add custom notifications to all the event's speakers
+  # add custom notifications to all the event's subscribers
   # POST /events/2/custom_notification
   def custom_notification
     @event = authorize Event.find(params[:id])
@@ -237,7 +237,7 @@ class EventsController < BaseConferenceController
     end
 
     begin
-      @event.event_people.presenter.each { |p| p.set_default_notification(state) }
+      @event.event_people.subscriber.each { |p| p.set_default_notification(state) }
     rescue Errors::NotificationMissingException => ex
       return redirect_to(@event, alert: t('emails_module.error_failed_setting_notification', {ex: ex}))
     end

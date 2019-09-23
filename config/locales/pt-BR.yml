@@ -297,6 +297,8 @@ pt-BR:
         start_date: Escolha uma data em que seu CfP esteja aberto para o público.
         welcome_text: Digite uma mensagem de boas-vindas ou instruções adicionais que você deseja exibir aos participantes. (HTML)
     join_alternative: 'Ou pesquise outro token de convite:'
+    join_as: Junte-se como
+    join_as_hint: Se você participar deste evento como palestrante, tentaremos levar em consideração sua disponibilidade ao agendar esse evento.
     join_confirm: Você quer aceitar o convite?
     join_description: 'Com o token fornecido, você pode participar deste evento como palestrante:'
     join_event: Participe do evento
@@ -1734,6 +1736,7 @@ pt-BR:
   options:
     admin: Administrador
     aim: ALVO
+    assistant: Assistente
     attending: Atender
     bus: Ônibus
     business: trabalho
@@ -1994,6 +1997,7 @@ pt-BR:
   resend: Reenviar
   role:
     admin: Admin
+    assistant: Assistente
     coordinator: Coordenador
     crew: Equipe técnica
     moderator: Moderador

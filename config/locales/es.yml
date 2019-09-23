@@ -320,6 +320,8 @@ es:
         start_date: Elija una fecha cuando su CfP debe estar abierta al público.
         welcome_text: Ingrese un mensaje de bienvenida o instrucciones adicionales que desee mostrar a los participantes. (HTML)
     join_alternative: 'O busca otro token de invitación:'
+    join_as: Únete como
+    join_as_hint: Si se une a este evento como orador, trataremos de tener en cuenta su disponibilidad al programar este evento.
     join_confirm: "¿Quieres aceptar la invitación?"
     join_description: 'Con el token proporcionado, puedes unirte a este evento como orador:'
     join_event: Unirse al evento
@@ -1753,6 +1755,7 @@ es:
   options:
     admin: Administrador
     aim: OBJETIVO
+    assistant: Asistente
     attending: Asistiendo
     bus: Autobús
     business: negocio
@@ -2009,6 +2012,7 @@ es:
   resend: Reenviar
   role:
     admin: Administración
+    assistant: Asistente
     coordinator: Coordinador
     crew: Tripulación
     moderator: Moderador

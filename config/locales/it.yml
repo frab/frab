@@ -277,6 +277,8 @@ it:
         start_date: Seleziona la data in cui la chiamata sarà aperta al pubblico.
         welcome_text: Immettere un messaggio di benvenuto o ulteriori istruzioni che si desidera visualizzare ai partecipanti. (HTML)
     join_alternative: 'Dove trovare un altro token di invito:'
+    join_as: Partecipa come a
+    join_as_hint: Se partecipi a questo evento come relatore, proveremo a tenere conto della tua disponibilità durante la pianificazione di questo evento.
     join_confirm: Vuoi accettare l'invito?
     join_description: 'Con il token fornito, puoi partecipare a questo evento come oratore:'
     join_event: Partecipa all'evento
@@ -1728,6 +1730,7 @@ it:
   options:
     admin: amministratore
     aim: AIM
+    assistant: Assistente
     attending: assist
     bus: Pulman
     business: affari
@@ -1988,6 +1991,7 @@ it:
   resend: ritorno
   role:
     admin: amministratore
+    assistant: Assistente
     coordinator: coordinatore
     crew: Membro della squadra
     moderator: Moderatore

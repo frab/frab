@@ -277,6 +277,8 @@ fr:
         start_date: Sélectionnez la date à laquelle l’appel sera ouvert au public.
         welcome_text: Entrez un message de bienvenue ou des instructions supplémentaires que vous souhaitez afficher à vos participants. (HTML)
     join_alternative: 'Où trouver un autre jeton d’invitation :'
+    join_as: Rejoindre en tant que
+    join_as_hint: Si vous rejoignez cet événement en tant que conférencier, nous essaierons de prendre en compte votre disponibilité lors de la planification de cet événement.
     join_confirm: Voulez-vous accepter l’invitation ?
     join_description: 'Avec le jeton fourni, vous pouvez rejoindre cet évènement en tant que conférencier :'
     join_event: Rejoindre l’évènement
@@ -1724,6 +1726,7 @@ fr:
   options:
     admin: Administrateur
     aim: AIM
+    assistant: Assistant
     attending: Assiste
     bus: Bus
     business: Business
@@ -1984,6 +1987,7 @@ fr:
   resend: Renvoyer
   role:
     admin: Administrateur
+    assistant: Assistant
     coordinator: Coordinateur
     crew: Membre de l’équipe
     moderator: Modérateur

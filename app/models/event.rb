@@ -101,6 +101,10 @@ class Event < ApplicationRecord
     event_people.presenter.includes(:person).all.map(&:person)
   end
 
+  def subscribers
+    event_people.subscriber.includes(:person).all.map(&:person)
+  end
+
   def humanized_time_str
     return '' unless start_time.present?
     I18n.localize(start_time, format: :time) + I18n.t('time.time_range_seperator') + I18n.localize(end_time, format: :time)

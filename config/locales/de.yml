@@ -303,6 +303,8 @@ de:
         start_date: Wählen Sie ein Datum aus, an dem Ihr CfP öffentlich zugänglich sein soll.
         welcome_text: Geben Sie eine Willkommensnachricht oder zusätzliche Anweisungen ein, die Sie den Teilnehmern anzeigen möchten. (HTML)
     join_alternative: 'Alternativ können Sie nach einem anderen Event suchen:'
+    join_as: Beitreten als
+    join_as_hint: Wenn Sie als Redner an dieser Veranstaltung teilnehmen, werden wir versuchen, Ihre Verfügbarkeit bei der Planung dieser Veranstaltung zu berücksichtigen.
     join_confirm: Wollen Sie dem Event als Sprecher beitreten?
     join_description: 'Mit dem angegebenen Token können Sie sich als Sprecher zum diesem Event eintragen:'
     join_event: Event beitreten
@@ -1722,6 +1724,7 @@ de:
   options:
     admin: Administrator
     aim: AIM
+    assistant: Assistent
     attending: attending
     bus: Bus
     business: Geschäftlich
@@ -1975,6 +1978,7 @@ de:
   resend: Erneut senden
   role:
     admin: Admin
+    assistant: Assistent
     coordinator: Koordinator
     crew: Crew
     moderator: Moderator
