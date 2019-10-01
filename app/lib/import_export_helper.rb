@@ -29,7 +29,7 @@ class ImportExportHelper
       dump_has_many 'tickets', @conference.events, 'ticket'
       dump_has_many 'event_people', @conference.events, 'event_people'
       dump_has_many 'event_feedbacks', @conference.events, 'event_feedbacks'
-      people = dump_has_many 'people', @conference.events, 'people'
+      people = dump_has_many 'people', @conference.events, 'people_involved_or_reviewing'
       dump_has_many 'event_links', @conference.events, 'links'
       attachments = dump_has_many 'event_attachments', @conference.events, 'event_attachments'
       dump_has_many 'event_ratings', @conference.events, 'event_ratings'
