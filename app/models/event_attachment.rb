@@ -1,4 +1,5 @@
 class EventAttachment < ApplicationRecord
+  ATTACHMENT_TITLES = %w(proposal poster slides handouts media video other).freeze
   belongs_to :event
 
   has_attached_file :attachment
@@ -9,10 +10,10 @@ class EventAttachment < ApplicationRecord
   has_paper_trail meta: { associated_id: :event_id, associated_type: 'Event' }
 
   scope :is_public, -> { where(public: true) }
-
+  
   def link_title
     if title.present?
-      title
+      I18n.t(title, default: title, scope: 'events_module.predefined_title_types')
     elsif attachment_file_name.present?
       attachment_file_name
     else

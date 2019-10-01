@@ -184,7 +184,7 @@ class ConferencesController < BaseConferenceController
 
   def allowed_params
     [
-      :acronym, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
+      :acronym, :attachment_title_is_freeform, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
       :event_state_visible, :expenses_enabled, :feedback_enabled, :max_timeslots, :program_export_base_url,
       :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_open, :schedule_version, :ticket_type,
       :title, :transport_needs_enabled,
