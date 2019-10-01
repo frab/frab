@@ -2,9 +2,17 @@ class Auth::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    # Skip Devise login page if it only includes a single link
+    # to enable a third party omniauth_providers
+    if not Devise.mappings[:user].registerable? and resource_class.omniauth_providers.count == 1
+      provider = resource_class.omniauth_providers.first
+      redirect_post omniauth_authorize_path(resource_name, provider)
+    else
+      super
+    end
+  end
+ 
 
   # POST /resource/sign_in
   # def create
