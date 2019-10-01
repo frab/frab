@@ -20,4 +20,8 @@ class EventAttachment < ApplicationRecord
       I18n.t('activerecord.models.event_attachment')
     end
   end
+
+   def to_s
+     "#{model_name.human}: #{link_title}"
+   end
 end
