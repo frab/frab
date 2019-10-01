@@ -16,7 +16,7 @@ class EditingEventsTest < FeatureTest
   test 'can edit own event in cfp interface' do
     assert_content page, 'Events you already submitted'
     click_on 'edit'
-    fill_in 'title', with: 'A new title', match: :first
+    fill_in 'Title', with: 'A new title', match: :first
     click_on 'Update event'
     assert_content page, 'Event was successfully updated.'
     assert_content page, 'A new title'
