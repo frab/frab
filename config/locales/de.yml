@@ -190,21 +190,15 @@ de:
       day: Tag
       event: Event
       event_attachment: Datei
-      event_classifier:
-        one: Kategorie
-        other: Kategorien
+      event_classifier: Kategorie
       event_feedback: Feedback
-      event_person:
-        one: Person
-        other: Personen
+      event_person: Person
       event_rating: Bewertung
       im_account: IM-Account
       language: Sprache
       link: Link
       notification: Benachrichtigung
-      person:
-        one: Profil
-        other: Profile
+      person: Profil
       phone_number: Telefonnummer
       room: Raum
       track: Track
