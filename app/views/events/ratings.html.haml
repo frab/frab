@@ -46,7 +46,7 @@
               %th= sort_link @search, :event_ratings_count, term: params[:term]
               %th
           %tbody
-            - @events.each do |event|
+            - @events.includes(:track).each do |event|
               %tr
                 %td= image_box event.logo, :small
                 %td
