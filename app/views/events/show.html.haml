@@ -43,11 +43,11 @@
         = @event.track_name
       %p
         %b= Event.human_attribute_name(:event_type) + ':'
-        = @event.event_type
+        = t(@event.event_type, scope: :options) unless @event.event_type.blank?
       - if policy(@conference).manage?
         %p
           %b= Event.human_attribute_name(:state) + ':'
-          = @event.state
+          = t(@event.state, scope: :options) unless @event.state.blank?
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
           %b= t('col_ticket')

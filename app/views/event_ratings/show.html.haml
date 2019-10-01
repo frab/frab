@@ -38,7 +38,7 @@
       .span3
         %p
           %b= t('col_type')
-          = @event.event_type
+          = t(@event.event_type, scope: :options) unless @event.event_type.blank?
       .span3
         %p
           %b= t('col_language')
