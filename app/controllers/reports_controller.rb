@@ -88,7 +88,7 @@ class ReportsController < BaseConferenceController
     when 'people_with_a_note'
       r = conference_people.involved_in(@conference).where(Person.arel_table[:note].not_eq(''))
     when 'people_with_more_than_one'
-      r = conference_people.involved_in(@conference).where('event_people.event_role' => ['submitter']).group('event_people.person_id').having('count(*) > 1')
+      r = conference_people.involved_in(@conference).where('event_people.event_role' => ['submitter']).group('people.id').having('count(*) > 1')
     when 'people_with_non_reimbursed_expenses'
       r = conference_people.involved_in(@conference).joins(:expenses).where('expenses.value > 0 AND expenses.reimbursed = ? AND expenses.conference_id = ?', false, @conference.id)
       @total_sum = 0
