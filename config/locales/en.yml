@@ -358,7 +358,7 @@ en:
       The classifiers for this conference can only be modified with
       administration rights for the parent conference %{parent}
   clear: Clear
-  col_abstract: 'Abstract:'
+  col_abstract: 'Summary:'
   col_availability: 'Availability:'
   col_avg_audience_feedback: 'Average audience feedback:'
   col_classifiers: 'Classifiers:'
