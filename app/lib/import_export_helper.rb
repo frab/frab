@@ -134,6 +134,7 @@ class ImportExportHelper
       if (file = import_file('events/logos', id, obj.logo_file_name))
         obj.logo = file
       end
+      obj.regenerate_invite_token if Event.where(invite_token: obj.invite_token).any?
       obj.save!
       @mappings[:events][id] = obj.id
     end
