@@ -869,7 +869,7 @@ pt-BR:
     notice_mails_queued: Entregas de correio enfileiradas.
     notice_template_destroyed: Modelo de email foi destruído com sucesso.
     notice_template_updated: Modelo de email foi atualizado com sucesso.
-    notice_transport_need_added: Necessidade de transporte foi adicionado com sucesso.
+    notice_template_added: Modelo de email foi adicionado com sucesso.
     placeholders_hint: |
       Os seguintes locais podem ser usados ​​na seção `content` de cada
       modelo.

@@ -857,7 +857,7 @@ de:
     notice_mails_queued: E-Mails wurden an den Ticket-Server übergeben.
     notice_template_destroyed: E-Mail-Vorlage wurde erfolgreich gelöscht.
     notice_template_updated: E-Mail-Vorlage wurde erfolgreich aktualisiert.
-    notice_transport_need_added: Transportbedarf wurde erfolgreich hinzugefügt.
+    notice_template_added: E-Mail-Vorlage wurde erfolgreich hinzugefügt.
     placeholders_hint: |
       Die folgenden Platzhalter können jeweils im Abschnitt "Inhalt" verwendet werden
       Vorlage.

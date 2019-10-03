@@ -853,7 +853,7 @@ zh:
     notice_mails_queued: 邮件投递排队。
     notice_template_destroyed: 邮件模板已成功销毁。
     notice_template_updated: 邮件模板已成功更新。
-    notice_transport_need_added: 运输需求已成功添加。
+    notice_template_added: 邮件模板已成功添加。
     placeholders_hint: |
       以下占位符可用于每个的“内容”部分
       模板。

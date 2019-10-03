@@ -874,7 +874,7 @@ fr:
     notice_mails_queued: Courriels mis en file d’attente.
     notice_template_destroyed: Modèle de courriel supprimé avec succès.
     notice_template_updated: Modèle de courriel mis à jour avec succès.
-    notice_transport_need_added: Besoin de transport ajouté avec succès.
+    notice_template_added: Modèle de courriel ajouté avec succès.
     placeholders_hint: |
       Les emplacements suivants peuvent être utilisés dans la section `content`
       de chaque modèle.

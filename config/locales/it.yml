@@ -878,7 +878,7 @@ it:
     notice_mails_queued: Email in coda
     notice_template_destroyed: Modello di email eliminato con successo.
     notice_template_updated: Modello email aggiornato correttamente.
-    notice_transport_need_added: Hai bisogno di trasporto aggiunto con successo.
+    notice_template_added: Modello email aggiunto con successo.
     placeholders_hint: |
       Le seguenti posizioni possono essere utilizzate nella sezione `content`
       di ogni modello.
