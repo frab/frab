@@ -902,9 +902,10 @@ es:
     notice_template_destroyed: La plantilla de correo fue destruida exitosamente.
     notice_template_updated: La plantilla de correo se actualizó correctamente.
     notice_template_added: La plantilla de correo se agregó con éxito.
-    placeholders_hint: |
-      Los siguientes marcadores de posición se pueden usar en la sección `content` de cada
-      modelo.
+    placeholders_hint_header: |
+      Puede usar la subestación dinámica variable en las secciones `subject` y `content` de cada
+      modelo. Evite el uso de variables específicas del evento si no desea que las personas obtengan
+      Más de un mensaje de correo.
     send_mail: Enviar correo
     template_subject: 'Asunto: %{subject}'
   error_signing_in: E-mail o contraseña inválidos

@@ -875,9 +875,10 @@ fr:
     notice_template_destroyed: Modèle de courriel supprimé avec succès.
     notice_template_updated: Modèle de courriel mis à jour avec succès.
     notice_template_added: Modèle de courriel ajouté avec succès.
-    placeholders_hint: |
-      Les emplacements suivants peuvent être utilisés dans la section `content`
-      de chaque modèle.
+    placeholders_hint_header: |
+      Vous pouvez utiliser le poste de variable dynamique dans les sections `subject` et` content` de chaque
+      modèle. Évitez d’utiliser des variables spécifiques à un événement si vous ne voulez pas que les gens soient informés
+      plus d'un message électronique.
     send_mail: Envoyer le courriel
     template_subject: 'Sujet : %{subject}'
   error_signing_in: Courriel ou mot de passe invalide.

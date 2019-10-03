@@ -1,33 +1,44 @@
 class SendBulkMailJob
   include SuckerPunch::Job
-
-  def perform(template, send_filter)
-    persons = Person
-      .joins(events: :conference)
-      .where('conferences.id': template.conference.id)
-
-    case send_filter
-    when 'all_speakers_in_confirmed_events'
-      persons = persons
-        .where('events.state': 'confirmed')
-        .where('event_people.event_role': 'speaker')
-
-    when 'all_speakers_in_unconfirmed_events'
-      persons = persons
-        .where('events.state': 'unconfirmed')
-        .where('event_people.event_role': 'speaker')
-
-    when 'all_speakers_in_scheduled_events'
-      persons = persons
-        .where('events.state': 'scheduled')
-        .where('event_people.event_role': 'speaker')
+  
+  def initialize(template, destination)
+    @template = template
+    
+    if destination.kind_of? String
+      event_people = EventPerson
+        .joins(event: :conference)
+        .where('conferences.id': template.conference.id)
+     
+      case destination
+      when 'all_speakers_in_confirmed_events'
+        event_people = event_people
+          .where('events.state': 'confirmed')
+          .where('event_people.event_role': 'speaker')
+     
+      when 'all_speakers_in_unconfirmed_events'
+        event_people = event_people
+          .where('events.state': 'unconfirmed')
+          .where('event_people.event_role': 'speaker')
+     
+      when 'all_speakers_in_scheduled_events'
+        event_people = event_people
+          .where('events.state': 'scheduled')
+          .where('event_people.event_role': 'speaker')
+      else
+        raise "unsupported destination #{destination}"
+      end
+      @destination_event_people = event_people
+    else
+      @destination_event_people = destination
     end
+  end
 
-    persons = persons.group(:'people.id')
+  def perform
+    @destination_event_people.pluck(:person_id).uniq.each do |p_id|
+      UserMailer.bulk_mail_multiple_roles(@destination_event_people.where(person_id: p_id), @template).deliver_now
+      p=Person.find(p_id)
+      Rails.logger.info "Mail template #{@template.name} delivered to #{p.first_name} #{p.last_name} (#{p.email})"
 
-    persons.each do |p|
-      UserMailer.bulk_mail(p, template).deliver_now
-      Rails.logger.info "Mail template #{template.name} delivered to #{p.first_name} #{p.last_name} (#{p.email})"
     end
   end
 end

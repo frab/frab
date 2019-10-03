@@ -859,10 +859,11 @@ en:
     notice_mails_queued: Mail deliveries queued.
     notice_template_destroyed: Mail template was successfully destroyed.
     notice_template_updated: Mail template was successfully updated.
-    placeholders_hint: |
-      The following place holders may be used in the `content` section of each
-      template.
     notice_template_added: Mail template was successfully added.
+    placeholders_hint_header: |
+      You can use dynamic variable substation in the in the `subject` and `content` sections of each
+      template. Avoid using event-specific variables if you don't want people to get
+      more than one mail message.
     send_mail: Send Mail
     template_subject: 'Subject: %{subject}'
   error_signing_in: Invalid email or password.

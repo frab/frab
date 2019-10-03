@@ -870,9 +870,10 @@ pt-BR:
     notice_template_destroyed: Modelo de email foi destruído com sucesso.
     notice_template_updated: Modelo de email foi atualizado com sucesso.
     notice_template_added: Modelo de email foi adicionado com sucesso.
-    placeholders_hint: |
-      Os seguintes locais podem ser usados ​​na seção `content` de cada
-      modelo.
+    placeholders_hint_header: |
+      Você pode usar subestação variável dinâmica nas seções `subject` e` content` de cada
+      modelo. Evite usar variáveis específicas do evento se você não quiser que as pessoas obtenham
+      mais de uma mensagem de correio.
     send_mail: Enviar correio
     template_subject: 'Assunto: %{subject}'
   error_signing_in: E-mail ou senha inválidos.

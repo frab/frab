@@ -854,9 +854,10 @@ zh:
     notice_template_destroyed: 邮件模板已成功销毁。
     notice_template_updated: 邮件模板已成功更新。
     notice_template_added: 邮件模板已成功添加。
-    placeholders_hint: |
-      以下占位符可用于每个的“内容”部分
-      模板。
+    placeholders_hint_header: |
+      您可以在每个主题的`学科`和`内容`部分中使用动态变量变电站。
+      模板。如果您不希望别人得到事件，请避免使用特定于事件的变量
+      一封以上的邮件。
     send_mail: 发送邮件
     template_subject: 主题：%{subject}
   error_signing_in: 无效的电子邮件或密码。
