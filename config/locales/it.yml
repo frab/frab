@@ -21,6 +21,7 @@ it:
         name: Nome
       conference:
         acronym: acronimo
+        attachment_title_is_freeform: Il titolo dell'allegato è a mano libera
         bulk_notification_enabled: Notifiche di gruppo
         color: colore
         default_recording_license: Licenza di registrazione predefinita
@@ -281,6 +282,8 @@ it:
     login: Entra
     login_existing_description: È possibile accedere se è stato creato un account per questo invito a partecipare o per un evento precedente.
     login_existing_headline: Identificazione con un account esistente
+    login_required: Dopo aver effettuato l'accesso puoi inserire la tua richiesta.
+    login_required_title: Accedi per partecipare
     looking_for_login_form: Cerchi la pagina di accesso per gli oratori?
     no_confirmation_token: La tua chiave di conferma non è valida. Si prega di verificare lo stato dell'evento sull'interfaccia Call for Participation.
     not_forget_personal_details: E non dimenticare di inserire i tuoi dati personali se non lo hai già fatto. Tieni presente che puoi sempre tornare indietro e modificare il tuo profilo utilizzando il pulsante nella barra laterale destra.
@@ -417,6 +420,10 @@ it:
           Un nome breve e univoco per la conferenza, utilizzando solo lettere
           minuscoli, numeri e caratteri di sottolineatura. Questo sarà usato per identificare
           la conferenza negli URL, ecc. Esempio: "froscon_2011"
+        attachment_title_is_freeform: |
+          Se questa opzione è selezionata, i mittenti possono fornire qualsiasi titolo desiderino
+          per i file caricati come allegati. Se questa opzione è deselezionata, essi
+          deve selezionare tra un set di titoli preconfigurati.
         bulk_notification_enabled: |
           Se abiliti questa opzione, le notifiche verranno inviate
           massa per posta, o da un sottosistema di biglietti.
@@ -526,8 +533,11 @@ it:
       link: Link di conferma
       public_name: Nome pubblico dell'altoparlante
       room: Sala di presentazione
+      subtitle: Sottotitolo
       surname: Nome dell'altoparlante
       time: Tempo di presentazione
+      track: Traccia il nome
+      type: Tipo di evento
     version: Versione %{version}
     withdrawn: abbandonato
   conflict:
@@ -553,7 +563,7 @@ it:
     - Sam
     - Sun.
     abbr_month_names:
-    -
+    - 
     - gennaio
     - febbraio
     - marzo
@@ -579,7 +589,7 @@ it:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    -
+    - 
     - gennaio
     - febbraio
     - Marte
@@ -682,6 +692,8 @@ it:
       unconfirmed: Devi convalidare il tuo indirizzo email per continuare.
     leave_password_blank_hint: Lascia vuoto se non vuoi cambiarlo
     links:
+      google_oauth2: Google
+      ldap: Server LDAP
       no_unlock_instructions: Non hai ricevuto alcuna istruzione di sblocco?
       sign_in_with: Connettiti con %{provider}
     mailer:
@@ -735,6 +747,7 @@ it:
     omniauth_callbacks:
       failure: Impossibile identificarti da %{kind} perché "%{reason}".
       success: Identificazione riuscita con il tuo account %{kind}.
+      unknown_failure: Autenticazione fallita.
     passwords:
       no_token: |
         Non puoi accedere a questa pagina senza venire da una e-mail di modifica
@@ -965,6 +978,7 @@ it:
       Aggiunge notifiche personalizzate per tutti gli altoparlanti.
       Verranno inviati al posto della notifica predefinita quando
       prossimo lotto. Modificali nella scheda "Modifica persone"
+    delete_rating: Elimina la valutazione degli eventi
     edit_event: Modifica evento
     edit_event_hint: Modifica i dati di questo evento
     edit_people: Modifica persone
@@ -1020,6 +1034,14 @@ it:
       Non sei ancora coinvolto in un evento per questa conferenza.
       Aggiungi te stesso a un evento per il ruolo che vuoi tenere, e
       l'evento apparirà nella lista
+    predefined_title_types:
+      handouts: dispense
+      media: media
+      other: altro
+      poster: manifesto
+      proposal: proposta
+      slides: scivoli
+      video: video
     print_accepted_cards: Stampa le carte (accettate solo)
     print_accepted_cards_hint: |
       Scarica un PDF con gli eventi accettati solo sotto forma di carte.
@@ -1232,6 +1254,7 @@ it:
     frs: Frisone orientale
     fur: friulana
     fy: Frisia occidentale
+    ga: irlandesi
     gaa: ga
     gay: Gayo
     gba: gbaya
@@ -1615,6 +1638,7 @@ it:
   no_data: Nessun dato
   non_reimbursed_expenses: Spese non rimborsate
   not_speaking: Non è un oratore
+  not_specified: non specificato
   note: nota
   notes: Note
   notifications: notifiche
@@ -1704,6 +1728,7 @@ it:
     male: maschio
     meeting: incontro
     mobile: mobile
+    moderator: Moderatore
     msn: msn
     offer: applicazione
     orga: organizzatore
@@ -1882,6 +1907,8 @@ it:
       , per iniziare una valutazione di diversi eventi.
     notice_already_rated_everything: 'Hai già recensito tutti gli eventi:'
     notice_rating_created: Nota creata con successo.
+    notice_rating_deleted: Valutazione eliminata correttamente.
+    notice_rating_saved: Valutazione aggiornata correttamente.
     notice_rating_updated: Nota aggiornata correttamente.
     show_ratings: Mostra recensioni
     start_reviewing: Inizia la valutazione
@@ -1898,6 +1925,7 @@ it:
   remove_association: Rimuovi %{name}
   reports: relazioni
   reports_module:
+    all: panoramica sulle esigenze di trasporto
     all_transportation_needs: panoramica delle esigenze di trasporto
     available_reports: Rapporti disponibili
     confirmed_events_by_track: eventi confermati dal thread
@@ -1933,6 +1961,7 @@ it:
     admin: amministratore
     coordinator: coordinatore
     crew: Membro della squadra
+    moderator: Moderatore
     orga: organizzatore
     reviewer: critico
     submitter: depositante

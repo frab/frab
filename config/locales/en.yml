@@ -21,6 +21,7 @@ en:
         name: Name
       conference:
         acronym: Acronym
+        attachment_title_is_freeform: Attachment title is freeform
         bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license

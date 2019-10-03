@@ -28,6 +28,7 @@ pt-BR:
         name: Nome
       conference:
         acronym: Acrônimo
+        attachment_title_is_freeform: O título do anexo é de forma livre
         bulk_notification_enabled: Notificações em massa
         color: Cor
         default_recording_license: Licença de gravação padrão
@@ -301,6 +302,8 @@ pt-BR:
     login: Entrar
     login_existing_description: Você pode entrar se você já criou uma conta para esta chamada de trabalhos, ou se já tiver participado de  eventos anteriores.
     login_existing_headline: Entrar com uma conta existente
+    login_required: Após fazer login, você pode inserir seu envio.
+    login_required_title: Entre para participar
     looking_for_login_form: Localize o login para os apresentadores?
     no_confirmation_token: Sua chave de confirmação não é válida. Por favor, verifique o status do seu evento na interface de participação.
     not_forget_personal_details: Não se esqueça de preencher o seu perfil. Você sempre pode fazer alterações em seu perfil usando o botão na barra lateral direita.
@@ -436,6 +439,10 @@ pt-BR:
           Um identificador curto e exclusivo para sua conferência, usando apenas minúsculas
           letras, números e sublinhados. Isso será usado para identificar seu
           conferência em URLs etc. Exemplo: 'froscon2011' "
+        attachment_title_is_freeform: |
+          Se essa opção for selecionada, os remetentes poderão fornecer o título que quiserem.
+          para arquivos que eles carregam como anexos. Se esta opção estiver desmarcada, eles
+          deve selecionar entre um conjunto de títulos pré-configurados.
         bulk_notification_enabled: |
           Se você ativar isso, as notificações serão enviadas em massa por e-mail
           ou subsistema de ticket.
@@ -546,8 +553,11 @@ pt-BR:
       link: Link de confirmação
       public_name: Nome público do orador
       room: Sala de apresentação
+      subtitle: Subtítulo
       surname: Sobrenome do falante
       time: Tempo de apresentação
+      track: Nome da faixa
+      type: Tipo de evento
     version: Versão %{version}
     withdrawn: Retirado
   conflict:
@@ -699,6 +709,8 @@ pt-BR:
       unconfirmed: Você precisa confirmar seu endereço de e-mail antes de continuar.
     leave_password_blank_hint: Deixe em branco se não quiser alterá-lo
     links:
+      google_oauth2: Google
+      ldap: Servidor LDAP
       no_unlock_instructions: Não recebeu instruções de desbloqueio?
       sign_in_with: Faça o login com %{provider}
     mailer:
@@ -750,6 +762,7 @@ pt-BR:
     omniauth_callbacks:
       failure: Não foi possível autenticá-lo de %{kind} porque "%{reason}".
       success: Autenticado com sucesso a partir da conta %{kind}.
+      unknown_failure: A autenticação falhou.
     passwords:
       no_token: Você não pode acessar esta página sem receber um e-mail de redefinição de senha. Se você receber um e-mail de redefinição de senha, verifique se usou o URL completo fornecido.
       send_instructions: Você receberá um e-mail com instruções sobre como redefinir sua senha em alguns minutos.
@@ -945,6 +958,7 @@ pt-BR:
     confirm_event_hint: Confirme se o (s) alto-falante (s) estará presente e que o evento realmente ocorrerá.
     custom_notification: Notificação personalizada
     custom_notification_hint: Adicione notificações personalizadas para todos os oradores. Estes serão enviados em vez da notificação padrão na próxima execução de notificação em massa. Modifique-os na guia "Editar pessoas".
+    delete_rating: Excluir classificação do evento
     edit_event: Editar evento
     edit_event_hint: Edite os dados deste evento.
     edit_people: Edite pessoas
@@ -1006,6 +1020,14 @@ pt-BR:
       conferência. Adicione-se a um evento em qualquer
       papel que você gosta e o evento aparecerá neste
       Lista.
+    predefined_title_types:
+      handouts: apostilas
+      media: meios de comunicação
+      other: de outros
+      poster: poster
+      proposal: proposta
+      slides: slides
+      video: vídeo
     print_accepted_cards: Cartões de impressão (aceitos somente)
     print_accepted_cards_hint: |
       Faça o download de um PDF com apenas os eventos aceitos como cartões (quatro cartões por página).
@@ -1612,6 +1634,7 @@ pt-BR:
   no_data: Sem dados
   non_reimbursed_expenses: Despesas não reembolsadas
   not_speaking: não falando
+  not_specified: não especificado
   note: Nota
   notes: Notas
   notifications: Notificações
@@ -1711,6 +1734,7 @@ pt-BR:
     male: homem
     meeting: reunião
     mobile: celular
+    moderator: Moderador
     msn: Msn
     offer: Oferta
     orga: Organizador
@@ -1888,6 +1912,7 @@ pt-BR:
       avaliar um lote inteiro de eventos em uma linha.
     notice_already_rated_everything: 'Você já analisou todos os eventos:'
     notice_rating_created: Avaliação salva com sucesso.
+    notice_rating_deleted: Classificação excluída com sucesso.
     notice_rating_saved: Avaliação atualizada com sucesso.
     notice_rating_updated: Nota atualizada com sucesso.
     show ratings: Mostrar avaliações
@@ -1942,6 +1967,7 @@ pt-BR:
     admin: Admin
     coordinator: Coordenador
     crew: Equipe técnica
+    moderator: Moderador
     orga: Orga
     reviewer: Revisor
     submitter: Enviado
