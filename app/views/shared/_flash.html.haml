@@ -1,5 +1,5 @@
 .flash
   - flash.each do |type, message|
-    %div{class: "alert-message #{type == :notice ? "success" : type.to_s} fade in", "data-alert" => "alert"}
+    %div{class: "alert-message #{ { "notice" => "success", "alert" => "error" }.fetch(type.to_s, type.to_s) } fade in", "data-alert" => "alert"}
       %a.close{href: "#"} ×
       %p= message
