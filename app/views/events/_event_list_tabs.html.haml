@@ -1,0 +1,8 @@
+%ul.tabs
+  %li{class: !showing_my_events? && active_class?(events_path)}= link_to t('events_module.all_events'), events_path
+  %li{class: showing_my_events? && active_class?(events_path)}= link_to t('events_module.my_events'), my_events_path
+  %li{class: active_class?(attachments_events_path)}= link_to t('events_module.attachments_overview'), attachments_events_path
+  %li{class: active_class?(ratings_events_path)}= link_to t('events_module.event_ratings'), ratings_events_path
+  - if @conference.feedback_enabled
+    %li{class: active_class?(feedbacks_events_path)}= link_to t('events_module.event_feedbacks'), feedbacks_events_path
+  

@@ -23,7 +23,10 @@ class ViewEventTest < ActionDispatch::IntegrationTest
 
   test 'can view my events table' do
     get "/#{@conference.acronym}/events/my"
+    assert_response :redirect
+    follow_redirect!
     assert_response :success
+    assert_select "h1", text: "My Events"
   end
 
   test 'can view attachment overview table' do
