@@ -20,15 +20,22 @@ class ExpensesController < BaseConferenceController
 
   def update
     expense = @person.expenses.find(params[:id])
-    expense.update_attributes(expenses_params)
+    unless expense.update_attributes(expenses_params)
+      flash_model_errors(expense)
+      redirect_to person_expenses_path(@person) and return
+    end
     redirect_to(person_url(@person), notice: t('expenses_module.notice_expense_updated'))
   end
 
   def create
     e = Expense.new(expenses_params)
     e.conference = @conference
-    @person.expenses << e
-    redirect_to(person_url(@person), notice: t('expenses_module.notice_expense_created'))
+    if @person.expenses << e
+      redirect_to(person_url(@person), notice: t('expenses_module.notice_expense_created'))
+    else
+      flash_model_errors(e)
+      redirect_to person_expenses_path(@person)
+    end
   end
 
   def destroy
