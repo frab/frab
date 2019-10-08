@@ -21,6 +21,7 @@ zh:
         name: 名称
       conference:
         acronym: 缩写
+        attachment_title_is_freeform: 附件标题为自由格式
         bulk_notification_enabled: 批量通知已启用
         color: 颜色
         default_recording_license: 默认录制许可证
@@ -286,6 +287,8 @@ zh:
     login: 登录
     login_existing_description: 如果您为此参与呼叫或任何以前的活动创建了帐户，则可以登录。
     login_existing_headline: 使用现有帐户登录
+    login_required: 登录后，您可以输入提交内容。
+    login_required_title: 登录参加
     looking_for_login_form: 你在寻找提交者的登录名吗？
     no_confirmation_token: 您的确认密钥无效。请在参与界面的电话中查看您的活动状态。
     not_forget_personal_details: 如果您还没有填写您的个​​人资料，请不要忘记填写。请记住，您可以随时返回并使用右侧边栏中的按钮编辑您的个人资料。
@@ -421,6 +424,10 @@ zh:
           为您的会议提供一个简短而独特的手柄，仅使用小写字母
           字母，数字和下划线。这将用于识别你的
           网址会议等。例如：'froscon2011''“
+        attachment_title_is_freeform: |
+          如果选择此选项，提交者可以提供他们想要的任何标题
+          他们以附件形式上传的文件。如果取消选择此选项，则它们
+          必须在一组预配置的标题之间进行选择。
         bulk_notification_enabled: |
           如果您启用此功能，通知将通过邮件批量发送
           或票子系统。
@@ -531,8 +538,11 @@ zh:
       link: 确认链接
       public_name: 演讲者公开名称
       room: 介绍室
+      subtitle: 字幕
       surname: 发言人姓氏
       time: 演示时间
+      track: 曲目名称
+      type: 事件类型
     version: 版本%{version}
     withdrawn: 取消
   conflict:
@@ -558,7 +568,7 @@ zh:
     - 周五
     - 星期六
     abbr_month_names:
-    -
+    - 
     - 一月
     - 二月
     - 损伤
@@ -584,7 +594,7 @@ zh:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    -
+    - 
     - 一月
     - 二月
     - 游行
@@ -683,6 +693,8 @@ zh:
       unconfirmed: 在继续之前，您必须确认您的电子邮件地址。
     leave_password_blank_hint: 如果你不想改变它，留空
     links:
+      google_oauth2: 谷歌
+      ldap: LDAP伺服器
       no_unlock_instructions: 没有收到解锁指示？
       sign_in_with: 用%{provider}登录
     mailer:
@@ -734,6 +746,7 @@ zh:
     omniauth_callbacks:
       failure: 由于“%{reason}”，无法从%{kind}验证您的身份。
       success: 已成功从%{kind}帐户进行身份验证。
+      unknown_failure: 验证失败。
     passwords:
       no_token: 如果您不是来自密码重置电子邮件，则无法访问此页面。如果您确实来自密码重置电子邮件，请确保您使用了提供的完整网址。
       send_instructions: 您将收到一封电子邮件，其中包含有关如何在几分钟内重置密码的说明。
@@ -944,6 +957,7 @@ zh:
     confirm_event_hint: 确认发言人将出席并且事件将实际发生。
     custom_notification: 自定义通知
     custom_notification_hint: 为所有扬声器添加自定义通知。这些将在下次批量通知运行时发送，而不是默认通知。在“编辑人员”选项卡中修改它们。
+    delete_rating: 删除活动评分
     edit_event: 编辑事件
     edit_event_hint: 编辑此事件的数据。
     edit_people: 编辑人员
@@ -1005,6 +1019,14 @@ zh:
       会议。把自己添加到任何事件中
       你喜欢的角色和事件将出现在这里
       名单。
+    predefined_title_types:
+      handouts: 讲义
+      media: 媒体
+      other: 其他
+      poster: 海报
+      proposal: 提案
+      slides: 滑梯
+      video: 视频
     print_accepted_cards: 打印卡(仅接受)
     print_accepted_cards_hint: |
       只下载PDF格式的接受事件(每页四张)。
@@ -1600,6 +1622,7 @@ zh:
   no_data: 没有数据
   non_reimbursed_expenses: 未报销的费用
   not_speaking: 不说话
+  not_specified: 未标明
   note: 注意
   notes: 笔记
   notifications: 通知
@@ -1689,6 +1712,7 @@ zh:
     male: 男
     meeting: 会议
     mobile: 移动
+    moderator: 主持人
     msn: MSN
     offer: 提供
     orga: Organisator
@@ -1863,6 +1887,7 @@ zh:
       对整批事件进行排序。
     notice_already_rated_everything: 您已经查看了所有活动：
     notice_rating_created: 评分已成功保存。
+    notice_rating_deleted: 评分已成功删除。
     notice_rating_saved: 评分已成功更新。
     notice_rating_updated: 注意已成功更新。
     show ratings: 显示评分
@@ -1917,6 +1942,7 @@ zh:
     admin: 管理员
     coordinator: 协调员
     crew: 船员
+    moderator: 主持人
     orga: 奥尔加
     reviewer: 评论家
     submitter: 提交

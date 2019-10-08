@@ -21,6 +21,7 @@ fr:
         name: Nom
       conference:
         acronym: Acronyme
+        attachment_title_is_freeform: Le titre de la pièce jointe est de forme libre
         bulk_notification_enabled: Notifications de groupe
         color: Couleur
         default_recording_license: License d’enregistrement par défaut
@@ -288,6 +289,8 @@ fr:
     login: Connexion
     login_existing_description: Vous pouvez vous identifier si vous avez créé un compte pour cet Appel à participation, ou pour un évènement précédent.
     login_existing_headline: Identification avec un compte existant
+    login_required: Après vous être connecté, vous pouvez entrer votre soumission.
+    login_required_title: Connectez-vous pour participer
     looking_for_login_form: Vous cherchez la page de connexion pour conférenciers ?
     no_confirmation_token: Votre clé de confirmation n’est pas valide. Veuillez vérifier le statut de l’évènement sur l’interface de l’Appel à participation.
     not_forget_personal_details: Et n’oubliez pas de remplir vos détails personnels si ce n’est pas déjà fait. Gardez à l’esprit que vous pouvez toujours revenir en arrière et éditer votre profil en utilisant le bouton dans la barre latérale de droite.
@@ -424,6 +427,10 @@ fr:
           Un nom court et unique pour la conférence, n’utilisant que des lettres
           minuscules, des nombres et tirets bas. Ce sera utilisé pour identifier
           la conférence dans les URLs, etc. Exemple : "froscon_2011"
+        attachment_title_is_freeform: |
+          Si cette option est sélectionnée, les émetteurs peuvent fournir le titre de leur choix.
+          pour les fichiers téléchargés en pièces jointes. Si cette option est désélectionnée, ils
+          doit choisir entre un ensemble de titres préconfigurés.
         bulk_notification_enabled: |
           Si vous activez cette option, les notifications seront envoyées en
           masse par mail, ou par un sous-systeme de tickets.
@@ -533,8 +540,11 @@ fr:
       link: Lien de confirmation
       public_name: Nom public de l’orateur
       room: Salle de présentation
+      subtitle: Sous-titre
       surname: Nom de l’orateur
       time: Heure de présentation
+      track: Nom de la piste
+      type: Type d'événement
     version: Version %{version}
     withdrawn: Abandonné
   conflict:
@@ -560,7 +570,7 @@ fr:
     - Sam
     - Dim
     abbr_month_names:
-    -
+    - 
     - Jan
     - Fév
     - Mar
@@ -586,7 +596,7 @@ fr:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    -
+    - 
     - Janvier
     - Février
     - Mars
@@ -687,6 +697,8 @@ fr:
       unconfirmed: Vous devez valider votre adresse de courriel pour pouvoir continuer.
     leave_password_blank_hint: Laissez vide si vous ne souhaitez pas le changer
     links:
+      google_oauth2: Google
+      ldap: Serveur LDAP
       no_unlock_instructions: Vous n’avez pas reçu d’instructions de déverouillage ?
       sign_in_with: Se connecter avec %{provider}
     mailer:
@@ -740,6 +752,7 @@ fr:
     omniauth_callbacks:
       failure: Impossible de vous identifier à partir de %{kind} car "%{reason}".
       success: Identification réussie avec votre compte %{kind}.
+      unknown_failure: Authentification échouée.
     passwords:
       no_token: |
         Vous ne pouvez pas accéder à cette page sans provenir d’un courriel de changement
@@ -970,6 +983,7 @@ fr:
       Ajoute des notifications personnalisées pour tous les orateurs.
       Elles seront envoyées à la place de la notification par défaut lors du
       prochain envoi groupé. Modifiez-les dans l’onglet "Éditer des personnes"
+    delete_rating: Supprimer l'évaluation de l'événement
     edit_event: Éditer l’évènement
     edit_event_hint: Éditer les données de cet évènement
     edit_people: Éditer les personnes
@@ -1025,6 +1039,14 @@ fr:
       Vous n’êtes pas encore impliqué dans un évènement pour cette conférence.
       Ajoutez-vous à un évènement pour le rôle que vous souhaitez tenir, et
       l’évènement apparaîtra dans la liste
+    predefined_title_types:
+      handouts: documents à distribuer
+      media: médias
+      other: autre
+      poster: affiche
+      proposal: proposition
+      slides: glissades
+      video: vidéo
     print_accepted_cards: Imprimer les cartes (accéptés seulement)
     print_accepted_cards_hint: |
       Téléchargez un PDF avec les évènements accéptés seulement, sous forme de cartes.
@@ -1237,6 +1259,7 @@ fr:
     frs: Frison oriental
     fur: Friulian
     fy: Frison de l'Ouest
+    ga: irlandais
     gaa: Ga
     gay: Gayo
     gba: Gbaya
@@ -1620,6 +1643,7 @@ fr:
   no_data: Pas de données
   non_reimbursed_expenses: Dépenses non remboursées
   not_speaking: N’est pas orateur
+  not_specified: non précisé
   note: Note
   notes: Notes
   notifications: Notifications
@@ -1709,6 +1733,7 @@ fr:
     male: Masculin
     meeting: Meeting
     mobile: Mobile
+    moderator: Modérateur
     msn: Msn
     offer: Demande
     orga: Organisateur
@@ -1841,14 +1866,14 @@ fr:
       events_by_track:
         events: Évènements par fil
       index:
-        day: Jour %{index} – %{label}
         booklet: Livret
-        timeline: Chronologie
+        day: Jour %{index} – %{label}
         events: Évènements
         events_by_track: Évènements par fil
         schedule: Programme – %{label}
         schedule_index: Aperçu du programme
         speakers: Orateurs
+        timeline: Chronologie
       nav:
         day: Jour %{index}
         events: Évènements
@@ -1870,9 +1895,9 @@ fr:
         events: Évènements
         name: Nom
         speakers: Orateurs
-      title: Programme %{title}
       timeline:
         events: Évènements
+      title: Programme %{title}
   public_name: Nom public
   rating: Notation
   ratings: Notations
@@ -1887,6 +1912,8 @@ fr:
       , pour démarrer une évaluation de plusieurs évènements.
     notice_already_rated_everything: 'Vous avez déjà passé en revue tous les évènements :'
     notice_rating_created: Note créée avec succès.
+    notice_rating_deleted: Note supprimée avec succès.
+    notice_rating_saved: Notation mise à jour avec succès.
     notice_rating_updated: Note mise à jour avec succès.
     show_ratings: Montrer les évaluations
     start_reviewing: Commencer l’évaluation
@@ -1903,6 +1930,7 @@ fr:
   remove_association: Enlever %{name}
   reports: Rapports
   reports_module:
+    all: aperçu des besoins de transport
     all_transportation_needs: vue d’ensemble sur les besoins de transport
     available_reports: Rapports disponibles
     confirmed_events_by_track: événements confirmés par fil
@@ -1938,6 +1966,7 @@ fr:
     admin: Administrateur
     coordinator: Coordinateur
     crew: Membre de l’équipe
+    moderator: Modérateur
     orga: Organisateur
     reviewer: Critique
     submitter: Déposant

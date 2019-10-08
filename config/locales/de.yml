@@ -28,6 +28,7 @@ de:
         name: Name
       conference:
         acronym: Kürzel
+        attachment_title_is_freeform: Der Titel des Anhangs ist Freiform
         bulk_notification_enabled: Massen-Mailings
         color: Farbe
         default_recording_license: Standard-Aufnahmelizenz
@@ -314,6 +315,8 @@ de:
     login: Anmeldung
     login_existing_description: Sie können sich anmelden, wenn Sie bereits für diesen oder einen früheren Call for Participation registriert sind.
     login_existing_headline: Einloggen mit existierendem Konto
+    login_required: Nach der Anmeldung können Sie Ihren Beitrag eingeben.
+    login_required_title: Melden Sie sich an, um teilzunehmen
     looking_for_login_form: Suchen Sie den Login für Vortragende?
     no_confirmation_token: Bestätigungs-Token nicht gefunden. Vermutlich haben Sie den Token schon verwendet. Bitte loggen Sie sich ein und prüfen Sie den Status Ihrer Einreichung.
     not_forget_personal_details: Und vergessen Sie nicht, Ihr Profil auszufüllen. Sie können Ihr Profil jederzeit über den Button in der rechten Seitenleiste ändern.
@@ -322,7 +325,7 @@ de:
     pages:
       conference_open_mode: Die Konferenz ist im offenen Modus. Einreicher können die Zeiten selber setzen.
       event_confirm_attendence: Bestätigen Sie die Teilnahme
-      event_confirmation_request: 'Für das Event ** %{event} **. wird ihre Bestätigung benötigt'
+      event_confirmation_request: Für das Event ** %{event} **. wird ihre Bestätigung benötigt
       not_started_cfp: |
         Leider hat die Einreichungsphase noch nicht begonnen. Bitte gedulden Sie sich noch ein wenig,
         während wir die Konferenz vorbereiten.
@@ -448,6 +451,10 @@ de:
         acronym: |
           Ein eindeutiges Kürzel für Ihre Konferenz, das nur aus Kleinbuchstaben,
           Zahlen und Unterstrichen besteht. Wird später in URLs verwendet. Beispiel: 'froscon2011'
+        attachment_title_is_freeform: |
+          Wenn diese Option ausgewählt ist, können Einreicher einen beliebigen Titel angeben
+          für Dateien laden sie als Anhänge hoch. Wenn diese Option deaktiviert ist, werden sie
+          muss zwischen einer Reihe vorkonfigurierter Titel wählen.
         bulk_notification_enabled: |
           Wenn aktiviert, werden die Einreicher über angenommene oder abgelehnte Events nicht sofort
           informiert, sondern gesammelt in Massen-Mailings über das eingebaute E-Mail-System oder einen
@@ -486,8 +493,9 @@ de:
         title: |
           Der Name der Konferenz, wie sie auf der gesamten Website erscheinen soll.
           Beispiel: 'FrOSCon'
-        transport_needs_enabled: |
-          Wenn aktiviert, können Sie mit frab den Transportbedarf der Sprecher verwalten.
+        transport_needs_enabled: 'Wenn aktiviert, können Sie mit frab den Transportbedarf der Sprecher verwalten.
+
+'
     manage_conferences: Konferenzen verwalten
     manage_conferences_hint: Verwalten Sie alle Konferenzen
     new: Neu
@@ -539,8 +547,11 @@ de:
       link: Bestätigungslink
       public_name: Öffentlicher Name des Sprechers
       room: Raum des Events
+      subtitle: Untertitel
       surname: Nachname des Sprechers
       time: Beginn des Events
+      track: Titelname
+      type: Ereignistyp
     version: Version %{version}
     withdrawn: withdrawn
   conflict:
@@ -566,7 +577,7 @@ de:
     - Fr
     - Sa
     abbr_month_names:
-    -
+    - 
     - Jan
     - Feb
     - Mär
@@ -593,7 +604,7 @@ de:
       only_day: "%e"
       short: "%e. %b"
     month_names:
-    -
+    - 
     - Januar
     - Februar
     - März
@@ -690,6 +701,8 @@ de:
       unconfirmed: Sie müssen Ihre E-Mail-Adresse bestätigen, um fortzufahren.
     leave_password_blank_hint: Lassen Sie das Feld leer, wenn Sie es nicht ändern möchten
     links:
+      google_oauth2: Google
+      ldap: LDAP-Server
       no_unlock_instructions: Haben Sie keine Entsperrungsanweisungen erhalten?
       sign_in_with: Melden Sie sich mit %{provider} an
     mailer:
@@ -713,8 +726,9 @@ de:
       password_change:
         headline: Hallo, %{email}!
         subject: Passwort geändert
-        text: |
-          Diese E-Mail soll Sie darüber informieren, dass Ihr Passwort geändert wurde.
+        text: 'Diese E-Mail soll Sie darüber informieren, dass Ihr Passwort geändert wurde.
+
+'
       password_change_instructions:
         headline: Hallo, %{email}!
         text: |
@@ -740,6 +754,7 @@ de:
     omniauth_callbacks:
       failure: Sie konnten sich nicht über %{kind} authentifizieren, weil "%{reason}".
       success: Erfolgreich über %{kind} authentifiziert.
+      unknown_failure: Authentifizierung fehlgeschlagen.
     passwords:
       no_token: Sie können auf diese Seite nur über einen Link zugreifen, der aus einer E-Mail zum Zurücksetzen des Passworts stammt. Sollten Sie die URL händisch kopiert haben, vergewissern Sie sich bitte, dass Sie die vollständige URL übertragen haben.
       send_instructions: Sie erhalten eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts innerhalb weniger Minuten.
@@ -949,6 +964,7 @@ de:
     confirm_event_hint: Bestätigen Sie, dass der / die Sprecher anwesend sind und dass das Event tatsächlich stattfindet.
     custom_notification: Benutzerdefinierte Benachrichtigung
     custom_notification_hint: Fügen Sie benutzerdefinierte Benachrichtigungen für alle Sprecher dieses Events hinzu. Bei der nächsten Benachrichtigungs-Runde wird dann diese Nachricht anstelle der Standardbenachrichtigung gesendet. Sie können die einzlenen personalisierten Nachrichten im Reiter "Personen bearbeiten" ändern.
+    delete_rating: Ereignisbewertung löschen
     edit_event: Event bearbeiten
     edit_event_hint: Bearbeiten Sie die Daten dieses Events.
     edit_people: Personen bearbeiten
@@ -979,10 +995,10 @@ de:
     inputs:
       hints:
         do_not_record: Soll dieses Event aufgezeichnet werden?
-        note: 'Sichtbar nur für Administratoren.'
+        note: Sichtbar nur für Administratoren.
         public: Ist dieses Event im öffentlichen Programm sichtbar?
         recording_license: Aufzeichnungs-Lizenz für dieses Event
-        submission_note: 'Sichtbar für Administratoren und Benutzer; zusätzliche Information.'
+        submission_note: Sichtbar für Administratoren und Benutzer; zusätzliche Information.
         tech_rider: Was wird für diese Veranstaltung benötigt?
     my_events: Meine Events
     my_rating: Meine Bewertungen
@@ -1003,6 +1019,14 @@ de:
     not_involved: |
       Sie sind für diese Konferenz in keinem Event involviert. Wenn Sie ein Event einreichen
       oder einem beitreten, taucht er in dieser Liste auf.
+    predefined_title_types:
+      handouts: Handouts
+      media: Medien
+      other: andere
+      poster: Poster
+      proposal: Vorschlag
+      slides: Folien
+      video: Video
     print_accepted_cards: Druckkarten (nur accepted)
     print_accepted_cards_hint: |
       Laden Sie ein PDF herunter, in dem nur alle Events im Zustand accepted als Karten
@@ -1611,6 +1635,7 @@ de:
   no_data: Keine Daten
   non_reimbursed_expenses: Nicht erstattete Spesen
   not_speaking: spricht nicht
+  not_specified: keine Angabe
   note: Anmerkung
   notes: Anmerkungen
   notifications: Benachrichtigungen
@@ -1706,6 +1731,7 @@ de:
     male: männlich
     meeting: Meeting
     mobile: Mobil
+    moderator: Moderator
     msn: Msn
     offer: Angebot
     orga: Organisator
@@ -1876,6 +1902,7 @@ de:
       Sobald die ersten Events angelegt sind, können Sie mit dem Review beginnen.
     notice_already_rated_everything: 'Sie haben bereits alle Events reviewed:'
     notice_rating_created: Bewertung wurde erfolgreich gespeichert.
+    notice_rating_deleted: Bewertung erfolgreich gelöscht.
     notice_rating_saved: Bewertung wurde erfolgreich aktualisiert.
     notice_rating_updated: Hinweis erfolgreich aktualisiert.
     show ratings: Bewertungen anzeigen
@@ -1930,6 +1957,7 @@ de:
     admin: Admin
     coordinator: Koordinator
     crew: Crew
+    moderator: Moderator
     orga: Orga
     reviewer: Reviewer
     submitter: Einreicher
