@@ -19,7 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   alias :google_oauth2 :all
 
   def failure
-    set_flash_message(:notice, :unknown_failure) if is_navigational_format?
+    set_flash_message(:alert, :unknown_failure) if is_navigational_format?
     redirect_to root_path
   end
 end
