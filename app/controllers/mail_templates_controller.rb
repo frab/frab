@@ -55,7 +55,7 @@ class MailTemplatesController < BaseConferenceController
   def create
     t = MailTemplate.new(mail_template_params)
     @conference.mail_templates << t
-    redirect_to(mail_templates_path, notice: t('emails_module.notice_transport_need_added'))
+    redirect_to(mail_templates_path, notice: t('emails_module.notice_template_added'))
   end
 
   def destroy

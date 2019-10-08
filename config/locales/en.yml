@@ -866,10 +866,10 @@ en:
     notice_mails_queued: Mail deliveries queued.
     notice_template_destroyed: Mail template was successfully destroyed.
     notice_template_updated: Mail template was successfully updated.
-    notice_transport_need_added: Transport need was successfully added.
     placeholders_hint: |
       The following place holders may be used in the `content` section of each
       template.
+    notice_template_added: Mail template was successfully added.
     send_mail: Send Mail
     template_subject: 'Subject: %{subject}'
   error_signing_in: Invalid email or password.
