@@ -184,6 +184,13 @@ zh:
     update_successful: 更改已成功保存！
   all: 所有
   are_you_sure: 你确定？
+  attachments_overview_module:
+    attachments: 附件
+    no_attachments: |
+      尚无任何事件附加文件。曾经的人
+      开始将文件上传到他们的活动，您将能够
+      查看此屏幕中的所有附件。
+    no_event: 该会议尚无任何活动。添加带有文件附件的事件后，它们将显示在此处。
   availabilities:
     alerts:
       available_for_day: 可用于一天%{day}
@@ -924,8 +931,10 @@ zh:
     add_event_hint: 添加一个新事件。
     add_ticket: 添加票据
     add_ticket_hint: 为此活动创建一张票。
+    ago: "%{time_ago}之前"
     all_events: 所有事件
     all_rating: 所有评级
+    attachments_overview: 附件
     average_feedback: 平均反馈：
     average_speaker_feedback: 以演讲者的平均反馈：
     cancel_event: 取消活动
@@ -2026,6 +2035,7 @@ zh:
   title: 标题
   titles:
     admin_accounts: 管理员帐户列表
+    attachments_overview: 附件概述
     cfp_edit_cfp: 编辑呼叫参与
     cfp_new_cfp: 发起参与呼吁
     cfp_view: 呼吁参与

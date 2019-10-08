@@ -1,5 +1,7 @@
 class EventAttachment < ApplicationRecord
   ATTACHMENT_TITLES = %w(proposal poster slides handouts media video other).freeze
+  include ActionView::Helpers::DateHelper
+  
   belongs_to :event
 
   has_attached_file :attachment
@@ -21,7 +23,17 @@ class EventAttachment < ApplicationRecord
     end
   end
 
-   def to_s
-     "#{model_name.human}: #{link_title}"
-   end
+  def to_s
+    "#{model_name.human}: #{link_title}"
+  end
+
+  def short_anonymous_title
+    dt = attachment_updated_at.to_datetime
+    if dt.year==Date.today.year
+      s = I18n.t(:ago, time_ago: time_ago_in_words(dt), scope: 'events_module')
+    else
+      s = dt.year.to_s
+    end
+    "\u{1F5CE} " + s
+  end
 end

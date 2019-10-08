@@ -184,6 +184,13 @@ ru:
     update_successful: Изменения сохранены успешно!
   all: Все
   are_you_sure: Ты уверен?
+  attachments_overview_module:
+    attachments: вложения
+    no_attachments: |
+      Нет файлов, прикрепленных к какому-либо из событий. Когда-то люди
+      начать загружать файлы на свои мероприятия, вы сможете
+      увидеть все вложения на этом экране.
+    no_event: На этой конференции пока нет событий. Как только события с вложенными файлами будут добавлены, они появятся здесь.
   availabilities:
     alerts:
       available_for_day: доступно для дня %{day}
@@ -924,8 +931,10 @@ ru:
     add_event_hint: Добавьте новое событие.
     add_ticket: Добавить билет
     add_ticket_hint: Создайте билет для этого мероприятия.
+    ago: "%{time_ago} назад"
     all_events: Все события
     all_rating: Все рейтинги
+    attachments_overview: Вложения
     average_feedback: 'Средняя оценка:'
     average_speaker_feedback: 'Средняя обратная связь как динамик:'
     cancel_event: Отменить событие
@@ -2026,6 +2035,7 @@ ru:
   title: заглавие
   titles:
     admin_accounts: Список учетных записей администратора
+    attachments_overview: Обзор вложений
     cfp_edit_cfp: Изменить звонок для участия
     cfp_new_cfp: Запуск заявки на участие
     cfp_view: Призыв к участию

@@ -212,6 +212,13 @@ de:
     update_successful: Änderungen erfolgreich gespeichert!
   all: Alle
   are_you_sure: Sind Sie sicher?
+  attachments_overview_module:
+    attachments: Anhänge
+    no_attachments: |
+      Es sind noch keine Dateien an ein Ereignis angehängt. Einmal Menschen
+      Starten Sie das Hochladen von Dateien zu ihren Veranstaltungen
+      Alle Anhänge in diesem Bildschirm anzeigen.
+    no_event: Es gibt noch keine Veranstaltungen in dieser Konferenz. Sobald Ereignisse mit Dateianhängen hinzugefügt wurden, werden sie hier angezeigt.
   availabilities:
     alerts:
       available_for_day: verfügbar am Tag %{day}
@@ -929,8 +936,10 @@ de:
     add_event_hint: Fügen Sie ein neues Event hinzu.
     add_ticket: Ticket hinzufügen
     add_ticket_hint: Erstellen Sie ein Ticket für dieses Ereignis.
+    ago: vor %{time_ago}
     all_events: Alle Events
     all_rating: Alle Bewertungen
+    attachments_overview: Anhänge
     average_feedback: 'Durchschnittliches Feedback:'
     average_speaker_feedback: 'Durchschnittliches Feedback als Sprecher:'
     cancel_event: Event absagen
@@ -2038,6 +2047,7 @@ de:
   title: Titel
   titles:
     admin_accounts: Liste der Konten mit Administrator-Rechten
+    attachments_overview: Übersicht über Anhänge
     cfp_edit_cfp: Bearbeiten Sie den Call for Participation
     cfp_new_cfp: Starten Sie einen Call for Participation
     cfp_view: Call for Participation

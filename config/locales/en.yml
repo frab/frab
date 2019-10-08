@@ -184,6 +184,13 @@ en:
     update_successful: Changes saved successfully!
   all: All
   are_you_sure: Are you sure?
+  attachments_overview_module:
+    no_event: There are no events in this conference yet. Once events with file attachments are added, they will appear here.
+    no_attachments: |
+      There are no files attached to any of the events yet. Once people
+      start uploading files to their events, you will be able to
+      see all of the attachments in this screen.
+    attachments: attachments  
   availabilities:
     alerts:
       available_for_day: available for day %{day}
@@ -930,6 +937,7 @@ en:
     add_event_hint: Add a new event.
     add_ticket: Add Ticket
     add_ticket_hint: Create a ticket for this event.
+    ago: "%{time_ago} ago"
     all_events: All events
     all_rating: All ratings
     predefined_title_types:
@@ -940,6 +948,7 @@ en:
       proposal: proposal
       slides: slides
       video: video
+    attachments_overview: Attachments
     average_feedback: 'Average Feedback:'
     average_speaker_feedback: 'Average feedback as speaker:'
     cancel_event: Cancel event
@@ -2044,6 +2053,7 @@ en:
   title: Title
   titles:
     admin_accounts: List of admin accounts
+    attachments_overview: Attachments overview
     cfp_edit_cfp: Edit Call for Participation
     cfp_new_cfp: Launch a Call for Participation
     cfp_view: Call for Participation

@@ -54,6 +54,22 @@ class EventsController < BaseConferenceController
       format.pdf
     end
   end
+  
+  # show a table of all events' attachments
+  def attachments
+    authorize @conference, :read?
+    
+    result = search @conference.events
+    @events = result.paginate page: page_param
+    clean_events_attributes
+    
+    attachments = EventAttachment.joins(:event).where('events.conference': @conference)
+    preset_attachment_titles_in_use = attachments.where(title: EventAttachment::ATTACHMENT_TITLES).group(:title).pluck(:title)
+    
+    @attachment_titles = EventAttachment::ATTACHMENT_TITLES & preset_attachment_titles_in_use
+    
+    @other_attachment_titles_exist = attachments.where.not(title: EventAttachment::ATTACHMENT_TITLES).any?
+  end
 
   # show event ratings
   def ratings
