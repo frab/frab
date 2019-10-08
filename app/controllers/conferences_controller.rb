@@ -163,11 +163,14 @@ class ConferencesController < BaseConferenceController
 
   private
 
+  # find the nested form which was used for the update, by looking at nested
+  # attributes
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
       attribs = name.index('_attributes')
       next if attribs.nil?
       next unless attribs.positive?
+
       test = name.gsub('_attributes', '')
       next unless %w(rooms days schedule notifications tracks classifiers ticket_server).include?(test)
       return "edit_#{test}"
