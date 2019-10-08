@@ -197,13 +197,13 @@ class ReportsController < BaseConferenceController
     @labels.each { |track|
       row << events.joins(:track).where(tracks: { name: track }).count
     }
-    number_of_trackless = events.count - row.inject(:+)
+    number_of_trackless = events.count - row.inject(0, :+)
     if number_of_trackless > 0
       @labels << t('not_specified')
       row << number_of_trackless
     end  
     @data << row
-    @search_count = row.inject(:+)
+    @search_count = row.inject(0, :+)
   end
 
 end
