@@ -1037,6 +1037,9 @@ pt-BR:
         recording_license: Gravando licença para esta conversa
         submission_note: 'visibiliy: admin e usuário; informação adicional.'
         tech_rider: O que é necessário para este evento?
+    listing_n_events:
+      one: Listando %{n} do evento %{count}.
+      other: Listando %{n} de eventos %{count}.
     my_events: Meus eventos
     my_rating: Minha classificação
     my_ratings: Minhas avaliações

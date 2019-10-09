@@ -1029,6 +1029,9 @@ de:
         recording_license: Aufzeichnungs-Lizenz für dieses Event
         submission_note: Sichtbar für Administratoren und Benutzer; zusätzliche Information.
         tech_rider: Was wird für diese Veranstaltung benötigt?
+    listing_n_events:
+      one: Listing %{n} des Ereignisses %{count}.
+      other: Auflisten von %{n} von %{count}-Ereignissen.
     my_events: Meine Events
     my_rating: Meine Bewertungen
     my_ratings: Meine Bewertungen

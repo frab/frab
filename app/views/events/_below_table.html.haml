@@ -1,4 +1,5 @@
 - if @num_of_matching_events > 0
+  %p= t('events_module.listing_n_events', n: @num_of_matching_events, count: @events_total)
   %p
     - if policy(@conference).manage? and @conference.mail_templates.any?
       = link_to t('events_module.toggle_send_bulk_mail'), "#send_bulk_mail_form", data: { function: 'toggle', args: { target: '#send_bulk_mail_form' } }

@@ -1054,6 +1054,9 @@ it:
         recording_license: Licenza di registrazione per questo discorso
         submission_note: 'Visibilità: amministratori e utenti; informazioni aggiuntive.'
         tech_rider: Cosa serve per questo evento?
+    listing_n_events:
+      one: Elenco di %{n} dell'evento %{count}.
+      other: Elenco di %{n} di eventi %{count}.
     my_events: I miei eventi
     my_rating: La mia nota
     my_ratings: I miei appunti

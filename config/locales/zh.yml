@@ -1027,6 +1027,9 @@ zh:
         recording_license: 录制本次演讲的许可证
         submission_note: visibiliy：管理员和用户;附加信息。
         tech_rider: 这个活动需要什么？
+    listing_n_events:
+      one: 列出%{count}事件的%{n}。
+      other: 列出%{count}事件的%{n}。
     my_events: 我的活动
     my_rating: 我的评价
     my_ratings: 我的评分

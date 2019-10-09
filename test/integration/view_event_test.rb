@@ -54,8 +54,9 @@ class ViewEventTest < ActionDispatch::IntegrationTest
   end
 
   test 'finds events for search term' do
-    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=frap&utf8=%E2%9C%93"
+    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=#{@conference.events.last.title.split.last}&utf8=%E2%9C%93"
     assert_response :success
     assert_includes @response.body, 'frap'
+    assert_includes @response.body, 'Listing 1 of 4 events'
   end
 end

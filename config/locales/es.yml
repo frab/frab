@@ -1069,6 +1069,9 @@ es:
         recording_license: Licencia de grabación para esta charla
         submission_note: 'Visibilidad: administrador y usuario; Información Adicional.'
         tech_rider: "¿Qué se necesita para este evento?"
+    listing_n_events:
+      one: Listado %{n} del evento %{count}.
+      other: Listado de eventos %{n} de %{count}.
     my_events: Mis eventos
     my_rating: Mi clasificación
     my_ratings: Mis calificaciones

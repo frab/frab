@@ -1021,6 +1021,9 @@ en:
         recording_license: Recording license for this talk
         submission_note: 'visibiliy: admin and user; additional information.'
         tech_rider: What is needed for this event?
+    listing_n_events: 
+      one: Listing %{n} of %{count} event.
+      other: Listing %{n} of %{count} events.
     my_events: My Events
     my_rating: My rating
     my_ratings: My ratings
