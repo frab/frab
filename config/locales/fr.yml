@@ -2164,6 +2164,10 @@ fr:
     save_needed_before_changes: Vous devez sauvegarder avant d’ajouter des conférences à un membre d’équipe.
   value: Valeur
   version_on_item: "%{version} sur %{item}"
+  will_paginate:
+    next_label: Suivant 🡆
+    page_gap: "…"
+    previous_label: "🡄 Précédent"
   work_in_progress: En cours…
   workshops: Ateliers
   workshops_only: Ateliers seulement

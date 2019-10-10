@@ -2152,6 +2152,10 @@ de:
     save_needed_before_changes: Sie müssen speichern, bevor Sie einem Crew-Mitglied Konferenzen hinzufügen.
   value: Wert
   version_on_item: "%{version} auf %{item}"
+  will_paginate:
+    next_label: Weiter 🡆
+    page_gap: "…"
+    previous_label: "🡄 Zurück"
   work_in_progress: Arbeite …
   workshops: Workshops
   workshops_only: Nur Workshops

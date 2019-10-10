@@ -2140,6 +2140,10 @@ zh:
     save_needed_before_changes: 在向船员添加会议之前，您需要保存。
   value: 值
   version_on_item: "%{item}上的%{version}"
+  will_paginate:
+    next_label: 下一个🡆
+    page_gap: "…"
+    previous_label: "🡄上一个"
   work_in_progress: 加工...
   workshops: 研讨会
   workshops_only: 只有研讨会
