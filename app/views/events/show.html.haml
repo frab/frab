@@ -25,8 +25,7 @@
       - elsif current_user.is_speaker_in?(@event)
         = action_button "small", t('edit'), edit_cfp_event_path(@event)
 
-    %h1= t('event')
-    %h2 #{@event.title}
+    %h1= t('titles.event', {event: @event.title})
   = render 'shared/events_tabs'
   .row
     .span16
