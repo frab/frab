@@ -55,6 +55,9 @@ class ConferencesController < BaseConferenceController
 
   def edit_notifications
     authorize @conference, :orga?
+    @accepting = @conference.events.where(state: 'accepting')
+    @rejecting = @conference.events.where(state: 'rejecting')
+    @confirmed = @conference.events.where(state: 'confirmed').scheduled
     respond_to do |format|
       format.html
     end
@@ -160,11 +163,14 @@ class ConferencesController < BaseConferenceController
 
   private
 
+  # find the nested form which was used for the update, by looking at nested
+  # attributes
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
       attribs = name.index('_attributes')
       next if attribs.nil?
       next unless attribs.positive?
+
       test = name.gsub('_attributes', '')
       next unless %w(rooms days schedule notifications tracks classifiers ticket_server).include?(test)
       return "edit_#{test}"
@@ -181,7 +187,7 @@ class ConferencesController < BaseConferenceController
 
   def allowed_params
     [
-      :acronym, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
+      :acronym, :attachment_title_is_freeform, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
       :event_state_visible, :expenses_enabled, :feedback_enabled, :max_timeslots, :program_export_base_url,
       :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_open, :schedule_version, :ticket_type,
       :title, :transport_needs_enabled,

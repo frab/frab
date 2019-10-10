@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'auth/registrations',
-    sessions: 'auth/sessions'
+    sessions: 'auth/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   scope '(:locale)' do
@@ -23,6 +24,11 @@ Rails.application.routes.draw do
     get '/user/:person_id/edit' => 'users#edit', as: 'edit_crew_user'
     patch '/user/:person_id' => 'users#update', as: 'crew_user'
     post '/user/:person_id' => 'users#create'
+
+    # submitters without a conference
+    namespace :cfp do
+      resource :user, except: %i(new create)
+    end
 
     scope path: '/:conference_acronym' do
       namespace :public do
@@ -113,6 +119,7 @@ Rails.application.routes.draw do
         collection do
           get :my
           get :ratings
+          get :attachments
           get :feedbacks
           get :start_review
           get :cards

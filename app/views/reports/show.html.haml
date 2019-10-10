@@ -2,7 +2,7 @@
   .page-header
     %h1= t('reports_module.available_reports')
   = render 'report_menu'
-  %h2 Results
+  %h2= t(@report_type, scope: 'reports_module')
   - if @people or @events
     = render 'shared/simple_search', path: request.path
   - unless @search_count.nil?

@@ -28,14 +28,15 @@ es:
         name: Nombre
       conference:
         acronym: Abreviación
-        bulk_notification_enabled: Notificaciones masivas habilitadas
+        attachment_title_is_freeform: El título del archivo adjunto es de forma libre
+        bulk_notification_enabled: Notificaciones masivas
         color: Color
         default_recording_license: Licencia de grabación predeterminada
         default_timeslots: Intervalos por defecto
         email: E-Mail
         event_state_visible: Estado del evento visible
-        expenses enabled: Gastos habilitados
-        feedback_enabled: Retroalimentación habilitada
+        expenses_enabled: Gastos
+        feedback_enabled: Retroalimentación
         max_timeslots: Máximo de intervalos
         program_export_base_url: URL de exportación del programa
         schedule_custom_css: Programar CSS personalizado
@@ -47,7 +48,7 @@ es:
         timeslot_duration: Duración de intervalo
         timezone: Huso horario
         title: Título
-        transport_needs_enabled: Necesidades de transporte habilitadas
+        transport_needs_enabled: Necesidades de transporte
       conference_export:
         locale: Lugar
       conference_user:
@@ -170,9 +171,6 @@ es:
         password_confirmation: Confirmación de clave
         remember_me: Recordarme
         role: Papel
-      video:
-        mimetype: Tipo MIME
-        url: Dirección
     errors:
       full_messages:
         format: "%{attribute}%{message}"
@@ -231,6 +229,13 @@ es:
     update_successful: "¡Los cambios se guardaron exitosamente!"
   all: Todas
   are_you_sure: "¿Estás seguro?"
+  attachments_overview_module:
+    attachments: archivos adjuntos
+    no_attachments: |
+      Aún no hay archivos adjuntos a ninguno de los eventos. Una vez que la gente
+      comience a subir archivos a sus eventos, podrá
+      ver todos los archivos adjuntos en esta pantalla.
+    no_event: Aún no hay eventos en esta conferencia. Una vez que se agregan los eventos con archivos adjuntos, aparecerán aquí.
   availabilities:
     alerts:
       available_for_day: disponible para el día %{day}
@@ -327,6 +332,8 @@ es:
     login: Iniciar sesión
     login_existing_description: Puedes iniciar sesión si has creado una cuenta para esta convocatoria o cualquier evento previo.
     login_existing_headline: Iniciar sesión con una cuenta existente
+    login_required: Después de iniciar sesión, puede ingresar su envío.
+    login_required_title: Iniciar sesión para participar
     looking_for_login_form: "¿Estás buscando el inicio de sesión de los remitentes?"
     no_confirmation_token: Su clave de confirmación no es válida. Por favor verifique el estado de su evento en la interfaz de la convocatoria.
     not_forget_personal_details: No olvide llenar sus datos personales. Por favor recuerde que siempre es posible regresar y editar su perfil usando el botón en la barra lateral.
@@ -462,6 +469,10 @@ es:
           Un identificador corto y exclusivo para su conferencia, utilizando solo minúsculas
           letras, números y guiones bajos. Esto se usará para identificar su
           conferencia en URLs, etc. Ejemplo: 'froscon2011' "
+        attachment_title_is_freeform: |
+          Si se selecciona esta opción, los remitentes pueden proporcionar el título que deseen.
+          para los archivos que cargan como archivos adjuntos. Si esta opción no está seleccionada,
+          debe seleccionar entre un conjunto de títulos preconfigurados.
         bulk_notification_enabled: |
           Si habilita esto, las notificaciones se enviarán a granel por correo
           o subsistema de boletos.
@@ -479,7 +490,7 @@ es:
           Si habilita esto, los oradores podrán buscar el estado
           de su presentación en la interfaz de cfp y confirmar su asistencia
           presionando el botón confirmar.
-        expenses_enabled: Si habilita esto, frab le permitirá rastrear los gastos de las personas
+        expenses_enabled: Si habilita esto, frab le permitirá rastrear los gastos de las personas.
         feedback_enabled: |
           Si habilita esto, la exportación de su programa incluirá enlaces a comentarios
           formulario donde los asistentes pueden calificar un evento.
@@ -572,8 +583,11 @@ es:
       link: Enlace de confirmación
       public_name: Nombre público del orador
       room: Sala de presentación
+      subtitle: Subtitular
       surname: Apellido del orador
       time: Hora de presentación
+      track: Nombre de la pista
+      type: Tipo de evento
     version: Versión %{version}
     withdrawn: Retirado
   conflict:
@@ -725,6 +739,8 @@ es:
       unconfirmed: Debes confirmar tu dirección de correo electrónico antes de continuar.
     leave_password_blank_hint: Déjelo en blanco si no desea cambiarlo
     links:
+      google_oauth2: Google
+      ldap: Servidor LDAP
       no_unlock_instructions: "¿No recibió instrucciones de desbloqueo?"
       sign_in_with: Iniciar sesión con %{provider}
     mailer:
@@ -776,6 +792,7 @@ es:
     omniauth_callbacks:
       failure: No se pudo autenticar desde %{kind} porque "%{reason}".
       success: Se ha autenticado correctamente desde la cuenta %{kind}.
+      unknown_failure: Autenticación fallida.
     passwords:
       no_token: No puede acceder a esta página sin venir de un correo electrónico de restablecimiento de contraseña. Si proviene de un correo electrónico de restablecimiento de contraseña, asegúrese de haber utilizado la URL completa provista.
       send_instructions: Recibirá un correo electrónico con instrucciones sobre cómo restablecer su contraseña en unos minutos.
@@ -904,7 +921,7 @@ es:
     notice_mails_queued: Entregas de correo en cola.
     notice_template_destroyed: La plantilla de correo fue destruida exitosamente.
     notice_template_updated: La plantilla de correo se actualizó correctamente.
-    notice_transport_need_added: La necesidad de transporte se agregó con éxito.
+    notice_template_added: La plantilla de correo se agregó con éxito.
     placeholders_hint: |
       Los siguientes marcadores de posición se pueden usar en la sección `content` de cada
       modelo.
@@ -969,8 +986,10 @@ es:
     add_event_hint: Agrega un nuevo evento.
     add_ticket: Agregar ticket
     add_ticket_hint: Crea un boleto para este evento.
+    ago: hace %{time_ago}
     all_events: Todos los eventos
     all_rating: Todas las calificaciones
+    attachments_overview: Archivos adjuntos
     average_feedback: 'Comentarios promedio:'
     average_speaker_feedback: 'Comentarios promedio como ponente:'
     cancel_event: Cancelar evento
@@ -980,6 +999,7 @@ es:
     confirm_event_hint: Confirme que el o los oradores estarán presentes y que el evento realmente tendrá lugar.
     custom_notification: Notificación personalizada
     custom_notification_hint: Agrega notificaciones personalizadas para todos los altavoces. Se enviarán en lugar de la notificación predeterminada en la siguiente ejecución de notificación masiva. Modifíquelos en la pestaña 'Editar personas'.
+    delete_rating: Eliminar calificación del evento
     edit_event: Editar evento
     edit_event_hint: Edita los datos de este evento.
     edit_people: Editar personas
@@ -1041,6 +1061,14 @@ es:
       conferencia. Sumérgete en un evento en lo que sea
       función que te gusta y el evento aparecerá en este
       lista.
+    predefined_title_types:
+      handouts: folletos
+      media: medios de comunicación
+      other: otro
+      poster: póster
+      proposal: propuesta
+      slides: diapositivas
+      video: vídeo
     print_accepted_cards: Imprimir tarjetas (solo aceptadas)
     print_accepted_cards_hint: |
       Descargue un PDF con solo los eventos aceptados como tarjetas (cuatro tarjetas por página).
@@ -1053,7 +1081,7 @@ es:
     rate_next: Califica el próximo evento
     reject_event: Rechazar evento
     reject_event_hint: Rechazar este evento El o los oradores serán notificados del rechazo por correo electrónico.
-    reject_event_no_email: Rechazar evento (no-email)
+    reject_event_no_email: Rechazar evento (sin correo electrónico)
     reject_event_no_email_hint: Rechace este evento sin enviar un correo electrónico automático.
     toggle_description: Alternar Descripción >>
     track_select: filtrar por la pista
@@ -1641,6 +1669,7 @@ es:
   no_data: Sin datos
   non_reimbursed_expenses: Gastos no reembolsados
   not_speaking: no hablando
+  not_specified: no especificado
   note: Nota
   notes: Notas
   notifications: Notificaciones
@@ -1734,6 +1763,7 @@ es:
     male: masculino
     meeting: reunión
     mobile: móvil
+    moderator: Moderador
     msn: Msn
     offer: Oferta
     orga: Organizador
@@ -1908,6 +1938,7 @@ es:
       califica un lote completo de eventos en una fila.
     notice_already_rated_everything: 'Ya has revisado todos los eventos:'
     notice_rating_created: Calificación guardada exitosamente
+    notice_rating_deleted: Calificación eliminada con éxito.
     notice_rating_saved: Calificación actualizada con éxito.
     notice_rating_updated: Nota actualizada con éxito.
     show_ratings: Mostrar calificaciones
@@ -1961,6 +1992,7 @@ es:
     admin: Administración
     coordinator: Coordinador
     crew: Tripulación
+    moderator: Moderador
     orga: Orga
     reviewer: Crítico
     submitter: Peticionario
@@ -2081,6 +2113,7 @@ es:
   title: Título
   titles:
     admin_accounts: Lista de cuentas de administrador
+    attachments_overview: Resumen de archivos adjuntos
     cfp_edit_cfp: Editar convocatoria de participación
     cfp_new_cfp: Lanzar una convocatoria de participación
     cfp_view: Llamada para Participación

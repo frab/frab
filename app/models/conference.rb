@@ -32,12 +32,13 @@ class Conference < ApplicationRecord
     :max_timeslots,
     :timeslot_duration,
     :timezone, presence: true
-  validates :feedback_enabled,
+  validates :attachment_title_is_freeform,
+    :feedback_enabled,
     :expenses_enabled,
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
   validates :acronym, uniqueness: true
-  validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
+  validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
 
@@ -79,11 +80,9 @@ class Conference < ApplicationRecord
     (Conference.has_submission(user.person) | Conference.future).select(&:call_for_participation).sort_by(&:created_at)
   end
 
-  alias own_days days
-
   def days
     return parent.days if sub_conference?
-    own_days
+    super
   end
 
   def cfp_open?
@@ -206,12 +205,6 @@ class Conference < ApplicationRecord
   # if a conference has multiple days, they sould not overlap
   def days_do_not_overlap
     return if days.count < 2
-    days = self.days.sort_by(&:start_date)
-    yesterday = days[0]
-    days[1..-1].each { |day|
-      if day.start_date < yesterday.end_date
-        errors.add(:days, "day #{day} overlaps with day before")
-      end
-    }
+    days.each{ |day| day.does_not_overlap }
   end
 end

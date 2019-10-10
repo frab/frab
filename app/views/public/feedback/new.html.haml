@@ -1,3 +1,6 @@
+- content_for :title do
+  = "Feedback | #{schedule_title}"
+
 %h2.title= t '.feedback_for', title: @event.title
 
 %p= t '.please_let_us_know'

@@ -24,6 +24,12 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
     assert_includes File.read(@dir.join("speakers/#{speaker.id}.html")), 'Introducing frap'
   end
 
+  test 'exports localized schedule' do
+    StaticSchedule::Export.new(@conference, 'de', @target_dir).run_export
+    assert_includes File.read(@dir.join('index.html')), 'Tag 3'
+    assert_includes File.read(@dir.join('events.html')), '<h1>Programm'
+  end
+
   test 'works for sub conference' do
     conference = @conference.subs.first
     conference.rooms << create(:room, conference: conference)

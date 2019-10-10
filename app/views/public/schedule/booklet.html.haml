@@ -1,3 +1,6 @@
+- content_for :title do
+  = "#{t('.events')} | #{schedule_title}"
+
 = render 'track_menu'
 
 %h2.title= t '.events'
@@ -27,9 +30,9 @@
                 = "(#{event.language})"
 
           - if event.abstract.present?
-            %p= event.abstract.truncate(250)
+            %p= simple_format event.abstract.truncate(250)
           - if event.description.present?
-            %p= event.description.truncate(1200)
+            %p= simple_format event.description.truncate(1200)
           .speakers
             %ul
               - event.speakers.each do |speaker|

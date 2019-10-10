@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :ticket do
-    remote_ticket_id '1234'
+    remote_ticket_id { '1234' }
 
     factory :event_ticket do
       association :object, factory: :event

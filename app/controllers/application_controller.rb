@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  prepend_view_path 'app/views/custom'
+
   protected
 
   def layout_if_conference
@@ -79,7 +81,7 @@ class ApplicationController < ActionController::Base
   end
 
   def flash_model_errors(model)
-    flash[:errors] = model.errors.full_messages.join
+    flash[:errors] = model.errors.full_messages.join('; ')
   end
 
   private

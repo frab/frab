@@ -1,12 +1,16 @@
 .nested-fields
   %fieldset.inputs
+    - if @conference.attachment_title_is_freeform
+      = f.input :title, as: :string
+    - else
+      = f.input :title, 
+                as: :select, 
+                collection: EventAttachment::ATTACHMENT_TITLES.map{|s| [t(s, scope: 'events_module.predefined_title_types'), s]}.to_h
+      
+    = f.input :public, as: :inline_boolean, hint: t('events_module.public_attachment_hint')
     - if f.object.new_record?
-      = f.input :title
-      = f.input :public, as: :inline_boolean, hint: t('events_module.public_attachment_hint')
       = f.input :attachment
     - else
-      = f.input :title
-      = f.input :public, as: :inline_boolean, hint: t('events_module.public_attachment_hint')
       .input
         = link_to f.object.attachment_file_name, f.object.attachment.url, style: 'float:left'
     = remove_association_link :event_attachment, f

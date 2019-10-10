@@ -79,9 +79,37 @@ class ConferencesControllerTest < ActionController::TestCase
 
   test 'should add conference_day' do
     assert_difference('Day.count') do
-      @conference.days << create(:day)
-      put :update, params: { conference: conference_params, conference_acronym: @conference.acronym }
+      put :update, params: {
+        conference: conference_params.merge(days_attributes: [attributes_for(:day)]),
+        conference_acronym: @conference.acronym
+      }
     end
+  end
+
+  test 'should add conference days and update conference' do
+    max_date = Time.now.since(1.year)
+    min_date = Time.at(1970)
+    params = conference_params.merge(
+      days_attributes: [
+        attributes_for(:day),
+        attributes_for(:day, start_date: max_date.ago(1.hour), end_date: max_date)
+      ]
+    )
+    assert_difference('Day.count', 2) do
+      put :update, params: { conference: params, conference_acronym: @conference.acronym }
+    end
+    @conference.reload
+    assert_equal max_date.to_i, @conference.end_date.to_i
+
+    params = conference_params.merge(
+      days_attributes: [
+        attributes_for(:day, start_date: min_date, end_date: min_date.since(1.hour))
+      ]
+    )
+    put :update, params: { conference: params, conference_acronym: @conference.acronym }
+    assert_response :redirect
+    @conference.reload
+    assert_equal min_date.to_i, @conference.start_date.to_i
   end
 
   test 'should create conference with feedback disabled' do

@@ -17,17 +17,17 @@
             = link_to t('page_titles.welcome'), root_path, class: "brand"
 
           - if current_user
-            %ul.nav
-              %li= link_to t('conferences'), root_path
-              - if policy(Person).manage?
-                %li= link_to t('users'), conference_users_path
+            = render 'shared/navi_user_menu'
 
             %ul.nav.secondary-nav.pull-right
               - if policy(Conference).index?
                 = render 'shared/navi_conferences_menu'
                 = render 'shared/navi_account_menu'
               - elsif current_user.person
-                = render 'shared/navi_cfp_account'
+                - if @conference
+                  = render 'shared/navi_cfp_account'
+                - else
+                  = render 'shared/navi_cfp_account_no_conference'
 
           - else
             %ul.nav.secondary-nav.pull-right

@@ -79,7 +79,7 @@ class Day < ApplicationRecord
   private
 
   def update_conference_date
-    return if conference.new_record?
+    return if conference.new_record? or conference.destroyed?
     start_date = conference.days.pluck(:start_date).min
     end_date = conference.days.pluck(:end_date).max
     conference.update(start_date: start_date, end_date: end_date)

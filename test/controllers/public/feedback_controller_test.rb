@@ -18,4 +18,11 @@ class Public::FeedbackControllerTest < ActionController::TestCase
       post :create, params: { conference_acronym: @conference.acronym, event_id: @event.id, event_feedback: { rating: 3 } }
     end
   end
+
+  test 'feedback gets created via json' do
+    assert_difference 'EventFeedback.count' do
+      post :create, params: { conference_acronym: @conference.acronym, event_id: @event.id, event_feedback: { rating: 3 } }, format: :json
+    end
+    assert_response :success
+  end
 end

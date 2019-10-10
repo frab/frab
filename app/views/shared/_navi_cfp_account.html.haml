@@ -1,26 +1,14 @@
 %li
-  - if @conference && policy(@conference).manage?
+  - if policy(@conference).manage?
     = link_to t('manage_conference', default: "Manage this conference"), conference_path(conference_acronym: @conference.acronym)
-- conferences = Conference.creation_order.has_submission(current_user.person).limit(5)
-- if conferences.to_a.count > 1
-  %li.dropdown
-    = link_to t("switch_conference", default: "Switch conference"), "#", class: "dropdown-toggle"
-    %ul.dropdown-menu
-      - conferences.each do |conference|
-        - unless @conference == conference
-          %li= link_to conference.acronym, cfp_person_path(conference_acronym: conference.acronym)
+
+= render 'shared/navi_cfp_conferences_menu'
 
 %li.dropdown
   = link_to t('show_account', default: 'Account'), '#', class: 'dropdown-toggle'
   %ul.dropdown-menu
-    - if @conference
-      %li= link_to t('cfp.edit_profile', default: 'Profile'), edit_cfp_person_path(current_user)
-      %li= link_to t("export_profile", default: "Export profile"), export_cfp_person_path(current_user.person)
-      %li= link_to t('user_settings', default: 'Settings'), edit_cfp_user_path(current_user.person)
-    - else
-      %li
-        Select a conference to edit account
+    %li= link_to t('cfp.edit_profile', default: 'Profile'), edit_cfp_person_path(current_user)
+    %li= link_to t("export_profile", default: "Export profile"), export_cfp_person_path(current_user.person)
+    %li= link_to t('user_settings', default: 'Settings'), edit_cfp_user_path(current_user.person)
     %li= link_to t('manual', default: 'Manual'), 'https://github.com/frab/frab/wiki/Manual'
     %li= link_to t('logout', default: 'Logout'), destroy_user_session_path, method: :delete
-
-

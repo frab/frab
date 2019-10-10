@@ -1,0 +1,3 @@
+<%= t('devise.mailer.unlock_instructions.headline', {email: @resource.email}) %>
+
+<%= t('devise.mailer.unlock_instructions.text', {link: unlock_url(@resource, unlock_token: @token)}) %>

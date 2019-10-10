@@ -15,6 +15,7 @@ class CfpAccountTest < FeatureTest
   test 'can edit account' do
     assert_content page, 'List of conferences'
     click_on 'Account'
-    assert_content page, 'Select a conference to edit'
+    assert_content page, 'Select a conference for more options'
+    click_on 'Settings'
   end
 end

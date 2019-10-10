@@ -101,7 +101,7 @@ module StaticSchedule
     end
 
     def qrcode_url
-      @conference.program_export_base_url
+      @conference.program_export_base_url + '/schedule.xml'
     end
   end
 end

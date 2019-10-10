@@ -21,14 +21,15 @@ en:
         name: Name
       conference:
         acronym: Acronym
-        bulk_notification_enabled: Bulk notifications enabled
+        attachment_title_is_freeform: Attachment title is freeform
+        bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license
         default_timeslots: default timeslots
         email: E-Mail
         event_state_visible: Event state visible
-        expenses enabled: Expenses enabled
-        feedback_enabled: Feedback enabled
+        expenses_enabled: Expense tracking
+        feedback_enabled: Feedback
         max_timeslots: Max. timeslots
         program_export_base_url: Program export URL
         schedule_custom_css: Schedule custom CSS
@@ -40,7 +41,7 @@ en:
         timeslot_duration: Timeslot duration
         timezone: Timezone
         title: title
-        transport_needs_enabled: Transport needs enabled
+        transport_needs_enabled: Transport needs tracking
       conference_export:
         locale: Locale
       conference_user:
@@ -54,7 +55,7 @@ en:
         end_date: End date
         start_date: start
       event:
-        abstract: summary
+        abstract: Summary
         average_feedback: Average feedback
         average_rating: Average rating
         description: Description
@@ -70,15 +71,15 @@ en:
         public: Public
         recording_license: Recording license
         speaker_count: Speaker count
-        speakers: speakers
+        speakers: Speakers
         start_time: Start time
-        state: state
+        state: State
         submission_note: Submission notes
         subtitle: Subtitle
         tech_rider: Tech rider
         time_slots: Time slots
-        title: title
-        track: track
+        title: Title
+        track: Track
       event_attachment:
         public: Public
         title: Title
@@ -156,9 +157,6 @@ en:
         password_confirmation: Password confirmation
         remember_me: Remember me
         role: Role
-      video:
-        mimetype: Mimetype
-        url: Address
     models:
       call_for_participation: Call for Participation
       classifier: classifier
@@ -187,6 +185,13 @@ en:
     update_successful: Changes saved successfully!
   all: All
   are_you_sure: Are you sure?
+  attachments_overview_module:
+    no_event: There are no events in this conference yet. Once events with file attachments are added, they will appear here.
+    no_attachments: |
+      There are no files attached to any of the events yet. Once people
+      start uploading files to their events, you will be able to
+      see all of the attachments in this screen.
+    attachments: attachments  
   availabilities:
     alerts:
       available_for_day: available for day %{day}
@@ -325,7 +330,7 @@ en:
       dates_hint: The call for participation starts at %{start_date} and ends at %{end_date}.
       deadline_passed: The hard cfp deadline has passed, no submissions are possible.
       edit_cfp_hint: Edit this Call for Participation's data
-      empty_description: The call for participation is running, but the description text is empty. frab won't link to the cfp.
+      empty_description: The call for participation is running, but the "Welcome Text" is empty. frab won't link to the cfp.
       new_events_by_day: New events by day
       submitters_interface_link: 'The interface for submitters is available at:'
       total_event_count: Total event count
@@ -345,7 +350,7 @@ en:
     to: to
     update: Update
     update_availability_notice: Thank you for specifying your availability.
-    updated: Successfully updated.
+    updated: Successfully updated. New email addresses have to reconfirmed.
     uploaded_files: Uploaded files
     welcome: Welcome
     welcome_text: Welcome to the Call for Participation. To create or review your submissions you need to login. If you are new to %{title} you need to sign up for an account.
@@ -361,7 +366,7 @@ en:
       The classifiers for this conference can only be modified with
       administration rights for the parent conference %{parent}
   clear: Clear
-  col_abstract: 'Abstract:'
+  col_abstract: 'Summary:'
   col_availability: 'Availability:'
   col_avg_audience_feedback: 'Average audience feedback:'
   col_classifiers: 'Classifiers:'
@@ -419,6 +424,10 @@ en:
           A short and unique handle for your conference, using only lower-case
           letters, numbers and underscores. This will be used to identify your
           conference in URLs etc. Example: 'froscon2011'
+        attachment_title_is_freeform: |
+          If this option is selected, submitters can provide any title they want
+          for files they upload as attachments. If this option is deselected, they
+          must select between a set of pre-configured titles.
         bulk_notification_enabled: |
           If you enable this, notifications will be sent out in bulk by mail
           or ticket subsystem.
@@ -436,7 +445,7 @@ en:
           If you enable this, speakers will be able to look up the state
           of their submission in the cfp interface and confirm their attendance
           by pressing the confirm button.
-        expenses_enabled: If you enable this, frab will allow you to track expenses of people
+        expenses_enabled: If you enable this, frab will allow you to track expenses of people.
         feedback_enabled: |
           If you enable this, your program export will include links to a feedback
           form where attendees can rate an event.
@@ -461,7 +470,7 @@ en:
           Example: 'FrOSCon'
         transport_needs_enabled: |
           If you enable this, frab will allow you to track transportation needs of
-          people
+          people.
     manage_conferences: Manage conferences
     manage_conferences_hint: Manage all conferences
     new: New
@@ -530,7 +539,10 @@ en:
       public_name: Speaker public name
       room: Room of presentation
       surname: Speaker surname
+      subtitle: Subtitle
       time: Time of presentation
+      track: Track name
+      type: Event type
     version: Version %{version}
     withdrawn: Withdrawn
   conflict:
@@ -683,6 +695,8 @@ en:
     links:
       no_unlock_instructions: Didn't receive unlock instructions?
       sign_in_with: Sign in with %{provider}
+      google_oauth2: Google
+      ldap: LDAP server
     mailer:
       confirmation_instructions:
         headline: Welcome %{email} !
@@ -732,6 +746,7 @@ en:
     omniauth_callbacks:
       failure: Could not authenticate you from %{kind} because "%{reason}".
       success: Successfully authenticated from %{kind} account.
+      unknown_failure: Authentication failed.
     passwords:
       no_token: You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided.
       send_instructions: You will receive an email with instructions on how to reset your password in a few minutes.
@@ -806,7 +821,7 @@ en:
         %{event}
 
         We can assure you that this was not an easy decision to make.
-        We hope we can still  welcome you at the conference.
+        We hope we can still welcome you at the conference.
       subject: Your submission to %{conference}
     event_schedule:
       goodbye: |
@@ -852,10 +867,10 @@ en:
     notice_mails_queued: Mail deliveries queued.
     notice_template_destroyed: Mail template was successfully destroyed.
     notice_template_updated: Mail template was successfully updated.
-    notice_transport_need_added: Transport need was successfully added.
     placeholders_hint: |
       The following place holders may be used in the `content` section of each
       template.
+    notice_template_added: Mail template was successfully added.
     send_mail: Send Mail
     template_subject: 'Subject: %{subject}'
   error_signing_in: Invalid email or password.
@@ -923,8 +938,18 @@ en:
     add_event_hint: Add a new event.
     add_ticket: Add Ticket
     add_ticket_hint: Create a ticket for this event.
+    ago: "%{time_ago} ago"
     all_events: All events
     all_rating: All ratings
+    predefined_title_types:
+      handouts: handouts
+      media: media
+      other: other
+      poster: poster
+      proposal: proposal
+      slides: slides
+      video: video
+    attachments_overview: Attachments
     average_feedback: 'Average Feedback:'
     average_speaker_feedback: 'Average feedback as speaker:'
     cancel_event: Cancel event
@@ -934,6 +959,7 @@ en:
     confirm_event_hint: Confirm that the speaker(s) will be present and that the event will actually take place.
     custom_notification: Custom notification
     custom_notification_hint: Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab.
+    delete_rating: Delete Event rating
     edit_event: Edit Event
     edit_event_hint: Edit this event's data.
     edit_people: Edit people
@@ -1007,7 +1033,7 @@ en:
     rate_next: Rate next event
     reject_event: Reject event
     reject_event_hint: Reject this event. The speaker(s) will be notified of the rejection via email.
-    reject_event_no_email: Reject event (no-email)
+    reject_event_no_email: Reject event (no email)
     reject_event_no_email_hint: Reject this event without sending an automated email.
     toggle_description: Toggle Description >>
     track_select: filter by track
@@ -1590,12 +1616,13 @@ en:
   no_data: No data
   non_reimbursed_expenses: Non-reimbursed expenses
   not_speaking: not speaking
+  not_specified: not specified
   note: Note
   notes: Notes
   notifications: Notifications
   notifications_module:
     edit_send_notifications: Edit and send notifications
-    event_without_ticket_warning: 'Attention : %{events} sans ticket :'
+    event_without_ticket_warning: 'Attention : %{events} without ticket:'
     inputs:
       hints:
         locale: Available locales for this conference and its speakers
@@ -1603,7 +1630,7 @@ en:
     no_events_tickets: No events with tickets
     possible_variables: Possible variables
     send_notification: send %{name} notifications to %{speakers} in %{count}
-    send_notification_confirm: Are you sure you want to send %{name} notifiactions for %{event}?
+    send_notification_confirm: Are you sure you want to send %{name} notifications for %{event}?
     send_notification_to_speakers: Send %{name} notifications to %{speakers} in %{event}
   number:
     currency:
@@ -1679,6 +1706,7 @@ en:
     male: Male
     meeting: Meeting
     mobile: Mobile
+    moderator: Moderator
     msn: Msn
     offer: Offer
     orga: Organisator
@@ -1853,6 +1881,7 @@ en:
       rate a whole batch of events in a row.
     notice_already_rated_everything: 'You have already reviewed all events:'
     notice_rating_created: Rating saved successfully.
+    notice_rating_deleted: Rating deleted successfully.
     notice_rating_saved: Rating updated successfully.
     notice_rating_updated: Note updated successfully.
     show_ratings: Show Ratings
@@ -1908,6 +1937,7 @@ en:
     crew: Crew
     orga: Orga
     reviewer: Reviewer
+    moderator: Moderator
     submitter: Submitter
   role_str: Role
   rooms: Rooms
@@ -2024,6 +2054,7 @@ en:
   title: Title
   titles:
     admin_accounts: List of admin accounts
+    attachments_overview: Attachments overview
     cfp_edit_cfp: Edit Call for Participation
     cfp_new_cfp: Launch a Call for Participation
     cfp_view: Call for Participation

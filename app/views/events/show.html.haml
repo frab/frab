@@ -22,6 +22,9 @@
         - if @conference.ticket_server_enabled?
           - unless @event.remote_ticket?
             = action_button "primary", t('events_module.add_ticket') , create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
+      - elsif current_user.is_speaker_in?(@event)
+        = action_button "small", t('edit'), edit_cfp_event_path(@event)
+
     %h1= t('event')
     %h2 #{@event.title}
   = render 'shared/events_tabs'
@@ -40,11 +43,11 @@
         = @event.track_name
       %p
         %b= Event.human_attribute_name(:event_type) + ':'
-        = @event.event_type
+        = t(@event.event_type, scope: :options) unless @event.event_type.blank?
       - if policy(@conference).manage?
         %p
           %b= Event.human_attribute_name(:state) + ':'
-          = @event.state
+          = t(@event.state, scope: :options) unless @event.state.blank?
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
           %b= t('col_ticket')

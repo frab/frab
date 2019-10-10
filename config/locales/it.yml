@@ -21,14 +21,15 @@ it:
         name: Nome
       conference:
         acronym: acronimo
+        attachment_title_is_freeform: Il titolo dell'allegato è a mano libera
         bulk_notification_enabled: Notifiche di gruppo
         color: colore
         default_recording_license: Licenza di registrazione predefinita
         default_timeslots: Intervallo di tempo predefinito
         email: e-mail
         event_state_visible: Stato visibile degli eventi
-        expenses enabled: Spese attivate
-        feedback_enabled: Restituzioni abilitate
+        expenses_enabled: Spese attivate
+        feedback_enabled: Restituzioni
         max_timeslots: Numero di tracce max.
         program_export_base_url: Programma l'URL di esportazione
         schedule_custom_css: CSS personalizzato per il programma
@@ -40,7 +41,7 @@ it:
         timeslot_duration: Intervallo di tempo
         timezone: fuso orario
         title: titolo
-        transport_needs_enabled: Hai bisogno di trasporto abilitato
+        transport_needs_enabled: Hai bisogno di trasporto
       conference_export:
         locale: Lingua
       conference_user:
@@ -156,9 +157,6 @@ it:
         password_confirmation: Conferma della password
         remember_me: Ricordati di me
         role: ruolo
-      video:
-        mimetype: Tipo MIME
-        url: indirizzo
     models:
       call_for_participation: Invito alla partecipazione
       classifier: classificatore
@@ -187,6 +185,13 @@ it:
     update_successful: Modifiche salvate.
   all: Tutti
   are_you_sure: Sei sicuro?
+  attachments_overview_module:
+    attachments: allegati
+    no_attachments: |
+      Non ci sono ancora file allegati a nessuno degli eventi. Una volta le persone
+      iniziare a caricare i file ai loro eventi, sarai in grado di farlo
+      vedere tutti gli allegati in questa schermata.
+    no_event: Non ci sono ancora eventi in questa conferenza. Una volta aggiunti gli eventi con file allegati, verranno visualizzati qui.
   availabilities:
     alerts:
       available_for_day: disponibile per il giorno %{day}
@@ -284,6 +289,8 @@ it:
     login: Entra
     login_existing_description: È possibile accedere se è stato creato un account per questo invito a partecipare o per un evento precedente.
     login_existing_headline: Identificazione con un account esistente
+    login_required: Dopo aver effettuato l'accesso puoi inserire la tua richiesta.
+    login_required_title: Accedi per partecipare
     looking_for_login_form: Cerchi la pagina di accesso per gli oratori?
     no_confirmation_token: La tua chiave di conferma non è valida. Si prega di verificare lo stato dell'evento sull'interfaccia Call for Participation.
     not_forget_personal_details: E non dimenticare di inserire i tuoi dati personali se non lo hai già fatto. Tieni presente che puoi sempre tornare indietro e modificare il tuo profilo utilizzando il pulsante nella barra laterale destra.
@@ -420,6 +427,10 @@ it:
           Un nome breve e univoco per la conferenza, utilizzando solo lettere
           minuscoli, numeri e caratteri di sottolineatura. Questo sarà usato per identificare
           la conferenza negli URL, ecc. Esempio: "froscon_2011"
+        attachment_title_is_freeform: |
+          Se questa opzione è selezionata, i mittenti possono fornire qualsiasi titolo desiderino
+          per i file caricati come allegati. Se questa opzione è deselezionata, essi
+          deve selezionare tra un set di titoli preconfigurati.
         bulk_notification_enabled: |
           Se abiliti questa opzione, le notifiche verranno inviate
           massa per posta, o da un sottosistema di biglietti.
@@ -439,7 +450,7 @@ it:
           e confermare la loro presenza facendo clic sul pulsante associato.
         expenses_enabled: |
           Se abiliti questa opzione, frab ti permetterà di tenere traccia delle spese
-          persone
+          persone.
         feedback_enabled: |
           Se abiliti questa opzione, l'esportazione del tuo programma includerà i collegamenti
           permettendo ai visitatori di dare il loro apprezzamento degli eventi.
@@ -529,8 +540,11 @@ it:
       link: Link di conferma
       public_name: Nome pubblico dell'altoparlante
       room: Sala di presentazione
+      subtitle: Sottotitolo
       surname: Nome dell'altoparlante
       time: Tempo di presentazione
+      track: Traccia il nome
+      type: Tipo di evento
     version: Versione %{version}
     withdrawn: abbandonato
   conflict:
@@ -556,7 +570,7 @@ it:
     - Sam
     - Sun.
     abbr_month_names:
-    -
+    - 
     - gennaio
     - febbraio
     - marzo
@@ -582,7 +596,7 @@ it:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    -
+    - 
     - gennaio
     - febbraio
     - Marte
@@ -685,6 +699,8 @@ it:
       unconfirmed: Devi convalidare il tuo indirizzo email per continuare.
     leave_password_blank_hint: Lascia vuoto se non vuoi cambiarlo
     links:
+      google_oauth2: Google
+      ldap: Server LDAP
       no_unlock_instructions: Non hai ricevuto alcuna istruzione di sblocco?
       sign_in_with: Connettiti con %{provider}
     mailer:
@@ -738,6 +754,7 @@ it:
     omniauth_callbacks:
       failure: Impossibile identificarti da %{kind} perché "%{reason}".
       success: Identificazione riuscita con il tuo account %{kind}.
+      unknown_failure: Autenticazione fallita.
     passwords:
       no_token: |
         Non puoi accedere a questa pagina senza venire da una e-mail di modifica
@@ -881,7 +898,7 @@ it:
     notice_mails_queued: Email in coda
     notice_template_destroyed: Modello di email eliminato con successo.
     notice_template_updated: Modello email aggiornato correttamente.
-    notice_transport_need_added: Hai bisogno di trasporto aggiunto con successo.
+    notice_template_added: Modello email aggiunto con successo.
     placeholders_hint: |
       Le seguenti posizioni possono essere utilizzate nella sezione `content`
       di ogni modello.
@@ -952,8 +969,10 @@ it:
     add_event_hint: Crea un nuovo evento.
     add_ticket: Aggiungi un biglietto
     add_ticket_hint: Crea un ticket per questo evento.
+    ago: "%{time_ago} fa"
     all_events: Tutti gli eventi
     all_rating: Tutte le note
+    attachments_overview: allegati
     average_feedback: 'Rendimenti medi:'
     average_speaker_feedback: 'Rendimenti medi per oratore:'
     cancel_event: Annulla l'evento
@@ -968,6 +987,7 @@ it:
       Aggiunge notifiche personalizzate per tutti gli altoparlanti.
       Verranno inviati al posto della notifica predefinita quando
       prossimo lotto. Modificali nella scheda "Modifica persone"
+    delete_rating: Elimina la valutazione degli eventi
     edit_event: Modifica evento
     edit_event_hint: Modifica i dati di questo evento
     edit_people: Modifica persone
@@ -1023,6 +1043,14 @@ it:
       Non sei ancora coinvolto in un evento per questa conferenza.
       Aggiungi te stesso a un evento per il ruolo che vuoi tenere, e
       l'evento apparirà nella lista
+    predefined_title_types:
+      handouts: dispense
+      media: media
+      other: altro
+      poster: manifesto
+      proposal: proposta
+      slides: scivoli
+      video: video
     print_accepted_cards: Stampa le carte (accettate solo)
     print_accepted_cards_hint: |
       Scarica un PDF con gli eventi accettati solo sotto forma di carte.
@@ -1235,6 +1263,7 @@ it:
     frs: Frisone orientale
     fur: friulana
     fy: Frisia occidentale
+    ga: irlandesi
     gaa: ga
     gay: Gayo
     gba: gbaya
@@ -1618,6 +1647,7 @@ it:
   no_data: Nessun dato
   non_reimbursed_expenses: Spese non rimborsate
   not_speaking: Non è un oratore
+  not_specified: non specificato
   note: nota
   notes: Note
   notifications: notifiche
@@ -1707,6 +1737,7 @@ it:
     male: maschio
     meeting: incontro
     mobile: mobile
+    moderator: Moderatore
     msn: msn
     offer: applicazione
     orga: organizzatore
@@ -1885,6 +1916,8 @@ it:
       , per iniziare una valutazione di diversi eventi.
     notice_already_rated_everything: 'Hai già recensito tutti gli eventi:'
     notice_rating_created: Nota creata con successo.
+    notice_rating_deleted: Valutazione eliminata correttamente.
+    notice_rating_saved: Valutazione aggiornata correttamente.
     notice_rating_updated: Nota aggiornata correttamente.
     show_ratings: Mostra recensioni
     start_reviewing: Inizia la valutazione
@@ -1901,6 +1934,7 @@ it:
   remove_association: Rimuovi %{name}
   reports: relazioni
   reports_module:
+    all: panoramica sulle esigenze di trasporto
     all_transportation_needs: panoramica delle esigenze di trasporto
     available_reports: Rapporti disponibili
     confirmed_events_by_track: eventi confermati dal thread
@@ -1936,6 +1970,7 @@ it:
     admin: amministratore
     coordinator: coordinatore
     crew: Membro della squadra
+    moderator: Moderatore
     orga: organizzatore
     reviewer: critico
     submitter: depositante
@@ -2056,6 +2091,7 @@ it:
   title: titolo
   titles:
     admin_accounts: Elenco di account amministratore
+    attachments_overview: Panoramica sugli allegati
     cfp_edit_cfp: Modifica l'invito per la partecipazione
     cfp_new_cfp: Avvia un invito alla partecipazione
     cfp_view: Invito alla partecipazione
