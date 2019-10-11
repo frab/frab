@@ -1778,6 +1778,12 @@ pt-BR:
     signup: Inscreva-se para frab
     unlock_instructions: frab - instruções de desbloqueio
     welcome: Bem-vindo ao frab
+  paper_trail:
+    events:
+      create: criado
+      destroy: excluído
+      touch: tocado
+      update: Atualizada
   participate: Participar
   people: Pessoas
   people_module:

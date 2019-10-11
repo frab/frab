@@ -1772,6 +1772,12 @@ it:
     signup: Registrazione a frab
     unlock_instructions: frab - Istruzioni di unwrapping
     welcome: Benvenuto a frab
+  paper_trail:
+    events:
+      create: creato
+      destroy: cancellato
+      touch: toccato
+      update: aggiornato
   participate: partecipare
   people: persone
   people_module:
