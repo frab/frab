@@ -1,6 +1,9 @@
 body {
-  padding-top: 40px;
   background-color: #eeeeee;
+}
+
+.topbar {
+  display: contents;
 }
 
 .topbar .fill {
