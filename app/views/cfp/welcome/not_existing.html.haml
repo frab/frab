@@ -9,19 +9,25 @@
         %div{class: "alert-message error fade in", "data-alert" => "alert"}
           %p= t('cfp.pages.thank_for_interest', {conference: @conference.title})
           %p= t('cfp.pages.unexisting_cfp')
-  .row
-    .span8
-    .span8
-      %h2= t("cfp.sign_up_headline")
-      %p= t("cfp.sign_up_description", title: @conference.title)
-      - if Devise.mappings[:user].registerable?
-        %p= action_button "", t("cfp.sign_up"), new_user_registration_path
-  .row
-    .span8
-      %h2= t("cfp.forgot_password_headline")
-      %p= t("cfp.forgot_password_description")
-      = action_button "", t("cfp.forgot_password_button"), new_user_password_path
-    .span8
-      %h2= t("cfp.confirmation_headline")
-      %p= t("cfp.confirmation_description")
-      = action_button "", t("cfp.confirmation_button"), new_user_confirmation_path
+  - if encourage_register
+    .row
+      .span8
+      .span8
+        %h2= t("cfp.sign_up_headline")
+        %p= t("cfp.sign_up_description", title: @conference.title)
+        - if Devise.mappings[:user].registerable?
+          %p= action_button "", t("cfp.sign_up"), new_user_registration_path
+    .row
+      .span8
+        %h2= t("cfp.forgot_password_headline")
+        %p= t("cfp.forgot_password_description")
+        = action_button "", t("cfp.forgot_password_button"), new_user_password_path
+      .span8
+        %h2= t("cfp.confirmation_headline")
+        %p= t("cfp.confirmation_description")
+        = action_button "", t("cfp.confirmation_button"), new_user_confirmation_path
+  - else
+    .row
+      .span16
+        %p= t('cfp.come_back')
+    
