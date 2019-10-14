@@ -1,28 +1,31 @@
 %table.zebra-striped
-  %tbody
-    - @versions.each do |version|
-      - user = nil
-      - if version.whodunnit
-        - begin
-          - user = User.find(version.whodunnit)
-        - rescue
-      %tr
-        %td= version.created_at.to_s(:long)
-        - if user and user.person
-          %td= image_box user.person.avatar, :small
-          %td= link_to user.person.full_name, user.person
-        -else
-          %td= image_box Person.new.avatar, :small
-          %td= t('unknown_id')
-        %td= verb_for version.event
-        %td
-          - if version.item
-            - if version.associated_id
-              = raw(t('version_on_item', {version: version.item.to_s, item: associated_link_for(version)}))
+  - begin
+    %tbody
+      - @versions.each do |version|
+        - user = nil
+        - if version.whodunnit
+          - begin
+            - user = User.find(version.whodunnit)
+          - rescue
+        %tr
+          %td= version.created_at.to_s(:long)
+          - if user and user.person
+            %td= image_box user.person.avatar, :small
+            %td= link_to user.person.full_name, user.person
+          -else
+            %td= image_box Person.new.avatar, :small
+            %td= t('unknown_id')
+          %td= verb_for version.event
+          %td
+            - if version.item
+              - if version.associated_id
+                = raw(t('version_on_item', {version: version.item.to_s, item: associated_link_for(version)}))
+              - else
+                = link_to version.item.to_s, version.item
             - else
-              = link_to version.item.to_s, version.item
-          - else
-            = version.item_type
-        %td
-          - if version.event == "update"
-            %a{href: "#", rel: "popover", :"data-placement" => "below", :"data-original-title" => t('detailed_changes'), :"data-content" => render("recent_changes/detailed_changes", version: version), :"data-html" => "true", :"data-trigger" => "manual"}= t('details')
+              = version.item_type
+          %td
+            - if version.event == "update"
+              %a{href: "#", rel: "popover", :"data-placement" => "below", :"data-original-title" => t('detailed_changes'), :"data-content" => render("recent_changes/detailed_changes", version: version), :"data-html" => "true", :"data-trigger" => "manual"}= t('details')
+  - rescue
+    = 'Not available'
