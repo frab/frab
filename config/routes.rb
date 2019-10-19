@@ -123,6 +123,7 @@ Rails.application.routes.draw do
           get :feedbacks
           get :start_review
           get :cards
+          get :export_all
           get :export_accepted
           get :export_confirmed
         end
