@@ -32,6 +32,15 @@ class EventsController < BaseConferenceController
     end
   end
 
+  def export_all
+    authorize @conference, :manage?
+    @events = @conference.events.all
+
+    respond_to do |format|
+      format.json { render :export }
+    end
+  end
+
   # current_users events
   def my
     authorize @conference, :read?
