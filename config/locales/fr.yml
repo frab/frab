@@ -2115,7 +2115,7 @@ fr:
     resend_confirmation_instructions: Renvoyer le courriel de confirmation
     session_login: Connexion
     session_signup: Inscription
-    unlock_instructions: Instructions de dévérouillage
+    unlock_instructions: Instructions de déverrouillage
   total: Total
   track: Fil
   tracks: Fils
