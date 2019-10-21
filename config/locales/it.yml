@@ -1010,6 +1010,7 @@ it:
     event_details: Dettagli dell'evento
     event_feedbacks: Resi sugli eventi
     event_ratings: Note dell'evento
+    event_type_select: filtra per tipo di evento
     events_by_gender: Eventi per genere
     events_by_language: Eventi per lingua
     events_by_state: Eventi per stato

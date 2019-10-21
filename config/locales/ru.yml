@@ -983,6 +983,7 @@ ru:
     event_details: Сведения о мероприятии
     event_feedbacks: Отзывы о событиях
     event_ratings: Рейтинг событий
+    event_type_select: фильтр по типу события
     events_by_gender: События по полу
     events_by_language: События по языку
     events_by_state: События по штатам

@@ -6,10 +6,10 @@ update_event_position = (event) ->
   $(event).css("top", td.offset().top)
   return
 
-update_unscheduled_events = (track_id = "") ->
+update_unscheduled_events = () ->
   $.ajax(
-    url: $("form#update-track").attr("action"),
-    data: {track_id: track_id},
+    url: $("form#update-filters").attr("action"),
+    data: { track_id: $("select#track_select").val(), event_type: $("select#event_type_select").val() },
     dataType: "html",
     success: (data) ->
       $("ul#unscheduled-events").html(data)
@@ -97,7 +97,12 @@ $ ->
 
   # Track filter
   $("select#track_select").change ->
-    update_unscheduled_events($(this).val())
+    update_unscheduled_events()
+    true
+
+  # Event type filter
+  $("select#event_type_select").change ->
+    update_unscheduled_events()
     true
 
   for timeslot in $("table.room td")

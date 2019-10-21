@@ -985,6 +985,7 @@ de:
     event_details: Event-Details
     event_feedbacks: Event-Feedbacks
     event_ratings: Event-Bewertungen der Reviewer
+    event_type_select: Nach Ereignistyp filtern
     events_by_gender: Events nach Geschlecht
     events_by_language: Events nach Sprache
     events_by_state: Events nach Status
