@@ -24,6 +24,7 @@ class Notification < ApplicationRecord
     'type'        => I18n.t('conferences_module.variables.type'),
     'track'       => I18n.t('conferences_module.variables.track'),
     'link'        => I18n.t('conferences_module.variables.link'),
+    'joinlink'    => I18n.t('conferences_module.variables.joinlink'),
     'date'        => I18n.t('conferences_module.variables.date'),
     'time'        => I18n.t('conferences_module.variables.time'),
     'room'        => I18n.t('conferences_module.variables.room')

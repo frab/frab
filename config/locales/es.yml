@@ -580,6 +580,7 @@ es:
       date: Fecha de presentación
       event: Título del evento
       forename: Nombre del altavoz
+      joinlink: Enlace para unirse al evento
       link: Enlace de confirmación
       public_name: Nombre público del orador
       room: Sala de presentación

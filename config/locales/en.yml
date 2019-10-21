@@ -535,6 +535,7 @@ en:
       date: Date of presentation
       event: Event title
       forename: Speaker forename
+      joinlink: Link for joining event
       link: Confirmation link
       public_name: Speaker public name
       room: Room of presentation
