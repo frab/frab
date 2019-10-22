@@ -120,8 +120,8 @@ $ ->
     td = $(this)
     $("#add-event-modal #current-time").html(td.data("time"))
     $("ul#unscheduled-events").undelegate("click")
-    $("ul#unscheduled-events").delegate("li a", "click", (click_event) ->
-      li = $(this).parent()
+    $("ul#unscheduled-events").delegate("li span#add a", "click", (click_event) ->
+      li = $(this).parent().parent()
       new_event = $("<div></div>")
       new_event.html(li.children().first().html())
       new_event.addClass("event")
