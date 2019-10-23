@@ -708,7 +708,7 @@ fr:
         subject: Instructions de confirmation
         text: 'Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
 
-'
+          '
       email_change:
         headline: Bonjour, %{email} !
         text_been_changed: |
@@ -892,9 +892,9 @@ fr:
     notice_event_updated: Évènement mis à jour avec succès.
     notice_mails_delivered: Courriels envoyés.
     notice_mails_queued: Courriels mis en file d’attente.
+    notice_template_added: Modèle de courriel ajouté avec succès.
     notice_template_destroyed: Modèle de courriel supprimé avec succès.
     notice_template_updated: Modèle de courriel mis à jour avec succès.
-    notice_template_added: Modèle de courriel ajouté avec succès.
     placeholders_hint: |
       Les emplacements suivants peuvent être utilisés dans la section `content`
       de chaque modèle.

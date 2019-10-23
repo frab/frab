@@ -710,7 +710,7 @@ it:
         subject: Istruzioni di conferma
         text: 'Ora devi confermare il tuo account cliccando sul seguente link:
 
-'
+          '
       email_change:
         headline: Ciao, %{email}!
         text_been_changed: |
@@ -896,9 +896,9 @@ it:
     notice_event_updated: Evento aggiornato con successo.
     notice_mails_delivered: Email inviate.
     notice_mails_queued: Email in coda
+    notice_template_added: Modello email aggiunto con successo.
     notice_template_destroyed: Modello di email eliminato con successo.
     notice_template_updated: Modello email aggiornato correttamente.
-    notice_template_added: Modello email aggiunto con successo.
     placeholders_hint: |
       Le seguenti posizioni possono essere utilizzate nella sezione `content`
       di ogni modello.
