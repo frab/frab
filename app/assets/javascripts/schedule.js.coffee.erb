@@ -45,6 +45,11 @@ $ ->
   $("body").delegate("div.event", "mouseenter", ->
     event_div = $(this)
     return if event_div.find("a.close").length > 0
+    show_button = $("<a href='"+event_div.data("show-event-url")+"' target=_blank><img src='<%= asset_path("external_link.svg") %>' style='height:0.8rem;'></a>")
+    show_button.addClass("close").addClass("small")
+    event_div.prepend(show_button)
+    show_button.click (click_event) -> window.open(event_div.data("show-event-url"))
+    
     unschedule = $("<a href='#'>×</a>")
     unschedule.addClass("close").addClass("small")
     event_div.prepend(unschedule)
@@ -128,6 +133,7 @@ $ ->
       new_event.attr("id", li.attr("id"))
       new_event.css("height", li.data("height"))
       new_event.data("update-url", li.data("update-url"))
+      new_event.data("show-event-url", li.data("show-event-url"))
       $("#event-pane").append(new_event)
       add_event_to_slot(new_event, td)
       make_draggable(new_event)
