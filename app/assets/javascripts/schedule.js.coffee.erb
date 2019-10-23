@@ -36,7 +36,7 @@ add_event_to_slot = (event, td, update = true) ->
         return
     )
   return
-
+  
 make_draggable = (element) ->
   element.draggable(revert: "invalid", opacity: 0.4, cursorAt: {left: 5, top: 5})
   true
@@ -78,6 +78,9 @@ $ ->
     click_event.preventDefault()
     false
   )
+  $("#add-event-modal").draggable({
+    handle: ".modal-header"
+  }); 
 
   # Buttons
   for button in $("a.toggle-room")
@@ -112,6 +115,7 @@ $ ->
 
   for timeslot in $("table.room td")
     $(timeslot).droppable(
+      accept: ".event",
       hoverClass: "event-hover",
       tolerance: "pointer",
       drop: (event, ui) ->
