@@ -1799,6 +1799,12 @@ es:
     signup: Regístrese para fraa
     unlock_instructions: frab - Desbloquear instrucciones
     welcome: Bienvenido a frab
+  paper_trail:
+    events:
+      create: creado
+      destroy: eliminado
+      touch: tocado
+      update: actualizado
   participate: Participar
   people: Personas
   people_module:

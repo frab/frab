@@ -1769,6 +1769,12 @@ fr:
     signup: Inscription à frab
     unlock_instructions: frab - Instructions de déverrouillage
     welcome: Bienvenu dans frab
+  paper_trail:
+    events:
+      create: établi
+      destroy: supprimé
+      touch: touché
+      update: mis à jour
   participate: Participer
   people: Personnes
   people_module:

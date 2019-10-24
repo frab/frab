@@ -1742,6 +1742,12 @@ en:
     signup: Sign up to frab
     unlock_instructions: frab - Unlock instructions
     welcome: Welcome to frab
+  paper_trail:
+    events:
+      create: created
+      destroy: deleted
+      touch: touched
+      update: updated
   participate: Participate
   people: People
   people_module:

@@ -1748,6 +1748,12 @@ zh:
     signup: 注册frab
     unlock_instructions: frab  - 解锁指令
     welcome: 欢迎来到frab
+  paper_trail:
+    events:
+      create: 被创造
+      destroy: 已删除
+      touch: 感动
+      update: 更新
   participate: 参加
   people: 人
   people_module:

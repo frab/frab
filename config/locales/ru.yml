@@ -1748,6 +1748,12 @@ ru:
     signup: Подпишитесь на frab
     unlock_instructions: frab - инструкции по разблокировке
     welcome: Добро пожаловать в frab
+  paper_trail:
+    events:
+      create: созданный
+      destroy: удаленный
+      touch: прикоснулся
+      update: обновленный
   participate: Принимать участие
   people: люди
   people_module:
