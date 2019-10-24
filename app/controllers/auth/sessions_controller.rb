@@ -7,7 +7,7 @@ class Auth::SessionsController < Devise::SessionsController
     # to enable a third party omniauth_providers
     if not Devise.mappings[:user].registerable? and resource_class.omniauth_providers.count == 1
       provider = resource_class.omniauth_providers.first
-      redirect_post omniauth_authorize_path(resource_name, provider)
+      redirect_post omniauth_authorize_path(resource_name, provider), options: { authenticity_token: :auto }
     else
       super
     end
