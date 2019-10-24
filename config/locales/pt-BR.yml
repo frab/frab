@@ -727,15 +727,15 @@ pt-BR:
         subject: Instruções de confirmação
         text: 'Você deve confirmar seu endereço de e-mail com o seguinte link:
 
-'
+          '
       email_change:
         headline: Olá, %{email}!
         text_been_changed: 'Estamos entrando em contato para notificá-lo de que seu e-mail foi alterado para %{email}.
 
-'
+          '
         text_being_changed: 'Estamos entrando em contato para notificá-lo de que seu e-mail está sendo alterado para %{email}.
 
-'
+          '
       email_changed:
         subject: E-mail alterado
       password_change:
@@ -887,9 +887,9 @@ pt-BR:
     notice_event_updated: Evento foi atualizado com sucesso.
     notice_mails_delivered: Mails entregues.
     notice_mails_queued: Entregas de correio enfileiradas.
+    notice_template_added: Modelo de email foi adicionado com sucesso.
     notice_template_destroyed: Modelo de email foi destruído com sucesso.
     notice_template_updated: Modelo de email foi atualizado com sucesso.
-    notice_template_added: Modelo de email foi adicionado com sucesso.
     placeholders_hint: |
       Os seguintes locais podem ser usados ​​na seção `content` de cada
       modelo.

@@ -750,15 +750,15 @@ es:
         subject: Instrucciones de confirmación
         text: 'Debes confirmar tu dirección de correo electrónico con el siguiente enlace:
 
-'
+          '
       email_change:
         headline: Hola, %{email}!
         text_been_changed: 'Nos contactamos para notificarle que su correo electrónico se ha cambiado a %{email}.
 
-'
+          '
         text_being_changed: 'Nos contactamos para notificarle que su correo electrónico se cambia a %{email}.
 
-'
+          '
       email_changed:
         subject: Correo electrónico cambiado
       password_change:
@@ -919,9 +919,9 @@ es:
     notice_event_updated: El evento fue actualizado con éxito.
     notice_mails_delivered: Correo entregado.
     notice_mails_queued: Entregas de correo en cola.
+    notice_template_added: La plantilla de correo se agregó con éxito.
     notice_template_destroyed: La plantilla de correo fue destruida exitosamente.
     notice_template_updated: La plantilla de correo se actualizó correctamente.
-    notice_template_added: La plantilla de correo se agregó con éxito.
     placeholders_hint: |
       Los siguientes marcadores de posición se pueden usar en la sección `content` de cada
       modelo.
