@@ -1,18 +1,18 @@
 %section
   .page-header
     .pull-right
-    %h1 Person: #{@person.full_name}
+    %h1= t('titles.person', {person: @person.full_name})
   = render 'shared/people_tabs'
 
   - if @transport_needs.any?
     %table.zebra-striped
       %thead
         %tr
-          %th When
-          %th Type
-          %th # of seats
-          %th Booked?
-          %th Note
+          %th= t('transport_needs_module.when')
+          %th= t('type')
+          %th= t('transport_needs_module.nb_seats')
+          %th= t('transport_needs_module.booked_question')
+          %th= t('note')
           %th
       %tbody
         - @transport_needs.each do |tn|
@@ -23,7 +23,7 @@
             %td= t_boolean(tn.booked)
             %td= tn.note
             %td
-              =action_button "small", 'Edit', edit_person_transport_need_path(@person, tn)
-              =action_button "small danger", 'Destroy', person_transport_need_path(@person, tn), data: { confirm: 'Are you sure?' }, method: :delete
+              =action_button "small", t('edit'), edit_person_transport_need_path(@person, tn)
+              =action_button "small danger", t('destroy'), person_transport_need_path(@person, tn), data: { confirm: t('are_you_sure') }, method: :delete
 
-  =action_button "small", 'New transport need', new_person_transport_need_path
+  =action_button "small", t('transport_needs_module.new_transport_need'), new_person_transport_need_path

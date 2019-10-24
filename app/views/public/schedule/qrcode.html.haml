@@ -1,4 +1,7 @@
-%h2.title QR Code
+- content_for :title do
+  = "#{t('public.schedule.nav.qrcode')} | #{schedule_title}"
+
+%h2.title= t('public.schedule.nav.qrcode')
 %p= t('.link_to_public_schedule')
 
 .qr

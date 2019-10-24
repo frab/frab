@@ -1,13 +1,12 @@
 %section
   .page-header
     .pull-right
-    %h1 Person: #{@person.full_name}
+    %h1= t('titles.person', {person: @person.full_name})
   = render 'shared/people_tabs'
   .row
     .span16
       = content do
         = inner do
-          %p.alert
-            #{@person.full_name} does not currently have any availabilities.
-            You need to submit this form.
+          %p.alert= t('availabilities.alerts.no_availabilities', {person: @person.full_name})
+
           = render 'form'

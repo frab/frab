@@ -1,5 +1,6 @@
 !!! XML
 %schedule
+  %generator{name: 'frab', version: '0.7'}
   - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
     %version= @conference.schedule_version
   %conference
@@ -25,10 +26,7 @@
               %duration= format_time_slots(event.time_slots)
               %room= room.name
               %slug= event.slug
-              - if @conference.program_export_base_url.blank?
-                %url= public_event_url(id: event.id)
-              - else
-                %url= event.static_url
+              %url= public_program_event_url(event)
               %recording
                 %license= event.recording_license
                 %optout= event.do_not_record

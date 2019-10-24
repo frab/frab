@@ -1,8 +1,8 @@
 %table.zebra-striped
   %thead
     %th.first
-    %th= t('activerecord.attributes.day.start_date')
-    %th= t('activerecord.attributes.conference.title')
+    %th= Day.human_attribute_name('start_date')
+    %th= Conference.human_attribute_name('title')
     %th= t(:actions)
   %tbody
     - collection.each do |conference|
@@ -11,9 +11,9 @@
           - if conference.logo.present?
             = image_box conference&.logo, :small
         %td
-          = l(conference.days.first.start_date.to_date)
+          = l(conference.start_date.to_date)
           \-
-          = l(conference.days.last.end_date.to_date)
+          = l(conference.end_date.to_date)
         %td= conference.title
         %td
           - if show_cfp?(current_user, conference)

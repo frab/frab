@@ -15,15 +15,18 @@ class Notification < ApplicationRecord
   scope :with_locale, ->(code) { where(arel_table[:locale].eq(code)) }
 
   VARIABLES = {
-    'conference'  => 'Conference name',
-    'public_name' => 'Speaker public name',
-    'forename'    => 'Speaker forename',
-    'surname'     => 'Speaker surname',
-    'event'       => 'Event title',
-    'link'        => 'Confirmation link',
-    'date'        => 'Date of presentation',
-    'time'        => 'Time of presentation',
-    'room'        => 'Room of presentation'
+    'conference'  => I18n.t('conferences_module.variables.conference'),
+    'public_name' => I18n.t('conferences_module.variables.public_name'),
+    'forename'    => I18n.t('conferences_module.variables.forename'),
+    'surname'     => I18n.t('conferences_module.variables.surname'),
+    'event'       => I18n.t('conferences_module.variables.event'),
+    'subtitle'    => I18n.t('conferences_module.variables.subtitle'),
+    'type'        => I18n.t('conferences_module.variables.type'),
+    'track'       => I18n.t('conferences_module.variables.track'),
+    'link'        => I18n.t('conferences_module.variables.link'),
+    'date'        => I18n.t('conferences_module.variables.date'),
+    'time'        => I18n.t('conferences_module.variables.time'),
+    'room'        => I18n.t('conferences_module.variables.room')
   }.freeze
 
   def default_text=(locale = self.locale)

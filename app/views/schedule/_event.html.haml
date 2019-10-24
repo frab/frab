@@ -2,13 +2,14 @@
         style: "height: #{event.time_slots * 20 - 7}px;",
         class: event.conflict_level,
         :"data-update-url" => schedule_update_event_path(id: event.id),
-        :"data-room" => event.room ? event.room.name.downcase : nil,
-        :"data-time" => event.start_time ? event.start_time.to_s(:rfc822) : nil }
+        :"data-room" => event.room&.name&.downcase,
+        :"data-time" => event.start_time&.to_s(:rfc822) }
+  .color-preview{ style: "background-color: ##{event.track&.color}" }
   = link_to event.title, event
   %p.small
     = by_speakers(event)
     (
-    = event.track.try(:name)
+    = event.track&.name
     \/
     = event.event_type
     )

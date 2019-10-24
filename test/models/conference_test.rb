@@ -1,25 +1,6 @@
 require 'test_helper'
 
 class ConferenceTest < ActiveSupport::TestCase
-  should have_many :availabilities
-  should have_many :classifiers
-  should have_many :conference_users
-  should have_many :days
-  should have_many :events
-  should have_many :languages
-  should have_many :notifications
-  should have_many :rooms
-  should have_many :tracks
-  should have_many :conference_exports
-  should have_one :call_for_participation
-  should have_one :ticket_server
-  should validate_presence_of :title
-  should validate_presence_of :acronym
-  should validate_presence_of :default_timeslots
-  should validate_presence_of :max_timeslots
-  should validate_presence_of :timeslot_duration
-  should validate_presence_of :timezone
-
   test 'current returns the newest conference' do
     time = Time.now
     create(:conference, created_at: time.ago(3.hour))
@@ -79,7 +60,7 @@ class ConferenceTest < ActiveSupport::TestCase
     create(:future_call_for_participation, conference: future)
     future = create(:three_day_conference, title: 'future conference')
     create(:future_call_for_participation, conference: future)
-    assert_equal 2, Conference.future.count
+    assert_equal 4, Conference.future.count
   end
 
   test 'inherits from parent conference' do
@@ -95,5 +76,14 @@ class ConferenceTest < ActiveSupport::TestCase
 
     sub_conference.days.destroy_all
     assert_equal sub_conference.days.count, parent_conference.days.count
+  end
+
+  test 'deleted tracks are removed from events' do
+    conference = create(:three_day_conference_with_events, title: 'conference')
+    event = conference.events.first
+    track = create(:track, conference: conference)
+    event.update(track: track)
+    track.destroy
+    assert_nil event.reload.track_id
   end
 end

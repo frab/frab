@@ -2,38 +2,39 @@
   .page-header
     .pull-right
       - if policy(@conference).orga?
-        = action_button "primary", "Edit", edit_call_for_participation_path, hint: "Edit this call for paper's data."
-    %h1 Call for Participation
+        = action_button "primary", t('edit'), edit_call_for_participation_path, hint: t('cfp.show.edit_cfp_hint')
+    %h1= t('titles.cfp_view')
 
   .row
     .span16
       %p
-        The interface for submitters is available at:
+        = t('cfp.show.submitters_interface_link')
         %a{href: new_user_session_url}= new_user_session_url
+        %a{href: new_user_session_url}= cfp_root_url
 
       - if @conference.call_for_participation.start_date
-        %p The call for papers starts at #{l(@conference.call_for_participation.start_date)} and ends at #{l(@conference.call_for_participation.end_date)}.
+        %p= t('cfp.show.dates_hint', {start_date: l(@conference.call_for_participation.start_date), end_date: l(@conference.call_for_participation.end_date)})
 
       - if @conference.days.empty?
         %p
-          %b Conference will not show up until days are added.
+          %b= t('cfp.show.conference_empty_days')
 
       - if cfp_hard_deadline_over?
         %p
-          %b The hard cfp deadline has passed, no submissions are possible.
+          %b= t('cfp.show.deadline_passed')
 
       - if @conference.call_for_participation&.still_running? && @conference.call_for_participation.welcome_text.blank?
         %p
-          %b The call for participation is running, but the description text is empty. frab won't link to the cfp.
+          %b= t('cfp.show.empty_description')
 
   .row
     .span16
-      %h3 New events by day
+      %h3= t('cfp.show.new_events_by_day')
       #submission_graph{style: "width: 800px; height: 300px;"}
 
   .row
     .span16
-      %h3 Total event count
+      %h3= t('cfp.show.total_event_count')
       #submission_graph-sum_to_submission_time{style: "width: 800px; height: 300px;"}
 
 :javascript

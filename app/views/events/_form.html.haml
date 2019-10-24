@@ -1,42 +1,42 @@
 = simple_form_for(@event, html: {multipart: true}) do |f|
   %fieldset.inputs
-    %legend Basic information
+    %legend= t('basic_information')
     = f.input :title
     = f.input :subtitle
     - @event.build_ticket unless @event.ticket
     = f.simple_fields_for :ticket do |ticket|
       = ticket.input :remote_ticket_id
-    = f.input :event_type, collection: Event::TYPES
+    = f.input :event_type, collection: translated_options(Event::TYPES)
     = f.association :track, collection: @conference.tracks
     = f.input :time_slots, as: :select, collection: timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes
-    = f.input :public, as: :inline_boolean, hint: "Is this event visible in the public schedule?"
+    = f.input :public, as: :inline_boolean, hint: t('events_module.inputs.hints.public')
     = image_input_box(f.object.logo)
     = f.input :logo
   %fieldset.inputs
-    %legend State
+    %legend= t('state')
     = f.input :state, collection: Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
   %fieldset.inputs
-    %legend Time and place
+    %legend= t('time_and_place')
     = f.input :start_time do
       = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
     = f.association :room, collection: @conference.rooms
   - if @conference.classifiers.any?
     = render partial: 'event_classifiers', locals: { f: f }
   %fieldset.inputs
-    %legend Detailed description
-    = f.input :abstract, input_html: {rows: 4}, hint: "One short paragraph that succinctly describes the event. (HTML)"
-    = f.input :description,input_html: {rows: 4}, hint: "A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website. (HTML)"
+    %legend= t('cfp.detailed_description')
+    = f.input :abstract, input_html: {rows: 4}, hint: t('cfp.event_abstract_hint')
+    = f.input :description,input_html: {rows: 4}, hint: t('cfp.event_description_hint')
   %fieldset.inputs
-    %legend Notes
-    = f.input :note, input_html: {rows: 2}, hint: "visibility: admin only."
-    = f.input :submission_note, input_html: {rows: 2}, hint: "visibiliy: admin and user; additional information."
+    %legend= t('notes')
+    = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')
+    = f.input :submission_note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.submission_note')
   %fieldset.inputs
-    %legend Additional Resources
-    = f.input :do_not_record, as: :inline_boolean, hint: "Will this event be recorded?"
-    = f.input :tech_rider, input_html: {rows: 2}, hint: "What is needed for this event?"
-    = f.input :recording_license, hint: "Recording license for this talk"
-    = dynamic_association :links, "Links", f
-    = dynamic_association :event_attachments, "Uploaded files", f
+    %legend= t('additional_resources')
+    = f.input :do_not_record, as: :inline_boolean, hint: t('events_module.inputs.hints.do_not_record')
+    = f.input :tech_rider, input_html: {rows: 2}, hint: t('events_module.inputs.hints.tech_rider')
+    = f.input :recording_license, hint: t('events_module.inputs.hints.recording_license')
+    = dynamic_association :links, t('links'), f
+    = dynamic_association :event_attachments, t('events_module.event_attachments'), f
   .actions
     = f.button :submit, class: 'primary'

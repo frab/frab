@@ -17,6 +17,7 @@ body {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   margin: 0 -20px;
   padding: 20px;
+  min-width: fit-content;
 }
 
 section {
@@ -92,6 +93,14 @@ div.event {
   padding: 3px;
 }
 
+div.color-preview {
+  width: 1em;
+  height: 1em;
+  border: 1px solid #808080;
+  float: left;
+  margin: .5ex 1ex .5ex .5ex;
+}
+
 div.event.fatal {
   background: #EE3333;
 }
@@ -123,6 +132,8 @@ a.assoc {
 }
 
 textarea { height: auto; width: 420px; }
+
+input[type="text"] { height: auto; width: 420px; }
 
 ul#unscheduled-events {
   height: 400px;
@@ -184,6 +195,11 @@ p.availability span {
 .category-output {
     margin-top: 8px;
     float: left;
+}
+
+.span16 {
+    width: unset;
+    min-width: 940px;
 }
 
 .nested-fields .event_event_classifiers_value {

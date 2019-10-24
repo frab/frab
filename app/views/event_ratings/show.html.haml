@@ -3,12 +3,12 @@
     .pull-right
       - if @next_event
         = actions_block do
-          = action_button "primary", "Rate next event", event_event_rating_path(@next_event), hint: "Proceed to rate the next event."
-    %h1 Event: #{@event.title}
+          = action_button "primary", t('events_module.rate_next') , event_event_rating_path(@next_event), hint: "Proceed to rate the next event."
+    %h1= t('titles.event', {event: @event.title})
   = render 'shared/events_tabs'
   .row
     .span16
-      %small= link_to "Toggle Description >>", "#", data: { function: 'toggle', args: { target: '#full_description' } }
+      %small= link_to t('events_module.toggle_description'), "#", data: { function: 'toggle', args: { target: '#full_description' } }
   #full_description{style: "display:none;"}
     .row
       .span16
@@ -17,7 +17,7 @@
     .row
       .span16
         %p
-          %b Speakers:
+          %b= t('public.schedule.event.speakers')
           %table.zebra-striped
             %tbody
               - @event.speakers.each do |person|
@@ -25,69 +25,70 @@
                   %td= image_box person.avatar, :small
                   %td= link_to person.full_name, person
                   %td
-                    %b Average feedback as speaker:
+                    %b= t('events_module.average_speaker_feedback')
                     - if average_feedback = person.average_feedback_as_speaker
                       = sprintf("%.2f / 5.0", average_feedback)
                     - else
-                      no data
+                      = t('no_data')
     .row
       .span3
         %p
-          %b Track:
+          %b= t('col_track')
           = @event.track.try(:name)
       .span3
         %p
-          %b Type:
-          = @event.event_type
+          %b= t('col_type')
+          = t(@event.event_type, scope: :options) unless @event.event_type.blank?
       .span3
         %p
-          %b Language:
+          %b= t('col_language')
           = @event.language
     .row
       .span6
         %p
-          %b Abstract:
+          %b= t('col_abstract')
           %br/
           = simple_format @event.abstract
         - if @event.links
           %p
-            %b Links:
+            %b= t('col_links')
             %br/
             - @event.links.each do |link|
               = link_to link.title, link.url
               %br/
         - unless @event.event_attachments.is_public.empty?
           %p
-            %b #{t('publich.schedule.files')}:
+            %b #{t('public.schedule.files')}:
             %br/
             - @event.event_attachments.is_public.each do |attachment|
               = link_to attachment.link_title, attachment.attachment.url
               %br/
       .span10
         %p
-          %b Description:
+          %b= t('col_description')
           %br/
           = simple_format @event.description
   .row
     .span16
-      %h2 My rating
+      %h2= t('events_module.my_rating')
       = simple_form_for @rating, url: event_event_rating_path do |f|
         %fieldset.inputs
           = f.input :rating, as: :rating
           = f.input :comment, input_html: {rows: 3}
         .actions
-          = f.button :submit, class: 'primary'
+          = f.button :submit,  class: 'primary'
+          - if @rating.persisted?
+            = action_button "small danger", t('events_module.delete_rating'), event_event_rating_path(@event), data: { confirm: t('are_you_sure')}, method: :delete
   .row
     .span16
-      %h2 All ratings
+      %h2= t('events_module.all_rating')
       - if @event_ratings.nil? or @event_ratings.count == 0
         .blank-slate
-          %p
-            No one has entered a rating for this event yet. Be the first
-            and rate the event using the form above.
+          %p= t('events_module.no_ratings')
+
       - else
         %p
-          %b Total:
+          %b= t('col_total')
           %span#total_rating
             = raty_for("total_rating", @event.average_rating)
         - if @event_ratings.count >= 1
@@ -95,9 +96,9 @@
             %thead
               %tr
                 %th
-                %th User
-                %th Rating
-                %th Comment
+                %th= t('user')
+                %th= t('rating')
+                %th= t('comment')
             %tbody
               - @event_ratings.each do |event_rating|
                 - if policy(@conference).manage?

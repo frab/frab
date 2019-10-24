@@ -2,27 +2,23 @@
   .page-header
     .pull-right
       - if policy(@conference).manage?
-        = action_button "primary", "Add event", new_event_path, hint: "Add a new event."
-        = action_button "", "Print cards", cards_events_path(format: :pdf), hint: "Download a PDF with all events as cards (four cards per page). Print this out to take your planning offline."
-        = action_button "", "Print cards (accepted only)", cards_events_path(accepted: true, format: :pdf), hint: "Download a PDF with only the accepted events as cards (four cards per page). Especially useful to plan your program schedule offline."
-    %h1 List of events
+        = action_button "primary", t('events_module.add_event'), new_event_path, hint: t('events_module.add_event_hint')
+        = action_button "", t('events_module.print_cards'), cards_events_path(format: :pdf), hint: t('events_module.print_cards_hint')
+        = action_button "", t('events_module.print_accepted_cards') , cards_events_path(accepted: true, format: :pdf), hint: t('events_module.print_accepted_cards_hint')
+    %h1= t('titles.event_list')
 
   %ul.tabs
-    %li.active= link_to "All Events", events_path
-    %li= link_to "My Events", my_events_path
-    %li= link_to "Event Ratings", ratings_events_path
+    %li.active= link_to t('events_module.all_events'), events_path
+    %li= link_to t('events_module.my_events'), my_events_path
+    %li= link_to t('events_module.attachments_overview'), attachments_events_path
+    %li= link_to t('events_module.event_ratings'), ratings_events_path
     - if @conference.feedback_enabled
-      %li= link_to "Event Feedbacks", feedbacks_events_path
+      %li= link_to t('events_module.event_feedbacks'), feedbacks_events_path
   - unless @conference.events.any?
     .row
       .span16
         .blank-slate
-          %p
-            This conference does not yet have any events.
-            Start adding events by clicking on the
-            button on the right. Or start a call for
-            papers, to allow others to submit events for
-            you to review.
+          %p= t('events_module.no_events')
   - else
     = render partial: 'filters', locals: { params: params }
     = render 'shared/search_and_table', collection: @events

@@ -23,11 +23,11 @@ class Public::ScheduleController < ApplicationController
 
   def day
     unless @day = find_day(params[:day].to_i)
-      return redirect_to public_schedule_index_path, alert: 'Failed to find day.'
+      return redirect_to public_schedule_index_path, alert: t('schedule_module.error_day_not_found')
     end
 
     if @day.rooms_with_events.empty?
-      return redirect_to public_schedule_index_path, notice: 'No events are public and scheduled.'
+      return redirect_to public_schedule_index_path, notice: t('schedule_module.error_event_not_public')
     end
 
     @view_model = ScheduleViewModel.new(@conference).for_day(@day)
@@ -95,16 +95,16 @@ class Public::ScheduleController < ApplicationController
   def find_day(day_index)
     return @conference.days.first if day_index < 1
     return @conference.days.last if day_index > @conference.days.count
+
     @conference.days[day_index - 1]
   end
 
   def maybe_authenticate_user!
     return if @conference.schedule_public
-    authenticate_user!
-    orga_only!
-  end
 
-  private
+    authenticate_user!
+    manage_only!
+  end
 
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'

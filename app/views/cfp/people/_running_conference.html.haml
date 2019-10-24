@@ -1,6 +1,5 @@
 - if @conference.schedule_open?
-  %p
-    The conference is in open mode. Self scheduling is allowed
+  %p= t('cfp.pages.conference_open_mode')
 
 
 - if @person.events_in(@conference).size > 0

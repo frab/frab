@@ -2,26 +2,26 @@
   .page-header
     .pull-right
       - if policy(@conference).manage?
-        = action_button "primary", "Edit person", edit_person_path(@person), title: "Edit this person's data."
+        = action_button "primary", t('people_module.edit_person'), edit_person_path(@person), hint: t('people_module.edit_person_hint')
       - if policy(@conference).manage?
-        = action_button "add", "Add person", new_person_path, title: "Add a new person."
-    %h1 Person: #{@person.full_name}
+        = action_button "add", t('people_module.add_person'), new_person_path, hint: t('people_module.add_person_hint')
+    %h1= t('titles.person', {person: @person.full_name})
   = render 'shared/people_tabs'
   .row
     .span16
-      %h2 Basic information
+      %h2= t('basic_information')
   .row
     .span8
       %p
-        %b Ful name:
+        %b= t('col_full_name')
         = @person.first_name
         = @person.last_name
       %p
-        %b Public name:
+        %b= t('col_public_name')
         = @person.public_name
     .span4
       %p
-        %b Email:
+        %b= t('col_email')
         = mail_to @person.email
         (#{@person.email_public? ? "public" : "non-public"})
     .span4
@@ -30,8 +30,8 @@
   .row
     .span16
       - unless @current_events.empty?
-        %h2 Events in current conference
+        %h2= t('events_module.events_in_current_conference')
         = render "feedback_table", collection: @current_events
       - unless @other_events.empty?
-        %h2 Events in other conferences
+        %h2= t('events_module.events_in_other_conferences')
         = render "feedback_table", collection: @other_events

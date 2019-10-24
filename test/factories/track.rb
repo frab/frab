@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :track_names do |n|
     "Track #{n}"
   end

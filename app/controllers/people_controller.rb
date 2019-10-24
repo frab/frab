@@ -82,7 +82,7 @@ class PeopleController < BaseConferenceController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to(@person, notice: 'Person was successfully created.') }
+        format.html { redirect_to(@person, notice: t('people_module.notice_person_created')) }
       else
         format.html { render action: 'new' }
       end
@@ -95,8 +95,9 @@ class PeopleController < BaseConferenceController
 
     respond_to do |format|
       if @person.update_attributes(person_params)
-        format.html { redirect_to(@person, notice: 'Person was successfully updated.') }
+        format.html { redirect_to(@person, notice: t('people_module.notice_person_updated')) }
       else
+        flash_model_errors(@person)
         format.html { render action: 'edit' }
       end
     end

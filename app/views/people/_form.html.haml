@@ -1,12 +1,12 @@
 = simple_form_for(@person, html: {multipart: true}) do |f|
   %fieldset.inputs
-    %legend Admin
+    %legend= t('admin')
     = f.simple_fields_for :ticket do |ticket|
       = ticket.input :remote_ticket_id
-    = f.input :note, hint: "visibility: admin only."
+    = f.input :note, hint: t('admin_visibility_only_hint')
 
   = render partial: 'shared/people_fields', locals: { person: @person, f: f }
 
   .actions
     = f.button :submit, class: 'primary'
-    = link_to "Cancel", :back, class: "btn"
+    = link_to t('cancel'), :back, class: "btn"

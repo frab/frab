@@ -1,37 +1,33 @@
 %section
   .page-header
-    %h1 Event: #{@event.title}
+    %h1= t('titles.event', {event: @event.title})
   %ul.tabs
-    %li= link_to "Event Details", @event
-    %li= link_to "People", people_event_path(@event)
-    %li= link_to "Ratings", event_event_rating_path(@event)
-    %li.active= link_to "Feedback", event_event_feedbacks_path(@event)
+    %li= link_to t('navigation.event'), @event
+    %li= link_to t('navigation.people'), people_event_path(@event)
+    %li= link_to t('navigation.ratings'), event_event_rating_path(@event)
+    %li.active= link_to t('navigation.feedbacks'), event_event_feedbacks_path(@event)
   - if @event_feedbacks.all.empty?
     .row
       .span16
         .blank-slate
-          %p
-            There is no attendee feedback for this event yet.
-          %p
-            Enable attendee feedback in the conference
-            settings and the web program schedule will include a
-            form for your attendees to provide feedback. This
-            feedback will appear here.
+          %p= t('events_module.no_attendee')
+          %p= t('events_module.no_attende_more_infos')
+
   - else
     .row
       .span16
         %p
-          %b Average Feedback:
+          %b= t('events_module.average_feedback')
           %b= number_with_precision @event.average_feedback, precision: 2
           - if @event.event_feedbacks_count
             %br
             s<sub>N-1</sub> = #{@event.feedback_standard_deviation} n = #{@event.event_feedbacks_count}
-        %h2 Comments
+        %h2= t('comments')
         %table.zebra-striped
           %thead
             %tr
-              %th Rating
-              %th Comment
+              %th= t('rating')
+              %th= t('comment')
           %tbody
             - @event_feedbacks.each do |feedback|
               - next if feedback.comment.blank?

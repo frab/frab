@@ -13,12 +13,12 @@ class OrgaAddsConferenceUserTest < FeatureTest
     visit "/#{@conference.acronym}/people/all"
     assert_content page, @person.email
     within('tr', text: @person.email) do
-      click_on('User')
+      click_on('Edit account')
     end
     assert_content page, "Edit Account: #{@person.public_name}"
 
     click_on 'Add conference user'
-    select 'orga', from: 'Role'
+    select 'Organisator', from: 'Role'
     select @conference.acronym, from: 'Conference'
     click_on 'Update User'
     assert @crew_user.is_crew?

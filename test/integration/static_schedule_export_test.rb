@@ -5,28 +5,45 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
     @conference = create(:three_day_conference_with_events_and_speakers,
                          program_export_base_url: '/')
     @target_dir = Rails.root.join('tmp', 'static_export')
+    @dir = Pathname.new(@target_dir).join(@conference.acronym)
   end
 
   test 'can run program export task' do
-    locale = 'en'
-    StaticSchedule::Export.new(@conference, locale, @target_dir).run_export
+    StaticSchedule::Export.new(@conference, 'en', @target_dir).run_export
 
-    dir = Pathname.new(@target_dir).join(@conference.acronym)
-    assert File.directory? dir
-    assert File.readable? dir.join('events.html')
-    assert_includes File.read(dir.join('index.html')), 'Day 3'
-    assert_includes File.read(dir.join('style.css')), '.cell-height1'
-    assert_includes File.read(dir.join('public_schedule.css')), 'article, '
-    assert_includes File.read(dir.join('events.html')), 'Introducing frap'
-    assert_includes File.read(dir.join('schedule/1.html')), 'Introducing frap'
+    assert File.directory? @dir
+    assert File.readable? @dir.join('events.html')
+    assert_includes File.read(@dir.join('index.html')), 'Day 3'
+    assert_includes File.read(@dir.join('style.css')), '.cell-height1'
+    assert_includes File.read(@dir.join('public_schedule.css')), 'article, '
+    assert_includes File.read(@dir.join('events.html')), 'Introducing frap'
+    assert_includes File.read(@dir.join('schedule/1.html')), 'Introducing frap'
     event = @conference.events.first
-    assert_includes File.read(dir.join("events/#{event.id}.html")), 'Introducing frap'
+    assert_includes File.read(@dir.join("events/#{event.id}.html")), 'Introducing frap'
     speaker = event.speakers.first
-    assert_includes File.read(dir.join("speakers/#{speaker.id}.html")), 'Introducing frap'
+    assert_includes File.read(@dir.join("speakers/#{speaker.id}.html")), 'Introducing frap'
+  end
+
+  test 'exports localized schedule' do
+    StaticSchedule::Export.new(@conference, 'de', @target_dir).run_export
+    assert_includes File.read(@dir.join('index.html')), 'Tag 3'
+    assert_includes File.read(@dir.join('events.html')), '<h1>Programm'
+  end
+
+  test 'works for sub conference' do
+    conference = @conference.subs.first
+    conference.rooms << create(:room, conference: conference)
+    conference.events << create(:event, conference: conference,
+                                room: conference.rooms.first,
+                                state: 'confirmed',
+                                public: true,
+                                start_time: conference.start_date)
+    event = conference.events.last
+    StaticSchedule::Export.new(@conference, 'en', @target_dir).run_export
+    assert_includes File.read(@dir.join("events/#{event.id}.html")), 'Introducing frap'
   end
 
   teardown do
-    dir = File.join(@target_dir, @conference.acronym)
-    FileUtils.remove_dir(dir) if File.exist?(dir)
+    FileUtils.remove_dir(@dir) if File.exist?(@dir)
   end
 end

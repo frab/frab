@@ -1,11 +1,11 @@
 .nested-fields
   %fieldset.inputs
-    = f.input :person_filter, hint: "Filter persons in the options menu below by their first name, last name, email address or user ID. Leave blank for no filtering." do
+    = f.input :person_filter, hint: t('people_module.inputs.hints.person_filter') do
       = text_field_tag :filter
     = f.input :person_id, collection: Person.all.sort_by(&:full_name), label_method: :full_name_annotated
-    = f.input :event_role, as: :select, collection: EventPerson::ROLES, hint: "  Coordinators are part of the conference team, they coordinate speaker attendance and events. Submitters answer the cfp to enter events into frab. Speakers take part in events, their availability matters. Moderators take part in panel discussions, their availability matters."
-    = f.input :role_state, as: :select, collection: EventPerson::STATES
+    = f.input :event_role, as: :select, collection: translated_options(EventPerson::ROLES), hint: t('people_module.inputs.hints.event_role')
+    = f.input :role_state, as: :select, collection: translated_options(EventPerson::STATES)
     - if f.object.notification_subject.present? or f.object.notification_body.present?
-      = f.input :notification_subject, label: 'Notification subject'
-      = f.input :notification_body, label: 'Notification body', as: :text, hint: 'Valid variables: ' + Notification::VARIABLES.collect{ |key, desc| '%{'+key+'}' }.join(', ')
+      = f.input :notification_subject, label: t('people_module.inputs.notification_subject')
+      = f.input :notification_body, label: t('people_module.inputs.notification_body'), as: :text, hint: t('people_module.inputs.hints.notification_body', {variables: Notification::VARIABLES.collect{ |key, desc| '%{'+key+'}' }.join(', ')})
     = remove_association_link :event_person, f

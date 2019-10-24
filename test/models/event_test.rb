@@ -1,27 +1,6 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-  should have_one :ticket
-  should have_many :conflicts_as_conflicting
-  should have_many :conflicts
-  should have_many :event_attachments
-  should have_many :event_classifiers
-  should have_many :event_feedbacks
-  should have_many :event_people
-  should have_many :event_ratings
-  should have_many :links
-  should have_many :people
-  should have_many :videos
-  should belong_to :conference
-  should belong_to :track
-  should belong_to :room
-  should accept_nested_attributes_for :event_people
-  should accept_nested_attributes_for :links
-  should accept_nested_attributes_for :event_attachments
-  should accept_nested_attributes_for :ticket
-  should validate_presence_of :title
-  should validate_presence_of :time_slots
-
   setup do
     ActionMailer::Base.deliveries = []
   end

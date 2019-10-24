@@ -58,6 +58,7 @@ class Cfp::EventsController < ApplicationController
       if @event.update_attributes(event_params)
         format.html { redirect_to(cfp_person_path, notice: t('cfp.event_updated_notice')) }
       else
+        flash_model_errors(@event)
         format.html { render action: 'edit' }
       end
     end

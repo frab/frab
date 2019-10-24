@@ -32,12 +32,13 @@ class Conference < ApplicationRecord
     :max_timeslots,
     :timeslot_duration,
     :timezone, presence: true
-  validates :feedback_enabled,
+  validates :attachment_title_is_freeform,
+    :feedback_enabled,
     :expenses_enabled,
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
   validates :acronym, uniqueness: true
-  validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
+  validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
 
@@ -65,8 +66,8 @@ class Conference < ApplicationRecord
     joins(:conference_users).where(conference_users: { user_id: user, role: 'orga' })
   }
 
-  scope :past, -> { includes(:days).where(Day.arel_table[:end_date].lt(Time.now)).order('days.start_date DESC').distinct }
-  scope :future, -> { includes(:days).where(Day.arel_table[:end_date].gt(Time.now)).order('days.start_date DESC').distinct }
+  scope :past, -> { where(Conference.arel_table[:end_date].lt(Time.now)).order('start_date DESC') }
+  scope :future, -> { where(Conference.arel_table[:end_date].gt(Time.now)).order('start_date DESC') }
 
   self.per_page = 10
 
@@ -79,11 +80,9 @@ class Conference < ApplicationRecord
     (Conference.has_submission(user.person) | Conference.future).select(&:call_for_participation).sort_by(&:created_at)
   end
 
-  alias own_days days
-
   def days
     return parent.days if sub_conference?
-    own_days
+    super
   end
 
   def cfp_open?
@@ -196,22 +195,16 @@ class Conference < ApplicationRecord
     return unless saved_change_to_timeslot_duration? and events.count.positive?
     old_duration = timeslot_duration_before_last_save
     factor = old_duration / timeslot_duration
-    Event.paper_trail.disable
+    PaperTrail.request.disable_model(Event)
     events_including_subs.each do |event|
       event.update_attributes(time_slots: event.time_slots * factor)
     end
-    Event.paper_trail.enable
+    PaperTrail.request.enable_model(Event)
   end
 
   # if a conference has multiple days, they sould not overlap
   def days_do_not_overlap
     return if days.count < 2
-    days = self.days.sort_by(&:start_date)
-    yesterday = days[0]
-    days[1..-1].each { |day|
-      if day.start_date < yesterday.end_date
-        errors.add(:days, "day #{day} overlaps with day before")
-      end
-    }
+    days.each{ |day| day.does_not_overlap }
   end
 end

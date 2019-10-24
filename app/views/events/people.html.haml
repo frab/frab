@@ -1,20 +1,15 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Edit", edit_people_event_path(@event), hint: "Add or remove people from this event."
-    %h1 Event: #{@event.title}
+      = action_button "primary", t('edit'), edit_people_event_path(@event), hint: t('titles.edit_people_for_event', {event: @event.title})
+    %h1= t('titles.event', {event: @event.title})
   = render 'shared/events_tabs'
   - if @event.event_people.count == 0
     .row
       .span16
         .blank-slate
-          %p
-            There are no people associated with this event yet.
-            Use the button on the right to add people. Please
-            note that you can only add people that are already
-            in the system. If the person you would like to add
-            is not yet in the system, go to the <em>People</em>
-            tab above and create this person first.
+          %p=raw(GitHub::Markdown.render(t('people_module.no_people_in_event')))
+
   - else
     .row
       .span16
@@ -22,13 +17,13 @@
           %thead
             %tr
               %th.first
-              %th Name
-              %th Role in this event
-              %th State
+              %th= t('name')
+              %th= t('user_role')
+              %th= t('state')
           %tbody
             - @event.event_people.each do |event_person|
               %tr
                 %td= image_box event_person.person.avatar, :small
                 %td= link_to event_person.person.full_name, event_person.person
-                %td= event_person.event_role
-                %td= event_person.role_state
+                %td= t(event_person.event_role, scope: 'role') unless event_person.event_role.blank?
+                %td= t(event_person.role_state, scope: 'options') unless event_person.role_state.blank?

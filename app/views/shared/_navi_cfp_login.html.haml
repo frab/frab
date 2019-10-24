@@ -1,5 +1,6 @@
 %li
-  = link_to t("cfp.login"), new_user_session_path
-%li
-  = link_to t("cfp.sign_up"), new_user_registration_path
+  = link_to t("cfp.login"), new_user_session_path 
+- if Devise.mappings[:user].registerable?
+  %li
+    = link_to t("cfp.sign_up"), new_user_registration_path
 

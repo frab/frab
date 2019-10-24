@@ -1,9 +1,10 @@
 !!!
 %html
   %head
-    %title
-      = @conference.title
-      \- Call for Participation
+    - if @conference
+      %title= t('titles.cfp_welcome', {conference: @conference.title})
+    - else
+      %title= home_page_title
     = stylesheet_link_tag "application"
     = javascript_include_tag "application", "admin"
     = csrf_meta_tags
@@ -12,11 +13,20 @@
       .topbar
         .fill
           .container
-            = link_to @conference.title + " - Call for Participation", root_url, class: 'brand'
+            - if @conference
+              = link_to t('titles.cfp_welcome', {conference: @conference.title}), root_url, class: 'brand'
+            - else
+              = link_to home_page_title, root_url, class: 'brand'
+
+            - if current_user
+              = render 'shared/navi_user_menu'
 
             %ul.nav.secondary-nav.pull-right
               - if current_user and current_user.person
-                = render 'shared/navi_cfp_account'
+                -if @conference
+                  = render 'shared/navi_cfp_account'
+                - else @conference
+                  = render 'shared/navi_cfp_account_no_conference'
               - else
                 = render 'shared/navi_cfp_login'
 

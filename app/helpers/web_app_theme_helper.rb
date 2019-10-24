@@ -17,7 +17,7 @@ module WebAppThemeHelper
 
   def actions_block(&block)
     content_tag(:div, id: 'actions', class: 'block') do
-      content_tag(:h3, 'Actions') + content(&block)
+      content_tag(:h3, t('actions')) + content(&block)
     end
   end
 end

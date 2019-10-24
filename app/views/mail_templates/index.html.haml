@@ -2,6 +2,6 @@
   .page-header
     .pull-right
       - if policy(@conference).orga?
-        = action_button "primary", "Add mail template", new_mail_template_path, hint: "Add a new mail template."
-    %h1 List of mail templates
+        = action_button "primary", t('emails_module.add_mail_template'), new_mail_template_path, hint: t('emails_module.add_mail_template_hint')
+    %h1= t('titles.list_mail_templates')
   = render 'shared/search_and_table', collection: @mail_templates

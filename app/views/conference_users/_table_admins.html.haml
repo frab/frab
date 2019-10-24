@@ -1,7 +1,7 @@
 %table.zebra-striped
   %thead
     %th.first
-    %th= t('activerecord.attributes.user.email')
+    %th= User.human_attribute_name('email')
     %th= t(:actions)
   %tbody
     - collection.each do |user|

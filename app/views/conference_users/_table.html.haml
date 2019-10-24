@@ -1,9 +1,9 @@
 %table.zebra-striped
   %thead
     %th.first
-    %th= t('activerecord.attributes.user.email')
-    %th= t('activerecord.attributes.conference.acronym')
-    %th= t('activerecord.attributes.conference_user.role')
+    %th= User.human_attribute_name('email')
+    %th= Conference.human_attribute_name('acronym')
+    %th= ConferenceUser.human_attribute_name('role')
     %th= t(:actions)
   %tbody
     - collection.group_by { |cu| cu.user_id }.each do |user_id, conference_users|

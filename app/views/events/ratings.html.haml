@@ -1,41 +1,36 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", "Start reviewing", start_review_events_path, hint: "Review a batch of events in a row. You will be presented with the event that has the least ratings first and can easily navigate to the next event in the row."
-    %h1 Event Ratings
+      = action_button "primary", t('ratings_module.start_reviewing'), start_review_events_path, hint: t('ratings_module.start_reviewing_hint'), disabled: @events_no_review == 0
+    %h1= t('titles.event_ratings')
   %ul.tabs
-    %li= link_to "All Events", events_path
-    %li= link_to "My Events", my_events_path
-    %li.active= link_to "Event Ratings", ratings_events_path
+    %li= link_to t('events_module.all_events'), events_path
+    %li= link_to t('events_module.my_events'), my_events_path
+    %li= link_to t('events_module.attachments_overview'), attachments_events_path
+    %li.active= link_to t('events_module.event_ratings'), ratings_events_path
     - if @conference.feedback_enabled
-      %li= link_to "Event Feedbacks", feedbacks_events_path
+      %li= link_to t('events_module.event_feedbacks'), feedbacks_events_path
   - if @events.all.empty?
     .row
       .span16
         .blank-slate
-          %p
-            There are no events in this conference yet. Once
-            you add events, they will appear here together
-            with their current ratings. You can edit your
-            rating by clicking on an event, or you can use
-            the "Start reviewing" button on the right, to
-            rate a whole batch of events in a row.
+          %p= t('ratings_module.no_event')
   - else
     = render partial: 'filters', locals: { params: params }
     .row
       .span16
-        %h2 Statistics
+        %h2= t('ratings_module.statistics')
         %p
-          %b Total number of events:
+          %b= t('ratings_module.total_number_of_events')
           = @events_total
           %br/
-          %b Total number of events without review:
+          %b= t('ratings_module.total_number_of_events_no_review')
           = @events_no_review_total
           %br/
-          %b Events you have reviewed:
+          %b= t('ratings_module.total_number_of_reviewed')
           = @events_reviewed
           %br/
-          %b Events you haven't reviewed:
+          %b= t('ratings_module.total_number_of_not_reviewed')
           = @events_no_review
     .row
       .span16
@@ -44,7 +39,7 @@
             %tr
               %th
               %th= sort_link @search, :title, term: params[:term]
-              %th= sort_link @search, :track_name, "Track", term: params[:term]
+              %th= sort_link @search, :track_name, t('track'), term: params[:term]
               %th= sort_link @search, :event_type, term: params[:term]
               - if policy(@conference).manage?
                 %th= sort_link @search, :state, term: params[:term]
@@ -52,7 +47,7 @@
               %th= sort_link @search, :event_ratings_count, term: params[:term]
               %th
           %tbody
-            - @events.each do |event|
+            - @events.includes(:track).each do |event|
               %tr
                 %td= image_box event.logo, :small
                 %td
@@ -68,6 +63,6 @@
                     = raty_for("event_rating_#{event.id}", event.average_rating)
                 %td= event.event_ratings_count
                 %td
-                  = link_to 'Show Ratings', event_event_rating_path(event), class: "btn small"
+                  = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn small"
         = actions_bar do
           = will_paginate @events

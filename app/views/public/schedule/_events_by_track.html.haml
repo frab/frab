@@ -1,5 +1,5 @@
 - content_for :track_menu do
-  %p.tracks Tracks:
+  %p.tracks= t 'col_tracks'
   %ul.tracks
     - @view_model.events_by_track.each do |track_id, events|
       - if events.count > 0 && ! track_id.nil?
@@ -21,9 +21,9 @@
       %thead
         %tr
           %th &nbsp;
-          %th= t '.title'
-          %th= t '.track'
-          %th= t '.speakers'
+          %th= Event.human_attribute_name('title')
+          %th= Event.human_attribute_name('track')
+          %th= Event.human_attribute_name('speakers')
       %tbody
         - events.each do |event|
           %tr

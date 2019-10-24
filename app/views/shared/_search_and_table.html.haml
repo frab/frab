@@ -4,7 +4,7 @@
 .row
   .span16
     - if collection.empty?
-      %p Sorry, but your search yielded no results.
+      %p= t('reports_module.no_search_results')
     - else
       = render 'table', collection: collection.to_a.uniq
       = actions_bar do

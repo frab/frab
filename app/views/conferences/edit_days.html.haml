@@ -7,15 +7,9 @@
     .row
       .span16
         .blank-slate
-          %p
-            The days for this conference are inherited from its
-            parent conference
-            ="'#{@conference.parent.title}'"
-            and can only be changed through the administration
-            interface of that conference.
+          %p= t('days_module.inherited_conference_change', {parent: @conference.parent.title})
 
-          %p
-            The currently configured days are:
+          %p= t('days_module.configured_days')
 
           %ul
             - @conference.days.each do |day|
@@ -27,10 +21,7 @@
       .row
         .span16
           .blank-slate
-            %p
-              Here you can create and edit the conference days.
-              Your 'days' can start an end anytime, but should not
-              overlap.
+            %p= t('days_module.empty_days')
     .row
       .span16
         = render 'form_days'

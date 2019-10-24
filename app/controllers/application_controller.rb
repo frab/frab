@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  prepend_view_path 'app/views/custom'
+
   protected
 
   def layout_if_conference
@@ -24,11 +26,15 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    if %w(en de es pt-BR).include?(params[:locale])
+    supported_languages = %w[en de es pt-BR fr zh ru it]
+
+    if supported_languages.include?(params[:locale])
       I18n.locale = params[:locale]
     else
-      I18n.locale = 'en'
-      params[:locale] = 'en'
+      preferred_language = http_accept_language.preferred_language_from(supported_languages) || 'en'
+
+      I18n.locale     = preferred_language
+      params[:locale] = preferred_language
     end
   end
 
@@ -75,6 +81,10 @@ class ApplicationController < ActionController::Base
     current_user.person.public_name == current_user.email
   end
 
+  def flash_model_errors(model)
+    flash[:errors] = model.errors.full_messages.join('; ')
+  end
+
   private
 
   def user_not_authorized(ex)
@@ -99,7 +109,7 @@ class ApplicationController < ActionController::Base
     return unless params.key?(:conference_acronym)
 
     conference = Conference.includes(:parent).find_by(acronym: params[:conference_acronym])
-    raise ActionController::RoutingError, 'Specified conference not found' unless conference
+    raise ActionController::RoutingError, t('conferences_module.error_specified_conference_not_found') unless conference
     conference
   end
 

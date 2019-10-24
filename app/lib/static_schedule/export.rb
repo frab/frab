@@ -13,10 +13,12 @@ module StaticSchedule
     # @param destination [String] export into this directory
     def initialize(conference, locale = 'en', destination = EXPORT_PATH)
       @conference = conference
-      @locale = locale
+      @locale = locale || 'en'
+      @destination = destination || EXPORT_PATH
+
+      I18n.locale = @locale
       @renderer = ProgramRenderer.new(@conference, @locale)
       @pages = Pages.new(@renderer, @conference)
-      @destination = destination || EXPORT_PATH
     end
 
     # create a tarball from the conference export directory
@@ -200,7 +202,7 @@ module StaticSchedule
     end
 
     def unlock_schedule
-      Conference.paper_trail.disable
+      PaperTrail.request.disable_model(Conference)
       @conference.schedule_public = true
       @conference.save!
     end
@@ -208,7 +210,7 @@ module StaticSchedule
     def lock_schedule
       @conference.schedule_public = @original_schedule_public
       @conference.save!
-      Conference.paper_trail.enable
+      PaperTrail.request.enable_model(Conference)
     end
   end
 end

@@ -2,9 +2,9 @@
   .page-header
     .pull-right
       - if policy(@conference).orga?
-        = action_button "primary", "Edit mail template", edit_mail_template_path(@mail_template), hint: "Edit this mail template."
-    %h1 Mail template '#{@mail_template.name}'
-    %b Subject: #{@mail_template.subject}
+        = action_button "primary", t('emails_module.edit_template'), edit_mail_template_path(@mail_template), hint: t('emails_module.edit_template_hint')
+    %h1= t('emails_module.edit_template_title', {template: @mail_template.name})
+    %b= t('emails_module.template_subject', {subject: @mail_template.subject})
     %pre= @mail_template.content
     %section
       .row

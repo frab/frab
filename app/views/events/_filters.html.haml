@@ -1,6 +1,6 @@
 - if params[:event_type].present? or params[:event_state].present? or params[:track_name].present?
   %p
-    %b Filters:
+    %b= t('col_filters')
     %span{:style => 'margin-left: 1em'}
       - if params[:track_name].present?
         = link_to "[x]", request.query_parameters.except(:track_name)

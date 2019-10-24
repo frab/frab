@@ -4,7 +4,8 @@ class EventRating < ApplicationRecord
   belongs_to :person
 
   after_save :update_average
-
+  after_destroy :update_average
+  
   validates :rating, presence: true
 
   validates :event, presence: true

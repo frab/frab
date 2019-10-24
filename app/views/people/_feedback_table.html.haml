@@ -2,11 +2,11 @@
   %thead
     %tr
       %th.first
-      %th Title
-      %th Track
-      %th Event type
-      %th Created at
-      %th.last Average Feedback
+      %th= t('title')
+      %th= t('track')
+      %th= Event.human_attribute_name('event_type')
+      %th= t('created_at')
+      %th.last=t('col_avg_audience_feedback')
   %tbody
     - collection.each do |event|
       %tr

@@ -32,6 +32,15 @@ class EventsController < BaseConferenceController
     end
   end
 
+  def export_all
+    authorize @conference, :manage?
+    @events = @conference.events.all
+
+    respond_to do |format|
+      format.json { render :export }
+    end
+  end
+
   # current_users events
   def my
     authorize @conference, :read?
@@ -53,6 +62,22 @@ class EventsController < BaseConferenceController
     respond_to do |format|
       format.pdf
     end
+  end
+  
+  # show a table of all events' attachments
+  def attachments
+    authorize @conference, :read?
+    
+    result = search @conference.events
+    @events = result.paginate page: page_param
+    clean_events_attributes
+    
+    attachments = EventAttachment.joins(:event).where('events.conference': @conference)
+    preset_attachment_titles_in_use = attachments.where(title: EventAttachment::ATTACHMENT_TITLES).group(:title).pluck(:title)
+    
+    @attachment_titles = EventAttachment::ATTACHMENT_TITLES & preset_attachment_titles_in_use
+    
+    @other_attachment_titles_exist = attachments.where.not(title: EventAttachment::ATTACHMENT_TITLES).any?
   end
 
   # show event ratings
@@ -85,7 +110,7 @@ class EventsController < BaseConferenceController
     authorize @conference, :read?
     ids = Event.ids_by_least_reviewed(@conference, current_user.person)
     if ids.empty?
-      redirect_to action: 'ratings', notice: 'You have already reviewed all events:'
+      redirect_to action: 'ratings', notice: t('ratings_module.notice_already_rated_everything')
     else
       session[:review_ids] = ids
       redirect_to event_event_rating_path(event_id: ids.first)
@@ -142,7 +167,7 @@ class EventsController < BaseConferenceController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to(@event, notice: 'Event was successfully created.') }
+        format.html { redirect_to(@event, notice: t('cfp.event_created_notice')) }
       else
         @start_time_options = @conference.start_times_by_day
         format.html { render action: 'new' }
@@ -156,9 +181,10 @@ class EventsController < BaseConferenceController
 
     respond_to do |format|
       if @event.update_attributes(event_params)
-        format.html { redirect_to(@event, notice: 'Event was successfully updated.') }
+        format.html { redirect_to(@event, notice: t('cfp.event_updated_notice')) }
         format.js   { head :ok }
       else
+        flash_model_errors(@event)
         @start_time_options = PossibleStartTimes.new(@event).all
         format.html { render action: 'edit' }
         format.js { render json: @event.errors, status: :unprocessable_entity }
@@ -175,23 +201,23 @@ class EventsController < BaseConferenceController
 
       # If integrated mailing is used, take care that a notification text is present.
       if @event.conference.notifications.empty?
-        return redirect_to edit_conference_path, alert: 'No notification text present. Please change the default text for your needs, before accepting/ rejecting events.'
+        return redirect_to edit_conference_path, alert: t('emails_module.error_missing_notification_text')
       end
 
-      return redirect_to(@event, alert: 'Cannot send mails: Please specify an email address for this conference.') unless @conference.email
+      return redirect_to(@event, alert: t('emails_module.error_missing_conference_email')) unless @conference.email
 
-      return redirect_to(@event, alert: 'Cannot send mails: Not all speakers have email addresses.') unless @event.speakers.all?(&:email)
+      return redirect_to(@event, alert: t('emails_module.error_missing_speaker_email')) unless @event.speakers.all?(&:email)
     end
 
-    return redirect_to(@event, alert: 'Cannot update state.') unless @event.transition_possible?(params[:transition])
+    return redirect_to(@event, alert: t('emails_module.error_state_update')) unless @event.transition_possible?(params[:transition])
 
     begin
       @event.send(:"#{params[:transition]}!", send_mail: params[:send_mail], coordinator: current_user.person)
     rescue => ex
-      return redirect_to(@event, alert: "Cannot update state: #{ex}.")
+      return redirect_to(@event, alert: t('emails_module.error_state_update_ex', {ex: ex}))
     end
 
-    redirect_to @event, notice: 'Event was successfully updated.'
+    redirect_to @event, notice: t('emails_module.notice_event_updated')
   end
 
   # add custom notifications to all the event's speakers
@@ -207,13 +233,13 @@ class EventsController < BaseConferenceController
     when 'confirmed'
       state = 'schedule'
     else
-      return redirect_to(@event, alert: 'Event not in a notifiable state.')
+      return redirect_to(@event, alert: t('emails_module.error_unnotifiable_state'))
     end
 
     begin
       @event.event_people.presenter.each { |p| p.set_default_notification(state) }
-    rescue NotificationMissingException => ex
-      return redirect_to(@event, alert: "Failed to set default notification: #{ex}.")
+    rescue Errors::NotificationMissingException => ex
+      return redirect_to(@event, alert: t('emails_module.error_failed_setting_notification', {ex: ex}))
     end
 
     redirect_to edit_people_event_path(@event)

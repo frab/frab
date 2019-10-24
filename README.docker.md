@@ -42,6 +42,8 @@ The default setup uses a sqlite3 database located in `/home/frab/data`. If you w
 
 The example docker-compose file used another postgres container as a database.
 
+Similiary, you'd want to mount `/home/frab/app/public` to persistent storage, since this is where event attachments are saved.
+
 # Running
 
 To run frab with docker-compose just run:

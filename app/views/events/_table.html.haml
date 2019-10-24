@@ -3,23 +3,23 @@
     %tr
       %th.first
       - if @search
-        %th= sort_link @search, :title, 'Title', term: params[:term]
+        %th= sort_link @search, :title, t('title'), term: params[:term]
         - if @conference.ticket_server_enabled?
-          %th= sort_link @search, :ticket_id, 'Ticket', term: params[:term]
-        %th= sort_link @search, :track_name, 'Track', term: params[:term]
-        %th= sort_link @search, :event_type, 'Type', term: params[:term]
+          %th= sort_link @search, :ticket_id, t('ticket'), term: params[:term]
+        %th= sort_link @search, :track_name, t('track'), term: params[:term]
+        %th= sort_link @search, :event_type, t('type'), term: params[:term]
         - if policy(@conference).manage?
-          %th= sort_link @search, :state, 'State', term: params[:term]
+          %th= sort_link @search, :state, t('state'), term: params[:term]
         %th= sort_link @search, :created_at, term: params[:term]
       - else
-        %th Title
+        %th= t('title')
         - if @conference.ticket_server_enabled?
-          %th Ticket
-        %th Track
-        %th Event type
+          %th= t('ticket')
+        %th= t('track')
+        %th= t('type')
         - if policy(@conference).manage?
-          %th State
-        %th Created at
+          %th= t('state')
+        %th= t('created_at')
       %th.last
   %tbody
     - collection.each do |event|
@@ -44,7 +44,9 @@
           %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
         %td= l(event.created_at.to_date)
         %td.buttons
-          = action_button "small", 'Show', event
+          = action_button "small", t('show'), event
           - if policy(@conference).manage?
-            = action_button "small", 'Edit', edit_event_path(event)
-            = action_button "small danger", 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
+            = action_button "small", t('edit'), edit_event_path(event)
+            = action_button "small danger", t('destroy'), event, data: { confirm: t('are_you_sure')}, method: :delete
+          - elsif current_user.is_speaker_in?(event)
+            = action_button "small", t('edit'), edit_cfp_event_path(event)

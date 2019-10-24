@@ -63,7 +63,7 @@ module ApplicationHelper
     options[:class] = "btn #{button_type}"
     if options[:hint]
       options[:rel] = 'popover'
-      options['data-original-title'] = 'Hint'
+      options['data-original-title'] = t('hint')
       options['data-content'] = options[:hint]
       options['data-placement'] = 'below'
       options[:hint] = nil
@@ -107,7 +107,7 @@ module ApplicationHelper
   def by_speakers(event)
     speakers = event.speakers.map { |p| link_to(p.public_name, p) }
     if speakers.present?
-      'by '.html_safe + safe_join(speakers, ', ')
+      (t('by') + ' ').html_safe + safe_join(speakers, ', ')
     else
       ''
     end

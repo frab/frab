@@ -1,12 +1,12 @@
 require 'test_helper'
 
 feature 'CanAccessHome' do
-  scenario 'the test is sound' do
+  scenario 'home page shows' do
     visit root_path
     page.must_have_content 'frab'
   end
 
-  scenario 'the test is sound with js', js: true do
+  scenario 'home page shows when js is enabled', js: true do
     visit root_path
     page.must_have_content 'frab'
   end

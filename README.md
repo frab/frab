@@ -8,84 +8,43 @@ and to create a schedule.
 [![Code Climate](https://codeclimate.com/github/frab/frab.png)](https://codeclimate.com/github/frab/frab)
 [![Docker Build Status](https://img.shields.io/docker/build/frab/frab.svg)](https://hub.docker.com/r/frab/frab/)
 
-## Background
-
-frab was originally created for the organization of [FrOSCon 2011](http://www.froscon.de).
-FrOSCon has previously used pentabarf (http://pentabarf.org), and although
-frab is a completely new implementation, it borrows heavily from pentabarf.
-
-Both FrOSCon and frab owe a lot to pentabarf. But sadly, pentabarf seems to
-be abandoned. And several problems make it hard to maintain. Thus we decided
-to create a new system.
-
 ## Current Status
 
-frab is under heavy development. There is no stable release yet.
-You may want to try to use frab regardless, but be warned, that it may
-be a rocky ride.
+frab is not under heavy development anymore.
+[Releases](https://github.com/frab/frab/releases) merely mark huge updates and
+add a changelog.  There are no separate release branches, fixes and development
+happen in master.  We want the master branch to be usable at all times.
 
-That being said, frab has been used to organize FrOSCon since 2011, a
+frab has been used to organize [FrOSCon](https://froscon.de) since 2011, a
 conference with more than 100 talks (and as many speakers) in more
 than 5 parallel tracks (plus devrooms) over 2 days.
+frab is also used by the [Chaos Communication Congress](https://events.ccc.de).
 
-The [frab wiki](https://github.com/frab/frab/wiki) hosts a list of conferences using frab.
-Take a look at the [screenshots](https://github.com/frab/frab/wiki/Screenshots) to get an idea
-of what frab does. The [manual](https://github.com/frab/frab/wiki/Manual) can be found in the wiki.
+The frab wiki hosts a [list of conferences using frab](https://github.com/frab/frab/wiki).
+*Feel free to add your conference to the wiki*.
+
+Take a look at the [screenshots](https://github.com/frab/frab/wiki/Screenshots)
+to get an idea of what frab does. The [full
+manual](https://github.com/frab/frab/wiki/Manual) can be found in the wiki.
 
 ## Installing
 
-frab is a pretty standard Ruby on Rails (version 5.0) application.
+frab is a pretty standard Ruby on Rails application.
 There should be plenty of tutorials online on how to install,
 deploy and setup these.
 
 See [installation](INSTALL.md) for more frab specific information.
 
+It's possible to run frab via [docker](https://github.com/frab/frab/blob/master/README.docker.md), or on a [PaaS](https://github.com/frab/frab/blob/master/README.PaaS.md) like heroku or dokku.
+
 ## Rake Tasks
 
-### Export / Import conferences
+These are executed from the command line to export conferences and static
+schedules, send emails or help with development.  The manual has a chapter on
+[rake tasks for production](https://github.com/frab/frab/wiki/Manual#managing-frab-in-production).
 
-Creates a folder under tmp/frab\_export containing serialized data and
-all attachments:
-
-    RAILS_ENV=production CONFERENCE=acronym rake frab:conference_export
-
-Import a conference into another frab:
-
-    RAILS_ENV=production rake frab:conference_import
-
-### Sending Mails
-
-    RAILS_ENV=production rake frab:bulk_mailer subject="Conference Invite" from=conference@example.org emails=emails.lst body=body.txt.erb
-
-### Migrating from pentabarf
-
-frab comes with a script that offers limited capabilities of
-migrating data from pentabarf. For it to work, you need access
-to pentabarf's database and configure it in config/database.yml
-under the key "pentabarf".
-
-Then simply run
-
-    rake pentabarf:import:all
-
-Please note, that the script has not been tested with HEAD
-and will most probably not work. If you still want to try it
-out, checkout the code at the revision the script was last
-changed at and upgrade the code and migrate the database
-from there.
-
-### Create fake data
-
-For development, it might be helpful to have some fake data around that allows for better testing.
-The following command will create a bunch of tracks, persons and events in a random existing
-conference. Call it multiple times if you need more records.
-
-    rake frab:add_fake_data
-
-You may also call the following tasks manually.
-
-    rake frab:add_fake_tracks
-    rake frab:add_fake_persons
+More documentation on available [rake tasks](https://github.com/frab/frab/wiki/Rake%20Tasks) can be found in the wiki
+or by running `rails -D`.
 
 ## Ticket Server
 
@@ -95,10 +54,17 @@ a ticket to a request tracker.
 
 The ticket server type can be configured for every conference.
 
-The iPHoneHandle support needs to be installed in OTRS.
+Install the iPHoneHandle support if you're using OTRS.
 
+## History
 
-   rake frab:add_fake_events
+frab was originally created for the organization of [FrOSCon 2011](http://www.froscon.de).
+FrOSCon has previously used pentabarf (http://pentabarf.org), and although
+frab is a completely new implementation, it borrows heavily from pentabarf.
+
+Both FrOSCon and frab owe a lot to pentabarf. But sadly, pentabarf seems to
+be abandoned. And several problems make it hard to maintain. Thus we decided
+to create a new system.
 
 ## Contact
 

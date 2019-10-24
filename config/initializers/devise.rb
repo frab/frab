@@ -15,7 +15,7 @@ Devise.setup do |config|
   config.mailer_sender = ENV.fetch('FROM_EMAIL', 'please-change-me-at-config-initializers-devise@example.com')
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'FrabDeviseMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -251,6 +251,25 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  if ENV['GOOGLE_CLIENT_ID'].present?
+    config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], skip_jwt: true
+  end
+
+  if ENV['LDAP_HOST'].present?
+    config.omniauth :ldap,
+      :strategy_class => OmniAuth::Strategies::LDAP,
+      :title => ENV['LDAP_PROMPT_TITLE'],
+      :host => ENV['LDAP_HOST'],
+      :port => ENV['LDAP_PORT'],
+      :method => ENV.fetch('LDAP_METHOD','').downcase.to_sym,
+      :base => ENV['LDAP_BASE_DN'],
+      :uid => ENV['LDAP_UID'],
+      :name_proc => Proc.new {|name| name.gsub(/@.*$/,'')},
+      :bind_dn => ENV['LDAP_BIND_DN'],
+      :password => ENV['LDAP_BIND_PASSWORD']
+  end
+
+  OmniAuth.config.logger = Rails.logger if Rails.env.development?
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

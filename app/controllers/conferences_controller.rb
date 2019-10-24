@@ -55,6 +55,9 @@ class ConferencesController < BaseConferenceController
 
   def edit_notifications
     authorize @conference, :orga?
+    @accepting = @conference.events.where(state: 'accepting')
+    @rejecting = @conference.events.where(state: 'rejecting')
+    @confirmed = @conference.events.where(state: 'confirmed').scheduled
     respond_to do |format|
       format.html
     end
@@ -105,7 +108,7 @@ class ConferencesController < BaseConferenceController
   def send_notification
     authorize @conference, :orga?
     SendBulkTicketJob.new.async.perform @conference, params[:notification]
-    redirect_to edit_notifications_conference_path, notice: 'Bulk notifications for events in ' + params[:notification] + ' enqueued.'
+    redirect_to edit_notifications_conference_path, notice: t('conferences_module.notice_bulk_notification_queued', {notification: params[:notification]})
   end
 
   # POST /conferences
@@ -119,7 +122,7 @@ class ConferencesController < BaseConferenceController
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to(conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully created.') }
+        format.html { redirect_to(conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_created')) }
       else
         @possible_parents = Conference.where(parent: nil)
         flash[:errors] = @conference.errors.full_messages.join
@@ -133,10 +136,9 @@ class ConferencesController < BaseConferenceController
     authorize @conference, :orga?
     respond_to do |format|
       if @conference.update_attributes(existing_conference_params)
-        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: 'Conference was successfully updated.') }
+        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_updated')) }
       else
-        # redirect to the right nested form page
-        flash[:errors] = @conference.errors.full_messages.join
+        flash_model_errors(@conference)
         format.html { render action: get_previous_nested_form(existing_conference_params) }
       end
     end
@@ -161,11 +163,14 @@ class ConferencesController < BaseConferenceController
 
   private
 
+  # find the nested form which was used for the update, by looking at nested
+  # attributes
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
       attribs = name.index('_attributes')
       next if attribs.nil?
       next unless attribs.positive?
+
       test = name.gsub('_attributes', '')
       next unless %w(rooms days schedule notifications tracks classifiers ticket_server).include?(test)
       return "edit_#{test}"
@@ -182,7 +187,7 @@ class ConferencesController < BaseConferenceController
 
   def allowed_params
     [
-      :acronym, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
+      :acronym, :attachment_title_is_freeform, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
       :event_state_visible, :expenses_enabled, :feedback_enabled, :max_timeslots, :program_export_base_url,
       :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_open, :schedule_version, :ticket_type,
       :title, :transport_needs_enabled,

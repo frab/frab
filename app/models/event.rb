@@ -17,7 +17,6 @@ class Event < ApplicationRecord
   has_many :event_classifiers, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :people, through: :event_people
-  has_many :videos, dependent: :destroy
 
   belongs_to :conference
   belongs_to :track, optional: true
@@ -58,6 +57,11 @@ class Event < ApplicationRecord
     least_reviewed -= already_reviewed
     least_reviewed
   end
+  
+  def localized_event_type(locale = nil)
+    return '' unless event_type.present?
+    I18n.t(event_type, scope: 'options', locale: locale)
+  end
 
   def track_name
     track.try(:name)
@@ -65,6 +69,11 @@ class Event < ApplicationRecord
 
   def end_time
     start_time.since((time_slots * conference.timeslot_duration).minutes)
+  end
+  
+  def people_involved_or_reviewing
+    ids = event_ratings.pluck(:person_id) + event_people.pluck(:person_id)
+    Person.where(id: ids.uniq)
   end
 
   def duration_in_minutes
@@ -133,10 +142,6 @@ class Event < ApplicationRecord
       separator: '_',
       omission: ''
     ).to_str
-  end
-
-  def static_url
-    File.join conference.program_export_base_url, "events/#{id}.html"
   end
 
   def logo_path(size = :large)
