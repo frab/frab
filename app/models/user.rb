@@ -115,6 +115,10 @@ class User < ApplicationRecord
   def is_speaker_in?(event)
     person.events.exists?(event.id)
   end
+  
+  def credentials_editable?
+    provider.blank?
+  end
 
   private
 
