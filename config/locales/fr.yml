@@ -12,7 +12,7 @@ fr:
       call_for_participation:
         contact_email: Courriel de contact
         end_date: Date de fin
-        hard_deadline: Date de fin finale
+        hard_deadline: Date de fin définitive
         info_url: URL d’information
         start_date: Date d’ouverture
         welcome_text: Texte de bienvenue
@@ -48,8 +48,8 @@ fr:
         conference_id: Conférence
         role: Rôle
       conflict:
-        conflict_type: Type conflictuel
-        conflicting_event_id: Évènement conflictuel
+        conflict_type: Type en conflit
+        conflicting_event_id: Évènement en conflit
         severity: Sévérité
       day:
         end_date: Fin
@@ -159,7 +159,7 @@ fr:
         role: Rôle
     models:
       call_for_participation: Appel à participation
-      classifier: classificateur
+      classifier: catégorie
       conference: conférence
       conference_user: Participant aux conférences
       day: jour
@@ -178,7 +178,7 @@ fr:
   add_association: Ajouter %{name}
   additional_resources: Ressources supplémentaires
   admin: Admin
-  admin_accounts: Comptes administateurs
+  admin_accounts: Comptes administrateurs
   admin_visibility_only_hint: 'Visibilité : admin seulement.'
   alert_notifications:
     update_failed: Impossible d’enregistrer les modifications.
@@ -188,9 +188,9 @@ fr:
   attachments_overview_module:
     attachments: pièces jointes
     no_attachments: |
-      Il n'y a pas encore de fichier attaché à aucun des événements. Une fois les gens
-      commencer à télécharger des fichiers à leurs événements, vous pourrez
-      voir toutes les pièces jointes dans cet écran.
+      Il n'y a pas de fichier attaché à aucun des événements. Une fois que les orateurs
+      auront commencé à téléverser des fichiers dans leurs événements, vous pourrez
+      voir les voir ici.
     no_event: Il n'y a pas encore d'événements dans cette conférence. Une fois que les événements comportant des pièces jointes sont ajoutés, ils apparaissent ici.
   availabilities:
     alerts:
@@ -209,8 +209,8 @@ fr:
   call_for_participation: Appel à participation
   cancel: Annuler
   cfp:
-    abstract_hint: Un petit paragraphe qui vous décrit succintement. (HTML)
-    avatar_hint: Uploader une nouvelle photo.
+    abstract_hint: Un petit paragraphe qui vous décrit succintement. (balises HTML possibles)
+    avatar_hint: Téléverser une nouvelle photo.
     back: Retour
     basic_information: Informations de base
     bio: Bio
@@ -219,7 +219,7 @@ fr:
     changed_from: changé de
     classifiers_hint: Aidez votre audience et examinateurs à comprendre votre proposition. Choisissez et pondérez ensuite les catégories appropriées.
     come_back: Revenez quand l'appel à la participation est ouvert!
-    conference_in_the_past: Vous ne pouvez pas proposer de talk, parceque cette conférence est passée.
+    conference_in_the_past: Vous ne pouvez pas faire de proposition, parce que cette conférence a eu lieu dans le passé.
     confirm: confirmez
     confirm_attendance: Confirmer la présence
     confirm_attendance_explanation: Veuillez cliquer sur le bouton pour re-confirmer que vous parlerez à cet évènement
@@ -228,7 +228,7 @@ fr:
     confirmation_headline: Je me suis inscrit mais n’ai pas reçu le courriel d’instructions
     confirmation_instructions_sent: Les instructions de confirmation ont été envoyées à l’adresse que vous avez indiquée.
     contact_data: Données de contact
-    contact_description_html: Si vous avez un probème ou une question, n’hésitez pas à nous contacter à %{mail_to}
+    contact_description_html: Si vous avez un problème ou une question, n’hésitez pas à nous contacter à %{mail_to}
     contact_headline: Contact
     create_event_headline: Créer un nouvel évènement
     current_password_hint: nous avons besoin de votre mot de passe pour confirmer ces changements.
@@ -250,7 +250,7 @@ fr:
     event_confirmed: Évènement confirmé
     event_created_notice: L’évènement a été créé avec succès.
     event_description_hint: Une description plus longue de l’évènement. Utilisez cet espace pour donner plus de détails. L’extrait et la description seront visibles sur le site de la conférence. (HTML)
-    event_time_slots_hint: Durée de votre évènement, en heures et minutes. Pour des talks standards, laissez les paramètres par défaut.
+    event_time_slots_hint: Durée de votre évènement, en heures et minutes. Pour des présentations standards, laissez les paramètres par défaut.
     event_updated_notice: L’évènenement a été mis à jour avec succès.
     event_withdrawn_notice: Votre proposition a été retirée.
     events_submitted: 'Évènements que vous avez déjà proposés :'
@@ -265,12 +265,12 @@ fr:
     input_appreciation: 'Nous apprécions réellement votre participation. N’hésitez pas à proposer ou à rejoindre un autre évènement :'
     inputs:
       hints:
-        contact_email: Une adresse de courriel à laquelle vos participants peuvent vous contacter s’ils ont des questions.
-        end_date: Sélectionnez la date butoir pour la soumission de papiers. Cette date sera affichée mais ne clôturera pas les dépôts
+        contact_email: Une adresse de courriel à laquelle votre public peut vous contacter s’il a des questions.
+        end_date: Sélectionnez la date butoir pour la soumission. Cette date sera affichée mais ne clôturera pas les dépôts
         hard_deadline: |
           Sélectionez la date butoir finale. Aucun dépôt ne sera autorisé après cette date. Si vous souhaitez
-          laiser les dépôts ouverts indéfiniment, laissez ces champs vides.
-        info_url: Une page web contenant des informations supplémentaires à propos de cet appel à participer. Veuiller entrer une URL complète.
+          laisser les dépôts ouverts indéfiniment, laissez ces champs vides.
+        info_url: Une page web contenant des informations supplémentaires à propos de cet appel à participer. Veuillez entrer une URL complète.
         start_date: Sélectionnez la date à laquelle l’appel sera ouvert au public.
         welcome_text: Entrez un message de bienvenue ou des instructions supplémentaires que vous souhaitez afficher à vos participants. (HTML)
     join_alternative: 'Où trouver un autre jeton d’invitation :'
@@ -302,7 +302,7 @@ fr:
       event_confirm_attendence: Confirmer ma présence
       event_confirmation_request: 'Votre confirmation est requise pour l’événement : **%{event}**.'
       not_started_cfp: |
-        Malheureusement, l’appel à participation n’a pas encore commencé. Veuillez nous en excuser
+        Malheureusement, l’appel à participation n’est pas encore commencé. Veuillez nous en excuser
         et nous laisser un peu plus de temps pour le préparer.
       profile_data: 'Données du profil :'
       start_date_tip: |
@@ -314,10 +314,10 @@ fr:
     password_updated: Mot de passe mis à jour avec succès.
     person_created_notice: Profil créé avec succès.
     person_updated_notice: Profil mis à jour avec succès.
-    personal_details_description: Veuillez remplir le formulaire suivant pour nous (et, si vôtre propositions sont acceptées, les participants) permettre de vous connaître un peu mieux.
+    personal_details_description: Veuillez remplir le formulaire suivant pour nous permettre de vous connaître un peu mieux, ainsi que les visiteurs, si la proposition est acceptée. 
     personal_details_headline: Détails personnels - Laissez-nous vous connaître
     personal_details_later: Vous pouvez remplir le strict minimum et revenir plus tard pour compléter.
-    phone_numbers: Numéros de téléphone
+    phone_numbers: Numéro de téléphone
     problem_sending_password_reset_instructions: Impossible d’envoyer les instructions de changement de mot de passe. Veuillez vérifier le courriel saisi.
     public_name_hint: C’est le nom qui sera affiché dans le programme public.
     resend_confirmation_button: Renvoyer les instructions de confirmation
@@ -341,7 +341,7 @@ fr:
     sign_up: Inscription
     sign_up_description: Si vous êtes nouveau sur %{title}, prenez le temps de créer un compte. C’est facile et rapide.
     sign_up_headline: Créer un nouveau compte
-    signed_up: Vous êtes enregitré(e). Un courriel avec les instructions de confirmation a été envoyé à l’adresse fournie. Veuillez suivre ces instructions pour valider votre enregistrement.
+    signed_up: Vous êtes enregistré(e). Un courriel avec les instructions de confirmation a été envoyé à l’adresse fournie. Veuillez suivre ces instructions pour valider votre enregistrement.
     specify_availability: 'Veuillez nous donner vos disponibilités pour cet évènement : '
     submission_note_hint: Visible pour les admins et les utilisateurs, contient des informations additionnelles.
     submit_another_event: Proposer un autre évènement
@@ -349,25 +349,25 @@ fr:
     successfully_confirmed: Votre compte a été confirmé. Merci de nous avoir rejoint !
     take_time_to_submit: 'Veuillez prendre le temps de soumettre votre proposition ou de vous joindre à un événement existant :'
     thanks_for_confirmation: Merci d’avoir confirmé votre participation.
-    thanks_for_interest: Merci de vôtre intérêt pour participer à %{title}.
+    thanks_for_interest: Merci de vôtre intérêt à participer à %{title}.
     to: en
     update: Mettre à jour
     update_availability_notice: Merci d’avoir spécifié vos disponibilités.
     updated: Mis à jour avec succès.
-    uploaded_files: Fichiés uploadés
+    uploaded_files: Fichiers uploadés
     welcome: Bienvenue
     welcome_text: Bienvenue dans l’Appel à participation. Pour créer ou gérer vos propositions, vous devez vous identifier. Si vous êtes nouveau sur %{title}, vous aurez besoin de créer un compte.
     withdraw: retirer
     withdrawal_confirmation: Êtes-vous sûr(e) de vouloir supprimer cet évènement de l’Appel à participation ?
-  classifiers: Classificateurs
+  classifiers: Catégories
   classifiers_module:
-    current_classifiers: 'Les classificateurs actuellement configurés sont :'
+    current_classifiers: 'Les catégories actuellement configurées sont :'
     empty_classifiers: |
-      Vous pouvez créer et éditer les classificateurs que les personnes
+      Vous pouvez créer et éditer les catégories que les personnes
       peuvent donner à leurs évènements
     modify_classifier_with_parent: |
-      Les classificateurs pour cette conférence peuvent être seulement
-      modifiés avec les droits d’administration de la conférence parente :
+      Les catégories pour cette conférence peuvent être seulement
+      modifiées avec les droits d’administration de la conférence parente :
       %{parent}
   clear: Effacer
   col_abstract: 'Résumé :'
@@ -436,7 +436,7 @@ fr:
           Si vous activez cette option, les notifications seront envoyées en
           masse par mail, ou par un sous-systeme de tickets.
         color: Vous pouvez définir une couleur pour la conférence.
-        default_recording_license: License d’enregistrement par défaut pour un talk
+        default_recording_license: License d’enregistrement par défaut pour une présentation
         default_timeslots: |
           Quelle est la durée par défaut d’un évènement ? Exemple : Si vous
           choisissez des plages de 15 minutes pour les pauses, mais que votre
@@ -478,7 +478,7 @@ fr:
           Le nom de la conférence, tel qu’il apparaîtra sur les différentes
           pages du site. Exemple : "FrOSCon".
         transport_needs_enabled: |
-          Si vous activez cette option, frab ous permettra de suivre les besoins
+          Si vous activez cette option, frab vous permettra de suivre les besoins
           de transports des personnes.
     manage_conferences: Gérer les conférences
     manage_conferences_hint: Gérer toutes les conférences
@@ -517,14 +517,14 @@ fr:
     show_no_event: |
       Cette conférence n’a pas encore d’évènements. (Notez qu’à travers Frab, le
       terme _évènement_ est utilisé en référence à chaque session de vos
-      conférences, peu importe si c’est un talk, un atelier ou autre.
+      conférences, peu importe si c’est une présentation, un atelier ou autre.
 
       Commencez à ajouter des évènements en cliquant sur l’onglet "Évènements".
       Ou démarrez un _Appel à participation_ pour permettre à d’autres
       de proposer des évènements pour la conférence.
     show_welcome: |
       Bienvenue ! Il semble que vous veniez tout juste de créer
-      cette conférence. Une bonne étape à faire serait d’aller
+      cette conférence. Une première étape serait d’aller
       dans l’onglet "Paramètres de conférence" pour ajouter une
       salle. Ce sera nécessaire pour préparer votre programmation.
     statistics: Statistiques
@@ -663,7 +663,7 @@ fr:
   days_module:
     configured_days: 'Les jours actuellement configurés sont :'
     empty_days: |
-      Ici, vous pouvez créer et éditer et les jours de la conférence.
+      Ici, vous pouvez créer et éditer les jours de la conférence.
       Les "jours" peuvent démarrer n’importe quand, mais ne doivent pas
       se chevaucher.
     inherited_conference_change: |
@@ -690,8 +690,8 @@ fr:
       already_authenticated: Vous êtes déjà autentifé(e).
       inactive: Votre compte n’est pas encore activé.
       invalid: "%{authentication_keys} ou mot de passe invalide."
-      last_attempt: Il vous reste un essai avant le verouillage de votre compte.
-      locked: Votre compte est vérouillé.
+      last_attempt: Il vous reste un essai avant le verrouillage de votre compte.
+      locked: Votre compte est verrouillé.
       not_found_in_database: "%{authentication_keys} ou mot de passe invalide."
       timeout: Votre session a expiré. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez être identifié(e) pour pouvoir continuer.
@@ -700,7 +700,7 @@ fr:
     links:
       google_oauth2: Google
       ldap: Serveur LDAP
-      no_unlock_instructions: Vous n’avez pas reçu d’instructions de déverouillage ?
+      no_unlock_instructions: Vous n’avez pas reçu d’instructions de déverrouillage ?
       sign_in_with: Se connecter avec %{provider}
     mailer:
       confirmation_instructions:
@@ -709,7 +709,7 @@ fr:
         subject: Instructions de confirmation
         text: 'Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
 
-'
+          '
       email_change:
         headline: Bonjour, %{email} !
         text_been_changed: |
@@ -742,12 +742,12 @@ fr:
         subject: Instructions de changement de mot de passe
       unlock_instructions:
         headline: Bonjour, %{email} !
-        subject: Instructions de dévérouillage
+        subject: Instructions de déverrouillage
         text: |
-          Votre compte a été vérouillé suite à un nombre excessif de tentatives
+          Votre compte a été verrouillé suite à un nombre excessif de tentatives
           de connexions.
 
-          Cliquez sur le lien suivant pour dévérouiller votre compte.
+          Cliquez sur le lien suivant pour déverrouiller votre compte.
 
           %{link}
     omniauth_callbacks:
@@ -781,26 +781,26 @@ fr:
       update_needs_confirmation: "Vous avez mis à jour votre compte avec succès. Pour autant, nous devons vérifier \nvotre nouvelle adresse. Veuillez suivre le lien de confirmation envoyé à l'adresse indiquée.\n"
       updated: Votre compte a été mis à jour avec succès.
     resend_password_instructions: Renvoyer les instructions de changement
-    resend_unlock_instructions: Renvoyer les instructions de dévérouillage
+    resend_unlock_instructions: Renvoyer les instructions de déverrouillage
     sessions:
       already_signed_out: Déconnecté(e) avec succès.
       signed_in: Identifié(e) avec succès.
       signed_out: Déconnecté(e) avec succès.
-    unlock_my_account: Dévérouiller mon compte
+    unlock_my_account: Déverrouiller mon compte
     unlocks:
       send_instructions: |
-        Vous allez recevoir un courriel avec les instructions de dévérouillage dans
+        Vous allez recevoir un courriel avec les instructions de déverrouillage dans
         quelques minutes.
       send_paranoid_instructions: |
         Si votre compte existe, vous allez recevoir un courriel avec les instructions
-        de dévérouillage dans quelques minutes.
-      unlocked: Votre compte a été dévérouillé avec succès. Veuillez vous identifier pour continuer.
+        de déverrouillage dans quelques minutes.
+      unlocked: Votre compte a été déverrouillé avec succès. Veuillez vous identifier pour continuer.
     update_account: Mettre à jour mon compte
     waiting_for_confirmation: En attente de confirmation pour l’adresse %{email}
   edit: Éditer
   edit_account: Éditer le compte
   edit_conference: Éditer la conférence
-  edit_conference_classifiers: Éditer les classificateurs de la conférence
+  edit_conference_classifiers: Éditer les catégories de la conférence
   edit_conference_days: Éditer les jours de la conférence
   edit_conference_rooms: Éditer les salles de la conférence
   edit_conference_schedule: Modifier la programmation de la conférence
@@ -893,9 +893,9 @@ fr:
     notice_event_updated: Évènement mis à jour avec succès.
     notice_mails_delivered: Courriels envoyés.
     notice_mails_queued: Courriels mis en file d’attente.
+    notice_template_added: Modèle de courriel ajouté avec succès.
     notice_template_destroyed: Modèle de courriel supprimé avec succès.
     notice_template_updated: Modèle de courriel mis à jour avec succès.
-    notice_template_added: Modèle de courriel ajouté avec succès.
     placeholders_hint: |
       Les emplacements suivants peuvent être utilisés dans la section `content`
       de chaque modèle.
@@ -924,7 +924,7 @@ fr:
       not_a_number: n’est pas un nombre
       not_an_integer: doit être un nombre entier
       not_found: non trouvé
-      not_locked: n’était pas vérouillé
+      not_locked: n’était pas verrouillé
       not_saved:
         one: 'Une erreur a empêché ce %{resource} d’être enregistré :'
         other: "%{count} erreurs ont empêché ce %{resource} d’être enregistré :"
@@ -938,13 +938,13 @@ fr:
       taken: est déjà pris
       too_long:
         one: est trop long (le maximum est 1 caractère)
-        other: est trop long (le maximum est %{count} charactères)
+        other: est trop long (le maximum est %{count} caractères)
       too_short:
-        one: est trop court (le minimum est 1 charactère)
-        other: est trop court (le minimum est %{count} charactères)
+        one: est trop court (le minimum est 1 caractère)
+        other: est trop court (le minimum est %{count} caractères)
       wrong_length:
-        one: est de mauvaise longeur (doit être de 1 charactère)
-        other: est de mauvaise longeur (doit être %{count} charactères)
+        one: est de mauvaise longueur (doit être de 1 caractère)
+        other: est de mauvaise longueur (doit être %{count} caractères)
     template:
       body: 'Il y a des problèmes avec les champs suivants :'
       header:
@@ -974,7 +974,7 @@ fr:
     average_speaker_feedback: 'Moyenne des retours par orateur :'
     cancel_event: Annuler l’évènement
     cancel_event_hint: |
-      Définit cet évènement comme annulé. Généralement, celà veut dire que l’orateur
+      Définit cet évènement comme annulé. Généralement, cela veut dire que l’orateur
       a dû annuler sa session.
     col_toggle_rooms: 'Sélectionner les salles :'
     confirm_event: Confirmer l’évènement
@@ -1000,13 +1000,14 @@ fr:
       les organiser ici.
     error_no_room: |
       Avant de pouvoir programmer des évènements, vous devez au moins avoir
-      ajouter une salle pour cette conférence.
+      ajouté une salle pour cette conférence.
       Allez dans les _Paramètres_, pour ajouter une salle.
     event_attachments: Fichiers uploadés
     event_classifiers: Catégories d’évènement
     event_details: Détails de l’évènement
     event_feedbacks: Retours sur les évènements
     event_ratings: Notes de l’évènement
+    event_type_select: filtrer par type d'événement
     events_by_gender: Évènements par genre
     events_by_language: Évènements par langue
     events_by_state: Évènements par etat
@@ -1046,11 +1047,11 @@ fr:
       other: autre
       poster: affiche
       proposal: proposition
-      slides: glissades
+      slides: présentation
       video: vidéo
-    print_accepted_cards: Imprimer les cartes (accéptés seulement)
+    print_accepted_cards: Imprimer les cartes (acceptées seulement)
     print_accepted_cards_hint: |
-      Téléchargez un PDF avec les évènements accéptés seulement, sous forme de cartes.
+      Téléchargez un PDF avec les évènements acceptés seulement, sous forme de cartes.
       Imprimez-le pour planifier votre programmation hors-ligne.
     print_cards: Imprimer les cartes
     print_cards_hint: |
@@ -1079,7 +1080,7 @@ fr:
   export_profile: Exporter le profil
   features: Caractéristiques additionnelles
   feedback: Retours
-  feedback_system: Système de retours
+  feedback_system: Système de retour
   frab_footer: |
     [frab](http://frab.github.io/frab/) est un système de gestion de conférences.
     Il permet de gérer les soumissions, les talks et orateurs, ainsi que de créer les
@@ -1616,7 +1617,7 @@ fr:
       booklet: Livret
       timeline: Chronologie
   lectures: Conférences
-  lectures_commited: Conférences engagées
+  lectures_commited: Conférences soumisses
   lectures_confirmed: Conférences confirmées
   lectures_only: Conférences seulement
   lectures_unconfirmed: Conférences non confirmées
@@ -1654,7 +1655,7 @@ fr:
     inputs:
       hints:
         locale: Langues disponibles pour cette conférence et ses orateurs.
-    missing_locale: 'Impossible d’envoyer des notification groupées : les notification en %{locales} sont manquantes.'
+    missing_locale: 'Impossible d’envoyer des notification groupées : les notifications en %{locales} sont manquantes.'
     no_events_tickets: Pas d’évènements avec des tickets.
     possible_variables: Variables possibles
     send_notification: Envoyer des notifications %{name} %{speakers} in %{count}
@@ -1767,7 +1768,7 @@ fr:
     my_profile: frab - Mon profil
     resend_confirmation: frab - Renvoyer les instructions de confirmation
     signup: Inscription à frab
-    unlock_instructions: frab - Instructions de dévérouillage
+    unlock_instructions: frab - Instructions de déverrouillage
     welcome: Bienvenu dans frab
   participate: Participer
   people: Personnes
@@ -1831,7 +1832,7 @@ fr:
         how_would_you_rate: Comment noteriez-vous cet évènement ? Sur une échelle de 1 à 5, avec 1 la moins bonne note.
         please_let_us_know: 'Laissez-nous connaître votre ressenti sur cet évènement :'
         submit_feedback: Envoyer mon retour
-        what_did_you_like: Qu'avez-vous aimé ? Detesté ? Comment peut-on améliorer cet évènement ? Merci de partager vôtre ressenti.
+        what_did_you_like: Qu'avez-vous aimé ? Detesté ? Comment peut-on améliorer cet évènement ? Merci de partager votre ressenti.
       thank_you:
         return: Retour au programme
         thank_you: Merci !
@@ -2022,7 +2023,7 @@ fr:
         schedule_version: Quelle est la version actuelle de la programmation ?
     notice_no_base_url: program_export_base_url doit être défini
     notice_no_export_found: Aucun export trouvé.
-    notice_static_export_started: L’export static du programme a commencé. Veuillez recharger cette pâge dans une minute.
+    notice_static_export_started: L’export static du programme a commencé. Veuillez recharger cette page dans une minute.
     preview_public_schedule: Prévisualiser le programme public
     preview_schedule: Prévisualiser le programme
     publish_html_export: Exporter en HTML
@@ -2116,7 +2117,7 @@ fr:
     resend_confirmation_instructions: Renvoyer le courriel de confirmation
     session_login: Connexion
     session_signup: Inscription
-    unlock_instructions: Instructions de dévérouillage
+    unlock_instructions: Instructions de déverrouillage
   total: Total
   track: Fil
   tracks: Fils
@@ -2165,6 +2166,10 @@ fr:
     save_needed_before_changes: Vous devez sauvegarder avant d’ajouter des conférences à un membre d’équipe.
   value: Valeur
   version_on_item: "%{version} sur %{item}"
+  will_paginate:
+    next_label: Suivant 🡆
+    page_gap: "…"
+    previous_label: "🡄 Précédent"
   work_in_progress: En cours…
   workshops: Ateliers
   workshops_only: Ateliers seulement

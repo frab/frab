@@ -6,10 +6,10 @@ update_event_position = (event) ->
   $(event).css("top", td.offset().top)
   return
 
-update_unscheduled_events = (track_id = "") ->
+update_unscheduled_events = () ->
   $.ajax(
-    url: $("form#update-track").attr("action"),
-    data: {track_id: track_id},
+    url: $("form#update-filters").attr("action"),
+    data: { track_id: $("select#track_select").val(), event_type: $("select#event_type_select").val() },
     dataType: "html",
     success: (data) ->
       $("ul#unscheduled-events").html(data)
@@ -36,7 +36,7 @@ add_event_to_slot = (event, td, update = true) ->
         return
     )
   return
-
+  
 make_draggable = (element) ->
   element.draggable(revert: "invalid", opacity: 0.4, cursorAt: {left: 5, top: 5})
   true
@@ -45,6 +45,11 @@ $ ->
   $("body").delegate("div.event", "mouseenter", ->
     event_div = $(this)
     return if event_div.find("a.close").length > 0
+    show_button = $("<a href='"+event_div.data("show-event-url")+"' target=_blank><img src='<%= asset_path("external_link.svg") %>' style='height:0.8rem;'></a>")
+    show_button.addClass("close").addClass("small")
+    event_div.prepend(show_button)
+    show_button.click (click_event) -> window.open(event_div.data("show-event-url"))
+    
     unschedule = $("<a href='#'>×</a>")
     unschedule.addClass("close").addClass("small")
     event_div.prepend(unschedule)
@@ -73,6 +78,9 @@ $ ->
     click_event.preventDefault()
     false
   )
+  $("#add-event-modal").draggable({
+    handle: ".modal-header"
+  }); 
 
   # Buttons
   for button in $("a.toggle-room")
@@ -97,11 +105,17 @@ $ ->
 
   # Track filter
   $("select#track_select").change ->
-    update_unscheduled_events($(this).val())
+    update_unscheduled_events()
+    true
+
+  # Event type filter
+  $("select#event_type_select").change ->
+    update_unscheduled_events()
     true
 
   for timeslot in $("table.room td")
     $(timeslot).droppable(
+      accept: ".event",
       hoverClass: "event-hover",
       tolerance: "pointer",
       drop: (event, ui) ->
@@ -115,14 +129,15 @@ $ ->
     td = $(this)
     $("#add-event-modal #current-time").html(td.data("time"))
     $("ul#unscheduled-events").undelegate("click")
-    $("ul#unscheduled-events").delegate("li a", "click", (click_event) ->
-      li = $(this).parent()
+    $("ul#unscheduled-events").delegate("li span#add a", "click", (click_event) ->
+      li = $(this).parent().parent()
       new_event = $("<div></div>")
       new_event.html(li.children().first().html())
       new_event.addClass("event")
       new_event.attr("id", li.attr("id"))
       new_event.css("height", li.data("height"))
       new_event.data("update-url", li.data("update-url"))
+      new_event.data("show-event-url", li.data("show-event-url"))
       $("#event-pane").append(new_event)
       add_event_to_slot(new_event, td)
       make_draggable(new_event)

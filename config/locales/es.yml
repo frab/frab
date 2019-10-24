@@ -751,15 +751,15 @@ es:
         subject: Instrucciones de confirmación
         text: 'Debes confirmar tu dirección de correo electrónico con el siguiente enlace:
 
-'
+          '
       email_change:
         headline: Hola, %{email}!
         text_been_changed: 'Nos contactamos para notificarle que su correo electrónico se ha cambiado a %{email}.
 
-'
+          '
         text_being_changed: 'Nos contactamos para notificarle que su correo electrónico se cambia a %{email}.
 
-'
+          '
       email_changed:
         subject: Correo electrónico cambiado
       password_change:
@@ -920,9 +920,9 @@ es:
     notice_event_updated: El evento fue actualizado con éxito.
     notice_mails_delivered: Correo entregado.
     notice_mails_queued: Entregas de correo en cola.
+    notice_template_added: La plantilla de correo se agregó con éxito.
     notice_template_destroyed: La plantilla de correo fue destruida exitosamente.
     notice_template_updated: La plantilla de correo se actualizó correctamente.
-    notice_template_added: La plantilla de correo se agregó con éxito.
     placeholders_hint: |
       Los siguientes marcadores de posición se pueden usar en la sección `content` de cada
       modelo.
@@ -1026,6 +1026,7 @@ es:
     event_details: Detalles del evento
     event_feedbacks: Comentarios del evento
     event_ratings: Calificaciones del evento
+    event_type_select: filtrar por tipo de evento
     events_by_gender: Eventos por género
     events_by_language: Eventos por idioma
     events_by_state: Eventos por estado
@@ -2193,6 +2194,10 @@ es:
     save_needed_before_changes: Debe guardar antes de agregar conferencias a un miembro de la tripulación.
   value: Valor
   version_on_item: "%{version} en %{item}"
+  will_paginate:
+    next_label: Siguiente 🡆
+    page_gap: "..."
+    previous_label: "🡄 Anterior"
   work_in_progress: trabajando...
   workshops: Talleres
   workshops_only: Talleres solamente

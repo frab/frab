@@ -60,7 +60,7 @@ Rails.application.routes.draw do
         get '/events/join(/:token)' => 'events#join', as: :events_join
         post '/events/join/:token' => 'events#join'
         get '/schedule' => 'schedule#index', as: 'schedule'
-        get '/schedule/update_track' => 'schedule#update_track', as: 'schedule_update_track'
+        get '/schedule/update_filters' => 'schedule#update_filters', as: 'schedule_update_filters'
         put '/schedule/update_event' => 'schedule#update_event', as: 'schedule_update_event'
         resources :events do
           member do
@@ -75,7 +75,7 @@ Rails.application.routes.draw do
       get '/recent_changes' => 'recent_changes#index', as: 'recent_changes'
       post '/schedule.pdf' => 'schedule#custom_pdf', as: 'schedule_custom_pdf', defaults: { format: :pdf }
       get '/schedule' => 'schedule#index', as: 'schedule'
-      get '/schedule/update_track' => 'schedule#update_track', as: 'schedule_update_track'
+      get '/schedule/update_filters' => 'schedule#update_filters', as: 'schedule_update_filters'
       put '/schedule/update_event' => 'schedule#update_event', as: 'schedule_update_event'
       get '/schedule/new_pdf' => 'schedule#new_pdf', as: 'new_schedule_pdf'
       get '/schedule/html_exports' => 'schedule#html_exports'
@@ -123,6 +123,7 @@ Rails.application.routes.draw do
           get :feedbacks
           get :start_review
           get :cards
+          get :export_all
           get :export_accepted
           get :export_confirmed
         end

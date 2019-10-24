@@ -17,6 +17,7 @@ body {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   margin: 0 -20px;
   padding: 20px;
+  min-width: fit-content;
 }
 
 section {
@@ -194,6 +195,11 @@ p.availability span {
 .category-output {
     margin-top: 8px;
     float: left;
+}
+
+.span16 {
+    width: unset;
+    min-width: 940px;
 }
 
 .nested-fields .event_event_classifiers_value {

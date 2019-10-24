@@ -496,7 +496,7 @@ de:
           Beispiel: 'FrOSCon'
         transport_needs_enabled: 'Wenn aktiviert, können Sie mit frab den Transportbedarf der Sprecher verwalten.
 
-'
+          '
     manage_conferences: Konferenzen verwalten
     manage_conferences_hint: Verwalten Sie alle Konferenzen
     new: Neu
@@ -713,15 +713,15 @@ de:
         subject: Anweisungen zum Bestätigen Ihres Kontos
         text: 'Bitte bestätigen Sie Ihre E-Mail-Adresse, indem Sie diesem Link folgen.
 
-'
+          '
       email_change:
         headline: Hallo, %{email}!
         text_been_changed: 'Diese E-Mail soll Sie darüber informieren, dass Ihre E-Mail-Adresse zu %{email} geändert wurde.
 
-'
+          '
         text_being_changed: 'Diese E-Mail soll Sie darüber informieren, dass Ihre E-Mail-Adresse zu %{email} geändert wird.
 
-'
+          '
       email_changed:
         subject: E-Mail-Adresse geändert
       password_change:
@@ -729,7 +729,7 @@ de:
         subject: Passwort geändert
         text: 'Diese E-Mail soll Sie darüber informieren, dass Ihr Passwort geändert wurde.
 
-'
+          '
       password_change_instructions:
         headline: Hallo, %{email}!
         text: |
@@ -878,9 +878,9 @@ de:
     notice_event_updated: Das Event wurde erfolgreich aktualisiert.
     notice_mails_delivered: E-Mails wurden ausgeliefert.
     notice_mails_queued: E-Mails wurden an den Ticket-Server übergeben.
+    notice_template_added: E-Mail-Vorlage wurde erfolgreich hinzugefügt.
     notice_template_destroyed: E-Mail-Vorlage wurde erfolgreich gelöscht.
     notice_template_updated: E-Mail-Vorlage wurde erfolgreich aktualisiert.
-    notice_template_added: E-Mail-Vorlage wurde erfolgreich hinzugefügt.
     placeholders_hint: |
       Die folgenden Platzhalter können jeweils im Abschnitt "Inhalt" verwendet werden
       Vorlage.
@@ -986,6 +986,7 @@ de:
     event_details: Event-Details
     event_feedbacks: Event-Feedbacks
     event_ratings: Event-Bewertungen der Reviewer
+    event_type_select: Nach Ereignistyp filtern
     events_by_gender: Events nach Geschlecht
     events_by_language: Events nach Sprache
     events_by_state: Events nach Status
@@ -2153,6 +2154,10 @@ de:
     save_needed_before_changes: Sie müssen speichern, bevor Sie einem Crew-Mitglied Konferenzen hinzufügen.
   value: Wert
   version_on_item: "%{version} auf %{item}"
+  will_paginate:
+    next_label: Weiter 🡆
+    page_gap: "…"
+    previous_label: "🡄 Zurück"
   work_in_progress: Arbeite …
   workshops: Workshops
   workshops_only: Nur Workshops

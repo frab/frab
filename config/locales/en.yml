@@ -186,12 +186,12 @@ en:
   all: All
   are_you_sure: Are you sure?
   attachments_overview_module:
-    no_event: There are no events in this conference yet. Once events with file attachments are added, they will appear here.
+    attachments: attachments
     no_attachments: |
       There are no files attached to any of the events yet. Once people
       start uploading files to their events, you will be able to
       see all of the attachments in this screen.
-    attachments: attachments  
+    no_event: There are no events in this conference yet. Once events with file attachments are added, they will appear here.
   availabilities:
     alerts:
       available_for_day: available for day %{day}
@@ -287,9 +287,9 @@ en:
     links: Links
     login: Log-in
     login_existing_description: You can sign in if you created an account for this Call for Participation, or for any previous event.
-    login_required_title: Sign In To Participate
-    login_required: After signing in you can enter your submission.
     login_existing_headline: Log in with an existing account
+    login_required: After signing in you can enter your submission.
+    login_required_title: Sign In To Participate
     looking_for_login_form: Are you looking for the login of submitters?
     no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface.
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
@@ -539,8 +539,8 @@ en:
       link: Confirmation link
       public_name: Speaker public name
       room: Room of presentation
-      surname: Speaker surname
       subtitle: Subtitle
+      surname: Speaker surname
       time: Time of presentation
       track: Track name
       type: Event type
@@ -569,7 +569,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    -
+    - 
     - Jan
     - Feb
     - Mar
@@ -595,7 +595,7 @@ en:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    -
+    - 
     - January
     - February
     - March
@@ -694,10 +694,10 @@ en:
       unconfirmed: You have to confirm your email address before continuing.
     leave_password_blank_hint: Leave blank if you don't want to change it
     links:
-      no_unlock_instructions: Didn't receive unlock instructions?
-      sign_in_with: Sign in with %{provider}
       google_oauth2: Google
       ldap: LDAP server
+      no_unlock_instructions: Didn't receive unlock instructions?
+      sign_in_with: Sign in with %{provider}
     mailer:
       confirmation_instructions:
         headline: Welcome %{email} !
@@ -705,15 +705,15 @@ en:
         subject: Confirmation instructions
         text: 'You should confirm your email address with the following link:
 
-'
+          '
       email_change:
         headline: Hello, %{email}!
         text_been_changed: 'We''re contacting you to notify you that your email has been changed to %{email}.
 
-'
+          '
         text_being_changed: 'We''re contacting you to notify you that your email is being changed to %{email}.
 
-'
+          '
       email_changed:
         subject: Email Changed
       password_change:
@@ -866,12 +866,12 @@ en:
     notice_event_updated: Event was successfully updated.
     notice_mails_delivered: Mails delivered.
     notice_mails_queued: Mail deliveries queued.
+    notice_template_added: Mail template was successfully added.
     notice_template_destroyed: Mail template was successfully destroyed.
     notice_template_updated: Mail template was successfully updated.
     placeholders_hint: |
       The following place holders may be used in the `content` section of each
       template.
-    notice_template_added: Mail template was successfully added.
     send_mail: Send Mail
     template_subject: 'Subject: %{subject}'
   error_signing_in: Invalid email or password.
@@ -942,14 +942,6 @@ en:
     ago: "%{time_ago} ago"
     all_events: All events
     all_rating: All ratings
-    predefined_title_types:
-      handouts: handouts
-      media: media
-      other: other
-      poster: poster
-      proposal: proposal
-      slides: slides
-      video: video
     attachments_overview: Attachments
     average_feedback: 'Average Feedback:'
     average_speaker_feedback: 'Average feedback as speaker:'
@@ -1022,6 +1014,14 @@ en:
       conference. Add yourself to an event in whatever
       role you like and the event will appear in this
       list.
+    predefined_title_types:
+      handouts: handouts
+      media: media
+      other: other
+      poster: poster
+      proposal: proposal
+      slides: slides
+      video: video
     print_accepted_cards: Print cards (accepted only)
     print_accepted_cards_hint: |
       Download a PDF with only the accepted events as cards (four cards per page).
@@ -1038,6 +1038,7 @@ en:
     reject_event_no_email_hint: Reject this event without sending an automated email.
     toggle_description: Toggle Description >>
     track_select: filter by track
+    event_type_select: filter by event type
   expenses: Expenses
   expenses_module:
     error_person_have_no_expense: "%{person} does not currently have any expenses."
@@ -1936,9 +1937,9 @@ en:
     admin: Admin
     coordinator: Coordinator
     crew: Crew
+    moderator: Moderator
     orga: Orga
     reviewer: Reviewer
-    moderator: Moderator
     submitter: Submitter
   role_str: Role
   rooms: Rooms
@@ -2134,6 +2135,10 @@ en:
     save_needed_before_changes: You need to save before adding conferences to a crew member.
   value: Value
   version_on_item: "%{version} on %{item}"
+  will_paginate:
+    page_gap: "…"
+    previous_label: "🡄 Previous"
+    next_label: "Next 🡆"
   work_in_progress: working...
   workshops: Workshops
   workshops_only: Workshops only

@@ -1,6 +1,7 @@
 .event{ id: "event_#{event.id}",
         style: "height: #{event.time_slots * 20 - 7}px;",
         class: event.conflict_level,
+        :"data-show-event-url" => event_path(id: event.id),
         :"data-update-url" => schedule_update_event_path(id: event.id),
         :"data-room" => event.room&.name&.downcase,
         :"data-time" => event.start_time&.to_s(:rfc822) }

@@ -705,15 +705,15 @@ zh:
         subject: 确认说明
         text: '您应该使用以下链接确认您的电子邮件地址：
 
-'
+          '
       email_change:
         headline: 你好，%{email}！
         text_been_changed: '我们正在与您联系，通知您您的电子邮件已更改为%{email}。
 
-'
+          '
         text_being_changed: '我们正在与您联系，通知您电子邮件正在更改为%{email}。
 
-'
+          '
       email_changed:
         subject: 电子邮件已更改
       password_change:
@@ -872,9 +872,9 @@ zh:
     notice_event_updated: 活动已成功更新。
     notice_mails_delivered: 邮件已发送。
     notice_mails_queued: 邮件投递排队。
+    notice_template_added: 邮件模板已成功添加。
     notice_template_destroyed: 邮件模板已成功销毁。
     notice_template_updated: 邮件模板已成功更新。
-    notice_template_added: 邮件模板已成功添加。
     placeholders_hint: |
       以下占位符可用于每个的“内容”部分
       模板。
@@ -984,6 +984,7 @@ zh:
     event_details: 活动详情
     event_feedbacks: 事件反馈
     event_ratings: 事件评级
+    event_type_select: 按事件类型过滤
     events_by_gender: 性别事件
     events_by_language: 语言事件
     events_by_state: 国家事件
@@ -2141,6 +2142,10 @@ zh:
     save_needed_before_changes: 在向船员添加会议之前，您需要保存。
   value: 值
   version_on_item: "%{item}上的%{version}"
+  will_paginate:
+    next_label: 下一个🡆
+    page_gap: "…"
+    previous_label: "🡄上一个"
   work_in_progress: 加工...
   workshops: 研讨会
   workshops_only: 只有研讨会
