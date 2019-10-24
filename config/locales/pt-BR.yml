@@ -2177,6 +2177,10 @@ pt-BR:
     save_needed_before_changes: Você precisa salvar antes de adicionar conferências a um membro da equipe.
   value: Valor
   version_on_item: "%{version} em %{item}"
+  will_paginate:
+    next_label: Próximo 🡆
+    page_gap: "..."
+    previous_label: "🡄 Anterior"
   work_in_progress: trabalhando...
   workshops: Workshops
   workshops_only: Apenas workshops

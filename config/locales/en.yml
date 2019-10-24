@@ -2134,6 +2134,10 @@ en:
     save_needed_before_changes: You need to save before adding conferences to a crew member.
   value: Value
   version_on_item: "%{version} on %{item}"
+  will_paginate:
+    page_gap: "…"
+    previous_label: "🡄 Previous"
+    next_label: "Next 🡆"
   work_in_progress: working...
   workshops: Workshops
   workshops_only: Workshops only

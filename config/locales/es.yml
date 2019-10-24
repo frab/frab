@@ -2193,6 +2193,10 @@ es:
     save_needed_before_changes: Debe guardar antes de agregar conferencias a un miembro de la tripulación.
   value: Valor
   version_on_item: "%{version} en %{item}"
+  will_paginate:
+    next_label: Siguiente 🡆
+    page_gap: "..."
+    previous_label: "🡄 Anterior"
   work_in_progress: trabajando...
   workshops: Talleres
   workshops_only: Talleres solamente
