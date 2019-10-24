@@ -11,8 +11,8 @@ class ScheduleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get update_track' do
-    get :update_track, params: { conference_acronym: @conference.acronym }
+  test 'should get update_filters' do
+    get :update_filters, params: { conference_acronym: @conference.acronym }
     assert_response :success
   end
 

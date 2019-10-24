@@ -1037,6 +1037,7 @@ en:
     reject_event_no_email_hint: Reject this event without sending an automated email.
     toggle_description: Toggle Description >>
     track_select: filter by track
+    event_type_select: filter by event type
   expenses: Expenses
   expenses_module:
     error_person_have_no_expense: "%{person} does not currently have any expenses."

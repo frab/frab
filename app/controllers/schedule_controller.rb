@@ -1,5 +1,5 @@
 class ScheduleController < BaseConferenceController
-  before_action :crew_only!, except: %i[update_track update_event]
+  before_action :crew_only!, except: %i[update_filters update_event]
 
   def index
     params[:day] ||= 0
@@ -10,13 +10,16 @@ class ScheduleController < BaseConferenceController
     @unscheduled_events = @conference.events.accepted.includes([:track, :room, :conflicts]).unscheduled.order(:title)
   end
 
-  def update_track
+  def update_filters
     authorize @conference, :manage?
     @unscheduled_events = if params[:track_id] and params[:track_id] =~ /\d+/
                             @conference.events.accepted.unscheduled.where(track_id: params[:track_id])
                           else
                             @conference.events.accepted.unscheduled
                           end
+    if params[:event_type].presence
+      @unscheduled_events = @unscheduled_events.where(event_type: params[:event_type])
+    end
     render partial: 'unscheduled_events'
   end
 

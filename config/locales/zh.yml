@@ -983,6 +983,7 @@ zh:
     event_details: 活动详情
     event_feedbacks: 事件反馈
     event_ratings: 事件评级
+    event_type_select: 按事件类型过滤
     events_by_gender: 性别事件
     events_by_language: 语言事件
     events_by_state: 国家事件

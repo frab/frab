@@ -993,6 +993,7 @@ pt-BR:
     event_details: Detalhes do evento
     event_feedbacks: Feedback de Eventos
     event_ratings: Classificações do evento
+    event_type_select: filtrar por tipo de evento
     events_by_gender: Eventos por gênero
     events_by_language: Eventos por idioma
     events_by_state: Eventos por estado
