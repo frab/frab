@@ -953,6 +953,7 @@ zh:
     accept_event_no_email: 接受事件(无电子邮件)
     accept_event_no_email_hint: 接受此事件而不发送自动电子邮件。
     add_event: 添加活动
+    add_event_at: 在%{time}添加事件
     add_event_hint: 添加一个新事件。
     add_ticket: 添加票据
     add_ticket_hint: 为此活动创建一张票。
