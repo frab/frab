@@ -42,7 +42,7 @@
         = @event.track_name
       %p
         %b= Event.human_attribute_name(:event_type) + ':'
-        = t(@event.event_type, scope: :options) unless @event.event_type.blank?
+        = @event.localized_event_type
       - if policy(@conference).manage?
         %p
           %b= Event.human_attribute_name(:state) + ':'

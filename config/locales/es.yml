@@ -28,6 +28,7 @@ es:
         name: Nombre
       conference:
         acronym: Abreviación
+        allowed_event_types_as_list: Tipos de eventos permitidos
         attachment_title_is_freeform: El título del archivo adjunto es de forma libre
         bulk_notification_enabled: Notificaciones masivas
         color: Color
@@ -228,6 +229,8 @@ es:
     update_failed: Error al actualizar
     update_successful: "¡Los cambios se guardaron exitosamente!"
   all: Todas
+  allowed_event_types: Tipos de eventos permitidos
+  allowed_event_types_extras: Tipos de eventos permitidos adicionales
   are_you_sure: "¿Estás seguro?"
   attachments_overview_module:
     attachments: archivos adjuntos
@@ -470,6 +473,14 @@ es:
           Un identificador corto y exclusivo para su conferencia, utilizando solo minúsculas
           letras, números y guiones bajos. Esto se usará para identificar su
           conferencia en URLs, etc. Ejemplo: 'froscon2011' "
+        allowed_event_types: |
+          Aquí puede elegir qué tipos de eventos se aceptan como envíos a
+          esta conferencia Esta lista afecta solo los envíos nuevos. Envíos existentes
+          no se modificará si modifica esta lista.
+        allowed_event_types_extras: |
+          Si desea que la conferencia acepte presentaciones de eventos con otros tipos
+          que los disponibles arriba, escriba los tipos de eventos aquí. Separar diferentes
+          tipos de eventos con punto y coma. Ejemplo: 'juego;panel de discusión'
         attachment_title_is_freeform: |
           Si se selecciona esta opción, los remitentes pueden proporcionar el título que deseen.
           para los archivos que cargan como archivos adjuntos. Si esta opción no está seleccionada,

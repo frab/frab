@@ -8,7 +8,7 @@ class StatisticsController < BaseConferenceController
     when 'workshops'
       result = @conference.events_by_state_and_type(:workshop)
     when 'others'
-      remaining = Event::TYPES - [:workshop, :lecture]
+      remaining = @conference.events.distinct.pluck(:event_type) - [:workshop, :lecture]
       result = @conference.events_by_state_and_type(remaining)
     else
       result = @conference.events_by_state

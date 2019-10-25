@@ -53,7 +53,7 @@ namespace :frab do
 
         50.times do
           event = Event.create!(conference: conference,
-                                event_type: Event::TYPES.sample,
+                                event_type: conference.allowed_event_types_as_list.sample,
                                 state: %w(new review withdrawn unconfirmed confirmed canceled rejected).sample,
                                 title: Faker::Book.title,
                                 subtitle: Faker::Hacker.say_something_smart.chomp('!'),

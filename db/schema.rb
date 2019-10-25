@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_233800) do
+ActiveRecord::Schema.define(version: 2019_10_02_000000) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 2019_10_01_233800) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.boolean "attachment_title_is_freeform", default: true
+    t.string "allowed_event_types", default: "lecture;workshop;podium;lightning_talk;meeting;film;concert;djset;performance;other"
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end

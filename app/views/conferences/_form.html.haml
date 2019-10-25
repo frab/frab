@@ -27,6 +27,8 @@
   = dynamic_association :languages, t(:event_languages), f, hint: t('conferences_module.inputs.hints.event_languages')
   %fieldset.inputs
     %legend= t(:submission_configuration)
+    = f.input :allowed_event_types_presets, as: :check_boxes, collection: translated_options(Event::TYPES), label: t('allowed_event_types'), hint: t('conferences_module.inputs.hints.allowed_event_types')
+    = f.input :allowed_event_types_extras, as: :string, label: t('allowed_event_types_extras'), hint: t('conferences_module.inputs.hints.allowed_event_types_extras')
     = f.input :event_state_visible, as: :inline_boolean, hint: t('conferences_module.inputs.hints.event_state_visible')
     = f.input :attachment_title_is_freeform, as: :inline_boolean, hint: t('conferences_module.inputs.hints.attachment_title_is_freeform')
     = f.input :default_recording_license, hint: t('conferences_module.inputs.hints.default_recording_license')

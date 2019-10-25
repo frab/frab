@@ -6,7 +6,7 @@ class Event < ApplicationRecord
 
   before_create :generate_guid
 
-  TYPES = %i(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
+  TYPES = %w(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
   ACCEPTED = %w(accepting unconfirmed confirmed scheduled).freeze
 
   has_one :ticket, as: :object, dependent: :destroy
@@ -60,7 +60,7 @@ class Event < ApplicationRecord
   
   def localized_event_type(locale = nil)
     return '' unless event_type.present?
-    I18n.t(event_type, scope: 'options', locale: locale)
+    I18n.t(event_type, scope: 'options', locale: locale, default: event_type)
   end
 
   def track_name
