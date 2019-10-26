@@ -1644,16 +1644,47 @@ ru:
   notifications: Уведомления
   notifications_module:
     edit_send_notifications: Редактирование и отправка уведомлений
-    event_without_ticket_warning: 'Внимание: %{events} sans ticket:'
+    event_without_ticket_warning:
+      few: 'Внимание: события %{count} без билета:'
+      many: 'Внимание: события %{count} без билета:'
+      one: 'Внимание: 1 мероприятие без билета:'
+      other: 'Внимание: события %{count} без билета:'
     inputs:
       hints:
         locale: Доступные локали для этой конференции и ее динамики
     missing_locale: 'Не удается отправить массовые уведомления: уведомление для локалей %{locales} отсутствует'
+    n_events:
+      few: События %{count}
+      many: События %{count}
+      one: 1 событие
+      other: События %{count}
+    n_events_in_state_x:
+      few: "%{count} события в состоянии %{state}"
+      many: "%{count} события в состоянии %{state}"
+      one: 1 событие в состоянии %{state}
+      other: "%{count} события в состоянии %{state}"
     no_events_tickets: Нет событий с билетами
+    notif:
+      acceptance: принятие
+      rejection: отказ
+      scheduling: планирование
     possible_variables: Возможные переменные
     send_notification: отправлять %{name} уведомления %{speakers} в %{count}
-    send_notification_confirm: Вы действительно хотите отправить %{name} notifications для %{event}?
-    send_notification_to_speakers: Отправить %{name} уведомления %{speakers} в %{event}
+    send_notification_confirm:
+      few: Вы уверены, что хотите отправить %{name} уведомления о событиях %{count}?
+      many: Вы уверены, что хотите отправить %{name} уведомления о событиях %{count}?
+      one: Вы уверены, что хотите отправить %{name} уведомлений для 1 события?
+      other: Вы уверены, что хотите отправить %{name} уведомления о событиях %{count}?
+    send_notification_to_subscribers:
+      few: Отправка %{name} уведомлений %{count} людям, вовлеченным в %{event}
+      many: Отправка %{name} уведомлений %{count} людям, вовлеченным в %{event}
+      one: Отправьте %{name} уведомления 1 человеку, вовлеченному в %{event}
+      other: Отправка %{name} уведомлений %{count} людям, вовлеченным в %{event}
+    warning_events_without_speakers:
+      few: 'Предупреждение: события %{count} без динамиков:'
+      many: 'Предупреждение: события %{count} без динамиков:'
+      one: 'Предупреждение: 1 событие без динамиков:'
+      other: 'Предупреждение: события %{count} без динамиков:'
   number:
     currency:
       format:

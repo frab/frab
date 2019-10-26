@@ -1644,16 +1644,35 @@ zh:
   notifications: 通知
   notifications_module:
     edit_send_notifications: 编辑并发送通知
-    event_without_ticket_warning: 注意：%{events} sans ticket：
+    event_without_ticket_warning:
+      one: 注意：1个没有门票的活动：
+      other: 注意：不带票的%{count}事件：
     inputs:
       hints:
         locale: 此会议及其发言者的可用语言环境
     missing_locale: 无法发送批量通知：缺少地区%{locales}的通知
+    n_events:
+      one: 1项
+      other: "%{count}事件"
+    n_events_in_state_x:
+      one: 状态为%{state}的1个事件
+      other: 状态为%{state}的%{count}事件
     no_events_tickets: 没有门票事件
+    notif:
+      acceptance: 验收
+      rejection: 拒绝
+      scheduling: 排程
     possible_variables: 可能的变量
     send_notification: 将%{name}通知发送到%{count}中的%{speakers}
-    send_notification_confirm: 您确定要为%{event}发送%{name} notifications吗？
-    send_notification_to_speakers: 将%{name}通知发送到%{event}中的%{speakers}
+    send_notification_confirm:
+      one: 您确定要发送1个事件的%{name}通知吗？
+      other: 您确定要发送有关%{count}事件的%{name}通知吗？
+    send_notification_to_subscribers:
+      one: 向1位涉及%{event}的人员发送%{name}通知
+      other: 向参与%{event}的%{count}人员发送%{name}通知
+    warning_events_without_speakers:
+      one: 警告：1个没有发言人的活动：
+      other: 警告：没有扬声器的%{count}事件：
   number:
     currency:
       format:

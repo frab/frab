@@ -764,15 +764,15 @@ es:
         subject: Instrucciones de confirmación
         text: 'Debes confirmar tu dirección de correo electrónico con el siguiente enlace:
 
-          '
+'
       email_change:
         headline: Hola, %{email}!
         text_been_changed: 'Nos contactamos para notificarle que su correo electrónico se ha cambiado a %{email}.
 
-          '
+'
         text_being_changed: 'Nos contactamos para notificarle que su correo electrónico se cambia a %{email}.
 
-          '
+'
       email_changed:
         subject: Correo electrónico cambiado
       password_change:
@@ -1690,16 +1690,35 @@ es:
   notifications: Notificaciones
   notifications_module:
     edit_send_notifications: Editar y enviar notificaciones
-    event_without_ticket_warning: 'Atención: %{events} sans ticket:'
+    event_without_ticket_warning:
+      one: 'Atención: 1 evento sin boleto:'
+      other: 'Atención: eventos %{count} sin ticket:'
     inputs:
       hints:
         locale: Lugares disponibles para esta conferencia y sus altavoces
     missing_locale: 'No se pueden enviar notificaciones masivas: falta la notificación de configuraciones regionales %{locales}'
+    n_events:
+      one: 1 evento
+      other: "%{count} eventos"
+    n_events_in_state_x:
+      one: 1 evento en estado %{state}
+      other: "%{count} eventos en estado %{state}"
     no_events_tickets: No hay eventos con boletos
+    notif:
+      acceptance: aceptación
+      rejection: rechazo
+      scheduling: Planificación
     possible_variables: Posibles variables
     send_notification: enviar notificaciones %{name} a %{speakers} en %{count}
-    send_notification_confirm: "¿Seguro que quieres enviar notificaciones de %{name} para %{event}?"
-    send_notification_to_speakers: Enviar notificaciones %{name} a %{speakers} en %{event}
+    send_notification_confirm:
+      one: "¿Estás seguro de que deseas enviar notificaciones %{name} para 1 evento?"
+      other: "¿Está seguro de que desea enviar notificaciones %{name} para eventos %{count}?"
+    send_notification_to_subscribers:
+      one: "¿Enviar notificaciones %{name} a 1 persona involucrada en %{event}?"
+      other: "¿Enviar notificaciones %{name} a personas %{count} involucradas en %{event}?"
+    warning_events_without_speakers:
+      one: 'Advertencia: 1 evento sin altavoces:'
+      other: 'Advertencia: eventos %{count} sin altavoces:'
   number:
     currency:
       format:
@@ -2216,9 +2235,9 @@ es:
   value: Valor
   version_on_item: "%{version} en %{item}"
   will_paginate:
-    next_label: Siguiente 🡆
+    next_label: "Siguiente \U0001F846"
     page_gap: "..."
-    previous_label: "🡄 Anterior"
+    previous_label: "\U0001F844 Anterior"
   work_in_progress: trabajando...
   workshops: Talleres
   workshops_only: Talleres solamente

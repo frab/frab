@@ -1638,16 +1638,35 @@ en:
   notifications: Notifications
   notifications_module:
     edit_send_notifications: Edit and send notifications
-    event_without_ticket_warning: 'Attention : %{events} without ticket:'
+    event_without_ticket_warning:
+      one: 'Attention : 1 event without ticket:'
+      other: 'Attention : %{count} events without ticket:'
     inputs:
       hints:
         locale: Available locales for this conference and its speakers
     missing_locale: 'Can not send bulk notifications: Notification for locales %{locales} missing'
+    n_events:
+      one: 1 event
+      other: "%{count} events"
+    n_events_in_state_x:
+      one: 1 event in state %{state}
+      other: "%{count} events in state %{state}"
     no_events_tickets: No events with tickets
+    notif:
+      acceptance: acceptance
+      rejection: rejection
+      scheduling: scheduling
     possible_variables: Possible variables
     send_notification: send %{name} notifications to %{speakers} in %{count}
-    send_notification_confirm: Are you sure you want to send %{name} notifications for %{event}?
-    send_notification_to_speakers: Send %{name} notifications to %{speakers} in %{event}
+    send_notification_confirm:
+      one: Are you sure you want to send %{name} notifications for 1 event?
+      other: Are you sure you want to send %{name} notifications for %{count} events?
+    send_notification_to_subscribers:
+      one: Send %{name} notifications to 1 person involved in %{event}
+      other: Send %{name} notifications to %{count} people involved in %{event}
+    warning_events_without_speakers:
+      one: 'Warning: 1 event without speakers:'
+      other: 'Warning: %{count} events without speakers:'
   number:
     currency:
       format:

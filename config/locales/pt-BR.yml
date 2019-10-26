@@ -1665,16 +1665,35 @@ pt-BR:
   notifications: Notificações
   notifications_module:
     edit_send_notifications: Editar e enviar notificações
-    event_without_ticket_warning: 'Atenção: %{events} sans ticket:'
+    event_without_ticket_warning:
+      one: 'Atenção: 1 evento sem ingresso:'
+      other: 'Atenção: %{count} eventos sem ticket:'
     inputs:
       hints:
         locale: Locais disponíveis para esta conferência e seus oradores
     missing_locale: 'Não é possível enviar notificações em massa: notificação para locais %{locales} ausente'
+    n_events:
+      one: 1 evento
+      other: eventos %{count}
+    n_events_in_state_x:
+      one: 1 evento no estado %{state}
+      other: eventos %{count} no estado %{state}
     no_events_tickets: Nenhum evento com ingressos
+    notif:
+      acceptance: aceitação
+      rejection: rejeição
+      scheduling: agendamento
     possible_variables: Variáveis ​​possíveis
     send_notification: enviar notificações %{name} para %{speakers} em %{count}
-    send_notification_confirm: Tem certeza de que deseja enviar notificações %{name} para %{event}?
-    send_notification_to_speakers: Enviar notificações %{name} para %{speakers} em %{event}
+    send_notification_confirm:
+      one: Tem certeza de que deseja enviar notificações %{name} para 1 evento?
+      other: Tem certeza de que deseja enviar notificações %{name} para eventos %{count}?
+    send_notification_to_subscribers:
+      one: Envie notificações %{name} para 1 pessoa envolvida em %{event}
+      other: Enviar notificações %{name} para %{count} pessoas envolvidas em %{event}
+    warning_events_without_speakers:
+      one: 'Aviso: 1 evento sem alto-falantes:'
+      other: 'Aviso: eventos %{count} sem alto-falantes:'
   number:
     currency:
       format:
