@@ -963,6 +963,7 @@ pt-BR:
     accept_event_no_email: Aceitar evento (sem email)
     accept_event_no_email_hint: Aceite este evento sem enviar um email automático.
     add_event: Adicionar Evento
+    add_event_at: Adicionar evento em %{time}
     add_event_hint: Adicione um novo evento.
     add_ticket: Adicionar ticket
     add_ticket_hint: Crie um ticket para este evento.

@@ -49,9 +49,7 @@
       #add-event-modal.modal{style: "display: none;"}
         .modal-header
           = link_to "×", "#", class: "close"
-          %h3
-            Add event at
-            %span#current-time &nbsp;
+          %h3=t('events_module.add_event_at', time: content_tag(:span, '', id: 'current-time')).html_safe
         .modal-body
           %p
             = form_tag schedule_update_filters_path, id: "update-filters" do

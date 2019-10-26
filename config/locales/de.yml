@@ -960,6 +960,7 @@ de:
     accept_event_no_email: Event accepten (ohne E-Mail)
     accept_event_no_email_hint: Setzt den Status des Events auf accepted, ohne eine automatisierte E-Mail zu senden.
     add_event: Event hinzufügen
+    add_event_at: Event bei %{time} hinzufügen
     add_event_hint: Fügen Sie ein neues Event hinzu.
     add_ticket: Ticket hinzufügen
     add_ticket_hint: Erstellen Sie ein Ticket für dieses Ereignis.

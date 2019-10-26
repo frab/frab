@@ -953,6 +953,7 @@ ru:
     accept_event_no_email: Принять событие (нет электронной почты)
     accept_event_no_email_hint: Примите это событие, не отправляя автоматическое письмо.
     add_event: Добавить событие
+    add_event_at: Добавить событие на %{time}
     add_event_hint: Добавьте новое событие.
     add_ticket: Добавить билет
     add_ticket_hint: Создайте билет для этого мероприятия.

@@ -974,6 +974,7 @@ fr:
     accept_event_no_email: Accepter l’évènement (pas de courriel)
     accept_event_no_email_hint: Accepte cet évènement sans envoyer de courriel.
     add_event: Nouvel évènement
+    add_event_at: Ajouter un événement à %{time}
     add_event_hint: Créé un nouvel évènement.
     add_ticket: Ajouter un ticket
     add_ticket_hint: Créé un ticket pour cet évènement.
