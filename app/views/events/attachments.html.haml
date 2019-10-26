@@ -9,7 +9,7 @@
     %li= link_to t('events_module.event_ratings'), ratings_events_path
     - if @conference.feedback_enabled
       %li= link_to t('events_module.event_feedbacks'), feedbacks_events_path
-  - if @events.all.empty?
+  - if @conference.events.all.empty?
     .row
       .span16
         .blank-slate
@@ -23,34 +23,37 @@
     = render partial: 'filters', locals: { params: params }
     .row
       .span16
-        %table.zebra-striped
-          %thead
-            %tr
-              %th
-              %th= sort_link @search, :title, term: params[:term]
-              %th= sort_link @search, :track_name, t('track'), term: params[:term]
-              %th= sort_link @search, :event_type, term: params[:term]
-              - if policy(@conference).manage?
-                %th= sort_link @search, :state, term: params[:term]
-              - @attachment_titles.each do |attachment_title|
-                %th= t(attachment_title, scope: 'events_module.predefined_title_types')
-              - if @other_attachment_titles_exist
-                %th= t('attachments_overview_module.attachments')
-          %tbody
-            - @events.includes(:track).each do |event|
+        - if @events.empty?
+          %p= t('reports_module.no_search_results')
+        - else
+          %table.zebra-striped
+            %thead
               %tr
-                %td= image_box event.logo, :small
-                %td
-                  = link_to event.title, event
-                  %p.small
-                    = by_speakers(event)
-                %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
-                %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+                %th
+                %th= sort_link @search, :title, term: params[:term]
+                %th= sort_link @search, :track_name, t('track'), term: params[:term]
+                %th= sort_link @search, :event_type, term: params[:term]
                 - if policy(@conference).manage?
-                  %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
+                  %th= sort_link @search, :state, term: params[:term]
                 - @attachment_titles.each do |attachment_title|
-                  %td= safe_join( event.event_attachments.where(title: attachment_title).map{|ea| link_to ea.short_anonymous_title, ea.attachment.url}, '<br>'.html_safe )
+                  %th= t(attachment_title, scope: 'events_module.predefined_title_types')
                 - if @other_attachment_titles_exist
-                  %td= safe_join( event.event_attachments.where.not(title: @attachment_titles).map{|ea| link_to ea.link_title, ea.attachment.url}, '<br>'.html_safe )
-        = actions_bar do
-          = will_paginate @events
+                  %th= t('attachments_overview_module.attachments')
+            %tbody
+              - @events.includes(:track).each do |event|
+                %tr
+                  %td= image_box event.logo, :small
+                  %td
+                    = link_to event.title, event
+                    %p.small
+                      = by_speakers(event)
+                  %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
+                  %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+                  - if policy(@conference).manage?
+                    %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
+                  - @attachment_titles.each do |attachment_title|
+                    %td= safe_join( event.event_attachments.where(title: attachment_title).map{|ea| link_to ea.short_anonymous_title, ea.attachment.url}, '<br>'.html_safe )
+                  - if @other_attachment_titles_exist
+                    %td= safe_join( event.event_attachments.where.not(title: @attachment_titles).map{|ea| link_to ea.link_title, ea.attachment.url}, '<br>'.html_safe )
+          = actions_bar do
+            = will_paginate @events

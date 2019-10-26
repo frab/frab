@@ -10,7 +10,7 @@
     %li.active= link_to t('events_module.event_ratings'), ratings_events_path
     - if @conference.feedback_enabled
       %li= link_to t('events_module.event_feedbacks'), feedbacks_events_path
-  - if @events.all.empty?
+  - if not @conference.events.any?
     .row
       .span16
         .blank-slate
@@ -34,35 +34,38 @@
           = @events_no_review
     .row
       .span16
-        %table.zebra-striped
-          %thead
-            %tr
-              %th
-              %th= sort_link @search, :title, term: params[:term]
-              %th= sort_link @search, :track_name, t('track'), term: params[:term]
-              %th= sort_link @search, :event_type, term: params[:term]
-              - if policy(@conference).manage?
-                %th= sort_link @search, :state, term: params[:term]
-              %th= sort_link @search, :average_rating, term: params[:term]
-              %th= sort_link @search, :event_ratings_count, term: params[:term]
-              %th
-          %tbody
-            - @events.includes(:track).each do |event|
+        - if @events.empty?
+          %p= t('reports_module.no_search_results')
+        - else
+          %table.zebra-striped
+            %thead
               %tr
-                %td= image_box event.logo, :small
-                %td
-                  = link_to event.title, event
-                  %p.small
-                    = by_speakers(event)
-                %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
-                %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+                %th
+                %th= sort_link @search, :title, term: params[:term]
+                %th= sort_link @search, :track_name, t('track'), term: params[:term]
+                %th= sort_link @search, :event_type, term: params[:term]
                 - if policy(@conference).manage?
-                  %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
-                %td
-                  - if event.average_rating
-                    = raty_for("event_rating_#{event.id}", event.average_rating)
-                %td= event.event_ratings_count
-                %td
-                  = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn small"
-        = actions_bar do
-          = will_paginate @events
+                  %th= sort_link @search, :state, term: params[:term]
+                %th= sort_link @search, :average_rating, term: params[:term]
+                %th= sort_link @search, :event_ratings_count, term: params[:term]
+                %th
+            %tbody
+              - @events.includes(:track).each do |event|
+                %tr
+                  %td= image_box event.logo, :small
+                  %td
+                    = link_to event.title, event
+                    %p.small
+                      = by_speakers(event)
+                  %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
+                  %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+                  - if policy(@conference).manage?
+                    %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
+                  %td
+                    - if event.average_rating
+                      = raty_for("event_rating_#{event.id}", event.average_rating)
+                  %td= event.event_ratings_count
+                  %td
+                    = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn small"
+          = actions_bar do
+            = will_paginate @events
