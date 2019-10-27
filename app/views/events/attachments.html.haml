@@ -57,4 +57,5 @@
                     %td= safe_join( event.event_attachments.where.not(title: @attachment_titles).map{|ea| link_to ea.link_title, ea.attachment.url}, '<br>'.html_safe )
           = actions_bar do
             = will_paginate @events
+        = render 'below_table'
 = render partial: 'filters_modal_holder'

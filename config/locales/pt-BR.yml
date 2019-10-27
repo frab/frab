@@ -1083,6 +1083,7 @@ pt-BR:
     reject_event_no_email_hint: Rejeite este evento sem enviar um email automático.
     select_filter_for: 'Selecione o filtro para %{filtername}:'
     toggle_description: Alternar Descrição >>
+    toggle_send_bulk_mail: Enviar email para todas essas pessoas >>
     track_select: filtrar por faixa
   expenses: Despesas
   expenses_module:
@@ -1707,6 +1708,9 @@ pt-BR:
     send_notification_to_subscribers:
       one: Envie notificações %{name} para 1 pessoa envolvida em %{event}
       other: Enviar notificações %{name} para %{count} pessoas envolvidas em %{event}
+    send_unspecified_notification_confirm:
+      one: Tem certeza de que deseja enviar e-mails para o evento %{count}?
+      other: Tem certeza de que deseja enviar e-mails para eventos %{count}?
     warning_events_without_speakers:
       one: 'Aviso: 1 evento sem alto-falantes:'
       other: 'Aviso: eventos %{count} sem alto-falantes:'
@@ -2106,6 +2110,7 @@ pt-BR:
     select_all_none: Selecione todos / nenhum
     view_live_version_hint: Veja a versão pública ao vivo de sua agenda, assim como qualquer participante pode ver.
   scheduling: Agendamento
+  select_one: "-- Selecione um --"
   send: Enviar
   session:
     login: Entrar

@@ -9,7 +9,10 @@ class EventsController < BaseConferenceController
 
     clean_events_attributes
     respond_to do |format|
-      format.html { @events = @events.paginate page: page_param }
+      format.html { 
+                    @num_of_matching_events = @events.count
+                    @events = @events.paginate page: page_param 
+                  }
       format.json
     end
   end
@@ -83,6 +86,7 @@ class EventsController < BaseConferenceController
     authorize @conference, :read?
     
     result = search @conference.events.includes(:track)
+    @num_of_matching_events = result.count
     @events = result.paginate page: page_param
     clean_events_attributes
     
@@ -98,9 +102,11 @@ class EventsController < BaseConferenceController
   def ratings
     authorize @conference, :read?
 
-    result = search @conference.events_with_review_averages .includes(:track)
+    result = search @conference.events_with_review_averages.includes(:track)
     @events = result.paginate page: page_param
     clean_events_attributes
+    
+    @num_of_matching_events = @events.count
 
     # total ratings:
     @events_total = @conference.events.count
@@ -128,6 +134,33 @@ class EventsController < BaseConferenceController
     else
       session[:review_ids] = ids
       redirect_to event_event_rating_path(event_id: ids.first)
+    end
+  end
+  
+  # batch actions
+  def batch_actions
+    if params[:bulk_email]
+      bulk_send_email
+    else
+      redirect_to events_path, alert: :illegal
+    end
+  end
+  
+  def bulk_send_email
+    authorize @conference, :orga?
+    
+    mail_template = @conference.mail_templates.find_by(name: params[:template_name])
+    redirect_back(alert: t('ability.denied'), fallback_location: root_path) and return if mail_template.blank?
+    
+    events = search @conference.events_with_review_averages.includes(:track)
+    event_people = EventPerson.where(event_id: events.to_a.pluck(:id))
+    
+    if Rails.env.production?
+      SendBulkMailJob.new.async.perform(mail_template, event_people)
+      redirect_back(notice: t('emails_module.notice_mails_queued'), fallback_location: root_path)
+    else
+      SendBulkMailJob.new.perform(mail_template, event_people)
+      redirect_back(notice: t('emails_module.notice_mails_delivered'), fallback_location: root_path)
     end
   end
 

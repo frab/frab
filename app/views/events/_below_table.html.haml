@@ -1,0 +1,15 @@
+- if @num_of_matching_events > 0
+  %p
+    - if policy(@conference).manage? and @conference.mail_templates.any?
+      = link_to t('events_module.toggle_send_bulk_mail'), "#send_bulk_mail_form", data: { function: 'toggle', args: { target: '#send_bulk_mail_form' } }
+      #send_bulk_mail_form{style: "display:none;"}
+        = simple_form_for(:batch_actions, url: batch_actions_events_path(request.query_parameters), method: :post) do |f|
+          .actions
+            = select_tag :template_name, options_for_select(@conference.mail_templates.pluck(:name)), include_blank: t('select_one'), style: "width:400px"
+            = f.button :submit, 
+                       t('send'), 
+                       name: 'bulk_email', 
+                       id: 'bulk_email',
+                       data: { confirm: t('notifications_module.send_unspecified_notification_confirm', count: @num_of_matching_events) }, 
+                       class: 'danger'
+
