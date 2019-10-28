@@ -277,6 +277,8 @@ it:
         start_date: Seleziona la data in cui la chiamata sarà aperta al pubblico.
         welcome_text: Immettere un messaggio di benvenuto o ulteriori istruzioni che si desidera visualizzare ai partecipanti. (HTML)
     join_alternative: 'Dove trovare un altro token di invito:'
+    join_as: Partecipa come a
+    join_as_hint: Se partecipi a questo evento come relatore, proveremo a tenere conto della tua disponibilità durante la pianificazione di questo evento.
     join_confirm: Vuoi accettare l'invito?
     join_description: 'Con il token fornito, puoi partecipare a questo evento come oratore:'
     join_event: Partecipa all'evento
@@ -1667,16 +1669,35 @@ it:
   notifications: notifiche
   notifications_module:
     edit_send_notifications: Modifica / invia notifiche
-    event_without_ticket_warning: 'Attenzione: %{events} senza biglietto:'
+    event_without_ticket_warning:
+      one: 'Attenzione: 1 evento senza biglietto:'
+      other: 'Attenzione: eventi %{count} senza biglietto:'
     inputs:
       hints:
         locale: Lingue disponibili per questa conferenza e i suoi relatori.
     missing_locale: 'Impossibile inviare notifiche collettive: mancano le notifiche %{locales}.'
+    n_events:
+      one: 1 evento
+      other: eventi %{count}
+    n_events_in_state_x:
+      one: 1 evento nello stato %{state}
+      other: "%{count} eventi nello stato %{state}"
     no_events_tickets: Nessun evento con i biglietti.
+    notif:
+      acceptance: accettazione
+      rejection: rifiuto
+      scheduling: programmazione
     possible_variables: Possibili variabili
     send_notification: Invia notifiche %{name} %{speakers} in %{count}
-    send_notification_confirm: Sei sicuro di voler inviare notifiche %{name} per %{event}?
-    send_notification_to_speakers: Invia notifiche %{name} a %{speakers} in %{event}
+    send_notification_confirm:
+      one: Sei sicuro di voler inviare notifiche %{name} per 1 evento?
+      other: Sei sicuro di voler inviare notifiche %{name} per eventi %{count}?
+    send_notification_to_subscribers:
+      one: Invia notifiche %{name} a 1 persona coinvolta in %{event}
+      other: Invia notifiche %{name} alle persone %{count} coinvolte in %{event}
+    warning_events_without_speakers:
+      one: 'Avviso: 1 evento senza altoparlanti:'
+      other: 'Avvertenza: eventi %{count} senza altoparlanti:'
   number:
     currency:
       format:
@@ -1728,6 +1749,7 @@ it:
   options:
     admin: amministratore
     aim: AIM
+    assistant: Assistente
     attending: assist
     bus: Pulman
     business: affari
@@ -1988,6 +2010,7 @@ it:
   resend: ritorno
   role:
     admin: amministratore
+    assistant: Assistente
     coordinator: coordinatore
     crew: Membro della squadra
     moderator: Moderatore

@@ -2,9 +2,11 @@ class EventPerson < ApplicationRecord
   include UniqueToken
   include Rails.application.routes.url_helpers
 
-  ROLES = %i(coordinator submitter speaker moderator).freeze
+  ROLES = %i(coordinator submitter speaker moderator assistant).freeze
   STATES = %i(canceled confirmed declined idea offer unclear attending).freeze
-  SPEAKER = %i(speaker moderator).freeze
+  SPEAKERS = %i(speaker moderator).freeze
+  SUBSCRIBERS = %i(speaker moderator assistant).freeze
+  JOINABLES = %i(speaker assistant).freeze
 
   belongs_to :event
   belongs_to :person
@@ -15,9 +17,10 @@ class EventPerson < ApplicationRecord
 
   has_paper_trail meta: { associated_id: :event_id, associated_type: 'Event' }
 
-  scope :presenter, -> { where(event_role: SPEAKER) }
+  scope :presenter, -> { where(event_role: SPEAKERS) }
+  scope :subscriber, -> { where(event_role: SUBSCRIBERS) }
   scope :presenter_at, ->(conference) {
-    joins(event: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER)
+    joins(event: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKERS)
   }
 
   def confirm!
@@ -97,7 +100,7 @@ class EventPerson < ApplicationRecord
   private
 
   def update_speaker_count
-    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKER).count
+    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKERS).count
     event.save
   end
 

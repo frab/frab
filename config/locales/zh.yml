@@ -275,6 +275,8 @@ zh:
         start_date: 选择一个您的CfP应该向公众开放的日期。
         welcome_text: 输入欢迎信息或您想要向参与者显示的其他说明。 (HTML)
     join_alternative: 或查找另一个邀请令牌：
+    join_as: 加入为
+    join_as_hint: 如果您以演讲者身份参加此活动，我们将在安排此活动时尝试考虑您的空缺情况。
     join_confirm: 你想接受邀请吗？
     join_description: 提供令牌后，您可以作为演讲者加入此活动：
     join_event: 加入活动
@@ -1642,16 +1644,35 @@ zh:
   notifications: 通知
   notifications_module:
     edit_send_notifications: 编辑并发送通知
-    event_without_ticket_warning: 注意：%{events} sans ticket：
+    event_without_ticket_warning:
+      one: 注意：1个没有门票的活动：
+      other: 注意：不带票的%{count}事件：
     inputs:
       hints:
         locale: 此会议及其发言者的可用语言环境
     missing_locale: 无法发送批量通知：缺少地区%{locales}的通知
+    n_events:
+      one: 1项
+      other: "%{count}事件"
+    n_events_in_state_x:
+      one: 状态为%{state}的1个事件
+      other: 状态为%{state}的%{count}事件
     no_events_tickets: 没有门票事件
+    notif:
+      acceptance: 验收
+      rejection: 拒绝
+      scheduling: 排程
     possible_variables: 可能的变量
     send_notification: 将%{name}通知发送到%{count}中的%{speakers}
-    send_notification_confirm: 您确定要为%{event}发送%{name} notifications吗？
-    send_notification_to_speakers: 将%{name}通知发送到%{event}中的%{speakers}
+    send_notification_confirm:
+      one: 您确定要发送1个事件的%{name}通知吗？
+      other: 您确定要发送有关%{count}事件的%{name}通知吗？
+    send_notification_to_subscribers:
+      one: 向1位涉及%{event}的人员发送%{name}通知
+      other: 向参与%{event}的%{count}人员发送%{name}通知
+    warning_events_without_speakers:
+      one: 警告：1个没有发言人的活动：
+      other: 警告：没有扬声器的%{count}事件：
   number:
     currency:
       format:
@@ -1703,6 +1724,7 @@ zh:
   options:
     admin: 管理员
     aim: 目标
+    assistant: 助理
     attending: 参加
     bus: 总线
     business: 商业
@@ -1960,6 +1982,7 @@ zh:
   resend: 重发
   role:
     admin: 管理员
+    assistant: 助理
     coordinator: 协调员
     crew: 船员
     moderator: 主持人

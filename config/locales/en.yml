@@ -275,15 +275,17 @@ en:
         start_date: Pick a date when your CfP should be open for the public.
         welcome_text: Enter a welcome message or additional instructions you want to display to participants. (HTML)
     join_alternative: 'Or lookup another invitation token:'
+    join_as: Join as a
+    join_as_hint: If you join this event as a speaker, we'll try to take into account your availability when scheduling this event.
     join_confirm: Do you want to accept the invitation?
-    join_description: 'With the token provided you can join this event as a speaker:'
+    join_description: 'With the token provided you can join this event:'
     join_event: Join event
     join_submitters_hint: Share this token with speakers you want to allow to join this event. After they have created an account, they can use the token in the 'Join event' interface.
-    join_success: You have been added as speaker on this event.
-    join_token_already_used: You already were a speaker on this event.
+    join_success: You have been added to this event.
+    join_token_already_used: You already joined this event.
     join_token_link: This link directly leads to the 'Join event' page for this event.
     join_token_lookup: Lookup token
-    join_token_lookup_description: Enter the token that allows you to join an event as a speaker.
+    join_token_lookup_description: Enter the token that you were given in order to join an event.
     join_token_lookup_hint: 'Hint: The token can be viewed by the original submitter in the event''s edit view.'
     join_token_unknown: Token %{token} unknown.
     languages_spoken: Languages spoken
@@ -1636,16 +1638,35 @@ en:
   notifications: Notifications
   notifications_module:
     edit_send_notifications: Edit and send notifications
-    event_without_ticket_warning: 'Attention : %{events} without ticket:'
+    event_without_ticket_warning:
+      one: 'Attention : 1 event without ticket:'
+      other: 'Attention : %{count} events without ticket:'
     inputs:
       hints:
         locale: Available locales for this conference and its speakers
     missing_locale: 'Can not send bulk notifications: Notification for locales %{locales} missing'
+    n_events:
+      one: 1 event
+      other: "%{count} events"
+    n_events_in_state_x:
+      one: 1 event in state %{state}
+      other: "%{count} events in state %{state}"
     no_events_tickets: No events with tickets
+    notif:
+      acceptance: acceptance
+      rejection: rejection
+      scheduling: scheduling
     possible_variables: Possible variables
     send_notification: send %{name} notifications to %{speakers} in %{count}
-    send_notification_confirm: Are you sure you want to send %{name} notifications for %{event}?
-    send_notification_to_speakers: Send %{name} notifications to %{speakers} in %{event}
+    send_notification_confirm:
+      one: Are you sure you want to send %{name} notifications for 1 event?
+      other: Are you sure you want to send %{name} notifications for %{count} events?
+    send_notification_to_subscribers:
+      one: Send %{name} notifications to 1 person involved in %{event}
+      other: Send %{name} notifications to %{count} people involved in %{event}
+    warning_events_without_speakers:
+      one: 'Warning: 1 event without speakers:'
+      other: 'Warning: %{count} events without speakers:'
   number:
     currency:
       format:
@@ -1697,6 +1718,7 @@ en:
   options:
     admin: Administrator
     aim: AIM
+    assistant: Assistant
     attending: Attending
     bus: Bus
     business: Business
@@ -1953,6 +1975,7 @@ en:
   resend: Resend
   role:
     admin: Admin
+    assistant: Assistant
     coordinator: Coordinator
     crew: Crew
     moderator: Moderator

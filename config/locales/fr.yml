@@ -277,6 +277,8 @@ fr:
         start_date: Sélectionnez la date à laquelle l’appel sera ouvert au public.
         welcome_text: Entrez un message de bienvenue ou des instructions supplémentaires que vous souhaitez afficher à vos participants. (HTML)
     join_alternative: 'Où trouver un autre jeton d’invitation :'
+    join_as: Rejoindre en tant que
+    join_as_hint: Si vous rejoignez cet événement en tant que conférencier, nous essaierons de prendre en compte votre disponibilité lors de la planification de cet événement.
     join_confirm: Voulez-vous accepter l’invitation ?
     join_description: 'Avec le jeton fourni, vous pouvez rejoindre cet évènement en tant que conférencier :'
     join_event: Rejoindre l’évènement
@@ -317,7 +319,7 @@ fr:
     password_updated: Mot de passe mis à jour avec succès.
     person_created_notice: Profil créé avec succès.
     person_updated_notice: Profil mis à jour avec succès.
-    personal_details_description: Veuillez remplir le formulaire suivant pour nous permettre de vous connaître un peu mieux, ainsi que les visiteurs, si la proposition est acceptée. 
+    personal_details_description: Veuillez remplir le formulaire suivant pour nous permettre de vous connaître un peu mieux, ainsi que les visiteurs, si la proposition est acceptée.
     personal_details_headline: Détails personnels - Laissez-nous vous connaître
     personal_details_later: Vous pouvez remplir le strict minimum et revenir plus tard pour compléter.
     phone_numbers: Numéro de téléphone
@@ -720,7 +722,7 @@ fr:
         subject: Instructions de confirmation
         text: 'Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
 
-          '
+'
       email_change:
         headline: Bonjour, %{email} !
         text_been_changed: |
@@ -1663,16 +1665,35 @@ fr:
   notifications: Notifications
   notifications_module:
     edit_send_notifications: Éditer/envoyer des notifications
-    event_without_ticket_warning: 'Attention : %{events} sans ticket :'
+    event_without_ticket_warning:
+      one: 'Attention: 1 événement sans billet:'
+      other: 'Attention: %{count} événements sans ticket:'
     inputs:
       hints:
         locale: Langues disponibles pour cette conférence et ses orateurs.
     missing_locale: 'Impossible d’envoyer des notification groupées : les notifications en %{locales} sont manquantes.'
+    n_events:
+      one: 1 événement
+      other: "%{count} événements"
+    n_events_in_state_x:
+      one: 1 événement dans l'état %{state}
+      other: "%{count} événements dans l'état %{state}"
     no_events_tickets: Pas d’évènements avec des tickets.
+    notif:
+      acceptance: acceptation
+      rejection: rejet
+      scheduling: Planification
     possible_variables: Variables possibles
     send_notification: Envoyer des notifications %{name} %{speakers} in %{count}
-    send_notification_confirm: Êtes-vous sûr(e) de vouloir envoyer les notifications %{name} pour %{event}?
-    send_notification_to_speakers: Envoyer les notifications %{name} à %{speakers} dans %{event}
+    send_notification_confirm:
+      one: Êtes-vous sûr de vouloir envoyer des notifications %{name} pour 1 événement?
+      other: Êtes-vous sûr de vouloir envoyer des notifications %{name} pour les événements %{count}?
+    send_notification_to_subscribers:
+      one: Envoyer des notifications %{name} à 1 personne impliquée dans %{event}
+      other: Envoi de notifications %{name} aux personnes %{count} impliquées dans %{event}
+    warning_events_without_speakers:
+      one: 'Attention: 1 événement sans intervenants:'
+      other: 'Avertissement: %{count} événements sans haut-parleurs:'
   number:
     currency:
       format:
@@ -1724,6 +1745,7 @@ fr:
   options:
     admin: Administrateur
     aim: AIM
+    assistant: Assistant
     attending: Assiste
     bus: Bus
     business: Business
@@ -1984,6 +2006,7 @@ fr:
   resend: Renvoyer
   role:
     admin: Administrateur
+    assistant: Assistant
     coordinator: Coordinateur
     crew: Membre de l’équipe
     moderator: Modérateur

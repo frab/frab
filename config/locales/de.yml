@@ -303,6 +303,8 @@ de:
         start_date: Wählen Sie ein Datum aus, an dem Ihr CfP öffentlich zugänglich sein soll.
         welcome_text: Geben Sie eine Willkommensnachricht oder zusätzliche Anweisungen ein, die Sie den Teilnehmern anzeigen möchten. (HTML)
     join_alternative: 'Alternativ können Sie nach einem anderen Event suchen:'
+    join_as: Beitreten als
+    join_as_hint: Wenn Sie als Redner an dieser Veranstaltung teilnehmen, werden wir versuchen, Ihre Verfügbarkeit bei der Planung dieser Veranstaltung zu berücksichtigen.
     join_confirm: Wollen Sie dem Event als Sprecher beitreten?
     join_description: 'Mit dem angegebenen Token können Sie sich als Sprecher zum diesem Event eintragen:'
     join_event: Event beitreten
@@ -1655,16 +1657,35 @@ de:
   notifications: Benachrichtigungen
   notifications_module:
     edit_send_notifications: Bearbeiten und senden Sie Benachrichtigungen
-    event_without_ticket_warning: 'Achtung: %{events} ohne Ticket:'
+    event_without_ticket_warning:
+      one: 'Achtung: 1 Veranstaltung ohne Ticket:'
+      other: 'Achtung: %{count} Veranstaltungen ohne Ticket:'
     inputs:
       hints:
         locale: Verfügbare Sprachen für diese Konferenz und ihre Sprecher
     missing_locale: 'Benachrichtigungen können nicht gesendet werden: Benachrichtigungen für Sprachen %{locales} fehlen'
+    n_events:
+      one: 1 Veranstaltung
+      other: "%{count} Ereignisse"
+    n_events_in_state_x:
+      one: 1 Ereignis im Zustand %{state}
+      other: "%{count} Ereignisse im Zustand %{state}"
     no_events_tickets: Keine Events mit Tickets
+    notif:
+      acceptance: Annahme
+      rejection: Ablehnung
+      scheduling: Zeitplanung
     possible_variables: Mögliche Variablen
     send_notification: Senden Sie %{name}-Benachrichtigungen an %{speakers} in %{count}
-    send_notification_confirm: Sind Sie sicher, dass Sie %{name}-Benachrichtigungen für %{event} senden möchten?
-    send_notification_to_speakers: Senden Sie %{name}-Benachrichtigungen an %{speakers} in %{event}
+    send_notification_confirm:
+      one: Möchten Sie wirklich %{name}-Benachrichtigungen für 1 Ereignis senden?
+      other: Möchten Sie wirklich %{name}-Benachrichtigungen für %{count}-Ereignisse senden?
+    send_notification_to_subscribers:
+      one: Senden Sie %{name}-Benachrichtigungen an 1 Person, die an %{event} beteiligt ist
+      other: Senden Sie %{name}-Benachrichtigungen an %{count} Personen, die an %{event} beteiligt sind
+    warning_events_without_speakers:
+      one: 'Warnung: 1 Veranstaltung ohne Sprecher:'
+      other: 'Warnung: %{count} Ereignisse ohne Sprecher:'
   number:
     currency:
       format:
@@ -1722,6 +1743,7 @@ de:
   options:
     admin: Administrator
     aim: AIM
+    assistant: Assistent
     attending: attending
     bus: Bus
     business: Geschäftlich
@@ -1975,6 +1997,7 @@ de:
   resend: Erneut senden
   role:
     admin: Admin
+    assistant: Assistent
     coordinator: Koordinator
     crew: Crew
     moderator: Moderator

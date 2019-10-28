@@ -76,7 +76,7 @@ class ReportsController < BaseConferenceController
     when 'expected_speakers'
       r = Person.joins(events: :conference)
         .where('conferences.id': @conference.id)
-        .where('event_people.event_role': EventPerson::SPEAKER)
+        .where('event_people.event_role': EventPerson::SPEAKERS)
         .where('event_people.role_state': 'confirmed')
         .where('events.public': true)
         .where('events.start_time > ?', Time.now)
@@ -111,7 +111,7 @@ class ReportsController < BaseConferenceController
       r = Person.joins(events: :conference)
         .includes(:availabilities)
         .where('conferences.id': @conference.id)
-        .where('event_people.event_role': EventPerson::SPEAKER)
+        .where('event_people.event_role': EventPerson::SPEAKERS)
         .where('event_people.role_state': [ 'confirmed', 'scheduled' ])
         .where(availabilities: { person_id: nil })
     end

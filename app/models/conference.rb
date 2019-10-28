@@ -53,7 +53,7 @@ class Conference < ApplicationRecord
 
   scope :has_submission, ->(person) {
     joins(events: [{ event_people: :person }])
-      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
+      .where(EventPerson.arel_table[:event_role].in(EventPerson::SUBSCRIBERS))
       .where(Person.arel_table[:id].eq(person.id)).distinct
   }
 
