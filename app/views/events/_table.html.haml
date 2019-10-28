@@ -39,9 +39,9 @@
               -else
                 = link_to event.ticket.remote_ticket_id, get_ticket_view_url( event.ticket.remote_ticket_id ), target: "_blank"
         %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
-        %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+        %td= link_to_unless params[:event_type].present?, (t(event.event_type, scope: 'options') unless event.event_type.blank?).to_s, request.query_parameters.merge(:event_type => event.event_type)
         - if policy(@conference).manage?
-          %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
+          %td= link_to_unless params[:event_state].present?, (t(event.state, scope: 'conferences_module') unless event.state.blank?).to_s, request.query_parameters.merge(:event_state => event.state)
         %td
           %span.nowrap= l(event.date_of_submission_in_conference_tz)
           = render partial: 'events/event_tags', locals: { event: event, short: true }
