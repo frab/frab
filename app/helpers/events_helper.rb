@@ -24,4 +24,32 @@ module EventsHelper
     duration_in_minutes = number_of_time_slots * @conference.timeslot_duration
     duration_to_time(duration_in_minutes)
   end
+
+  FilterData = Struct.new(:type, :attribute_name, :qname, :filter_name_i18n, :filter_name, :i18n_scope)
+
+  def filters_data
+    [ FilterData[:text,
+                 'tracks.name',
+                 'track_name',
+                 'activerecord.attributes.event.track'],
+      FilterData[:text,
+                 :event_type,
+                 'event_type',
+                 'activerecord.attributes.event.event_type',
+                 nil,
+                 'options'],
+      FilterData[:text,
+                 :state,
+                 'event_state',
+                 'activerecord.attributes.event.state',
+                 nil,
+                 'conferences_module'] ].freeze
+  end
+
+  def show_filters_pane?
+    filters_data.each do |f|
+      return true if params[f.qname].present?
+    end
+    false
+  end
 end

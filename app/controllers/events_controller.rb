@@ -45,7 +45,7 @@ class EventsController < BaseConferenceController
   def my
     authorize @conference, :read?
 
-    result = search @conference.events.associated_with(current_user.person)
+    result = search @conference.events.associated_with(current_user.person).includes(:track)
     clean_events_attributes
     @events = result.paginate page: page_param
   end
@@ -68,7 +68,7 @@ class EventsController < BaseConferenceController
   def attachments
     authorize @conference, :read?
     
-    result = search @conference.events
+    result = search @conference.events.includes(:track)
     @events = result.paginate page: page_param
     clean_events_attributes
     
@@ -84,7 +84,7 @@ class EventsController < BaseConferenceController
   def ratings
     authorize @conference, :read?
 
-    result = search @conference.events_with_review_averages
+    result = search @conference.events_with_review_averages .includes(:track)
     @events = result.paginate page: page_param
     clean_events_attributes
 
@@ -266,9 +266,13 @@ class EventsController < BaseConferenceController
   # returns duplicates if ransack has to deal with the associated model
   def search(events)
     filter = events
-    filter = filter.where(state: params[:event_state]) if params[:event_state].present?
-    filter = filter.where(event_type: params[:event_type]) if params[:event_type].present?
-    filter = filter.where(track: @conference.tracks.find_by(:name => params[:track_name])) if params[:track_name].present?
+    helpers.filters_data.each do |f|
+      if params[f.qname].present?
+        if f.type == :text
+          filter = filter.where(f.attribute_name => params[f.qname])
+        end
+      end
+    end
     @search = perform_search(filter, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
     if params.dig('q', 's')&.match('track_name')
       @search.result
@@ -276,7 +280,7 @@ class EventsController < BaseConferenceController
       @search.result(distinct: true)
     end
   end
-
+  
   def event_params
     params.require(:event).permit(
       :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license, :tech_rider,
