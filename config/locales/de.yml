@@ -558,6 +558,7 @@ de:
       date: Datum des Events
       event: Name des Events
       forename: Vorname des Sprechers
+      joinlink: Link zur Teilnahme an der Veranstaltung
       link: Bestätigungslink
       public_name: Öffentlicher Name des Sprechers
       room: Raum des Events

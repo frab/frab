@@ -551,6 +551,7 @@ fr:
       date: Date de présentation
       event: Titre de l’évènement
       forename: Prénom de l’orateur
+      joinlink: Lien pour rejoindre l'événement
       link: Lien de confirmation
       public_name: Nom public de l’orateur
       room: Salle de présentation

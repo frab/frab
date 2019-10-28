@@ -86,13 +86,26 @@ class EventPerson < ApplicationRecord
       string.gsub! '%{date}', event.start_time.in_time_zone(conference&.timezone).strftime('%F')
       string.gsub! '%{time}', event.start_time.in_time_zone(conference&.timezone).strftime('%H:%M %z %Z')
     end
+    
+    
+    joinlink = cfp_events_join_url(token: event.invite_token, locale: locale) if event.invite_token.present?
+    string.gsub! '%{joinlink}',  joinlink || '-'
 
-    return string unless confirmation_token.present?
-
-    # XXX ENV.fetch('FRAB_HOST') does not belong here
-    string.gsub '%{link}', cfp_event_confirm_by_token_url(conference_acronym: conference.acronym, id: event.id, token: confirmation_token, host: ENV.fetch('FRAB_HOST'), locale: locale)
+    conflink = cfp_event_confirm_by_token_url(id: event.id, token: confirmation_token, locale: locale) if confirmation_token.present?
+    string.gsub! '%{link}', conflink || '-'
+    
+    return string
+    
   end
 
+  def default_url_options
+    result = { protocol: ENV.fetch('FRAB_PROTOCOL'),
+               host: ENV.fetch('FRAB_HOST'), 
+               port: ENV['FRAB_PORT'].presence }
+    result[:conference_acronym] = conference.acronym if conference
+    result
+  end
+  
   def to_s
     "#{model_name.human}: #{person.full_name} (#{event_role})"
   end
