@@ -43,6 +43,8 @@ class EditingEventRatingTest < FeatureTest
     # click_on 'Apply filter'
     visit "/#{@conference.acronym}/events?event_type=film|dance"
     
+    assert_content page, '╳ Event type : multiple'
+
     assert_content page, @event1.title
     refute_content page, @event2.title
     assert_content page, @event3.title
