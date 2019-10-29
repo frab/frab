@@ -107,8 +107,7 @@ class Cfp::EventsController < ApplicationController
     
     raise Pundit::NotAuthorizedError unless @join_as&.to_sym.in? EventPerson::JOINABLES
 
-    deadline = @event&.conference&.call_for_participation&.hard_deadline
-    if deadline && Date.today > deadline
+    if @event&.conference&.call_for_participation&.hard_deadline_over?
       unless @join_as == 'assistant'
         return redirect_to cfp_root_path, flash: { error: t('cfp.hard_deadline_over') }
       end

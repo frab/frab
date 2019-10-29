@@ -190,7 +190,7 @@ class Conference < ApplicationRecord
 
   def in_the_past?
     return false if days.nil? or days.empty?
-    return false if Time.now < days.last.end_date
+    return false if Time.now.in_time_zone(timezone) < days.last.end_date
     true
   end
 

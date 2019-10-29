@@ -19,7 +19,7 @@
         %p
           %b= t('cfp.show.conference_empty_days')
 
-      - if cfp_hard_deadline_over?
+      - if @conference.call_for_participation&.hard_deadline_over?
         %p
           %b= t('cfp.show.deadline_passed')
 
