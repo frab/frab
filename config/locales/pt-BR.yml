@@ -2093,6 +2093,9 @@ pt-BR:
   simple_form:
     error_notification:
       default_message: 'Por favor, revise os problemas abaixo:'
+    labels:
+      languages:
+        code: Língua
     'no': Não
     required:
       mark: "*"

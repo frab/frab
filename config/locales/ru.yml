@@ -2071,6 +2071,9 @@ ru:
   simple_form:
     error_notification:
       default_message: 'Ознакомьтесь со следующими проблемами:'
+    labels:
+      languages:
+        code: язык
     'no': нет
     required:
       mark: "*"

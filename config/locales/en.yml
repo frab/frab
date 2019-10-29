@@ -2052,6 +2052,9 @@ en:
   simple_form:
     error_notification:
       default_message: 'Please review the problems below:'
+    labels:
+      languages:
+        code: Language
     'no': 'No'
     required:
       mark: "*"

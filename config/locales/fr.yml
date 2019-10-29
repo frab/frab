@@ -2085,6 +2085,9 @@ fr:
   simple_form:
     error_notification:
       default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
+    labels:
+      languages:
+        code: La langue
     'no': Non
     required:
       mark: "*"

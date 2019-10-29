@@ -2089,6 +2089,9 @@ it:
   simple_form:
     error_notification:
       default_message: 'Si prega di rivedere i problemi di seguito:'
+    labels:
+      languages:
+        code: linguaggio
     'no': non
     required:
       mark: "*"
