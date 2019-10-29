@@ -52,4 +52,7 @@ module EventsHelper
     end
     false
   end
+  def split_filter_string(s)
+    s.split('|', -1)
+  end
 end
