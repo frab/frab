@@ -175,6 +175,7 @@ en:
       person: profile
       phone_number: phone number
       room: room
+      review_metric: Review metric
       track: track
   add_association: Add %{name}
   additional_resources: Additional Resources
@@ -1024,6 +1025,7 @@ en:
     no_ratings: |
       No one has entered a rating for this event yet. Be the first
       and rate the event using the form above.
+    not_applicable: N/A
     not_involved: |
       You are not yet involved in any event in this
       conference. Add yourself to an event in whatever
@@ -1974,6 +1976,16 @@ en:
     speakers_without_availabilities: speakers without availabilities
     unconfirmed_events: events that are unconfirmed
   resend: Resend
+  reviewing: Reviewing
+  reviewing_module:
+    current_review_metrics: 'The currently configured review metrics are:'
+    empty_review_metrics: |
+      You can ask submission reviewers to focus on specific
+      aspects of each submission while reviewing, by adding
+      review metrics to this list.
+    modify_review_metric_with_parent: |
+      Review metrics for this conference can only be modified with
+      administration rights for the parent conference %{parent}
   role:
     admin: Admin
     assistant: Assistant

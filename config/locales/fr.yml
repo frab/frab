@@ -174,6 +174,7 @@ fr:
       notification: Notification
       person: profil
       phone_number: numéro de téléphone
+      review_metric: Critique métrique
       room: salle
       track: fil
   add_association: Ajouter %{name}
@@ -1052,6 +1053,7 @@ fr:
     no_ratings: |
       Personne n’a noté cet évènement pour le moment. Soyez le premier en
       utilisant le formulaire ci-dessous.
+    not_applicable: N/A
     not_involved: |
       Vous n’êtes pas encore impliqué dans un évènement pour cette conférence.
       Ajoutez-vous à un évènement pour le rôle que vous souhaitez tenir, et
@@ -2005,6 +2007,16 @@ fr:
     speakers_without_availabilities: orateurs sans disponibilités
     unconfirmed_events: événements non confirmés
   resend: Renvoyer
+  reviewing: Révision
+  reviewing_module:
+    current_review_metrics: 'Les métriques de révision actuellement configurées sont les suivantes:'
+    empty_review_metrics: |
+      Vous pouvez demander aux examinateurs de soumission de se concentrer sur des
+      aspects de chaque soumission tout en examinant, en ajoutant
+      examiner les métriques de cette liste.
+    modify_review_metric_with_parent: |
+      Les métriques d'évaluation de cette conférence ne peuvent être modifiées qu'avec
+      droits d'administration pour la conférence parente %{parent}
   role:
     admin: Administrateur
     assistant: Assistant

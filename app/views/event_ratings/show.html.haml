@@ -75,6 +75,17 @@
         %fieldset.inputs
           = f.input :rating, as: :rating
           = f.input :comment, input_html: {rows: 3}
+          = f.simple_fields_for :review_scores do |ff|
+            = ff.input :score,
+              as: :radio_buttons,
+              collection: [[t('events_module.not_applicable'), '0'], ['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5']], 
+              label: ff.object.review_metric.name, 
+              hint: ff.object.review_metric.description,
+              item_label_class: 'review-scores'
+              
+            = ff.input :review_metric_id, as: :hidden
+            = ff.input :id, as: :hidden
+            
         .actions
           = f.button :submit,  class: 'primary'
           - if @rating.persisted?
@@ -98,6 +109,8 @@
                 %th
                 %th= t('user')
                 %th= t('rating')
+                - @conference.review_metrics.each do |review_metric|
+                  %th=review_metric.name
                 %th= t('comment')
             %tbody
               - @event_ratings.each do |event_rating|
@@ -108,4 +121,7 @@
                     %td=event_rating.person.full_name
                     %td
                       = raty_for("event_rating_#{event_rating.id}", event_rating.rating)
+                    - @conference.review_metrics.each do |review_metric|
+                      - score=event_rating.review_scores.find_by(review_metric: review_metric)&.score
+                      %td=score if score and score>0
                     %td=event_rating.comment

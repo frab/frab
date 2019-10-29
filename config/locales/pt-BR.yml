@@ -196,6 +196,7 @@ pt-BR:
       notification: Notificação
       person: Perfil
       phone_number: Número de telefone
+      review_metric: Métrica de revisão
       room: Sala
       track: Trilha
   add_association: adicionar %{name}
@@ -1041,6 +1042,7 @@ pt-BR:
     no_ratings: |
       Ninguém inseriu uma classificação para este evento ainda. Seja o primeiro
       e avalie o evento usando o formulário acima.
+    not_applicable: N/A
     not_involved: |
       Você ainda não está envolvido em nenhum evento neste
       conferência. Adicione-se a um evento em qualquer
@@ -2015,6 +2017,16 @@ pt-BR:
     speakers_without_availabilities: alto-falantes sem disponibilidade
     unconfirmed_events: eventos que não são confirmados
   resend: Reenviar
+  reviewing: Revendo
+  reviewing_module:
+    current_review_metrics: 'As métricas de revisão configuradas atualmente são:'
+    empty_review_metrics: |
+      Você pode solicitar que os revisores de envios se concentrem em
+      aspectos de cada envio durante a revisão, adicionando
+      revise as métricas para esta lista.
+    modify_review_metric_with_parent: |
+      As métricas de revisão desta conferência só podem ser modificadas com
+      direitos de administração da conferência principal %{parent}
   role:
     admin: Admin
     assistant: Assistente

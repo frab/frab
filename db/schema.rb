@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_000000) do
+ActiveRecord::Schema.define(version: 2019_10_04_000003) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2019_10_02_000000) do
     t.integer "day_id"
     t.index ["conference_id"], name: "index_availabilities_on_conference_id"
     t.index ["person_id"], name: "index_availabilities_on_person_id"
+  end
+
+  create_table "average_review_scores", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "review_metric_id"
+    t.float "score"
+    t.index ["event_id", "review_metric_id"], name: "index_average_review_scores_on_event_id_and_review_metric_id", unique: true
+    t.index ["event_id"], name: "index_average_review_scores_on_event_id"
+    t.index ["review_metric_id"], name: "index_average_review_scores_on_review_metric_id"
   end
 
   create_table "call_for_participations", force: :cascade do |t|
@@ -315,6 +324,26 @@ ActiveRecord::Schema.define(version: 2019_10_02_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["person_id"], name: "index_phone_numbers_on_person_id"
+  end
+
+  create_table "review_metrics", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "conference_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conference_id"], name: "index_review_metrics_on_conference_id"
+    t.index ["name", "conference_id"], name: "index_review_metrics_on_name_and_conference_id", unique: true
+  end
+
+  create_table "review_scores", force: :cascade do |t|
+    t.integer "event_rating_id"
+    t.integer "review_metric_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_rating_id"], name: "index_review_scores_on_event_rating_id"
+    t.index ["review_metric_id"], name: "index_review_scores_on_review_metric_id"
   end
 
   create_table "rooms", force: :cascade do |t|
