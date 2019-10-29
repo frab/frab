@@ -2120,6 +2120,9 @@ es:
   simple_form:
     error_notification:
       default_message: 'Por favor revise los problemas a continuación:'
+    labels:
+      languages:
+        code: Idioma
     'no': 'No'
     required:
       mark: "*"

@@ -2071,6 +2071,9 @@ zh:
   simple_form:
     error_notification:
       default_message: 请查看下面的问题：
+    labels:
+      languages:
+        code: 语言
     'no': 没有
     required:
       mark: "*"

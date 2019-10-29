@@ -2083,6 +2083,9 @@ de:
   simple_form:
     error_notification:
       default_message: 'Bitte überprüfen Sie die folgenden Probleme:'
+    labels:
+      languages:
+        code: Sprache
     'no': Nein
     required:
       mark: "*"
