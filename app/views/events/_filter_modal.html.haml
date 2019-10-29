@@ -14,6 +14,7 @@
   
     .actions
       = link_to t('apply_filter'), '#', class: "btn primary", id: 'apply_filter_btn'
+      = link_to t('clear_filter'), '#', class: "btn",         id: 'clear_filter_btn'
 .modal-footer
   &nbsp;
 
@@ -30,6 +31,14 @@
     u = new URL(location.href)
     u.searchParams.set(qname, new_value)
     $("#apply_filter_btn").attr("href", u.toString())
+    $('#filters-modal').modal('hide')
+    true
+  
+  $('#clear_filter_btn').on 'click', (event) -> 
+    qname = $('#filter_form form').data('qname')
+    u = new URL(location.href)
+    u.searchParams.delete(qname)
+    $("#clear_filter_btn").attr("href", u.toString())
     $('#filters-modal').modal('hide')
     true
   
