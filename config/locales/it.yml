@@ -188,6 +188,7 @@ it:
   all: Tutti
   allowed_event_types: Tipi di eventi consentiti
   allowed_event_types_extras: Altri tipi di eventi consentiti
+  apply_filter: Applica il filtro
   are_you_sure: Sei sicuro?
   attachments_overview_module:
     attachments: allegati
@@ -209,6 +210,7 @@ it:
   availability: disponibilità
   available: disponibile
   basic_information: Informazioni di base
+  blank_indication: "(Vuoto)"
   by: da
   call_for_participation: Invito alla partecipazione
   cancel: annullare
@@ -1092,6 +1094,7 @@ it:
     reject_event_hint: Rifiuta questo evento. I relatori saranno informati di questo rifiuto via e-mail.
     reject_event_no_email: Rifiuta l'evento (nessuna email)
     reject_event_no_email_hint: Rifiuta questo evento senza inviare un'e-mail automatica.
+    select_filter_for: 'Seleziona il filtro per %{filtername}:'
     toggle_description: Mostra descrizione >>
     track_select: filtro per filo
   expenses: la spesa

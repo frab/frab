@@ -210,6 +210,7 @@ pt-BR:
   all: Todos
   allowed_event_types: Tipos de eventos permitidos
   allowed_event_types_extras: Tipos de eventos adicionais permitidos
+  apply_filter: Aplicar filtro
   are_you_sure: Você tem certeza?
   attachments_overview_module:
     attachments: acessórios
@@ -231,6 +232,7 @@ pt-BR:
   availability: Disponibilidade
   available: acessível
   basic_information: Informações básicas
+  blank_indication: "(em branco)"
   by: de
   call_for_participation: Chamada de Trabalhos
   cancel: Cancelar
@@ -1078,6 +1080,7 @@ pt-BR:
     reject_event_hint: Rejeite este evento. O (s) orador (es) será notificado (a) da rejeição por email.
     reject_event_no_email: Rejeitar evento (sem email)
     reject_event_no_email_hint: Rejeite este evento sem enviar um email automático.
+    select_filter_for: 'Selecione o filtro para %{filtername}:'
     toggle_description: Alternar Descrição >>
     track_select: filtrar por faixa
   expenses: Despesas

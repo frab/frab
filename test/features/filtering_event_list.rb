@@ -29,6 +29,18 @@ class EditingEventRatingTest < FeatureTest
   
   it 'can filter event list by using the multi-filter', js: true do
     sign_in_user(@user)
+    visit "/#{@conference.acronym}/events/"
+    
+    # click the filter icon next to table header "Type"
+    find('th', text: 'Type').find('.show_filter_modal').trigger('click')
+    assert_content page, 'Select filter for'
+    
+    check 'Film'
+    check 'dance'
+    
+    find('#apply_filter_btn')
+    # TODO - this fails because phantomjs does not support URL.searchParams.set
+    # click_on 'Apply filter'
     visit "/#{@conference.acronym}/events?event_type=film|dance"
     
     assert_content page, @event1.title

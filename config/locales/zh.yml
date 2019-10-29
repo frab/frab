@@ -188,6 +188,7 @@ zh:
   all: 所有
   allowed_event_types: 允许的事件类型
   allowed_event_types_extras: 其他允许的事件类型
+  apply_filter: 套用筛选器
   are_you_sure: 你确定？
   attachments_overview_module:
     attachments: 附件
@@ -209,6 +210,7 @@ zh:
   availability: 可用性
   available: 可得到
   basic_information: 基本信息
+  blank_indication: "（空白）"
   by: 通过
   call_for_participation: 呼吁参与
   cancel: 取消
@@ -1068,6 +1070,7 @@ zh:
     reject_event_hint: 拒绝此事件。发言者将通过电子邮件通知拒绝。
     reject_event_no_email: 拒绝活动(无电子邮件)
     reject_event_no_email_hint: 拒绝此事件而不发送自动电子邮件。
+    select_filter_for: 为%{filtername}选择过滤器：
     toggle_description: 切换说明>>
     track_select: 按轨道过滤
   expenses: 花费

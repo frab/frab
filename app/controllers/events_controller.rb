@@ -50,6 +50,18 @@ class EventsController < BaseConferenceController
     @events = result.paginate page: page_param
   end
 
+  def filter_modal
+    authorize @conference, :read?
+    
+    @filter = helpers.filters_data.detect{|f| f.qname == params[:which_filter]}
+    
+    @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
+    
+    @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname].present?
+    
+    render partial: 'filter_modal'
+  end
+  
   # events as pdf
   def cards
     authorize @conference, :manage?

@@ -31,10 +31,16 @@
               %tr
                 %th
                 %th= sort_link @search, :title, term: params[:term]
-                %th= sort_link @search, :track_name, t('track'), term: params[:term]
-                %th= sort_link @search, :event_type, term: params[:term]
+                %th.nowrap
+                  = sort_link @search, :track_name, t('track'), term: params[:term]
+                  = filter_link('track_name')
+                %th.nowrap
+                  = sort_link @search, :event_type, term: params[:term]
+                  = filter_link('event_type')
                 - if policy(@conference).manage?
-                  %th= sort_link @search, :state, term: params[:term]
+                  %th.nowrap
+                    = sort_link @search, :state, term: params[:term]
+                    = filter_link('event_state')
                 - @attachment_titles.each do |attachment_title|
                   %th= t(attachment_title, scope: 'events_module.predefined_title_types')
                 - if @other_attachment_titles_exist
@@ -57,3 +63,4 @@
                     %td= safe_join( event.event_attachments.where.not(title: @attachment_titles).map{|ea| link_to ea.link_title, ea.attachment.url}, '<br>'.html_safe )
           = actions_bar do
             = will_paginate @events
+= render partial: 'filters_modal_holder'

@@ -52,7 +52,27 @@ module EventsHelper
     end
     false
   end
+  def localized_filter_options(c, i18n_scope)
+    c = split_filter_string(c) if c.is_a? String
+    options = (c - ['',nil]).map{|v| [ if i18n_scope 
+                                         t(v, scope: i18n_scope, default: v)
+                                       else  
+                                         v
+                                       end,
+                                       v]    }.sort
+    if c.include? '' or c.include? nil
+      options.push [ t('blank_indication'), '' ]
+    end
+    options
+  end
+  
   def split_filter_string(s)
     s.split('|', -1)
+  end
+
+  def filter_link(qname)
+    link_to "",'#',
+            class: [ 'show_filter_modal', 'filter_icon', params[qname].present?],
+            data: { url: filter_modal_events_url(request.query_parameters.merge(which_filter: qname)) }
   end
 end

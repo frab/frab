@@ -188,6 +188,7 @@ en:
   all: All
   allowed_event_types: Allowed event types
   allowed_event_types_extras: Additional allowed event types
+  apply_filter: Apply filter
   are_you_sure: Are you sure?
   attachments_overview_module:
     attachments: attachments
@@ -209,6 +210,7 @@ en:
   availability: Availability
   available: Available
   basic_information: Basic informations
+  blank_indication: (blank)
   by: by
   call_for_participation: Call for Participation
   cancel: Cancel
@@ -1062,6 +1064,7 @@ en:
     reject_event_hint: Reject this event. The speaker(s) will be notified of the rejection via email.
     reject_event_no_email: Reject event (no email)
     reject_event_no_email_hint: Reject this event without sending an automated email.
+    select_filter_for: "Select filter for %{filtername}:"
     toggle_description: Toggle Description >>
     track_select: filter by track
   expenses: Expenses

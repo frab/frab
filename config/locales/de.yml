@@ -216,6 +216,7 @@ de:
   all: Alle
   allowed_event_types: Zulässige Ereignistypen
   allowed_event_types_extras: Zusätzliche zulässige Ereignistypen
+  apply_filter: Filter anwenden
   are_you_sure: Sind Sie sicher?
   attachments_overview_module:
     attachments: Anhänge
@@ -237,6 +238,7 @@ de:
   availability: Verfügbarkeit
   available: Verfügbar
   basic_information: Basisinformationen
+  blank_indication: "(leer)"
   by: von
   call_for_participation: Call for Participation
   cancel: Abbrechen
@@ -1071,6 +1073,7 @@ de:
       E-Mail oder gegebenenfalls später im Ticket-System informiert.
     reject_event_no_email: Event rejecten (ohne E-Mail)
     reject_event_no_email_hint: Setzt den Status des Events auf rejected, ohne eine automatisierte E-Mail zu senden.
+    select_filter_for: "Filter für %{filtername} auswählen:"
     toggle_description: Beschreibung umschalten >>
     track_select: Filter nach Track
   expenses: Spesen

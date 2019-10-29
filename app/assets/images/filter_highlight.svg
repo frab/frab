@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+<svg width="28.347pt" height="28.347pt" fill-rule="evenodd" overflow="visible" stroke-linejoin="bevel" stroke-width=".501" version="1.1" viewBox="0 0 28.347 28.347" xmlns="http://www.w3.org/2000/svg">
+<g transform="scale(1 -1)" fill="none" stroke="#000">
+<g transform="translate(0 -28.347)">
+<g stroke="#0003ff" stroke-linejoin="miter" stroke-miterlimit="79.84">
+<path d="m10.695 14.102-9.03 12.537h24.198l-9.119-12.64v-7.063l-6.049-4.537z" fill="none" stroke-width="1.512"/>
+<path d="m10.695 14.102v-11.703l6.049 4.537v7.063l9.119 12.64h-24.198l9.03-12.537z" fill="#0003ff" stroke-linecap="round" stroke-width=".5"/>
+</g>
+</g>
+</g>
+</svg>

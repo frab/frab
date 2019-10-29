@@ -1,0 +1,37 @@
+.modal-header
+  = link_to "×", "#", class: "close"
+  %h3
+    = t('events_module.select_filter_for', filtername: @filter.filter_name || t(@filter.filter_name_i18n))
+.modal-body#filter_form
+  = simple_form_for(:filter_form, data: { qname: @filter.qname }, url: '#', method: :get ) do |f|
+    %div#filter-values-select
+      = f.input :possible_values,
+                as: :check_boxes, 
+                label: '',
+                required: false,
+                collection: @options,
+                checked: @selected_values
+  
+    .actions
+      = link_to t('apply_filter'), '#', class: "btn primary", id: 'apply_filter_btn'
+.modal-footer
+  &nbsp;
+
+:coffeescript
+  $('#apply_filter_btn').on 'click', (event) -> 
+    qname = $('#filter_form form').data('qname')
+
+    new_value=''
+    if $("#filter-values-select").length
+      selected_vals = []
+      for a in $("#filter-values-select input:checked")
+        selected_vals.push(a.value) 
+      new_value = selected_vals.join('|')
+    u = new URL(location.href)
+    u.searchParams.set(qname, new_value)
+    $("#apply_filter_btn").attr("href", u.toString())
+    $('#filters-modal').modal('hide')
+    true
+  
+
+  

@@ -6,10 +6,16 @@
         %th= sort_link @search, :title, t('title'), term: params[:term]
         - if @conference.ticket_server_enabled?
           %th= sort_link @search, :ticket_id, t('ticket'), term: params[:term]
-        %th= sort_link @search, :track_name, t('track'), term: params[:term]
-        %th= sort_link @search, :event_type, t('type'), term: params[:term]
+        %th.nowrap
+          = sort_link @search, :track_name, t('track'), term: params[:term]
+          = filter_link('track_name')
+        %th.nowrap
+          = sort_link @search, :event_type, t('type'), term: params[:term]
+          = filter_link 'event_type'
         - if policy(@conference).manage?
-          %th= sort_link @search, :state, t('state'), term: params[:term]
+          %th.nowrap
+            = sort_link @search, :state, t('state'), term: params[:term]
+            = filter_link 'event_state'
         %th= sort_link @search, t('created_at'), term: params[:term]
       - else
         %th= t('title')
@@ -52,3 +58,4 @@
             = action_button "small danger", t('destroy'), event, data: { confirm: t('are_you_sure')}, method: :delete
           - elsif current_user.is_speaker_in?(event)
             = action_button "small", t('edit'), edit_cfp_event_path(event)
+= render partial: 'events/filters_modal_holder'
