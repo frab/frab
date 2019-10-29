@@ -10,7 +10,7 @@
         %th= sort_link @search, :event_type, t('type'), term: params[:term]
         - if policy(@conference).manage?
           %th= sort_link @search, :state, t('state'), term: params[:term]
-        %th= sort_link @search, :created_at, term: params[:term]
+        %th= sort_link @search, t('created_at'), term: params[:term]
       - else
         %th= t('title')
         - if @conference.ticket_server_enabled?
