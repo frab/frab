@@ -268,3 +268,30 @@ span.after-deadline.soft {
 span.after-deadline.hard {
     background-color: red;
 }
+
+div.filters-row {
+    margin-bottom: 13px;
+}
+
+.filterbox {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-style: solid;
+    background: #E2E2E2;
+    padding: 4px;
+    border-color: #202020;
+    border-width: thin;
+}
+
+.filterbox-close-btn {
+    background: #222222;
+    padding: 4px;
+    color: #FFFF;
+    margin-left: -4px;
+    margin-right: 7px;
+}
+
+.filterbox-close-btn:hover {
+    color: lightblue;
+    text-decoration: none;
+}

@@ -1,10 +1,10 @@
 - if show_filters_pane?
-  %p
+  %div.filters-row
     %b= t('col_filters')
     - filters_data.each do |f|
       - if params[f.qname].present?
-        %span{:style => 'margin-left: 1em'}
-          = link_to "[x]", request.query_parameters.except(f.qname)
+        %span{:class => 'filterbox'}
+          = link_to "╳", request.query_parameters.except(f.qname), class: 'filterbox-close-btn'
           = f.filter_name || t(f.filter_name_i18n)
           = ":"
           - if f.i18n_scope

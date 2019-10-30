@@ -21,7 +21,7 @@ class EditingEventRatingTest < FeatureTest
     visit "/#{@conference.acronym}/events/"
     
     click_on 'Film'
-    assert_content page, '[x] Event type : Film'
+    assert_content page, '╳ Event type : Film'
     assert_content page, @event1.title
     refute_content page, @event2.title
     refute_content page, @event3.title
