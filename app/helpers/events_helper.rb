@@ -51,7 +51,12 @@ module EventsHelper
        FilterData[:range,
                   :event_ratings_count,
                   'event_ratings_count',
-                  'activerecord.attributes.event.event_ratings_count'] ].freeze
+                  'activerecord.attributes.event.event_ratings_count'] ].freeze +
+       @conference.review_metrics.map{ |rm| FilterData[:range,
+                                                      "#{rm.safe_name}.score",
+                                                      rm.safe_name,
+                                                      nil,
+                                                      rm.name] }
   end
 
   def show_filters_pane?
