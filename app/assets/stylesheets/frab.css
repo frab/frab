@@ -317,3 +317,8 @@ div.filters-row {
     background: url('filter_highlight.svg');
     background-size: contain;
 }
+
+.filter_form_op div.input {
+    color: red;
+    margin-left: auto;
+}

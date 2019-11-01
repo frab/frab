@@ -53,8 +53,12 @@
                   %th.nowrap
                     = sort_link @search, :state, term: params[:term]
                     = filter_link('event_state')
-                %th= sort_link @search, :average_rating, term: params[:term]
-                %th= sort_link @search, :event_ratings_count, term: params[:term]
+                %th.nowrap
+                  = sort_link @search, :average_rating, term: params[:term]
+                  = filter_link('average_rating')
+                %th
+                  = sort_link @search, :event_ratings_count, term: params[:term]
+                  = filter_link('event_ratings_count')
                 - review_metrics.each do |review_metric|
                   %th= sort_link @search, review_metric.safe_name, review_metric.name, term: params[:term]
                 %th
@@ -72,8 +76,8 @@
                     %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
                   %td
                     - if event.average_rating
-                      = raty_for("event_rating_#{event.id}", event.average_rating)
-                  %td= event.event_ratings_count
+                      = link_to_unless params[:average_rating].present?, raty_for("event_rating_#{event.id}", event.average_rating), request.query_parameters.merge(:average_rating => "≥#{event.average_rating}")
+                  %td= link_to_unless params[:event_ratings_count].present?, event.event_ratings_count, request.query_parameters.merge(:event_ratings_count => "≥#{event.event_ratings_count}")
                   - review_metrics.each do |review_metric|
                     - avg = event[review_metric.safe_name]
                     %td= avg.round(2) unless avg.nil?

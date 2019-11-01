@@ -26,7 +26,17 @@ class EditingEventRatingTest < FeatureTest
     refute_content page, @event2.title
     refute_content page, @event3.title
   end
-  
+
+  it 'can filter event list by clicking a number', js: true do
+    sign_in_user(@user)
+    visit "/#{@conference.acronym}/events/ratings"
+    find('a', text: /^1$/).click
+    assert_content page, '╳ Event ratings count ≥ 1'
+    refute_content page, @event1.title
+    assert_content page, @event2.title
+    refute_content page, @event3.title
+  end
+
   it 'can filter event list by using the multi-filter', js: true do
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/"

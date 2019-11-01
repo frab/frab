@@ -43,7 +43,15 @@ module EventsHelper
                  'event_state',
                  'activerecord.attributes.event.state',
                  nil,
-                 'conferences_module'] ].freeze
+                 'conferences_module'],
+      FilterData[:range,
+                  :average_rating,
+                  'average_rating',
+                  'activerecord.attributes.event.average_rating'],
+       FilterData[:range,
+                  :event_ratings_count,
+                  'event_ratings_count',
+                  'activerecord.attributes.event.event_ratings_count'] ].freeze
   end
 
   def show_filters_pane?
@@ -74,5 +82,10 @@ module EventsHelper
     link_to text, '#',
             class: [ 'show_filter_modal', ('filter_icon' unless text.present?), params[qname].present? ] ,
             data: { url: filter_modal_events_url(request.query_parameters.merge(which_filter: qname)) }
+  end
+  
+  def get_op_and_val(str)
+    /^(?<op>[≤≥=]?)(?<val>.*)$/ =~ str
+    return op, val
   end
 end

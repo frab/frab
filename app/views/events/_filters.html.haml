@@ -6,10 +6,14 @@
         %span{:class => 'filterbox'}
           = link_to "╳", request.query_parameters.except(f.qname), class: 'filterbox-close-btn'
           = f.filter_name || t(f.filter_name_i18n)
-          = ":"
-          - options_selected = localized_filter_options(params[f.qname], f.i18n_scope)
-          - if options_selected.count == 1
-            - w = options_selected[0].first
-          - else 
-            - w = t('multiple_indication')
-          = filter_link(f.qname, w)
+          - op,val=get_op_and_val(params[f.qname])
+          - if f.type == :range and op.present?
+            = filter_link(f.qname, "#{op} #{val}")
+          - else  
+            = ":"
+            - options_selected = localized_filter_options(params[f.qname], f.i18n_scope)
+            - if options_selected.count == 1
+              - w = options_selected[0].first
+            - else 
+              - w = t('multiple_indication')
+            = filter_link(f.qname, w)

@@ -55,9 +55,13 @@ class EventsController < BaseConferenceController
     
     @filter = helpers.filters_data.detect{|f| f.qname == params[:which_filter]}
     
-    @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
-    
-    @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname].present?
+    case @filter.type
+    when :text
+      @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
+      @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname].present?
+    when :range
+      @op, @current_numeric_value = helpers.get_op_and_val(params[@filter.qname])
+    end
     
     render partial: 'filter_modal'
   end
@@ -292,10 +296,19 @@ class EventsController < BaseConferenceController
   end
 
   def criteria_from_param(f)
-      s = params[f.qname]
+    s = params[f.qname]
+    case f.type
+    when :text
       c = helpers.split_filter_string(s)
       c += [nil] if c.include?('')
       return c
+    when :range
+      op,val = helpers.get_op_and_val(params[f.qname])
+      val = val.to_f
+      return (val..Float::INFINITY) if op == '≥'
+      return (Float::INFINITY..val) if op == '≤'
+      return val
+    end
   end
 
   def event_params
