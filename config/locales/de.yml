@@ -880,6 +880,7 @@ de:
     error_missing_speaker_email: 'E-Mails können nicht gesendet werden: Nicht alle Sprecher haben E-Mail-Adressen.'
     error_state_update: Status kann nicht aktualisiert werden.
     error_state_update_ex: 'Status kann nicht aktualisiert werden: %{ex}.'
+    error_template_add_failed: Mailvorlagenerstellung fehlgeschlagen.
     error_unnotifiable_state: Ereignis nicht in einem Status, der eine Benachrichtigung auslöst.
     filters:
       all_speakers_in_confirmed_events: Alle Sprecher an allen bestätigten Veranstaltungen
