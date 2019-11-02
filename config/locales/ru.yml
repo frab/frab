@@ -1009,6 +1009,13 @@ ru:
     events_in_other_conferences: События на других конференциях
     feedback_not_enabled: Система обратной связи не включена.
     hide_all: скрыть все
+    indicator:
+      full:
+        submitted_after_hard_deadline: Представлено после жесткого срока
+        submitted_after_soft_deadline: Представлено после крайнего срока
+      short:
+        submitted_after_hard_deadline: поздно
+        submitted_after_soft_deadline: ПОЗЖЕ
     inputs:
       hints:
         do_not_record: Будет ли это событие записано?

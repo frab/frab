@@ -1009,6 +1009,13 @@ zh:
     events_in_other_conferences: 其他会议中的活动
     feedback_not_enabled: 反馈系统未启用。
     hide_all: 全部藏起来
+    indicator:
+      full:
+        submitted_after_hard_deadline: 在艰难的截止日期之后提交
+        submitted_after_soft_deadline: 截止日期后提交
+      short:
+        submitted_after_hard_deadline: 晚的
+        submitted_after_soft_deadline: 晚的
     inputs:
       hints:
         do_not_record: 这个事件会被记录吗？

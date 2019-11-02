@@ -190,6 +190,25 @@ class Event < ApplicationRecord
     self.tech_rider = ''
     self
   end
+  
+  def date_of_submission_in_conference_tz
+    created_at.in_time_zone(conference.timezone).to_date
+  end
+  
+  def submitted_after_soft_deadline?
+    return true if submitted_after_hard_deadline?
+    return false unless conference.call_for_participation
+    return true if date_of_submission_in_conference_tz > conference.call_for_participation&.end_date
+    false
+  end
+
+  def submitted_after_hard_deadline?
+    return false unless conference.call_for_participation&.hard_deadline
+    return true if date_of_submission_in_conference_tz > conference.call_for_participation&.hard_deadline
+    return false
+  end
+  
+  
 
   private
 

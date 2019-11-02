@@ -1032,6 +1032,13 @@ fr:
     events_in_other_conferences: Évènements dans d’autres conférences
     feedback_not_enabled: Le système de retours n’est pas activé.
     hide_all: Tout cacher
+    indicator:
+      full:
+        submitted_after_hard_deadline: Soumis après la date limite
+        submitted_after_soft_deadline: Soumis après la date limite
+      short:
+        submitted_after_hard_deadline: En retard
+        submitted_after_soft_deadline: EN RETARD
     inputs:
       hints:
         do_not_record: Est-ce que l’évènement sera enregistré ?

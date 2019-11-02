@@ -1019,6 +1019,13 @@ pt-BR:
     events_in_other_conferences: Eventos em outras conferências
     feedback_not_enabled: O sistema de feedback não está ativado.
     hide_all: esconda tudo
+    indicator:
+      full:
+        submitted_after_hard_deadline: Enviado após prazo final
+        submitted_after_soft_deadline: Enviado após o prazo
+      short:
+        submitted_after_hard_deadline: Atrasado
+        submitted_after_soft_deadline: ATRASADO
     inputs:
       hints:
         do_not_record: Este evento será gravado?
