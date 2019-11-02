@@ -21,8 +21,8 @@ en:
         name: Name
       conference:
         acronym: Acronym
-        attachment_title_is_freeform: Attachment title is freeform
         allowed_event_types_as_list: Allowed event types
+        attachment_title_is_freeform: Attachment title is freeform
         bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license
@@ -174,8 +174,8 @@ en:
       notification: Notification
       person: profile
       phone_number: phone number
-      room: room
       review_metric: Review metric
+      room: room
       track: track
   add_association: Add %{name}
   additional_resources: Additional Resources
@@ -994,6 +994,7 @@ en:
     event_details: Event details
     event_feedbacks: Event Feedbacks
     event_ratings: Event ratings
+    event_type_select: filter by event type
     events_by_gender: Events by gender
     events_by_language: Events by language
     events_by_state: Events by state
@@ -1055,7 +1056,6 @@ en:
     reject_event_no_email_hint: Reject this event without sending an automated email.
     toggle_description: Toggle Description >>
     track_select: filter by track
-    event_type_select: filter by event type
   expenses: Expenses
   expenses_module:
     error_person_have_no_expense: "%{person} does not currently have any expenses."
@@ -2193,9 +2193,9 @@ en:
   value: Value
   version_on_item: "%{version} on %{item}"
   will_paginate:
+    next_label: "Next 🡆"
     page_gap: "…"
     previous_label: "🡄 Previous"
-    next_label: "Next 🡆"
   work_in_progress: working...
   workshops: Workshops
   workshops_only: Workshops only
