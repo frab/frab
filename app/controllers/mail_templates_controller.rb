@@ -54,8 +54,11 @@ class MailTemplatesController < BaseConferenceController
 
   def create
     t = MailTemplate.new(mail_template_params)
-    @conference.mail_templates << t
-    redirect_to(mail_templates_path, notice: t('emails_module.notice_template_added'))
+    if @conference.mail_templates << t
+      redirect_to(mail_templates_path, notice: t('emails_module.notice_template_added'))
+    else
+      redirect_to(mail_templates_path, alert: t('emails_module.error_template_add_failed'))
+    end
   end
 
   def destroy

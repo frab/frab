@@ -895,6 +895,7 @@ fr:
     error_missing_speaker_email: 'Impossible d’envoyer des courriels : les orateurs n’ont pas tous d’adresse de courriel.'
     error_state_update: Impossible de mettre à jour l’état.
     error_state_update_ex: 'Impossible de mettre à jour l’état : %{ex}.'
+    error_template_add_failed: La création du modèle de courrier a échoué.
     error_unnotifiable_state: L’évènement n’est pas dans un état notifiable.
     filters:
       all_speakers_in_confirmed_events: Tous les orateurs dans tous les évènements confirmés

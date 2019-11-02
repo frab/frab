@@ -874,6 +874,7 @@ zh:
     error_missing_speaker_email: 无法发送邮件：并非所有发言者都有电子邮件地址。
     error_state_update: 无法更新状态。
     error_state_update_ex: 无法更新状态：%{ex}。
+    error_template_add_failed: 邮件模板创建失败。
     error_unnotifiable_state: 事件不在通知状态。
     filters:
       all_speakers_in_confirmed_events: 所有发言人都参与了所有确认的事件

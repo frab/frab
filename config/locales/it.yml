@@ -899,6 +899,7 @@ it:
     error_missing_speaker_email: 'Le e-mail non possono essere inviate: non tutti gli oratori hanno un indirizzo e-mail.'
     error_state_update: Impossibile aggiornare lo stato.
     error_state_update_ex: 'Impossibile aggiornare lo stato: %{ex}.'
+    error_template_add_failed: Creazione del modello di posta non riuscita.
     error_unnotifiable_state: L'evento non è in uno stato di notifica.
     filters:
       all_speakers_in_confirmed_events: Tutti i relatori in tutti gli eventi confermati
