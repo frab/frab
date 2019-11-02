@@ -42,7 +42,9 @@
         %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
         - if policy(@conference).manage?
           %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
-        %td= l(event.created_at.to_date)
+        %td
+          %span.nowrap= l(event.date_of_submission_in_conference_tz)
+          = render partial: 'events/event_tags', locals: { event: event, short: true }
         %td.buttons
           = action_button "small", t('show'), event
           - if policy(@conference).manage?

@@ -1003,6 +1003,13 @@ en:
     events_in_other_conferences: Events in other conferences
     feedback_not_enabled: The feedback system is not enabled.
     hide_all: hide all
+    indicator:
+      full:
+        submitted_after_hard_deadline: Submitted after hard deadline
+        submitted_after_soft_deadline: Submitted after deadline
+      short:
+        submitted_after_hard_deadline: Late
+        submitted_after_soft_deadline: LATE
     inputs:
       hints:
         do_not_record: Will this event be recorded?

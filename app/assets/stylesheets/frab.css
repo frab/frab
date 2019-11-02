@@ -249,3 +249,22 @@ ul.event_classifiers_checkboxes input[type=checkbox] {
 .help-block {
     width: 430px;
 }
+span.event-tag {
+    display: inline;
+    min-width: 200px;
+    color: black;
+    padding: 2px 4px 2px 4px;
+    border: thin;
+    border-color: black;
+    border-style: solid;
+    vertical-align: middle;
+}
+span.event-tag.small {
+    font-size: 8px; 
+}
+span.after-deadline.soft {
+    background-color: orange;
+}
+span.after-deadline.hard {
+    background-color: red;
+}

@@ -1051,6 +1051,13 @@ es:
     events_in_other_conferences: Eventos en otras conferencias
     feedback_not_enabled: El sistema de retroalimentación no está habilitado.
     hide_all: ocultar todo
+    indicator:
+      full:
+        submitted_after_hard_deadline: Enviado después de la fecha límite
+        submitted_after_soft_deadline: Enviado después de la fecha límite
+      short:
+        submitted_after_hard_deadline: Tarde
+        submitted_after_soft_deadline: TARDE
     inputs:
       hints:
         do_not_record: "¿Se grabará este evento?"

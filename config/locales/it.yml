@@ -1036,6 +1036,13 @@ it:
     events_in_other_conferences: Eventi in altre conferenze
     feedback_not_enabled: Il sistema di restituzione non è attivato.
     hide_all: Nascondi tutto
+    indicator:
+      full:
+        submitted_after_hard_deadline: Presentato dopo una scadenza rigida
+        submitted_after_soft_deadline: Presentato dopo la scadenza
+      short:
+        submitted_after_hard_deadline: in ritardo
+        submitted_after_soft_deadline: LATE
     inputs:
       hints:
         do_not_record: L'evento sarà salvato?

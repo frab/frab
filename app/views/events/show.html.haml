@@ -21,7 +21,7 @@
           = action_button "", t('events_module.custom_notification'), custom_notification_event_path(event_id: @event), method: :post, hint: t('events_module.custom_notification_hint')
         - if @conference.ticket_server_enabled?
           - unless @event.remote_ticket?
-            = action_button "primary", t('events_module.add_ticket') , create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
+            = action_button "primary", t('events_module.add_ticket'), create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
       - elsif current_user.is_speaker_in?(@event)
         = action_button "small", t('edit'), edit_cfp_event_path(@event)
 
@@ -134,3 +134,6 @@
       %p
         %b= Event.human_attribute_name(:tech_rider) + ':'
         = @event.tech_rider
+  .row
+    .span16
+      = render partial: 'events/event_tags', locals: { event: @event, short: false }

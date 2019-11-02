@@ -1010,6 +1010,13 @@ de:
     events_in_other_conferences: Events in anderen Konferenzen
     feedback_not_enabled: Das Feedback-System ist nicht aktiviert.
     hide_all: Alles verbergen
+    indicator:
+      full:
+        submitted_after_hard_deadline: Eingereicht nach harter Frist
+        submitted_after_soft_deadline: Eingereicht nach Fristablauf
+      short:
+        submitted_after_hard_deadline: Spät
+        submitted_after_soft_deadline: SPÄT
     inputs:
       hints:
         do_not_record: Soll dieses Event aufgezeichnet werden?
