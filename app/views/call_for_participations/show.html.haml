@@ -9,8 +9,7 @@
     .span16
       %p
         = t('cfp.show.submitters_interface_link')
-        %a{href: new_user_session_url}= new_user_session_url
-        %a{href: new_user_session_url}= cfp_root_url
+        %a{href: cfp_root_url(locale: nil)}= cfp_root_url(locale: nil)
 
       - if @conference.call_for_participation.start_date
         %p= t('cfp.show.dates_hint', {start_date: l(@conference.call_for_participation.start_date), end_date: l(@conference.call_for_participation.end_date)})
