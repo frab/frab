@@ -17,13 +17,14 @@ class Day < ApplicationRecord
   validate :does_not_overlap
 
   def start_date_before_end_date
+    return if start_date.nil? || end_date.nil?
     errors.add(:end_date, 'should be after start date') if start_date >= end_date
   end
 
   def does_not_overlap
-    return if conference.nil?
+    return if [conference, start_date, end_date].include?(nil)
     conference.days.each { |day|
-      next if day == self
+      next if day == self || day.start_date.nil? || day.end_date.nil?
       errors.add(:start_date, "day overlapping with day #{day.label} from this conference") if start_date.between?(day.start_date, day.end_date)
       errors.add(:end_date, "day overlapping with day #{day.label} from this conference") if end_date.between?(day.start_date, day.end_date)
     }

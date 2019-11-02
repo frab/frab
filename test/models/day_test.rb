@@ -25,6 +25,15 @@ class DayTest < ActiveSupport::TestCase
     assert_equal false, conference.days[1].valid?
   end
 
+  test 'end date is nil' do
+    day = create(:day)
+    assert_equal true, day.valid?
+
+    day.end_date = nil
+    assert_equal false, day.valid?
+    assert day.errors.added?  :end_date, :blank
+  end
+
   test 'updating day updates conference' do
     conference = create(:three_day_conference)
     conference.reload
