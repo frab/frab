@@ -999,6 +999,7 @@ es:
     accept_event_no_email: Aceptar evento (sin correo electrónico)
     accept_event_no_email_hint: Acepta este evento sin enviar un correo electrónico automático.
     add_event: Añadir evento
+    add_event_at: Agregar evento en %{time}
     add_event_hint: Agrega un nuevo evento.
     add_ticket: Agregar ticket
     add_ticket_hint: Crea un boleto para este evento.
