@@ -874,6 +874,7 @@ ru:
     error_missing_speaker_email: Невозможно отправить почту. Не все колонки имеют адреса электронной почты.
     error_state_update: Не удалось обновить состояние.
     error_state_update_ex: 'Не удалось обновить состояние: %{ex}.'
+    error_template_add_failed: Не удалось создать почтовый шаблон.
     error_unnotifiable_state: Событие не в уведомляемом состоянии.
     filters:
       all_speakers_in_confirmed_events: Все ораторы, участвующие во всех подтвержденных событиях

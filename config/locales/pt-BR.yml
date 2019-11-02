@@ -890,6 +890,7 @@ pt-BR:
     error_missing_speaker_email: 'Não é possível enviar e-mails: nem todos os palestrantes têm endereços de e-mail.'
     error_state_update: Não é possível atualizar o estado.
     error_state_update_ex: 'Não é possível atualizar o estado: %{ex}.'
+    error_template_add_failed: Falha na criação do modelo de email.
     error_unnotifiable_state: Evento não em um estado notificável.
     filters:
       all_speakers_in_confirmed_events: Todos os palestrantes envolvidos em todos os eventos confirmados

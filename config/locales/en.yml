@@ -868,6 +868,7 @@ en:
     error_missing_speaker_email: 'Cannot send mails: Not all speakers have email addresses.'
     error_state_update: Cannot update state.
     error_state_update_ex: 'Cannot update state: %{ex}.'
+    error_template_add_failed: Mail template creation failed.
     error_unnotifiable_state: Event not in a notifiable state.
     filters:
       all_speakers_in_confirmed_events: All speakers involved in all confirmed events

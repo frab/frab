@@ -922,6 +922,7 @@ es:
     error_missing_speaker_email: 'No se pueden enviar correos: no todos los oradores tienen direcciones de correo electrónico.'
     error_state_update: No se puede actualizar el estado.
     error_state_update_ex: 'No se puede actualizar el estado: %{ex}.'
+    error_template_add_failed: La creación de la plantilla de correo falló.
     error_unnotifiable_state: Evento no en un estado de notificación.
     filters:
       all_speakers_in_confirmed_events: Todos los oradores involucrados en todos los eventos confirmados
