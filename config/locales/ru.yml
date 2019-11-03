@@ -188,6 +188,7 @@ ru:
   all: Все
   allowed_event_types: Разрешенные типы событий
   allowed_event_types_extras: Дополнительные разрешенные типы событий
+  apply_filter: Применить фильтр
   are_you_sure: Ты уверен?
   attachments_overview_module:
     attachments: вложения
@@ -209,6 +210,7 @@ ru:
   availability: Доступность
   available: Доступный
   basic_information: Основные сведения
+  blank_indication: "(Пусто)"
   by: от
   call_for_participation: Призыв к участию
   cancel: Отмена
@@ -1068,6 +1070,7 @@ ru:
     reject_event_hint: Отклонить это событие. Оратор (ы) будет уведомлен об отказе по электронной почте.
     reject_event_no_email: Отклонить событие (без электронной почты)
     reject_event_no_email_hint: Отклоните это событие, не отправляя автоматическое письмо.
+    select_filter_for: 'Выберите фильтр для %{filtername}:'
     toggle_description: Toggle Описание >>
     track_select: фильтр по треку
   expenses: Затраты
@@ -1635,6 +1638,7 @@ ru:
   manage_conference: Управление этой конференцией
   manual: Руководство
   more: Больше...
+  multiple_indication: множественный
   name: имя
   navigation:
     back: назад

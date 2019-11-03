@@ -10,6 +10,7 @@ class Track < ApplicationRecord
 
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validates :name, presence: true
+  validates :name, format: { without: /\|/ }
 
   def to_s
     "#{model_name.human}: #{name}"

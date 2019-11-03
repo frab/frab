@@ -15,4 +15,5 @@
           %p= t('events_module.not_involved')
 
   - else
+    = render partial: 'filters', locals: { params: params }
     = render 'shared/search_and_table', collection: @events

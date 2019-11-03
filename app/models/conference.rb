@@ -39,7 +39,7 @@ class Conference < ApplicationRecord
     :expenses_enabled,
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
-  validates :allowed_event_types_as_list, presence: { message: :blank }
+  validates :allowed_event_types_as_list, presence: { message: :blank }, format: { without: /\|/ }
   validates :acronym, uniqueness: true
   validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }

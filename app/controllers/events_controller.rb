@@ -45,11 +45,27 @@ class EventsController < BaseConferenceController
   def my
     authorize @conference, :read?
 
-    result = search @conference.events.associated_with(current_user.person)
+    result = search @conference.events.associated_with(current_user.person).includes(:track)
     clean_events_attributes
     @events = result.paginate page: page_param
   end
 
+  def filter_modal
+    authorize @conference, :read?
+    
+    @filter = helpers.filters_data.detect{|f| f.qname == params[:which_filter]}
+    
+    case @filter.type
+    when :text
+      @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
+      @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname].present?
+    when :range
+      @op, @current_numeric_value = helpers.get_op_and_val(params[@filter.qname])
+    end
+    
+    render partial: 'filter_modal'
+  end
+  
   # events as pdf
   def cards
     authorize @conference, :manage?
@@ -68,7 +84,7 @@ class EventsController < BaseConferenceController
   def attachments
     authorize @conference, :read?
     
-    result = search @conference.events
+    result = search @conference.events.includes(:track)
     @events = result.paginate page: page_param
     clean_events_attributes
     
@@ -84,7 +100,7 @@ class EventsController < BaseConferenceController
   def ratings
     authorize @conference, :read?
 
-    result = search @conference.events_with_review_averages
+    result = search @conference.events_with_review_averages .includes(:track)
     @events = result.paginate page: page_param
     clean_events_attributes
 
@@ -266,14 +282,32 @@ class EventsController < BaseConferenceController
   # returns duplicates if ransack has to deal with the associated model
   def search(events)
     filter = events
-    filter = filter.where(state: params[:event_state]) if params[:event_state].present?
-    filter = filter.where(event_type: params[:event_type]) if params[:event_type].present?
-    filter = filter.where(track: @conference.tracks.find_by(:name => params[:track_name])) if params[:track_name].present?
+    helpers.filters_data.each do |f|
+      if params[f.qname].present?
+        filter = filter.where(f.attribute_name => criteria_from_param(f))
+      end
+    end
     @search = perform_search(filter, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
     if params.dig('q', 's')&.match('track_name')
       @search.result
     else
       @search.result(distinct: true)
+    end
+  end
+
+  def criteria_from_param(f)
+    s = params[f.qname]
+    case f.type
+    when :text
+      c = helpers.split_filter_string(s)
+      c += [nil] if c.include?('')
+      return c
+    when :range
+      op,val = helpers.get_op_and_val(params[f.qname])
+      val = val.to_f
+      return (val..Float::INFINITY) if op == '≥'
+      return (Float::INFINITY..val) if op == '≤'
+      return val
     end
   end
 
