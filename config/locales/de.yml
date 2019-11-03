@@ -899,9 +899,10 @@ de:
     notice_template_added: E-Mail-Vorlage wurde erfolgreich hinzugefügt.
     notice_template_destroyed: E-Mail-Vorlage wurde erfolgreich gelöscht.
     notice_template_updated: E-Mail-Vorlage wurde erfolgreich aktualisiert.
-    placeholders_hint: |
-      Die folgenden Platzhalter können jeweils im Abschnitt "Inhalt" verwendet werden
-      Vorlage.
+    placeholders_hint_header: |
+      Sie können die dynamische Variablensubstitution in den Abschnitten "subject" und "content" verwenden
+      Vorlage. Vermeiden Sie die Verwendung von ereignisspezifischen Variablen, wenn Sie nicht möchten, dass Benutzer sie abrufen
+      mehr als eine E-Mail-Nachricht.
     send_mail: E-Mail senden
     template_subject: 'Betreff: %{subject}'
   error_signing_in: E-Mail-Adresse oder Passwort ungültig.

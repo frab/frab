@@ -1,0 +1,6 @@
+.span6.offset8.info-block
+  %h4= t('notifications_module.possible_variables')
+  %dl.dl-horizontal
+    - Notification::VARIABLES.each do |key, desc|
+      %dt= "#{desc}:"
+      %dd= "%{#{key}}"

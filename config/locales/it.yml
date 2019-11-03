@@ -918,9 +918,10 @@ it:
     notice_template_added: Modello email aggiunto con successo.
     notice_template_destroyed: Modello di email eliminato con successo.
     notice_template_updated: Modello email aggiornato correttamente.
-    placeholders_hint: |
-      Le seguenti posizioni possono essere utilizzate nella sezione `content`
-      di ogni modello.
+    placeholders_hint_header: |
+      Puoi usare la sostituzione dinamica delle variabili nelle sezioni `subject` e` content` di ciascuna
+      modello. Evita di usare variabili specifiche dell'evento se non vuoi che le persone lo ottengano
+      più di un messaggio di posta.
     send_mail: Invia email
     template_subject: 'Oggetto: %{subject}'
   error_signing_in: Email o password non valida.

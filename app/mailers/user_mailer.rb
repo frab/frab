@@ -13,7 +13,15 @@ class UserMailer < ActionMailer::Base
     mail to: @user.email, subject: I18n.t('mailers.user_mailer.confirmation_instructions')
   end
 
-  def bulk_mail(user, template)
-    mail to: user.email, subject: template.subject, body: template.content_for(user)
+  def bulk_mail_multiple_roles(event_people, template)
+    return if event_people.empty?
+    persons=event_people.pluck(:person_id).uniq
+    raise "this function should be used for one person only" unless persons.count == 1
+    person=Person.find(persons.first)
+    
+    msgs=event_people.map{|event_person| template.message_text_for_event_person(event_person)}
+    msgs.uniq.each do |msg|
+      mail to: person.email, subject: msg[:subject], body: msg[:body]
+    end
   end
 end

@@ -25,12 +25,6 @@
   %h1= t('edit')
 
   .row
-    .span6.offset8.info-block
-      %h4= t('notifications_module.possible_variables')
-      %dl.dl-horizontal
-        - Notification::VARIABLES.each do |key, desc|
-          %dt= "#{desc}:"
-          %dd= "%{#{key}}"
-
+    = render "shared/variable_subst_help"
     .span16
       = render "form_notifications"
