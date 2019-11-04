@@ -1069,6 +1069,9 @@ es:
         recording_license: Licencia de grabación para esta charla
         submission_note: 'Visibilidad: administrador y usuario; Información Adicional.'
         tech_rider: "¿Qué se necesita para este evento?"
+    listing_n_events:
+      one: Listado %{n} del evento %{count}.
+      other: Listado de eventos %{n} de %{count}.
     my_events: Mis eventos
     my_rating: Mi clasificación
     my_ratings: Mis calificaciones
@@ -1115,6 +1118,7 @@ es:
     reject_event_no_email_hint: Rechace este evento sin enviar un correo electrónico automático.
     select_filter_for: 'Seleccionar filtro para %{filtername}:'
     toggle_description: Alternar Descripción >>
+    toggle_send_bulk_mail: Enviar correo a todas estas personas >>
     track_select: filtrar por la pista
   expenses: Gastos
   expenses_module:
@@ -1733,6 +1737,9 @@ es:
     send_notification_to_subscribers:
       one: "¿Enviar notificaciones %{name} a 1 persona involucrada en %{event}?"
       other: "¿Enviar notificaciones %{name} a personas %{count} involucradas en %{event}?"
+    send_unspecified_notification_confirm:
+      one: "¿Está seguro de que desea enviar correos electrónicos para el evento %{count}?"
+      other: "¿Está seguro de que desea enviar correos electrónicos para eventos %{count}?"
     warning_events_without_speakers:
       one: 'Advertencia: 1 evento sin altavoces:'
       other: 'Advertencia: eventos %{count} sin altavoces:'
@@ -2122,6 +2129,7 @@ es:
     select_all_none: Seleccionar todo / ninguno
     view_live_version_hint: Vea la versión pública en vivo de su agenda al igual que cualquier asistente podría verla.
   scheduling: Programación
+  select_one: "-- Seleccione uno --"
   send: Enviar
   session:
     login: Iniciar sesión

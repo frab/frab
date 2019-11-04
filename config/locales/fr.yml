@@ -1050,6 +1050,9 @@ fr:
         recording_license: License d’enregistrement pour ce talk
         submission_note: 'Visibilité : Admins et utilisateurs; information additionelle.'
         tech_rider: Que faut-il pour cet évènement ?
+    listing_n_events:
+      one: Liste de %{n} de l'événement %{count}.
+      other: Liste %{n} d'événements %{count}.
     my_events: Mes évènements
     my_rating: Ma note
     my_ratings: Mes notes
@@ -1093,6 +1096,7 @@ fr:
     reject_event_no_email_hint: Rejeter cet évènement sans envoyer de courriel automatique.
     select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
     toggle_description: Afficher la description >>
+    toggle_send_bulk_mail: Envoyez un courrier à toutes ces personnes >>
     track_select: filtrer par fil
   expenses: Dépenses
   expenses_module:
@@ -1707,6 +1711,9 @@ fr:
     send_notification_to_subscribers:
       one: Envoyer des notifications %{name} à 1 personne impliquée dans %{event}
       other: Envoi de notifications %{name} aux personnes %{count} impliquées dans %{event}
+    send_unspecified_notification_confirm:
+      one: Êtes-vous sûr de vouloir envoyer des courriels pour l'événement %{count}?
+      other: Êtes-vous sûr de vouloir envoyer des courriels pour les événements %{count}?
     warning_events_without_speakers:
       one: 'Attention: 1 événement sans intervenants:'
       other: 'Avertissement: %{count} événements sans haut-parleurs:'
@@ -2098,6 +2105,7 @@ fr:
     select_all_none: Sélection (Tous / Aucun)
     view_live_version_hint: Afficher la version publique du programme, comme n’importe quelle personne la verrait
   scheduling: Programmation
+  select_one: "-- Choisissez un --"
   send: Envoyer
   session:
     login: Connexion

@@ -1029,6 +1029,9 @@ de:
         recording_license: Aufzeichnungs-Lizenz für dieses Event
         submission_note: Sichtbar für Administratoren und Benutzer; zusätzliche Information.
         tech_rider: Was wird für diese Veranstaltung benötigt?
+    listing_n_events:
+      one: Listing %{n} des Ereignisses %{count}.
+      other: Auflisten von %{n} von %{count}-Ereignissen.
     my_events: Meine Events
     my_rating: Meine Bewertungen
     my_ratings: Meine Bewertungen
@@ -1076,6 +1079,7 @@ de:
     reject_event_no_email_hint: Setzt den Status des Events auf rejected, ohne eine automatisierte E-Mail zu senden.
     select_filter_for: "Filter für %{filtername} auswählen:"
     toggle_description: Beschreibung umschalten >>
+    toggle_send_bulk_mail: Sende eine Mail an all diese Leute >>
     track_select: Filter nach Track
   expenses: Spesen
   expenses_module:
@@ -1699,6 +1703,9 @@ de:
     send_notification_to_subscribers:
       one: Senden Sie %{name}-Benachrichtigungen an 1 Person, die an %{event} beteiligt ist
       other: Senden Sie %{name}-Benachrichtigungen an %{count} Personen, die an %{event} beteiligt sind
+    send_unspecified_notification_confirm:
+      one: Möchten Sie wirklich E-Mails für das %{count}-Ereignis senden?
+      other: Möchten Sie wirklich E-Mails für %{count}-Ereignisse senden?
     warning_events_without_speakers:
       one: 'Warnung: 1 Veranstaltung ohne Sprecher:'
       other: 'Warnung: %{count} Ereignisse ohne Sprecher:'
@@ -2084,6 +2091,7 @@ de:
     select_all_none: Wählen Sie alle / keine aus
     view_live_version_hint: Zeigen Sie die öffentliche Live-Version Ihres Programms an, so wie jeder Teilnehmer sie sehen kann.
   scheduling: Planung
+  select_one: "-- Wähle eins --"
   send: Senden
   session:
     login: Einloggen

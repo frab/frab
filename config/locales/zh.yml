@@ -1027,6 +1027,9 @@ zh:
         recording_license: 录制本次演讲的许可证
         submission_note: visibiliy：管理员和用户;附加信息。
         tech_rider: 这个活动需要什么？
+    listing_n_events:
+      one: 列出%{count}事件的%{n}。
+      other: 列出%{count}事件的%{n}。
     my_events: 我的活动
     my_rating: 我的评价
     my_ratings: 我的评分
@@ -1073,6 +1076,7 @@ zh:
     reject_event_no_email_hint: 拒绝此事件而不发送自动电子邮件。
     select_filter_for: 为%{filtername}选择过滤器：
     toggle_description: 切换说明>>
+    toggle_send_bulk_mail: 发送邮件给所有这些人>>
     track_select: 按轨道过滤
   expenses: 花费
   expenses_module:
@@ -1686,6 +1690,9 @@ zh:
     send_notification_to_subscribers:
       one: 向1位涉及%{event}的人员发送%{name}通知
       other: 向参与%{event}的%{count}人员发送%{name}通知
+    send_unspecified_notification_confirm:
+      one: 您确定要发送有关%{count}事件的电子邮件吗？
+      other: 您确定要发送有关%{count}事件的电子邮件吗？
     warning_events_without_speakers:
       one: 警告：1个没有发言人的活动：
       other: 警告：没有扬声器的%{count}事件：
@@ -2072,6 +2079,7 @@ zh:
     select_all_none: 选择全部/无
     view_live_version_hint: 查看您的日程表的公开现场版本，就像任何与会者可能看到的一样。
   scheduling: 调度
+  select_one: "-- 选择一个选项 --"
   send: 发送
   session:
     login: 登录

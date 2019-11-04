@@ -7,6 +7,10 @@ module EventsHelper
     end
   end
 
+  def showing_my_events?
+     params[:events]=='my'
+  end
+
   def event_start_time
     return t(:date_not_set) unless @event.start_time
     I18n.l(@event.start_time, format: :pretty_datetime)
