@@ -21,6 +21,7 @@ en:
         name: Name
       conference:
         acronym: Acronym
+        allowed_event_types_as_list: Allowed event types
         attachment_title_is_freeform: Attachment title is freeform
         bulk_notification_enabled: Bulk notifications
         color: Color
@@ -173,6 +174,7 @@ en:
       notification: Notification
       person: profile
       phone_number: phone number
+      review_metric: Review metric
       room: room
       track: track
   add_association: Add %{name}
@@ -184,6 +186,9 @@ en:
     update_failed: Failed to update
     update_successful: Changes saved successfully!
   all: All
+  allowed_event_types: Allowed event types
+  allowed_event_types_extras: Additional allowed event types
+  apply_filter: Apply filter
   are_you_sure: Are you sure?
   attachments_overview_module:
     attachments: attachments
@@ -205,6 +210,7 @@ en:
   availability: Availability
   available: Available
   basic_information: Basic informations
+  blank_indication: (blank)
   by: by
   call_for_participation: Call for Participation
   cancel: Cancel
@@ -218,6 +224,7 @@ en:
     change_password_headline: Change your password
     changed_from: changed from
     classifiers_hint: Help your audience and reviewers to understand your submission. Choose and then weight the appropriate categories for your submission.
+    come_back: Please come back when the "Call for Participation" is open!
     conference_in_the_past: You can't submit a talk, because this conference is in the past.
     confirm: confirm
     confirm_attendance: Confirm attendance
@@ -271,15 +278,17 @@ en:
         start_date: Pick a date when your CfP should be open for the public.
         welcome_text: Enter a welcome message or additional instructions you want to display to participants. (HTML)
     join_alternative: 'Or lookup another invitation token:'
+    join_as: Join as a
+    join_as_hint: If you join this event as a speaker, we'll try to take into account your availability when scheduling this event.
     join_confirm: Do you want to accept the invitation?
-    join_description: 'With the token provided you can join this event as a speaker:'
+    join_description: 'With the token provided you can join this event:'
     join_event: Join event
     join_submitters_hint: Share this token with speakers you want to allow to join this event. After they have created an account, they can use the token in the 'Join event' interface.
-    join_success: You have been added as speaker on this event.
-    join_token_already_used: You already were a speaker on this event.
+    join_success: You have been added to this event.
+    join_token_already_used: You already joined this event.
     join_token_link: This link directly leads to the 'Join event' page for this event.
     join_token_lookup: Lookup token
-    join_token_lookup_description: Enter the token that allows you to join an event as a speaker.
+    join_token_lookup_description: Enter the token that you were given in order to join an event.
     join_token_lookup_hint: 'Hint: The token can be viewed by the original submitter in the event''s edit view.'
     join_token_unknown: Token %{token} unknown.
     languages_spoken: Languages spoken
@@ -424,6 +433,14 @@ en:
           A short and unique handle for your conference, using only lower-case
           letters, numbers and underscores. This will be used to identify your
           conference in URLs etc. Example: 'froscon2011'
+        allowed_event_types: |
+          Here you can pick which types of events are accepted as submissions to
+          this conference. This list affects only new submissions. Existing submissions
+          will not be modified if you alter this list.
+        allowed_event_types_extras: |
+          If you want the conference to accept event submissions with other types
+          than the ones available above, write the event types here. Separate different
+          event types with semicolon. Example: 'game;discussion panel'
         attachment_title_is_freeform: |
           If this option is selected, submitters can provide any title they want
           for files they upload as attachments. If this option is deselected, they
@@ -535,6 +552,7 @@ en:
       date: Date of presentation
       event: Event title
       forename: Speaker forename
+      joinlink: Link for joining event
       link: Confirmation link
       public_name: Speaker public name
       room: Room of presentation
@@ -852,6 +870,7 @@ en:
     error_missing_speaker_email: 'Cannot send mails: Not all speakers have email addresses.'
     error_state_update: Cannot update state.
     error_state_update_ex: 'Cannot update state: %{ex}.'
+    error_template_add_failed: Mail template creation failed.
     error_unnotifiable_state: Event not in a notifiable state.
     filters:
       all_speakers_in_confirmed_events: All speakers involved in all confirmed events
@@ -868,9 +887,10 @@ en:
     notice_template_added: Mail template was successfully added.
     notice_template_destroyed: Mail template was successfully destroyed.
     notice_template_updated: Mail template was successfully updated.
-    placeholders_hint: |
-      The following place holders may be used in the `content` section of each
-      template.
+    placeholders_hint_header: |
+      You can use dynamic variable substitution in the `subject` and `content` sections of each
+      template. Avoid using event-specific variables if you don't want people to get
+      more than one mail message.
     send_mail: Send Mail
     template_subject: 'Subject: %{subject}'
   error_signing_in: Invalid email or password.
@@ -935,6 +955,7 @@ en:
     accept_event_no_email: Accept event (no email)
     accept_event_no_email_hint: Accept this event without sending an automated email.
     add_event: Add event
+    add_event_at: Add event at %{time}
     add_event_hint: Add a new event.
     add_ticket: Add Ticket
     add_ticket_hint: Create a ticket for this event.
@@ -977,6 +998,7 @@ en:
     event_details: Event details
     event_feedbacks: Event Feedbacks
     event_ratings: Event ratings
+    event_type_select: filter by event type
     events_by_gender: Events by gender
     events_by_language: Events by language
     events_by_state: Events by state
@@ -984,6 +1006,13 @@ en:
     events_in_other_conferences: Events in other conferences
     feedback_not_enabled: The feedback system is not enabled.
     hide_all: hide all
+    indicator:
+      full:
+        submitted_after_hard_deadline: Submitted after hard deadline
+        submitted_after_soft_deadline: Submitted after deadline
+      short:
+        submitted_after_hard_deadline: Late
+        submitted_after_soft_deadline: LATE
     inputs:
       hints:
         do_not_record: Will this event be recorded?
@@ -992,6 +1021,9 @@ en:
         recording_license: Recording license for this talk
         submission_note: 'visibiliy: admin and user; additional information.'
         tech_rider: What is needed for this event?
+    listing_n_events: 
+      one: Listing %{n} of %{count} event.
+      other: Listing %{n} of %{count} events.
     my_events: My Events
     my_rating: My rating
     my_ratings: My ratings
@@ -1008,6 +1040,7 @@ en:
     no_ratings: |
       No one has entered a rating for this event yet. Be the first
       and rate the event using the form above.
+    not_applicable: N/A
     not_involved: |
       You are not yet involved in any event in this
       conference. Add yourself to an event in whatever
@@ -1035,7 +1068,9 @@ en:
     reject_event_hint: Reject this event. The speaker(s) will be notified of the rejection via email.
     reject_event_no_email: Reject event (no email)
     reject_event_no_email_hint: Reject this event without sending an automated email.
+    select_filter_for: "Select filter for %{filtername}:"
     toggle_description: Toggle Description >>
+    toggle_send_bulk_mail: Send mail to all these people >>
     track_select: filter by track
   expenses: Expenses
   expenses_module:
@@ -1602,6 +1637,7 @@ en:
   manage_conference: Manage this conference
   manual: Manual
   more: More...
+  multiple_indication: multiple
   name: Name
   navigation:
     back: Back
@@ -1622,16 +1658,38 @@ en:
   notifications: Notifications
   notifications_module:
     edit_send_notifications: Edit and send notifications
-    event_without_ticket_warning: 'Attention : %{events} without ticket:'
+    event_without_ticket_warning:
+      one: 'Attention : 1 event without ticket:'
+      other: 'Attention : %{count} events without ticket:'
     inputs:
       hints:
         locale: Available locales for this conference and its speakers
     missing_locale: 'Can not send bulk notifications: Notification for locales %{locales} missing'
+    n_events:
+      one: 1 event
+      other: "%{count} events"
+    n_events_in_state_x:
+      one: 1 event in state %{state}
+      other: "%{count} events in state %{state}"
     no_events_tickets: No events with tickets
+    notif:
+      acceptance: acceptance
+      rejection: rejection
+      scheduling: scheduling
     possible_variables: Possible variables
     send_notification: send %{name} notifications to %{speakers} in %{count}
-    send_notification_confirm: Are you sure you want to send %{name} notifications for %{event}?
-    send_notification_to_speakers: Send %{name} notifications to %{speakers} in %{event}
+    send_notification_confirm:
+      one: Are you sure you want to send %{name} notifications for 1 event?
+      other: Are you sure you want to send %{name} notifications for %{count} events?
+    send_notification_to_subscribers:
+      one: Send %{name} notifications to 1 person involved in %{event}
+      other: Send %{name} notifications to %{count} people involved in %{event}
+    send_unspecified_notification_confirm:
+      one: Are you sure you want to send e-mails for %{count} event?
+      other: Are you sure you want to send e-mails for %{count} events?
+    warning_events_without_speakers:
+      one: 'Warning: 1 event without speakers:'
+      other: 'Warning: %{count} events without speakers:'
   number:
     currency:
       format:
@@ -1683,6 +1741,7 @@ en:
   options:
     admin: Administrator
     aim: AIM
+    assistant: Assistant
     attending: Attending
     bus: Bus
     business: Business
@@ -1741,6 +1800,12 @@ en:
     signup: Sign up to frab
     unlock_instructions: frab - Unlock instructions
     welcome: Welcome to frab
+  paper_trail:
+    events:
+      create: created
+      destroy: deleted
+      touch: touched
+      update: updated
   participate: Participate
   people: People
   people_module:
@@ -1931,8 +1996,19 @@ en:
     speakers_without_availabilities: speakers without availabilities
     unconfirmed_events: events that are unconfirmed
   resend: Resend
+  reviewing: Reviewing
+  reviewing_module:
+    current_review_metrics: 'The currently configured review metrics are:'
+    empty_review_metrics: |
+      You can ask submission reviewers to focus on specific
+      aspects of each submission while reviewing, by adding
+      review metrics to this list.
+    modify_review_metric_with_parent: |
+      Review metrics for this conference can only be modified with
+      administration rights for the parent conference %{parent}
   role:
     admin: Admin
+    assistant: Assistant
     coordinator: Coordinator
     crew: Crew
     moderator: Moderator
@@ -1996,6 +2072,7 @@ en:
     select_all_none: Select all/none
     view_live_version_hint: View the public live version of your schedule just like any attendee might see it.
   scheduling: Scheduling
+  select_one: "-- Select one --"
   send: Send
   session:
     login: Log in
@@ -2008,6 +2085,9 @@ en:
   simple_form:
     error_notification:
       default_message: 'Please review the problems below:'
+    labels:
+      languages:
+        code: Language
     'no': 'No'
     required:
       mark: "*"
@@ -2133,6 +2213,10 @@ en:
     save_needed_before_changes: You need to save before adding conferences to a crew member.
   value: Value
   version_on_item: "%{version} on %{item}"
+  will_paginate:
+    next_label: "Next 🡆"
+    page_gap: "…"
+    previous_label: "🡄 Previous"
   work_in_progress: working...
   workshops: Workshops
   workshops_only: Workshops only

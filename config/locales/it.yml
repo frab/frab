@@ -21,6 +21,7 @@ it:
         name: Nome
       conference:
         acronym: acronimo
+        allowed_event_types_as_list: Tipi di eventi consentiti
         attachment_title_is_freeform: Il titolo dell'allegato è a mano libera
         bulk_notification_enabled: Notifiche di gruppo
         color: colore
@@ -173,6 +174,7 @@ it:
       notification: notifica
       person: profilo
       phone_number: numero di telefono
+      review_metric: Revisionare la metrica
       room: sala
       track: filo
   add_association: Aggiungi %{name}
@@ -184,6 +186,9 @@ it:
     update_failed: Impossibile salvare le modifiche
     update_successful: Modifiche salvate.
   all: Tutti
+  allowed_event_types: Tipi di eventi consentiti
+  allowed_event_types_extras: Altri tipi di eventi consentiti
+  apply_filter: Applica il filtro
   are_you_sure: Sei sicuro?
   attachments_overview_module:
     attachments: allegati
@@ -205,6 +210,7 @@ it:
   availability: disponibilità
   available: disponibile
   basic_information: Informazioni di base
+  blank_indication: "(Vuoto)"
   by: da
   call_for_participation: Invito alla partecipazione
   cancel: annullare
@@ -218,6 +224,7 @@ it:
     change_password_headline: Cambia la tua password
     changed_from: cambiato da
     classifiers_hint: Aiuta il tuo pubblico e i revisori a capire la tua proposta. Quindi scegliere e ponderare le categorie appropriate.
+    come_back: Per favore, ritorna quando è aperto il "Invito alla partecipazione"!
     conference_in_the_past: Non puoi offrire un discorso, perché questa conferenza è finita.
     confirm: confermare
     confirm_attendance: Conferma la presenza
@@ -273,6 +280,8 @@ it:
         start_date: Seleziona la data in cui la chiamata sarà aperta al pubblico.
         welcome_text: Immettere un messaggio di benvenuto o ulteriori istruzioni che si desidera visualizzare ai partecipanti. (HTML)
     join_alternative: 'Dove trovare un altro token di invito:'
+    join_as: Partecipa come a
+    join_as_hint: Se partecipi a questo evento come relatore, proveremo a tenere conto della tua disponibilità durante la pianificazione di questo evento.
     join_confirm: Vuoi accettare l'invito?
     join_description: 'Con il token fornito, puoi partecipare a questo evento come oratore:'
     join_event: Partecipa all'evento
@@ -427,6 +436,14 @@ it:
           Un nome breve e univoco per la conferenza, utilizzando solo lettere
           minuscoli, numeri e caratteri di sottolineatura. Questo sarà usato per identificare
           la conferenza negli URL, ecc. Esempio: "froscon_2011"
+        allowed_event_types: |
+          Qui puoi scegliere quali tipi di eventi sono accettati come invii a
+          questa conferenza. Questo elenco riguarda solo i nuovi invii. Contributi esistenti
+          non verrà modificato se si modifica questo elenco.
+        allowed_event_types_extras: |
+          Se si desidera che la conferenza accetti invii di eventi con altri tipi
+          rispetto a quelli disponibili sopra, scrivi qui i tipi di evento. Separare diversamente
+          tipi di evento con punto e virgola. Esempio: "gioco;riquadro di discussione"
         attachment_title_is_freeform: |
           Se questa opzione è selezionata, i mittenti possono fornire qualsiasi titolo desiderino
           per i file caricati come allegati. Se questa opzione è deselezionata, essi
@@ -537,6 +554,7 @@ it:
       date: Data di presentazione
       event: Titolo dell'evento
       forename: Nome del relatore
+      joinlink: Link per partecipare all'evento
       link: Link di conferma
       public_name: Nome pubblico dell'altoparlante
       room: Sala di presentazione
@@ -883,6 +901,7 @@ it:
     error_missing_speaker_email: 'Le e-mail non possono essere inviate: non tutti gli oratori hanno un indirizzo e-mail.'
     error_state_update: Impossibile aggiornare lo stato.
     error_state_update_ex: 'Impossibile aggiornare lo stato: %{ex}.'
+    error_template_add_failed: Creazione del modello di posta non riuscita.
     error_unnotifiable_state: L'evento non è in uno stato di notifica.
     filters:
       all_speakers_in_confirmed_events: Tutti i relatori in tutti gli eventi confermati
@@ -899,9 +918,10 @@ it:
     notice_template_added: Modello email aggiunto con successo.
     notice_template_destroyed: Modello di email eliminato con successo.
     notice_template_updated: Modello email aggiornato correttamente.
-    placeholders_hint: |
-      Le seguenti posizioni possono essere utilizzate nella sezione `content`
-      di ogni modello.
+    placeholders_hint_header: |
+      Puoi usare la sostituzione dinamica delle variabili nelle sezioni `subject` e` content` di ciascuna
+      modello. Evita di usare variabili specifiche dell'evento se non vuoi che le persone lo ottengano
+      più di un messaggio di posta.
     send_mail: Invia email
     template_subject: 'Oggetto: %{subject}'
   error_signing_in: Email o password non valida.
@@ -966,6 +986,7 @@ it:
     accept_event_no_email: Accetta l'evento (nessuna email)
     accept_event_no_email_hint: Accetta questo evento senza inviare un'e-mail.
     add_event: Nuovo evento
+    add_event_at: Aggiungi evento su %{time}
     add_event_hint: Crea un nuovo evento.
     add_ticket: Aggiungi un biglietto
     add_ticket_hint: Crea un ticket per questo evento.
@@ -1010,6 +1031,7 @@ it:
     event_details: Dettagli dell'evento
     event_feedbacks: Resi sugli eventi
     event_ratings: Note dell'evento
+    event_type_select: filtra per tipo di evento
     events_by_gender: Eventi per genere
     events_by_language: Eventi per lingua
     events_by_state: Eventi per stato
@@ -1017,6 +1039,13 @@ it:
     events_in_other_conferences: Eventi in altre conferenze
     feedback_not_enabled: Il sistema di restituzione non è attivato.
     hide_all: Nascondi tutto
+    indicator:
+      full:
+        submitted_after_hard_deadline: Presentato dopo una scadenza rigida
+        submitted_after_soft_deadline: Presentato dopo la scadenza
+      short:
+        submitted_after_hard_deadline: in ritardo
+        submitted_after_soft_deadline: LATE
     inputs:
       hints:
         do_not_record: L'evento sarà salvato?
@@ -1025,6 +1054,9 @@ it:
         recording_license: Licenza di registrazione per questo discorso
         submission_note: 'Visibilità: amministratori e utenti; informazioni aggiuntive.'
         tech_rider: Cosa serve per questo evento?
+    listing_n_events:
+      one: Elenco di %{n} dell'evento %{count}.
+      other: Elenco di %{n} di eventi %{count}.
     my_events: I miei eventi
     my_rating: La mia nota
     my_ratings: I miei appunti
@@ -1039,6 +1071,7 @@ it:
     no_ratings: |
       Nessuno ha ancora valutato questo evento. Sii il primo a
       utilizzando il modulo sottostante.
+    not_applicable: N/A
     not_involved: |
       Non sei ancora coinvolto in un evento per questa conferenza.
       Aggiungi te stesso a un evento per il ruolo che vuoi tenere, e
@@ -1065,7 +1098,9 @@ it:
     reject_event_hint: Rifiuta questo evento. I relatori saranno informati di questo rifiuto via e-mail.
     reject_event_no_email: Rifiuta l'evento (nessuna email)
     reject_event_no_email_hint: Rifiuta questo evento senza inviare un'e-mail automatica.
+    select_filter_for: 'Seleziona il filtro per %{filtername}:'
     toggle_description: Mostra descrizione >>
+    toggle_send_bulk_mail: Invia mail a tutte queste persone >>
     track_select: filtro per filo
   expenses: la spesa
   expenses_module:
@@ -1633,6 +1668,7 @@ it:
   manage_conference: Gestisci questa conferenza
   manual: manuale
   more: Più ...
+  multiple_indication: multiplo
   name: Nome
   navigation:
     back: ritorno
@@ -1653,16 +1689,38 @@ it:
   notifications: notifiche
   notifications_module:
     edit_send_notifications: Modifica / invia notifiche
-    event_without_ticket_warning: 'Attenzione: %{events} senza biglietto:'
+    event_without_ticket_warning:
+      one: 'Attenzione: 1 evento senza biglietto:'
+      other: 'Attenzione: eventi %{count} senza biglietto:'
     inputs:
       hints:
         locale: Lingue disponibili per questa conferenza e i suoi relatori.
     missing_locale: 'Impossibile inviare notifiche collettive: mancano le notifiche %{locales}.'
+    n_events:
+      one: 1 evento
+      other: eventi %{count}
+    n_events_in_state_x:
+      one: 1 evento nello stato %{state}
+      other: "%{count} eventi nello stato %{state}"
     no_events_tickets: Nessun evento con i biglietti.
+    notif:
+      acceptance: accettazione
+      rejection: rifiuto
+      scheduling: programmazione
     possible_variables: Possibili variabili
     send_notification: Invia notifiche %{name} %{speakers} in %{count}
-    send_notification_confirm: Sei sicuro di voler inviare notifiche %{name} per %{event}?
-    send_notification_to_speakers: Invia notifiche %{name} a %{speakers} in %{event}
+    send_notification_confirm:
+      one: Sei sicuro di voler inviare notifiche %{name} per 1 evento?
+      other: Sei sicuro di voler inviare notifiche %{name} per eventi %{count}?
+    send_notification_to_subscribers:
+      one: Invia notifiche %{name} a 1 persona coinvolta in %{event}
+      other: Invia notifiche %{name} alle persone %{count} coinvolte in %{event}
+    send_unspecified_notification_confirm:
+      one: Sei sicuro di voler inviare e-mail per l'evento %{count}?
+      other: Sei sicuro di voler inviare e-mail per eventi %{count}?
+    warning_events_without_speakers:
+      one: 'Avviso: 1 evento senza altoparlanti:'
+      other: 'Avvertenza: eventi %{count} senza altoparlanti:'
   number:
     currency:
       format:
@@ -1714,6 +1772,7 @@ it:
   options:
     admin: amministratore
     aim: AIM
+    assistant: Assistente
     attending: assist
     bus: Pulman
     business: affari
@@ -1772,6 +1831,12 @@ it:
     signup: Registrazione a frab
     unlock_instructions: frab - Istruzioni di unwrapping
     welcome: Benvenuto a frab
+  paper_trail:
+    events:
+      create: creato
+      destroy: cancellato
+      touch: toccato
+      update: aggiornato
   participate: partecipare
   people: persone
   people_module:
@@ -1966,8 +2031,19 @@ it:
     speakers_without_availabilities: altoparlanti senza disponibilità
     unconfirmed_events: eventi non confermati
   resend: ritorno
+  reviewing: Revisione
+  reviewing_module:
+    current_review_metrics: 'Le metriche di revisione attualmente configurate sono:'
+    empty_review_metrics: |
+      Puoi chiedere ai revisori delle presentazioni di concentrarsi su specifici
+      aspetti di ogni invio durante la revisione, aggiungendo
+      rivedere le metriche in questo elenco.
+    modify_review_metric_with_parent: |
+      Le metriche di revisione per questa conferenza possono essere modificate solo con
+      diritti di amministrazione per la conferenza principale %{parent}
   role:
     admin: amministratore
+    assistant: Assistente
     coordinator: coordinatore
     crew: Membro della squadra
     moderator: Moderatore
@@ -2033,6 +2109,7 @@ it:
     select_all_none: Selezione (Tutti / Nessuno)
     view_live_version_hint: Visualizza la versione pubblica del programma, come chiunque vorrebbe vederlo
   scheduling: programmazione
+  select_one: "-- Seleziona uno --"
   send: mandare
   session:
     login: Entra
@@ -2045,6 +2122,9 @@ it:
   simple_form:
     error_notification:
       default_message: 'Si prega di rivedere i problemi di seguito:'
+    labels:
+      languages:
+        code: linguaggio
     'no': non
     required:
       mark: "*"
@@ -2168,6 +2248,10 @@ it:
     save_needed_before_changes: È necessario salvare prima di aggiungere conferenze a un membro del team.
   value: valore
   version_on_item: "%{version} su %{item}"
+  will_paginate:
+    next_label: Successivo 🡆
+    page_gap: "..."
+    previous_label: "🡄 Precedente"
   work_in_progress: In corso ...
   workshops: workshop
   workshops_only: Solo seminari

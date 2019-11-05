@@ -1,0 +1,7 @@
+- scope = ('events_module.indicator.short' if short) || 'events_module.indicator.full'
+- if event.submitted_after_hard_deadline?
+  %span{class: [short && 'small', 'event-tag', 'after-deadline', 'hard']}= t('submitted_after_soft_deadline', scope: scope)
+- elsif event.submitted_after_soft_deadline?
+  %span{class: [short && 'small', 'event-tag', 'after-deadline', 'soft']}= t('submitted_after_hard_deadline', scope: scope)
+
+

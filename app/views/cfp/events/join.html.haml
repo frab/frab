@@ -19,6 +19,12 @@
         %dd{class: "span8"}= @event.description
       %hr
       = t('cfp.join_confirm')
+      %p
+      = t('cfp.join_as')
+      = select_tag "join_as", options_for_select(EventPerson::JOINABLES)
+      %p{class: 'help-block'}
+        = t('cfp.join_as_hint')
+      %p
       = submit_tag t('cfp.join_event'), class: 'btn btn-large btn-primary'
       %hr
     %h3= t('cfp.join_alternative')

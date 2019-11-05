@@ -21,6 +21,7 @@ zh:
         name: 名称
       conference:
         acronym: 缩写
+        allowed_event_types_as_list: 允许的事件类型
         attachment_title_is_freeform: 附件标题为自由格式
         bulk_notification_enabled: 批量通知已启用
         color: 颜色
@@ -173,6 +174,7 @@ zh:
       notification: 通知
       person: 轮廓
       phone_number: 电话号码
+      review_metric: 审核指标
       room: 房间
       track: 跟踪
   add_association: 添加%{name}
@@ -184,6 +186,9 @@ zh:
     update_failed: 无法更新
     update_successful: 更改已成功保存！
   all: 所有
+  allowed_event_types: 允许的事件类型
+  allowed_event_types_extras: 其他允许的事件类型
+  apply_filter: 套用筛选器
   are_you_sure: 你确定？
   attachments_overview_module:
     attachments: 附件
@@ -205,6 +210,7 @@ zh:
   availability: 可用性
   available: 可得到
   basic_information: 基本信息
+  blank_indication: "（空白）"
   by: 通过
   call_for_participation: 呼吁参与
   cancel: 取消
@@ -218,6 +224,7 @@ zh:
     change_password_headline: 更改您的密码
     changed_from: 从改变
     classifiers_hint: 帮助您的听众和评论者了解您的提交。选择并为您的提交加权适当的类别。
+    come_back: 打开“参与邀请”后，请回来！
     conference_in_the_past: 你不能提交一个演讲，因为这个会议过去了。
     confirm: 确认
     confirm_attendance: 确认出席
@@ -271,6 +278,8 @@ zh:
         start_date: 选择一个您的CfP应该向公众开放的日期。
         welcome_text: 输入欢迎信息或您想要向参与者显示的其他说明。 (HTML)
     join_alternative: 或查找另一个邀请令牌：
+    join_as: 加入为
+    join_as_hint: 如果您以演讲者身份参加此活动，我们将在安排此活动时尝试考虑您的空缺情况。
     join_confirm: 你想接受邀请吗？
     join_description: 提供令牌后，您可以作为演讲者加入此活动：
     join_event: 加入活动
@@ -424,6 +433,14 @@ zh:
           为您的会议提供一个简短而独特的手柄，仅使用小写字母
           字母，数字和下划线。这将用于识别你的
           网址会议等。例如：'froscon2011''“
+        allowed_event_types: |
+          在这里，您可以选择接受哪些类型的事件作为提交给
+          这个会议。此列表仅影响新提交。现有提交
+          如果您更改此列表，则不会被修改。
+        allowed_event_types_extras: |
+          如果您希望会议接受其他类型的事件提交
+          比上面可用的事件类型，请在此处写下事件类型。分开不同
+          分号的事件类型。示例：“游戏；讨论面板”
         attachment_title_is_freeform: |
           如果选择此选项，提交者可以提供他们想要的任何标题
           他们以附件形式上传的文件。如果取消选择此选项，则它们
@@ -535,6 +552,7 @@ zh:
       date: 介绍日期
       event: 活动标题
       forename: 扬声器的名字
+      joinlink: 参加活动的链接
       link: 确认链接
       public_name: 演讲者公开名称
       room: 介绍室
@@ -858,6 +876,7 @@ zh:
     error_missing_speaker_email: 无法发送邮件：并非所有发言者都有电子邮件地址。
     error_state_update: 无法更新状态。
     error_state_update_ex: 无法更新状态：%{ex}。
+    error_template_add_failed: 邮件模板创建失败。
     error_unnotifiable_state: 事件不在通知状态。
     filters:
       all_speakers_in_confirmed_events: 所有发言人都参与了所有确认的事件
@@ -874,9 +893,10 @@ zh:
     notice_template_added: 邮件模板已成功添加。
     notice_template_destroyed: 邮件模板已成功销毁。
     notice_template_updated: 邮件模板已成功更新。
-    placeholders_hint: |
-      以下占位符可用于每个的“内容”部分
-      模板。
+    placeholders_hint_header: |
+      您可以在每个主题的“内容”和“内容”部分中使用动态变量替换
+      模板。如果您不希望别人得到特定事件，请避免使用特定于事件的变量
+      一封以上的邮件。
     send_mail: 发送邮件
     template_subject: 主题：%{subject}
   error_signing_in: 无效的电子邮件或密码。
@@ -941,6 +961,7 @@ zh:
     accept_event_no_email: 接受事件(无电子邮件)
     accept_event_no_email_hint: 接受此事件而不发送自动电子邮件。
     add_event: 添加活动
+    add_event_at: 在%{time}添加事件
     add_event_hint: 添加一个新事件。
     add_ticket: 添加票据
     add_ticket_hint: 为此活动创建一张票。
@@ -983,6 +1004,7 @@ zh:
     event_details: 活动详情
     event_feedbacks: 事件反馈
     event_ratings: 事件评级
+    event_type_select: 按事件类型过滤
     events_by_gender: 性别事件
     events_by_language: 语言事件
     events_by_state: 国家事件
@@ -990,6 +1012,13 @@ zh:
     events_in_other_conferences: 其他会议中的活动
     feedback_not_enabled: 反馈系统未启用。
     hide_all: 全部藏起来
+    indicator:
+      full:
+        submitted_after_hard_deadline: 在艰难的截止日期之后提交
+        submitted_after_soft_deadline: 截止日期后提交
+      short:
+        submitted_after_hard_deadline: 晚的
+        submitted_after_soft_deadline: 晚的
     inputs:
       hints:
         do_not_record: 这个事件会被记录吗？
@@ -998,6 +1027,9 @@ zh:
         recording_license: 录制本次演讲的许可证
         submission_note: visibiliy：管理员和用户;附加信息。
         tech_rider: 这个活动需要什么？
+    listing_n_events:
+      one: 列出%{count}事件的%{n}。
+      other: 列出%{count}事件的%{n}。
     my_events: 我的活动
     my_rating: 我的评价
     my_ratings: 我的评分
@@ -1014,6 +1046,7 @@ zh:
     no_ratings: |
       尚未有人为此活动输入评分。成为第一个
       并使用上面的表格对事件进行评分。
+    not_applicable: N/A
     not_involved: |
       您尚未参与此活动
       会议。把自己添加到任何事件中
@@ -1041,7 +1074,9 @@ zh:
     reject_event_hint: 拒绝此事件。发言者将通过电子邮件通知拒绝。
     reject_event_no_email: 拒绝活动(无电子邮件)
     reject_event_no_email_hint: 拒绝此事件而不发送自动电子邮件。
+    select_filter_for: 为%{filtername}选择过滤器：
     toggle_description: 切换说明>>
+    toggle_send_bulk_mail: 发送邮件给所有这些人>>
     track_select: 按轨道过滤
   expenses: 花费
   expenses_module:
@@ -1608,6 +1643,7 @@ zh:
   manage_conference: 管理这个会议
   manual: 手册
   more: 更多...
+  multiple_indication: 多
   name: 名称
   navigation:
     back: 背部
@@ -1628,16 +1664,38 @@ zh:
   notifications: 通知
   notifications_module:
     edit_send_notifications: 编辑并发送通知
-    event_without_ticket_warning: 注意：%{events} sans ticket：
+    event_without_ticket_warning:
+      one: 注意：1个没有门票的活动：
+      other: 注意：不带票的%{count}事件：
     inputs:
       hints:
         locale: 此会议及其发言者的可用语言环境
     missing_locale: 无法发送批量通知：缺少地区%{locales}的通知
+    n_events:
+      one: 1项
+      other: "%{count}事件"
+    n_events_in_state_x:
+      one: 状态为%{state}的1个事件
+      other: 状态为%{state}的%{count}事件
     no_events_tickets: 没有门票事件
+    notif:
+      acceptance: 验收
+      rejection: 拒绝
+      scheduling: 排程
     possible_variables: 可能的变量
     send_notification: 将%{name}通知发送到%{count}中的%{speakers}
-    send_notification_confirm: 您确定要为%{event}发送%{name} notifications吗？
-    send_notification_to_speakers: 将%{name}通知发送到%{event}中的%{speakers}
+    send_notification_confirm:
+      one: 您确定要发送1个事件的%{name}通知吗？
+      other: 您确定要发送有关%{count}事件的%{name}通知吗？
+    send_notification_to_subscribers:
+      one: 向1位涉及%{event}的人员发送%{name}通知
+      other: 向参与%{event}的%{count}人员发送%{name}通知
+    send_unspecified_notification_confirm:
+      one: 您确定要发送有关%{count}事件的电子邮件吗？
+      other: 您确定要发送有关%{count}事件的电子邮件吗？
+    warning_events_without_speakers:
+      one: 警告：1个没有发言人的活动：
+      other: 警告：没有扬声器的%{count}事件：
   number:
     currency:
       format:
@@ -1689,6 +1747,7 @@ zh:
   options:
     admin: 管理员
     aim: 目标
+    assistant: 助理
     attending: 参加
     bus: 总线
     business: 商业
@@ -1747,6 +1806,12 @@ zh:
     signup: 注册frab
     unlock_instructions: frab  - 解锁指令
     welcome: 欢迎来到frab
+  paper_trail:
+    events:
+      create: 被创造
+      destroy: 已删除
+      touch: 感动
+      update: 更新
   participate: 参加
   people: 人
   people_module:
@@ -1938,8 +2003,19 @@ zh:
     speakers_without_availabilities: 没有可用性的扬声器
     unconfirmed_events: 未经证实的事件
   resend: 重发
+  reviewing: 审核中
+  reviewing_module:
+    current_review_metrics: 当前配置的审阅指标是：
+    empty_review_metrics: |
+      您可以要求提交审稿人专注于特定的
+      审核时，通过添加每个提交的方面
+      查看此列表的指标。
+    modify_review_metric_with_parent: |
+      此会议的审核指标只能通过
+      父会议%{parent}的管理权限
   role:
     admin: 管理员
+    assistant: 助理
     coordinator: 协调员
     crew: 船员
     moderator: 主持人
@@ -2003,6 +2079,7 @@ zh:
     select_all_none: 选择全部/无
     view_live_version_hint: 查看您的日程表的公开现场版本，就像任何与会者可能看到的一样。
   scheduling: 调度
+  select_one: "-- 选择一个选项 --"
   send: 发送
   session:
     login: 登录
@@ -2015,6 +2092,9 @@ zh:
   simple_form:
     error_notification:
       default_message: 请查看下面的问题：
+    labels:
+      languages:
+        code: 语言
     'no': 没有
     required:
       mark: "*"
@@ -2140,6 +2220,10 @@ zh:
     save_needed_before_changes: 在向船员添加会议之前，您需要保存。
   value: 值
   version_on_item: "%{item}上的%{version}"
+  will_paginate:
+    next_label: 下一个🡆
+    page_gap: "…"
+    previous_label: "🡄上一个"
   work_in_progress: 加工...
   workshops: 研讨会
   workshops_only: 只有研讨会

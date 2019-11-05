@@ -6,7 +6,7 @@
     - @event.build_ticket unless @event.ticket
     = f.simple_fields_for :ticket do |ticket|
       = ticket.input :remote_ticket_id
-    = f.input :event_type, collection: translated_options(Event::TYPES)
+    = f.input :event_type, collection: translated_options(@conference.allowed_event_types_as_list)
     = f.association :track, collection: @conference.tracks
     = f.input :time_slots, as: :select, collection: timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes

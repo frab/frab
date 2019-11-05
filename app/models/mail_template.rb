@@ -4,20 +4,18 @@ class MailTemplate < ApplicationRecord
   validates :subject, presence: true
   validates :content, presence: true
 
-  def content_for(user)
-    content
-      .gsub('#first_name',  user.first_name)
-      .gsub('#last_name',   user.last_name)
-      .gsub('#public_name', user.public_name)
+  def message_text_for_event_person(event_person)
+    { subject: event_person.substitute_variables(subject),
+      body: event_person.substitute_variables(content) }
   end
 
   def send_sync(filter)
     job = SendBulkMailJob.new
-    job.perform self, filter
+    job.perform(self, filter)
   end
 
   def send_async(filter)
     job = SendBulkMailJob.new
-    job.async.perform self, filter
+    job.async.perform(self, filter)
   end
 end

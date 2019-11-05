@@ -5,6 +5,7 @@ class Conference < ApplicationRecord
 
   has_many :availabilities, dependent: :destroy
   has_many :classifiers, dependent: :destroy
+  has_many :review_metrics, dependent: :destroy
   has_many :conference_users, dependent: :destroy
   has_many :days, dependent: :destroy
   has_many :events, dependent: :destroy
@@ -21,6 +22,7 @@ class Conference < ApplicationRecord
 
   accepts_nested_attributes_for :rooms, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :classifiers, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :review_metrics, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :notifications, allow_destroy: true
   accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
@@ -37,6 +39,7 @@ class Conference < ApplicationRecord
     :expenses_enabled,
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
+  validates :allowed_event_types_as_list, presence: { message: :blank }, format: { without: /\|/ }
   validates :acronym, uniqueness: true
   validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
@@ -52,7 +55,7 @@ class Conference < ApplicationRecord
 
   scope :has_submission, ->(person) {
     joins(events: [{ event_people: :person }])
-      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
+      .where(EventPerson.arel_table[:event_role].in(EventPerson::SUBSCRIBERS))
       .where(Person.arel_table[:id].eq(person.id)).distinct
   }
 
@@ -100,7 +103,35 @@ class Conference < ApplicationRecord
     return parent.timeslot_duration if sub_conference?
     attributes['timeslot_duration']
   end
+  
+  def allowed_event_types_presets
+    Event::TYPES & allowed_event_types_as_list
+  end
+  
+  def allowed_event_types_presets=(list)
+     unchanged_extras = allowed_event_types_as_list - Event::TYPES
+     new_presets = list & Event::TYPES
+     update_attributes(allowed_event_types_as_list: unchanged_extras + new_presets)
+  end
 
+  def allowed_event_types_extras
+    (allowed_event_types_as_list - Event::TYPES).join(';')
+  end
+  
+  def allowed_event_types_extras=(s)
+     new_extras = s.split(';').map(&:strip) - Event::TYPES
+     unchanged_presets = allowed_event_types_as_list & Event::TYPES
+     update_attributes(allowed_event_types_as_list: new_extras + unchanged_presets)
+  end
+  
+  def allowed_event_types_as_list
+    (allowed_event_types || '').split(';').map(&:strip)
+  end
+  
+  def allowed_event_types_as_list=(list)
+    update_attributes(allowed_event_types: list.reject(&:empty?).sort.uniq.join(';'))
+  end
+  
   def submission_data
     result = {}
     events = self.events.order(:created_at)
@@ -161,7 +192,7 @@ class Conference < ApplicationRecord
 
   def in_the_past?
     return false if days.nil? or days.empty?
-    return false if Time.now < days.last.end_date
+    return false if Time.now.in_time_zone(timezone) < days.last.end_date
     true
   end
 
@@ -179,6 +210,10 @@ class Conference < ApplicationRecord
       .includes(:track, :room)
       .is_public.confirmed
       .scheduled
+  end
+
+  def events_with_review_averages
+    events.with_review_averages(self)
   end
 
   def to_s

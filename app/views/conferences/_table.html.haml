@@ -19,7 +19,7 @@
         %td
         %td= conference.acronym
         %td= conference.title
-        %td= l(conference.created_at.to_date)
+        %td.nowrap= l(conference.created_at.to_date)
         %td= conference.email
         %td.buttons
           - if policy(conference).read?

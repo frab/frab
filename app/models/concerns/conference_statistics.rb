@@ -44,7 +44,7 @@ module ConferenceStatistics
     result = []
     ep = Person.joins(events: :conference)
       .where("conferences.id": id)
-      .where("event_people.event_role": EventPerson::SPEAKER)
+      .where("event_people.event_role": EventPerson::SPEAKERS)
       .where("events.public": true)
 
     ep = ep.where("events.state": %w(accepting confirmed scheduled)) if accepted_only

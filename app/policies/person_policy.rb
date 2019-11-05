@@ -21,7 +21,7 @@ class PersonPolicy < ApplicationPolicy
   def show?
     return true if user.person == record || user.is_admin?
     return true if user.any_crew?('orga', 'coordinator')
-    return true if record.submitter_of?(user.reviews_conferences)
+    return true if record.subscriber_of?(user.reviews_conferences)
     false
   end
 

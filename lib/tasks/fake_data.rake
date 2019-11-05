@@ -14,6 +14,10 @@ namespace :frab do
         3.times do
           conference.languages << Language.create(code: %w(en de es pt-BR).sample)
         end
+        
+        rand(4).times do
+          conference.review_metrics_attributes = [ { name: Faker::Company.buzzword } ]
+        end
 
         4.times do
           day = Day.create!(conference: conference,
@@ -53,7 +57,7 @@ namespace :frab do
 
         50.times do
           event = Event.create!(conference: conference,
-                                event_type: Event::TYPES.sample,
+                                event_type: conference.allowed_event_types_as_list.sample,
                                 state: %w(new review withdrawn unconfirmed confirmed canceled rejected).sample,
                                 title: Faker::Book.title,
                                 subtitle: Faker::Hacker.say_something_smart.chomp('!'),
@@ -73,9 +77,21 @@ namespace :frab do
                                 role_state: EventPerson::STATES.sample,
                                 comment: Faker::Lorem.sentence)
           end
+
+          event.event_people.where(event_role: :coordinator).map(&:person).each do |person|
+            event_rating = EventRating.create!(event: event,
+                                               person: person,
+                                               rating: (0..5).step(0.5).to_a.sample,
+                                               comment: Faker::Lorem.sentence)
+            conference.review_metrics.each do |review_metric|
+              ReviewScore.create!(event_rating: event_rating,
+                                  review_metric: review_metric,
+                                  score: rand(6))
+            end
+          end                                              
         end
 
-        puts "Created conference #{conference.title} (#{conference.acronym}) with #{conference.tracks.count} tracks, #{conference.days.count} days, #{conference.events.count} events"
+        puts "Created conference #{conference.title} (#{conference.acronym}) with #{conference.tracks.count} tracks, #{conference.days.count} days, #{conference.events.count} events, #{conference.review_metrics.count} review metrics."
       end
     end
   end

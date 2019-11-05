@@ -6,11 +6,17 @@
         %th= sort_link @search, :title, t('title'), term: params[:term]
         - if @conference.ticket_server_enabled?
           %th= sort_link @search, :ticket_id, t('ticket'), term: params[:term]
-        %th= sort_link @search, :track_name, t('track'), term: params[:term]
-        %th= sort_link @search, :event_type, t('type'), term: params[:term]
+        %th.nowrap
+          = sort_link @search, :track_name, t('track'), term: params[:term]
+          = filter_link('track_name')
+        %th.nowrap
+          = sort_link @search, :event_type, t('type'), term: params[:term]
+          = filter_link 'event_type'
         - if policy(@conference).manage?
-          %th= sort_link @search, :state, t('state'), term: params[:term]
-        %th= sort_link @search, :created_at, term: params[:term]
+          %th.nowrap
+            = sort_link @search, :state, t('state'), term: params[:term]
+            = filter_link 'event_state'
+        %th= sort_link @search, t('created_at'), term: params[:term]
       - else
         %th= t('title')
         - if @conference.ticket_server_enabled?
@@ -39,10 +45,12 @@
               -else
                 = link_to event.ticket.remote_ticket_id, get_ticket_view_url( event.ticket.remote_ticket_id ), target: "_blank"
         %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
-        %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+        %td= link_to_unless params[:event_type].present?, (t(event.event_type, scope: 'options') unless event.event_type.blank?).to_s, request.query_parameters.merge(:event_type => event.event_type)
         - if policy(@conference).manage?
-          %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
-        %td= l(event.created_at.to_date)
+          %td= link_to_unless params[:event_state].present?, (t(event.state, scope: 'conferences_module') unless event.state.blank?).to_s, request.query_parameters.merge(:event_state => event.state)
+        %td
+          %span.nowrap= l(event.date_of_submission_in_conference_tz)
+          = render partial: 'events/event_tags', locals: { event: event, short: true }
         %td.buttons
           = action_button "small", t('show'), event
           - if policy(@conference).manage?
@@ -50,3 +58,4 @@
             = action_button "small danger", t('destroy'), event, data: { confirm: t('are_you_sure')}, method: :delete
           - elsif current_user.is_speaker_in?(event)
             = action_button "small", t('edit'), edit_cfp_event_path(event)
+= render partial: 'events/filters_modal_holder'

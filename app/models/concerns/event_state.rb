@@ -52,15 +52,15 @@ module EventState
   def notifiable
     return false unless conference.bulk_notification_enabled
     return false unless %w(accepting rejecting confirmed).include?(state)
-    return false unless speakers.count.positive?
-    return false unless speakers.all?(&:email)
+    return false unless subscribers.count.positive?
+    return false unless subscribers.all?(&:email)
     return false unless conference.ticket_type == 'integrated' or ticket.present?
     true
   end
 
   def process_acceptance(options)
     if options[:send_mail]
-      event_people.presenter.each do |event_person|
+      event_people.subscriber.each do |event_person|
         event_person.generate_token!
         SelectionNotification.make_notification(event_person, 'accept').deliver_now
       end
@@ -72,7 +72,7 @@ module EventState
 
   def process_rejection(options)
     if options[:send_mail]
-      event_people.presenter.each do |event_person|
+      event_people.subscriber.each do |event_person|
         SelectionNotification.make_notification(event_person, 'reject').deliver_now
       end
     end
@@ -96,7 +96,7 @@ module EventState
   end
 
   def process_bulk_notification(reason)
-    event_people.presenter.each do |event_person|
+    event_people.subscriber.each do |event_person|
       event_person.generate_token! if reason == 'accept'
 
       # XXX sending out bulk mails only works for rt and integrated
