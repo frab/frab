@@ -35,6 +35,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
       'commit' => 'Log in', 'locale' => 'en'
     }
     follow_redirect!
+    follow_redirect!
     assert_includes @response.body, "#{@conference.title} - Call for Participation"
 
     assert_includes @response.body, 'Update profile'
@@ -47,6 +48,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
       'user' => { 'email' => user.email, 'password' => user.password },
       'commit' => 'Log in', 'locale' => 'en'
     }
+    follow_redirect!
     follow_redirect!
     assert_includes @response.body, "#{@conference.title} - Call for Participation"
     assert_includes @response.body, 'submit your proposal'
