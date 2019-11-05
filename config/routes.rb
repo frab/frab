@@ -127,6 +127,8 @@ Rails.application.routes.draw do
           get :export_all
           get :export_accepted
           get :export_confirmed
+          get :filter_modal
+          post :batch_actions
         end
         member do
           get :people

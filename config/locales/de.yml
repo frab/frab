@@ -216,6 +216,7 @@ de:
   all: Alle
   allowed_event_types: Zulässige Ereignistypen
   allowed_event_types_extras: Zusätzliche zulässige Ereignistypen
+  apply_filter: Filter anwenden
   are_you_sure: Sind Sie sicher?
   attachments_overview_module:
     attachments: Anhänge
@@ -237,6 +238,7 @@ de:
   availability: Verfügbarkeit
   available: Verfügbar
   basic_information: Basisinformationen
+  blank_indication: "(leer)"
   by: von
   call_for_participation: Call for Participation
   cancel: Abbrechen
@@ -897,9 +899,10 @@ de:
     notice_template_added: E-Mail-Vorlage wurde erfolgreich hinzugefügt.
     notice_template_destroyed: E-Mail-Vorlage wurde erfolgreich gelöscht.
     notice_template_updated: E-Mail-Vorlage wurde erfolgreich aktualisiert.
-    placeholders_hint: |
-      Die folgenden Platzhalter können jeweils im Abschnitt "Inhalt" verwendet werden
-      Vorlage.
+    placeholders_hint_header: |
+      Sie können die dynamische Variablensubstitution in den Abschnitten "subject" und "content" verwenden
+      Vorlage. Vermeiden Sie die Verwendung von ereignisspezifischen Variablen, wenn Sie nicht möchten, dass Benutzer sie abrufen
+      mehr als eine E-Mail-Nachricht.
     send_mail: E-Mail senden
     template_subject: 'Betreff: %{subject}'
   error_signing_in: E-Mail-Adresse oder Passwort ungültig.
@@ -1026,6 +1029,9 @@ de:
         recording_license: Aufzeichnungs-Lizenz für dieses Event
         submission_note: Sichtbar für Administratoren und Benutzer; zusätzliche Information.
         tech_rider: Was wird für diese Veranstaltung benötigt?
+    listing_n_events:
+      one: Listing %{n} des Ereignisses %{count}.
+      other: Auflisten von %{n} von %{count}-Ereignissen.
     my_events: Meine Events
     my_rating: Meine Bewertungen
     my_ratings: Meine Bewertungen
@@ -1071,7 +1077,9 @@ de:
       E-Mail oder gegebenenfalls später im Ticket-System informiert.
     reject_event_no_email: Event rejecten (ohne E-Mail)
     reject_event_no_email_hint: Setzt den Status des Events auf rejected, ohne eine automatisierte E-Mail zu senden.
+    select_filter_for: "Filter für %{filtername} auswählen:"
     toggle_description: Beschreibung umschalten >>
+    toggle_send_bulk_mail: Sende eine Mail an all diese Leute >>
     track_select: Filter nach Track
   expenses: Spesen
   expenses_module:
@@ -1648,6 +1656,7 @@ de:
   manage_conference: Verwalten Sie diese Konferenz
   manual: Handbuch
   more: Mehr...
+  multiple_indication: mehrere
   name: Name
   navigation:
     back: Zurück
@@ -1695,6 +1704,9 @@ de:
     send_notification_to_subscribers:
       one: Senden Sie %{name}-Benachrichtigungen an 1 Person, die an %{event} beteiligt ist
       other: Senden Sie %{name}-Benachrichtigungen an %{count} Personen, die an %{event} beteiligt sind
+    send_unspecified_notification_confirm:
+      one: Möchten Sie wirklich E-Mails für das %{count}-Ereignis senden?
+      other: Möchten Sie wirklich E-Mails für %{count}-Ereignisse senden?
     warning_events_without_speakers:
       one: 'Warnung: 1 Veranstaltung ohne Sprecher:'
       other: 'Warnung: %{count} Ereignisse ohne Sprecher:'
@@ -2080,6 +2092,7 @@ de:
     select_all_none: Wählen Sie alle / keine aus
     view_live_version_hint: Zeigen Sie die öffentliche Live-Version Ihres Programms an, so wie jeder Teilnehmer sie sehen kann.
   scheduling: Planung
+  select_one: "-- Wähle eins --"
   send: Senden
   session:
     login: Einloggen

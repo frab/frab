@@ -60,7 +60,7 @@ FactoryBot.define do
   factory :mail_template do
     conference
     name { 'template one' }
-    subject { 'subject one' }
-    content { '|first_name #first_name| |last_name #last_name| |public_name #public_name|' }
+    subject { 'mail about %{event}' }
+    content { '|first_name %{forename}| |last_name %{surname}| |public_name %{public_name}|' }
   end
 end

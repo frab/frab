@@ -1,7 +1,7 @@
 %section
   .page-header
     %h1 Event Feedbacks
-  = render 'shared/events_tabs'
+  = render partial: "event_list_tabs"
   - unless @conference.feedback_enabled
     .row
       .span16

@@ -188,6 +188,7 @@ it:
   all: Tutti
   allowed_event_types: Tipi di eventi consentiti
   allowed_event_types_extras: Altri tipi di eventi consentiti
+  apply_filter: Applica il filtro
   are_you_sure: Sei sicuro?
   attachments_overview_module:
     attachments: allegati
@@ -209,6 +210,7 @@ it:
   availability: disponibilità
   available: disponibile
   basic_information: Informazioni di base
+  blank_indication: "(Vuoto)"
   by: da
   call_for_participation: Invito alla partecipazione
   cancel: annullare
@@ -916,9 +918,10 @@ it:
     notice_template_added: Modello email aggiunto con successo.
     notice_template_destroyed: Modello di email eliminato con successo.
     notice_template_updated: Modello email aggiornato correttamente.
-    placeholders_hint: |
-      Le seguenti posizioni possono essere utilizzate nella sezione `content`
-      di ogni modello.
+    placeholders_hint_header: |
+      Puoi usare la sostituzione dinamica delle variabili nelle sezioni `subject` e` content` di ciascuna
+      modello. Evita di usare variabili specifiche dell'evento se non vuoi che le persone lo ottengano
+      più di un messaggio di posta.
     send_mail: Invia email
     template_subject: 'Oggetto: %{subject}'
   error_signing_in: Email o password non valida.
@@ -1051,6 +1054,9 @@ it:
         recording_license: Licenza di registrazione per questo discorso
         submission_note: 'Visibilità: amministratori e utenti; informazioni aggiuntive.'
         tech_rider: Cosa serve per questo evento?
+    listing_n_events:
+      one: Elenco di %{n} dell'evento %{count}.
+      other: Elenco di %{n} di eventi %{count}.
     my_events: I miei eventi
     my_rating: La mia nota
     my_ratings: I miei appunti
@@ -1092,7 +1098,9 @@ it:
     reject_event_hint: Rifiuta questo evento. I relatori saranno informati di questo rifiuto via e-mail.
     reject_event_no_email: Rifiuta l'evento (nessuna email)
     reject_event_no_email_hint: Rifiuta questo evento senza inviare un'e-mail automatica.
+    select_filter_for: 'Seleziona il filtro per %{filtername}:'
     toggle_description: Mostra descrizione >>
+    toggle_send_bulk_mail: Invia mail a tutte queste persone >>
     track_select: filtro per filo
   expenses: la spesa
   expenses_module:
@@ -1660,6 +1668,7 @@ it:
   manage_conference: Gestisci questa conferenza
   manual: manuale
   more: Più ...
+  multiple_indication: multiplo
   name: Nome
   navigation:
     back: ritorno
@@ -1706,6 +1715,9 @@ it:
     send_notification_to_subscribers:
       one: Invia notifiche %{name} a 1 persona coinvolta in %{event}
       other: Invia notifiche %{name} alle persone %{count} coinvolte in %{event}
+    send_unspecified_notification_confirm:
+      one: Sei sicuro di voler inviare e-mail per l'evento %{count}?
+      other: Sei sicuro di voler inviare e-mail per eventi %{count}?
     warning_events_without_speakers:
       one: 'Avviso: 1 evento senza altoparlanti:'
       other: 'Avvertenza: eventi %{count} senza altoparlanti:'
@@ -2097,6 +2109,7 @@ it:
     select_all_none: Selezione (Tutti / Nessuno)
     view_live_version_hint: Visualizza la versione pubblica del programma, come chiunque vorrebbe vederlo
   scheduling: programmazione
+  select_one: "-- Seleziona uno --"
   send: mandare
   session:
     login: Entra

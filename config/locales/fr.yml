@@ -188,6 +188,7 @@ fr:
   all: Tous
   allowed_event_types: Types d'événements autorisés
   allowed_event_types_extras: Types d'événements autorisés supplémentaires
+  apply_filter: Appliquer le filtre
   are_you_sure: Êtes-vous sûr(e)?
   attachments_overview_module:
     attachments: pièces jointes
@@ -209,6 +210,7 @@ fr:
   availability: Disponibilité
   available: Disponible
   basic_information: Informations de base
+  blank_indication: "(Vide)"
   by: par
   call_for_participation: Appel à participation
   cancel: Annuler
@@ -912,9 +914,10 @@ fr:
     notice_template_added: Modèle de courriel ajouté avec succès.
     notice_template_destroyed: Modèle de courriel supprimé avec succès.
     notice_template_updated: Modèle de courriel mis à jour avec succès.
-    placeholders_hint: |
-      Les emplacements suivants peuvent être utilisés dans la section `content`
-      de chaque modèle.
+    placeholders_hint_header: |
+      Vous pouvez utiliser la substitution de variable dynamique dans les sections `subject` et` content` de chaque
+      modèle. Évitez d’utiliser des variables spécifiques à un événement si vous ne voulez pas que les gens soient informés
+      plus d'un message électronique.
     send_mail: Envoyer le courriel
     template_subject: 'Sujet : %{subject}'
   error_signing_in: Courriel ou mot de passe invalide.
@@ -1047,6 +1050,9 @@ fr:
         recording_license: License d’enregistrement pour ce talk
         submission_note: 'Visibilité : Admins et utilisateurs; information additionelle.'
         tech_rider: Que faut-il pour cet évènement ?
+    listing_n_events:
+      one: Liste de %{n} de l'événement %{count}.
+      other: Liste %{n} d'événements %{count}.
     my_events: Mes évènements
     my_rating: Ma note
     my_ratings: Mes notes
@@ -1088,7 +1094,9 @@ fr:
     reject_event_hint: Rejette cet évènement. Les orateurs seront notifiés de ce rejet par courriel.
     reject_event_no_email: Rejeter l’évènement (pas de courriel)
     reject_event_no_email_hint: Rejeter cet évènement sans envoyer de courriel automatique.
+    select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
     toggle_description: Afficher la description >>
+    toggle_send_bulk_mail: Envoyez un courrier à toutes ces personnes >>
     track_select: filtrer par fil
   expenses: Dépenses
   expenses_module:
@@ -1656,6 +1664,7 @@ fr:
   manage_conference: Gérer cette conférence
   manual: Manuel
   more: Plus…
+  multiple_indication: plusieurs
   name: Nom
   navigation:
     back: Retour
@@ -1702,6 +1711,9 @@ fr:
     send_notification_to_subscribers:
       one: Envoyer des notifications %{name} à 1 personne impliquée dans %{event}
       other: Envoi de notifications %{name} aux personnes %{count} impliquées dans %{event}
+    send_unspecified_notification_confirm:
+      one: Êtes-vous sûr de vouloir envoyer des courriels pour l'événement %{count}?
+      other: Êtes-vous sûr de vouloir envoyer des courriels pour les événements %{count}?
     warning_events_without_speakers:
       one: 'Attention: 1 événement sans intervenants:'
       other: 'Avertissement: %{count} événements sans haut-parleurs:'
@@ -2093,6 +2105,7 @@ fr:
     select_all_none: Sélection (Tous / Aucun)
     view_live_version_hint: Afficher la version publique du programme, comme n’importe quelle personne la verrait
   scheduling: Programmation
+  select_one: "-- Choisissez un --"
   send: Envoyer
   session:
     login: Connexion

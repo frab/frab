@@ -32,6 +32,11 @@ class EditingEventReviewTest < FeatureTest
      assert_content page, REVIEW_METRIC_NAME 
      assert_content page, '3.75' # average([2,4,4,5])
 
+     # Test that filtering by review metric works
+     click_on '3.75'
+     assert_content page, '≥ 3.75'
+     assert_content page, @event.title
+
      # Test that when @user deletes the review, the average is updated correctly
      visit "/#{@conference.acronym}/events/#{@event.id}/event_rating"
      click_on 'Delete Event rating'

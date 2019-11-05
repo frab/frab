@@ -12,7 +12,7 @@ class ReviewMetric < ApplicationRecord
   def safe_name
     # safe_name is used as an sql term, and also as a request parameter.
     # So we try to have it similiar to the review metric name.
-    name.parameterize.gsub(%r{[^a-z0-9]}, '_').presence || "rm#{id}"
+    name.parameterize.gsub(%r{[^a-z0-9]}, '_').gsub(%r{^(?=[0-9])}, '_').presence || "rm#{id}"
   end
 
   validates :name, presence: true, uniqueness: { scope: :conference }
