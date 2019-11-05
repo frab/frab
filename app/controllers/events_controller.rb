@@ -135,7 +135,7 @@ class EventsController < BaseConferenceController
 
   # show event history
   def history
-    authorize @conference, :read?
+    authorize @conference, :orga?
     @event = Event.find(params[:event_id])
     @all_versions = PaperTrail::Version.where(item_type: 'Event', item: @event.id).or(PaperTrail::Version.where(associated_type: 'Event', associated_id: @event.id)).order('created_at DESC')
     @versions = @all_versions.paginate(
