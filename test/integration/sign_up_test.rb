@@ -71,7 +71,6 @@ class SignUpTest < ActionDispatch::IntegrationTest
       'commit' => 'Log in', 'locale' => 'en'
     }
     follow_redirect!
-    follow_redirect!
     assert_includes @response.body, 'Recent changes'
   end
 end
