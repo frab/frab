@@ -23,7 +23,28 @@ class ViewEventTest < ActionDispatch::IntegrationTest
 
   test 'can view my events table' do
     get "/#{@conference.acronym}/events/my"
+    assert_response :redirect
+    follow_redirect!
     assert_response :success
+    assert_select "h1", text: "My Events"
+  end
+
+  test 'can view attachment overview table' do
+    get "/#{@conference.acronym}/events/attachments"
+    assert_includes @response.body, 'There are no files attached'
+    
+    upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'textfile.txt'), 'text/plain')
+    @event.update_attributes( event_attachments_attributes: { 'xx' => { 'title' => 'proposal',         'attachment' => upload } }) #todo join lines?
+    @event.update_attributes( event_attachments_attributes: { 'yy' => { 'title' => 'a freeform title', 'attachment' => upload } })
+                                                                
+    get "/#{@conference.acronym}/events/attachments"
+    assert_includes @response.body, @event.title
+
+    assert_select 'a', 'a freeform title' # freeform titles appear as clickable names
+
+    assert_includes @response.body, 'proposal' # proposal appears as a table header, not a link
+    assert_select 'a', {text: 'proposal', count: 0}
+    
   end
 
   test 'reports no results for missing terms' do
@@ -33,8 +54,9 @@ class ViewEventTest < ActionDispatch::IntegrationTest
   end
 
   test 'finds events for search term' do
-    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=frap&utf8=%E2%9C%93"
+    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=#{@conference.events.last.title.split.last}&utf8=%E2%9C%93"
     assert_response :success
     assert_includes @response.body, 'frap'
+    assert_includes @response.body, 'Listing 1 of 4 events'
   end
 end

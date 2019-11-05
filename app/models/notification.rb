@@ -20,7 +20,11 @@ class Notification < ApplicationRecord
     'forename'    => I18n.t('conferences_module.variables.forename'),
     'surname'     => I18n.t('conferences_module.variables.surname'),
     'event'       => I18n.t('conferences_module.variables.event'),
+    'subtitle'    => I18n.t('conferences_module.variables.subtitle'),
+    'type'        => I18n.t('conferences_module.variables.type'),
+    'track'       => I18n.t('conferences_module.variables.track'),
     'link'        => I18n.t('conferences_module.variables.link'),
+    'joinlink'    => I18n.t('conferences_module.variables.joinlink'),
     'date'        => I18n.t('conferences_module.variables.date'),
     'time'        => I18n.t('conferences_module.variables.time'),
     'room'        => I18n.t('conferences_module.variables.room')

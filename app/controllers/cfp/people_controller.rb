@@ -6,15 +6,15 @@ class Cfp::PeopleController < ApplicationController
 
   def show
     @person = current_user.person
-
-    if !@conference.in_the_past? && !@person.events_in(@conference).empty? && @person.availabilities_in(@conference).count.zero?
-      flash[:alert] = t('cfp.specify_availability')
-    end
-
     return redirect_to action: 'new' unless @person
+
     if redirect_submitter_to_edit?
       flash[:alert] = t('users_module.error_invalid_public_name')
-      redirect_to action: 'edit'
+      return redirect_to action: 'edit'
+    end
+
+    if !@conference.in_the_past? && !@person.events_in(@conference).empty? && @person.availabilities_in(@conference).count.zero?
+      flash.now[:alert] = t('cfp.specify_availability')
     end
 
     respond_to do |format|
@@ -90,6 +90,7 @@ class Cfp::PeopleController < ApplicationController
         format.html { redirect_to(cfp_person_path, notice: t('cfp.person_updated_notice')) }
         format.xml  { head :ok }
       else
+        flash_model_errors(@person)
         format.html { render action: 'edit' }
         format.xml  { render xml: @person.errors, status: :unprocessable_entity }
       end

@@ -4,7 +4,7 @@
       %th.first
       %th= t('title')
       %th= t('track')
-      %th= t('activerecord.attributes.event.event_type')
+      %th= Event.human_attribute_name('event_type')
       %th= t('created_at')
       %th.last=t('col_avg_audience_feedback')
   %tbody

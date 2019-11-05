@@ -11,10 +11,10 @@
           %th= t('ticket')
         %th
       - else
-        %th= t('activerecord.attributes.person.first_name')
-        %th= t('activerecord.attributes.person.last_name')
-        %th= t('activerecord.attributes.person.public_name')
-        %th= t('activerecord.attributes.person.email')
+        %th= Person.human_attribute_name('first_name')
+        %th= Person.human_attribute_name('last_name')
+        %th= Person.human_attribute_name('public_name')
+        %th= Person.human_attribute_name('email')
         - if @conference.ticket_server_enabled?
           %th= t('ticket')
       %th.last

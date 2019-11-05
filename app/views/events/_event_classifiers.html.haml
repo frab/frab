@@ -4,7 +4,7 @@
   .input
     %ul{class: 'event_classifiers_checkboxes'}
       - @conference.classifiers.each do |classifier|
-        %li
+        %li.clearfix.input
           - event_has_this_classifier = @event.present? ? @event.event_classifiers.pluck(:classifier_id).include?(classifier.id) : false
           = classifier.name
           = link_to_add_association f, :event_classifiers, partial: '/events/event_classifier_fields', style: 'display:none;',

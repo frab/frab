@@ -8,7 +8,7 @@ class NotificationTest < ActiveSupport::TestCase
     @cfp.reload
   end
 
-  test 'call for papers can have multiple notifications' do
+  test 'call for participation can have multiple notifications' do
     assert_equal @cfp.conference.notifications.count, 2
   end
 

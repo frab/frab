@@ -1,8 +1,8 @@
 = simple_form_for(@user, url: crew_user_path(@person)) do |f|
   %fieldset.inputs
-    = f.input :email
-    = f.input :password
-    = f.input :password_confirmation
+    = f.input :email,                 disabled: !@user.credentials_editable?
+    = f.input :password,              disabled: !@user.credentials_editable?  
+    = f.input :password_confirmation, disabled: !@user.credentials_editable?
 
     - if current_user.is_admin?
       = f.input :role, as: :radio_buttons, collection: translated_options(User::ROLES)

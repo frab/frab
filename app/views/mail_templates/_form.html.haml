@@ -1,9 +1,8 @@
 %p
-  = raw(GitHub::Markdown.render(t('emails_module.placeholders_hint')))
-  %ul
-    %li #first_name
-    %li #last_name
-    %li #public_name
+  .row
+    .col.span8
+      = raw(GitHub::Markdown.render(t('emails_module.placeholders_hint_header')))
+    .col.offset8= render "shared/variable_subst_help"
 
 = simple_form_for @mail_template do |f|
   %fieldset.inputs

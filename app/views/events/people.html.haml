@@ -1,14 +1,14 @@
 %section
   .page-header
     .pull-right
-      = action_button "primary", t('edit'), edit_people_event_path(@event), hint: t('titles.edit_people_for_event')
+      = action_button "primary", t('edit'), edit_people_event_path(@event), hint: t('titles.edit_people_for_event', {event: @event.title})
     %h1= t('titles.event', {event: @event.title})
   = render 'shared/events_tabs'
   - if @event.event_people.count == 0
     .row
       .span16
         .blank-slate
-          %p=raw(GithHub::Markdown.render(t('people_module.no_people_in event')))
+          %p=raw(GitHub::Markdown.render(t('people_module.no_people_in_event')))
 
   - else
     .row
@@ -25,5 +25,5 @@
               %tr
                 %td= image_box event_person.person.avatar, :small
                 %td= link_to event_person.person.full_name, event_person.person
-                %td= event_person.event_role
-                %td= event_person.role_state
+                %td= t(event_person.event_role, scope: 'role') unless event_person.event_role.blank?
+                %td= t(event_person.role_state, scope: 'options') unless event_person.role_state.blank?

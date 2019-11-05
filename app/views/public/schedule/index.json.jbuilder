@@ -24,11 +24,7 @@ json.schedule do
       json.rooms do
         @conference.rooms_including_subs.each do |room|
           json.set! room.name, room.events.is_public.accepted.scheduled_on(day).order(:start_time) do |event|
-            if @conference.program_export_base_url.blank?
-              json.url url_for(public_event_url(id: event.id))
-            else
-              json.url url_for(event.static_url)
-            end
+            json.url public_program_event_url(event)
             json.id event.id
             json.guid event.guid
             json.logo event.logo_path

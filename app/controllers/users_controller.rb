@@ -48,14 +48,13 @@ class UsersController < BaseCrewController
     set_allowed_user_roles(params[:user][:role])
     params[:user].delete(:role)
 
-    # only allowed user.conference_users from selection
-    if !current_user.is_admin? && policy(@conference).orga? && params[:user][:conference_users_attributes].present?
-      filter_conference_users(params[:user][:conference_users_attributes])
-    end
+    filter_conference_users(params[:user][:conference_users_attributes]) if orga_modifies_conference_users?
 
     respond_to do |format|
       if @user.update_attributes(user_params)
-        @user.confirm unless @user.confirmed?
+        if @user.respond_to?(:confirm)
+          @user.confirm unless @user.confirmed?
+        end
         bypass_sign_in(@user) if current_user == @user
         format.html { redirect_to(edit_crew_user_path(@person), notice: t('users_module.notice_user_updated')) }
       else
@@ -78,6 +77,11 @@ class UsersController < BaseCrewController
 
   def assign_user_role?(role)
     policy(Conference).orga? && User::USER_ROLES.include?(role)
+  end
+
+  def orga_modifies_conference_users?
+    return if current_user.is_admin?
+    policy(Conference).orga? && params[:user][:conference_users_attributes].present?
   end
 
   def set_allowed_user_roles(role, fallback=nil)

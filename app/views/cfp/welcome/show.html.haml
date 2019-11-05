@@ -8,6 +8,17 @@
               = link_to locale.to_s, url_for( locale: locale )
     %h1= t('titles.cfp_welcome', {conference: @conference.title})
 
+  - unless current_user
+    .row
+      .span16
+        .alert-message.block-message
+          %h1=t("cfp.login_required_title")
+          %p
+            =t("cfp.login_required")
+            = action_button "small primary", t("cfp.login"), new_user_session_path
+            - if Devise.mappings[:user].registerable?
+              = action_button "small", t("cfp.sign_up"), new_user_registration_path
+
   .row
     .span16
       - if @conference.call_for_participation.welcome_text.present?
@@ -18,9 +29,11 @@
 
         %p=t("cfp.info_url_description_html", link: link_to(@conference.call_for_participation.info_url, @conference.call_for_participation.info_url))
 
+
   .row
     .span16
-      - if @conference.in_the_past?
-        =t("cfp.conference_in_the_past")
-      - else
-        = raw GitHub::Markdown.render(t('cfp.deadline_description', {date: l(@conference.call_for_participation.end_date)}))
+      .label.notice
+        - if @conference.in_the_past?
+          =t("cfp.conference_in_the_past")
+        - else
+          = raw GitHub::Markdown.render(t('cfp.deadline_description', {date: l(@conference.call_for_participation.end_date)}))

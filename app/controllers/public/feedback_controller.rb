@@ -11,10 +11,14 @@ class Public::FeedbackController < ApplicationController
     @event = @conference.events.find(params[:event_id])
     @feedback = @event.event_feedbacks.new(event_feedback_params)
 
-    if @feedback.save
-      render action: 'thank_you'
-    else
-      render action: 'new'
+    respond_to do |format|
+      if @feedback.save
+        format.html { render action: 'thank_you' }
+        format.json { head :ok, status: :created }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @feedback.errors, status: :unprocessable_entity }
+      end
     end
   end
 

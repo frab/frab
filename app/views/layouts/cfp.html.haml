@@ -1,22 +1,33 @@
 !!!
 %html
   %head
-    %title= t('titles.cfp_welcome', {conference: @conference.title})
+    - if @conference
+      %title= t('titles.cfp_welcome', {conference: @conference.title})
+    - else
+      %title= home_page_title
     = stylesheet_link_tag "application"
     = javascript_include_tag "application", "admin"
     = csrf_meta_tags
   %body
-    .container
-      .topbar
-        .fill
-          .container
+    .topbar
+      .fill
+        .container
+          - if @conference
             = link_to t('titles.cfp_welcome', {conference: @conference.title}), root_url, class: 'brand'
+          - else
+            = link_to home_page_title, root_url, class: 'brand'
 
-            %ul.nav.secondary-nav.pull-right
-              - if current_user and current_user.person
+          - if current_user
+            = render 'shared/navi_user_menu'
+
+          %ul.nav.secondary-nav.pull-right
+            - if current_user and current_user.person
+              -if @conference
                 = render 'shared/navi_cfp_account'
-              - else
-                = render 'shared/navi_cfp_login'
+              - else @conference
+                = render 'shared/navi_cfp_account_no_conference'
+            - else
+              = render 'shared/navi_cfp_login'
 
     .container
       .main-content

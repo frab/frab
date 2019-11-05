@@ -1,0 +1,61 @@
+%section
+  .page-header
+    .pull-right
+    %h1= t('titles.attachments_overview')
+  = render partial: "event_list_tabs"
+  - if @conference.events.all.empty?
+    .row
+      .span16
+        .blank-slate
+          %p= t('attachments_overview_module.no_event')
+  - elsif @attachment_titles.empty? and not @other_attachment_titles_exist
+    .row
+      .span16
+        .blank-slate
+          %p= t('attachments_overview_module.no_attachments')
+  - else
+    = render partial: 'filters', locals: { params: params }
+    .row
+      .span16
+        - if @events.empty?
+          %p= t('reports_module.no_search_results')
+        - else
+          %table.zebra-striped
+            %thead
+              %tr
+                %th
+                %th= sort_link @search, :title, term: params[:term]
+                %th.nowrap
+                  = sort_link @search, :track_name, t('track'), term: params[:term]
+                  = filter_link('track_name')
+                %th.nowrap
+                  = sort_link @search, :event_type, term: params[:term]
+                  = filter_link('event_type')
+                - if policy(@conference).manage?
+                  %th.nowrap
+                    = sort_link @search, :state, term: params[:term]
+                    = filter_link('event_state')
+                - @attachment_titles.each do |attachment_title|
+                  %th= t(attachment_title, scope: 'events_module.predefined_title_types')
+                - if @other_attachment_titles_exist
+                  %th= t('attachments_overview_module.attachments')
+            %tbody
+              - @events.includes(:track).each do |event|
+                %tr
+                  %td= image_box event.logo, :small
+                  %td
+                    = link_to event.title, event
+                    %p.small
+                      = by_speakers(event)
+                  %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
+                  %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+                  - if policy(@conference).manage?
+                    %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
+                  - @attachment_titles.each do |attachment_title|
+                    %td= safe_join( event.event_attachments.where(title: attachment_title).map{|ea| link_to ea.short_anonymous_title, ea.attachment.url}, '<br>'.html_safe )
+                  - if @other_attachment_titles_exist
+                    %td= safe_join( event.event_attachments.where.not(title: @attachment_titles).map{|ea| link_to ea.link_title, ea.attachment.url}, '<br>'.html_safe )
+          = actions_bar do
+            = will_paginate @events
+        = render 'below_table'
+= render partial: 'filters_modal_holder'

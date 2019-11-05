@@ -97,6 +97,7 @@ class PeopleController < BaseConferenceController
       if @person.update_attributes(person_params)
         format.html { redirect_to(@person, notice: t('people_module.notice_person_updated')) }
       else
+        flash_model_errors(@person)
         format.html { render action: 'edit' }
       end
     end

@@ -3,7 +3,7 @@
     .pull-right
       - if policy(@conference).manage?
         = action_button "primary", t('events_module.edit_event'), edit_event_path(@event), hint: t('events_module.edit_event_hint')
-        = action_button "primary", t('people_module.edit_people'), edit_people_event_path(@event), hint: t('people_module.inputs.edit_people_hint')
+        = action_button "primary", t('events_module.edit_people'), edit_people_event_path(@event), hint: t('events_module.edit_people_hint')
         - if @conference.ticket_type == 'integrated' and !@conference.bulk_notification_enabled and @conference.call_for_participation.present?
           - if @event.transition_possible? :accept
             = action_button "success", t('events_module.accept_event'), update_state_event_path(@event, transition: :accept, send_mail: true), method: :put, hint: t('events_module.accept_event_hint')
@@ -21,9 +21,11 @@
           = action_button "", t('events_module.custom_notification'), custom_notification_event_path(event_id: @event), method: :post, hint: t('events_module.custom_notification_hint')
         - if @conference.ticket_server_enabled?
           - unless @event.remote_ticket?
-            = action_button "primary", t('events_module.add_ticket') , create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
-    %h1= t('event')
-    %h2 #{@event.title}
+            = action_button "primary", t('events_module.add_ticket'), create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
+      - elsif current_user.is_speaker_in?(@event)
+        = action_button "small", t('edit'), edit_cfp_event_path(@event)
+
+    %h1= t('titles.event', {event: @event.title})
   = render 'shared/events_tabs'
   .row
     .span16
@@ -40,11 +42,11 @@
         = @event.track_name
       %p
         %b= Event.human_attribute_name(:event_type) + ':'
-        = @event.event_type
+        = @event.localized_event_type
       - if policy(@conference).manage?
         %p
           %b= Event.human_attribute_name(:state) + ':'
-          = @event.state
+          = t(@event.state, scope: :options) unless @event.state.blank?
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
           %b= t('col_ticket')
@@ -62,7 +64,7 @@
         %b= t('avg_audience_feedback')
         = number_with_precision @event.average_feedback, precision: 1
     .span6
-      %h2= EventPerson.model_name.human(count: 2)
+      %h2= t('people')
       %p= @event.speakers.map{ |p| link_to p.public_name, p}.join(", ").html_safe
       %h2= t('scheduling')
       %p
@@ -132,3 +134,6 @@
       %p
         %b= Event.human_attribute_name(:tech_rider) + ':'
         = @event.tech_rider
+  .row
+    .span16
+      = render partial: 'events/event_tags', locals: { event: @event, short: false }

@@ -2,7 +2,7 @@
   .page-header
     .pull-right
       - unless @conference.in_the_past?
-        - unless cfp_hard_deadline_over?
+        - unless @conference.call_for_participation.hard_deadline_over?
           = action_button "primary", t("cfp.join_event"), cfp_events_join_path
           = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
           - if @conference.schedule_open?
@@ -18,7 +18,7 @@
   .row
     .span8
       %p=t("cfp.thanks_for_interest", title: @conference.title)
-      - if cfp_hard_deadline_over?
+      - if @conference.call_for_participation.hard_deadline_over?
         %p=t("cfp.hard_deadline_over")
 
       - elsif !@conference.in_the_past?

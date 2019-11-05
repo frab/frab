@@ -1,0 +1,4 @@
+= simple_form_for(@conference, url: conference_path) do |f|
+  = dynamic_association :review_metrics, t(:review_metrics), f
+  .actions
+    = f.button :submit, class: 'primary'

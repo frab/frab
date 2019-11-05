@@ -10,10 +10,26 @@ class CallForParticipation < ApplicationRecord
   end
 
   def in_the_future?
-    start_date > Date.today
+    start_date > current_date
   end
 
   def still_running?
-    end_date > Date.today
+    current_date <= deadline
+  end
+ 
+  def hard_deadline_over?
+    return false unless hard_deadline
+    current_date > hard_deadline
+  end
+
+  private
+
+  def current_date
+    Time.now.in_time_zone(conference.timezone).to_date
+  end
+
+  def deadline
+    return hard_deadline if hard_deadline
+    end_date
   end
 end

@@ -18,11 +18,6 @@ module RecentChangesHelper
   end
 
   def verb_for(event)
-    case event
-    when 'destroy'
-      'deleted'
-    else
-      "#{event}d"
-    end
+    I18n.t(event, scope: 'paper_trail.events', default: event)
   end
 end

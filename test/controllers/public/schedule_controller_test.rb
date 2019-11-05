@@ -74,6 +74,11 @@ class Public::ScheduleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'displays qr code' do
+    get :qrcode, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+  end
+
   test 'json schedule contains the conference events' do
     get :events, format: :json, params: { conference_acronym: @conference.acronym }
     assert_response :success

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :classifier_name do |n|
     "Classifier #{n}"
   end

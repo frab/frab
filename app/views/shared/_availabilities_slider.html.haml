@@ -1,7 +1,7 @@
 - day_id = "day_" + day.id.to_s
 %span{ id: day_id }
   %h3
-    = t('availabilities.available_to')
+    = t('availabilities.available_from')
     %span.start_date
       = l day.start_date, format: :pretty_datetime
     = t('availabilities.available_to')

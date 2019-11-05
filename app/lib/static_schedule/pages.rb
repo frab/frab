@@ -65,7 +65,7 @@ module StaticSchedule
     end
 
     def events
-      @conference.events.is_public.confirmed.scheduled.each do |event|
+      @conference.schedule_events.each do |event|
         @paths << {
           action: :event,
           assigns: { view_model: @renderer.view_model.for_event(event.id) },
@@ -81,12 +81,14 @@ module StaticSchedule
     end
 
     def speakers
-      Person.publicly_speaking_at(@conference).confirmed(@conference).each do |speaker|
-        @paths << {
-          action: :speaker,
-          assigns: { view_model: @renderer.view_model.for_speaker(speaker.id) },
-          target: "speakers/#{speaker.id}.html"
-        }
+      @conference.include_subs.each do |conference|
+        Person.publicly_speaking_at(conference).confirmed(conference).each do |speaker|
+          @paths << {
+            action: :speaker,
+            assigns: { view_model: @renderer.view_model.for_speaker(speaker.id) },
+            target: "speakers/#{speaker.id}.html"
+          }
+        end
       end
     end
 
@@ -99,7 +101,7 @@ module StaticSchedule
     end
 
     def qrcode_url
-      @conference.program_export_base_url
+      @conference.program_export_base_url + '/schedule.xml'
     end
   end
 end

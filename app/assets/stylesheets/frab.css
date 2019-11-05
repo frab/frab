@@ -1,6 +1,9 @@
 body {
-  padding-top: 40px;
   background-color: #eeeeee;
+}
+
+.topbar {
+  display: contents;
 }
 
 .topbar .fill {
@@ -17,6 +20,7 @@ body {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   margin: 0 -20px;
   padding: 20px;
+  min-width: fit-content;
 }
 
 section {
@@ -56,6 +60,8 @@ div.rating {
   white-space: nowrap;
 }
 
+label.review-scores { width: auto; min-width: 40px; }
+
 table.room {
   width: 150px;
   margin: 10px;
@@ -92,6 +98,14 @@ div.event {
   padding: 3px;
 }
 
+div.color-preview {
+  width: 1em;
+  height: 1em;
+  border: 1px solid #808080;
+  float: left;
+  margin: .5ex 1ex .5ex .5ex;
+}
+
 div.event.fatal {
   background: #EE3333;
 }
@@ -117,12 +131,15 @@ span.right { float: right; }
 
 td.buttons { white-space: nowrap; }
 td.nowrap { white-space: nowrap; }
+th.nowrap { white-space: nowrap; }
 
 a.assoc {
   margin-left: 150px;
 }
 
 textarea { height: auto; width: 420px; }
+
+input[type="text"] { height: auto; width: 420px; }
 
 ul#unscheduled-events {
   height: 400px;
@@ -186,6 +203,11 @@ p.availability span {
     float: left;
 }
 
+.span16 {
+    width: unset;
+    min-width: 940px;
+}
+
 .nested-fields .event_event_classifiers_value {
     float: left;
 }
@@ -227,4 +249,76 @@ ul.event_classifiers_checkboxes input[type=checkbox] {
 }
 .help-block {
     width: 430px;
+}
+span.event-tag {
+    display: inline;
+    min-width: 200px;
+    color: black;
+    padding: 2px 4px 2px 4px;
+    border: thin;
+    border-color: black;
+    border-style: solid;
+    vertical-align: middle;
+}
+span.event-tag.small {
+    font-size: 8px; 
+}
+span.after-deadline.soft {
+    background-color: orange;
+}
+span.after-deadline.hard {
+    background-color: red;
+}
+
+div.filters-row {
+    margin-bottom: 13px;
+}
+
+.filterbox {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-style: solid;
+    background: #E2E2E2;
+    padding: 4px;
+    border-color: #202020;
+    border-width: thin;
+}
+
+.filterbox-close-btn {
+    background: #222222;
+    padding: 4px;
+    color: #FFFF;
+    margin-left: -4px;
+    margin-right: 7px;
+}
+
+.filterbox-close-btn:hover {
+    color: lightblue;
+    text-decoration: none;
+}
+
+.filter_icon {
+    display: inline-block;
+    height: 1rem;
+    width: 1rem;
+    vertical-align: bottom;
+}
+
+.filter_icon.true {
+    background: url('filter_on.svg');
+    background-size: contain;
+}
+.filter_icon.false {
+    background: url('filter_off.svg');
+    background-size: contain;
+}
+
+.filter_icon:hover {
+    background: url('filter_highlight.svg');
+    background-size: contain;
+}
+
+.filter_form_op div.input {
+    color: red;
+    margin-left: auto;
 }

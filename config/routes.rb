@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'auth/registrations',
-    sessions: 'auth/sessions'
+    sessions: 'auth/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   scope '(:locale)' do
@@ -23,6 +24,11 @@ Rails.application.routes.draw do
     get '/user/:person_id/edit' => 'users#edit', as: 'edit_crew_user'
     patch '/user/:person_id' => 'users#update', as: 'crew_user'
     post '/user/:person_id' => 'users#create'
+
+    # submitters without a conference
+    namespace :cfp do
+      resource :user, except: %i(new create)
+    end
 
     scope path: '/:conference_acronym' do
       namespace :public do
@@ -54,7 +60,7 @@ Rails.application.routes.draw do
         get '/events/join(/:token)' => 'events#join', as: :events_join
         post '/events/join/:token' => 'events#join'
         get '/schedule' => 'schedule#index', as: 'schedule'
-        get '/schedule/update_track' => 'schedule#update_track', as: 'schedule_update_track'
+        get '/schedule/update_filters' => 'schedule#update_filters', as: 'schedule_update_filters'
         put '/schedule/update_event' => 'schedule#update_event', as: 'schedule_update_event'
         resources :events do
           member do
@@ -69,7 +75,7 @@ Rails.application.routes.draw do
       get '/recent_changes' => 'recent_changes#index', as: 'recent_changes'
       post '/schedule.pdf' => 'schedule#custom_pdf', as: 'schedule_custom_pdf', defaults: { format: :pdf }
       get '/schedule' => 'schedule#index', as: 'schedule'
-      get '/schedule/update_track' => 'schedule#update_track', as: 'schedule_update_track'
+      get '/schedule/update_filters' => 'schedule#update_filters', as: 'schedule_update_filters'
       put '/schedule/update_event' => 'schedule#update_event', as: 'schedule_update_event'
       get '/schedule/new_pdf' => 'schedule#new_pdf', as: 'new_schedule_pdf'
       get '/schedule/html_exports' => 'schedule#html_exports'
@@ -85,7 +91,8 @@ Rails.application.routes.draw do
         get :edit_days
         get :edit_schedule
         get :edit_rooms
-	get :edit_classifiers
+        get :edit_classifiers
+        get :edit_review_metrics
         get :edit_ticket_server
         get :edit_notifications
         post :send_notification
@@ -113,11 +120,15 @@ Rails.application.routes.draw do
         collection do
           get :my
           get :ratings
+          get :attachments
           get :feedbacks
           get :start_review
           get :cards
+          get :export_all
           get :export_accepted
           get :export_confirmed
+          get :filter_modal
+          post :batch_actions
         end
         member do
           get :people

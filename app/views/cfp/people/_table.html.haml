@@ -21,7 +21,7 @@
             -if event.start_time
               =I18n.l(event.start_time, format: :long)
               %br
-              =event.room.name
+              =event.room&.name
             -else
               \-
         - if @conference.feedback_enabled

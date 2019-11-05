@@ -1,5 +1,6 @@
 .event-navigation
-  %ul
-    - @conference.days.each do |day|
-      %li
-        %a{href: "\#day#{day.id}"}= l day.start_date, format: :day
+  - if @conference.days.count > 1
+    %ul
+      - @conference.days.each do |day|
+        %li
+          %a{href: "\#day#{day.id}"}= l day.start_date, format: :day
