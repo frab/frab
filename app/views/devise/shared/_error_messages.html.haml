@@ -1,0 +1,9 @@
+- if resource.errors.any?
+  #error_explanation
+    %h2
+      = I18n.t("errors.messages.not_saved",
+        count: resource.errors.count,
+        resource: resource.class.model_name.human.downcase)
+    %ul
+      - resource.errors.full_messages.each do |message|
+        %li= message
