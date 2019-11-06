@@ -305,16 +305,16 @@ div.filters-row {
 }
 
 .filter_icon.true {
-    background: url('filter_on.svg');
+    background: asset-data-url("filter_on.svg");
     background-size: contain;
 }
 .filter_icon.false {
-    background: url('filter_off.svg');
+    background: asset-data-url("filter_off.svg");
     background-size: contain;
 }
 
 .filter_icon:hover {
-    background: url('filter_highlight.svg');
+    background: asset-data-url("filter_highlight.svg");
     background-size: contain;
 }
 
