@@ -74,6 +74,6 @@ class SignUpTest < ActionDispatch::IntegrationTest
     }
     follow_redirect!
     follow_redirect!
-    assert_includes @response.body, 'Recent changes'
+    assert_includes @response.body, 'You are logged in as crew member for this conference.'
   end
 end

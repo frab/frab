@@ -14,7 +14,11 @@ class Cfp::PeopleController < ApplicationController
     end
 
     if !@conference.in_the_past? && !@person.events_in(@conference).empty? && @person.availabilities_in(@conference).count.zero?
-      flash.now[:alert] = t('cfp.specify_availability')
+      flash.now[:alert] = "#{view_context.link_to( t('cfp.specify_availability'), new_cfp_person_availability_path)}".html_safe
+    end
+
+    if policy(@conference).manage?
+      flash.now[:warn] = "#{view_context.link_to( t('manage_conference_flash', default: "Manage this conference"), conference_path(conference_acronym: @conference.acronym))}".html_safe
     end
 
     respond_to do |format|
