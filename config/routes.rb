@@ -139,6 +139,7 @@ Rails.application.routes.draw do
         end
         resource :event_rating
         resources :event_feedbacks
+        get 'history' => 'events#history'
       end
 
       get '/reports' => 'reports#index', as: 'reports'

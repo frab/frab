@@ -1,0 +1,8 @@
+%section
+  .page-header
+    %h1= t('titles.event', {event: @event.title})
+  = render 'shared/events_tabs'
+  .row
+    .span16
+      .blank-slate
+        = render 'recent_changes/table'

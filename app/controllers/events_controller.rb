@@ -133,6 +133,22 @@ class EventsController < BaseConferenceController
     @events = result.paginate page: page_param
   end
 
+  # show event history
+  def history
+    authorize @conference, :orga?
+    @event = Event.find(params[:event_id])
+    @all_versions = PaperTrail::Version.where(item_type: 'Event', item: @event.id).or(PaperTrail::Version.where(associated_type: 'Event', associated_id: @event.id)).order('created_at DESC')
+    @versions = @all_versions.paginate(
+      page: page_param,
+      per_page: 25
+    )
+    respond_to do |format|
+      format.html
+      format.xml { render xml: @all_versions }
+      format.json { render json: @all_versions.to_json }
+    end
+  end
+
   # start batch event review
   def start_review
     authorize @conference, :read?

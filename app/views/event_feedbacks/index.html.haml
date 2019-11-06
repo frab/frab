@@ -1,11 +1,8 @@
 %section
   .page-header
     %h1= t('titles.event', {event: @event.title})
-  %ul.tabs
-    %li= link_to t('navigation.event'), @event
-    %li= link_to t('navigation.people'), people_event_path(@event)
-    %li= link_to t('navigation.ratings'), event_event_rating_path(@event)
-    %li.active= link_to t('navigation.feedbacks'), event_event_feedbacks_path(@event)
+
+  = render 'shared/events_tabs'
   - if @event_feedbacks.all.empty?
     .row
       .span16
