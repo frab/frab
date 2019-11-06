@@ -16,7 +16,7 @@
           %th.nowrap
             = sort_link @search, :state, t('state'), term: params[:term]
             = filter_link 'event_state'
-        %th= sort_link @search, t('created_at'), term: params[:term]
+        %th= sort_link @search, :created_at, t('created_at'), term: params[:term]
       - else
         %th= t('title')
         - if @conference.ticket_server_enabled?
