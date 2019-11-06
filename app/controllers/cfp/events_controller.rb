@@ -32,6 +32,9 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1/edit
   def edit
+    if redirect_submitter_to_edit?
+      flash[:alert] = "#{view_context.link_to(t('users_module.error_invalid_public_name'), edit_cfp_person_path)}".html_safe
+    end
   end
 
   # POST /cfp/events
