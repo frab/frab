@@ -9,6 +9,7 @@ class Cfp::PeopleController < ApplicationController
     return redirect_to action: 'new' unless @person
 
     if redirect_submitter_to_edit?
+      flash.keep
       flash[:alert] = t('users_module.error_invalid_public_name')
       return redirect_to action: 'edit'
     end
