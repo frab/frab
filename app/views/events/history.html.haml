@@ -6,3 +6,5 @@
     .span16
       .blank-slate
         = render 'recent_changes/table'
+        = actions_bar do
+          = will_paginate @versions
