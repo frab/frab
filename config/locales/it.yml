@@ -1666,6 +1666,7 @@ it:
       confirmation_instructions: Attivazione dell'account
       password_reset_instructions: Cambio di password
   manage_conference: Gestisci questa conferenza
+  manage_conference_flash: Hai effettuato l'accesso come membro dell'equipaggio per questa conferenza. Vuoi gestire questa conferenza?
   manual: manuale
   more: Più ...
   multiple_indication: multiplo
