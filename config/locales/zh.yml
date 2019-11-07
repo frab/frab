@@ -1641,6 +1641,7 @@ zh:
       confirmation_instructions: 帐号激活
       password_reset_instructions: 重设密码
   manage_conference: 管理这个会议
+  manage_conference_flash: 您已作为该会议的工作人员登录。您要管理这次会议吗？
   manual: 手册
   more: 更多...
   multiple_indication: 多

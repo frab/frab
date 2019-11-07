@@ -1662,6 +1662,7 @@ fr:
       confirmation_instructions: Activation de compte
       password_reset_instructions: Changement de mot de passe
   manage_conference: Gérer cette conférence
+  manage_conference_flash: Vous êtes connecté en tant que membre d'équipage pour cette conférence. Voulez-vous gérer cette conférence?
   manual: Manuel
   more: Plus…
   multiple_indication: plusieurs
