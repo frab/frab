@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  before_action :store_user_location!, if: :storable_location?
   before_action :set_locale
   before_action :set_paper_trail_whodunnit
   prepend_before_action :load_conference
@@ -120,6 +121,15 @@ class ApplicationController < ActionController::Base
 
   def users_last_conference_path
     conference_path(conference_acronym: current_user.last_conference.acronym)
+  end
+
+  def storable_location?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr? && request.path != '/'
+  end
+
+  def store_user_location!
+    # :user is the scope we are authenticating
+    store_location_for(:user, request.fullpath)
   end
 
 end

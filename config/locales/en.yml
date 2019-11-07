@@ -1635,6 +1635,7 @@ en:
       confirmation_instructions: Account Activation
       password_reset_instructions: Reset Password
   manage_conference: Manage this conference
+  manage_conference_flash: You are logged in as crew member for this conference. Do you want to manage this conference?
   manual: Manual
   more: More...
   multiple_indication: multiple

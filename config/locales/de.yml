@@ -1654,6 +1654,7 @@ de:
       confirmation_instructions: Konto aktivieren
       password_reset_instructions: Password zurücksetzen
   manage_conference: Verwalten Sie diese Konferenz
+  manage_conference_flash: Sie sind als Crew-Mitglied für diese Konferenz eingeloggt. Wollen Sie diese Konferenz verwalten?
   manual: Handbuch
   more: Mehr...
   multiple_indication: mehrere
