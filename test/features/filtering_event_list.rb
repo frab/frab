@@ -42,7 +42,7 @@ class EditingEventRatingTest < FeatureTest
     visit "/#{@conference.acronym}/events/"
     
     # click the filter icon next to table header "Type"
-    find('th', text: 'Type').find('.show_filter_modal').trigger('click')
+    find('th', text: 'Type').find('.show_events_modal').trigger('click')
     assert_content page, 'Select filter for'
     
     check 'Film'
