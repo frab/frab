@@ -178,6 +178,7 @@ en:
       review_metric: Review metric
       room: room
       track: track
+  add: Add
   add_association: Add %{name}
   additional_resources: Additional Resources
   admin: Admin
@@ -972,6 +973,39 @@ en:
     ago: "%{time_ago} ago"
     all_events: All events
     all_rating: All ratings
+    bulk_edit:
+      add_person: Add person
+      add_person_confirm:
+        one: Are you sure you want to add a person to this event?
+        other: Are you sure you want to add a person to all %{count} events?
+      set_new_state: Assign state
+      set_new_track: Assign track
+      set_new_event_type: Change event type
+      set_events_confirm:
+        one: Are you sure you want to change state for this event?
+        other: Are you sure you want to change state for all %{count} events?
+      set_events_type_confirm:
+        one: Are you sure you want to modify this event's type?
+        other: Are you sure you want to modify the type for all %{count} events?
+      set_track_confirm:
+        one: Are you sure you want to change the track of this event?
+        other: Are you sure you want to change the track of all %{count} events?
+      set_events_confirm:
+        one: you sure you want to change state for this event?
+        other: Are you sure you want to change state for all %{count} events?
+      update_successful:
+        one: "%{count} edit completed successfully."
+        other: "%{count} edits completed successfully."
+      update_skipped:
+        one: "%{count} edit skipped."
+        other: "%{count} edits skipped."
+      show: Edit these events
+      title:
+        one: 'Edit %{count} event:'
+        other: 'Edit %{count} events:'
+      update_failed:
+        one: "%{count} edit failed."
+        other: "%{count} edits failed."
     attachments_overview: Attachments
     average_feedback: 'Average Feedback:'
     average_speaker_feedback: 'Average feedback as speaker:'
@@ -2092,6 +2126,7 @@ en:
     login: Log in
     signup: Sign up
     update_password: Update my password
+  set: Set
   settings: Settings
   show: Show
   show_account: Account

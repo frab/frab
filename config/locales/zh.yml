@@ -178,6 +178,7 @@ zh:
       review_metric: 审核指标
       room: 房间
       track: 跟踪
+  add: 加
   add_association: 添加%{name}
   additional_resources: 其他资源
   admin: 管理员
@@ -981,6 +982,36 @@ zh:
     attachments_overview: 附件
     average_feedback: 平均反馈：
     average_speaker_feedback: 以演讲者的平均反馈：
+    bulk_edit:
+      add_person: 加人
+      add_person_confirm:
+        one: 您确定要向此活动添加人吗？
+        other: 您确定要向所有%{count}事件添加人员吗？
+      set_events_confirm:
+        one: 您确定要更改此事件的状态？
+        other: 您确定要更改所有%{count}事件的状态吗？
+      set_events_type_confirm:
+        one: 您确定要修改此事件的类型吗？
+        other: 您确定要修改所有%{count}事件的类型吗？
+      set_new_event_type: 变更事件类型
+      set_new_state: 分配状态
+      set_new_track: 分配曲目
+      set_track_confirm:
+        one: 您确定要更改此事件的进度吗？
+        other: 您确定要更改所有%{count}事件的记录吗？
+      show: 编辑这些事件
+      title:
+        one: 编辑%{count}事件：
+        other: 编辑%{count}事件：
+      update_failed:
+        one: "%{count}编辑失败。"
+        other: "%{count}编辑失败。"
+      update_skipped:
+        one: "%{count}编辑已跳过。"
+        other: "%{count}编辑已跳过。"
+      update_successful:
+        one: "%{count}编辑成功完成。"
+        other: "%{count}编辑成功完成。"
     cancel_event: 取消活动
     cancel_event_hint: 将此事件标记为已取消。通常这意味着扬声器必须取消它们的外观。
     col_toggle_rooms: 切换房间：
@@ -2099,6 +2130,7 @@ zh:
     login: 登录
     signup: 注册
     update_password: 更新我的密码
+  set: 组
   settings: 设置
   show: 显示
   show_account: 帐户

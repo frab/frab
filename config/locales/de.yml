@@ -206,6 +206,7 @@ de:
       review_metric: Metrik überprüfen
       room: Raum
       track: Track
+  add: Hinzufügen
   add_association: "%{name} hinzufügen"
   additional_resources: Zusätzliche Ressourcen
   admin: Administrator
@@ -988,6 +989,36 @@ de:
     attachments_overview: Anhänge
     average_feedback: 'Durchschnittliches Feedback:'
     average_speaker_feedback: 'Durchschnittliches Feedback als Sprecher:'
+    bulk_edit:
+      add_person: Person hinzufügen
+      add_person_confirm:
+        one: Möchten Sie diesem Ereignis wirklich eine Person hinzufügen?
+        other: Möchten Sie wirklich allen %{count}-Ereignissen eine Person hinzufügen?
+      set_events_confirm:
+        one: Möchten Sie den Status für dieses Ereignis wirklich ändern?
+        other: Möchten Sie den Status für alle %{count}-Ereignisse wirklich ändern?
+      set_events_type_confirm:
+        one: Möchten Sie den Typ dieses Ereignisses wirklich ändern?
+        other: Möchten Sie den Typ wirklich für alle %{count}-Ereignisse ändern?
+      set_new_event_type: Ereignistyp ändern
+      set_new_state: Zustand zuweisen
+      set_new_track: Titel zuweisen
+      set_track_confirm:
+        one: Möchten Sie den Track dieses Events wirklich ändern?
+        other: Möchten Sie wirklich die Spur aller %{count}-Ereignisse ändern?
+      show: Bearbeiten Sie diese Ereignisse
+      title:
+        one: 'Edit %{count} event:'
+        other: 'Bearbeiten von %{count}-Ereignissen:'
+      update_failed:
+        one: "%{count}-Bearbeitung fehlgeschlagen."
+        other: "%{count} Änderungen fehlgeschlagen."
+      update_skipped:
+        one: "%{count} Bearbeitung übersprungen."
+        other: "%{count} Änderungen übersprungen."
+      update_successful:
+        one: "%{count} Bearbeitung erfolgreich abgeschlossen."
+        other: "%{count} Änderungen wurden erfolgreich abgeschlossen."
     cancel_event: Event absagen
     cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die Referenten ihren Auftritt absagen mussten.
     col_toggle_rooms: 'Räume wechseln:'
@@ -2111,6 +2142,7 @@ de:
     login: Einloggen
     signup: Anmelden
     update_password: Aktualisiere mein Passwort
+  set: einstellen
   settings: Einstellungen
   show: Anzeige
   show_account: Konto

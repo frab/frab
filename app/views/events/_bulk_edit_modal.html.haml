@@ -1,0 +1,107 @@
+.modal-header
+  = link_to "×", "#", class: "close"
+  %h3
+    = t('events_module.bulk_edit.title', count: @num_of_matching_events)
+.modal-body#filter_form
+- if policy(@conference).manage?
+  %div.actions.editables
+    = select_tag 'edit_selector',
+      options_for_select( [ [t('events_module.bulk_edit.set_new_track'),      :set_new_track],
+                            [t('events_module.bulk_edit.set_new_event_type'), :set_new_event_type],
+                            [t('events_module.bulk_edit.set_new_state'),      :set_new_state],
+                            [t('events_module.bulk_edit.add_person'),         :add_person]]),
+      include_blank: t('select_one'),
+      style: "width:400px"
+  %div.editable.set_new_track{style: "display:none;"}
+    - if @conference.tracks.any?
+      = simple_form_for(:bulk_edit_track, url: batch_actions_events_path(request.query_parameters), method: :post) do |f|
+        = f.label t('events_module.bulk_edit.set_new_track')
+        = f.hidden_field 'bulk_set_attribute', value: 'track_name', name: 'bulk_set_attribute'
+        = select_tag 'bulk_set_value', options_for_select(@conference.tracks.map { |t| t.name.to_s }), include_blank: t('select_one'), style: "width:400px"
+        .actions= f.button :submit,
+                  t('set'),
+                  name: 'bulk_set',
+                  id: 'bulk_set',
+                  data: { confirm: t('events_module.bulk_edit.set_track_confirm', count: @num_of_matching_events) },
+                  class: 'danger'
+  %div.editable.set_new_event_type{style: "display:none;"}
+    = simple_form_for(:bulk_edit_event_type, url: batch_actions_events_path(request.query_parameters), method: :post) do |f|
+      = f.label t('events_module.bulk_edit.set_new_event_type')
+      = f.hidden_field 'bulk_set_attribute', value: 'event_type', name: 'bulk_set_attribute'
+      = select_tag 'bulk_set_value', options_for_select(translated_options(@conference.allowed_event_types_as_list)), include_blank: t('select_one'), style: "width:400px"
+      .actions= f.button :submit,
+                t('set'),
+                name: 'bulk_set',
+                id: 'bulk_set',
+                data: { confirm: t('events_module.bulk_edit.set_events_type_confirm', count: @num_of_matching_events) },
+                class: 'danger'
+  %div.editable.set_new_state{style: "display:none;"}
+    = simple_form_for(:bulk_edit_event_state, url: batch_actions_events_path(request.query_parameters), method: :post) do |f|
+      = f.label t('events_module.bulk_edit.set_new_state')
+      = f.hidden_field 'bulk_set_attribute', value: 'state', name: 'bulk_set_attribute'
+      = select_tag 'bulk_set_value',
+                   options_for_select(Event.state_machine.states.map { |st| [t(st.name.to_s, scope: 'conferences_module'), st.name.to_s] }),
+                   include_blank: t('select_one'), style: "width:400px"
+      .actions= f.button :submit,
+                t('set'),
+                name: 'bulk_set',
+                id: 'bulk_set',
+                data: { confirm: t('events_module.bulk_edit.set_events_confirm', count: @num_of_matching_events) },
+                class: 'danger'
+  %div.editable.add_person{style: "display:none;"}
+    = simple_form_for(:bulk_edit_add_person,
+                      url: batch_actions_events_path(request.query_parameters),
+                      method: :post,
+                      data: { persons: Person.fullname_options } ) do |f|
+      .peoplefilter
+        = f.label t('events_module.bulk_edit.add_person')
+        = text_field_tag :filter, 'filter', style: "width:200px"
+        = select_tag :person_id,
+                     options_for_select(Person.all.sort_by(&:full_name).map{|p| [p.full_name_annotated, p.id]}),
+                     name: :person_id,
+                     include_blank: t('select_one'),
+                     style: "width:200px"
+        = f.label t('role_str')
+        = select_tag :event_role,
+                     options_for_select(translated_options(EventPerson::ROLES)),
+                     include_blank: t('select_one'),
+                     style: "width:200px"
+        .actions= f.button :submit,
+                  t('add'),
+                  name: 'bulk_add_person',
+                  id: 'bulk_add_person',
+                  data: { confirm: t('events_module.bulk_edit.add_person_confirm', count: @num_of_matching_events) },
+                  class: 'danger'
+:javascript
+  attach_filter = function(set) {
+    form = $("form.bulk_edit_add_person");
+    var persons = form.data()["persons"];
+    var q = $(set).find('input[name=filter]');
+    var list = $(set).find('select[name=person_id]');
+
+    q.on('input', function(e) {
+      $(list).empty();
+      $(list).append($('<option>', { value: null, text: "" }));
+
+      $(persons).each(function(i) {
+        id = persons[i]["id"];
+        text = persons[i]["text"];
+
+        if (text.toUpperCase().indexOf(q.val().toUpperCase()) >= 0) {
+          $(list).append($('<option>', { value: id, text: text }));
+        }
+      });
+    });
+  }
+
+  $("div.peoplefilter").each(function(i) {
+    attach_filter(this);
+  });
+
+  $("#edit_selector").on('change', function () {
+
+    $("div.editable").hide();
+    if (this.value) {
+      $("div." + this.value).show();
+    }
+  });
