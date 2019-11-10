@@ -222,6 +222,7 @@ es:
       review_metric: Revisar métrica
       room: sala
       track: área
+  add: Añadir
   add_association: Agregar %{name}
   additional_resources: Recursos adicionales
   admin: Administración
@@ -1023,6 +1024,36 @@ es:
     attachments_overview: Archivos adjuntos
     average_feedback: 'Comentarios promedio:'
     average_speaker_feedback: 'Comentarios promedio como ponente:'
+    bulk_edit:
+      add_person: Añadir persona
+      add_person_confirm:
+        one: "¿Estás seguro de que deseas agregar una persona a este evento?"
+        other: "¿Está seguro de que desea agregar una persona a todos los eventos %{count}?"
+      set_events_confirm:
+        one: "¿Estás seguro de que quieres cambiar el estado de este evento?"
+        other: "¿Está seguro de que desea cambiar el estado de todos los eventos %{count}?"
+      set_events_type_confirm:
+        one: "¿Estás seguro de que deseas modificar el tipo de este evento?"
+        other: "¿Está seguro de que desea modificar el tipo para todos los eventos %{count}?"
+      set_new_event_type: Cambiar tipo de evento
+      set_new_state: Asignar estado
+      set_new_track: Asignar pista
+      set_track_confirm:
+        one: "¿Seguro que quieres cambiar la pista de este evento?"
+        other: "¿Está seguro de que desea cambiar el seguimiento de todos los eventos %{count}?"
+      show: Edita estos eventos
+      title:
+        one: 'Editar evento %{count}:'
+        other: 'Editar eventos %{count}:'
+      update_failed:
+        one: La edición %{count} falló.
+        other: Las ediciones %{count} fallaron.
+      update_skipped:
+        one: Edición %{count} omitida.
+        other: Ediciones %{count} omitidas.
+      update_successful:
+        one: Edición %{count} completada con éxito.
+        other: Las ediciones %{count} se completaron correctamente.
     cancel_event: Cancelar evento
     cancel_event_hint: Marque este evento como cancelado. Por lo general, esto significa que los oradores tuvieron que cancelar su apariencia.
     col_toggle_rooms: 'Conmutar habitaciones:'
@@ -2149,6 +2180,7 @@ es:
     login: Iniciar sesión
     signup: Regístrate
     update_password: Actualiza mi contraseña
+  set: Conjunto
   settings: Personalización
   show: Espectáculo
   show_account: Cuenta

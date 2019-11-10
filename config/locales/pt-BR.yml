@@ -200,6 +200,7 @@ pt-BR:
       review_metric: Métrica de revisão
       room: Sala
       track: Trilha
+  add: Adicionar
   add_association: adicionar %{name}
   additional_resources: Recursos adicionais
   admin: Admin
@@ -991,6 +992,36 @@ pt-BR:
     attachments_overview: Anexos
     average_feedback: 'Feedback médio:'
     average_speaker_feedback: 'Feedback médio como palestrante:'
+    bulk_edit:
+      add_person: Adicionar pessoa
+      add_person_confirm:
+        one: Tem certeza de que deseja adicionar uma pessoa a este evento?
+        other: Tem certeza de que deseja adicionar uma pessoa a todos os eventos %{count}?
+      set_events_confirm:
+        one: Tem certeza de que deseja alterar o estado deste evento?
+        other: Tem certeza de que deseja alterar o estado de todos os eventos %{count}?
+      set_events_type_confirm:
+        one: Tem certeza de que deseja modificar o tipo deste evento?
+        other: Tem certeza de que deseja modificar o tipo para todos os eventos %{count}?
+      set_new_event_type: Alterar tipo de evento
+      set_new_state: Atribuir estado
+      set_new_track: Atribuir faixa
+      set_track_confirm:
+        one: Tem certeza de que deseja alterar a trilha deste evento?
+        other: Tem certeza de que deseja alterar a faixa de todos os eventos %{count}?
+      show: Edite esses eventos
+      title:
+        one: 'Edite o evento %{count}:'
+        other: 'Edite eventos %{count}:'
+      update_failed:
+        one: A edição %{count} falhou.
+        other: As edições %{count} falharam.
+      update_skipped:
+        one: "%{count} edição ignorada."
+        other: edições %{count} ignoradas.
+      update_successful:
+        one: Edição %{count} concluída com sucesso.
+        other: edições %{count} concluídas com sucesso.
     cancel_event: Cancelar evento
     cancel_event_hint: Marque este evento como cancelado. Geralmente isso significa que os alto-falantes tiveram que cancelar sua aparência.
     col_toggle_rooms: 'Alternar salas:'
@@ -2133,6 +2164,7 @@ pt-BR:
     login: Entrar
     signup: inscrever-se
     update_password: Atualizar minha senha
+  set: Conjunto
   settings: Configurações
   show: Exibição
   show_account: Conta

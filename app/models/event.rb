@@ -103,6 +103,10 @@ class Event < ApplicationRecord
     track.try(:name)
   end
 
+  def track_name=(name)
+    update(track: conference.tracks.find_by(name: name))
+  end
+
   def end_time
     start_time.since((time_slots * conference.timeslot_duration).minutes)
   end
