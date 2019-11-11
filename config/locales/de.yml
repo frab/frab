@@ -992,33 +992,33 @@ de:
     bulk_edit:
       add_person: Person hinzufügen
       add_person_confirm:
-        one: Möchten Sie diesem Ereignis wirklich eine Person hinzufügen?
-        other: Möchten Sie wirklich allen %{count}-Ereignissen eine Person hinzufügen?
+        one: Möchten Sie wirklich diesem Ereignis eine Person hinzufügen?
+        other: Möchten Sie wirklich allen %{count} Ereignissen eine Person hinzufügen?
       set_events_confirm:
         one: Möchten Sie den Status für dieses Ereignis wirklich ändern?
         other: Möchten Sie den Status für alle %{count}-Ereignisse wirklich ändern?
       set_events_type_confirm:
-        one: Möchten Sie den Typ dieses Ereignisses wirklich ändern?
-        other: Möchten Sie den Typ wirklich für alle %{count}-Ereignisse ändern?
+        one: Möchten Sie wirklich den Typ dieses Ereignisses ändern?
+        other: Möchten Sie wirklich den Typ für alle %{count} Ereignisse ändern?
       set_new_event_type: Ereignistyp ändern
       set_new_state: Zustand zuweisen
       set_new_track: Titel zuweisen
       set_track_confirm:
-        one: Möchten Sie den Track dieses Events wirklich ändern?
-        other: Möchten Sie wirklich die Spur aller %{count}-Ereignisse ändern?
+        one: Möchten Sie wirklich den Track dieses Events ändern?
+        other: Möchten Sie wirklich den Track aller %{count} Ereignisse ändern?
       show: Bearbeiten Sie diese Ereignisse
       title:
         one: 'Edit %{count} event:'
-        other: 'Bearbeiten von %{count}-Ereignissen:'
+        other: 'Bearbeiten von %{count} Ereignissen:'
       update_failed:
-        one: "%{count}-Bearbeitung fehlgeschlagen."
+        one: "Eine Änderung fehlgeschlagen."
         other: "%{count} Änderungen fehlgeschlagen."
       update_skipped:
-        one: "%{count} Bearbeitung übersprungen."
+        one: "Eine Änderung übersprungen."
         other: "%{count} Änderungen übersprungen."
       update_successful:
-        one: "%{count} Bearbeitung erfolgreich abgeschlossen."
-        other: "%{count} Änderungen wurden erfolgreich abgeschlossen."
+        one: "Eine Bearbeitung erfolgreich abgeschlossen."
+        other: "%{count} Änderungen erfolgreich abgeschlossen."
     cancel_event: Event absagen
     cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die Referenten ihren Auftritt absagen mussten.
     col_toggle_rooms: 'Räume wechseln:'
@@ -1071,8 +1071,8 @@ de:
         submission_note: Sichtbar für Administratoren und Benutzer; zusätzliche Information.
         tech_rider: Was wird für diese Veranstaltung benötigt?
     listing_n_events:
-      one: Listing %{n} des Ereignisses %{count}.
-      other: Auflisten von %{n} von %{count}-Ereignissen.
+      one: Es wird eins von %{count} Ereignissen angezeigt.
+      other: Es werden %{n} von %{count} Ereignissen angezeit.
     my_events: Meine Events
     my_rating: Meine Bewertungen
     my_ratings: Meine Bewertungen
@@ -1741,16 +1741,16 @@ de:
     possible_variables: Mögliche Variablen
     send_notification: Senden Sie %{name}-Benachrichtigungen an %{speakers} in %{count}
     send_notification_confirm:
-      one: Möchten Sie wirklich %{name}-Benachrichtigungen für 1 Ereignis senden?
-      other: Möchten Sie wirklich %{name}-Benachrichtigungen für %{count}-Ereignisse senden?
+      one: Möchten Sie wirklich %{name}-Benachrichtigungen für ein Ereignis senden?
+      other: Möchten Sie wirklich %{name}-Benachrichtigungen für %{count} Ereignisse senden?
     send_notification_to_subscribers:
-      one: Senden Sie %{name}-Benachrichtigungen an 1 Person, die an %{event} beteiligt ist
-      other: Senden Sie %{name}-Benachrichtigungen an %{count} Personen, die an %{event} beteiligt sind
+      one: '%{name}-Benachrichtigungen an eine Person senden, die an %{event} beteiligt ist.'
+      other: '%{name}-Benachrichtigungen an %{count} Personen senden, die an %{event} beteiligt sind.'
     send_unspecified_notification_confirm:
-      one: Möchten Sie wirklich E-Mails für das %{count}-Ereignis senden?
-      other: Möchten Sie wirklich E-Mails für %{count}-Ereignisse senden?
+      one: Möchten Sie wirklich E-Mails für das Ereignis senden?
+      other: Möchten Sie wirklich E-Mails für %{count} Ereignisse senden?
     warning_events_without_speakers:
-      one: 'Warnung: 1 Veranstaltung ohne Sprecher:'
+      one: 'Warnung: Eine Veranstaltung ohne Sprecher:'
       other: 'Warnung: %{count} Ereignisse ohne Sprecher:'
   number:
     currency:
