@@ -79,6 +79,7 @@ class EventPerson < ApplicationRecord
     locale = person.locale_for_mailing(event.conference)
     string = s.gsub '%{conference}', conference.title
     string.gsub! '%{event}', event.title
+    string.gsub! '%{event_id}', event.id.to_s
     string.gsub! '%{subtitle}', event.subtitle || ''
     string.gsub! '%{type}', event.localized_event_type(locale)
     string.gsub! '%{track}', event.track_name || ''

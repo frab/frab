@@ -560,8 +560,9 @@ de:
       conference: Konferenzname
       date: Datum des Events
       event: Name des Events
+      event_id: Eindeutige ID des Events
       forename: Vorname des Sprechers
-      joinlink: Link zur Teilnahme an der Veranstaltung
+      joinlink: Link zur Einladung eines Co-Sprechers
       link: Bestätigungslink
       public_name: Öffentlicher Name des Sprechers
       room: Raum des Events
