@@ -551,6 +551,7 @@ en:
       conference: Conference name
       date: Date of presentation
       event: Event title
+      event_id: Internal event id
       forename: Speaker forename
       joinlink: Link for joining event
       link: Confirmation link

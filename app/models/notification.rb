@@ -20,6 +20,7 @@ class Notification < ApplicationRecord
     'forename'    => I18n.t('conferences_module.variables.forename'),
     'surname'     => I18n.t('conferences_module.variables.surname'),
     'event'       => I18n.t('conferences_module.variables.event'),
+    'event_id'    => I18n.t('conferences_module.variables.event_id'),
     'subtitle'    => I18n.t('conferences_module.variables.subtitle'),
     'type'        => I18n.t('conferences_module.variables.type'),
     'track'       => I18n.t('conferences_module.variables.track'),
