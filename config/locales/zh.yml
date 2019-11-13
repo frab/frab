@@ -551,6 +551,7 @@ zh:
       conference: 会议名称
       date: 介绍日期
       event: 活动标题
+      event_id: 内部事件编号
       forename: 扬声器的名字
       joinlink: 参加活动的链接
       link: 确认链接

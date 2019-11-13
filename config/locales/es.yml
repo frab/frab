@@ -596,6 +596,7 @@ es:
       conference: Nombre de la conferencia
       date: Fecha de presentación
       event: Título del evento
+      event_id: Id. De evento interno
       forename: Nombre del altavoz
       joinlink: Enlace para unirse al evento
       link: Enlace de confirmación
@@ -768,15 +769,15 @@ es:
         subject: Instrucciones de confirmación
         text: 'Debes confirmar tu dirección de correo electrónico con el siguiente enlace:
 
-'
+          '
       email_change:
         headline: Hola, %{email}!
         text_been_changed: 'Nos contactamos para notificarle que su correo electrónico se ha cambiado a %{email}.
 
-'
+          '
         text_being_changed: 'Nos contactamos para notificarle que su correo electrónico se cambia a %{email}.
 
-'
+          '
       email_changed:
         subject: Correo electrónico cambiado
       password_change:
