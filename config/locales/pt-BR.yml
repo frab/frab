@@ -573,6 +573,7 @@ pt-BR:
       conference: Nome da conferência
       date: Data de apresentação
       event: Título do evento
+      event_id: ID do evento interno
       forename: Nome próprio do altifalante
       joinlink: Link para ingressar no evento
       link: Link de confirmação

@@ -553,6 +553,7 @@ it:
       conference: Nome della conferenza
       date: Data di presentazione
       event: Titolo dell'evento
+      event_id: ID evento interno
       forename: Nome del relatore
       joinlink: Link per partecipare all'evento
       link: Link di conferma
