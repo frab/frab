@@ -2,6 +2,7 @@
 fr:
   ability:
     denied: Cette action est interdite.
+  accepted_event_durations: Durée des événements acceptés
   accepted_only: Seulement les acceptés
   actions: Actions
   activerecord:
@@ -432,6 +433,12 @@ fr:
     footer: Ce programme a été généré avec [frab](http://frab.github.io/frab/).
     inputs:
       hints:
+        accepted_event_durations: |
+          Utilisez les cases à cocher ci-dessus pour déterminer quelles options sont présentées à
+          soumissionnaires pour avoir indiqué la durée de l'événement proposé.
+          Les soumissionnaires pourront choisir l'une des valeurs que vous avez cochées ici.
+          En tant qu'équipage de conférence, vous pourrez ultérieurement modifier les événements en
+          durée, pas seulement celles cochées ici.
         acronym: |
           Un nom court et unique pour la conférence, n’utilisant que des lettres
           minuscules, des nombres et tirets bas. Ce sera utilisé pour identifier

@@ -9,7 +9,8 @@
           %b=@event.speakers.map(&:public_name).join(", ").html_safe
     = f.input :event_type, collection: translated_options(@conference.allowed_event_types_as_list)
     = f.association :track, collection: @conference.tracks
-    = f.input :time_slots, as: :select, collection: timeslots, hint: t("cfp.event_time_slots_hint")
+    - if timeslots_for_cfp.length() > 1
+      = f.input :time_slots, as: :select, collection: timeslots_for_cfp, hint: t("cfp.event_time_slots_hint")
     = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
     = image_input_box(f.object.logo)
     = f.input :logo

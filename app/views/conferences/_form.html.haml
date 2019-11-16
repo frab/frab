@@ -24,6 +24,12 @@
       = f.input :timeslot_duration, as: :select, collection: timeslot_durations(@conference), hint: t('conferences_module.inputs.hints.timeslot_duration')
       = f.input :default_timeslots, as: :select, collection: 1..20, hint: t('conferences_module.inputs.hints.default_timeslots')
       = f.input :max_timeslots, as: :select, collection: 1..100, hint: t('conferences_module.inputs.hints.')
+      = f.input :allowed_durations_minutes_csv, as: :hidden
+      = f.label t('accepted_event_durations')
+      %div.conf-accepted-durations.span6.offset4#allowed_durations
+        %ul
+          = "..."
+      %div.input.help-block= t('conferences_module.inputs.hints.accepted_event_durations')
   = dynamic_association :languages, t(:event_languages), f, hint: t('conferences_module.inputs.hints.event_languages')
   %fieldset.inputs
     %legend= t(:submission_configuration)
@@ -43,3 +49,35 @@
     = f.input :ticket_type, as: :radio_buttons, collection: translated_options(Conference::TICKET_TYPES)
   .actions
     = f.button :submit, class: 'primary'
+
+:coffeescript
+  duration_to_time = (minutes) ->
+    two_digits = (n) ->
+      (n).toString().padStart(2, '0')
+    two_digits(minutes // 60) + ':' + two_digits(minutes % 60)
+    
+  render_duration_checkboxes = () ->
+    minutes_per_slot = $("select#conference_timeslot_duration").children("option:selected").val()
+    default_submission_in_minutes = $("select#conference_default_timeslots").children("option:selected").val() * minutes_per_slot
+    max_timeslots = $("select#conference_max_timeslots").children("option:selected").val()
+    checked_items = $("#conference_allowed_durations_minutes_csv").val().split(',')
+    ul = $(".conf-accepted-durations ul")
+    ul.empty()
+    for slots in [1..max_timeslots]
+      minutes = slots * minutes_per_slot
+      is_checked = checked_items.includes(minutes.toString()) || minutes == default_submission_in_minutes 
+      is_disabled = minutes==default_submission_in_minutes
+      item = $('<input />', { class: 'accepted-duration-checkbox', type: 'checkbox', value: minutes, checked: is_checked, disabled: is_disabled})
+      ul.append(item).append(duration_to_time(minutes)).append('<br/>')
+      
+    $("input.accepted-duration-checkbox").change ->
+      checked_boxes = $("input.accepted-duration-checkbox").filter(':checked')
+      csv = (b.value for b in checked_boxes).join(',')
+      $("#conference_allowed_durations_minutes_csv").val(csv)
+
+  $ ->
+    $("#conference_max_timeslots,#conference_default_timeslots,#conference_timeslot_duration").change ->
+      render_duration_checkboxes()
+      true
+      
+    render_duration_checkboxes()

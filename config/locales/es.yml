@@ -2,6 +2,7 @@
 es:
   ability:
     denied: Esta acción no está permitida.
+  accepted_event_durations: Duración de eventos aceptados
   accepted_only: Aceptado solo
   actions: Acciones
   activemodel:
@@ -474,6 +475,12 @@ es:
     footer: Este cronograma se generó con [frab] (http://frab.github.io/frab/).
     inputs:
       hints:
+        accepted_event_durations: |
+          Use las casillas de verificación anteriores para determinar qué opciones se presentan a
+          remitentes para indicar la duración de su evento propuesto.
+          Los remitentes podrán elegir uno de los valores que marcó aquí.
+          Como equipo de conferencia, podrá cambiar los eventos a cualquier
+          duración, no solo las marcadas aquí.
         acronym: |
           Un identificador corto y exclusivo para su conferencia, utilizando solo minúsculas
           letras, números y guiones bajos. Esto se usará para identificar su
