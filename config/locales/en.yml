@@ -78,7 +78,7 @@ en:
         submission_note: Submission notes
         subtitle: Subtitle
         tech_rider: Tech rider
-        time_slots: Time slots
+        time_slots: Duration
         title: Title
         track: Track
       event_attachment:
@@ -407,7 +407,7 @@ en:
   col_start_time: 'Start time:'
   col_submission_notes: 'Submission Notes(user and admin):'
   col_ticket: 'Ticket:'
-  col_time_slots: 'Time slots:'
+  col_time_slots: 'Duration:'
   col_total: 'Total:'
   col_track: 'Track:'
   col_tracks: 'Tracks:'

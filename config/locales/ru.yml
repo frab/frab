@@ -78,7 +78,7 @@ ru:
         submission_note: Примечания к представлению
         subtitle: подзаголовок
         tech_rider: Технический райдер
-        time_slots: Временные интервалы
+        time_slots: продолжительность
         title: заглавие
         track: трек
       event_attachment:
@@ -407,7 +407,7 @@ ru:
   col_start_time: 'Время начала:'
   col_submission_notes: 'Примечания к отправке (пользователь и администратор):'
   col_ticket: 'Билет:'
-  col_time_slots: 'Временные интервалы:'
+  col_time_slots: 'Продолжительность:'
   col_total: 'Всего:'
   col_track: 'Трек:'
   col_tracks: 'Треки:'

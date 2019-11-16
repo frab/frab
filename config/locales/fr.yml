@@ -78,7 +78,7 @@ fr:
         submission_note: Notes de soumission
         subtitle: Sous-titre
         tech_rider: Besoins techniques
-        time_slots: Plages horaires
+        time_slots: Durée
         title: Titre
         track: Fil
       event_attachment:
@@ -410,7 +410,7 @@ fr:
   col_start_time: 'Début :'
   col_submission_notes: 'Notes de soumission (user et admin) :'
   col_ticket: 'Ticket :'
-  col_time_slots: 'Plages horaires :'
+  col_time_slots: 'Durée:'
   col_total: 'Total :'
   col_track: 'Fil :'
   col_tracks: 'Fils :'

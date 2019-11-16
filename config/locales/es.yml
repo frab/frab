@@ -85,7 +85,7 @@ es:
         submission_note: Notas de envío
         subtitle: Subtítulo
         tech_rider: Jinete de tecnología
-        time_slots: Intervalos
+        time_slots: Duración
         title: Título
         track: Área
       event_attachment:
@@ -452,7 +452,7 @@ es:
   col_start_time: 'Hora de inicio:'
   col_submission_notes: 'Notas de envío (usuario y administrador):'
   col_ticket: 'Boleto:'
-  col_time_slots: 'Ranuras de tiempo:'
+  col_time_slots: 'Duración:'
   col_total: 'Total:'
   col_track: 'Seguimiento:'
   col_tracks: 'Pistas:'
