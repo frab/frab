@@ -74,5 +74,6 @@ class ConferenceScrubber
     # keeps events average rating for performance reasons
     EventRating.skip_callback(:save, :after, :update_average)
     EventRating.joins(:event).where(Event.arel_table[:conference_id].eq(@conference.id)).destroy_all
+    EventRating.set_callback(:save, :after, :update_average)
   end
 end

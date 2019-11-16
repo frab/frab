@@ -68,6 +68,8 @@ class ImportExportHelper
       unpack_paperclip_files
       restore_all_data
     end
+    
+    enable_callbacks
   end
 
   private
@@ -372,7 +374,15 @@ class ImportExportHelper
     EventRating.skip_callback(:save, :after, :update_average)
     EventFeedback.skip_callback(:save, :after, :update_average)
   end
-
+  
+  def enable_callbacks
+    EventPerson.set_callback(:save, :after, :update_speaker_count)
+    Event.set_callback(:save, :after, :update_conflicts)
+    Availability.set_callback(:save, :after, :update_event_conflicts)
+    EventRating.set_callback(:save, :after, :update_average)
+    EventFeedback.set_callback(:save, :after, :update_average)
+  end
+  
   def update_counters
     ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
     update_event_average('event_ratings', 'average_rating')
