@@ -435,7 +435,7 @@ de:
   col_start_time: 'Startzeit:'
   col_submission_notes: 'Einreichungshinweise (Benutzer und Admin):'
   col_ticket: 'Ticket:'
-  col_time_slots: 'Dauer (in Slots):'
+  col_time_slots: 'Dauer:'
   col_total: 'Gesamt:'
   col_track: 'Track:'
   col_tracks: 'Tracks:'

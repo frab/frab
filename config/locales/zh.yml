@@ -78,7 +78,7 @@ zh:
         submission_note: 提交说明
         subtitle: 字幕
         tech_rider: 技术车手
-        time_slots: 时隙
+        time_slots: 持续时间
         title: 标题
         track: 跟踪
       event_attachment:
@@ -407,7 +407,7 @@ zh:
   col_start_time: 开始时间：
   col_submission_notes: 提交注释(用户和管理员)：
   col_ticket: 票：
-  col_time_slots: 时隙：
+  col_time_slots: 持续时间：
   col_total: 总：
   col_track: 跟踪：
   col_tracks: 曲目：

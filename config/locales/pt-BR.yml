@@ -429,7 +429,7 @@ pt-BR:
   col_start_time: 'Hora de início:'
   col_submission_notes: 'Notas de submissão (usuário e admin):'
   col_ticket: 'Bilhete:'
-  col_time_slots: 'Intervalos de tempo:'
+  col_time_slots: 'Duração:'
   col_total: 'Total:'
   col_track: 'Track:'
   col_tracks: 'Faixas:'

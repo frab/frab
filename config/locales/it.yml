@@ -78,7 +78,7 @@ it:
         submission_note: Note di presentazione
         subtitle: sottotitolo
         tech_rider: Requisiti tecnici
-        time_slots: Spiagge orarie
+        time_slots: Durata
         title: titolo
         track: filo
       event_attachment:
@@ -410,7 +410,7 @@ it:
   col_start_time: 'inizio:'
   col_submission_notes: 'Note di invio (utente e amministratore):'
   col_ticket: 'biglietto:'
-  col_time_slots: 'Spiagge orarie:'
+  col_time_slots: 'Durata:'
   col_total: 'totale:'
   col_track: 'filetto:'
   col_tracks: 'figlio:'
