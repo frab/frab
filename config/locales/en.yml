@@ -4,6 +4,7 @@ en:
     denied: This action is not allowed.
   accepted_only: Accepted only
   actions: Actions
+  accepted_event_durations: Accepted event durations
   activerecord:
     attributes:
       availability:
@@ -433,6 +434,12 @@ en:
           A short and unique handle for your conference, using only lower-case
           letters, numbers and underscores. This will be used to identify your
           conference in URLs etc. Example: 'froscon2011'
+        accepted_event_durations: |
+          Use the checkboxes above to determine which options are presented to
+          submitters for indicating the duration of their proposed event.
+          Submitters will be able to pick one of the values you checked here.
+          As conference crew, you will be able to later change events to any
+          duration, not only those checked here.
         allowed_event_types: |
           Here you can pick which types of events are accepted as submissions to
           this conference. This list affects only new submissions. Existing submissions

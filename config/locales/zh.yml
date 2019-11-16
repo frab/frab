@@ -2,6 +2,7 @@
 zh:
   ability:
     denied: 此操作是不允许的。
+  accepted_event_durations: 接受的事件持续时间
   accepted_only: 仅接受
   actions: 操作
   activerecord:
@@ -429,6 +430,12 @@ zh:
     footer: 这个时间表是用[frab](http://frab.github.io/frab/)生成的。
     inputs:
       hints:
+        accepted_event_durations: |
+          使用上面的复选框来确定要显示的选项
+          提交者，以指示其提议活动的持续时间。
+          提交者将能够选择您在此处选中的值之一。
+          作为会议工作人员，您以后可以将事件更改为任何
+          持续时间，不仅是这里检查过的。
         acronym: |
           为您的会议提供一个简短而独特的手柄，仅使用小写字母
           字母，数字和下划线。这将用于识别你的

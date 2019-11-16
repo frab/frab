@@ -118,6 +118,7 @@ FactoryBot.define do
     timeslot_duration { 15 }
     default_timeslots { 4 }
     max_timeslots { 20 }
+    allowed_event_timeslots_csv { '3,4' }
     feedback_enabled { true }
     expenses_enabled { true }
     transport_needs_enabled { true }

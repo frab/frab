@@ -23,6 +23,10 @@ module EventsHelper
     end
     slots
   end
+  
+  def timeslots_for_cfp
+    @conference.allowed_event_timeslots.map{|slots| [format_time_slots(slots), slots]}
+  end
 
   def format_time_slots(number_of_time_slots)
     duration_in_minutes = number_of_time_slots * @conference.timeslot_duration

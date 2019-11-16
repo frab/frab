@@ -2,6 +2,7 @@
 pt-BR:
   ability:
     denied: Esta ação não é permitida.
+  accepted_event_durations: Durações de evento aceitas
   accepted_only: Aceito apenas
   actions: Ações
   activemodel:
@@ -451,6 +452,12 @@ pt-BR:
     footer: Esta programação foi gerada com [frab] (http://frab.github.io/frab/).
     inputs:
       hints:
+        accepted_event_durations: |
+          Use as caixas de seleção acima para determinar quais opções são apresentadas para
+          remetentes para indicar a duração do evento proposto.
+          Os remetentes poderão escolher um dos valores que você verificou aqui.
+          Como equipe da conferência, você poderá alterar os eventos posteriormente para qualquer
+          duração, não apenas as marcadas aqui.
         acronym: |
           Um identificador curto e exclusivo para sua conferência, usando apenas minúsculas
           letras, números e sublinhados. Isso será usado para identificar seu
