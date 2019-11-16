@@ -4,7 +4,7 @@
 - if policy(@conference).orga?
   %li= link_to t("reports", default: "Reports"), reports_path
 %li
-  - if @conference.call_for_participation
+  - if @conference.call_for_participation&.persisted?
     = link_to t(:call_for_participation, default: "Call for Participation"), call_for_participation_path
   - elsif policy(@conference).orga?
     = link_to t(:launch_call_for_participation, default: "Launch Call for Participation"), new_call_for_participation_path
