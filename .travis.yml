@@ -17,5 +17,9 @@ before_script:
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'create database frab_test' -U postgres; fi"
 script:
   - RAILS_ENV=test bundle exec rails db:schema:load --trace
+  - mv db/schema.rb db/schema.rb.original
+  - RAILS_ENV=test bundle exec rails db:rollback STEP=9
+  - RAILS_ENV=test bundle exec rails db:migrate
+  - sh -c "[ '$DB' != 'sqlite' ] || diff db/schema.rb db/schema.rb.original "
   - bundle exec rails db:test:prepare
   - bundle exec rails test
