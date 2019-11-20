@@ -1867,6 +1867,10 @@ pt-BR:
     attending_hint: Marque a pessoa como presente.
     edit_person: Editar pessoa
     edit_person_hint: Edite os dados dessa pessoa.
+    filter:
+      not_found: Não encontrado.
+      pick_one: "- Escolha um dos nomes %{count} abaixo -"
+      too_many: Muitos nomes para exibir. Use filtro.
     inputs:
       hints:
         event_role: |

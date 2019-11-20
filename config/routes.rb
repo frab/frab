@@ -109,6 +109,7 @@ Rails.application.routes.draw do
         collection do
           get :all
           get :feedbacks
+          get :lookup
           get :speakers
         end
         member do

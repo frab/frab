@@ -1857,6 +1857,10 @@ fr:
     attending_hint: Marquer la personne comme présente.
     edit_person: Éditer la personne
     edit_person_hint: Éditer les données de la personne.
+    filter:
+      not_found: Pas trouvé.
+      pick_one: "- Choisissez l'un des noms %{count} ci-dessous -"
+      too_many: Trop de noms à afficher. Utilisez le filtre.
     inputs:
       hints:
         event_role: |

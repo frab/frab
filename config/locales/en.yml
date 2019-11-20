@@ -1830,6 +1830,10 @@ en:
     attending_hint: Mark person as present.
     edit_person: Edit person
     edit_person_hint: Edit this person's data.
+    filter:
+      pick_one: -- Pick one of %{count} names below --
+      too_many: Too many names to display. Use filter.
+      not_found: Not found.
     inputs:
       hints:
         event_role: |
@@ -1842,7 +1846,7 @@ en:
         notification_body: 'Valid variables: %{variables}'
         person_filter: |
           Filter persons in the options menu below by their first name, last
-          name, email address or user ID. Leave blank for no filtering."
+          name, email address or user ID. Leave blank for no filtering.
       notification_body: Notification body
       notification_subject: Notification subject
     list_of_people: List of people

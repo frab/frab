@@ -1836,6 +1836,10 @@ zh:
     attending_hint: 将人标记为礼物。
     edit_person: 编辑人员
     edit_person_hint: 编辑此人的数据。
+    filter:
+      not_found: 未找到。
+      pick_one: "-从下面选择%{count}名称之一-"
+      too_many: 名称太多，无法显示。使用过滤器。
     inputs:
       hints:
         event_role: |

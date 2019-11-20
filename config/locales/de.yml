@@ -1855,6 +1855,10 @@ de:
     attending_hint: Markieren Sie die Person als "erschienen".
     edit_person: Person bearbeiten
     edit_person_hint: Bearbeiten Sie diese Person.
+    filter:
+      not_found: Nicht gefunden.
+      pick_one: "- Wähle einen der folgenden %{count} Namen -"
+      too_many: Zu viele Namen zum Anzeigen. Filter verwenden.
     inputs:
       hints:
         event_role: |
