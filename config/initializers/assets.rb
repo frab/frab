@@ -16,6 +16,6 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'im
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += [
-  'admin.css', 'admin.js', 'schedule.js', 'public_schedule.css', 'public_schedule_print.css', 'moment.min.js',
+  'admin.css', 'admin.js', 'schedule.js', 'person_filter.js' , 'public_schedule.css', 'public_schedule_print.css', 'moment.min.js', 
   /\.(?:jpg|png|gif)/
 ]

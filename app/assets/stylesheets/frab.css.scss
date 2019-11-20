@@ -339,3 +339,14 @@ p.warning {
     columns: 6;
     width: fit-content;
 }
+
+span#display_box {
+    border-style: solid;
+    border-width: thin;
+    background-color: lightgray;
+    padding: 5px;
+}
+
+span#display_box.accepted {
+    font-weight: bold;
+}
