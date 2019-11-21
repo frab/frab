@@ -255,6 +255,7 @@ Devise.setup do |config|
     config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], skip_jwt: true
   end
 
+  require 'omniauth-ldap'
   if ENV['LDAP_HOST'].present?
     config.omniauth :ldap,
       :strategy_class => OmniAuth::Strategies::LDAP,
