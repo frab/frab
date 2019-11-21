@@ -1,5 +1,4 @@
 class ImportExportHelper
-  DEBUG = true
   EXPORT_DIR = 'tmp/frab_export'.freeze
 
   def initialize(conference = nil)
@@ -81,7 +80,7 @@ class ImportExportHelper
         puts "conference #{c} already exists!"
         exit
       end
-      puts "    #{c}" if DEBUG
+      puts "    #{c}" if verbose?
       c.save!
       @mappings[:conference][id] = c.id
       @conference_id = c.id
@@ -309,7 +308,7 @@ class ImportExportHelper
   end
 
   def restore(name, obj)
-    puts "[ ] restore #{name}" if DEBUG
+    puts "[ ] restore #{name}" if verbose?
     file = File.join(@export_dir, name) + '.yaml'
     return unless File.readable? file
     records = YAML.load_file(file)
@@ -319,7 +318,7 @@ class ImportExportHelper
   end
 
   def restore_multiple(name, obj)
-    puts "[ ] restore all #{name}" if DEBUG
+    puts "[ ] restore all #{name}" if verbose?
     records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
     records.each do |record|
       tmp = obj.new(record)
@@ -329,7 +328,7 @@ class ImportExportHelper
   end
 
   def restore_users(name = 'users', obj = User)
-    puts "[ ] restore all #{name}" if DEBUG
+    puts "[ ] restore all #{name}" if verbose?
     records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
     records.each do |record|
       tmp = obj.new(record)
@@ -394,5 +393,9 @@ class ImportExportHelper
     ActiveRecord::Base.connection.execute "UPDATE events SET #{field}=(
        SELECT sum(rating)/count(rating)
        FROM #{table} WHERE events.id = #{table}.event_id)"
+  end
+
+  def verbose?
+    not Rails.env.test?
   end
 end
