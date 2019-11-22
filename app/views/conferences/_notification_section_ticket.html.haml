@@ -20,7 +20,7 @@
   - else
     = button_to(t('notifications_module.send_notification_to_subscribers', 
                   { name: t(name, scope: 'notifications_module.notif'), 
-                    count: stakeholders, 
+                    count: subscribers, 
                     event: t('notifications_module.n_events', count: e.count - noticket.cout)}), 
                 { action: 'send_notification', notification: state }, 
                 { class: "btn danger", 
