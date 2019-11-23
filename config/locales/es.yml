@@ -1029,6 +1029,10 @@ es:
       add_person_confirm:
         one: "¿Estás seguro de que deseas agregar una persona a este evento?"
         other: "¿Está seguro de que desea agregar una persona a todos los eventos %{count}?"
+      set_duration: Establecer duración
+      set_duration_confirm:
+        one: "¿Estás seguro de que deseas cambiar la duración de este evento?"
+        other: "¿Está seguro de que desea cambiar la duración de todos los eventos %{count}?"
       set_events_confirm:
         one: "¿Estás seguro de que quieres cambiar el estado de este evento?"
         other: "¿Está seguro de que desea cambiar el estado de todos los eventos %{count}?"

@@ -994,6 +994,10 @@ de:
       add_person_confirm:
         one: Möchten Sie wirklich diesem Ereignis eine Person hinzufügen?
         other: Möchten Sie wirklich allen %{count} Ereignissen eine Person hinzufügen?
+      set_duration: Dauer einstellen
+      set_duration_confirm:
+        one: Möchten Sie die Dauer für dieses Ereignis wirklich ändern?
+        other: Möchten Sie die Dauer für alle %{count}-Ereignisse wirklich ändern?
       set_events_confirm:
         one: Möchten Sie den Status für dieses Ereignis wirklich ändern?
         other: Möchten Sie den Status für alle %{count}-Ereignisse wirklich ändern?

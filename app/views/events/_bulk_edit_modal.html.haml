@@ -9,7 +9,8 @@
       options_for_select( [ [t('events_module.bulk_edit.set_new_track'),      :set_new_track],
                             [t('events_module.bulk_edit.set_new_event_type'), :set_new_event_type],
                             [t('events_module.bulk_edit.set_new_state'),      :set_new_state],
-                            [t('events_module.bulk_edit.add_person'),         :add_person]]),
+                            [t('events_module.bulk_edit.add_person'),         :add_person],
+                            [t('events_module.bulk_edit.set_duration'),       :set_duration]]),
       include_blank: t('select_one'),
       style: "width:400px"
   %div.editable.set_new_track{style: "display:none;"}
@@ -71,6 +72,17 @@
                   name: 'bulk_add_person',
                   id: 'bulk_add_person',
                   data: { confirm: t('events_module.bulk_edit.add_person_confirm', count: @num_of_matching_events) },
+                  class: 'danger'
+  %div.editable.set_duration{style: "display:none;"}
+    = simple_form_for(:bulk_edit_track, url: batch_actions_events_path(request.query_parameters), method: :post) do |f|
+      = f.label t('events_module.bulk_edit.set_duration')
+      = f.hidden_field 'bulk_set_attribute', value: 'time_slots', name: 'bulk_set_attribute'
+      = select_tag 'bulk_set_value', options_for_select(timeslots), include_blank: t('select_one'), style: "width:400px"
+      .actions= f.button :submit,
+                t('set'),
+                name: 'bulk_set',
+                id: 'bulk_set',
+                data: { confirm: t('events_module.bulk_edit.set_duration_confirm', count: @num_of_matching_events) },
                   class: 'danger'
 :javascript
   attach_filter = function(set) {
