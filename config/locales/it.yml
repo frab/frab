@@ -1012,6 +1012,10 @@ it:
       add_person_confirm:
         one: Sei sicuro di voler aggiungere una persona a questo evento?
         other: Sei sicuro di voler aggiungere una persona a tutti gli eventi %{count}?
+      set_duration: Imposta la durata
+      set_duration_confirm:
+        one: Sei sicuro di voler cambiare la durata di questo evento?
+        other: Sei sicuro di voler cambiare la durata di tutti gli eventi %{count}?
       set_events_confirm:
         one: sei sicuro di voler cambiare stato per questo evento?
         other: Sei sicuro di voler cambiare stato per tutti gli eventi %{count}?

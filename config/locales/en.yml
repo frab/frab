@@ -978,6 +978,10 @@ en:
       add_person_confirm:
         one: Are you sure you want to add a person to this event?
         other: Are you sure you want to add a person to all %{count} events?
+      set_duration: Set duration
+      set_duration_confirm:
+        one: Are you sure you want to change duration for this event?
+        other: Are you sure you want to change duration for all %{count} events?
       set_new_state: Assign state
       set_new_track: Assign track
       set_new_event_type: Change event type

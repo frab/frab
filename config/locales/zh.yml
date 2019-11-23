@@ -987,6 +987,10 @@ zh:
       add_person_confirm:
         one: 您确定要向此活动添加人吗？
         other: 您确定要向所有%{count}事件添加人员吗？
+      set_duration: 设定时间
+      set_duration_confirm:
+        one: 您确定要更改此活动的持续时间吗？
+        other: 您确定要更改所有%{count}事件的持续时间吗？
       set_events_confirm:
         one: 您确定要更改此事件的状态？
         other: 您确定要更改所有%{count}事件的状态吗？
