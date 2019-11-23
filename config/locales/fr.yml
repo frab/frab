@@ -1851,11 +1851,12 @@ fr:
     inputs:
       hints:
         event_role: |
-          Les coordinateurs font partie de l’équipe de la conférence. Ils coordonnent le
-          passage des orateurs et autres évènements. Les déposants sont les personnes
-          ayant répondu à l’appel à participation et qui ont entré des évènements dans
-          frab. Les orateurs participent aux évènements. Les modérateurs prennent part dans les discussions.
-          Important : Les disponibilités des orateurs et des modérateurs doivent être correctement remplies.
+          Les coordinateurs font partie de l'équipe de la conférence, ils coordonnent les orateurs
+          présence et événements. Les participants répondent au cfp pour saisir des événements en frab.
+          Les conférenciers participent aux événements, leur disponibilité importe. Les modérateurs prennent
+          participer à des tables rondes, leur disponibilité est importante. Les assistants ont le
+          mêmes autorisations que les auteurs et sera informé de toute mise à jour; mais
+          leurs disponibilités ne sont jamais prises en compte.
         notification_body: 'Variables valides : %{variables}'
         person_filter: |
           Filtrez les personnes par nom, prénom, adresse email ou id. Laissez vide
