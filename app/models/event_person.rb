@@ -83,6 +83,7 @@ class EventPerson < ApplicationRecord
     string.gsub! '%{subtitle}', event.subtitle || ''
     string.gsub! '%{type}', event.localized_event_type(locale)
     string.gsub! '%{track}', event.track_name || ''
+    string.gsub! '%{duration}', event.localized_duration || ''
     string.gsub! '%{forename}', person.first_name.presence || ''
     string.gsub! '%{surname}', person.last_name.presence || ''
     string.gsub! '%{public_name}', person.public_name.presence || ''

@@ -15,7 +15,7 @@ class FilterAndSendMailTest < FeatureTest
     visit "/#{@conference.acronym}/mail_templates/new"
     fill_in 'Name', with: 'template1'
     fill_in 'Subject', with: 'mail regarding %{event}'
-    fill_in 'Content', with: 'come to %{room} please'
+    fill_in 'Content', with: 'come to %{room} please. Event duration %{duration}'
     click_on 'Create Mail template'
     assert_content page, 'Mail template was successfully added'
     assert_content page, 'template1'
@@ -47,6 +47,7 @@ class FilterAndSendMailTest < FeatureTest
     assert m.to == [ @event.event_people.where(event_role: :speaker).first.person.email ]
     assert m.subject == "mail regarding #{@event.title}"
     assert m.body.include? "come to #{@event.room.name} please"
+    assert m.body.include? "duration 01:00"
   end
 end
 

@@ -550,6 +550,7 @@ en:
     variables:
       conference: Conference name
       date: Date of presentation
+      duration: Event duration
       event: Event title
       event_id: Internal event id
       forename: Speaker forename

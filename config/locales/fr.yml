@@ -552,6 +552,7 @@ fr:
     variables:
       conference: Nom de la conférence
       date: Date de présentation
+      duration: Durée de l'événement
       event: Titre de l’évènement
       event_id: Identifiant d'événement interne
       forename: Prénom de l’orateur
