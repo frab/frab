@@ -267,7 +267,8 @@ Devise.setup do |config|
       :uid => ENV['LDAP_UID'],
       :name_proc => Proc.new {|name| name.gsub(/@.*$/,'')},
       :bind_dn => ENV['LDAP_BIND_DN'],
-      :password => ENV['LDAP_BIND_PASSWORD']
+      :password => ENV['LDAP_BIND_PASSWORD'],
+      :disable_verify_certificates => ENV['LDAP_DISABLE_VERIFY_CERT']
   end
 
   OmniAuth.config.logger = Rails.logger if Rails.env.development?
