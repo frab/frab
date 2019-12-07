@@ -43,11 +43,5 @@ class EditingEventReviewTest < FeatureTest
      visit "/#{@conference.acronym}/events/ratings"
      assert_content page, @review_metric.name 
      assert_content page, '3.67' # average([2,4,5])
-
-     # Test that sorting by review metric doesn't assert
-     click_on @review_metric.name
-     assert_content page, @review_metric.name
-     
-     
   end
 end
