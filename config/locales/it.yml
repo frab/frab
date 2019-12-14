@@ -938,6 +938,7 @@ it:
       empty: non può essere vuoto
       equal_to: deve essere uguale a %{count}
       even: deve essere lo stesso
+      exceeds: non può superare %{what}
       exclusion: è prenotato
       expired: è scaduto, si prega di fare una nuova richiesta
       greater_than: deve essere più grande di %{count}

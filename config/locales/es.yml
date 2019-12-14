@@ -961,6 +961,7 @@ es:
       empty: debe llenarse
       equal_to: debe ser igual a %{count}
       even: debe ser par
+      exceeds: no puede exceder %{what}
       exclusion: no está disponible
       expired: ha expirado, solicite uno nuevo
       greater_than: debe ser mayor a %{count}

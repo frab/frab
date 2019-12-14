@@ -929,6 +929,7 @@ pt-BR:
       empty: não pode ficar vazio
       equal_to: deve ser igual a %{count}
       even: deve ser par
+      exceeds: não pode exceder %{what}
       exclusion: não está disponível
       expired: expirou, solicite um novo
       greater_than: deve ser maior que %{count}

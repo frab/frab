@@ -934,6 +934,7 @@ fr:
       empty: ne peut pas être vide
       equal_to: doit être égal à %{count}
       even: doit être pareil
+      exceeds: ne peut pas dépasser %{what}
       exclusion: est réservé
       expired: a expiré, veuillez faire une nouvelle demande
       greater_than: doit être plus grand que %{count}

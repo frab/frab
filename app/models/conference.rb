@@ -44,6 +44,7 @@ class Conference < ApplicationRecord
   validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
+  validate :default_timeslot_must_not_exceed_max_timeslot
 
   after_update :update_timeslots
 
@@ -241,5 +242,12 @@ class Conference < ApplicationRecord
   def days_do_not_overlap
     return if days.count < 2
     days.each{ |day| day.does_not_overlap }
+  end
+  
+  def default_timeslot_must_not_exceed_max_timeslot
+    return if default_timeslots.blank? or max_timeslots.blank?
+    if default_timeslots > max_timeslots
+      errors.add(:default_timeslots, :exceeds, what: I18n.t('activerecord.attributes.conference.max_timeslots'))
+    end
   end
 end

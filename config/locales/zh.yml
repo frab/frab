@@ -913,6 +913,7 @@ zh:
       empty: 不能为空
       equal_to: 必须等于%{count}
       even: 一定是平等的
+      exceeds: 不能超过%{what}
       exclusion: 被预定了
       expired: 已过期，请申请一个新的
       greater_than: 必须大于%{count}
