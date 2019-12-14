@@ -905,6 +905,7 @@ en:
       confirmation: doesn't match %{attribute}
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       empty: can't be empty
+      exceeds: can't exceed %{what}
       equal_to: must be equal to %{count}
       even: must be even
       exclusion: is reserved

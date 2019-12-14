@@ -919,6 +919,7 @@ de:
       empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
+      exceeds: darf %{what} nicht überschreiten
       exclusion: ist nicht verfügbar
       expired: ist abgelaufen, bitte fordern Sie einen Neuen an
       greater_than: muss größer als %{count} sein
