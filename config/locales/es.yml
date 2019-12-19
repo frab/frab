@@ -2054,7 +2054,7 @@ es:
     people_with_non_reimbursed_expenses: personas con gastos no reembolsados
     query_speakers: Altavoces de consulta
     speakers_without_availabilities: altavoces sin disponibilidad
-    unconfirmed_events: eventos que no están confirmados
+    unconfirmed_lectures: conferencias no confirmadas
   resend: Reenviar
   reviewing: Revisando
   reviewing_module:

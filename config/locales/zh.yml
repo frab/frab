@@ -2004,7 +2004,7 @@ zh:
     people_with_non_reimbursed_expenses: 没有报销费用的人
     query_speakers: 查询演讲者
     speakers_without_availabilities: 没有可用性的扬声器
-    unconfirmed_events: 未经证实的事件
+    unconfirmed_lectures: 未经确认的讲座
   resend: 重发
   reviewing: 审核中
   reviewing_module:
