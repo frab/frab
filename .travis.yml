@@ -3,6 +3,7 @@ dist: trusty
 rvm:
   - 2.4.4
   - 2.6.3
+  - 2.7.0
 env:
   - DB=mysql
   - DB=postgresql
