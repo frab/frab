@@ -283,7 +283,7 @@ zh:
     join_confirm: 你想接受邀请吗？
     join_description: 提供令牌后，您可以作为演讲者加入此活动：
     join_event: 加入活动
-    join_submitters_hint: 与您想允许加入此活动的发言人共享此令牌。创建帐户后，他们可以在“加入事件”界面中使用该标记。
+    join_submitters_hint: 与您想参加此活动的人共享此令牌。创建帐户后，他们可以在“加入活动”界面中使用令牌，并以发言人或助理身份加入。
     join_success: 您已被添加为此活动的发言人。
     join_token_already_used: 你已经是这个事件的发言人。
     join_token_link: 此链接直接导致此活动的“加入活动”页面。
