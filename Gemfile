@@ -74,6 +74,7 @@ gem 'repost', '~> 0.3.0'
 gem 'ri_cal'
 gem 'roust', github: 'frab/roust', branch: 'disallowed-ticket-1-fix'
 gem 'rqrcode'
+gem 'scanf'
 gem 'simple_form'
 gem 'sucker_punch'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
