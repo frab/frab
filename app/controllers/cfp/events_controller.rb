@@ -108,7 +108,7 @@ class Cfp::EventsController < ApplicationController
 
     return unless request.post?
     
-    raise Pundit::NotAuthorizedError unless @join_as&.to_sym.in? EventPerson::JOINABLES
+    raise Pundit::NotAuthorizedError unless @join_as&.to_sym&.in? EventPerson::JOINABLES
 
     if @event&.conference&.call_for_participation&.hard_deadline_over?
       unless @join_as == 'assistant'
