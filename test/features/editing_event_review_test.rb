@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class EditingEventReviewTest < FeatureTest
+  REVIEW_METRIC_NAME = 'optimistic :-)'
+
   setup do
     @conference = create(:three_day_conference_with_review_metrics_and_events)
     @event = @conference.events.last
