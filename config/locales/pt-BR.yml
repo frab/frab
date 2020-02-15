@@ -305,7 +305,7 @@ pt-BR:
     join_confirm: Você quer aceitar o convite?
     join_description: 'Com o token fornecido, você pode participar deste evento como palestrante:'
     join_event: Participe do evento
-    join_submitters_hint: Compartilhe este token com os palestrantes que você deseja permitir participar deste evento. Depois de criar uma conta, eles podem usar o token na interface "Participar do evento".
+    join_submitters_hint: Compartilhe esse token com as pessoas que você deseja participar deste evento. Depois de criarem uma conta, eles podem usar o token na interface 'Participar do evento' e participar como oradores ou como assistentes.
     join_success: Você foi adicionado como palestrante neste evento.
     join_token_already_used: Você já foi um palestrante neste evento.
     join_token_link: Esse link leva diretamente à página "Participar do evento" deste evento.
@@ -572,6 +572,7 @@ pt-BR:
     variables:
       conference: Nome da conferência
       date: Data de apresentação
+      duration: Duração do evento
       event: Título do evento
       event_id: ID do evento interno
       forename: Nome próprio do altifalante

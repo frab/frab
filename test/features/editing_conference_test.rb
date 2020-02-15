@@ -10,7 +10,7 @@ class EditingConferenceTest < FeatureTest
 
   test 'set ticket server to RT' do
     assert_content page, 'Conferences'
-    visit_conference_settings
+    visit_conference_settings_for(@conference)
     choose('Request Tracker')
     click_on 'Update conference'
     assert_content page, 'Conference was successfully updated.'

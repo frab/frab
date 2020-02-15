@@ -28,6 +28,7 @@ class Notification < ApplicationRecord
     'joinlink'    => I18n.t('conferences_module.variables.joinlink'),
     'date'        => I18n.t('conferences_module.variables.date'),
     'time'        => I18n.t('conferences_module.variables.time'),
+    'duration'    => I18n.t('conferences_module.variables.duration'),
     'room'        => I18n.t('conferences_module.variables.room')
   }.freeze
 

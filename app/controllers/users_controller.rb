@@ -58,7 +58,7 @@ class UsersController < BaseCrewController
         bypass_sign_in(@user) if current_user == @user
         format.html { redirect_to(edit_crew_user_path(@person), notice: t('users_module.notice_user_updated')) }
       else
-        flash[:errors] = @user.errors.full_messages.join
+        flash_model_errors(@user)        
         format.html { render action: 'edit' }
       end
     end

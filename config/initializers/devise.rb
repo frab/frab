@@ -255,6 +255,7 @@ Devise.setup do |config|
     config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], skip_jwt: true
   end
 
+  require 'omniauth-ldap'
   if ENV['LDAP_HOST'].present?
     config.omniauth :ldap,
       :strategy_class => OmniAuth::Strategies::LDAP,
@@ -266,7 +267,8 @@ Devise.setup do |config|
       :uid => ENV['LDAP_UID'],
       :name_proc => Proc.new {|name| name.gsub(/@.*$/,'')},
       :bind_dn => ENV['LDAP_BIND_DN'],
-      :password => ENV['LDAP_BIND_PASSWORD']
+      :password => ENV['LDAP_BIND_PASSWORD'],
+      :disable_verify_certificates => ENV['LDAP_DISABLE_VERIFY_CERT']
   end
 
   OmniAuth.config.logger = Rails.logger if Rails.env.development?
