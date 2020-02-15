@@ -237,7 +237,7 @@ class Conference < ApplicationRecord
     PaperTrail.request.enable_model(Event)
   end
 
-  # if a conference has multiple days, they sould not overlap
+  # if a conference has multiple days, they should not overlap
   def days_do_not_overlap
     return if days.count < 2
     days.each{ |day| day.does_not_overlap }
