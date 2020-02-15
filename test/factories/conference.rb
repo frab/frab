@@ -3,6 +3,10 @@ FactoryBot.define do
     "frabcon#{n}"
   end
 
+  sequence :conference_title do |n|
+    "FrabCon#{2000+n}"
+  end
+
   trait :three_days do
     after :create do |conference|
       conference.days << create(:day, conference: conference,
@@ -77,13 +81,13 @@ FactoryBot.define do
   trait :with_sub_conference do
     after :create do |conference|
       if conference.main_conference?
-        create(:conference, parent: conference, title: "#{conference.title} sub")
+        create(:conference, parent: conference)
       end
     end
   end
 
   factory :conference do
-    title { 'FrabCon' }
+    title { generate(:conference_title) }
     acronym { generate(:conference_acronym) }
     timeslot_duration { 15 }
     default_timeslots { 4 }
