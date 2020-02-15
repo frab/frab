@@ -572,6 +572,7 @@ pt-BR:
     variables:
       conference: Nome da conferência
       date: Data de apresentação
+      duration: Duração do evento
       event: Título do evento
       event_id: ID do evento interno
       forename: Nome próprio do altifalante

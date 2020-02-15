@@ -116,6 +116,10 @@ class Event < ApplicationRecord
     (time_slots * conference.timeslot_duration).minutes
   end
 
+  def localized_duration
+    ApplicationController.helpers.duration_to_time(time_slots * conference.timeslot_duration)
+  end
+
   def feedback_standard_deviation
     arr = event_feedbacks.map(&:rating).reject(&:nil?)
     return if arr.count < 1

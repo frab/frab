@@ -550,6 +550,7 @@ ru:
     variables:
       conference: Название конференции
       date: Дата представления
+      duration: Продолжительность события
       event: Название события
       event_id: Внутренний идентификатор события
       forename: Динамик forename

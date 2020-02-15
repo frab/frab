@@ -595,6 +595,7 @@ es:
     variables:
       conference: Nombre de la conferencia
       date: Fecha de presentación
+      duration: Duración del evento
       event: Título del evento
       event_id: Id. De evento interno
       forename: Nombre del altavoz
