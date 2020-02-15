@@ -91,13 +91,6 @@ class ConferencesController < BaseConferenceController
     end
   end
 
-  def edit_ticket_server
-    authorize @conference, :orga?
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def edit_classifiers
     authorize @conference, :orga?
     respond_to do |format|
