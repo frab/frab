@@ -24,7 +24,7 @@ module TicketServerAdapter
       ticket = rt.ticket_create('Subject' => args[:title],
                                 'Queue'      => @server.queue,
                                 'Owner'      => 'Nobody',
-				'Status'     => 'resolved',
+                                'Status'     => 'resolved',
                                 'Requestors' => args[:requestors].collect { |r| "#{r[:name]} <#{r[:email]}>" })
 
       begin
