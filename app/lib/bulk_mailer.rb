@@ -25,8 +25,6 @@ class BulkMailer
 
   def send_mail_to(email)
     p = Person.find_by(email: email)
-    email_address_with_name = p.nil? ? email : "#{p.public_name} <#{email}>"
-
     email_address_with_name = if p.nil?
                                 email
                               else

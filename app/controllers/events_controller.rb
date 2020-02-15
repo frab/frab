@@ -114,7 +114,7 @@ class EventsController < BaseConferenceController
     @events = result.paginate page: page_param
     clean_events_attributes
     
-    @num_of_matching_events = result.pluck(:id).count
+    @num_of_matching_events = result.reorder('').pluck(:id).count
 
     # total ratings:
     @events_total = @conference.events.count
