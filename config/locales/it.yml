@@ -2033,7 +2033,7 @@ it:
     people_with_non_reimbursed_expenses: persone con spese non rimborsate
     query_speakers: interrogatori
     speakers_without_availabilities: altoparlanti senza disponibilità
-    unconfirmed_events: eventi non confermati
+    unconfirmed_lectures: lezioni frontali non confermate
   resend: ritorno
   reviewing: Revisione
   reviewing_module:

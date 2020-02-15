@@ -37,7 +37,7 @@ class ReportsController < BaseConferenceController
       r = conference_events.with_more_than_one_speaker
     when 'events_without_abstract'
       r = conference_events.where(Event.arel_table[:abstract].eq(''))
-    when 'unconfirmed_events'
+    when 'unconfirmed_lectures'
       r = conference_events.where(event_type: :lecture, state: :unconfirmed)
     when 'events_with_a_note'
       r = conference_events.where(Event.arel_table[:note].not_eq('').or(Event.arel_table[:submission_note].not_eq('')))
