@@ -10,7 +10,9 @@ class CanDeleteConferenceTest < FeatureTest
     sign_in_user(@admin)
     visit "/conferences?term=#{@conference.acronym}"
     assert_content page, @conference.acronym
-    click_on "destroy"
+
+    find('tr', text: @conference.title).find('a', text: 'destroy').click
+
     assert_no_content page, @conference.acronym
   end
 end
