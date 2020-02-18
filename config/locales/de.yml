@@ -723,6 +723,7 @@ de:
     links:
       google_oauth2: Google
       ldap: LDAP-Server
+      openid_connect: OpenID Connect
       no_unlock_instructions: Haben Sie keine Entsperrungsanweisungen erhalten?
       sign_in_with: Melden Sie sich mit %{provider} an
     mailer:

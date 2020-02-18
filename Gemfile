@@ -62,6 +62,7 @@ gem 'localized_language_select', github: 'frab/localized_language_select', branc
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
 gem 'gitlab_omniauth-ldap'
+gem 'omniauth_openid_connect'
 gem 'omniauth-rails_csrf_protection'
 gem 'paperclip'
 gem 'paper_trail'
