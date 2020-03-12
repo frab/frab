@@ -307,19 +307,23 @@ class ImportExportHelper
     obj
   end
 
-  def restore(name, obj)
+  def read_yaml_from_file(name)
     puts "[ ] restore #{name}" if verbose?
     file = File.join(@export_dir, name) + '.yaml'
     return unless File.readable? file
-    records = YAML.load_file(file)
+    YAML.load_file(file)
+  end
+
+  def restore(name, obj)
+    records = read_yaml_from_file(name)
+    return unless records
     tmp = obj.new(records)
     tmp.id = nil
     yield records['id'], tmp
   end
 
   def restore_multiple(name, obj)
-    puts "[ ] restore all #{name}" if verbose?
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    records = read_yaml_from_file(name)
     records.each do |record|
       tmp = obj.new(record)
       tmp.id = nil
@@ -328,8 +332,7 @@ class ImportExportHelper
   end
 
   def restore_users(name = 'users', obj = User)
-    puts "[ ] restore all #{name}" if verbose?
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    records = read_yaml_from_file(name)
     records.each do |record|
       tmp = obj.new(record)
       tmp.id = nil
