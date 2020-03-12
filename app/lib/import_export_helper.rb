@@ -17,6 +17,7 @@ class ImportExportHelper
     FileUtils.mkdir_p(@export_dir)
 
     ActiveRecord::Base.transaction do
+      save_schema_version
       dump 'conference', @conference
       dump 'conference_tracks', @conference.tracks
       dump 'conference_cfp', @conference.call_for_participation
@@ -156,6 +157,8 @@ class ImportExportHelper
   end
 
   def restore_conference_data
+    check_schema_version_on_import
+
     restore_multiple('conference_tracks', Track) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
@@ -300,8 +303,10 @@ class ImportExportHelper
     File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f|
       if obj.respond_to?('collect')
         f.puts obj.collect(&:attributes).to_yaml
-      else
+      elsif obj.respond_to?('attributes')
         f.puts obj.attributes.to_yaml
+      else
+        f.puts obj.to_yaml
       end
     }
     obj
@@ -367,6 +372,22 @@ class ImportExportHelper
   def unpack_paperclip_files
     path = File.join(@export_dir, 'attachments.tar.gz')
     system('tar', *['-xz', '-f', path, '-C', @export_dir].flatten)
+  end
+
+  def save_schema_version
+    dump 'schema_version', ActiveRecord::Migrator.current_version
+  end
+
+  def check_schema_version_on_import
+    importing_version = read_yaml_from_file('schema_version')
+    return if importing_version == ActiveRecord::Migrator.current_version
+
+    if not importing_version
+      puts "WARNING: You are importing data created with an older version of frab."
+    else
+      puts "WARNING: You are importing data created with frab with schema version #{importing_version}"
+    end
+    puts "The import may be incomplete and/or incorrect (but can be OK also.)"
   end
 
   def disable_callbacks
