@@ -715,6 +715,7 @@ zh:
     links:
       google_oauth2: 谷歌
       ldap: LDAP伺服器
+      openid_connect: OpenID Connect
       no_unlock_instructions: 没有收到解锁指示？
       sign_in_with: 用%{provider}登录
     mailer:

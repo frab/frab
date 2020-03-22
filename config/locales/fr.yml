@@ -719,6 +719,7 @@ fr:
     links:
       google_oauth2: Google
       ldap: Serveur LDAP
+      openid_connect: OpenID Connect
       no_unlock_instructions: Vous n’avez pas reçu d’instructions de déverrouillage ?
       sign_in_with: Se connecter avec %{provider}
     mailer:

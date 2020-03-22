@@ -721,6 +721,7 @@ it:
     links:
       google_oauth2: Google
       ldap: Server LDAP
+      openid_connect: OpenID Connect
       no_unlock_instructions: Non hai ricevuto alcuna istruzione di sblocco?
       sign_in_with: Connettiti con %{provider}
     mailer:
