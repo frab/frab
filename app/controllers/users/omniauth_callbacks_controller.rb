@@ -9,7 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, :event => :authentication, :method => :post
       set_flash_message(:notice, :success, :kind => t(action_name, scope: 'devise.links')) if is_navigational_format?
     else
-      session['devise.'+action_name+'_data'] = request.env['omniauth.auth'].except(:extra) # Removing extra as it can overflow some session stores
+      session['devise.'+action_name+'_data'] = request.env['omniauth.auth'].except(:extra, :credentials) # Removing extra and credentials as it can overflow some session stores
       redirect_to root_path, alert: @user.errors.full_messages.join("\n") 
     end
   end
