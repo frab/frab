@@ -1884,8 +1884,10 @@ es:
         event_role: |
           Los coordinadores son parte del equipo de la conferencia, coordinan el altavoz
           asistencia y eventos. Los remitentes responden el cfp para ingresar eventos en frab.
-          Los oradores participan en los eventos, su disponibilidad es importante. Los moderadores toman
-          participar en mesas redondas, su disponibilidad importa ".
+          Los oradores participan en eventos, su disponibilidad es importante. Los moderadores toman
+          parte en paneles de discusión, su disponibilidad es importante. Los asistentes tienen el
+          mismos permisos que los remitentes, y serán notificados de cualquier actualización; pero
+          sus disponibilidades nunca se tienen en cuenta.
         notification_body: 'Variables válidas: %{variables}'
         person_filter: |
           Filtra personas en el menú de opciones debajo por su primer nombre, último

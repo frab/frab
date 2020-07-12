@@ -1828,7 +1828,9 @@ en:
           Coordinators are part of the conference team, they coordinate speaker
           attendance and events. Submitters answer the cfp to enter events into frab.
           Speakers take part in events, their availability matters. Moderators take
-          part in panel discussions, their availability matters."
+          part in panel discussions, their availability matters. Assistants have the
+          same permissions as submitters, and will be notified of any updates; but 
+          their availabilities is never taken into account.
         notification_body: 'Valid variables: %{variables}'
         person_filter: |
           Filter persons in the options menu below by their first name, last

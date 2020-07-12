@@ -1856,11 +1856,12 @@ it:
     inputs:
       hints:
         event_role: |
-          I coordinatori fanno parte del team della conferenza. Coordinano il
-          passaggio di oratori e altri eventi. I candidati sono le persone
-          ha risposto all'appello per la partecipazione e ha inserito eventi in
-          frab. I relatori partecipano agli eventi. I moderatori prendono parte alle discussioni.
-          Importante: la disponibilità di relatori e moderatori deve essere correttamente compilata.
+          I coordinatori fanno parte del team della conferenza, coordinano il relatore
+          partecipazione ed eventi. I mittenti rispondono al cfp per inserire eventi frab.
+          I relatori prendono parte agli eventi, la loro disponibilità è importante. I moderatori prendono
+          parte nelle discussioni del panel, la loro disponibilità conta. Gli assistenti hanno il
+          stesse autorizzazioni dei mittenti e verranno informati di eventuali aggiornamenti; ma
+          la loro disponibilità non viene mai presa in considerazione.
         notification_body: 'Variabili valide: %{variables}'
         person_filter: |
           Filtra le persone per cognome, nome, indirizzo email o id. Lascia vuoto
