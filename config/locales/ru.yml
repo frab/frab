@@ -1041,6 +1041,7 @@ ru:
       one: Перечисление %{n} события %{count}.
       few: Листинг %{n} событий %{count}.
       many: Листинг %{n} событий %{count}.
+      other: Листинг %{n} событий %{count}.
     my_events: Мои события
     my_rating: Мой рейтинг
     my_ratings: Мои рейтинги
