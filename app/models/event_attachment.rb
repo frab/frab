@@ -28,6 +28,7 @@ class EventAttachment < ApplicationRecord
   end
 
   def short_anonymous_title
+    return link_title unless attachment_updated_at
     dt = attachment_updated_at.to_datetime
     if dt.year==Date.today.year
       s = I18n.t(:ago, time_ago: time_ago_in_words(dt), scope: 'events_module')
