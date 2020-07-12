@@ -1862,10 +1862,12 @@ pt-BR:
     inputs:
       hints:
         event_role: |
-          Os coordenadores fazem parte da equipe da conferência, eles coordenam o palestrante
-          frequência e eventos. Os entrevistados respondem ao cfp para inserir eventos em frab.
-          Os palestrantes participam de eventos e sua disponibilidade é importante. Moderadores tomam
-          parte nas discussões do painel, a sua disponibilidade é importante. "
+          Os coordenadores fazem parte da equipe da conferência, coordenam o orador
+          presença e eventos. Os remetentes respondem ao cfp para inserir eventos no frab.
+          Os palestrantes participam de eventos, sua disponibilidade é importante. Moderadores tomam
+          participar das discussões do painel, sua disponibilidade é importante. Os assistentes têm o
+          mesmas permissões que os remetentes e serão notificados sobre quaisquer atualizações; mas
+          suas disponibilidades nunca são levadas em consideração.
         notification_body: 'Variáveis ​​válidas: %{variables}'
         person_filter: |
           Filtrar pessoas no menu de opções abaixo pelo primeiro nome, por último

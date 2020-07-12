@@ -1850,10 +1850,12 @@ de:
     inputs:
       hints:
         event_role: |
-          Koordinatoren sind Teil des Konferenzteams, sie koordinieren Sprecher
-          und Events. Einreicher haben das Event im Call for Participation-Interface eingereicht.
-          Sprecher nehmen an Veranstaltungen teil, ihre Verfügbarkeit ist wichtig. Moderatoren nehmen
-          bei Podiumsdiskussionen teil, ihre Verfügbarkeit ist wichtig.
+          Die Koordinatoren sind Teil des Konferenzteams und koordinieren die Sprecher
+          Teilnahme und Veranstaltungen. Übermittler antworten dem cfp, um Ereignisse in frab einzugeben.
+          Referenten nehmen an Veranstaltungen teil, deren Verfügbarkeit zählt. Moderatoren nehmen
+          an Podiumsdiskussionen teilnehmen, deren Verfügbarkeit von Bedeutung ist. Assistenten haben die
+          die gleichen Berechtigungen wie die Absender und werden über Aktualisierungen informiert; aber
+          Ihre Verfügbarkeit wird nie berücksichtigt.
         notification_body: 'Gültige Variablen: %{variables}'
         person_filter: |
           Sie können das Drop-Down-Menu vorfiltern, indem Sie hier Bestandteile von Vornamen, Nachnamen,
