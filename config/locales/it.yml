@@ -285,7 +285,7 @@ it:
     join_confirm: Vuoi accettare l'invito?
     join_description: 'Con il token fornito, puoi partecipare a questo evento come oratore:'
     join_event: Partecipa all'evento
-    join_submitters_hint: Condividi questo token con gli altoparlanti che desideri consentire di partecipare a questo evento. Una volta creato l'account, possono utilizzare il token nell'interfaccia "Partecipa a un evento".
+    join_submitters_hint: Condividi questo token con le persone a cui vuoi partecipare a questo evento. Dopo aver creato un account, possono utilizzare il token nell'interfaccia "Partecipa all'evento" e unirsi come relatori o come assistenti.
     join_success: Sei stato aggiunto come relatore a questo evento.
     join_token_already_used: Sei già stato un oratore su questo evento.
     join_token_link: Questo link porta direttamente alla pagina "Partecipa ad un evento" per questo evento.
@@ -552,6 +552,7 @@ it:
     variables:
       conference: Nome della conferenza
       date: Data di presentazione
+      duration: Durata dell'evento
       event: Titolo dell'evento
       event_id: ID evento interno
       forename: Nome del relatore
@@ -2033,7 +2034,7 @@ it:
     people_with_non_reimbursed_expenses: persone con spese non rimborsate
     query_speakers: interrogatori
     speakers_without_availabilities: altoparlanti senza disponibilità
-    unconfirmed_events: eventi non confermati
+    unconfirmed_lectures: lezioni frontali non confermate
   resend: ritorno
   reviewing: Revisione
   reviewing_module:

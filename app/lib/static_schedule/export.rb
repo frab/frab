@@ -70,9 +70,9 @@ module StaticSchedule
         filename = p.delete(:target)
         puts "Downloading #{filename}" unless Rails.env.test?
         response = if p[:template]
-                     @renderer.render_with_template(p)
+                     @renderer.render_with_template(**p)
                    else
-                     @renderer.render(p)
+                     @renderer.render(**p)
                    end
         save_response(response, filename)
       end

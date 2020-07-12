@@ -285,7 +285,7 @@ fr:
     join_confirm: Voulez-vous accepter l’invitation ?
     join_description: 'Avec le jeton fourni, vous pouvez rejoindre cet évènement en tant que conférencier :'
     join_event: Rejoindre l’évènement
-    join_submitters_hint: Partagez ce jeton avec les conférenciers que vous voulez autoriser à rejoindre cet évènement. Une fois leur compte créé, ils pourront utiliser le jeton dans l’interface "Rejoindre un évènement".
+    join_submitters_hint: Partagez ce jeton avec les personnes que vous souhaitez rejoindre cet événement. Après avoir créé un compte, ils peuvent utiliser le jeton dans l'interface «Rejoindre l'événement» et rejoindre en tant que conférenciers ou assistants.
     join_success: Vous avez été ajouté(e) en tant que conférencier sur cet évènement.
     join_token_already_used: Vous avez déjà été conférencier sur cet évènement.
     join_token_link: Ce lien mène directement à la page "Rejoindre un évènement" pour cet évènement.
@@ -552,6 +552,7 @@ fr:
     variables:
       conference: Nom de la conférence
       date: Date de présentation
+      duration: Durée de l'événement
       event: Titre de l’évènement
       event_id: Identifiant d'événement interne
       forename: Prénom de l’orateur
@@ -2029,7 +2030,7 @@ fr:
     people_with_non_reimbursed_expenses: personnes avec des dépenses non remboursées
     query_speakers: Interrogateurs
     speakers_without_availabilities: orateurs sans disponibilités
-    unconfirmed_events: événements non confirmés
+    unconfirmed_lectures: conférences non confirmées
   resend: Renvoyer
   reviewing: Révision
   reviewing_module:

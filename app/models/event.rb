@@ -59,11 +59,23 @@ class Event < ApplicationRecord
     end
     e
   }
+  
+  def self.ransackable_attributes(auth_object = nil)
+    column_names + ReviewMetric.all.map(&:safe_name)
+  end
+  
+  def self.ransortable_attributes(auth_object = nil)
+    column_names + ReviewMetric.all.map(&:safe_name)
+  end
 
-  ReviewMetric.all.each do |rm|
+  def self.add_ransacker(rm)
     ransacker rm.safe_name do
       Arel.sql(rm.safe_name)
     end
+  end
+
+  ReviewMetric.all.each do |rm|
+    add_ransacker(rm)
   end
 
   has_paper_trail
@@ -102,6 +114,10 @@ class Event < ApplicationRecord
 
   def duration_in_minutes
     (time_slots * conference.timeslot_duration).minutes
+  end
+
+  def localized_duration
+    ApplicationController.helpers.duration_to_time(time_slots * conference.timeslot_duration)
   end
 
   def feedback_standard_deviation

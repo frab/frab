@@ -283,7 +283,7 @@ en:
     join_confirm: Do you want to accept the invitation?
     join_description: 'With the token provided you can join this event:'
     join_event: Join event
-    join_submitters_hint: Share this token with speakers you want to allow to join this event. After they have created an account, they can use the token in the 'Join event' interface.
+    join_submitters_hint: Share this token with people you want to join this event. After they have created an account, they can use the token in the 'Join event' interface and join as speakers or as assistants.
     join_success: You have been added to this event.
     join_token_already_used: You already joined this event.
     join_token_link: This link directly leads to the 'Join event' page for this event.
@@ -550,6 +550,7 @@ en:
     variables:
       conference: Conference name
       date: Date of presentation
+      duration: Event duration
       event: Event title
       event_id: Internal event id
       forename: Speaker forename
@@ -1999,7 +2000,7 @@ en:
     people_with_non_reimbursed_expenses: people with non-reimbursed expenses
     query_speakers: Query Speakers
     speakers_without_availabilities: speakers without availabilities
-    unconfirmed_events: events that are unconfirmed
+    unconfirmed_lectures: unconfirmed lectures
   resend: Resend
   reviewing: Reviewing
   reviewing_module:

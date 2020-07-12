@@ -91,13 +91,6 @@ class ConferencesController < BaseConferenceController
     end
   end
 
-  def edit_ticket_server
-    authorize @conference, :orga?
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def edit_classifiers
     authorize @conference, :orga?
     respond_to do |format|
@@ -132,7 +125,7 @@ class ConferencesController < BaseConferenceController
         format.html { redirect_to(conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_created')) }
       else
         @possible_parents = Conference.where(parent: nil)
-        flash[:errors] = @conference.errors.full_messages.join
+        flash_model_errors(@conference)
         format.html { render action: 'new' }
       end
     end

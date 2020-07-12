@@ -139,6 +139,33 @@ class Person < ApplicationRecord
     end
   end
 
+  def update_from_omniauth(auth)
+    unless ENV['OVERRIDE_PROFILE_PHOTO']
+      return if avatar.present?
+    end
+    
+    begin
+      new_image_data = nil
+      image_url = auth&.info&.image
+      if image_url
+        new_image_data = open(image_url).read
+      else
+        new_image_data = auth&.extra&.raw_info[:thumbnailphoto]&.first # Maybe Intel-specific
+      end
+      return unless new_image_data
+      
+      if avatar.exists?
+        existing_avatar_data = Paperclip.io_adapters.for(avatar).read
+        return if existing_avatar_data == new_image_data
+      end
+        
+      update_attributes(avatar: StringIO.new(new_image_data),
+                        avatar_file_name: auth.provider)
+    rescue => e
+      Rails.logger.error "Person::update_from_omniauth(provider=#{auth.provider}) exception during image import: #{e}; Ignored"
+    end
+  end
+
   def availabilities_in(conference)
     availabilities = self.availabilities.where(conference: conference)
     availabilities.each { |a|

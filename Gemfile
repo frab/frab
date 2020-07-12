@@ -16,7 +16,7 @@ end
 gem 'rails', '~> 5.2.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '< 6'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
@@ -49,7 +49,6 @@ gem 'jbuilder'
 
 gem 'activemodel-serializers-xml'
 gem 'activeresource'
-gem 'acts_as_commentable'
 gem 'bcrypt'
 gem 'bootsnap'
 gem 'cocoon'
@@ -61,7 +60,7 @@ gem 'http_accept_language'
 gem 'localized_language_select', github: 'frab/localized_language_select', branch: 'master'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-ldap'
+gem 'gitlab_omniauth-ldap'
 gem 'omniauth-rails_csrf_protection'
 gem 'paperclip'
 gem 'paper_trail'
@@ -74,6 +73,7 @@ gem 'repost', '~> 0.3.0'
 gem 'ri_cal'
 gem 'roust', github: 'frab/roust', branch: 'disallowed-ticket-1-fix'
 gem 'rqrcode'
+gem 'scanf'
 gem 'simple_form'
 gem 'sucker_punch'
 gem 'transitions', require: ['transitions', 'active_record/transitions']

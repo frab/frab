@@ -11,7 +11,6 @@ class UserPolicy < ApplicationPolicy
   alias show? destroy?
   alias edit? destroy?
   alias update? destroy?
-  alias create? destroy?
 
   def create?
     user.is_admin? || user.any_crew?('orga', 'coordinator')

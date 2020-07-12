@@ -15,7 +15,7 @@
         %p= t('cfp.show.dates_hint', {start_date: l(@conference.call_for_participation.start_date), end_date: l(@conference.call_for_participation.end_date)})
 
       - if @conference.days.empty?
-        %p
+        %p.warning
           %b= t('cfp.show.conference_empty_days')
 
       - if @conference.call_for_participation&.hard_deadline_over?
@@ -23,7 +23,7 @@
           %b= t('cfp.show.deadline_passed')
 
       - if @conference.call_for_participation&.still_running? && @conference.call_for_participation.welcome_text.blank?
-        %p
+        %p.warning
           %b= t('cfp.show.empty_description')
 
   .row
