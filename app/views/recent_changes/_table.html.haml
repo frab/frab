@@ -21,7 +21,10 @@
               - if version.associated_id
                 = raw(t('version_on_item', {version: version.item.to_s, item: associated_link_for(version)}))
               - else
-                = link_to version.item.to_s, version.item
+                - if version.item.is_a? Conference
+                  = link_to version.item.to_s, conference_path(conference: version.item)
+                - else
+                  = link_to version.item.to_s, version.item
             - else
               = version.item_type
           %td
