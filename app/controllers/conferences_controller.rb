@@ -206,7 +206,7 @@ class ConferencesController < BaseConferenceController
                  [:parent_id]
                else
                  [
-                   :timezone, :timeslot_duration,
+                   :timezone, :timeslot_duration, :allowed_durations_minutes_csv,
                    days_attributes: %i(start_date end_date _destroy id)
                  ]
                end
@@ -221,7 +221,7 @@ class ConferencesController < BaseConferenceController
 
     if @conference.main_conference?
       allowed += [
-        :timezone, :timeslot_duration,
+        :timezone, :timeslot_duration, :allowed_durations_minutes_csv,
         days_attributes: %i(start_date end_date _destroy id)
       ]
     end
@@ -234,7 +234,7 @@ class ConferencesController < BaseConferenceController
         tracks_attributes: %i(name color _destroy id)
       ]
     end
-
+    
     params.require(:conference).permit(allowed)
   end
 end

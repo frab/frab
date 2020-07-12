@@ -10,7 +10,6 @@ class RakeTaskExportImportConferenceTest < ActiveSupport::TestCase
     def setup
       # Create a conference with an attachment
       @conf = create :three_day_conference_with_events
-      @conf.update_attributes(attachment_title_is_freeform: false)
     
       @event=@conf.events.first
     

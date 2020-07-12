@@ -4,6 +4,7 @@ en:
     denied: This action is not allowed.
   accepted_only: Accepted only
   actions: Actions
+  accepted_event_durations: Accepted event durations
   activerecord:
     attributes:
       availability:
@@ -78,7 +79,7 @@ en:
         submission_note: Submission notes
         subtitle: Subtitle
         tech_rider: Tech rider
-        time_slots: Time slots
+        time_slots: Duration
         title: Title
         track: Track
       event_attachment:
@@ -407,7 +408,7 @@ en:
   col_start_time: 'Start time:'
   col_submission_notes: 'Submission Notes(user and admin):'
   col_ticket: 'Ticket:'
-  col_time_slots: 'Time slots:'
+  col_time_slots: 'Duration:'
   col_total: 'Total:'
   col_track: 'Track:'
   col_tracks: 'Tracks:'
@@ -433,6 +434,12 @@ en:
           A short and unique handle for your conference, using only lower-case
           letters, numbers and underscores. This will be used to identify your
           conference in URLs etc. Example: 'froscon2011'
+        accepted_event_durations: |
+          Use the checkboxes above to determine which options are presented to
+          submitters for indicating the duration of their proposed event.
+          Submitters will be able to pick one of the values you checked here.
+          As conference crew, you will be able to later change events to any
+          duration, not only those checked here.
         allowed_event_types: |
           Here you can pick which types of events are accepted as submissions to
           this conference. This list affects only new submissions. Existing submissions
@@ -905,6 +912,7 @@ en:
       confirmation: doesn't match %{attribute}
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       empty: can't be empty
+      exceeds: can't exceed %{what}
       equal_to: must be equal to %{count}
       even: must be even
       exclusion: is reserved

@@ -2,6 +2,7 @@
 de:
   ability:
     denied: Der Vorgang ist nicht erlaubt.
+  accepted_event_durations: Akzeptierte Ereignisdauern
   accepted_only: Nur angenommene Events
   actions: Aktionen
   activemodel:
@@ -435,7 +436,7 @@ de:
   col_start_time: 'Startzeit:'
   col_submission_notes: 'Einreichungshinweise (Benutzer und Admin):'
   col_ticket: 'Ticket:'
-  col_time_slots: 'Dauer (in Slots):'
+  col_time_slots: 'Dauer:'
   col_total: 'Gesamt:'
   col_track: 'Track:'
   col_tracks: 'Tracks:'
@@ -457,6 +458,12 @@ de:
     footer: Dieses Programm wurde mit [frab] (http://frab.github.io/frab/) erstellt.
     inputs:
       hints:
+        accepted_event_durations: |
+          Verwenden Sie die obigen Kontrollkästchen, um zu bestimmen, welchen Optionen sie angeboten werden
+          Einreicher für die Angabe der Dauer ihres geplanten Ereignisses.
+          Übermittler können einen der hier überprüften Werte auswählen.
+          Als Konferenzcrew können Sie später Ereignisse in beliebige ändern
+          Dauer, nicht nur die hier überprüft.
         acronym: |
           Ein eindeutiges Kürzel für Ihre Konferenz, das nur aus Kleinbuchstaben,
           Zahlen und Unterstrichen besteht. Wird später in URLs verwendet. Beispiel: 'froscon2011'
@@ -919,6 +926,7 @@ de:
       empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
+      exceeds: darf %{what} nicht überschreiten
       exclusion: ist nicht verfügbar
       expired: ist abgelaufen, bitte fordern Sie einen Neuen an
       greater_than: muss größer als %{count} sein

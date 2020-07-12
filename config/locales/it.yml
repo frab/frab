@@ -2,6 +2,7 @@
 it:
   ability:
     denied: Questa azione è proibita.
+  accepted_event_durations: Durate degli eventi accettate
   accepted_only: Accettato solo
   actions: stock
   activerecord:
@@ -78,7 +79,7 @@ it:
         submission_note: Note di presentazione
         subtitle: sottotitolo
         tech_rider: Requisiti tecnici
-        time_slots: Spiagge orarie
+        time_slots: Durata
         title: titolo
         track: filo
       event_attachment:
@@ -410,7 +411,7 @@ it:
   col_start_time: 'inizio:'
   col_submission_notes: 'Note di invio (utente e amministratore):'
   col_ticket: 'biglietto:'
-  col_time_slots: 'Spiagge orarie:'
+  col_time_slots: 'Durata:'
   col_total: 'totale:'
   col_track: 'filetto:'
   col_tracks: 'figlio:'
@@ -432,6 +433,12 @@ it:
     footer: Questo programma è stato generato con [frab] (http://frab.github.io/frab/).
     inputs:
       hints:
+        accepted_event_durations: |
+          Usa le caselle sopra per determinare a quali opzioni sono presentate
+          presentatori per indicare la durata dell'evento proposto.
+          I mittenti potranno scegliere uno dei valori che hai controllato qui.
+          Come equipaggio della conferenza, sarai in grado di cambiare in seguito eventi a qualsiasi
+          durata, non solo quelli controllati qui.
         acronym: |
           Un nome breve e univoco per la conferenza, utilizzando solo lettere
           minuscoli, numeri e caratteri di sottolineatura. Questo sarà usato per identificare
@@ -938,6 +945,7 @@ it:
       empty: non può essere vuoto
       equal_to: deve essere uguale a %{count}
       even: deve essere lo stesso
+      exceeds: non può superare %{what}
       exclusion: è prenotato
       expired: è scaduto, si prega di fare una nuova richiesta
       greater_than: deve essere più grande di %{count}

@@ -44,6 +44,7 @@ class Conference < ApplicationRecord
   validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
+  validate :default_timeslot_must_not_exceed_max_timeslot
 
   after_update :update_timeslots
 
@@ -223,9 +224,35 @@ class Conference < ApplicationRecord
   def to_label
     acronym
   end
+  
+  def allowed_event_timeslots
+    return parent.allowed_event_timeslots if sub_conference?
+    (allowed_event_timeslots_csv || '').split(',').map(&:to_i)
+  end
+
+  def allowed_event_timeslots=(list)
+    csv=list.to_set.sort.join(',')
+    update_attributes(allowed_event_timeslots_csv: csv)
+  end
+  
+  def allowed_durations_minutes
+    return [] if timeslot_duration.blank?
+    allowed_event_timeslots.map{|ts| ts*timeslot_duration}
+  end
+  
+  def allowed_durations_minutes_csv
+    allowed_durations_minutes.join(',')
+  end
+
+  def allowed_durations_minutes_csv=(csv)
+    return if default_timeslots.blank? or timeslot_duration.blank? or max_timeslots.blank?
+    list = csv.split(',').map(&:to_i)
+    timeslots=(1..max_timeslots).select{|ts| (ts*timeslot_duration).in?(list)} << default_timeslots
+    update_attributes(allowed_event_timeslots: timeslots)
+  end
 
   private
-
+  
   def update_timeslots
     return unless saved_change_to_timeslot_duration? and events.count.positive?
     old_duration = timeslot_duration_before_last_save
@@ -241,5 +268,12 @@ class Conference < ApplicationRecord
   def days_do_not_overlap
     return if days.count < 2
     days.each{ |day| day.does_not_overlap }
+  end
+  
+  def default_timeslot_must_not_exceed_max_timeslot
+    return if default_timeslots.blank? or max_timeslots.blank?
+    if default_timeslots > max_timeslots
+      errors.add(:default_timeslots, :exceeds, what: I18n.t('activerecord.attributes.conference.max_timeslots'))
+    end
   end
 end

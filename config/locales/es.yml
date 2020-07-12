@@ -2,6 +2,7 @@
 es:
   ability:
     denied: Esta acción no está permitida.
+  accepted_event_durations: Duración de eventos aceptados
   accepted_only: Aceptado solo
   actions: Acciones
   activemodel:
@@ -85,7 +86,7 @@ es:
         submission_note: Notas de envío
         subtitle: Subtítulo
         tech_rider: Jinete de tecnología
-        time_slots: Intervalos
+        time_slots: Duración
         title: Título
         track: Área
       event_attachment:
@@ -452,7 +453,7 @@ es:
   col_start_time: 'Hora de inicio:'
   col_submission_notes: 'Notas de envío (usuario y administrador):'
   col_ticket: 'Boleto:'
-  col_time_slots: 'Ranuras de tiempo:'
+  col_time_slots: 'Duración:'
   col_total: 'Total:'
   col_track: 'Seguimiento:'
   col_tracks: 'Pistas:'
@@ -474,6 +475,12 @@ es:
     footer: Este cronograma se generó con [frab] (http://frab.github.io/frab/).
     inputs:
       hints:
+        accepted_event_durations: |
+          Use las casillas de verificación anteriores para determinar qué opciones se presentan a
+          remitentes para indicar la duración de su evento propuesto.
+          Los remitentes podrán elegir uno de los valores que marcó aquí.
+          Como equipo de conferencia, podrá cambiar los eventos a cualquier
+          duración, no solo las marcadas aquí.
         acronym: |
           Un identificador corto y exclusivo para su conferencia, utilizando solo minúsculas
           letras, números y guiones bajos. Esto se usará para identificar su
@@ -961,6 +968,7 @@ es:
       empty: debe llenarse
       equal_to: debe ser igual a %{count}
       even: debe ser par
+      exceeds: no puede exceder %{what}
       exclusion: no está disponible
       expired: ha expirado, solicite uno nuevo
       greater_than: debe ser mayor a %{count}
