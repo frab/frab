@@ -1,6 +1,6 @@
 ## Development Setup
 
-Basically, to get started you need git, ruby (>= 2.4) and bundler
+Basically, to get started you need git, ruby (>= 2.5) and bundler
 and follow these steps:
 
 1) Install nodejs:
