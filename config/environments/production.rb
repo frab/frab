@@ -88,6 +88,19 @@ Rails.application.configure do
 
   if ENV['EXCEPTION_EMAIL'].present? and ENV['FROM_EMAIL'].present?
     Rails.application.config.middleware.use ExceptionNotification::Rack,
+      ignore_if: ->(env, exception) {
+        return true if exception.message =~ /^IP spoofing attack/
+        # from https://gist.github.com/jlxw/3357795
+        _limit = 1.minutes.ago
+        @@last_notification ||= _limit
+        if @@last_notification > _limit
+          Rails.logger.info "ExceptionNotifier rate limit triggered, #{ExceptionNotifier::Notifier.deliveries.size} notifications limited."
+          true
+        else
+          @@last_notification = Time.now
+          false
+        end
+      },
       email: {
         email_prefix: "frab on #{ENV['FRAB_HOST']}: ",
         sender_address: "frab <#{ENV['FROM_EMAIL']}>",
