@@ -1,0 +1,20 @@
+sqlite: &sqlite
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+mysql: &mysql
+  adapter: mysql2
+  url: MYSQL
+
+postgresql: &postgresql
+  adapter: postgresql
+  url: POSTGRES
+  min_messages: ERROR
+
+defaults: &defaults
+  pool: 5
+  timeout: 5000
+  <<: *<%= ENV['DB'] || "sqlite" %>
+
+test:
+  <<: *defaults
