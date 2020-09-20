@@ -100,6 +100,10 @@ class Conference < ApplicationRecord
     attributes['timezone']
   end
 
+  def timezone_IANA
+    ActiveSupport::TimeZone::MAPPING[timezone] or timezone
+  end
+
   def timeslot_duration
     return parent.timeslot_duration if sub_conference?
     attributes['timeslot_duration']
