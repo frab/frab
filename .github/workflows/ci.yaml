@@ -1,0 +1,104 @@
+name: frab
+
+on:
+  pull_request:
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+
+    strategy:
+      matrix:
+        ruby_version:
+          - 2.4
+          - 2.6
+          - 2.7
+        db:
+          - mysql
+          - postgresql
+          - sqlite
+
+    services:
+      postgres:
+        image: postgres:11
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: root
+
+      mysql:
+        image: mariadb:10.3
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        env:
+          MYSQL_ROOT_PASSWORD: root
+
+    steps:
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: ${{matrix.ruby_version}}
+
+    - uses: actions/checkout@v2
+
+    - uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ matrix.ruby_version }}-${{ hashFiles('Gemfile.lock') }}-
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - name: Bundle install
+      run: |
+        sudo apt-get -y install libpq-dev
+        gem install -N bundler
+        bundle config path vendor/bundle
+        bundle config set without 'capistrano doc production'
+        bundle install --jobs 4 --retry 3
+
+    - name: Prepare Postgresql
+      run: |
+        bundle exec rails db:create
+        sed 's#url: POSTGRES#url: '$DATABASE_URL'#' .github/database.yml > config/database.yml
+      env:
+        DATABASE_URL: postgres://postgres:root@127.0.0.1:${{ job.services.postgres.ports[5432] }}/frab_test
+      if: matrix.db == 'postgresql'
+
+    - name: Prepare MySQL
+      run: |
+        bundle exec rails db:create
+        echo $DATABASE_URL
+        sed 's#url: MYSQL#url: '$DATABASE_URL'#' .github/database.yml > config/database.yml
+      env:
+        DATABASE_URL: mysql2://root:root@127.0.0.1:${{ job.services.mysql.ports[3306] }}/frab_test
+      if: matrix.db == 'mysql'
+
+    - name: Prepare SQLite
+      run: |
+        cp .github/database.yml config/database.yml
+        bundle exec rails db:create
+      if: matrix.db == 'sqlite'
+
+    - name: Run tests
+      run: |
+        sed -i 's/config.eager_load = .*/config.eager_load = true/' config/environments/test.rb
+        bundle exec rails db:schema:load --trace
+        mv db/schema.rb db/schema.rb.original
+        bundle exec rails db:rollback STEP=9
+        bundle exec rails db:migrate
+        sh -c "[ '$DB' != 'sqlite' ] || diff db/schema.rb db/schema.rb.original "
+        bundle exec rails db:test:prepare
+        bundle exec rails test
+      env:
+        DB: ${{ matrix.db }}

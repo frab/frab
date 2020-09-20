@@ -3,7 +3,7 @@ dist: trusty
 rvm:
   - 2.4.4
   - 2.6.3
-  - 2.7.0
+  - 2.7
 env:
   - DB=mysql
   - DB=postgresql
@@ -11,6 +11,7 @@ env:
 before_install:
   - gem install -N bundler
 bundler_args: --without capistrano doc production --jobs 2
+
 before_script:
   - cp config/database.yml.travis config/database.yml
   - sed -i 's/config.eager_load = .*/config.eager_load = true/' config/environments/test.rb
