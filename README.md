@@ -66,12 +66,6 @@ Both FrOSCon and frab owe a lot to pentabarf. But sadly, pentabarf seems to
 be abandoned. And several problems make it hard to maintain. Thus we decided
 to create a new system.
 
-## Contact
-
-For updates and discussions around frab, please join our mailinglist
-
-    frab (at) librelist.com - to subscribe just send a mail to it
-
 ## License
 
 frab is licensed under an MIT-License. It bundles some
