@@ -69,10 +69,11 @@ module EventsHelper
 
   def show_filters_pane?
     filters_data.each do |f|
-      return true if params[f.qname].present?
+      return true if params[f.qname]
     end
     false
   end
+  
   def localized_filter_options(c, i18n_scope)
     c = split_filter_string(c) if c.is_a? String
     options = (c - ['',nil]).map{|v| [ if i18n_scope 
@@ -88,6 +89,7 @@ module EventsHelper
   end
   
   def split_filter_string(s)
+    return [''] if s==''
     s.split('|', -1)
   end
 
