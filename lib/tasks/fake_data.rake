@@ -9,7 +9,7 @@ namespace :frab do
                                         email: Faker::Internet.email,
                                         color: Faker::Color.hex_color[1..6])
 
-        date = Faker::Time.forward(23).beginning_of_day + 9.hours
+        date = Faker::Time.forward(days: 23).beginning_of_day + 9.hours
 
         3.times do
           conference.languages << Language.create(code: %w(en de es pt-BR).sample)
@@ -41,8 +41,8 @@ namespace :frab do
         5.times do
           conference.rooms << Room.create!(conference: conference,
                                            name: Faker::App.name,
-                                           size: Faker::Number.between(1, 50) * 25,
-                                           rank: Faker::Number.between(1, 10))
+                                           size: Faker::Number.between(from: 1, to: 50) * 25,
+                                           rank: Faker::Number.between(from: 1, to: 10))
         end
 
         10.times do
