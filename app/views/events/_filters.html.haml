@@ -2,7 +2,7 @@
   %div.filters-row
     %b= t('col_filters')
     - filters_data.each do |f|
-      - if params[f.qname].present?
+      - if params[f.qname]
         %span{:class => 'filterbox'}
           = link_to "╳", request.query_parameters.except(f.qname), class: 'filterbox-close-btn'
           = f.filter_name || t(f.filter_name_i18n)
