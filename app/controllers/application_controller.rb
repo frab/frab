@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   def default_url_options
     result = { locale: params[:locale] }
-    result[:conference_acronym] = @conference.acronym if @conference
+    result[:conference_acronym] = @conference.persisted_acronym if @conference
     result
   end
 

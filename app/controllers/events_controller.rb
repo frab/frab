@@ -64,7 +64,7 @@ class EventsController < BaseConferenceController
     case @filter.type
     when :text
       @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
-      @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname].present?
+      @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname]
     when :range
       @op, @current_numeric_value = helpers.get_op_and_val(params[@filter.qname])
     end
@@ -338,7 +338,7 @@ class EventsController < BaseConferenceController
   def search(events)
     filter = events
     helpers.filters_data.each do |f|
-      if params[f.qname].present?
+      if params[f.qname]
         filter = filter.where(f.attribute_name => criteria_from_param(f))
       end
     end
