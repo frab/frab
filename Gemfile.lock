@@ -110,7 +110,7 @@ GEM
     chunky_png (1.3.11)
     climate_control (0.2.0)
     cliver (0.3.2)
-    cocoon (1.2.14)
+    cocoon (1.2.15)
     coderay (1.1.3)
     coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
