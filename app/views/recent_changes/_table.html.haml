@@ -38,6 +38,9 @@
             - if version.item_type == "EventAttachment"
               - begin
                 - v = version.item
+                - unless v
+                  - if EventAttachment::PRESERVE_FILE_ATTACHMENTS
+                    - v = (version.next || version).reify
                 - if v
                   = link_to "\u{1F5CE} "+(v.title.presence or v.attachment_file_name or "missing"), v.attachment.url
               - rescue
