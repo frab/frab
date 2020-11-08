@@ -218,6 +218,10 @@ zh:
   cancel: 取消
   cfp:
     abstract_hint: 一个简短的段落，简洁地描述你。 (HTML)
+    attachements_may_be_saved: |
+      注意：您在此处输入的信息（包括文件附件和链接）可能是
+      保留下来，即使您将其从
+      事件。如果需要立即删除数据，请联系会议工作人员。
     avatar_hint: 上传一张新照片。
     back: 背部
     basic_information: 基本信息

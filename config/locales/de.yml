@@ -246,6 +246,10 @@ de:
   cancel: Abbrechen
   cfp:
     abstract_hint: Ein kurzer, prägnanter Absatz zu Ihrer Person. (HTML)
+    attachements_may_be_saved: |
+      Hinweis: Informationen, die Sie hier eingeben, einschließlich Dateianhänge und Links, können sein
+      behalten und dem Konferenzteam zur Verfügung stehen, auch nachdem Sie es aus dem Internet entfernt haben
+      Veranstaltung. Wenden Sie sich an das Konferenzteam, falls die Daten umgehend entfernt werden müssen.
     avatar_hint: Laden Sie ein neues Bild hoch.
     back: Zurück
     basic_information: Basisinformationen
