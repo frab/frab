@@ -514,6 +514,7 @@ en:
       button on the right.
     notice_bulk_notification_queued: Bulk notifications for events in %{notification} enqueued.
     notice_conference_created: Conference was successfully created.
+    notice_conference_not_updated: Conference was not updated.
     notice_conference_updated: Conference was successfully updated.
     past_conferences: Past Conferences
     recent_changes: Recent changes

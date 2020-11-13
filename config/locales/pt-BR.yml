@@ -536,6 +536,7 @@ pt-BR:
       botão à direita.
     notice_bulk_notification_queued: Notificações em massa para eventos em %{notification} enfileirados.
     notice_conference_created: Conferência foi criada com sucesso.
+    notice_conference_not_updated: A conferência não foi atualizada.
     notice_conference_updated: Conferência foi atualizada com sucesso.
     past_conferences: Conferências passadas
     recent_changes: Mudanças recentes

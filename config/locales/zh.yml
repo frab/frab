@@ -514,6 +514,7 @@ zh:
       按钮在右边。
     notice_bulk_notification_queued: 批量通知%{notification}中的事件入队。
     notice_conference_created: 会议成功创建。
+    notice_conference_not_updated: 会议未更新。
     notice_conference_updated: 会议已成功更新。
     past_conferences: 过去的会议
     recent_changes: 近期变动

@@ -523,6 +523,7 @@ it:
       cliccando sul tasto destro.
     notice_bulk_notification_queued: Gruppo di notifica per eventi in %{notification} in coda.
     notice_conference_created: Conferenza creata con successo.
+    notice_conference_not_updated: La conferenza non è stata aggiornata.
     notice_conference_updated: Conferenza aggiornata con successo.
     past_conferences: Conferenze passate
     recent_changes: Cambiamenti recenti
