@@ -536,6 +536,7 @@ de:
       Fügen Sie mit der Schaltfläche rechts eine Konferenz hinzu.
     notice_bulk_notification_queued: Alle Benachrichtigungen für die Einreichungen in %{notification} an den Ticket-Server übergeben.
     notice_conference_created: Die Konferenz wurde erfolgreich erstellt.
+    notice_conference_not_updated: Konferenz wurde nicht aktualisiert.
     notice_conference_updated: Die Konferenz wurde erfolgreich aktualisiert.
     past_conferences: Frühere Konferenzen
     recent_changes: Letzte Änderungen

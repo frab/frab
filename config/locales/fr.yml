@@ -524,6 +524,7 @@ fr:
       en cliquant sur le bouton de droite.
     notice_bulk_notification_queued: Groupe de notifications pour les évènements dans %{notification} mises en file d’attente..
     notice_conference_created: Conférence créée avec succès.
+    notice_conference_not_updated: La conférence n'a pas été mise à jour.
     notice_conference_updated: Conférence mise à jour avec succès.
     past_conferences: Conférences passées
     recent_changes: Changements récents

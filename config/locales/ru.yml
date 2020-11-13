@@ -515,6 +515,7 @@ ru:
       справа.
     notice_bulk_notification_queued: Массовые уведомления для событий в %{notification} в очереди.
     notice_conference_created: Конференция была успешно создана.
+    notice_conference_not_updated: Конференция не обновлялась.
     notice_conference_updated: Конференция была успешно обновлена.
     past_conferences: Прошедшие конференции
     recent_changes: Недавние изменения
