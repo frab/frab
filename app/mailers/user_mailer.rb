@@ -18,10 +18,12 @@ class UserMailer < ActionMailer::Base
     persons=event_people.pluck(:person_id).uniq
     raise "this function should be used for one person only" unless persons.count == 1
     person=Person.find(persons.first)
+
+    bcc = template.conference.bcc_address
     
     msgs=event_people.map{|event_person| template.message_text_for_event_person(event_person)}
     msgs.uniq.each do |msg|
-      mail to: person.email, subject: msg[:subject], body: msg[:body]
+      mail to: person.email, subject: msg[:subject], body: msg[:body], bcc: bcc
     end
   end
 end

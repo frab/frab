@@ -24,6 +24,7 @@ en:
         acronym: Acronym
         allowed_event_types_as_list: Allowed event types
         attachment_title_is_freeform: Attachment title is freeform
+        bcc_address: BCC address
         bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license
@@ -457,6 +458,10 @@ en:
           If this option is selected, submitters can provide any title they want
           for files they upload as attachments. If this option is deselected, they
           must select between a set of pre-configured titles.
+        bcc_address: |
+          You can specify an e-mail address here. frab will send this address a 
+          copy of each mail it sends to submitters. You can use this as a way to keep
+          a log of all e-mails sent.
         bulk_notification_enabled: |
           If you enable this, notifications will be sent out in bulk by mail
           or ticket subsystem.

@@ -24,6 +24,7 @@ zh:
         acronym: 缩写
         allowed_event_types_as_list: 允许的事件类型
         attachment_title_is_freeform: 附件标题为自由格式
+        bcc_address: 密件抄送地址
         bulk_notification_enabled: 批量通知已启用
         color: 颜色
         default_recording_license: 默认录制许可证
@@ -457,6 +458,10 @@ zh:
           如果选择此选项，提交者可以提供他们想要的任何标题
           他们以附件形式上传的文件。如果取消选择此选项，则它们
           必须在一组预配置的标题之间进行选择。
+        bcc_address: |
+          您可以在此处指定一个电子邮件地址。 Frab会将此地址发送给
+          发送给提交者的每封邮件的副本。您可以使用它来保持
+          所有已发送电子邮件的日志。
         bulk_notification_enabled: |
           如果您启用此功能，通知将通过邮件批量发送
           或票子系统。
