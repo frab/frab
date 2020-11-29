@@ -11,6 +11,7 @@
       %end= @conference.last_day.end_date.strftime('%Y-%m-%d')
     %days= @conference.days.length
     %timeslot_duration= duration_to_time(@conference.timeslot_duration)
+    %time_zone_name= @conference.timezone_IANA
     - if @conference.program_export_base_url.present?
       %base_url= @conference.program_export_base_url
     - else

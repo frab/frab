@@ -13,4 +13,9 @@
                        id: 'bulk_email',
                        data: { confirm: t('notifications_module.send_unspecified_notification_confirm', count: @num_of_matching_events) }, 
                        class: 'danger'
+  - if policy(@conference).manage?
+    %p
+      = link_to t('events_module.bulk_edit.show'), '#',
+            class: [ 'show_events_modal' ] ,
+            data: { url: bulk_edit_modal_events_url(request.query_parameters) }
 
