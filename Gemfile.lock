@@ -55,6 +55,12 @@ GEM
       activemodel (= 5.2.4.4)
       activesupport (= 5.2.4.4)
       arel (>= 9.0)
+    activerecord-session_store (1.1.3)
+      actionpack (>= 4.0)
+      activerecord (>= 4.0)
+      multi_json (~> 1.11, >= 1.11.2)
+      rack (>= 1.5.2, < 3)
+      railties (>= 4.0)
     activeresource (5.1.1)
       activemodel (>= 5.0, < 7)
       activemodel-serializers-xml (~> 1.0)
@@ -121,6 +127,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
+    dalli (2.7.11)
     database_cleaner (1.8.5)
     devise (4.7.3)
       bcrypt (~> 3.0)
@@ -410,6 +417,7 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel-serializers-xml
+  activerecord-session_store
   activeresource
   bcrypt
   bootsnap
@@ -421,6 +429,7 @@ DEPENDENCIES
   capistrano3-puma
   cocoon
   coffee-rails
+  dalli
   database_cleaner
   devise
   dotenv-rails
