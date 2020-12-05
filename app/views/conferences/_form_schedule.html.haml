@@ -2,7 +2,8 @@
   %fieldset.inputs
     %legend= t(:schedule_configuration)
     = f.input :schedule_version, hint: t('schedule_module.inputs.hints.schedule_version')
-    = f.input :schedule_public, as: :inline_boolean, hint: t('schedule_module.inputs.hints.schedule_public')
+    - unless ENV['DISABLE_FRAB_PUBLIC_SCHEDULE'].present?
+      = f.input :schedule_public, as: :inline_boolean, hint: t('schedule_module.inputs.hints.schedule_public')
     = f.input :schedule_open, as: :inline_boolean, hint: t('schedule_module.inputs.hints.schedule_open')
     %fieldset.inputs
       %legend= t(:static_program_export)
