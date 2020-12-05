@@ -95,7 +95,7 @@ module EventsHelper
 
   def filter_link(qname, text='')
     link_to text, '#',
-            class: [ 'show_filter_modal', ('filter_icon' unless text.present?), params[qname].present? ] ,
+            class: [ 'show_events_modal', ('filter_icon' unless text.present?), params[qname].present? ] ,
             data: { url: filter_modal_events_url(request.query_parameters.merge(which_filter: qname)) }
   end
   

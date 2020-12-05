@@ -26,4 +26,17 @@ class EditingConferenceTest < FeatureTest
     assert_content page, 'Events'
     assert_content page, Event.last.title
   end
+
+  it 'edit classifiers', js: true do
+    sign_in_user(@admin)
+    visit "/#{@conference.acronym}/conference/edit_classifiers"
+    assert_content page, 'Here you can create and edit the classifiers'
+    click_on 'Update conference'
+    assert_content page, 'Conference was not updated.'
+    click_on 'Classifiers'
+    click_on 'Add classifier'
+    fill_in 'Name', with: 'classifier1'
+    click_on 'Update conference'
+    assert_content page, 'Conference was successfully updated.'
+  end
 end

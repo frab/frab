@@ -135,7 +135,9 @@ class ConferencesController < BaseConferenceController
   def update
     authorize @conference, :orga?
     respond_to do |format|
-      if @conference.update_attributes(existing_conference_params)
+      if not params[:conference]
+        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_not_updated')) }
+      elsif @conference.update_attributes(existing_conference_params)
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_updated')) }
       else
         flash_model_errors(@conference)
