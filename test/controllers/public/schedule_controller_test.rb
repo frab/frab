@@ -16,6 +16,7 @@ class Public::ScheduleControllerTest < ActionController::TestCase
     schedule = Hash.from_xml(response.body)['schedule']
     assert_includes schedule.keys, 'conference'
     assert_includes schedule.keys, 'day'
+    assert_includes schedule['conference'].keys, 'time_zone_name'
   end
 
   test 'displays json schedule' do
@@ -23,6 +24,7 @@ class Public::ScheduleControllerTest < ActionController::TestCase
     assert_response :success
     schedule = JSON.parse(response.body)['schedule']
     assert_includes schedule.keys, 'conference'
+    assert_includes schedule['conference'].keys, 'time_zone_name'
   end
 
   test 'displays ical schedule' do

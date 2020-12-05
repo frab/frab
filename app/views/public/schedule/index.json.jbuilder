@@ -14,6 +14,7 @@ json.schedule do
     end
     json.daysCount @conference.days.length
     json.timeslot_duration duration_to_time(@conference.timeslot_duration)
+    json.time_zone_name @conference.timezone_IANA
     index = 1
     json.days @conference.days do |day|
       json.index index
