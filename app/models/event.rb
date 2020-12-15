@@ -59,11 +59,11 @@ class Event < ApplicationRecord
     end
     e
   }
-  
+
   def self.ransackable_attributes(auth_object = nil)
     column_names + ReviewMetric.all.map(&:safe_name)
   end
-  
+
   def self.ransortable_attributes(auth_object = nil)
     column_names + ReviewMetric.all.map(&:safe_name)
   end
@@ -82,12 +82,12 @@ class Event < ApplicationRecord
   has_secure_token :invite_token
 
   def self.ids_by_least_reviewed(conference, reviewer)
-    already_reviewed = connection.select_rows("SELECT events.id 
-                                               FROM events 
-                                               JOIN event_ratings ON events.id = event_ratings.event_id 
+    already_reviewed = connection.select_rows("SELECT events.id
+                                               FROM events
+                                               JOIN event_ratings ON events.id = event_ratings.event_id
                                                WHERE events.conference_id = #{conference.id}
-                                               AND   event_ratings.person_id = #{reviewer.id} 
-                                               AND   event_ratings.rating IS NOT NULL 
+                                               AND   event_ratings.person_id = #{reviewer.id}
+                                               AND   event_ratings.rating IS NOT NULL
                                                AND   event_ratings.rating <> 0").flatten.map(&:to_i)
     least_reviewed = conference.events.order(event_ratings_count: :asc).pluck(:id)
     least_reviewed -= already_reviewed
@@ -210,11 +210,11 @@ class Event < ApplicationRecord
     self.tech_rider = ''
     self
   end
-  
+
   def date_of_submission_in_conference_tz
     created_at.in_time_zone(conference.timezone).to_date
   end
-  
+
   def submitted_after_soft_deadline?
     return true if submitted_after_hard_deadline?
     return false unless conference.call_for_participation
@@ -227,8 +227,8 @@ class Event < ApplicationRecord
     return true if date_of_submission_in_conference_tz > conference.call_for_participation&.hard_deadline
     return false
   end
-  
-  
+
+
 
   private
 
