@@ -30,7 +30,7 @@ gem 'sqlite3', group: :sqlite3
 gem 'puma'
 
 # Capistrano for deployment
-group :capistrano do
+group :capistrano, optional: true do
   gem 'capistrano', '3.8.2', require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
@@ -62,7 +62,7 @@ gem 'nokogiri'
 gem 'omniauth-google-oauth2'
 gem 'gitlab_omniauth-ldap'
 gem 'omniauth-rails_csrf_protection'
-gem 'paperclip'
+gem 'kt-paperclip'
 gem 'paper_trail'
 gem 'prawn', '< 1.0'
 gem 'prawn_rails'
@@ -84,6 +84,11 @@ group :production do
   gem 'exception_notification'
 end
 
+group :productionplus, optional: true do
+  gem 'activerecord-session_store'
+  gem 'dalli'
+end
+
 group :development, :test do
   gem 'listen'
   gem 'bullet'
@@ -102,7 +107,7 @@ group :test do
   gem 'poltergeist'
 end
 
-group :doc do
+group :doc, optional: true do
   # gem 'rails-erd'      # graph
   # gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
 end

@@ -219,6 +219,10 @@ en:
   cancel: Cancel
   cfp:
     abstract_hint: One short paragraph that succinctly describes you. (HTML)
+    attachements_may_be_saved: |
+      Note: Information you enter here, including file attachments and links, may be
+      retained and be available to conference crew even after you remove it from the
+      event. Contact conference crew in case data needs to be removed promptly.
     avatar_hint: Upload a new picture.
     back: Back
     basic_information: Basic information
