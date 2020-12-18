@@ -30,5 +30,19 @@
           %td
             - if version.event == "update"
               %a{href: "#", rel: "popover", :"data-placement" => "below", :"data-original-title" => t('detailed_changes'), :"data-content" => render("recent_changes/detailed_changes", version: version), :"data-html" => "true", :"data-trigger" => "manual"}= t('details')
+            - if version.item_type == "Link"
+              - begin
+                - v = version.item || ((version.next || version).reify)
+                = link_to "\u{1F517} "+v.title, v.url
+              - rescue
+            - if version.item_type == "EventAttachment"
+              - begin
+                - v = version.item
+                - unless v
+                  - if EventAttachment::PRESERVE_FILE_ATTACHMENTS
+                    - v = (version.next || version).reify
+                - if v
+                  = link_to "\u{1F5CE} "+(v.title.presence or v.attachment_file_name or "missing"), v.attachment.url
+              - rescue
   - rescue
     = 'Not available'

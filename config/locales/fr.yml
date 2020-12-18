@@ -218,6 +218,10 @@ fr:
   cancel: Annuler
   cfp:
     abstract_hint: Un petit paragraphe qui vous décrit succintement. (balises HTML possibles)
+    attachements_may_be_saved: |
+      Remarque: les informations que vous saisissez ici, y compris les pièces jointes et les liens, peuvent être
+      conservé et disponible pour l'équipe de conférence même après l'avoir retiré du
+      un événement. Contactez l'équipe de conférence au cas où les données doivent être supprimées rapidement.
     avatar_hint: Téléverser une nouvelle photo.
     back: Retour
     basic_information: Informations de base
