@@ -27,6 +27,10 @@
     = f.button :submit, class: 'primary'
     = link_to t('cancel'), :back, class: "btn"
 
+- if EventAttachment::PRESERVE_FILE_ATTACHMENTS
+  %p{class: 'help-block'}
+    = t('cfp.attachements_may_be_saved')
+
 - if @event.present? && @event.invite_token.present?
   %div
   %h3= 'Token: ' + @event.invite_token

@@ -55,6 +55,12 @@ GEM
       activemodel (= 5.2.4.4)
       activesupport (= 5.2.4.4)
       arel (>= 9.0)
+    activerecord-session_store (1.1.3)
+      actionpack (>= 4.0)
+      activerecord (>= 4.0)
+      multi_json (~> 1.11, >= 1.11.2)
+      rack (>= 1.5.2, < 3)
+      railties (>= 4.0)
     activeresource (5.1.1)
       activemodel (>= 5.0, < 7)
       activemodel-serializers-xml (~> 1.0)
@@ -75,7 +81,7 @@ GEM
     arel (9.0.0)
     ast (2.4.1)
     bcrypt (3.1.13)
-    bootsnap (1.4.6)
+    bootsnap (1.5.0)
       msgpack (~> 1.0)
     builder (3.2.4)
     bullet (6.1.0)
@@ -87,11 +93,11 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
-    capistrano-bundler (1.6.0)
+    capistrano-bundler (2.0.1)
       capistrano (~> 3.1)
-    capistrano-rails (1.5.0)
+    capistrano-rails (1.6.1)
       capistrano (~> 3.1)
-      capistrano-bundler (~> 1.1)
+      capistrano-bundler (>= 1.1, < 3)
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
@@ -110,7 +116,7 @@ GEM
     chunky_png (1.3.11)
     climate_control (0.2.0)
     cliver (0.3.2)
-    cocoon (1.2.14)
+    cocoon (1.2.15)
     coderay (1.1.3)
     coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
@@ -121,19 +127,20 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
+    dalli (2.7.11)
     database_cleaner (1.8.5)
-    devise (4.7.2)
+    devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    dotenv (2.7.5)
-    dotenv-rails (2.7.5)
-      dotenv (= 2.7.5)
-      railties (>= 3.2, < 6.1)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.9.0)
-    exception_notification (4.4.0)
+    exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
     execjs (2.7.0)
@@ -142,7 +149,7 @@ GEM
     factory_bot_rails (4.11.1)
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
-    faker (2.12.0)
+    faker (2.15.1)
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
@@ -186,11 +193,17 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     jwt (2.2.1)
+    kt-paperclip (6.3.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     letter_opener (1.7.0)
       launchy (~> 2.2)
-    listen (3.2.1)
+    listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.7.0)
@@ -231,7 +244,7 @@ GEM
     net-scp (3.0.0)
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
-    nio4r (2.5.3)
+    nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     oauth2 (1.4.4)
@@ -257,12 +270,6 @@ GEM
     paper_trail (10.3.1)
       activerecord (>= 4.2)
       request_store (~> 1.1)
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
     parser (2.7.1.3)
       ast (~> 2.4.0)
     pdf-core (0.1.6)
@@ -271,8 +278,6 @@ GEM
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    polyamorous (2.3.2)
-      activerecord (>= 5.2.1)
     prawn (0.15.0)
       pdf-core (~> 0.1.3)
       ttfunk (~> 1.1.0)
@@ -288,7 +293,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.5)
-    puma (4.3.5)
+    puma (4.3.7)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -330,11 +335,10 @@ GEM
     rainbow (3.0.0)
     rake (13.0.1)
     rangesliderjs-rails (2.3.1)
-    ransack (2.3.2)
-      activerecord (>= 5.2.1)
-      activesupport (>= 5.2.1)
+    ransack (2.4.0)
+      activerecord (>= 5.2.4)
+      activesupport (>= 5.2.4)
       i18n
-      polyamorous (= 2.3.2)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -392,14 +396,14 @@ GEM
     tilt (2.0.10)
     transitions (1.2.1)
     ttfunk (1.1.1)
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.7.0)
     uniform_notifier (1.13.0)
-    warden (1.2.8)
-      rack (>= 2.0.6)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -413,6 +417,7 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel-serializers-xml
+  activerecord-session_store
   activeresource
   bcrypt
   bootsnap
@@ -424,6 +429,7 @@ DEPENDENCIES
   capistrano3-puma
   cocoon
   coffee-rails
+  dalli
   database_cleaner
   devise
   dotenv-rails
@@ -439,6 +445,7 @@ DEPENDENCIES
   jquery-migrate-rails
   jquery-rails
   jquery-ui-rails
+  kt-paperclip
   letter_opener
   listen
   localized_language_select!
@@ -448,7 +455,6 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   paper_trail
-  paperclip
   pg
   poltergeist
   prawn (< 1.0)

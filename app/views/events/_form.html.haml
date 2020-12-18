@@ -40,3 +40,6 @@
     = dynamic_association :event_attachments, t('events_module.event_attachments'), f
   .actions
     = f.button :submit, class: 'primary'
+- if EventAttachment::PRESERVE_FILE_ATTACHMENTS
+  %p{class: 'help-block'}
+    = t('attachements_may_be_saved', scope: 'cfp')

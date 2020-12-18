@@ -72,6 +72,14 @@ class EventsController < BaseConferenceController
     render partial: 'filter_modal'
   end
   
+  def bulk_edit_modal
+    authorize @conference, :read?
+    @events = search @conference.events_with_review_averages.includes(:track)
+    @num_of_matching_events = @events.reorder('').pluck(:id).count
+
+    render partial: 'bulk_edit_modal'
+  end
+
   # events as pdf
   def cards
     authorize @conference, :manage?
@@ -165,6 +173,10 @@ class EventsController < BaseConferenceController
   def batch_actions
     if params[:bulk_email]
       bulk_send_email
+    elsif params[:bulk_set]
+      bulk_set
+    elsif params[:bulk_add_person]
+      bulk_add_person
     else
       redirect_to events_path, alert: :illegal
     end
@@ -185,6 +197,68 @@ class EventsController < BaseConferenceController
     else
       SendBulkMailJob.new.perform(mail_template, event_people)
       redirect_back(notice: t('emails_module.notice_mails_delivered'), fallback_location: root_path)
+    end
+  end
+
+  def bulk_set
+    authorize @conference, :orga?
+    events = search @conference.events_with_review_averages.includes(:track)
+
+    total_successful = 0
+    total_skipped = 0
+    total_failed = 0
+    events.each do |event|
+      if event.try(params[:bulk_set_attribute]) == params[:bulk_set_value]
+        total_skipped +=1
+      elsif event.update( params[:bulk_set_attribute] => params[:bulk_set_value] )
+        total_successful += 1
+      else
+        total_failed += 1
+      end
+    end
+
+    summary = [  t('events_module.bulk_edit.update_successful', count: total_successful),
+                (t('events_module.bulk_edit.update_skipped', count: total_skipped) if total_skipped > 0),
+                (t('events_module.bulk_edit.update_failed', count: total_failed)   if total_failed > 0)  ].join(' ')
+
+    if total_failed > 0
+      redirect_back alert: summary, fallback_location: root_path
+    else
+      redirect_back notice: summary, fallback_location: root_path
+    end
+  end
+
+  def bulk_add_person
+    authorize @conference, :orga?
+    events = search @conference.events_with_review_averages.includes(:track)
+
+    person_id = params[:person_id]
+    event_role = params[:event_role]
+    redirect_back(alert: t('ability.denied'), fallback_location: root_path) and return if person_id.blank? or event_role.blank?
+
+    total_successful = 0
+    total_skipped = 0
+    total_failed = 0
+
+    events.each do |event|
+      if EventPerson.where(event: event, person_id:  person_id, event_role: event_role).any?
+        total_skipped +=1
+      elsif event.update( event_people_attributes: { 'x' => { person_id:  person_id,
+                                                              event_role: event_role } } )
+        total_successful += 1
+      else
+        total_failed += 1
+      end
+    end
+
+    summary = [  t('events_module.bulk_edit.update_successful', count: total_successful),
+                (t('events_module.bulk_edit.update_skipped', count: total_skipped) if total_skipped > 0),
+                (t('events_module.bulk_edit.update_failed', count: total_failed)   if total_failed > 0)  ].join(' ')
+
+    if total_failed > 0
+      redirect_back alert: summary, fallback_location: root_path
+    else
+      redirect_back notice: summary, fallback_location: root_path
     end
   end
 
