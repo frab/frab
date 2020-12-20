@@ -49,15 +49,17 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    user=where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
+    user=where(email: auth.info.email).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
       user.password = Devise.friendly_token[0, 20]
       user.person ||= Person.new(email: auth.info.email,
                                  public_name: auth.info.name,
                                  first_name: auth.info.first_name,
                                  last_name: auth.info.last_name)
-      user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
     end
+
+    user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
 
     user.person.update_from_omniauth(auth)
 
