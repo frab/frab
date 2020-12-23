@@ -31,6 +31,7 @@ es:
         acronym: Abreviación
         allowed_event_types_as_list: Tipos de eventos permitidos
         attachment_title_is_freeform: El título del archivo adjunto es de forma libre
+        bcc_address: Dirección BCC
         bulk_notification_enabled: Notificaciones masivas
         color: Color
         default_recording_license: Licencia de grabación predeterminada
@@ -502,6 +503,10 @@ es:
           Si se selecciona esta opción, los remitentes pueden proporcionar el título que deseen.
           para los archivos que cargan como archivos adjuntos. Si esta opción no está seleccionada,
           debe seleccionar entre un conjunto de títulos preconfigurados.
+        bcc_address: |
+          Puede especificar una dirección de correo electrónico aquí. frab enviará a esta dirección un
+          copia de cada correo que envía a los remitentes. Puede usar esto como una forma de mantener
+          un registro de todos los correos electrónicos enviados.
         bulk_notification_enabled: |
           Si habilita esto, las notificaciones se enviarán a granel por correo
           o subsistema de boletos.

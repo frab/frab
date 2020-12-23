@@ -1,9 +1,11 @@
 require 'test_helper'
 
 class FilterAndSendMailTest < FeatureTest
+  BCC_ADDRESS = "jimmy@example.com"
   setup do
     ActionMailer::Base.deliveries = []
     @conference = create(:three_day_conference_with_events_and_speakers)
+    @conference.update(bcc_address: BCC_ADDRESS)
     @event = @conference.events.last
     @admin = create(:admin_user)
   end
@@ -48,6 +50,7 @@ class FilterAndSendMailTest < FeatureTest
     assert m.subject == "mail regarding #{@event.title}"
     assert m.body.include? "come to #{@event.room.name} please"
     assert m.body.include? "duration 01:00"
+    assert m.bcc.include? BCC_ADDRESS
   end
 end
 
