@@ -2066,6 +2066,7 @@ de:
     events_with_unusual_state_speakers: Events mit Sprechern in problematischen States
     events_without_abstract: Events ohne Zusammenfassung
     events_without_speaker: Events ohne Sprecher
+    events_without_subtitle: Ereignisse ohne Untertitel
     expected_speakers: fehlende Sprecher in den nächsten vier Stunden
     found_x_results: Es wurden %{nb} Ergebnisse gefunden.
     lectures_not_confirmed: Vorträge, die im Status neu oder review sind

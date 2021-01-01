@@ -2074,6 +2074,7 @@ fr:
     events_with_unusual_state_speakers: événements avec des orateurs dans un état problématique
     events_without_abstract: événements sans résumé
     events_without_speaker: événements sans orateur
+    events_without_subtitle: événements sans sous-titres
     expected_speakers: orateurs manquants pour les 4 prochaines heures
     found_x_results: "%{nb} résultat(s) trouvé(s) ."
     lectures_not_confirmed: conférences qui sont nouvelles ou révision

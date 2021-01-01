@@ -2047,6 +2047,7 @@ en:
     events_with_unusual_state_speakers: events with speakers in a problematic state
     events_without_abstract: events without abstract
     events_without_speaker: events without speaker
+    events_without_subtitle: events without subtitle
     expected_speakers: missing speakers for the next 4 hours
     found_x_results: Found %{nb} results.
     lectures_not_confirmed: lectures that are new or review
