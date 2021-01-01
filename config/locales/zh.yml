@@ -2051,6 +2051,7 @@ zh:
     events_with_unusual_state_speakers: 发言人处于问题状态
     events_without_abstract: 没有摘要的事件
     events_without_speaker: 没有演讲者的活动
+    events_without_subtitle: 没有字幕的事件
     expected_speakers: 在接下来的4个小时里缺少扬声器
     found_x_results: 找到%{nb}结果。
     lectures_not_confirmed: 是新的或复习的讲座

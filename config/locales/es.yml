@@ -2101,6 +2101,7 @@ es:
     events_with_unusual_state_speakers: eventos con hablantes en un estado problemático
     events_without_abstract: eventos sin resumen
     events_without_speaker: eventos sin altavoz
+    events_without_subtitle: eventos sin subtítulo
     expected_speakers: altavoces faltantes para las próximas 4 horas
     found_x_results: Se encontraron resultados %{nb}.
     lectures_not_confirmed: conferencias nuevas o de revisión

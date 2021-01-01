@@ -2078,6 +2078,7 @@ it:
     events_with_unusual_state_speakers: eventi con relatori in uno stato problematico
     events_without_abstract: eventi senza sintesi
     events_without_speaker: eventi senza relatore
+    events_without_subtitle: eventi senza sottotitoli
     expected_speakers: altoparlanti mancanti per le prossime 4 ore
     found_x_results: risultato (s) %{nb} trovato.
     lectures_not_confirmed: conferenze nuove o di revisione
