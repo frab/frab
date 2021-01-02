@@ -345,6 +345,10 @@ span#display_box {
     border-width: thin;
     background-color: lightgray;
     padding: 5px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 
 span#display_box.accepted {
