@@ -56,12 +56,14 @@
                       data: { persons: Person.fullname_options } ) do |f|
       .peoplefilter
         = f.label t('events_module.bulk_edit.add_person')
-        = text_field_tag :filter, 'filter', style: "width:200px"
-        = select_tag :person_id,
-                     options_for_select(Person.all.sort_by(&:full_name).map{|p| [p.full_name_annotated, p.id]}),
-                     name: :person_id,
-                     include_blank: t('select_one'),
-                     style: "width:200px"
+        = text_field_tag :filter, '', style: "width: 130px"
+        %span#display_box.accepted{ style: 'max-width: 260px;'}= ''
+        %span#person_select{style: "display: none;"}= f.input_field :person_list,
+                                    collection: [['', '']],
+                                    label: false,
+                                    style: 'width: 260px;'
+        %span#person_id{style: "display: none;"}= text_field_tag :person_id
+        <br/>
         = f.label t('role_str')
         = select_tag :event_role,
                      options_for_select(translated_options(EventPerson::ROLES)),
@@ -70,6 +72,7 @@
         .actions= f.button :submit,
                   t('add'),
                   name: 'bulk_add_person',
+                  disabled: true,
                   id: 'bulk_add_person',
                   data: { confirm: t('events_module.bulk_edit.add_person_confirm', count: @num_of_matching_events) },
                   class: 'danger'
@@ -84,31 +87,9 @@
                 id: 'bulk_set',
                 data: { confirm: t('events_module.bulk_edit.set_duration_confirm', count: @num_of_matching_events) },
                   class: 'danger'
+= javascript_include_tag "person_filter"
 :javascript
-  attach_filter = function(set) {
-    form = $("form.bulk_edit_add_person");
-    var persons = form.data()["persons"];
-    var q = $(set).find('input[name=filter]');
-    var list = $(set).find('select[name=person_id]');
 
-    q.on('input', function(e) {
-      $(list).empty();
-      $(list).append($('<option>', { value: null, text: "" }));
-
-      $(persons).each(function(i) {
-        id = persons[i]["id"];
-        text = persons[i]["text"];
-
-        if (text.toUpperCase().indexOf(q.val().toUpperCase()) >= 0) {
-          $(list).append($('<option>', { value: id, text: text }));
-        }
-      });
-    });
-  }
-
-  $("div.peoplefilter").each(function(i) {
-    attach_filter(this);
-  });
 
   $("#edit_selector").on('change', function () {
 
@@ -117,3 +98,15 @@
       $("div." + this.value).show();
     }
   });
+:coffeescript
+  window.update_and_attach_person_filter("#{lookup_people_url}", $("div.editable.add_person"))
+
+  update_submit_button = () ->
+    $("#bulk_add_person").attr("disabled", !($("#event_role").val() &&
+                                             $("input#person_id").val()))
+
+  $("input#person_id").change  ->
+    update_submit_button()
+
+  $("#event_role").change ->
+    update_submit_button()
