@@ -1,21 +1,21 @@
 .bulk-notification
-  - if e.count > 0
-    %h3 #{ pluralize( e.count, "event" ) } in state #{ state }
-    - noticket = e.select { |e| e.ticket == nil }
-    - speakers = e.map { |e| e.speakers.count }.sum
-    - nospeakers = e.select { |e| e.speakers.count == 0 }
-    - if noticket.count > 0
-      %p
-        = link_to(t('notifications_module.event_without_ticket_warning', {events: pluralize(noticket.count, "event" )}), events_path(:event_state => state, 'q[s]' => 'ticket_id'))
-        - noticket.each do |e|
-          = link_to e.title, e
-    - if nospeakers.count > 0
-      %p
-        Warning: #{ pluralize(nospeakers.count, "event" ) } without speakers:
-        - nospeakers.each do |e|
-          = link_to e.title, e
+  %h3= t('notifications_module.n_events_in_state_x', { count: e.count, state: t(state, scope: 'conferences_module') })
+  - subscribers = e.map { |e| e.subscribers.count }.sum
+  - nospeakers = e.select { |e| e.speakers.count == 0 }
+  - if nospeakers.count > 0
     %p
-    - if noticket.count == e.count
-      =button_to(t('notifications_module.no_events_tickets'), {}, { disabled: true, class: "btn disabled"})
-    - else
-      =button_to(t('notifications_module.send_notification_to_speakers', {name: name, speakers: pluralize( speakers, 'speaker'), event: pluralize( e.count - noticket.count, 'event')}), { action: 'send_notification', notification: state }, { class: "btn danger", data: { confirm: t('notifications_module.send_notification_confirm', {name: name, event: pluralize(e.count - noticket.count, 'event')}), disable_with: t('work_in_progress') }})
+      = t('notifications_module.warning_events_without_speakers', count: nospeakers.count)
+      - nospeakers.each do |e|
+        = link_to e.title, e
+  %p
+
+  = button_to(t('notifications_module.send_notification_to_subscribers', 
+                { name: t(name, scope: 'notifications_module.notif'), 
+                  count: subscribers, 
+                  event: t('notifications_module.n_events', count: e.count) }), 
+              { action: 'send_notification', notification: state }, 
+              { class: "btn danger", 
+                data: { confirm: t('notifications_module.send_notification_confirm', 
+                                   { name: t(name, scope: 'notifications_module.notif'), 
+                                     count: e.count }), 
+                        disable_with: t('work_in_progress') }})

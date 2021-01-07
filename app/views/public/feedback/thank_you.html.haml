@@ -7,4 +7,7 @@
   %p= t '.thank_you_for_helping_us'
 
   %p
-    = link_to t('.return'), public_schedule_path(day: @conference.day_at(@event.start_time))
+    - if @conference.program_export_base_url.present?
+      = link_to t('.return'), public_program_event_url(@event)
+    - else
+      = link_to t('.return'), public_schedule_path(day: @conference.day_at(@event.start_time))

@@ -21,9 +21,11 @@
           = action_button "", t('events_module.custom_notification'), custom_notification_event_path(event_id: @event), method: :post, hint: t('events_module.custom_notification_hint')
         - if @conference.ticket_server_enabled?
           - unless @event.remote_ticket?
-            = action_button "primary", t('events_module.add_ticket') , create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
-    %h1= t('event')
-    %h2 #{@event.title}
+            = action_button "primary", t('events_module.add_ticket'), create_event_ticket_path(event_id: @event), method: :post, title: t('events_module.add_ticket_hint')
+      - elsif current_user.is_speaker_in?(@event)
+        = action_button "small", t('edit'), edit_cfp_event_path(@event)
+
+    %h1= t('titles.event', {event: @event.title})
   = render 'shared/events_tabs'
   .row
     .span16
@@ -40,11 +42,11 @@
         = @event.track_name
       %p
         %b= Event.human_attribute_name(:event_type) + ':'
-        = @event.event_type
+        = @event.localized_event_type
       - if policy(@conference).manage?
         %p
           %b= Event.human_attribute_name(:state) + ':'
-          = @event.state
+          = t(@event.state, scope: :options) unless @event.state.blank?
       - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
         %p
           %b= t('col_ticket')
@@ -132,3 +134,6 @@
       %p
         %b= Event.human_attribute_name(:tech_rider) + ':'
         = @event.tech_rider
+  .row
+    .span16
+      = render partial: 'events/event_tags', locals: { event: @event, short: false }

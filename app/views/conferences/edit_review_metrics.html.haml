@@ -1,0 +1,26 @@
+%section
+  .page-header
+    %h1= t :edit_conference_review_metrics
+  = render partial: 'tabs', locals: { active: :reviewing }
+
+  - if @conference.sub_conference? && !policy(@conference).manage?
+    .row
+      .span16
+        .blank-slate
+          %p= raw(GitHub.render(t('reviewing_module.modify_review_metric_with_parent', {parent: @conference.parent.title})))
+          %p= t('reviewing_module.current_review_metrics')
+
+          %uls
+            - @conference.review_metrics.each do |review_metric|
+              %li
+                ="#{review_metric.name} (description: #{review_metric.description})"
+
+  - else
+    - if @conference.review_metrics.empty?
+      .row
+        .span16
+          .blank-slate
+            %p= t('reviewing_module.empty_review_metrics')
+    .row
+      .span16
+        = render 'form_review_metrics'

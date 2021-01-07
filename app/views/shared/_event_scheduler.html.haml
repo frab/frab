@@ -49,14 +49,16 @@
       #add-event-modal.modal{style: "display: none;"}
         .modal-header
           = link_to "×", "#", class: "close"
-          %h3
-            Add event at
-            %span#current-time &nbsp;
+          %h3=t('events_module.add_event_at', time: content_tag(:span, '', id: 'current-time')).html_safe
         .modal-body
           %p
-            = form_tag schedule_update_track_path, id: "update-track" do
-              = label_tag "track_select", t('events_module.track_select')
-              = select_tag "track_select", content_tag(:option, t('all'), selected: true) + options_from_collection_for_select(@conference.tracks, :id, :name)
+            = form_tag schedule_update_filters_path, id: "update-filters" do
+              %p
+                = label_tag "track_select", t('events_module.track_select')
+                = select_tag "track_select", content_tag(:option, t('all'), selected: true) + options_from_collection_for_select(@conference.tracks, :id, :name)
+              %p
+                = label_tag "event_type_select", t('events_module.event_type_select')
+                = select_tag "event_type_select", options_from_collection_for_select(translated_options(@conference.events.group(:event_type).pluck(:event_type)), :last, :first), include_blank: t('all')
           %p
             %ul#unscheduled-events
               = render 'unscheduled_events'

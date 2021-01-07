@@ -2,9 +2,11 @@ class EventPerson < ApplicationRecord
   include UniqueToken
   include Rails.application.routes.url_helpers
 
-  ROLES = %i(coordinator submitter speaker moderator).freeze
+  ROLES = %i(coordinator submitter speaker moderator assistant).freeze
   STATES = %i(canceled confirmed declined idea offer unclear attending).freeze
-  SPEAKER = %i(speaker moderator).freeze
+  SPEAKERS = %i(speaker moderator).freeze
+  SUBSCRIBERS = %i(speaker moderator assistant).freeze
+  JOINABLES = %i(speaker assistant).freeze
 
   belongs_to :event
   belongs_to :person
@@ -15,9 +17,10 @@ class EventPerson < ApplicationRecord
 
   has_paper_trail meta: { associated_id: :event_id, associated_type: 'Event' }
 
-  scope :presenter, -> { where(event_role: SPEAKER) }
+  scope :presenter, -> { where(event_role: SPEAKERS) }
+  scope :subscriber, -> { where(event_role: SUBSCRIBERS) }
   scope :presenter_at, ->(conference) {
-    joins(event: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER)
+    joins(event: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKERS)
   }
 
   def confirm!
@@ -69,8 +72,18 @@ class EventPerson < ApplicationRecord
       fail "Field #{state}_#{field} not found" unless string.present?
     end
 
-    string.gsub! '%{conference}', conference.title
+    substitute_variables(string)
+  end
+  
+  def substitute_variables(s)
+    locale = person.locale_for_mailing(event.conference)
+    string = s.gsub '%{conference}', conference.title
     string.gsub! '%{event}', event.title
+    string.gsub! '%{event_id}', event.id.to_s
+    string.gsub! '%{subtitle}', event.subtitle || ''
+    string.gsub! '%{type}', event.localized_event_type(locale)
+    string.gsub! '%{track}', event.track_name || ''
+    string.gsub! '%{duration}', event.localized_duration || ''
     string.gsub! '%{forename}', person.first_name.presence || ''
     string.gsub! '%{surname}', person.last_name.presence || ''
     string.gsub! '%{public_name}', person.public_name.presence || ''
@@ -80,13 +93,26 @@ class EventPerson < ApplicationRecord
       string.gsub! '%{date}', event.start_time.in_time_zone(conference&.timezone).strftime('%F')
       string.gsub! '%{time}', event.start_time.in_time_zone(conference&.timezone).strftime('%H:%M %z %Z')
     end
+    
+    
+    joinlink = cfp_events_join_url(token: event.invite_token, locale: locale) if event.invite_token.present?
+    string.gsub! '%{joinlink}',  joinlink || '-'
 
-    return string unless confirmation_token.present?
-
-    # XXX ENV.fetch('FRAB_HOST') does not belong here
-    string.gsub '%{link}', cfp_event_confirm_by_token_url(conference_acronym: conference.acronym, id: event.id, token: confirmation_token, host: ENV.fetch('FRAB_HOST'), locale: locale)
+    conflink = cfp_event_confirm_by_token_url(id: event.id, token: confirmation_token, locale: locale) if confirmation_token.present?
+    string.gsub! '%{link}', conflink || '-'
+    
+    return string
+    
   end
 
+  def default_url_options
+    result = { protocol: ENV.fetch('FRAB_PROTOCOL'),
+               host: ENV.fetch('FRAB_HOST'), 
+               port: ENV['FRAB_PORT'].presence }
+    result[:conference_acronym] = conference.acronym if conference
+    result
+  end
+  
   def to_s
     "#{model_name.human}: #{person.full_name} (#{event_role})"
   end
@@ -94,7 +120,7 @@ class EventPerson < ApplicationRecord
   private
 
   def update_speaker_count
-    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKER).count
+    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKERS).count
     event.save
   end
 

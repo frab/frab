@@ -14,6 +14,7 @@ json.schedule do
     end
     json.daysCount @conference.days.length
     json.timeslot_duration duration_to_time(@conference.timeslot_duration)
+    json.time_zone_name @conference.timezone_IANA
     index = 1
     json.days @conference.days do |day|
       json.index index
@@ -24,11 +25,7 @@ json.schedule do
       json.rooms do
         @conference.rooms_including_subs.each do |room|
           json.set! room.name, room.events.is_public.accepted.scheduled_on(day).order(:start_time) do |event|
-            if @conference.program_export_base_url.blank?
-              json.url url_for(public_event_url(id: event.id))
-            else
-              json.url url_for(event.static_url(@conference))
-            end
+            json.url public_program_event_url(event)
             json.id event.id
             json.guid event.guid
             json.logo event.logo_path

@@ -32,6 +32,9 @@ class Cfp::EventsController < ApplicationController
 
   # GET /cfp/events/1/edit
   def edit
+    if redirect_submitter_to_edit?
+      flash[:alert] = "#{view_context.link_to(t('users_module.error_invalid_public_name'), edit_cfp_person_path)}".html_safe
+    end
   end
 
   # POST /cfp/events
@@ -100,14 +103,18 @@ class Cfp::EventsController < ApplicationController
 
   def join
     @token = params[:token] || ''
+    @join_as = params[:join_as] || ''
     @event = @token.blank? ? nil : Event.find_by(invite_token: @token)
 
-    deadline = @event&.conference&.call_for_participation&.hard_deadline
-    if deadline && Date.today > deadline
-      return redirect_to cfp_root_path, flash: { error: t('cfp.hard_deadline_over') }
-    end
-
     return unless request.post?
+    
+    raise Pundit::NotAuthorizedError unless @join_as&.to_sym&.in? EventPerson::JOINABLES
+
+    if @event&.conference&.call_for_participation&.hard_deadline_over?
+      unless @join_as == 'assistant'
+        return redirect_to cfp_root_path, flash: { error: t('cfp.hard_deadline_over') }
+      end
+    end
 
     if @event.nil?
         return redirect_to cfp_join_event_path, flash: { error: t('cfp.join_token_unknown', token: @token) }
@@ -116,7 +123,7 @@ class Cfp::EventsController < ApplicationController
     if @event.people.exists?(@person.id)
       redirect_to edit_cfp_event_path(@event), notice: t('cfp.join_token_already_used')
     else
-      @event.event_people << EventPerson.new(person: @person, event_role: 'speaker')
+      @event.event_people << EventPerson.new(person: @person, event_role: @join_as)
       redirect_to edit_cfp_event_path(@event), notice: t('cfp.join_success')
     end
   end

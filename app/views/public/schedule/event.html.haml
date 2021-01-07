@@ -44,6 +44,9 @@
     %li= link_to "iCalendar", public_event_path(id: event.id, format: :ics)
     - event.links.each do |link|
       %li= link_to link.title, link.url
+    - if event.video_url
+      %li= link_to 'Video', event.video_url
+
   - if event.event_attachments.is_public.any?
     %h3= t '.files'
     %ul
@@ -70,11 +73,6 @@
         %tr
           %td= image_box speaker.avatar, :small
           %td= link_to speaker.public_name, public_speaker_path(id: speaker.id)
-
-.span16
-  - if event.videos.count > 0
-    %video{ class: 'video', controls: "controls" }
-      %source{ type: event.videos.first.mimetype, src: event.videos.first.url }
 
 %script{:type => 'application/ld+json'}
   - performers = event.speakers.map { |speaker| { name: speaker.public_name, '@type': 'Person', sameAs: public_speaker_path(:id => speaker.id), image: image_path(speaker.avatar.url(:small)) } }

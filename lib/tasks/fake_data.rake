@@ -9,10 +9,18 @@ namespace :frab do
                                         email: Faker::Internet.email,
                                         color: Faker::Color.hex_color[1..6])
 
-        date = Faker::Time.forward(23).beginning_of_day + 9.hours
+        if rand(10) < 5
+          conference.bcc_address = Faker::Internet.email
+        end
+
+        date = Faker::Time.forward(days: 23).beginning_of_day + 9.hours
 
         3.times do
           conference.languages << Language.create(code: %w(en de es pt-BR).sample)
+        end
+        
+        rand(4).times do
+          conference.review_metrics_attributes = [ { name: Faker::Company.buzzword } ]
         end
 
         4.times do
@@ -37,8 +45,8 @@ namespace :frab do
         5.times do
           conference.rooms << Room.create!(conference: conference,
                                            name: Faker::App.name,
-                                           size: Faker::Number.between(1, 50) * 25,
-                                           rank: Faker::Number.between(1, 10))
+                                           size: Faker::Number.between(from: 1, to: 50) * 25,
+                                           rank: Faker::Number.between(from: 1, to: 10))
         end
 
         10.times do
@@ -53,14 +61,14 @@ namespace :frab do
 
         50.times do
           event = Event.create!(conference: conference,
-                                event_type: Event::TYPES.sample,
+                                event_type: conference.allowed_event_types_as_list.sample,
                                 state: %w(new review withdrawn unconfirmed confirmed canceled rejected).sample,
                                 title: Faker::Book.title,
                                 subtitle: Faker::Hacker.say_something_smart.chomp('!'),
                                 abstract: Faker::Hipster.paragraph,
                                 description: Faker::Hipster.paragraph,
                                 time_slots: rand(10),
-                                track: Track.all.sample,
+                                track: conference.tracks.all.sample,
                                 language: conference.languages.all.sample.code,
                                 public: Faker::Boolean.boolean,
                                 do_not_record: Faker::Boolean.boolean,
@@ -73,9 +81,21 @@ namespace :frab do
                                 role_state: EventPerson::STATES.sample,
                                 comment: Faker::Lorem.sentence)
           end
+
+          event.event_people.where(event_role: :coordinator).map(&:person).each do |person|
+            event_rating = EventRating.create!(event: event,
+                                               person: person,
+                                               rating: (0..5).step(0.5).to_a.sample,
+                                               comment: Faker::Lorem.sentence)
+            conference.review_metrics.each do |review_metric|
+              ReviewScore.create!(event_rating: event_rating,
+                                  review_metric: review_metric,
+                                  score: rand(6))
+            end
+          end                                              
         end
 
-        puts "Created conference #{conference.title} (#{conference.acronym}) with #{conference.tracks.count} tracks, #{conference.days.count} days, #{conference.events.count} events"
+        puts "Created conference #{conference.title} (#{conference.acronym}) with #{conference.tracks.count} tracks, #{conference.days.count} days, #{conference.events.count} events, #{conference.review_metrics.count} review metrics."
       end
     end
   end
@@ -84,12 +104,13 @@ namespace :frab do
   task add_fake_persons: :environment do |_t, _args|
     ActiveRecord::Base.transaction do
       100.times do
-        p = Person.create!(email: Faker::Internet.email,
-                           first_name: Faker::Name.first_name,
-                           last_name: Faker::Name.last_name,
-                           public_name: Faker::Internet.user_name,
+        fakeperson = Faker::Omniauth.facebook
+        p = Person.create!(email: fakeperson[:info][:email],
+                           first_name: fakeperson[:info][:first_name],
+                           last_name: fakeperson[:info][:last_name],
+                           public_name: fakeperson[:extra][:raw_info][:username],
                            include_in_mailings: Faker::Boolean.boolean,
-                           gender: ['male', 'female', nil].sample)
+                           gender: [fakeperson[:extra][:raw_info][:gender], nil].sample)
         puts "Created person #{p.first_name} #{p.last_name} <#{p.email}> (#{p.public_name})"
       end
     end

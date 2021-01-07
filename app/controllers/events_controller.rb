@@ -9,7 +9,15 @@ class EventsController < BaseConferenceController
 
     clean_events_attributes
     respond_to do |format|
-      format.html { @events = @events.paginate page: page_param }
+      format.html { 
+                    @num_of_matching_events = @events.count
+                    if helpers.showing_my_events?
+                      @events_total = @conference.events.associated_with(current_user.person).count
+                    else
+                      @events_total = @conference.events.count
+                    end
+                    @events = @events.paginate page: page_param 
+                  }
       format.json
     end
   end
@@ -32,13 +40,44 @@ class EventsController < BaseConferenceController
     end
   end
 
+  def export_all
+    authorize @conference, :manage?
+    @events = @conference.events.all
+
+    respond_to do |format|
+      format.json { render :export }
+    end
+  end
+
   # current_users events
   def my
     authorize @conference, :read?
 
-    result = search @conference.events.associated_with(current_user.person)
-    clean_events_attributes
-    @events = result.paginate page: page_param
+    redirect_to events_path(events: 'my')
+  end
+
+  def filter_modal
+    authorize @conference, :read?
+    
+    @filter = helpers.filters_data.detect{|f| f.qname == params[:which_filter]}
+    
+    case @filter.type
+    when :text
+      @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
+      @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname]
+    when :range
+      @op, @current_numeric_value = helpers.get_op_and_val(params[@filter.qname])
+    end
+    
+    render partial: 'filter_modal'
+  end
+  
+  def bulk_edit_modal
+    authorize @conference, :read?
+    @events = search @conference.events_with_review_averages.includes(:track)
+    @num_of_matching_events = @events.reorder('').pluck(:id).count
+
+    render partial: 'bulk_edit_modal'
   end
 
   # events as pdf
@@ -54,14 +93,36 @@ class EventsController < BaseConferenceController
       format.pdf
     end
   end
+  
+  # show a table of all events' attachments
+  def attachments
+    authorize @conference, :read?
+    
+    result = search @conference.events.includes(:track)
+
+    @num_of_matching_events = result.count
+    @events_total = @conference.events.count
+
+    @events = result.paginate page: page_param
+    clean_events_attributes
+    
+    attachments = EventAttachment.joins(:event).where('events.conference': @conference)
+    preset_attachment_titles_in_use = attachments.where(title: EventAttachment::ATTACHMENT_TITLES).group(:title).pluck(:title)
+    
+    @attachment_titles = EventAttachment::ATTACHMENT_TITLES & preset_attachment_titles_in_use
+    
+    @other_attachment_titles_exist = attachments.where.not(title: EventAttachment::ATTACHMENT_TITLES).any?
+  end
 
   # show event ratings
   def ratings
     authorize @conference, :read?
 
-    result = search @conference.events
+    result = search @conference.events_with_review_averages.includes(:track)
     @events = result.paginate page: page_param
     clean_events_attributes
+    
+    @num_of_matching_events = result.reorder('').pluck(:id).count
 
     # total ratings:
     @events_total = @conference.events.count
@@ -69,7 +130,7 @@ class EventsController < BaseConferenceController
     @events_no_review_total = @events_total - @events_reviewed_total
 
     # current_user rated:
-    @events_reviewed = @conference.events.joins(:event_ratings).where('event_ratings.person_id' => current_user.person.id).count
+    @events_reviewed = @conference.events.joins(:event_ratings).where('event_ratings.person_id' => current_user.person.id).where.not('event_ratings.rating' => [nil, 0]).count
     @events_no_review = @events_total - @events_reviewed
   end
 
@@ -78,6 +139,22 @@ class EventsController < BaseConferenceController
     authorize @conference, :read?
     result = search @conference.events.accepted
     @events = result.paginate page: page_param
+  end
+
+  # show event history
+  def history
+    authorize @conference, :orga?
+    @event = Event.find(params[:event_id])
+    @all_versions = PaperTrail::Version.where(item_type: 'Event', item: @event.id).or(PaperTrail::Version.where(associated_type: 'Event', associated_id: @event.id)).order('created_at DESC')
+    @versions = @all_versions.paginate(
+      page: page_param,
+      per_page: 25
+    )
+    respond_to do |format|
+      format.html
+      format.xml { render xml: @all_versions }
+      format.json { render json: @all_versions.to_json }
+    end
   end
 
   # start batch event review
@@ -89,6 +166,99 @@ class EventsController < BaseConferenceController
     else
       session[:review_ids] = ids
       redirect_to event_event_rating_path(event_id: ids.first)
+    end
+  end
+  
+  # batch actions
+  def batch_actions
+    if params[:bulk_email]
+      bulk_send_email
+    elsif params[:bulk_set]
+      bulk_set
+    elsif params[:bulk_add_person]
+      bulk_add_person
+    else
+      redirect_to events_path, alert: :illegal
+    end
+  end
+  
+  def bulk_send_email
+    authorize @conference, :orga?
+    
+    mail_template = @conference.mail_templates.find_by(name: params[:template_name])
+    redirect_back(alert: t('ability.denied'), fallback_location: root_path) and return if mail_template.blank?
+    
+    events = search @conference.events_with_review_averages.includes(:track)
+    event_people = EventPerson.where(event_id: events.to_a.pluck(:id))
+    
+    if Rails.env.production?
+      SendBulkMailJob.new.async.perform(mail_template, event_people)
+      redirect_back(notice: t('emails_module.notice_mails_queued'), fallback_location: root_path)
+    else
+      SendBulkMailJob.new.perform(mail_template, event_people)
+      redirect_back(notice: t('emails_module.notice_mails_delivered'), fallback_location: root_path)
+    end
+  end
+
+  def bulk_set
+    authorize @conference, :orga?
+    events = search @conference.events_with_review_averages.includes(:track)
+
+    total_successful = 0
+    total_skipped = 0
+    total_failed = 0
+    events.each do |event|
+      if event.try(params[:bulk_set_attribute]) == params[:bulk_set_value]
+        total_skipped +=1
+      elsif event.update( params[:bulk_set_attribute] => params[:bulk_set_value] )
+        total_successful += 1
+      else
+        total_failed += 1
+      end
+    end
+
+    summary = [  t('events_module.bulk_edit.update_successful', count: total_successful),
+                (t('events_module.bulk_edit.update_skipped', count: total_skipped) if total_skipped > 0),
+                (t('events_module.bulk_edit.update_failed', count: total_failed)   if total_failed > 0)  ].join(' ')
+
+    if total_failed > 0
+      redirect_back alert: summary, fallback_location: root_path
+    else
+      redirect_back notice: summary, fallback_location: root_path
+    end
+  end
+
+  def bulk_add_person
+    authorize @conference, :orga?
+    events = search @conference.events_with_review_averages.includes(:track)
+
+    person_id = params[:person_id]
+    event_role = params[:event_role]
+    redirect_back(alert: t('ability.denied'), fallback_location: root_path) and return if person_id.blank? or event_role.blank?
+
+    total_successful = 0
+    total_skipped = 0
+    total_failed = 0
+
+    events.each do |event|
+      if EventPerson.where(event: event, person_id:  person_id, event_role: event_role).any?
+        total_skipped +=1
+      elsif event.update( event_people_attributes: { 'x' => { person_id:  person_id,
+                                                              event_role: event_role } } )
+        total_successful += 1
+      else
+        total_failed += 1
+      end
+    end
+
+    summary = [  t('events_module.bulk_edit.update_successful', count: total_successful),
+                (t('events_module.bulk_edit.update_skipped', count: total_skipped) if total_skipped > 0),
+                (t('events_module.bulk_edit.update_failed', count: total_failed)   if total_failed > 0)  ].join(' ')
+
+    if total_failed > 0
+      redirect_back alert: summary, fallback_location: root_path
+    else
+      redirect_back notice: summary, fallback_location: root_path
     end
   end
 
@@ -195,7 +365,7 @@ class EventsController < BaseConferenceController
     redirect_to @event, notice: t('emails_module.notice_event_updated')
   end
 
-  # add custom notifications to all the event's speakers
+  # add custom notifications to all the event's subscribers
   # POST /events/2/custom_notification
   def custom_notification
     @event = authorize Event.find(params[:id])
@@ -212,7 +382,7 @@ class EventsController < BaseConferenceController
     end
 
     begin
-      @event.event_people.presenter.each { |p| p.set_default_notification(state) }
+      @event.event_people.subscriber.each { |p| p.set_default_notification(state) }
     rescue Errors::NotificationMissingException => ex
       return redirect_to(@event, alert: t('emails_module.error_failed_setting_notification', {ex: ex}))
     end
@@ -241,14 +411,33 @@ class EventsController < BaseConferenceController
   # returns duplicates if ransack has to deal with the associated model
   def search(events)
     filter = events
-    filter = filter.where(state: params[:event_state]) if params[:event_state].present?
-    filter = filter.where(event_type: params[:event_type]) if params[:event_type].present?
-    filter = filter.where(track: @conference.tracks.find_by(:name => params[:track_name])) if params[:track_name].present?
+    helpers.filters_data.each do |f|
+      if params[f.qname]
+        filter = filter.where(f.attribute_name => criteria_from_param(f))
+      end
+    end
+    filter = filter.associated_with(current_user.person) if helpers.showing_my_events?
     @search = perform_search(filter, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
     if params.dig('q', 's')&.match('track_name')
       @search.result
     else
       @search.result(distinct: true)
+    end
+  end
+
+  def criteria_from_param(f)
+    s = params[f.qname]
+    case f.type
+    when :text
+      c = helpers.split_filter_string(s)
+      c += [nil] if c.include?('')
+      return c
+    when :range
+      op,val = helpers.get_op_and_val(params[f.qname])
+      val = val.to_f
+      return (val..Float::INFINITY) if op == '≥'
+      return (Float::INFINITY..val) if op == '≤'
+      return val
     end
   end
 

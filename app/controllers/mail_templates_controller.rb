@@ -12,9 +12,9 @@ class MailTemplatesController < BaseConferenceController
   def show
     @mail_template = @conference.mail_templates.find(params[:id])
     @send_filter_options = [
-      [t('emails_module.filters.all_speakers_in_confirmed_events'),   :all_speakers_in_confirmed_events],
-      [t('emails_module.filters.all_speakers_in_unconfirmed_events'), :all_speakers_in_unconfirmed_events],
-      [t('emails_module.filters.all_speakers_in_scheduled_event'),    :all_speakers_in_scheduled_events]
+      [t('emails_module.filters.all_speakers_in_confirmed_events'),   'all_speakers_in_confirmed_events'],
+      [t('emails_module.filters.all_speakers_in_unconfirmed_events'), 'all_speakers_in_unconfirmed_events'],
+      [t('emails_module.filters.all_speakers_in_scheduled_event'),    'all_speakers_in_scheduled_events']
     ]
   end
 
@@ -54,8 +54,11 @@ class MailTemplatesController < BaseConferenceController
 
   def create
     t = MailTemplate.new(mail_template_params)
-    @conference.mail_templates << t
-    redirect_to(mail_templates_path, notice: t('emails_module.notice_transport_need_added'))
+    if @conference.mail_templates << t
+      redirect_to(mail_templates_path, notice: t('emails_module.notice_template_added'))
+    else
+      redirect_to(mail_templates_path, alert: t('emails_module.error_template_add_failed'))
+    end
   end
 
   def destroy

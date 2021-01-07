@@ -5,6 +5,7 @@ class Conference < ApplicationRecord
 
   has_many :availabilities, dependent: :destroy
   has_many :classifiers, dependent: :destroy
+  has_many :review_metrics, dependent: :destroy
   has_many :conference_users, dependent: :destroy
   has_many :days, dependent: :destroy
   has_many :events, dependent: :destroy
@@ -21,6 +22,7 @@ class Conference < ApplicationRecord
 
   accepts_nested_attributes_for :rooms, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :classifiers, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :review_metrics, reject_if: proc { |r| r['name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :days, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :notifications, allow_destroy: true
   accepts_nested_attributes_for :tracks, reject_if: :all_blank, allow_destroy: true
@@ -32,14 +34,17 @@ class Conference < ApplicationRecord
     :max_timeslots,
     :timeslot_duration,
     :timezone, presence: true
-  validates :feedback_enabled,
+  validates :attachment_title_is_freeform,
+    :feedback_enabled,
     :expenses_enabled,
     :transport_needs_enabled,
     :bulk_notification_enabled, inclusion: { in: [true, false] }
+  validates :allowed_event_types_as_list, presence: { message: :blank }, format: { without: /\|/ }
   validates :acronym, uniqueness: true
-  validates :acronym, format: { with: /\A[a-zA-Z0-9_-]*\z/ }
+  validates :acronym, format: { with: /\A[a-z0-9_-]*\z/ }
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validate :days_do_not_overlap
+  validate :default_timeslot_must_not_exceed_max_timeslot
 
   after_update :update_timeslots
 
@@ -51,7 +56,7 @@ class Conference < ApplicationRecord
 
   scope :has_submission, ->(person) {
     joins(events: [{ event_people: :person }])
-      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
+      .where(EventPerson.arel_table[:event_role].in(EventPerson::SUBSCRIBERS))
       .where(Person.arel_table[:id].eq(person.id)).distinct
   }
 
@@ -95,11 +100,43 @@ class Conference < ApplicationRecord
     attributes['timezone']
   end
 
+  def timezone_IANA
+    ActiveSupport::TimeZone::MAPPING[timezone] or timezone
+  end
+
   def timeslot_duration
     return parent.timeslot_duration if sub_conference?
     attributes['timeslot_duration']
   end
+  
+  def allowed_event_types_presets
+    Event::TYPES & allowed_event_types_as_list
+  end
+  
+  def allowed_event_types_presets=(list)
+     unchanged_extras = allowed_event_types_as_list - Event::TYPES
+     new_presets = list & Event::TYPES
+     update_attributes(allowed_event_types_as_list: unchanged_extras + new_presets)
+  end
 
+  def allowed_event_types_extras
+    (allowed_event_types_as_list - Event::TYPES).join(';')
+  end
+  
+  def allowed_event_types_extras=(s)
+     new_extras = s.split(';').map(&:strip) - Event::TYPES
+     unchanged_presets = allowed_event_types_as_list & Event::TYPES
+     update_attributes(allowed_event_types_as_list: new_extras + unchanged_presets)
+  end
+  
+  def allowed_event_types_as_list
+    (allowed_event_types || '').split(';').map(&:strip)
+  end
+  
+  def allowed_event_types_as_list=(list)
+    update_attributes(allowed_event_types: list.reject(&:empty?).sort.uniq.join(';'))
+  end
+  
   def submission_data
     result = {}
     events = self.events.order(:created_at)
@@ -160,7 +197,7 @@ class Conference < ApplicationRecord
 
   def in_the_past?
     return false if days.nil? or days.empty?
-    return false if Time.now < days.last.end_date
+    return false if Time.now.in_time_zone(timezone) < days.last.end_date
     true
   end
 
@@ -180,6 +217,10 @@ class Conference < ApplicationRecord
       .scheduled
   end
 
+  def events_with_review_averages
+    events.with_review_averages(self)
+  end
+
   def to_s
     "#{model_name.human}: #{title} (#{acronym})"
   end
@@ -187,9 +228,39 @@ class Conference < ApplicationRecord
   def to_label
     acronym
   end
+  
+  def persisted_acronym
+    changed_attributes['acronym'] || acronym
+  end
+
+  def allowed_event_timeslots
+    return parent.allowed_event_timeslots if sub_conference?
+    (allowed_event_timeslots_csv || '').split(',').map(&:to_i)
+  end
+
+  def allowed_event_timeslots=(list)
+    csv=list.to_set.sort.join(',')
+    update_attributes(allowed_event_timeslots_csv: csv)
+  end
+  
+  def allowed_durations_minutes
+    return [] if timeslot_duration.blank?
+    allowed_event_timeslots.map{|ts| ts*timeslot_duration}
+  end
+  
+  def allowed_durations_minutes_csv
+    allowed_durations_minutes.join(',')
+  end
+
+  def allowed_durations_minutes_csv=(csv)
+    return if default_timeslots.blank? or timeslot_duration.blank? or max_timeslots.blank?
+    list = csv.split(',').map(&:to_i)
+    timeslots=(1..max_timeslots).select{|ts| (ts*timeslot_duration).in?(list)} << default_timeslots
+    update_attributes(allowed_event_timeslots: timeslots)
+  end
 
   private
-
+  
   def update_timeslots
     return unless saved_change_to_timeslot_duration? and events.count.positive?
     old_duration = timeslot_duration_before_last_save
@@ -201,16 +272,16 @@ class Conference < ApplicationRecord
     PaperTrail.request.enable_model(Event)
   end
 
-  # if a conference has multiple days, they sould not overlap
+  # if a conference has multiple days, they should not overlap
   def days_do_not_overlap
     return if days.count < 2
-
-    sorted_days = days.sort_by(&:start_date)
-    yesterday = sorted_days[0]
-    sorted_days[1..-1].each { |day|
-      if day.start_date < yesterday.end_date
-        errors.add(:days, "day #{day} overlaps with day before")
-      end
-    }
+    days.each{ |day| day.does_not_overlap }
+  end
+  
+  def default_timeslot_must_not_exceed_max_timeslot
+    return if default_timeslots.blank? or max_timeslots.blank?
+    if default_timeslots > max_timeslots
+      errors.add(:default_timeslots, :exceeds, what: I18n.t('activerecord.attributes.conference.max_timeslots'))
+    end
   end
 end

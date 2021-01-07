@@ -24,6 +24,7 @@ module TicketServerAdapter
       ticket = rt.ticket_create('Subject' => args[:title],
                                 'Queue'      => @server.queue,
                                 'Owner'      => 'Nobody',
+                                'Status'     => 'resolved',
                                 'Requestors' => args[:requestors].collect { |r| "#{r[:name]} <#{r[:email]}>" })
 
       begin
@@ -50,7 +51,7 @@ module TicketServerAdapter
       begin
         rt.ticket_comment(remote_id, 'Action' => 'correspond', 'Text' => body)
       ensure
-        rt.ticket_update(remote_id, old_ticket.slice('Subject', 'Requestors'))
+        rt.ticket_update(remote_id, old_ticket.slice('Subject', 'Requestors', 'Status'))
       end
     end
   end

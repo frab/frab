@@ -37,6 +37,7 @@ class UsersControllerTest < ActionController::TestCase
     put :update, params: { user: { id: @user.id, email: 'admin@example.org' }, person_id: @user.person.id, conference_acronym: @conference.acronym }
     assert_redirected_to edit_crew_user_path(@user.person)
     get :edit, params: { person_id: @user.person.id, conference_acronym: @conference.acronym }
+    assert_equal 'User was successfully updated.', flash['notice']
     assert_response :success
   end
 

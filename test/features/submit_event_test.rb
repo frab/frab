@@ -55,8 +55,8 @@ class SubmitEventTest < FeatureTest
     click_on 'Participate'
     click_on 'Submit a new event', match: :first
 
-    fill_in 'title', with: 'fake-title', match: :first
-    select '00:45', from: 'Time slots'
+    fill_in 'Title', with: 'fake-title', match: :first
+    select '00:45', from: 'Duration'
     click_on 'Create event'
 
     assert_content page, 'Events you already submitted'

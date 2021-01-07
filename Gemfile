@@ -16,7 +16,7 @@ end
 gem 'rails', '~> 5.2.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '< 6'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
@@ -30,7 +30,7 @@ gem 'sqlite3', group: :sqlite3
 gem 'puma'
 
 # Capistrano for deployment
-group :capistrano do
+group :capistrano, optional: true do
   gem 'capistrano', '3.8.2', require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
@@ -48,9 +48,9 @@ gem 'rangesliderjs-rails', '~> 2.3'
 gem 'jbuilder'
 
 gem 'activemodel-serializers-xml'
-gem 'activeresource', github: 'rails/activeresource', branch: 'master'
-gem 'acts_as_commentable'
+gem 'activeresource'
 gem 'bcrypt'
+gem 'bootsnap'
 gem 'cocoon'
 gem 'devise'
 gem 'dotenv-rails'
@@ -59,16 +59,21 @@ gem 'haml'
 gem 'http_accept_language'
 gem 'localized_language_select', github: 'frab/localized_language_select', branch: 'master'
 gem 'nokogiri'
-gem 'paperclip'
+gem 'omniauth-google-oauth2'
+gem 'gitlab_omniauth-ldap'
+gem 'omniauth-rails_csrf_protection'
+gem 'kt-paperclip'
 gem 'paper_trail'
 gem 'prawn', '< 1.0'
 gem 'prawn_rails'
-gem 'pundit', github: 'elabs/pundit', branch: 'master'
+gem 'pundit'
 gem 'ransack'
 gem 'redcarpet'
+gem 'repost', '~> 0.3.4'
 gem 'ri_cal'
 gem 'roust', github: 'frab/roust', branch: 'disallowed-ticket-1-fix'
 gem 'rqrcode'
+gem 'scanf'
 gem 'simple_form'
 gem 'sucker_punch'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
@@ -77,6 +82,11 @@ gem 'yard'
 
 group :production do
   gem 'exception_notification'
+end
+
+group :productionplus, optional: true do
+  gem 'activerecord-session_store'
+  gem 'dalli'
 end
 
 group :development, :test do
@@ -97,7 +107,7 @@ group :test do
   gem 'poltergeist'
 end
 
-group :doc do
+group :doc, optional: true do
   # gem 'rails-erd'      # graph
   # gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
 end

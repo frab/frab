@@ -3,6 +3,10 @@ FactoryBot.define do
     "frabcon#{n}"
   end
 
+  sequence :conference_title do |n|
+    "FrabCon#{2000+n}"
+  end
+
   trait :three_days do
     after :create do |conference|
       conference.days << create(:day, conference: conference,
@@ -66,6 +70,32 @@ FactoryBot.define do
     end
   end
 
+  trait :with_review_metrics do
+    after :create do |conference|
+      2.times do
+        review_metric = create(:review_metric, conference: conference)
+        review_metric.save
+      end
+    end
+  end
+
+
+  trait :with_reviews do
+    after :create do |conference|
+      reviewer = create(:person)
+      score = 1
+      conference.events.each do |event|
+        conference.review_metrics.each do |review_metric|
+          event_rating = create(:event_rating, event: event, rating: score)
+          create(:review_score, event_rating: event_rating, review_metric: review_metric, score: score)
+          
+          score += 1
+          score = 1 if score > 5
+        end
+      end
+    end
+  end
+
   trait :with_parent_conference do
     after :create do |conference|
       unless conference.subs.any?
@@ -77,17 +107,18 @@ FactoryBot.define do
   trait :with_sub_conference do
     after :create do |conference|
       if conference.main_conference?
-        create(:conference, parent: conference, title: "#{conference.title} sub")
+        create(:conference, parent: conference)
       end
     end
   end
 
   factory :conference do
-    title { 'FrabCon' }
+    title { generate(:conference_title) }
     acronym { generate(:conference_acronym) }
     timeslot_duration { 15 }
     default_timeslots { 4 }
     max_timeslots { 20 }
+    allowed_event_timeslots_csv { '3,4' }
     feedback_enabled { true }
     expenses_enabled { true }
     transport_needs_enabled { true }
@@ -98,6 +129,9 @@ FactoryBot.define do
     factory :three_day_conference, traits: [:three_days, :with_sub_conference]
     factory :three_day_conference_with_events, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference]
     factory :three_day_conference_with_events_and_speakers, traits: [:three_days, :with_rooms, :with_events, :with_sub_conference, :with_speakers]
+    factory :three_day_conference_with_review_metrics_and_events, traits: [:three_days, :with_rooms, :with_events, :with_review_metrics]
+    factory :three_day_conference_with_review_metrics_and_events_and_reviews, traits: [:three_days, :with_rooms, :with_events, :with_review_metrics, :with_reviews]
+    factory :three_day_conference_with_review_metrics_and_events_and_speakers, traits: [:three_days, :with_rooms, :with_events, :with_review_metrics, :with_sub_conference, :with_speakers]
     factory :sub_conference_with_events, traits: [:with_rooms, :with_events, :with_parent_conference]
     factory :past_days_conference, traits: [:past_three_days]
   end

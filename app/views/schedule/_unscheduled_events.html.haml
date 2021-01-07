@@ -1,5 +1,10 @@
 - @unscheduled_events.each do |event|
   %li.unscheduled-event{ id: "event_#{event.id}",
           :"data-update-url" => schedule_update_event_path(id: event.id),
+          :"data-show-event-url" => event_path(id: event.id),
           :"data-height" => (event.time_slots * 20 - 7) }
-    = link_to event.title, "#"
+    %span{id: 'add'}
+      = link_to event.title, "#"
+    %span{id: 'show'}
+      = link_to image_tag('external_link.svg', style: 'height:0.8rem;', alt: '[show]'), event, target: '_blank'
+

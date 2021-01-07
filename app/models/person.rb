@@ -48,10 +48,10 @@ class Person < ApplicationRecord
     joins(events: :conference).where('conferences.id': conference).distinct
   }
   scope :speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.state': Event::ACCEPTED).distinct
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKERS).where('events.state': Event::ACCEPTED).distinct
   }
   scope :publicly_speaking_at, ->(conference) {
-    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKER).where('events.public': true).where('events.state': Event::ACCEPTED).distinct
+    joins(events: :conference).where('conferences.id': conference).where('event_people.event_role': EventPerson::SPEAKERS).where('events.public': true).where('events.state': Event::ACCEPTED).distinct
   }
   scope :confirmed, ->(conference) {
     joins(events: :conference).where('conferences.id': conference).where('events.state': %w(confirmed scheduled))
@@ -95,10 +95,10 @@ class Person < ApplicationRecord
     found.positive?
   end
 
-  def submitter_of?(conferences)
+  def subscriber_of?(conferences)
     Person.joins(events: :conference)
       .where('conferences.id': conferences)
-      .where('event_people.event_role': EventPerson::SPEAKER)
+      .where('event_people.event_role': EventPerson::SUBSCRIBERS)
       .where(id: id)
       .any?
   end
@@ -106,7 +106,7 @@ class Person < ApplicationRecord
   def active_in_any_conference?
     found = Conference.joins(events: [{ event_people: :person }])
       .where(Event.arel_table[:state].in(Event::ACCEPTED))
-      .where(EventPerson.arel_table[:event_role].in(EventPerson::SPEAKER))
+      .where(EventPerson.arel_table[:event_role].in(EventPerson::SUBSCRIBERS))
       .where(Person.arel_table[:id].eq(id))
       .count
     found.positive?
@@ -117,15 +117,15 @@ class Person < ApplicationRecord
   end
 
   def events_as_presenter_in(conference)
-    events.where('event_people.event_role': EventPerson::SPEAKER, conference: conference)
+    events.where('event_people.event_role': EventPerson::SUBSCRIBERS, conference: conference)
   end
 
   def events_as_presenter_not_in(conference)
-    events.where('event_people.event_role': EventPerson::SPEAKER).where.not(conference: conference)
+    events.where('event_people.event_role': EventPerson::SUBSCRIBERS).where.not(conference: conference)
   end
 
   def public_and_accepted_events_as_speaker_in(conference)
-    events.is_public.accepted.where('events.state': %w(confirmed scheduled), 'event_people.event_role': EventPerson::SPEAKER, conference_id: conference)
+    events.is_public.accepted.where('events.state': %w(confirmed scheduled), 'event_people.event_role': EventPerson::SPEAKERS, conference_id: conference)
   end
 
   def role_state(conference)
@@ -136,6 +136,33 @@ class Person < ApplicationRecord
     event_people.presenter_at(conference).each do |ep|
       ep.role_state = state
       ep.save!
+    end
+  end
+
+  def update_from_omniauth(auth)
+    unless ENV['OVERRIDE_PROFILE_PHOTO']
+      return if avatar.present?
+    end
+    
+    begin
+      new_image_data = nil
+      image_url = auth&.info&.image
+      if image_url
+        new_image_data = open(image_url).read
+      else
+        new_image_data = auth&.extra&.raw_info[:thumbnailphoto]&.first # Maybe Intel-specific
+      end
+      return unless new_image_data
+      
+      if avatar.exists?
+        existing_avatar_data = Paperclip.io_adapters.for(avatar).read
+        return if existing_avatar_data == new_image_data
+      end
+        
+      update_attributes(avatar: StringIO.new(new_image_data),
+                        avatar_file_name: auth.provider)
+    rescue => e
+      Rails.logger.error "Person::update_from_omniauth(provider=#{auth.provider}) exception during image import: #{e}; Ignored"
     end
   end
 
@@ -171,7 +198,7 @@ class Person < ApplicationRecord
   end
 
   def average_feedback_as_speaker
-    events = event_people.where(event_role: EventPerson::SPEAKER).map(&:event)
+    events = event_people.where(event_role: EventPerson::SPEAKERS).map(&:event)
     feedback = 0.0
     count = 0
     events.each do |event|

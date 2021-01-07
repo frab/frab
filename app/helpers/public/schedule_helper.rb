@@ -1,6 +1,14 @@
 module Public::ScheduleHelper
   require 'scanf'
 
+  def public_program_event_url(event)
+    if event.conference.program_export_base_url.present?
+      File.join event.conference.program_export_base_url, "events/#{event.id}.html"
+    else
+      url_for(public_event_url(id: event.id))
+    end
+  end
+
   def schedule_title
     t('public.schedule.title', title: @conference.title)
   end

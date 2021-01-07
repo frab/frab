@@ -55,6 +55,9 @@ class ConferencesController < BaseConferenceController
 
   def edit_notifications
     authorize @conference, :orga?
+    @accepting = @conference.events.where(state: 'accepting')
+    @rejecting = @conference.events.where(state: 'rejecting')
+    @confirmed = @conference.events.where(state: 'confirmed').scheduled
     respond_to do |format|
       format.html
     end
@@ -66,7 +69,7 @@ class ConferencesController < BaseConferenceController
       format.html
     end
   end
-
+  
   def edit_schedule
     authorize @conference, :orga?
     respond_to do |format|
@@ -88,14 +91,14 @@ class ConferencesController < BaseConferenceController
     end
   end
 
-  def edit_ticket_server
+  def edit_classifiers
     authorize @conference, :orga?
     respond_to do |format|
       format.html
     end
   end
 
-  def edit_classifiers
+  def edit_review_metrics
     authorize @conference, :orga?
     respond_to do |format|
       format.html
@@ -122,7 +125,7 @@ class ConferencesController < BaseConferenceController
         format.html { redirect_to(conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_created')) }
       else
         @possible_parents = Conference.where(parent: nil)
-        flash[:errors] = @conference.errors.full_messages.join
+        flash_model_errors(@conference)
         format.html { render action: 'new' }
       end
     end
@@ -132,7 +135,9 @@ class ConferencesController < BaseConferenceController
   def update
     authorize @conference, :orga?
     respond_to do |format|
-      if @conference.update_attributes(existing_conference_params)
+      if not params[:conference]
+        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_not_updated')) }
+      elsif @conference.update_attributes(existing_conference_params)
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_updated')) }
       else
         flash_model_errors(@conference)
@@ -160,13 +165,16 @@ class ConferencesController < BaseConferenceController
 
   private
 
+  # find the nested form which was used for the update, by looking at nested
+  # attributes
   def get_previous_nested_form(parameters)
     parameters.keys.each { |name|
       attribs = name.index('_attributes')
       next if attribs.nil?
       next unless attribs.positive?
+
       test = name.gsub('_attributes', '')
-      next unless %w(rooms days schedule notifications tracks classifiers ticket_server).include?(test)
+      next unless %w(rooms days schedule notifications tracks review_metrics classifiers ticket_server).include?(test)
       return "edit_#{test}"
     }
     'edit'
@@ -181,10 +189,12 @@ class ConferencesController < BaseConferenceController
 
   def allowed_params
     [
-      :acronym, :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
+      :acronym, :allowed_event_types_extras, :attachment_title_is_freeform, :bcc_address,
+      :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
       :event_state_visible, :expenses_enabled, :feedback_enabled, :max_timeslots, :program_export_base_url,
       :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_open, :schedule_version, :ticket_type,
       :title, :transport_needs_enabled,
+      :allowed_event_types_presets => [],
       languages_attributes: %i(language_id code _destroy id),
       ticket_server_attributes: %i(url user password queue _destroy id),
       notifications_attributes: %i(id locale accept_subject accept_body reject_subject reject_body schedule_subject schedule_body _destroy)
@@ -198,7 +208,7 @@ class ConferencesController < BaseConferenceController
                  [:parent_id]
                else
                  [
-                   :timezone, :timeslot_duration,
+                   :timezone, :timeslot_duration, :allowed_durations_minutes_csv,
                    days_attributes: %i(start_date end_date _destroy id)
                  ]
                end
@@ -213,19 +223,20 @@ class ConferencesController < BaseConferenceController
 
     if @conference.main_conference?
       allowed += [
-        :timezone, :timeslot_duration,
+        :timezone, :timeslot_duration, :allowed_durations_minutes_csv,
         days_attributes: %i(start_date end_date _destroy id)
       ]
     end
 
     if @conference.main_conference? || policy(@conference.parent).manage?
       allowed += [
-	classifiers_attributes: %i(name description _destroy id),
+        classifiers_attributes: %i(name description _destroy id),
+        review_metrics_attributes: %i(name description _destroy id),
         rooms_attributes: %i(name size public rank _destroy id),
         tracks_attributes: %i(name color _destroy id)
       ]
     end
-
+    
     params.require(:conference).permit(allowed)
   end
 end

@@ -1,0 +1,8 @@
+- conferences = Conference.creation_order.has_submission(current_user.person).limit(5)
+- if conferences.to_a.count > 1
+  %li.dropdown
+    = link_to t("switch_conference", default: "Switch conference"), "#", class: "dropdown-toggle"
+    %ul.dropdown-menu
+      - conferences.each do |conference|
+        - unless @conference == conference
+          %li= link_to conference.acronym, cfp_person_path(conference_acronym: conference.acronym)

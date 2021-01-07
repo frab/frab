@@ -1,5 +1,4 @@
 class ImportExportHelper
-  DEBUG = true
   EXPORT_DIR = 'tmp/frab_export'.freeze
 
   def initialize(conference = nil)
@@ -18,21 +17,24 @@ class ImportExportHelper
     FileUtils.mkdir_p(@export_dir)
 
     ActiveRecord::Base.transaction do
+      save_schema_version
       dump 'conference', @conference
       dump 'conference_tracks', @conference.tracks
       dump 'conference_cfp', @conference.call_for_participation
       dump 'conference_ticket_server', @conference.ticket_server
       dump 'conference_rooms', @conference.rooms
       dump 'conference_days', @conference.days
+      dump 'conference_review_metrics', @conference.review_metrics
       dump 'conference_languages', @conference.languages
       events = dump 'events', @conference.events
       dump_has_many 'tickets', @conference.events, 'ticket'
       dump_has_many 'event_people', @conference.events, 'event_people'
       dump_has_many 'event_feedbacks', @conference.events, 'event_feedbacks'
-      people = dump_has_many 'people', @conference.events, 'people'
+      people = dump_has_many 'people', @conference.events, 'people_involved_or_reviewing'
       dump_has_many 'event_links', @conference.events, 'links'
       attachments = dump_has_many 'event_attachments', @conference.events, 'event_attachments'
       dump_has_many 'event_ratings', @conference.events, 'event_ratings'
+      dump_has_many 'event_review_scores', @conference.events, 'review_scores'
       dump_has_many 'people_phone_numbers', people, 'phone_numbers'
       dump_has_many 'people_im_accounts', people, 'im_accounts'
       dump_has_many 'people_links', people, 'links'
@@ -40,7 +42,6 @@ class ImportExportHelper
       dump 'people_availabilities', Availability.where(conference: @conference, person: people)
       dump_has_many 'users', people, 'user'
       # TODO languages
-      # TODO videos
       # TODO notifications
       export_paperclip_files(events, people, attachments)
     end
@@ -56,9 +57,10 @@ class ImportExportHelper
 
     # old => new
     @mappings = {
-      conference: {}, tracks: {}, cfp: {}, rooms: {}, days: {},
+      conference: {}, tracks: {}, cfp: {}, rooms: {}, days: {}, review_metrics: {},
       people: {}, users: {},
       events: {},
+      event_ratings: {},
       people_user: {}
     }
 
@@ -66,6 +68,8 @@ class ImportExportHelper
       unpack_paperclip_files
       restore_all_data
     end
+    
+    enable_callbacks
   end
 
   private
@@ -77,7 +81,7 @@ class ImportExportHelper
         puts "conference #{c} already exists!"
         exit
       end
-      puts "    #{c}" if DEBUG
+      puts "    #{c}" if verbose?
       c.save!
       @mappings[:conference][id] = c.id
       @conference_id = c.id
@@ -118,6 +122,7 @@ class ImportExportHelper
             current_sign_in_at current_sign_in_ip last_sign_in_at
             last_sign_in_ip encrypted_password
             remember_created_at remember_token
+            provider uid
             reset_password_token role sign_in_count updated_at).each { |var|
           obj.send("#{var}=", yaml[var])
         }
@@ -135,10 +140,12 @@ class ImportExportHelper
       if (file = import_file('events/logos', id, obj.logo_file_name))
         obj.logo = file
       end
+      obj.regenerate_invite_token if Event.where(invite_token: obj.invite_token).any?
       obj.save!
       @mappings[:events][id] = obj.id
     end
 
+    # updates the mappings: event_ratings
     # uses mappings: events, people
     restore_events_data
 
@@ -150,6 +157,8 @@ class ImportExportHelper
   end
 
   def restore_conference_data
+    check_schema_version_on_import
+
     restore_multiple('conference_tracks', Track) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
@@ -182,6 +191,13 @@ class ImportExportHelper
       obj.attachable_id = @conference_id
       obj.save!
     end
+        
+    restore_multiple('conference_review_metrics', ReviewMetric) do |id, obj|
+      obj.conference_id = @conference_id
+      obj.save!
+      @mappings[:review_metrics][id] = obj.id
+    end
+
   end
 
   def restore_events_data
@@ -204,6 +220,13 @@ class ImportExportHelper
     restore_multiple('event_ratings', EventRating) do |_id, obj|
       obj.event_id = @mappings[:events][obj.event_id]
       obj.person_id = @mappings[:people][obj.person_id]
+      obj.save! if obj.valid?
+      @mappings[:event_ratings][_id] = obj.id
+    end
+
+    restore_multiple('event_review_scores', ReviewScore) do |_id, obj|
+      obj.event_rating_id = @mappings[:event_ratings][obj.event_rating_id]
+      obj.review_metric_id = @mappings[:review_metrics][obj.review_metric_id]
       obj.save! if obj.valid?
     end
 
@@ -280,26 +303,32 @@ class ImportExportHelper
     File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f|
       if obj.respond_to?('collect')
         f.puts obj.collect(&:attributes).to_yaml
-      else
+      elsif obj.respond_to?('attributes')
         f.puts obj.attributes.to_yaml
+      else
+        f.puts obj.to_yaml
       end
     }
     obj
   end
 
-  def restore(name, obj)
-    puts "[ ] restore #{name}" if DEBUG
+  def read_yaml_from_file(name)
+    puts "[ ] restore #{name}" if verbose?
     file = File.join(@export_dir, name) + '.yaml'
     return unless File.readable? file
-    records = YAML.load_file(file)
+    YAML.load_file(file)
+  end
+
+  def restore(name, obj)
+    records = read_yaml_from_file(name)
+    return unless records
     tmp = obj.new(records)
     tmp.id = nil
     yield records['id'], tmp
   end
 
   def restore_multiple(name, obj)
-    puts "[ ] restore all #{name}" if DEBUG
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    records = read_yaml_from_file(name)
     records.each do |record|
       tmp = obj.new(record)
       tmp.id = nil
@@ -308,8 +337,7 @@ class ImportExportHelper
   end
 
   def restore_users(name = 'users', obj = User)
-    puts "[ ] restore all #{name}" if DEBUG
-    records = YAML.load_file(File.join(@export_dir, name) + '.yaml')
+    records = read_yaml_from_file(name)
     records.each do |record|
       tmp = obj.new(record)
       tmp.id = nil
@@ -346,6 +374,22 @@ class ImportExportHelper
     system('tar', *['-xz', '-f', path, '-C', @export_dir].flatten)
   end
 
+  def save_schema_version
+    dump 'schema_version', ActiveRecord::Migrator.current_version
+  end
+
+  def check_schema_version_on_import
+    importing_version = read_yaml_from_file('schema_version')
+    return if importing_version == ActiveRecord::Migrator.current_version
+
+    if not importing_version
+      puts "WARNING: You are importing data created with an older version of frab."
+    else
+      puts "WARNING: You are importing data created with frab with schema version #{importing_version}"
+    end
+    puts "The import may be incomplete and/or incorrect (but can be OK also.)"
+  end
+
   def disable_callbacks
     EventPerson.skip_callback(:save, :after, :update_speaker_count)
     Event.skip_callback(:save, :after, :update_conflicts)
@@ -353,16 +397,29 @@ class ImportExportHelper
     EventRating.skip_callback(:save, :after, :update_average)
     EventFeedback.skip_callback(:save, :after, :update_average)
   end
-
+  
+  def enable_callbacks
+    EventPerson.set_callback(:save, :after, :update_speaker_count)
+    Event.set_callback(:save, :after, :update_conflicts)
+    Availability.set_callback(:save, :after, :update_event_conflicts)
+    EventRating.set_callback(:save, :after, :update_average)
+    EventFeedback.set_callback(:save, :after, :update_average)
+  end
+  
   def update_counters
     ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
     update_event_average('event_ratings', 'average_rating')
     update_event_average('event_feedbacks', 'average_feedback')
+    Event.all.each(&:recalculate_review_averages!)
   end
 
   def update_event_average(table, field)
     ActiveRecord::Base.connection.execute "UPDATE events SET #{field}=(
        SELECT sum(rating)/count(rating)
        FROM #{table} WHERE events.id = #{table}.event_id)"
+  end
+
+  def verbose?
+    not Rails.env.test?
   end
 end

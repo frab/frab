@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219153146) do
+ActiveRecord::Schema.define(version: 2020_11_14_165533) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.integer "day_id"
     t.index ["conference_id"], name: "index_availabilities_on_conference_id"
     t.index ["person_id"], name: "index_availabilities_on_person_id"
+  end
+
+  create_table "average_review_scores", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "review_metric_id"
+    t.float "score"
+    t.index ["event_id", "review_metric_id"], name: "index_average_review_scores_on_event_id_and_review_metric_id", unique: true
+    t.index ["event_id"], name: "index_average_review_scores_on_event_id"
+    t.index ["review_metric_id"], name: "index_average_review_scores_on_review_metric_id"
   end
 
   create_table "call_for_participations", force: :cascade do |t|
@@ -99,6 +108,10 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.boolean "schedule_open", default: false, null: false
     t.datetime "start_date"
     t.datetime "end_date"
+    t.boolean "attachment_title_is_freeform", default: true
+    t.string "allowed_event_types", default: "lecture;workshop;podium;lightning_talk;meeting;film;concert;djset;performance;other"
+    t.string "allowed_event_timeslots_csv", limit: 400
+    t.string "bcc_address", limit: 255
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
@@ -212,6 +225,7 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.string "recording_license", limit: 255
     t.text "tech_rider"
     t.string "invite_token"
+    t.string "video_url", limit: 255
     t.index ["conference_id"], name: "index_events_on_conference_id"
     t.index ["event_type"], name: "index_events_on_type"
     t.index ["guid"], name: "index_events_on_guid", unique: true
@@ -221,7 +235,7 @@ ActiveRecord::Schema.define(version: 20180219153146) do
 
   create_table "expenses", force: :cascade do |t|
     t.string "name"
-    t.decimal "value", precision: 6, scale: 4
+    t.decimal "value", precision: 9, scale: 4
     t.boolean "reimbursed"
     t.integer "person_id"
     t.integer "conference_id"
@@ -314,6 +328,26 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.index ["person_id"], name: "index_phone_numbers_on_person_id"
   end
 
+  create_table "review_metrics", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "conference_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conference_id"], name: "index_review_metrics_on_conference_id"
+    t.index ["name", "conference_id"], name: "index_review_metrics_on_name_and_conference_id", unique: true
+  end
+
+  create_table "review_scores", force: :cascade do |t|
+    t.integer "event_rating_id"
+    t.integer "review_metric_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_rating_id"], name: "index_review_scores_on_event_rating_id"
+    t.index ["review_metric_id"], name: "index_review_scores_on_review_metric_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.integer "conference_id", null: false
     t.string "name", limit: 255, null: false
@@ -397,6 +431,8 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.string "provider"
+    t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -415,15 +451,6 @@ ActiveRecord::Schema.define(version: 20180219153146) do
     t.string "associated_type", limit: 255
     t.text "object_changes", limit: 4194304
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  end
-
-  create_table "videos", force: :cascade do |t|
-    t.integer "event_id"
-    t.string "url", limit: 255
-    t.string "mimetype", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_videos_on_event_id"
   end
 
 end

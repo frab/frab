@@ -1,6 +1,8 @@
 class PeopleController < BaseConferenceController
   before_action :manage_only!, except: %i[show]
   include Searchable
+  
+  MAX_PERSONS_FOR_DROPDOWN_FILTER = 99
 
   # GET /people
   # GET /people.json
@@ -33,6 +35,27 @@ class PeopleController < BaseConferenceController
 
     respond_to do |format|
       format.html
+    end
+  end
+  
+  # GET /lookup.json
+  def lookup
+    authorize Person, :manage?
+    expires_in 3.minutes
+    @people = search Person, true
+    if not @people or @people.blank?
+      @msg = t('people_module.filter.not_found')
+    elsif @people.count == 1
+      @msg = ""
+    elsif @people.count > MAX_PERSONS_FOR_DROPDOWN_FILTER
+      @people = []
+      @too_many = t('people_module.filter.too_many')
+    else
+      @msg = t('people_module.filter.pick_one', count: @people.count)
+    end
+
+    respond_to do |format|
+      format.json
     end
   end
 
@@ -115,7 +138,14 @@ class PeopleController < BaseConferenceController
 
   private
 
-  def search(people)
+  def search(people, search_by_id = false)
+    if search_by_id
+      if params[:term] =~ /^[[:digit:]]+$/
+        @search = people.where(id: params[:term].to_i)
+        return @search if @search
+      end
+    end
+    
     @search = perform_search(people, params,
       %i(first_name_cont last_name_cont public_name_cont email_cont
       abstract_cont description_cont user_email_cont))

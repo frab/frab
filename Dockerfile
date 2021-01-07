@@ -5,7 +5,9 @@ RUN apt-get update && \
     apt-get clean && \ 
     rm -rf /var/lib/apt/lists/*
 
-RUN adduser --disabled-password --gecos "FRAB" --uid 1000 frab
+ARG FRAB_UID="1000"
+
+RUN adduser --disabled-password --gecos "FRAB" --uid $FRAB_UID frab
 
 COPY . /home/frab/app
 RUN chown -R frab:frab /home/frab/app
@@ -27,11 +29,11 @@ ENV RACK_ENV=production \
     FRAB_HOST=localhost \
     FRAB_PROTOCOL=http \
     RAILS_SERVE_STATIC_FILES=true \
+    RAILS_LOG_TO_STDOUT=true \
     CAP_USER=frab \
     FROM_EMAIL=frab@localhost \
     SMTP_ADDRESS=172.17.0.1 \
     SMTP_PORT=25 \
-    SMTP_NOTLS=true \
     DATABASE_URL=sqlite3://localhost/home/frab/data/database.db
 
 CMD ["/home/frab/app/docker-cmd.sh"]
