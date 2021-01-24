@@ -26,7 +26,8 @@
   %fieldset.inputs
     %legend= t('cfp.detailed_description')
     = f.input :abstract, input_html: {rows: 4}, hint: t('cfp.event_abstract_hint')
-    = f.input :description,input_html: {rows: 4}, hint: t('cfp.event_description_hint')
+    - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
+      = f.input :description,input_html: {rows: 4}, hint: t('cfp.event_description_hint')
   %fieldset.inputs
     %legend= t('notes')
     = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')
