@@ -2085,6 +2085,7 @@ ru:
     events_with_unusual_state_speakers: события со спикерами в проблемном состоянии
     events_without_abstract: события без абстрактных
     events_without_speaker: события без спикера
+    events_without_subtitle: события без субтитров
     expected_speakers: отсутствующие колонки в течение следующих 4 часов
     found_x_results: Найдено результаты %{nb}.
     lectures_not_confirmed: новые или обзорные лекции
