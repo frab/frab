@@ -2085,6 +2085,7 @@ pt-BR:
     events_with_unusual_state_speakers: eventos com alto-falantes em um estado problemático
     events_without_abstract: eventos sem resumo
     events_without_speaker: eventos sem orador
+    events_without_subtitle: eventos sem legenda
     expected_speakers: alto-falantes ausentes pelas próximas 4 horas
     found_x_results: Encontrado %{nb} resultados.
     lectures_not_confirmed: palestras que são novas ou revisão
