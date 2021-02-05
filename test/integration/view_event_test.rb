@@ -18,7 +18,7 @@ class ViewEventTest < ActionDispatch::IntegrationTest
     get "/#{@conference.acronym}/events"
     assert_response :success
     assert_includes @response.body, 'Introducing frap'
-    assert_includes @response.body, %'by <a href="/en/#{@conference.acronym}/people/#{@conference.events.last.speakers.last.id}">Fred Besen</a>'
+    assert_includes @response.body, %'by <a href="/en/#{@conference.acronym}/people/#{@conference.events.last.speakers.last.id}">#{@conference.events.last.speakers.last.public_name}</a>'
   end
 
   test 'can view my events table' do

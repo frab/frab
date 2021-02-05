@@ -16,6 +16,7 @@
     = f.input :title, hint: t('conferences_module.inputs.hints.title')
     = f.input :acronym, hint: t('conferences_module.inputs.hints.acronym')
     = f.input :email, hint: t('conferences_module.inputs.hints.email')
+    = f.input :bcc_address, hint: t('conferences_module.inputs.hints.bcc_address')
     = f.input :color, hint: t('conferences_module.inputs.hints.color'), input_html: { class: 'color' }
   -if @conference.main_conference?
     %fieldset.inputs

@@ -31,6 +31,7 @@ de:
         acronym: Kürzel
         allowed_event_types_as_list: Zulässige Eventtypen
         attachment_title_is_freeform: Der Titel des Anhangs ist Freiform
+        bcc_address: BCC-Adresse
         bulk_notification_enabled: Massen-Mailings
         color: Farbe
         default_recording_license: Standard-Aufnahmelizenz
@@ -246,6 +247,10 @@ de:
   cancel: Abbrechen
   cfp:
     abstract_hint: Ein kurzer, prägnanter Absatz zu Ihrer Person. (HTML)
+    attachements_may_be_saved: |
+      Hinweis: Informationen, die Sie hier eingeben, einschließlich Dateianhänge und Links, können sein
+      behalten und dem Konferenzteam zur Verfügung stehen, auch nachdem Sie es aus dem Internet entfernt haben
+      Veranstaltung. Wenden Sie sich an das Konferenzteam, falls die Daten umgehend entfernt werden müssen.
     avatar_hint: Laden Sie ein neues Bild hoch.
     back: Zurück
     basic_information: Basisinformationen
@@ -480,6 +485,10 @@ de:
           Wenn diese Option ausgewählt ist, können Einreicher einen beliebigen Titel angeben
           für Dateien laden sie als Anhänge hoch. Wenn diese Option deaktiviert ist, werden sie
           muss zwischen einer Reihe vorkonfigurierter Titel wählen.
+        bcc_address: |
+          Hier können Sie eine E-Mail-Adresse angeben. frab wird diese Adresse senden a
+          Kopie jeder E-Mail, die an die Einsender gesendet wird. Sie können dies als eine Möglichkeit verwenden, um zu behalten
+          ein Protokoll aller gesendeten E-Mails.
         bulk_notification_enabled: |
           Wenn aktiviert, werden die Einreicher über angenommene oder abgelehnte Events nicht sofort
           informiert, sondern gesammelt in Massen-Mailings über das eingebaute E-Mail-System oder einen
@@ -1891,6 +1900,10 @@ de:
     attending_hint: Markieren Sie die Person als "erschienen".
     edit_person: Person bearbeiten
     edit_person_hint: Bearbeiten Sie diese Person.
+    filter:
+      not_found: Nicht gefunden.
+      pick_one: "- Wähle einen der folgenden %{count} Namen -"
+      too_many: Zu viele Namen zum Anzeigen. Filter verwenden.
     inputs:
       hints:
         event_role: |
@@ -2053,6 +2066,7 @@ de:
     events_with_unusual_state_speakers: Events mit Sprechern in problematischen States
     events_without_abstract: Events ohne Zusammenfassung
     events_without_speaker: Events ohne Sprecher
+    events_without_subtitle: Ereignisse ohne Untertitel
     expected_speakers: fehlende Sprecher in den nächsten vier Stunden
     found_x_results: Es wurden %{nb} Ergebnisse gefunden.
     lectures_not_confirmed: Vorträge, die im Status neu oder review sind

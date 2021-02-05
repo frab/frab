@@ -24,6 +24,7 @@ zh:
         acronym: 缩写
         allowed_event_types_as_list: 允许的事件类型
         attachment_title_is_freeform: 附件标题为自由格式
+        bcc_address: 密件抄送地址
         bulk_notification_enabled: 批量通知已启用
         color: 颜色
         default_recording_license: 默认录制许可证
@@ -218,6 +219,10 @@ zh:
   cancel: 取消
   cfp:
     abstract_hint: 一个简短的段落，简洁地描述你。 (HTML)
+    attachements_may_be_saved: |
+      注意：您在此处输入的信息（包括文件附件和链接）可能是
+      保留下来，即使您将其从
+      事件。如果需要立即删除数据，请联系会议工作人员。
     avatar_hint: 上传一张新照片。
     back: 背部
     basic_information: 基本信息
@@ -453,6 +458,10 @@ zh:
           如果选择此选项，提交者可以提供他们想要的任何标题
           他们以附件形式上传的文件。如果取消选择此选项，则它们
           必须在一组预配置的标题之间进行选择。
+        bcc_address: |
+          您可以在此处指定一个电子邮件地址。 Frab会将此地址发送给
+          发送给提交者的每封邮件的副本。您可以使用它来保持
+          所有已发送电子邮件的日志。
         bulk_notification_enabled: |
           如果您启用此功能，通知将通过邮件批量发送
           或票子系统。
@@ -1872,6 +1881,10 @@ zh:
     attending_hint: 将人标记为礼物。
     edit_person: 编辑人员
     edit_person_hint: 编辑此人的数据。
+    filter:
+      not_found: 未找到。
+      pick_one: "-从下面选择%{count}名称之一-"
+      too_many: 名称太多，无法显示。使用过滤器。
     inputs:
       hints:
         event_role: |
@@ -2038,6 +2051,7 @@ zh:
     events_with_unusual_state_speakers: 发言人处于问题状态
     events_without_abstract: 没有摘要的事件
     events_without_speaker: 没有演讲者的活动
+    events_without_subtitle: 没有字幕的事件
     expected_speakers: 在接下来的4个小时里缺少扬声器
     found_x_results: 找到%{nb}结果。
     lectures_not_confirmed: 是新的或复习的讲座

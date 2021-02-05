@@ -9,6 +9,7 @@ class SelectionNotification < ActionMailer::Base
     mail(
       reply_to: conference.email,
       to: event_person.person.email,
+      bcc: conference.bcc_address,
       subject: event_person.substitute_notification_variables(field, :subject),
       locale: @locale,
       title: conference.title

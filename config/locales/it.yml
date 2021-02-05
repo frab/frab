@@ -24,6 +24,7 @@ it:
         acronym: acronimo
         allowed_event_types_as_list: Tipi di eventi consentiti
         attachment_title_is_freeform: Il titolo dell'allegato è a mano libera
+        bcc_address: Indirizzo BCC
         bulk_notification_enabled: Notifiche di gruppo
         color: colore
         default_recording_license: Licenza di registrazione predefinita
@@ -218,6 +219,10 @@ it:
   cancel: annullare
   cfp:
     abstract_hint: Un piccolo paragrafo che ti descrive succintamente. (HTML)
+    attachements_may_be_saved: |
+      Nota: le informazioni inserite qui, inclusi file allegati e collegamenti, potrebbero essere
+      mantenuti ed essere disponibili per il team della conferenza anche dopo averlo rimosso dal file
+      evento. Contattare il team della conferenza nel caso in cui i dati debbano essere rimossi prontamente.
     avatar_hint: Carica una nuova foto.
     back: ritorno
     basic_information: Informazioni di base
@@ -456,6 +461,10 @@ it:
           Se questa opzione è selezionata, i mittenti possono fornire qualsiasi titolo desiderino
           per i file caricati come allegati. Se questa opzione è deselezionata, essi
           deve selezionare tra un set di titoli preconfigurati.
+        bcc_address: |
+          Puoi specificare un indirizzo e-mail qui. frab invierà questo indirizzo a
+          copia di ogni mail che invia ai mittenti. Puoi usarlo come un modo per conservare
+          un registro di tutte le e-mail inviate.
         bulk_notification_enabled: |
           Se abiliti questa opzione, le notifiche verranno inviate
           massa per posta, o da un sottosistema di biglietti.
@@ -1897,6 +1906,10 @@ it:
     attending_hint: Segna la persona come presente.
     edit_person: Modifica la persona
     edit_person_hint: Modifica i dati della persona.
+    filter:
+      not_found: Non trovato.
+      pick_one: "- Scegli uno dei nomi %{count} qui sotto -"
+      too_many: Troppi nomi da visualizzare. Usa il filtro.
     inputs:
       hints:
         event_role: |
@@ -2065,6 +2078,7 @@ it:
     events_with_unusual_state_speakers: eventi con relatori in uno stato problematico
     events_without_abstract: eventi senza sintesi
     events_without_speaker: eventi senza relatore
+    events_without_subtitle: eventi senza sottotitoli
     expected_speakers: altoparlanti mancanti per le prossime 4 ore
     found_x_results: risultato (s) %{nb} trovato.
     lectures_not_confirmed: conferenze nuove o di revisione

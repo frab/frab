@@ -24,6 +24,7 @@ en:
         acronym: Acronym
         allowed_event_types_as_list: Allowed event types
         attachment_title_is_freeform: Attachment title is freeform
+        bcc_address: BCC address
         bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license
@@ -218,6 +219,10 @@ en:
   cancel: Cancel
   cfp:
     abstract_hint: One short paragraph that succinctly describes you. (HTML)
+    attachements_may_be_saved: |
+      Note: Information you enter here, including file attachments and links, may be
+      retained and be available to conference crew even after you remove it from the
+      event. Contact conference crew in case data needs to be removed promptly.
     avatar_hint: Upload a new picture.
     back: Back
     basic_information: Basic information
@@ -453,6 +458,10 @@ en:
           If this option is selected, submitters can provide any title they want
           for files they upload as attachments. If this option is deselected, they
           must select between a set of pre-configured titles.
+        bcc_address: |
+          You can specify an e-mail address here. frab will send this address a 
+          copy of each mail it sends to submitters. You can use this as a way to keep
+          a log of all e-mails sent.
         bulk_notification_enabled: |
           If you enable this, notifications will be sent out in bulk by mail
           or ticket subsystem.
@@ -1869,6 +1878,10 @@ en:
     attending_hint: Mark person as present.
     edit_person: Edit person
     edit_person_hint: Edit this person's data.
+    filter:
+      pick_one: -- Pick one of %{count} names below --
+      too_many: Too many names to display. Use filter.
+      not_found: Not found.
     inputs:
       hints:
         event_role: |
@@ -1881,7 +1894,7 @@ en:
         notification_body: 'Valid variables: %{variables}'
         person_filter: |
           Filter persons in the options menu below by their first name, last
-          name, email address or user ID. Leave blank for no filtering."
+          name, email address or user ID. Leave blank for no filtering.
       notification_body: Notification body
       notification_subject: Notification subject
     list_of_people: List of people
@@ -2034,6 +2047,7 @@ en:
     events_with_unusual_state_speakers: events with speakers in a problematic state
     events_without_abstract: events without abstract
     events_without_speaker: events without speaker
+    events_without_subtitle: events without subtitle
     expected_speakers: missing speakers for the next 4 hours
     found_x_results: Found %{nb} results.
     lectures_not_confirmed: lectures that are new or review
