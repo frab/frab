@@ -51,7 +51,7 @@ class UsersController < BaseCrewController
     filter_conference_users(params[:user][:conference_users_attributes]) if orga_modifies_conference_users?
 
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      if params[:user].present? and @user.update_attributes(user_params)
         if @user.respond_to?(:confirm)
           @user.confirm unless @user.confirmed?
         end
