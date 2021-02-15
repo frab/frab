@@ -31,7 +31,7 @@ gem 'puma'
 
 # Capistrano for deployment
 group :capistrano, optional: true do
-  gem 'capistrano', '3.8.2', require: false
+  gem 'capistrano', '3.15.0', require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm',     require: false
@@ -69,7 +69,7 @@ gem 'prawn_rails'
 gem 'pundit'
 gem 'ransack'
 gem 'redcarpet'
-gem 'repost', '~> 0.3.4'
+gem 'repost', '~> 0.3.6'
 gem 'ri_cal'
 gem 'roust', github: 'frab/roust', branch: 'disallowed-ticket-1-fix'
 gem 'rqrcode'
@@ -101,7 +101,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'factory_bot_rails', '~> 4.0'
+  gem 'factory_bot_rails', '~> 6.1'
   gem 'rails-controller-testing'
   gem 'minitest-rails-capybara'
   gem 'poltergeist'
