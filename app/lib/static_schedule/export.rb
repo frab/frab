@@ -80,9 +80,9 @@ module StaticSchedule
 
     def copy_stripped_assets
       @asset_paths.uniq.each do |asset_path|
-        original_path = Rails.root.join('public', URI.unescape(asset_path))
+        original_path = Rails.root.join('public', CGI.unescape(asset_path))
         if File.exist?(original_path)
-          new_path = File.join(@base_directory, URI.unescape(asset_path))
+          new_path = File.join(@base_directory, CGI.unescape(asset_path))
           FileUtils.mkdir_p(File.dirname(new_path))
           FileUtils.cp(original_path, new_path)
         elsif Rails.env.production?
@@ -101,7 +101,7 @@ module StaticSchedule
     end
 
     def save_response(response, filename)
-      file_path = File.join(@base_directory, URI.decode(filename))
+      file_path = File.join(@base_directory, CGI.unescape(filename))
       FileUtils.mkdir_p(File.dirname(file_path))
 
       if filename.match?(/\.html$/)
