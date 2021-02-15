@@ -144,11 +144,11 @@ GEM
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
     execjs (2.7.0)
-    factory_bot (4.11.1)
-      activesupport (>= 3.0.0)
-    factory_bot_rails (4.11.1)
-      factory_bot (~> 4.11.1)
-      railties (>= 3.0.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     faker (2.15.1)
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
@@ -171,7 +171,7 @@ GEM
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    i18n (1.8.7)
+    i18n (1.8.9)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.33)
       activesupport (>= 4.0.2)
@@ -206,7 +206,7 @@ GEM
     listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.8.0)
+    loofah (2.9.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
@@ -245,7 +245,7 @@ GEM
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
     nio4r (2.5.4)
-    nokogiri (1.11.0)
+    nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     oauth2 (1.4.4)
@@ -393,7 +393,7 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
-    thor (1.0.1)
+    thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
     transitions (1.2.1)
@@ -436,7 +436,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   exception_notification
-  factory_bot_rails (~> 4.0)
+  factory_bot_rails (~> 6.1)
   faker
   github-markdown
   gitlab_omniauth-ldap
