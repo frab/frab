@@ -3,6 +3,7 @@ class UsersController < BaseCrewController
   before_action :authorize_person_user, except: %i[new create]
   before_action :ensure_user, except: %i[new create]
   layout :layout_if_conference
+  invisible_captcha only: [:create]
 
   # GET /users/1
   def show
@@ -58,7 +59,7 @@ class UsersController < BaseCrewController
         bypass_sign_in(@user) if current_user == @user
         format.html { redirect_to(edit_crew_user_path(@person), notice: t('users_module.notice_user_updated')) }
       else
-        flash_model_errors(@user)        
+        flash_model_errors(@user)
         format.html { render action: 'edit' }
       end
     end
