@@ -11,6 +11,7 @@
       =simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults:{error: false}) do |f|
 
         = render partial: 'devise/shared/error_messages', resource: resource
+        = f.invisible_captcha :subtitle
 
         %fieldset.inputs
           = f.input :email
