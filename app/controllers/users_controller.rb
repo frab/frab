@@ -3,7 +3,6 @@ class UsersController < BaseCrewController
   before_action :authorize_person_user, except: %i[new create]
   before_action :ensure_user, except: %i[new create]
   layout :layout_if_conference
-  invisible_captcha only: [:create]
 
   # GET /users/1
   def show
