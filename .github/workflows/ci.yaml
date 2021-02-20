@@ -44,27 +44,14 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
 
     steps:
-    - name: Set up Ruby
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{matrix.ruby_version}}
 
     - uses: actions/checkout@v2
 
-    - uses: actions/cache@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
       with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ matrix.ruby_version }}-${{ hashFiles('Gemfile.lock') }}-
-        restore-keys: |
-          ${{ runner.os }}-gems-
-
-    - name: Bundle install
-      run: |
-        sudo apt-get -y install libpq-dev
-        gem install -N bundler
-        bundle config path vendor/bundle
-        bundle config set without 'capistrano doc production'
-        bundle install --jobs 4 --retry 3
+        ruby-version: ${{matrix.ruby_version}}
+        bundler-cache: true
 
     - name: Prepare Postgresql
       run: |
