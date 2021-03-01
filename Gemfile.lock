@@ -222,7 +222,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
-    minitest (5.14.3)
+    minitest (5.14.4)
     minitest-capybara (0.9.0)
       capybara
       minitest (~> 5.0)
@@ -339,7 +339,7 @@ GEM
     rainbow (3.0.0)
     rake (13.0.3)
     rangesliderjs-rails (2.3.1)
-    ransack (2.4.0)
+    ransack (2.4.2)
       activerecord (>= 5.2.4)
       activesupport (>= 5.2.4)
       i18n
