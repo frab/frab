@@ -49,11 +49,11 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    user=where(email: auth.info.email).first_or_create do |user|
+    user=where(email: auth.info.email.downcase).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       user.password = Devise.friendly_token[0, 20]
-      user.person ||= Person.new(email: auth.info.email,
+      user.person ||= Person.new(email: auth.info.email.downcase,
                                  public_name: auth.info.name,
                                  first_name: auth.info.first_name,
                                  last_name: auth.info.last_name)
