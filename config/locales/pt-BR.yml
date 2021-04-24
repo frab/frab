@@ -1139,7 +1139,11 @@ pt-BR:
     reject_event_hint: Rejeite este evento. O (s) orador (es) será notificado (a) da rejeição por email.
     reject_event_no_email: Rejeitar evento (sem email)
     reject_event_no_email_hint: Rejeite este evento sem enviar um email automático.
-    select_filter_for: 'Selecione o filtro para %{filtername}:'
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 'Selecione o filtro para %{filtername}:'
     toggle_description: Alternar Descrição >>
     toggle_send_bulk_mail: Enviar email para todas essas pessoas >>
     track_select: filtrar por faixa
