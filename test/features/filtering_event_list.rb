@@ -59,4 +59,27 @@ class EditingEventRatingTest < FeatureTest
     refute_content page, @event2.title
     assert_content page, @event3.title
   end
+
+  it 'can filter event list by using numeric modal', js: true do
+    sign_in_user(@user)
+    visit "/#{@conference.acronym}/events/ratings"
+    
+    # click the filter icon next to table header "Event ratings count"
+    find('th', text: 'Event ratings count').find('.show_events_modal').trigger('click')
+    assert_content page, 'Select filter for Event ratings count:'
+    
+    page.find_all(class: "radio", text: "at most").select
+    find("input#filter_form_num").send_keys('0.5')
+
+    find('#apply_filter_btn')
+    # TODO - this fails because phantomjs does not support URL.searchParams.set
+    # click_on 'Apply filter'
+    visit "/#{@conference.acronym}/events/ratings?event_ratings_count=%E2%89%A40.5"
+
+    assert_content page, '╳ Event ratings count ≤ 0.5'
+
+    assert_content page, @event1.title
+    refute_content page, @event2.title
+    assert_content page, @event3.title
+  end
 end
