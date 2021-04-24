@@ -1149,7 +1149,11 @@ ru:
     reject_event_hint: Отклонить это событие. Оратор (ы) будет уведомлен об отказе по электронной почте.
     reject_event_no_email: Отклонить событие (без электронной почты)
     reject_event_no_email_hint: Отклоните это событие, не отправляя автоматическое письмо.
-    select_filter_for: 'Выберите фильтр для %{filtername}:'
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 'Выберите фильтр для %{filtername}:'
     toggle_description: Toggle Описание >>
     toggle_send_bulk_mail: Отправить письмо всем этим людям >>
     track_select: фильтр по треку

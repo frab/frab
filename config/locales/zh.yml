@@ -1129,7 +1129,11 @@ zh:
     reject_event_hint: 拒绝此事件。发言者将通过电子邮件通知拒绝。
     reject_event_no_email: 拒绝活动(无电子邮件)
     reject_event_no_email_hint: 拒绝此事件而不发送自动电子邮件。
-    select_filter_for: 为%{filtername}选择过滤器：
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 为%{filtername}选择过滤器：
     toggle_description: 切换说明>>
     toggle_send_bulk_mail: 发送邮件给所有这些人>>
     track_select: 按轨道过滤

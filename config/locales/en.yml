@@ -1062,7 +1062,12 @@ en:
     events_by_state: Events by state
     events_in_current_conference: Events in current conference
     events_in_other_conferences: Events in other conferences
-    feedback_not_enabled: The feedback system is not enabled.
+    feedback_not_enabled: The feedback system is not enabled.    
+    filter_modal:
+      at_least: at least
+      at_most: at most
+      exactly: exactly
+      select_filter_for: 'Select filter for %{filtername}:'
     hide_all: hide all
     indicator:
       full:
@@ -1126,7 +1131,6 @@ en:
     reject_event_hint: Reject this event. The speaker(s) will be notified of the rejection via email.
     reject_event_no_email: Reject event (no email)
     reject_event_no_email_hint: Reject this event without sending an automated email.
-    select_filter_for: "Select filter for %{filtername}:"
     toggle_description: Toggle Description >>
     toggle_send_bulk_mail: Send mail to all these people >>
     track_select: filter by track
