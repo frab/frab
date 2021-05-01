@@ -188,7 +188,7 @@ GEM
       terminal-table (>= 1.5.1)
     invisible_captcha (1.1.0)
       rails (>= 4.2)
-    jbuilder (2.10.0)
+    jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     jquery-migrate-rails (1.2.1)
     jquery-rails (4.4.0)
