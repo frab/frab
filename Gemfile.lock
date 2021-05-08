@@ -398,7 +398,7 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    sucker_punch (2.1.2)
+    sucker_punch (3.0.1)
       concurrent-ruby (~> 1.0)
     temple (0.8.2)
     terminal-table (3.0.0)
