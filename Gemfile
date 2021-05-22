@@ -101,8 +101,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 6.2'
+  gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'minitest-rails-capybara'
   gem 'poltergeist'
