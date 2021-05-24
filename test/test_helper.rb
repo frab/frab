@@ -2,7 +2,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/pride'
-require 'database_cleaner'
+require 'database_cleaner/active_record'
 require 'sucker_punch/testing/inline'
 
 require 'minitest/rails/capybara'
