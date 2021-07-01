@@ -11,8 +11,9 @@
     = f.input :time_slots, as: :select, collection: timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes
     = f.input :public, as: :inline_boolean, hint: t('events_module.inputs.hints.public')
-    = image_input_box(f.object.logo)
-    = f.input :logo
+    - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
+      = image_input_box(f.object.logo)
+      = f.input :logo
   %fieldset.inputs
     %legend= t('state')
     = f.input :state, collection: Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
