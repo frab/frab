@@ -1153,7 +1153,11 @@ it:
     reject_event_hint: Rifiuta questo evento. I relatori saranno informati di questo rifiuto via e-mail.
     reject_event_no_email: Rifiuta l'evento (nessuna email)
     reject_event_no_email_hint: Rifiuta questo evento senza inviare un'e-mail automatica.
-    select_filter_for: 'Seleziona il filtro per %{filtername}:'
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 'Seleziona il filtro per %{filtername}:'
     toggle_description: Mostra descrizione >>
     toggle_send_bulk_mail: Invia mail a tutte queste persone >>
     track_select: filtro per filo

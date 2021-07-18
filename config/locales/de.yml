@@ -1034,7 +1034,7 @@ de:
         one: "Eine Bearbeitung erfolgreich abgeschlossen."
         other: "%{count} Änderungen erfolgreich abgeschlossen."
     cancel_event: Event absagen
-    cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die Referenten ihren Auftritt absagen mussten.
+    cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die ReferentInnen ihren Auftritt absagen mussten.
     col_toggle_rooms: 'Räume wechseln:'
     confirm_event: Bestätigen Sie das Event
     confirm_event_hint: Bestätigen Sie, dass der / die Sprecher anwesend sind und dass das Event tatsächlich stattfindet.
@@ -1132,7 +1132,11 @@ de:
       E-Mail oder gegebenenfalls später im Ticket-System informiert.
     reject_event_no_email: Event rejecten (ohne E-Mail)
     reject_event_no_email_hint: Setzt den Status des Events auf rejected, ohne eine automatisierte E-Mail zu senden.
-    select_filter_for: "Filter für %{filtername} auswählen:"
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: "Filter für %{filtername} auswählen:"
     toggle_description: Beschreibung umschalten >>
     toggle_send_bulk_mail: Sende eine Mail an all diese Leute >>
     track_select: Filter nach Track
@@ -1973,12 +1977,12 @@ de:
         links: Links
         no_recording: Dieses Event wird nicht aufgezeichnet
         room: Raum
-        speakers: Referenten
+        speakers: ReferentInnen
         start_time: Anfangszeit
         track: Track
       events:
         events: Events
-        speakers: Referenten
+        speakers: ReferentInnen
         title: Titel
         track: Track
       events_by_track:
@@ -1990,7 +1994,7 @@ de:
         events_by_track: Events nach Titel
         schedule: Programm – %{label}
         schedule_index: Programmübersicht
-        speakers: Referenten
+        speakers: ReferentInnen
         timeline: Zeitleiste
       nav:
         day: Tag %{index}
@@ -1998,7 +2002,7 @@ de:
         index: Übersicht
         qrcode: QR-Code
         schedule: Programm
-        speakers: Referenten
+        speakers: ReferentInnen
       qrcode:
         link_to_public_schedule: |
           Diese QR-Code enthält die URL zur maschinenlesbaren Verion der öffentlichen Programmübersicht.

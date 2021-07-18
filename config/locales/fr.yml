@@ -1149,7 +1149,11 @@ fr:
     reject_event_hint: Rejette cet évènement. Les orateurs seront notifiés de ce rejet par courriel.
     reject_event_no_email: Rejeter l’évènement (pas de courriel)
     reject_event_no_email_hint: Rejeter cet évènement sans envoyer de courriel automatique.
-    select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
     toggle_description: Afficher la description >>
     toggle_send_bulk_mail: Envoyez un courrier à toutes ces personnes >>
     track_select: filtrer par fil

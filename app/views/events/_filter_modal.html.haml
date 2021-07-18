@@ -1,7 +1,7 @@
 .modal-header
   = link_to "×", "#", class: "close"
   %h3
-    = t('events_module.select_filter_for', filtername: @filter.filter_name || t(@filter.filter_name_i18n))
+    = t('events_module.filter_modal.select_filter_for', filtername: @filter.filter_name || t(@filter.filter_name_i18n))
 .modal-body#filter_form
   = simple_form_for(:filter_form, data: { qname: @filter.qname }, url: '#', method: :get ) do |f|
     - case @filter.type
@@ -21,10 +21,10 @@
               = f.input :op,
                       as: :radio_buttons,
                       required: false,
-                        label: '',
-                      collection: [['≥', '≥'],
-                                   ['≤', '≤'],
-                                   ['=', '=']],
+                      label: '',
+                      collection: [[t('events_module.filter_modal.at_least'), '≥'],
+                                   [t('events_module.filter_modal.at_most'), '≤'],
+                                   [t('events_module.filter_modal.exactly'), '=']],
                       checked: [@op]
                     
             %td{width: '75%', style: 'vertical-align: middle;', class: 'td-numval'}
