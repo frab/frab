@@ -1,5 +1,8 @@
 class MailTemplate < ApplicationRecord
   belongs_to :conference
+
+  default_scope { order(name: :asc) }
+
   validates :name, presence: true
   validates :subject, presence: true
   validates :content, presence: true
