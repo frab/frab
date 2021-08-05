@@ -31,6 +31,7 @@ pt-BR:
         acronym: Acrônimo
         allowed_event_types_as_list: Tipos de eventos permitidos
         attachment_title_is_freeform: O título do anexo é de forma livre
+        bcc_address: Endereço BCC
         bulk_notification_enabled: Notificações em massa
         color: Cor
         default_recording_license: Licença de gravação padrão
@@ -200,6 +201,7 @@ pt-BR:
       review_metric: Métrica de revisão
       room: Sala
       track: Trilha
+  add: Adicionar
   add_association: adicionar %{name}
   additional_resources: Recursos adicionais
   admin: Admin
@@ -239,6 +241,10 @@ pt-BR:
   cancel: Cancelar
   cfp:
     abstract_hint: Um pequeno parágrafo que descreva sucintamente você.
+    attachements_may_be_saved: |
+      Observação: as informações inseridas aqui, incluindo anexos de arquivo e links, podem ser
+      retido e disponível para a equipe da conferência, mesmo depois de removê-lo do
+      evento. Entre em contato com a equipe da conferência caso os dados precisem ser removidos imediatamente.
     avatar_hint: Carregar um novo avatar.
     back: Voltar
     basic_information: Informações básicas
@@ -474,6 +480,10 @@ pt-BR:
           Se essa opção for selecionada, os remetentes poderão fornecer o título que quiserem.
           para arquivos que eles carregam como anexos. Se esta opção estiver desmarcada, eles
           deve selecionar entre um conjunto de títulos pré-configurados.
+        bcc_address: |
+          Você pode especificar um endereço de e-mail aqui. frab enviará a este endereço um
+          cópia de cada correspondência enviada aos remetentes. Você pode usar isso como uma forma de manter
+          um registro de todos os e-mails enviados.
         bulk_notification_enabled: |
           Se você ativar isso, as notificações serão enviadas em massa por e-mail
           ou subsistema de ticket.
@@ -536,6 +546,7 @@ pt-BR:
       botão à direita.
     notice_bulk_notification_queued: Notificações em massa para eventos em %{notification} enfileirados.
     notice_conference_created: Conferência foi criada com sucesso.
+    notice_conference_not_updated: A conferência não foi atualizada.
     notice_conference_updated: Conferência foi atualizada com sucesso.
     past_conferences: Conferências passadas
     recent_changes: Mudanças recentes
@@ -991,6 +1002,40 @@ pt-BR:
     attachments_overview: Anexos
     average_feedback: 'Feedback médio:'
     average_speaker_feedback: 'Feedback médio como palestrante:'
+    bulk_edit:
+      add_person: Adicionar pessoa
+      add_person_confirm:
+        one: Tem certeza de que deseja adicionar uma pessoa a este evento?
+        other: Tem certeza de que deseja adicionar uma pessoa a todos os eventos %{count}?
+      set_duration: Definir duração
+      set_duration_confirm:
+        one: Tem certeza de que deseja alterar a duração deste evento?
+        other: Tem certeza de que deseja alterar a duração de todos os eventos %{count}?
+      set_events_confirm:
+        one: Tem certeza de que deseja alterar o estado deste evento?
+        other: Tem certeza de que deseja alterar o estado de todos os eventos %{count}?
+      set_events_type_confirm:
+        one: Tem certeza de que deseja modificar o tipo deste evento?
+        other: Tem certeza de que deseja modificar o tipo para todos os eventos %{count}?
+      set_new_event_type: Alterar tipo de evento
+      set_new_state: Atribuir estado
+      set_new_track: Atribuir faixa
+      set_track_confirm:
+        one: Tem certeza de que deseja alterar a trilha deste evento?
+        other: Tem certeza de que deseja alterar a faixa de todos os eventos %{count}?
+      show: Edite esses eventos
+      title:
+        one: 'Edite o evento %{count}:'
+        other: 'Edite eventos %{count}:'
+      update_failed:
+        one: A edição %{count} falhou.
+        other: As edições %{count} falharam.
+      update_skipped:
+        one: "%{count} edição ignorada."
+        other: edições %{count} ignoradas.
+      update_successful:
+        one: Edição %{count} concluída com sucesso.
+        other: edições %{count} concluídas com sucesso.
     cancel_event: Cancelar evento
     cancel_event_hint: Marque este evento como cancelado. Geralmente isso significa que os alto-falantes tiveram que cancelar sua aparência.
     col_toggle_rooms: 'Alternar salas:'
@@ -1094,7 +1139,11 @@ pt-BR:
     reject_event_hint: Rejeite este evento. O (s) orador (es) será notificado (a) da rejeição por email.
     reject_event_no_email: Rejeitar evento (sem email)
     reject_event_no_email_hint: Rejeite este evento sem enviar um email automático.
-    select_filter_for: 'Selecione o filtro para %{filtername}:'
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 'Selecione o filtro para %{filtername}:'
     toggle_description: Alternar Descrição >>
     toggle_send_bulk_mail: Enviar email para todas essas pessoas >>
     track_select: filtrar por faixa
@@ -1867,6 +1916,10 @@ pt-BR:
     attending_hint: Marque a pessoa como presente.
     edit_person: Editar pessoa
     edit_person_hint: Edite os dados dessa pessoa.
+    filter:
+      not_found: Não encontrado.
+      pick_one: "- Escolha um dos nomes %{count} abaixo -"
+      too_many: Muitos nomes para exibir. Use filtro.
     inputs:
       hints:
         event_role: |
@@ -2036,6 +2089,7 @@ pt-BR:
     events_with_unusual_state_speakers: eventos com alto-falantes em um estado problemático
     events_without_abstract: eventos sem resumo
     events_without_speaker: eventos sem orador
+    events_without_subtitle: eventos sem legenda
     expected_speakers: alto-falantes ausentes pelas próximas 4 horas
     found_x_results: Encontrado %{nb} resultados.
     lectures_not_confirmed: palestras que são novas ou revisão
@@ -2133,6 +2187,7 @@ pt-BR:
     login: Entrar
     signup: inscrever-se
     update_password: Atualizar minha senha
+  set: Conjunto
   settings: Configurações
   show: Exibição
   show_account: Conta

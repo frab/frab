@@ -9,6 +9,10 @@ namespace :frab do
                                         email: Faker::Internet.email,
                                         color: Faker::Color.hex_color[1..6])
 
+        if rand(10) < 5
+          conference.bcc_address = Faker::Internet.email
+        end
+
         date = Faker::Time.forward(days: 23).beginning_of_day + 9.hours
 
         3.times do

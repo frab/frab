@@ -1,10 +1,14 @@
 class EventAttachment < ApplicationRecord
   ATTACHMENT_TITLES = %w(proposal poster slides handouts media video other).freeze
+  PRESERVE_FILE_ATTACHMENTS = (ENV["FRAB_PRESERVE_FILE_ATTACHMENTS"] == "1")
+
   include ActionView::Helpers::DateHelper
   
   belongs_to :event
 
-  has_attached_file :attachment
+  has_attached_file :attachment, {
+    preserve_files: PRESERVE_FILE_ATTACHMENTS,
+  }
 
   validates_attachment_size :attachment, less_than: Integer(ENV['FRAB_MAX_ATTACHMENT_SIZE_MB'] || '42').megabytes
   do_not_validate_attachment_file_type :attachment

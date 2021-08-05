@@ -1,0 +1,20 @@
+#events-modal.modal{style: "display: none;"}
+
+:coffeescript
+  update_events_modal = (url) ->
+    $.ajax(
+      dataType: "html",
+      url: url,
+      success: (data) ->
+        $('#events-modal').modal('show')
+        $('#events-modal').html(data)
+      error: () ->
+        location.reload(true)
+    )
+
+  $('.show_events_modal').on 'click', ->
+    update_events_modal(this.dataset['url'])
+
+  $("#events-modal").draggable({
+    handle: ".modal-header"
+  });

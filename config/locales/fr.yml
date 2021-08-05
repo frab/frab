@@ -24,6 +24,7 @@ fr:
         acronym: Acronyme
         allowed_event_types_as_list: Types d'événements autorisés
         attachment_title_is_freeform: Le titre de la pièce jointe est de forme libre
+        bcc_address: Adresse BCC
         bulk_notification_enabled: Notifications de groupe
         color: Couleur
         default_recording_license: License d’enregistrement par défaut
@@ -178,6 +179,7 @@ fr:
       review_metric: Critique métrique
       room: salle
       track: fil
+  add: Ajouter
   add_association: Ajouter %{name}
   additional_resources: Ressources supplémentaires
   admin: Admin
@@ -217,6 +219,10 @@ fr:
   cancel: Annuler
   cfp:
     abstract_hint: Un petit paragraphe qui vous décrit succintement. (balises HTML possibles)
+    attachements_may_be_saved: |
+      Remarque: les informations que vous saisissez ici, y compris les pièces jointes et les liens, peuvent être
+      conservé et disponible pour l'équipe de conférence même après l'avoir retiré du
+      un événement. Contactez l'équipe de conférence au cas où les données doivent être supprimées rapidement.
     avatar_hint: Téléverser une nouvelle photo.
     back: Retour
     basic_information: Informations de base
@@ -455,6 +461,10 @@ fr:
           Si cette option est sélectionnée, les émetteurs peuvent fournir le titre de leur choix.
           pour les fichiers téléchargés en pièces jointes. Si cette option est désélectionnée, ils
           doit choisir entre un ensemble de titres préconfigurés.
+        bcc_address: |
+          Vous pouvez spécifier une adresse e-mail ici. frab enverra à cette adresse un
+          copie de chaque courrier qu'il envoie aux soumissionnaires. Vous pouvez l'utiliser pour garder
+          un journal de tous les e-mails envoyés.
         bulk_notification_enabled: |
           Si vous activez cette option, les notifications seront envoyées en
           masse par mail, ou par un sous-systeme de tickets.
@@ -523,6 +533,7 @@ fr:
       en cliquant sur le bouton de droite.
     notice_bulk_notification_queued: Groupe de notifications pour les évènements dans %{notification} mises en file d’attente..
     notice_conference_created: Conférence créée avec succès.
+    notice_conference_not_updated: La conférence n'a pas été mise à jour.
     notice_conference_updated: Conférence mise à jour avec succès.
     past_conferences: Conférences passées
     recent_changes: Changements récents
@@ -1002,6 +1013,40 @@ fr:
     attachments_overview: Les pièces jointes
     average_feedback: 'Moyenne des retours :'
     average_speaker_feedback: 'Moyenne des retours par orateur :'
+    bulk_edit:
+      add_person: Ajouter une personne
+      add_person_confirm:
+        one: Êtes-vous sûr de vouloir ajouter une personne à cet événement?
+        other: Êtes-vous sûr de vouloir ajouter une personne à tous les événements %{count}?
+      set_duration: Définir la durée
+      set_duration_confirm:
+        one: Êtes-vous sûr de vouloir changer la durée de cet événement?
+        other: Êtes-vous sûr de vouloir changer la durée de tous les événements %{count}?
+      set_events_confirm:
+        one: vous êtes sûr de vouloir changer d'état pour cet événement?
+        other: Êtes-vous sûr de vouloir changer d'état pour tous les événements %{count}?
+      set_events_type_confirm:
+        one: Êtes-vous sûr de vouloir modifier le type de cet événement?
+        other: Êtes-vous sûr de vouloir modifier le type pour tous les événements %{count}?
+      set_new_event_type: Changer le type d'événement
+      set_new_state: Attribuer l'état
+      set_new_track: Assigner une piste
+      set_track_confirm:
+        one: Êtes-vous sûr de vouloir changer le parcours de cet événement?
+        other: Êtes-vous sûr de vouloir changer le suivi de tous les événements %{count}?
+      show: Editer ces événements
+      title:
+        one: 'Éditez l''événement %{count}:'
+        other: 'Éditez les événements %{count}:'
+      update_failed:
+        one: "%{count} édition a échoué."
+        other: Les modifications de %{count} ont échoué.
+      update_skipped:
+        one: "%{count} édition ignorée."
+        other: "%{count} modifications ignorées."
+      update_successful:
+        one: "%{count} édition terminée avec succès."
+        other: "%{count} modifications terminées avec succès."
     cancel_event: Annuler l’évènement
     cancel_event_hint: |
       Définit cet évènement comme annulé. Généralement, cela veut dire que l’orateur
@@ -1104,7 +1149,11 @@ fr:
     reject_event_hint: Rejette cet évènement. Les orateurs seront notifiés de ce rejet par courriel.
     reject_event_no_email: Rejeter l’évènement (pas de courriel)
     reject_event_no_email_hint: Rejeter cet évènement sans envoyer de courriel automatique.
-    select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
     toggle_description: Afficher la description >>
     toggle_send_bulk_mail: Envoyez un courrier à toutes ces personnes >>
     track_select: filtrer par fil
@@ -1857,6 +1906,10 @@ fr:
     attending_hint: Marquer la personne comme présente.
     edit_person: Éditer la personne
     edit_person_hint: Éditer les données de la personne.
+    filter:
+      not_found: Pas trouvé.
+      pick_one: "- Choisissez l'un des noms %{count} ci-dessous -"
+      too_many: Trop de noms à afficher. Utilisez le filtre.
     inputs:
       hints:
         event_role: |
@@ -2025,6 +2078,7 @@ fr:
     events_with_unusual_state_speakers: événements avec des orateurs dans un état problématique
     events_without_abstract: événements sans résumé
     events_without_speaker: événements sans orateur
+    events_without_subtitle: événements sans sous-titres
     expected_speakers: orateurs manquants pour les 4 prochaines heures
     found_x_results: "%{nb} résultat(s) trouvé(s) ."
     lectures_not_confirmed: conférences qui sont nouvelles ou révision
@@ -2124,6 +2178,7 @@ fr:
     login: Connexion
     signup: Créer mon compte
     update_password: Changer mon mot de passe
+  set: Ensemble
   settings: Paramètres
   show: Afficher
   show_account: Compte

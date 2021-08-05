@@ -51,14 +51,14 @@ class UsersController < BaseCrewController
     filter_conference_users(params[:user][:conference_users_attributes]) if orga_modifies_conference_users?
 
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      if params[:user].present? and @user.update_attributes(user_params)
         if @user.respond_to?(:confirm)
           @user.confirm unless @user.confirmed?
         end
         bypass_sign_in(@user) if current_user == @user
         format.html { redirect_to(edit_crew_user_path(@person), notice: t('users_module.notice_user_updated')) }
       else
-        flash_model_errors(@user)        
+        flash_model_errors(@user)
         format.html { render action: 'edit' }
       end
     end

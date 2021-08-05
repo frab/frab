@@ -3,9 +3,9 @@ require 'test_helper'
 class PersonTest < ActiveSupport::TestCase
   test '#full_name' do
     person = build(:person)
-    assert_equal 'Fred Besen', person.full_name
+    assert_match /Fred Besen/, person.full_name
     person = build(:person, first_name: 'Fred')
-    assert_equal 'Fred Besen', person.full_name
+    assert_match /Fred Besen/, person.full_name
     person = build(:person, first_name: 'Bred', last_name: 'Fesen')
     assert_equal 'Bred Fesen', person.full_name
   end

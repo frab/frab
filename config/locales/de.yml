@@ -29,8 +29,9 @@ de:
         name: Name
       conference:
         acronym: Kürzel
-        allowed_event_types_as_list: Zulässige Ereignistypen
+        allowed_event_types_as_list: Zulässige Eventtypen
         attachment_title_is_freeform: Der Titel des Anhangs ist Freiform
+        bcc_address: BCC-Adresse
         bulk_notification_enabled: Massen-Mailings
         color: Farbe
         default_recording_license: Standard-Aufnahmelizenz
@@ -206,6 +207,7 @@ de:
       review_metric: Metrik überprüfen
       room: Raum
       track: Track
+  add: Hinzufügen
   add_association: "%{name} hinzufügen"
   additional_resources: Zusätzliche Ressourcen
   admin: Administrator
@@ -216,16 +218,16 @@ de:
     update_successful: Änderungen erfolgreich gespeichert!
   all: Alle
   allowed_event_types: Zulässige Ereignistypen
-  allowed_event_types_extras: Zusätzliche zulässige Ereignistypen
+  allowed_event_types_extras: Zusätzliche zulässige Eventtypen
   apply_filter: Filter anwenden
   are_you_sure: Sind Sie sicher?
   attachments_overview_module:
     attachments: Anhänge
     no_attachments: |
-      Es sind noch keine Dateien an ein Ereignis angehängt. Einmal Menschen
+      Es sind noch keine Dateien an ein Event angehängt. Einmal Menschen
       Starten Sie das Hochladen von Dateien zu ihren Veranstaltungen
       Alle Anhänge in diesem Bildschirm anzeigen.
-    no_event: Es gibt noch keine Veranstaltungen in dieser Konferenz. Sobald Ereignisse mit Dateianhängen hinzugefügt wurden, werden sie hier angezeigt.
+    no_event: Es gibt noch keine Veranstaltungen in dieser Konferenz. Sobald Events mit Dateianhängen hinzugefügt wurden, werden sie hier angezeigt.
   availabilities:
     alerts:
       available_for_day: verfügbar am Tag %{day}
@@ -245,6 +247,10 @@ de:
   cancel: Abbrechen
   cfp:
     abstract_hint: Ein kurzer, prägnanter Absatz zu Ihrer Person. (HTML)
+    attachements_may_be_saved: |
+      Hinweis: Informationen, die Sie hier eingeben, einschließlich Dateianhänge und Links, können sein
+      behalten und dem Konferenzteam zur Verfügung stehen, auch nachdem Sie es aus dem Internet entfernt haben
+      Veranstaltung. Wenden Sie sich an das Konferenzteam, falls die Daten umgehend entfernt werden müssen.
     avatar_hint: Laden Sie ein neues Bild hoch.
     back: Zurück
     basic_information: Basisinformationen
@@ -479,6 +485,10 @@ de:
           Wenn diese Option ausgewählt ist, können Einreicher einen beliebigen Titel angeben
           für Dateien laden sie als Anhänge hoch. Wenn diese Option deaktiviert ist, werden sie
           muss zwischen einer Reihe vorkonfigurierter Titel wählen.
+        bcc_address: |
+          Hier können Sie eine E-Mail-Adresse angeben. frab wird diese Adresse senden a
+          Kopie jeder E-Mail, die an die Einsender gesendet wird. Sie können dies als eine Möglichkeit verwenden, um zu behalten
+          ein Protokoll aller gesendeten E-Mails.
         bulk_notification_enabled: |
           Wenn aktiviert, werden die Einreicher über angenommene oder abgelehnte Events nicht sofort
           informiert, sondern gesammelt in Massen-Mailings über das eingebaute E-Mail-System oder einen
@@ -535,6 +545,7 @@ de:
       Fügen Sie mit der Schaltfläche rechts eine Konferenz hinzu.
     notice_bulk_notification_queued: Alle Benachrichtigungen für die Einreichungen in %{notification} an den Ticket-Server übergeben.
     notice_conference_created: Die Konferenz wurde erfolgreich erstellt.
+    notice_conference_not_updated: Konferenz wurde nicht aktualisiert.
     notice_conference_updated: Die Konferenz wurde erfolgreich aktualisiert.
     past_conferences: Frühere Konferenzen
     recent_changes: Letzte Änderungen
@@ -578,7 +589,7 @@ de:
       surname: Nachname des Sprechers
       time: Beginn des Events
       track: Titelname
-      type: Ereignistyp
+      type: Eventtyp
     version: Version %{version}
     withdrawn: withdrawn
   conflict:
@@ -887,12 +898,12 @@ de:
     error_missing_conference_email: 'E-Mails können nicht gesendet werden: Bitte geben Sie eine E-Mail-Adresse für diese Konferenz an.'
     error_missing_notification_text: |
       Kein Benachrichtigungstext vorhanden. Bitte ändern Sie den Standardtext für Ihre
-      vor dem Akzeptieren / Ablehnen von Ereignissen.
+      vor dem Akzeptieren / Ablehnen von Event.
     error_missing_speaker_email: 'E-Mails können nicht gesendet werden: Nicht alle Sprecher haben E-Mail-Adressen.'
     error_state_update: Status kann nicht aktualisiert werden.
     error_state_update_ex: 'Status kann nicht aktualisiert werden: %{ex}.'
     error_template_add_failed: Mailvorlagenerstellung fehlgeschlagen.
-    error_unnotifiable_state: Ereignis nicht in einem Status, der eine Benachrichtigung auslöst.
+    error_unnotifiable_state: Event ist nicht in einem Status, der eine Benachrichtigung auslöst.
     filters:
       all_speakers_in_confirmed_events: Alle Sprecher an allen bestätigten Veranstaltungen
       all_speakers_in_scheduled_event: Alle Sprecher an allen Veranstaltungen, die mit Raum und Anfangszeit im Programm gesetzt sind
@@ -988,14 +999,48 @@ de:
     attachments_overview: Anhänge
     average_feedback: 'Durchschnittliches Feedback:'
     average_speaker_feedback: 'Durchschnittliches Feedback als Sprecher:'
+    bulk_edit:
+      add_person: Person hinzufügen
+      add_person_confirm:
+        one: Möchten Sie zu diesem Event wirklich eine Person hinzufügen?
+        other: Möchten Sie wirklich allen %{count} Ereignissen eine Person hinzufügen?
+      set_duration: Dauer einstellen
+      set_duration_confirm:
+        one: Möchten Sie die Dauer für dieses Event wirklich ändern?
+        other: Möchten Sie die Dauer für alle %{count} Events wirklich ändern?
+      set_events_confirm:
+        one: Möchten Sie den Status für dieses Event wirklich ändern?
+        other: Möchten Sie den Status für alle %{count} Event wirklich ändern?
+      set_events_type_confirm:
+        one: Möchten Sie wirklich den Typ dieses Events ändern?
+        other: Möchten Sie wirklich den Typ für alle %{count} Events ändern?
+      set_new_event_type: Eventtyp ändern
+      set_new_state: Zustand zuweisen
+      set_new_track: Titel zuweisen
+      set_track_confirm:
+        one: Möchten Sie wirklich den Track dieses Events ändern?
+        other: Möchten Sie wirklich den Track aller %{count} Events ändern?
+      show: Bearbeiten Sie diese Events
+      title:
+        one: 'Edit %{count} event:'
+        other: 'Bearbeiten von %{count} Events:'
+      update_failed:
+        one: "Eine Änderung fehlgeschlagen."
+        other: "%{count} Änderungen fehlgeschlagen."
+      update_skipped:
+        one: "Eine Änderung übersprungen."
+        other: "%{count} Änderungen übersprungen."
+      update_successful:
+        one: "Eine Bearbeitung erfolgreich abgeschlossen."
+        other: "%{count} Änderungen erfolgreich abgeschlossen."
     cancel_event: Event absagen
-    cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die Referenten ihren Auftritt absagen mussten.
+    cancel_event_hint: Markieren Sie dieses Event als abgesagt. Üblicherweise bedeutet dies, dass die ReferentInnen ihren Auftritt absagen mussten.
     col_toggle_rooms: 'Räume wechseln:'
     confirm_event: Bestätigen Sie das Event
     confirm_event_hint: Bestätigen Sie, dass der / die Sprecher anwesend sind und dass das Event tatsächlich stattfindet.
     custom_notification: Benutzerdefinierte Benachrichtigung
     custom_notification_hint: Fügen Sie benutzerdefinierte Benachrichtigungen für alle Sprecher dieses Events hinzu. Bei der nächsten Benachrichtigungs-Runde wird dann diese Nachricht anstelle der Standardbenachrichtigung gesendet. Sie können die einzlenen personalisierten Nachrichten im Reiter "Personen bearbeiten" ändern.
-    delete_rating: Ereignisbewertung löschen
+    delete_rating: Eventbewertung löschen
     edit_event: Event bearbeiten
     edit_event_hint: Bearbeiten Sie die Daten dieses Events.
     edit_people: Personen bearbeiten
@@ -1016,7 +1061,7 @@ de:
     event_details: Event-Details
     event_feedbacks: Event-Feedbacks
     event_ratings: Event-Bewertungen der Reviewer
-    event_type_select: Nach Ereignistyp filtern
+    event_type_select: Nach Eventtyp filtern
     events_by_gender: Events nach Geschlecht
     events_by_language: Events nach Sprache
     events_by_state: Events nach Status
@@ -1040,8 +1085,8 @@ de:
         submission_note: Sichtbar für Administratoren und Benutzer; zusätzliche Information.
         tech_rider: Was wird für diese Veranstaltung benötigt?
     listing_n_events:
-      one: Listing %{n} des Ereignisses %{count}.
-      other: Auflisten von %{n} von %{count}-Ereignissen.
+      one: Es wird eins von %{count} Events angezeigt.
+      other: Es werden %{n} von %{count} Events angezeit.
     my_events: Meine Events
     my_rating: Meine Bewertungen
     my_ratings: Meine Bewertungen
@@ -1087,7 +1132,11 @@ de:
       E-Mail oder gegebenenfalls später im Ticket-System informiert.
     reject_event_no_email: Event rejecten (ohne E-Mail)
     reject_event_no_email_hint: Setzt den Status des Events auf rejected, ohne eine automatisierte E-Mail zu senden.
-    select_filter_for: "Filter für %{filtername} auswählen:"
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: "Filter für %{filtername} auswählen:"
     toggle_description: Beschreibung umschalten >>
     toggle_send_bulk_mail: Sende eine Mail an all diese Leute >>
     track_select: Filter nach Track
@@ -1697,11 +1746,11 @@ de:
         locale: Verfügbare Sprachen für diese Konferenz und ihre Sprecher
     missing_locale: 'Benachrichtigungen können nicht gesendet werden: Benachrichtigungen für Sprachen %{locales} fehlen'
     n_events:
-      one: 1 Veranstaltung
-      other: "%{count} Ereignisse"
+      one: Eine Veranstaltung
+      other: "%{count} Events"
     n_events_in_state_x:
-      one: 1 Ereignis im Zustand %{state}
-      other: "%{count} Ereignisse im Zustand %{state}"
+      one: Ein Event im Zustand %{state}
+      other: "%{count} Events im Zustand %{state}"
     no_events_tickets: Keine Events mit Tickets
     notif:
       acceptance: Annahme
@@ -1710,17 +1759,17 @@ de:
     possible_variables: Mögliche Variablen
     send_notification: Senden Sie %{name}-Benachrichtigungen an %{speakers} in %{count}
     send_notification_confirm:
-      one: Möchten Sie wirklich %{name}-Benachrichtigungen für 1 Ereignis senden?
-      other: Möchten Sie wirklich %{name}-Benachrichtigungen für %{count}-Ereignisse senden?
+      one: Möchten Sie wirklich %{name}-Benachrichtigungen für ein Event senden?
+      other: Möchten Sie wirklich %{name}-Benachrichtigungen für %{count} Events senden?
     send_notification_to_subscribers:
-      one: Senden Sie %{name}-Benachrichtigungen an 1 Person, die an %{event} beteiligt ist
-      other: Senden Sie %{name}-Benachrichtigungen an %{count} Personen, die an %{event} beteiligt sind
+      one: '%{name}-Benachrichtigungen an eine Person senden, die an %{event} beteiligt ist.'
+      other: '%{name}-Benachrichtigungen an %{count} Personen senden, die an %{event} beteiligt sind.'
     send_unspecified_notification_confirm:
-      one: Möchten Sie wirklich E-Mails für das %{count}-Ereignis senden?
-      other: Möchten Sie wirklich E-Mails für %{count}-Ereignisse senden?
+      one: Möchten Sie wirklich E-Mails für das Event senden?
+      other: Möchten Sie wirklich E-Mails für %{count} Events senden?
     warning_events_without_speakers:
-      one: 'Warnung: 1 Veranstaltung ohne Sprecher:'
-      other: 'Warnung: %{count} Ereignisse ohne Sprecher:'
+      one: 'Warnung: Eine Veranstaltung ohne Sprecher:'
+      other: 'Warnung: %{count} Events ohne Sprecher:'
   number:
     currency:
       format:
@@ -1855,13 +1904,17 @@ de:
     attending_hint: Markieren Sie die Person als "erschienen".
     edit_person: Person bearbeiten
     edit_person_hint: Bearbeiten Sie diese Person.
+    filter:
+      not_found: Nicht gefunden.
+      pick_one: "- Wähle einen der folgenden %{count} Namen -"
+      too_many: Zu viele Namen zum Anzeigen. Filter verwenden.
     inputs:
       hints:
         event_role: |
           Die Koordinatoren sind Teil des Konferenzteams und koordinieren die Sprecher
-          Teilnahme und Veranstaltungen. Übermittler antworten dem cfp, um Ereignisse in frab einzugeben.
-          Referenten nehmen an Veranstaltungen teil, deren Verfügbarkeit zählt. Moderatoren nehmen
-          an Podiumsdiskussionen teilnehmen, deren Verfügbarkeit von Bedeutung ist. Assistenten haben die
+          Teilnahme und Veranstaltungen. Submitter antworten dem CFP, indem sie Events in frab einreichen.
+          Referenten nehmen an Veranstaltungen teil, wobei deren Verfügbarkeit zählt. Moderatoren nehmen
+          an Podiumsdiskussionen teil, wobei deren Verfügbarkeit ebenfalls von Bedeutung ist. Assistenten haben die
           die gleichen Berechtigungen wie die Absender und werden über Aktualisierungen informiert; aber
           Ihre Verfügbarkeit wird nie berücksichtigt.
         notification_body: 'Gültige Variablen: %{variables}'
@@ -1924,12 +1977,12 @@ de:
         links: Links
         no_recording: Dieses Event wird nicht aufgezeichnet
         room: Raum
-        speakers: Referenten
+        speakers: ReferentInnen
         start_time: Anfangszeit
         track: Track
       events:
         events: Events
-        speakers: Referenten
+        speakers: ReferentInnen
         title: Titel
         track: Track
       events_by_track:
@@ -1941,7 +1994,7 @@ de:
         events_by_track: Events nach Titel
         schedule: Programm – %{label}
         schedule_index: Programmübersicht
-        speakers: Referenten
+        speakers: ReferentInnen
         timeline: Zeitleiste
       nav:
         day: Tag %{index}
@@ -1949,7 +2002,7 @@ de:
         index: Übersicht
         qrcode: QR-Code
         schedule: Programm
-        speakers: Referenten
+        speakers: ReferentInnen
       qrcode:
         link_to_public_schedule: |
           Diese QR-Code enthält die URL zur maschinenlesbaren Verion der öffentlichen Programmübersicht.
@@ -1971,8 +2024,8 @@ de:
   rating: Bewertung
   ratings: Bewertungen
   ratings_module:
-    error_creating: 'Fehler beim Erstellen der Ereignisbewertung: %{error}'
-    error_updating: Die Bewertung des Ereignisses konnte nicht aktualisiert werden
+    error_creating: 'Fehler beim Erstellen der Eventbewertung: %{error}'
+    error_updating: Die Bewertung des Events konnte nicht aktualisiert werden
     no_event: |
       Diese Konferenz hat noch keine Einreichungen.
 
@@ -2017,6 +2070,7 @@ de:
     events_with_unusual_state_speakers: Events mit Sprechern in problematischen States
     events_without_abstract: Events ohne Zusammenfassung
     events_without_speaker: Events ohne Sprecher
+    events_without_subtitle: Ereignisse ohne Untertitel
     expected_speakers: fehlende Sprecher in den nächsten vier Stunden
     found_x_results: Es wurden %{nb} Ergebnisse gefunden.
     lectures_not_confirmed: Vorträge, die im Status neu oder review sind
@@ -2111,6 +2165,7 @@ de:
     login: Einloggen
     signup: Anmelden
     update_password: Aktualisiere mein Passwort
+  set: einstellen
   settings: Einstellungen
   show: Anzeige
   show_account: Konto

@@ -135,7 +135,9 @@ class ConferencesController < BaseConferenceController
   def update
     authorize @conference, :orga?
     respond_to do |format|
-      if @conference.update_attributes(existing_conference_params)
+      if not params[:conference]
+        format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_not_updated')) }
+      elsif @conference.update_attributes(existing_conference_params)
         format.html { redirect_to(edit_conference_path(conference_acronym: @conference.acronym), notice: t('conferences_module.notice_conference_updated')) }
       else
         flash_model_errors(@conference)
@@ -187,7 +189,7 @@ class ConferencesController < BaseConferenceController
 
   def allowed_params
     [
-      :acronym, :allowed_event_types_extras, :attachment_title_is_freeform,
+      :acronym, :allowed_event_types_extras, :attachment_title_is_freeform, :bcc_address,
       :bulk_notification_enabled, :color, :default_recording_license, :default_timeslots, :email,
       :event_state_visible, :expenses_enabled, :feedback_enabled, :max_timeslots, :program_export_base_url,
       :schedule_custom_css, :schedule_html_intro, :schedule_public, :schedule_open, :schedule_version, :ticket_type,
