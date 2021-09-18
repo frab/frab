@@ -417,7 +417,7 @@ class EventsController < BaseConferenceController
       end
     end
     filter = filter.associated_with(current_user.person) if helpers.showing_my_events?
-    @search = perform_search(filter, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is))
+    @search = perform_search(filter, params, %i(title_cont description_cont abstract_cont track_name_cont event_type_is id_in))
     if params.dig('q', 's')&.match('track_name')
       @search.result
     else
