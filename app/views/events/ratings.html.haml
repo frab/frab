@@ -28,6 +28,9 @@
           = @events_no_review
     .row
       .span16
+        = render 'shared/simple_search', path: request.path          
+    .row
+      .span16
         - if @events.empty?
           %p= t('reports_module.no_search_results')
         - else
