@@ -13,10 +13,10 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.1'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '< 6'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
@@ -99,11 +99,12 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'letter_opener'
   gem 'faker'
-  gem 'i18n-tasks'
+  # TODO depends on railties
+  gem 'i18n-tasks',  '~> 0.9.34'
 end
 
 group :test do
-  gem 'factory_bot_rails', '~> 6.2'
+  gem 'factory_bot_rails'
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
 
