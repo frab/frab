@@ -4,8 +4,8 @@ lock '3.8.2'
 set :application, 'frab'
 set :repo_url, 'https://github.com/frab/frab.git'
 
-# Default branch is :master
-set :branch, 'master'
+# Default branch is :main
+set :branch, 'main'
 set :user, ENV['CAP_USER']
 
 set :use_sudo,        false
