@@ -82,9 +82,9 @@ GEM
     arel (9.0.0)
     ast (2.4.2)
     attr_required (1.0.1)
-    bindata (2.4.4)
     bcrypt (3.1.16)
-    bootsnap (1.7.2)
+    bindata (2.4.4)
+    bootsnap (1.9.1)
       msgpack (~> 1.0)
     builder (3.2.4)
     bullet (6.1.0)
@@ -336,13 +336,13 @@ GEM
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
     racc (1.5.2)
+    rack (2.2.3)
     rack-oauth2 (1.10.1)
       activesupport
       attr_required
       httpclient
       json-jwt (>= 1.11.0)
       rack
-    rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.6)
