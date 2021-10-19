@@ -325,7 +325,7 @@ class EventsController < BaseConferenceController
     @event = authorize Event.find(params[:id])
 
     respond_to do |format|
-      if @event.update_attributes(event_params)
+      if @event.update(event_params)
         format.html { redirect_to(@event, notice: t('cfp.event_updated_notice')) }
         format.js   { head :ok }
       else

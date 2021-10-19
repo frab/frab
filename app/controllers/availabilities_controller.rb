@@ -11,7 +11,7 @@ class AvailabilitiesController < BaseConferenceController
   end
 
   def update
-    @person.update_attributes_from_slider_form(person_params)
+    @person.update_from_slider_form(person_params)
     redirect_to(person_url(@person), notice: t('availabilities.success_update'))
   end
 

@@ -143,7 +143,7 @@ class Person < ApplicationRecord
     unless ENV['OVERRIDE_PROFILE_PHOTO']
       return if avatar.present?
     end
-    
+
     begin
       new_image_data = nil
       image_url = auth&.info&.image
@@ -153,13 +153,13 @@ class Person < ApplicationRecord
         new_image_data = auth&.extra&.raw_info[:thumbnailphoto]&.first # Maybe Intel-specific
       end
       return unless new_image_data
-      
+
       if avatar.exists?
         existing_avatar_data = Paperclip.io_adapters.for(avatar).read
         return if existing_avatar_data == new_image_data
       end
-        
-      update_attributes(avatar: StringIO.new(new_image_data),
+
+      update(avatar: StringIO.new(new_image_data),
                         avatar_file_name: auth.provider)
     rescue => e
       Rails.logger.error "Person::update_from_omniauth(provider=#{auth.provider}) exception during image import: #{e}; Ignored"
@@ -182,7 +182,7 @@ class Person < ApplicationRecord
     end
   end
 
-  def update_attributes_from_slider_form(params)
+  def update_from_slider_form(params)
     # remove empty availabilities
     return unless params and params.key? 'availabilities_attributes'
     params['availabilities_attributes'].each { |_k, v|
@@ -194,7 +194,7 @@ class Person < ApplicationRecord
       v['start_date'] = Time.zone.parse(v['start_date'])
       v['end_date'] = Time.zone.parse(v['end_date'])
     }
-    update_attributes(params)
+    update(params)
   end
 
   def average_feedback_as_speaker

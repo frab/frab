@@ -18,7 +18,7 @@ class TransportNeedsController < BaseConferenceController
 
   def update
     transport_need = @person.transport_needs.find(params[:id])
-    transport_need.update_attributes(transport_needs_params)
+    transport_need.update(transport_needs_params)
     redirect_to(person_url(@person), notice: t('transport_needs_module.notice_need_updated'))
   end
 

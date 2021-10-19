@@ -7,7 +7,7 @@ class CrewProfilesController < BaseCrewController
     @person = current_user.person
 
     respond_to do |format|
-      if @person.update_attributes(person_params)
+      if @person.update(person_params)
         format.html { redirect_to(edit_crew_profile_path, notice: t('users_module.notice_profile_updated')) }
       else
         flash_model_errors(@person)

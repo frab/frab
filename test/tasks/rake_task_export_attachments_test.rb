@@ -8,12 +8,12 @@ class RakeTaskExportAttachmentsTest < ActiveSupport::TestCase
     def setup
       # Create a conference with an attachment
       @conference = create :three_day_conference_with_events
-      @conference.update_attributes(attachment_title_is_freeform: false)
+      @conference.update(attachment_title_is_freeform: false)
 
       @event=@conference.events.first
-      
+
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'textfile.txt'), 'text/plain')
-      @event.update_attributes( event_attachments_attributes: { 'xx' => { 'title' => 'proposal', 'attachment' => upload } })
+      @event.update( event_attachments_attributes: { 'xx' => { 'title' => 'proposal', 'attachment' => upload } })
 
       # Run frab:conference_export_attachments
       Frab::Application.load_tasks if Rake::Task.tasks.empty?
@@ -21,7 +21,7 @@ class RakeTaskExportAttachmentsTest < ActiveSupport::TestCase
       Rake::Task["frab:conference_export_attachments"].invoke
 
     end
-    
+
     def teardown
       @conference.destroy
     end

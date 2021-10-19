@@ -26,9 +26,9 @@ module HasEventConflicts
     nil
   end
 
-  def update_attributes_and_return_affected_ids(attributes)
+  def update_and_return_affected_ids(attributes)
     affected_event_ids = conflicts.map(&:conflicting_event_id)
-    update_attributes(attributes)
+    update(attributes)
     reload
     affected_event_ids += conflicts.map(&:conflicting_event_id)
     affected_event_ids.delete(nil)

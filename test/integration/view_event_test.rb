@@ -32,11 +32,11 @@ class ViewEventTest < ActionDispatch::IntegrationTest
   test 'can view attachment overview table' do
     get "/#{@conference.acronym}/events/attachments"
     assert_includes @response.body, 'There are no files attached'
-    
+
     upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'textfile.txt'), 'text/plain')
-    @event.update_attributes( event_attachments_attributes: { 'xx' => { 'title' => 'proposal',         'attachment' => upload } }) #todo join lines?
-    @event.update_attributes( event_attachments_attributes: { 'yy' => { 'title' => 'a freeform title', 'attachment' => upload } })
-                                                                
+    @event.update( event_attachments_attributes: { 'xx' => { 'title' => 'proposal',         'attachment' => upload } }) #todo join lines?
+    @event.update( event_attachments_attributes: { 'yy' => { 'title' => 'a freeform title', 'attachment' => upload } })
+
     get "/#{@conference.acronym}/events/attachments"
     assert_includes @response.body, @event.title
 
@@ -44,7 +44,7 @@ class ViewEventTest < ActionDispatch::IntegrationTest
 
     assert_includes @response.body, 'proposal' # proposal appears as a table header, not a link
     assert_select 'a', {text: 'proposal', count: 0}
-    
+
   end
 
   test 'reports no results for missing terms' do

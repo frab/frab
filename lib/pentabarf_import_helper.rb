@@ -228,7 +228,7 @@ class PentabarfImportHelper
         user.confirmed_at = Time.now
         user.role = role ? ROLE_MAPPING[role] : 'submitter'
         user.save!
-        Person.find(mappings(:people)[account['person_id']]).update_attributes!(user_id: user.id)
+        Person.find(mappings(:people)[account['person_id']]).update!(user_id: user.id)
       end
     end
   end

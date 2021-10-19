@@ -135,17 +135,17 @@ class Event < ApplicationRecord
   end
 
   def recalculate_average_feedback!
-    update_attributes(average_feedback: average(:event_feedbacks))
+    update(average_feedback: average(:event_feedbacks))
   end
 
   def recalculate_average_rating!
-    update_attributes(average_rating: average_of_nonzeros(event_ratings.pluck(:rating)), event_ratings_count: event_ratings.where.not(rating: [nil, 0]).count )
+    update(average_rating: average_of_nonzeros(event_ratings.pluck(:rating)), event_ratings_count: event_ratings.where.not(rating: [nil, 0]).count )
   end
 
   def recalculate_review_averages!
     conference.review_metrics.each do |review_metric|
       avg = average_of_nonzeros(review_scores.where(review_metric: review_metric).pluck(:score))
-      average_review_scores.find_or_create_by(review_metric: review_metric).update_attributes(score: avg)
+      average_review_scores.find_or_create_by(review_metric: review_metric).update(score: avg)
     end
   end
 

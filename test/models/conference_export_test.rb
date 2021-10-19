@@ -23,7 +23,7 @@ class ConferenceExportTest < ActiveSupport::TestCase
 
     assert_difference 'ConferenceExport.count' do
       conference_export = ConferenceExport.where(conference_id: conference.id, locale: locale).first_or_create
-      conference_export.update_attributes tarball: File.open(file)
+      conference_export.update tarball: File.open(file)
     end
     conference_export = ConferenceExport.where(conference_id: conference.id, locale: locale).first
     assert_not_nil conference_export.tarball
