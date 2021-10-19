@@ -6,6 +6,7 @@ and to create a schedule.
 
 [![Tests](https://github.com/frab/frab/actions/workflows/ci.yaml/badge.svg?event=schedule)](https://github.com/frab/frab/actions/workflows/ci.yaml)
 [![Code Climate](https://codeclimate.com/github/frab/frab.png)](https://codeclimate.com/github/frab/frab)
+[![Container image](https://github.com/frab/frab/actions/workflows/container-images.yml/badge.svg)](https://github.com/frab/frab/actions/workflows/container-images.yml)
 
 ## Current Status
 

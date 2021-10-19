@@ -5,7 +5,7 @@ on:
     tags:
     - '*'
 
-name: build container image
+name: Container Image
 
 jobs:
   build:
