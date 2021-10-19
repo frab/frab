@@ -39,6 +39,7 @@ class Event < ApplicationRecord
   validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
   validates :title, :time_slots, presence: true
+  validates :title, length: { maximum: 255 }
 
   scope :accepted, -> { where(arel_table[:state].in(ACCEPTED)) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
