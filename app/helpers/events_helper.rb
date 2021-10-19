@@ -23,6 +23,10 @@ module EventsHelper
     end
     slots
   end
+  
+  def timeslots_for_cfp
+    @conference.allowed_event_timeslots.map{|slots| [format_time_slots(slots), slots]}
+  end
 
   def format_time_slots(number_of_time_slots)
     duration_in_minutes = number_of_time_slots * @conference.timeslot_duration
@@ -65,10 +69,11 @@ module EventsHelper
 
   def show_filters_pane?
     filters_data.each do |f|
-      return true if params[f.qname].present?
+      return true if params[f.qname]
     end
     false
   end
+  
   def localized_filter_options(c, i18n_scope)
     c = split_filter_string(c) if c.is_a? String
     options = (c - ['',nil]).map{|v| [ if i18n_scope 
@@ -84,12 +89,13 @@ module EventsHelper
   end
   
   def split_filter_string(s)
+    return [''] if s==''
     s.split('|', -1)
   end
 
   def filter_link(qname, text='')
     link_to text, '#',
-            class: [ 'show_filter_modal', ('filter_icon' unless text.present?), params[qname].present? ] ,
+            class: [ 'show_events_modal', ('filter_icon' unless text.present?), params[qname].present? ] ,
             data: { url: filter_modal_events_url(request.query_parameters.merge(which_filter: qname)) }
   end
   

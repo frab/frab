@@ -47,7 +47,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = ENV.fetch('FRAB_FORCE_SSL', 'false') == 'true'
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -57,7 +57,7 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :mem_cache_store if ENV.fetch('FRAB_USE_MEMCACHE', 'false') == 'true'
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -71,7 +71,7 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [I18n.default_locale]
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
@@ -88,6 +88,19 @@ Rails.application.configure do
 
   if ENV['EXCEPTION_EMAIL'].present? and ENV['FROM_EMAIL'].present?
     Rails.application.config.middleware.use ExceptionNotification::Rack,
+      ignore_if: ->(env, exception) {
+        return true if exception.message =~ /^IP spoofing attack/
+        # from https://gist.github.com/jlxw/3357795
+        _limit = 1.minutes.ago
+        @@last_notification ||= _limit
+        if @@last_notification > _limit
+          Rails.logger.info "ExceptionNotifier rate limit triggered, #{ExceptionNotifier::Notifier.deliveries.size} notifications limited."
+          true
+        else
+          @@last_notification = Time.now
+          false
+        end
+      },
       email: {
         email_prefix: "frab on #{ENV['FRAB_HOST']}: ",
         sender_address: "frab <#{ENV['FROM_EMAIL']}>",

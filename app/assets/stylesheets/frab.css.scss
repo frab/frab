@@ -270,6 +270,14 @@ span.after-deadline.hard {
     background-color: red;
 }
 
+.error {
+    padding: 3px;
+    background-color: red;
+    color: yellow;
+    border-style: solid;
+    border-color: black;
+}
+
 div.filters-row {
     margin-bottom: 13px;
 }
@@ -327,4 +335,22 @@ p.warning {
     background: #fbbebe
 }
 
+.conf-accepted-durations {
+    columns: 6;
+    width: fit-content;
+}
 
+span#display_box {
+    border-style: solid;
+    border-width: thin;
+    background-color: lightgray;
+    padding: 5px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+span#display_box.accepted {
+    font-weight: bold;
+}

@@ -109,6 +109,7 @@ Rails.application.routes.draw do
         collection do
           get :all
           get :feedbacks
+          get :lookup
           get :speakers
         end
         member do
@@ -128,6 +129,7 @@ Rails.application.routes.draw do
           get :export_accepted
           get :export_confirmed
           get :filter_modal
+          get :bulk_edit_modal
           post :batch_actions
         end
         member do

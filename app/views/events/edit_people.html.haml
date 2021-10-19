@@ -1,3 +1,4 @@
+
 %section
   .page-header
     %h1= t('titles.edit_people_for_event', {event: @event.title})
@@ -9,32 +10,12 @@
           = f.button :submit, class: 'primary'
           = link_to t('cancel'), :back, class: "btn"
 
-:javascript
-  attach_filter = function(set) {
-    form = $("form.edit_event");
-    var persons = form.data()["persons"];
-    var q = $(set).find('input[name=filter]');
-    var list = $(set).find('[name$="[person_id]"]');
 
-    q.on('input', function(e) {
-      $(list).empty();
-      $(list).append($('<option>', { value: null, text: "" }));
+= javascript_include_tag "person_filter"
 
-      $(persons).each(function(i) {
-        id = persons[i]["id"];
-        text = persons[i]["text"];
-
-        if (text.toUpperCase().indexOf(q.val().toUpperCase()) >= 0) {
-          $(list).append($('<option>', { value: id, text: text }));
-        }
-      });
-    });
-  }
-
-  $('div.nested-fields').each(function(i) {
-    attach_filter(this);
-  });
-
-  $('form.edit_event').on('cocoon:after-insert', function(e, item) {
-    attach_filter(item);
-  });
+:coffeescript
+  for x in $("div.nested-fields")
+    window.update_and_attach_person_filter("#{lookup_people_url}", $(x))
+  
+  $("form.edit_event").on 'cocoon:after-insert', (e, item) ->
+    update_and_attach_person_filter("#{lookup_people_url}", item)

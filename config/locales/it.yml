@@ -2,6 +2,7 @@
 it:
   ability:
     denied: Questa azione è proibita.
+  accepted_event_durations: Durate degli eventi accettate
   accepted_only: Accettato solo
   actions: stock
   activerecord:
@@ -23,6 +24,7 @@ it:
         acronym: acronimo
         allowed_event_types_as_list: Tipi di eventi consentiti
         attachment_title_is_freeform: Il titolo dell'allegato è a mano libera
+        bcc_address: Indirizzo BCC
         bulk_notification_enabled: Notifiche di gruppo
         color: colore
         default_recording_license: Licenza di registrazione predefinita
@@ -78,7 +80,7 @@ it:
         submission_note: Note di presentazione
         subtitle: sottotitolo
         tech_rider: Requisiti tecnici
-        time_slots: Spiagge orarie
+        time_slots: Durata
         title: titolo
         track: filo
       event_attachment:
@@ -177,6 +179,7 @@ it:
       review_metric: Revisionare la metrica
       room: sala
       track: filo
+  add: Inserisci
   add_association: Aggiungi %{name}
   additional_resources: Risorse aggiuntive
   admin: Admin
@@ -216,6 +219,10 @@ it:
   cancel: annullare
   cfp:
     abstract_hint: Un piccolo paragrafo che ti descrive succintamente. (HTML)
+    attachements_may_be_saved: |
+      Nota: le informazioni inserite qui, inclusi file allegati e collegamenti, potrebbero essere
+      mantenuti ed essere disponibili per il team della conferenza anche dopo averlo rimosso dal file
+      evento. Contattare il team della conferenza nel caso in cui i dati debbano essere rimossi prontamente.
     avatar_hint: Carica una nuova foto.
     back: ritorno
     basic_information: Informazioni di base
@@ -410,7 +417,7 @@ it:
   col_start_time: 'inizio:'
   col_submission_notes: 'Note di invio (utente e amministratore):'
   col_ticket: 'biglietto:'
-  col_time_slots: 'Spiagge orarie:'
+  col_time_slots: 'Durata:'
   col_total: 'totale:'
   col_track: 'filetto:'
   col_tracks: 'figlio:'
@@ -432,6 +439,12 @@ it:
     footer: Questo programma è stato generato con [frab] (http://frab.github.io/frab/).
     inputs:
       hints:
+        accepted_event_durations: |
+          Usa le caselle sopra per determinare a quali opzioni sono presentate
+          presentatori per indicare la durata dell'evento proposto.
+          I mittenti potranno scegliere uno dei valori che hai controllato qui.
+          Come equipaggio della conferenza, sarai in grado di cambiare in seguito eventi a qualsiasi
+          durata, non solo quelli controllati qui.
         acronym: |
           Un nome breve e univoco per la conferenza, utilizzando solo lettere
           minuscoli, numeri e caratteri di sottolineatura. Questo sarà usato per identificare
@@ -448,6 +461,10 @@ it:
           Se questa opzione è selezionata, i mittenti possono fornire qualsiasi titolo desiderino
           per i file caricati come allegati. Se questa opzione è deselezionata, essi
           deve selezionare tra un set di titoli preconfigurati.
+        bcc_address: |
+          Puoi specificare un indirizzo e-mail qui. frab invierà questo indirizzo a
+          copia di ogni mail che invia ai mittenti. Puoi usarlo come un modo per conservare
+          un registro di tutte le e-mail inviate.
         bulk_notification_enabled: |
           Se abiliti questa opzione, le notifiche verranno inviate
           massa per posta, o da un sottosistema di biglietti.
@@ -516,6 +533,7 @@ it:
       cliccando sul tasto destro.
     notice_bulk_notification_queued: Gruppo di notifica per eventi in %{notification} in coda.
     notice_conference_created: Conferenza creata con successo.
+    notice_conference_not_updated: La conferenza non è stata aggiornata.
     notice_conference_updated: Conferenza aggiornata con successo.
     past_conferences: Conferenze passate
     recent_changes: Cambiamenti recenti
@@ -939,6 +957,7 @@ it:
       empty: non può essere vuoto
       equal_to: deve essere uguale a %{count}
       even: deve essere lo stesso
+      exceeds: non può superare %{what}
       exclusion: è prenotato
       expired: è scaduto, si prega di fare una nuova richiesta
       greater_than: deve essere più grande di %{count}
@@ -999,6 +1018,40 @@ it:
     attachments_overview: allegati
     average_feedback: 'Rendimenti medi:'
     average_speaker_feedback: 'Rendimenti medi per oratore:'
+    bulk_edit:
+      add_person: Aggiungi persona
+      add_person_confirm:
+        one: Sei sicuro di voler aggiungere una persona a questo evento?
+        other: Sei sicuro di voler aggiungere una persona a tutti gli eventi %{count}?
+      set_duration: Imposta la durata
+      set_duration_confirm:
+        one: Sei sicuro di voler cambiare la durata di questo evento?
+        other: Sei sicuro di voler cambiare la durata di tutti gli eventi %{count}?
+      set_events_confirm:
+        one: sei sicuro di voler cambiare stato per questo evento?
+        other: Sei sicuro di voler cambiare stato per tutti gli eventi %{count}?
+      set_events_type_confirm:
+        one: Sei sicuro di voler modificare il tipo di questo evento?
+        other: Sei sicuro di voler modificare il tipo per tutti gli eventi %{count}?
+      set_new_event_type: Cambia tipo di evento
+      set_new_state: Assegna stato
+      set_new_track: Assegna traccia
+      set_track_confirm:
+        one: Sei sicuro di voler cambiare la traccia di questo evento?
+        other: Sei sicuro di voler cambiare la traccia di tutti gli eventi %{count}?
+      show: Modifica questi eventi
+      title:
+        one: 'Modifica evento %{count}:'
+        other: 'Modifica eventi %{count}:'
+      update_failed:
+        one: Modifica di %{count} non riuscita.
+        other: "%{count} modifiche non riuscite."
+      update_skipped:
+        one: "%{count} modifica saltata."
+        other: "%{count} modifiche saltate."
+      update_successful:
+        one: "%{count} modifica completata correttamente."
+        other: "%{count} modifiche completate correttamente."
     cancel_event: Annulla l'evento
     cancel_event_hint: |
       Imposta questo evento come cancellato. Generalmente, ciò significa che l'oratore
@@ -1101,7 +1154,11 @@ it:
     reject_event_hint: Rifiuta questo evento. I relatori saranno informati di questo rifiuto via e-mail.
     reject_event_no_email: Rifiuta l'evento (nessuna email)
     reject_event_no_email_hint: Rifiuta questo evento senza inviare un'e-mail automatica.
-    select_filter_for: 'Seleziona il filtro per %{filtername}:'
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 'Seleziona il filtro per %{filtername}:'
     toggle_description: Mostra descrizione >>
     toggle_send_bulk_mail: Invia mail a tutte queste persone >>
     track_select: filtro per filo
@@ -1854,14 +1911,19 @@ it:
     attending_hint: Segna la persona come presente.
     edit_person: Modifica la persona
     edit_person_hint: Modifica i dati della persona.
+    filter:
+      not_found: Non trovato.
+      pick_one: "- Scegli uno dei nomi %{count} qui sotto -"
+      too_many: Troppi nomi da visualizzare. Usa il filtro.
     inputs:
       hints:
         event_role: |
-          I coordinatori fanno parte del team della conferenza. Coordinano il
-          passaggio di oratori e altri eventi. I candidati sono le persone
-          ha risposto all'appello per la partecipazione e ha inserito eventi in
-          frab. I relatori partecipano agli eventi. I moderatori prendono parte alle discussioni.
-          Importante: la disponibilità di relatori e moderatori deve essere correttamente compilata.
+          I coordinatori fanno parte del team della conferenza, coordinano il relatore
+          partecipazione ed eventi. I mittenti rispondono al cfp per inserire eventi frab.
+          I relatori prendono parte agli eventi, la loro disponibilità è importante. I moderatori prendono
+          parte nelle discussioni del panel, la loro disponibilità conta. Gli assistenti hanno il
+          stesse autorizzazioni dei mittenti e verranno informati di eventuali aggiornamenti; ma
+          la loro disponibilità non viene mai presa in considerazione.
         notification_body: 'Variabili valide: %{variables}'
         person_filter: |
           Filtra le persone per cognome, nome, indirizzo email o id. Lascia vuoto
@@ -2021,6 +2083,7 @@ it:
     events_with_unusual_state_speakers: eventi con relatori in uno stato problematico
     events_without_abstract: eventi senza sintesi
     events_without_speaker: eventi senza relatore
+    events_without_subtitle: eventi senza sottotitoli
     expected_speakers: altoparlanti mancanti per le prossime 4 ore
     found_x_results: risultato (s) %{nb} trovato.
     lectures_not_confirmed: conferenze nuove o di revisione
@@ -2120,6 +2183,7 @@ it:
     login: Entra
     signup: Crea il mio account
     update_password: Cambia la mia password
+  set: Impostato
   settings: impostazioni
   show: Affiggere
   show_account: conto

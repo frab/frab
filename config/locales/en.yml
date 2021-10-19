@@ -4,6 +4,7 @@ en:
     denied: This action is not allowed.
   accepted_only: Accepted only
   actions: Actions
+  accepted_event_durations: Accepted event durations
   activerecord:
     attributes:
       availability:
@@ -23,6 +24,7 @@ en:
         acronym: Acronym
         allowed_event_types_as_list: Allowed event types
         attachment_title_is_freeform: Attachment title is freeform
+        bcc_address: BCC address
         bulk_notification_enabled: Bulk notifications
         color: Color
         default_recording_license: Default recording license
@@ -78,7 +80,7 @@ en:
         submission_note: Submission notes
         subtitle: Subtitle
         tech_rider: Tech rider
-        time_slots: Time slots
+        time_slots: Duration
         title: Title
         track: Track
       event_attachment:
@@ -177,6 +179,7 @@ en:
       review_metric: Review metric
       room: room
       track: track
+  add: Add
   add_association: Add %{name}
   additional_resources: Additional Resources
   admin: Admin
@@ -216,6 +219,10 @@ en:
   cancel: Cancel
   cfp:
     abstract_hint: One short paragraph that succinctly describes you. (HTML)
+    attachements_may_be_saved: |
+      Note: Information you enter here, including file attachments and links, may be
+      retained and be available to conference crew even after you remove it from the
+      event. Contact conference crew in case data needs to be removed promptly.
     avatar_hint: Upload a new picture.
     back: Back
     basic_information: Basic information
@@ -407,7 +414,7 @@ en:
   col_start_time: 'Start time:'
   col_submission_notes: 'Submission Notes(user and admin):'
   col_ticket: 'Ticket:'
-  col_time_slots: 'Time slots:'
+  col_time_slots: 'Duration:'
   col_total: 'Total:'
   col_track: 'Track:'
   col_tracks: 'Tracks:'
@@ -433,6 +440,12 @@ en:
           A short and unique handle for your conference, using only lower-case
           letters, numbers and underscores. This will be used to identify your
           conference in URLs etc. Example: 'froscon2011'
+        accepted_event_durations: |
+          Use the checkboxes above to determine which options are presented to
+          submitters for indicating the duration of their proposed event.
+          Submitters will be able to pick one of the values you checked here.
+          As conference crew, you will be able to later change events to any
+          duration, not only those checked here.
         allowed_event_types: |
           Here you can pick which types of events are accepted as submissions to
           this conference. This list affects only new submissions. Existing submissions
@@ -445,6 +458,10 @@ en:
           If this option is selected, submitters can provide any title they want
           for files they upload as attachments. If this option is deselected, they
           must select between a set of pre-configured titles.
+        bcc_address: |
+          You can specify an e-mail address here. frab will send this address a 
+          copy of each mail it sends to submitters. You can use this as a way to keep
+          a log of all e-mails sent.
         bulk_notification_enabled: |
           If you enable this, notifications will be sent out in bulk by mail
           or ticket subsystem.
@@ -507,6 +524,7 @@ en:
       button on the right.
     notice_bulk_notification_queued: Bulk notifications for events in %{notification} enqueued.
     notice_conference_created: Conference was successfully created.
+    notice_conference_not_updated: Conference was not updated.
     notice_conference_updated: Conference was successfully updated.
     past_conferences: Past Conferences
     recent_changes: Recent changes
@@ -906,6 +924,7 @@ en:
       confirmation: doesn't match %{attribute}
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       empty: can't be empty
+      exceeds: can't exceed %{what}
       equal_to: must be equal to %{count}
       even: must be even
       exclusion: is reserved
@@ -965,6 +984,43 @@ en:
     ago: "%{time_ago} ago"
     all_events: All events
     all_rating: All ratings
+    bulk_edit:
+      add_person: Add person
+      add_person_confirm:
+        one: Are you sure you want to add a person to this event?
+        other: Are you sure you want to add a person to all %{count} events?
+      set_duration: Set duration
+      set_duration_confirm:
+        one: Are you sure you want to change duration for this event?
+        other: Are you sure you want to change duration for all %{count} events?
+      set_new_state: Assign state
+      set_new_track: Assign track
+      set_new_event_type: Change event type
+      set_events_confirm:
+        one: Are you sure you want to change state for this event?
+        other: Are you sure you want to change state for all %{count} events?
+      set_events_type_confirm:
+        one: Are you sure you want to modify this event's type?
+        other: Are you sure you want to modify the type for all %{count} events?
+      set_track_confirm:
+        one: Are you sure you want to change the track of this event?
+        other: Are you sure you want to change the track of all %{count} events?
+      set_events_confirm:
+        one: you sure you want to change state for this event?
+        other: Are you sure you want to change state for all %{count} events?
+      update_successful:
+        one: "%{count} edit completed successfully."
+        other: "%{count} edits completed successfully."
+      update_skipped:
+        one: "%{count} edit skipped."
+        other: "%{count} edits skipped."
+      show: Edit these events
+      title:
+        one: 'Edit %{count} event:'
+        other: 'Edit %{count} events:'
+      update_failed:
+        one: "%{count} edit failed."
+        other: "%{count} edits failed."
     attachments_overview: Attachments
     average_feedback: 'Average Feedback:'
     average_speaker_feedback: 'Average feedback as speaker:'
@@ -1007,7 +1063,12 @@ en:
     events_by_state: Events by state
     events_in_current_conference: Events in current conference
     events_in_other_conferences: Events in other conferences
-    feedback_not_enabled: The feedback system is not enabled.
+    feedback_not_enabled: The feedback system is not enabled.    
+    filter_modal:
+      at_least: at least
+      at_most: at most
+      exactly: exactly
+      select_filter_for: 'Select filter for %{filtername}:'
     hide_all: hide all
     indicator:
       full:
@@ -1071,7 +1132,6 @@ en:
     reject_event_hint: Reject this event. The speaker(s) will be notified of the rejection via email.
     reject_event_no_email: Reject event (no email)
     reject_event_no_email_hint: Reject this event without sending an automated email.
-    select_filter_for: "Select filter for %{filtername}:"
     toggle_description: Toggle Description >>
     toggle_send_bulk_mail: Send mail to all these people >>
     track_select: filter by track
@@ -1823,17 +1883,23 @@ en:
     attending_hint: Mark person as present.
     edit_person: Edit person
     edit_person_hint: Edit this person's data.
+    filter:
+      pick_one: -- Pick one of %{count} names below --
+      too_many: Too many names to display. Use filter.
+      not_found: Not found.
     inputs:
       hints:
         event_role: |
           Coordinators are part of the conference team, they coordinate speaker
           attendance and events. Submitters answer the cfp to enter events into frab.
           Speakers take part in events, their availability matters. Moderators take
-          part in panel discussions, their availability matters."
+          part in panel discussions, their availability matters. Assistants have the
+          same permissions as submitters, and will be notified of any updates; but 
+          their availabilities is never taken into account.
         notification_body: 'Valid variables: %{variables}'
         person_filter: |
           Filter persons in the options menu below by their first name, last
-          name, email address or user ID. Leave blank for no filtering."
+          name, email address or user ID. Leave blank for no filtering.
       notification_body: Notification body
       notification_subject: Notification subject
     list_of_people: List of people
@@ -1986,6 +2052,7 @@ en:
     events_with_unusual_state_speakers: events with speakers in a problematic state
     events_without_abstract: events without abstract
     events_without_speaker: events without speaker
+    events_without_subtitle: events without subtitle
     expected_speakers: missing speakers for the next 4 hours
     found_x_results: Found %{nb} results.
     lectures_not_confirmed: lectures that are new or review
@@ -2083,6 +2150,7 @@ en:
     login: Log in
     signup: Sign up
     update_password: Update my password
+  set: Set
   settings: Settings
   show: Show
   show_account: Account

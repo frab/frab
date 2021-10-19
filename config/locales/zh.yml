@@ -2,6 +2,7 @@
 zh:
   ability:
     denied: 此操作是不允许的。
+  accepted_event_durations: 接受的事件持续时间
   accepted_only: 仅接受
   actions: 操作
   activerecord:
@@ -23,6 +24,7 @@ zh:
         acronym: 缩写
         allowed_event_types_as_list: 允许的事件类型
         attachment_title_is_freeform: 附件标题为自由格式
+        bcc_address: 密件抄送地址
         bulk_notification_enabled: 批量通知已启用
         color: 颜色
         default_recording_license: 默认录制许可证
@@ -78,7 +80,7 @@ zh:
         submission_note: 提交说明
         subtitle: 字幕
         tech_rider: 技术车手
-        time_slots: 时隙
+        time_slots: 持续时间
         title: 标题
         track: 跟踪
       event_attachment:
@@ -177,6 +179,7 @@ zh:
       review_metric: 审核指标
       room: 房间
       track: 跟踪
+  add: 加
   add_association: 添加%{name}
   additional_resources: 其他资源
   admin: 管理员
@@ -216,6 +219,10 @@ zh:
   cancel: 取消
   cfp:
     abstract_hint: 一个简短的段落，简洁地描述你。 (HTML)
+    attachements_may_be_saved: |
+      注意：您在此处输入的信息（包括文件附件和链接）可能是
+      保留下来，即使您将其从
+      事件。如果需要立即删除数据，请联系会议工作人员。
     avatar_hint: 上传一张新照片。
     back: 背部
     basic_information: 基本信息
@@ -407,7 +414,7 @@ zh:
   col_start_time: 开始时间：
   col_submission_notes: 提交注释(用户和管理员)：
   col_ticket: 票：
-  col_time_slots: 时隙：
+  col_time_slots: 持续时间：
   col_total: 总：
   col_track: 跟踪：
   col_tracks: 曲目：
@@ -429,6 +436,12 @@ zh:
     footer: 这个时间表是用[frab](http://frab.github.io/frab/)生成的。
     inputs:
       hints:
+        accepted_event_durations: |
+          使用上面的复选框来确定要显示的选项
+          提交者，以指示其提议活动的持续时间。
+          提交者将能够选择您在此处选中的值之一。
+          作为会议工作人员，您以后可以将事件更改为任何
+          持续时间，不仅是这里检查过的。
         acronym: |
           为您的会议提供一个简短而独特的手柄，仅使用小写字母
           字母，数字和下划线。这将用于识别你的
@@ -445,6 +458,10 @@ zh:
           如果选择此选项，提交者可以提供他们想要的任何标题
           他们以附件形式上传的文件。如果取消选择此选项，则它们
           必须在一组预配置的标题之间进行选择。
+        bcc_address: |
+          您可以在此处指定一个电子邮件地址。 Frab会将此地址发送给
+          发送给提交者的每封邮件的副本。您可以使用它来保持
+          所有已发送电子邮件的日志。
         bulk_notification_enabled: |
           如果您启用此功能，通知将通过邮件批量发送
           或票子系统。
@@ -507,6 +524,7 @@ zh:
       按钮在右边。
     notice_bulk_notification_queued: 批量通知%{notification}中的事件入队。
     notice_conference_created: 会议成功创建。
+    notice_conference_not_updated: 会议未更新。
     notice_conference_updated: 会议已成功更新。
     past_conferences: 过去的会议
     recent_changes: 近期变动
@@ -914,6 +932,7 @@ zh:
       empty: 不能为空
       equal_to: 必须等于%{count}
       even: 一定是平等的
+      exceeds: 不能超过%{what}
       exclusion: 被预定了
       expired: 已过期，请申请一个新的
       greater_than: 必须大于%{count}
@@ -974,6 +993,40 @@ zh:
     attachments_overview: 附件
     average_feedback: 平均反馈：
     average_speaker_feedback: 以演讲者的平均反馈：
+    bulk_edit:
+      add_person: 加人
+      add_person_confirm:
+        one: 您确定要向此活动添加人吗？
+        other: 您确定要向所有%{count}事件添加人员吗？
+      set_duration: 设定时间
+      set_duration_confirm:
+        one: 您确定要更改此活动的持续时间吗？
+        other: 您确定要更改所有%{count}事件的持续时间吗？
+      set_events_confirm:
+        one: 您确定要更改此事件的状态？
+        other: 您确定要更改所有%{count}事件的状态吗？
+      set_events_type_confirm:
+        one: 您确定要修改此事件的类型吗？
+        other: 您确定要修改所有%{count}事件的类型吗？
+      set_new_event_type: 变更事件类型
+      set_new_state: 分配状态
+      set_new_track: 分配曲目
+      set_track_confirm:
+        one: 您确定要更改此事件的进度吗？
+        other: 您确定要更改所有%{count}事件的记录吗？
+      show: 编辑这些事件
+      title:
+        one: 编辑%{count}事件：
+        other: 编辑%{count}事件：
+      update_failed:
+        one: "%{count}编辑失败。"
+        other: "%{count}编辑失败。"
+      update_skipped:
+        one: "%{count}编辑已跳过。"
+        other: "%{count}编辑已跳过。"
+      update_successful:
+        one: "%{count}编辑成功完成。"
+        other: "%{count}编辑成功完成。"
     cancel_event: 取消活动
     cancel_event_hint: 将此事件标记为已取消。通常这意味着扬声器必须取消它们的外观。
     col_toggle_rooms: 切换房间：
@@ -1077,7 +1130,11 @@ zh:
     reject_event_hint: 拒绝此事件。发言者将通过电子邮件通知拒绝。
     reject_event_no_email: 拒绝活动(无电子邮件)
     reject_event_no_email_hint: 拒绝此事件而不发送自动电子邮件。
-    select_filter_for: 为%{filtername}选择过滤器：
+    filter_modal:
+      at_least: '≥'
+      at_most: '≤'
+      exactly: '='
+      select_filter_for: 为%{filtername}选择过滤器：
     toggle_description: 切换说明>>
     toggle_send_bulk_mail: 发送邮件给所有这些人>>
     track_select: 按轨道过滤
@@ -1829,13 +1886,19 @@ zh:
     attending_hint: 将人标记为礼物。
     edit_person: 编辑人员
     edit_person_hint: 编辑此人的数据。
+    filter:
+      not_found: 未找到。
+      pick_one: "-从下面选择%{count}名称之一-"
+      too_many: 名称太多，无法显示。使用过滤器。
     inputs:
       hints:
         event_role: |
-          协调员是会议团队的一员，他们协调发言人
-          出席和事件。提交者回答cfp将事件输入frab。
-          发言人参加活动，他们的可用性很重要。主持人拿
-          部分在小组讨论中，他们的可用性很重要。“
+          协调员是会议团队的一部分，他们协调发言人
+          出席和活动。提交者回答cfp，将事件输入到frab中。
+          演讲者参加活动，其可用性很重要。主持人
+          在小组讨论中，其可用性很重要。助手有
+          具有与提交者相同的权限，并且将收到任何更新通知；但
+          他们的可用性永远不会被考虑在内。
         notification_body: 有效变量：%{variables}
         person_filter: |
           在下面的选项菜单中按名称过滤人员，最后一个
@@ -1993,6 +2056,7 @@ zh:
     events_with_unusual_state_speakers: 发言人处于问题状态
     events_without_abstract: 没有摘要的事件
     events_without_speaker: 没有演讲者的活动
+    events_without_subtitle: 没有字幕的事件
     expected_speakers: 在接下来的4个小时里缺少扬声器
     found_x_results: 找到%{nb}结果。
     lectures_not_confirmed: 是新的或复习的讲座
@@ -2090,6 +2154,7 @@ zh:
     login: 登录
     signup: 注册
     update_password: 更新我的密码
+  set: 组
   settings: 设置
   show: 显示
   show_account: 帐户

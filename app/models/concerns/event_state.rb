@@ -59,9 +59,9 @@ module EventState
   end
 
   def process_acceptance(options)
-    if options[:send_mail]
-      event_people.subscriber.each do |event_person|
-        event_person.generate_token!
+    event_people.subscriber.each do |event_person|
+      event_person.generate_token!
+      if options[:send_mail]
         SelectionNotification.make_notification(event_person, 'accept').deliver_now
       end
     end
