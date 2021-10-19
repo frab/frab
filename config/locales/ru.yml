@@ -733,6 +733,7 @@ ru:
     links:
       google_oauth2: Google
       ldap: Сервер LDAP
+      openid_connect: OpenID Connect
       no_unlock_instructions: Не получили инструкции по разблокировке?
       sign_in_with: Войдите в систему с помощью %{provider}
     mailer:
