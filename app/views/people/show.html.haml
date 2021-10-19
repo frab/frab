@@ -8,7 +8,7 @@
         = action_button "attend", t('people_module.attending'), attend_person_path, hint: t('people_module.attending_hint'), method: 'PUT'
       - if @view_model.can_add_ticket?
         = action_button "primary", t('people_module.add_ticket'), create_person_ticket_path(person_id: @person), method: :post, hint: t('people_module.add_ticket_hint')
-    %h1= t('titles.person', {person: @person.full_name})
+    %h1= t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
   - if policy(Conference).manage? && @person.user.nil?
     .row
@@ -43,11 +43,11 @@
           (#{@person.email_public? ? t('is_public') : t('is_not_public')})
         - @person.phone_numbers.each do |phone_number|
           %p
-            %b= t('col_phone_number_with_type', {type: phone_number.phone_type})
+            %b= t('col_phone_number_with_type', type: phone_number.phone_type)
             = phone_number.phone_number
         - @person.im_accounts.each do |im_account|
           %p
-            %b= t('col_col_template', {data: im_account.im_type})
+            %b= t('col_col_template', data: im_account.im_type)
             = im_account.im_address
     .span4
       = image_box @person.avatar, :large

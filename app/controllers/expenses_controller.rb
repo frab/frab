@@ -5,7 +5,7 @@ class ExpensesController < BaseConferenceController
 
   def new
     @expense = Expense.new
-    flash[:alert] = t('expenses_module.error_person_have_no_expense', {person: @person.full_name})
+    flash[:alert] = t('expenses_module.error_person_have_no_expense', person: @person.full_name)
   end
 
   def edit

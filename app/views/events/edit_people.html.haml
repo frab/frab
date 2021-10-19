@@ -1,7 +1,7 @@
 
 %section
   .page-header
-    %h1= t('titles.edit_people_for_event', {event: @event.title})
+    %h1= t('titles.edit_people_for_event', event: @event.title)
   .row
     .span16
       = simple_form_for(@event, data: { persons: @persons }) do |f|
@@ -16,6 +16,6 @@
 :coffeescript
   for x in $("div.nested-fields")
     window.update_and_attach_person_filter("#{lookup_people_url}", $(x))
-  
+
   $("form.edit_event").on 'cocoon:after-insert', (e, item) ->
     update_and_attach_person_filter("#{lookup_people_url}", item)

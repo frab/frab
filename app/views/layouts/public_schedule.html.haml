@@ -45,7 +45,7 @@
 
       #main-content
         - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
-          %p.release= t('conferences_module.version', {version: @conference.schedule_version})
+          %p.release= t('conferences_module.version', version: @conference.schedule_version)
 
         = yield
         %br.clear/

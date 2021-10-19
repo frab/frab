@@ -7,7 +7,7 @@
     .span16
       .flash
         %div{class: "alert-message error fade in", "data-alert" => "alert"}
-          %p= t('cfp.pages.thank_for_interest', {conference: @conference.title})
+          %p= t('cfp.pages.thank_for_interest', conference: @conference.title)
           %p= t('cfp.pages.unexisting_cfp')
   - if encourage_register
     .row
@@ -30,4 +30,4 @@
     .row
       .span16
         %p= t('cfp.come_back')
-    
+

@@ -12,7 +12,7 @@
         %a{href: cfp_root_url(locale: nil)}= cfp_root_url(locale: nil)
 
       - if @conference.call_for_participation.start_date
-        %p= t('cfp.show.dates_hint', {start_date: l(@conference.call_for_participation.start_date), end_date: l(@conference.call_for_participation.end_date)})
+        %p= t('cfp.show.dates_hint', start_date: l(@conference.call_for_participation.start_date), end_date: l(@conference.call_for_participation.end_date))
 
       - if @conference.days.empty?
         %p.warning

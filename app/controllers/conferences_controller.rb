@@ -69,7 +69,7 @@ class ConferencesController < BaseConferenceController
       format.html
     end
   end
-  
+
   def edit_schedule
     authorize @conference, :orga?
     respond_to do |format|
@@ -108,7 +108,7 @@ class ConferencesController < BaseConferenceController
   def send_notification
     authorize @conference, :orga?
     SendBulkTicketJob.new.async.perform @conference, params[:notification]
-    redirect_to edit_notifications_conference_path, notice: t('conferences_module.notice_bulk_notification_queued', {notification: params[:notification]})
+    redirect_to edit_notifications_conference_path, notice: t('conferences_module.notice_bulk_notification_queued', notification: params[:notification])
   end
 
   # POST /conferences
@@ -236,7 +236,7 @@ class ConferencesController < BaseConferenceController
         tracks_attributes: %i(name color _destroy id)
       ]
     end
-    
+
     params.require(:conference).permit(allowed)
   end
 end

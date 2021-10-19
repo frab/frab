@@ -3,7 +3,7 @@ class AvailabilitiesController < BaseConferenceController
 
   def new
     @availabilities = Availability.build_for(@conference)
-    flash[:alert] = t('availabilities.error_person_unavailable', {person: @person.full_name})
+    flash[:alert] = t('availabilities.error_person_unavailable', person: @person.full_name)
   end
 
   def edit

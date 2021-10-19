@@ -9,14 +9,14 @@ class EventsController < BaseConferenceController
 
     clean_events_attributes
     respond_to do |format|
-      format.html { 
+      format.html {
                     @num_of_matching_events = @events.count
                     if helpers.showing_my_events?
                       @events_total = @conference.events.associated_with(current_user.person).count
                     else
                       @events_total = @conference.events.count
                     end
-                    @events = @events.paginate page: page_param 
+                    @events = @events.paginate page: page_param
                   }
       format.json
     end
@@ -58,9 +58,9 @@ class EventsController < BaseConferenceController
 
   def filter_modal
     authorize @conference, :read?
-    
+
     @filter = helpers.filters_data.detect{|f| f.qname == params[:which_filter]}
-    
+
     case @filter.type
     when :text
       @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
@@ -68,10 +68,10 @@ class EventsController < BaseConferenceController
     when :range
       @op, @current_numeric_value = helpers.get_op_and_val(params[@filter.qname])
     end
-    
+
     render partial: 'filter_modal'
   end
-  
+
   def bulk_edit_modal
     authorize @conference, :read?
     @events = search @conference.events_with_review_averages.includes(:track)
@@ -93,11 +93,11 @@ class EventsController < BaseConferenceController
       format.pdf
     end
   end
-  
+
   # show a table of all events' attachments
   def attachments
     authorize @conference, :read?
-    
+
     result = search @conference.events.includes(:track)
 
     @num_of_matching_events = result.count
@@ -105,12 +105,12 @@ class EventsController < BaseConferenceController
 
     @events = result.paginate page: page_param
     clean_events_attributes
-    
+
     attachments = EventAttachment.joins(:event).where('events.conference': @conference)
     preset_attachment_titles_in_use = attachments.where(title: EventAttachment::ATTACHMENT_TITLES).group(:title).pluck(:title)
-    
+
     @attachment_titles = EventAttachment::ATTACHMENT_TITLES & preset_attachment_titles_in_use
-    
+
     @other_attachment_titles_exist = attachments.where.not(title: EventAttachment::ATTACHMENT_TITLES).any?
   end
 
@@ -121,7 +121,7 @@ class EventsController < BaseConferenceController
     result = search @conference.events_with_review_averages.includes(:track)
     @events = result.paginate page: page_param
     clean_events_attributes
-    
+
     @num_of_matching_events = result.reorder('').pluck(:id).count
 
     # total ratings:
@@ -168,7 +168,7 @@ class EventsController < BaseConferenceController
       redirect_to event_event_rating_path(event_id: ids.first)
     end
   end
-  
+
   # batch actions
   def batch_actions
     if params[:bulk_email]
@@ -181,16 +181,16 @@ class EventsController < BaseConferenceController
       redirect_to events_path, alert: :illegal
     end
   end
-  
+
   def bulk_send_email
     authorize @conference, :orga?
-    
+
     mail_template = @conference.mail_templates.find_by(name: params[:template_name])
     redirect_back(alert: t('ability.denied'), fallback_location: root_path) and return if mail_template.blank?
-    
+
     events = search @conference.events_with_review_averages.includes(:track)
     event_people = EventPerson.where(event_id: events.to_a.pluck(:id))
-    
+
     if Rails.env.production?
       SendBulkMailJob.new.async.perform(mail_template, event_people)
       redirect_back(notice: t('emails_module.notice_mails_queued'), fallback_location: root_path)
@@ -359,7 +359,7 @@ class EventsController < BaseConferenceController
     begin
       @event.send(:"#{params[:transition]}!", send_mail: params[:send_mail], coordinator: current_user.person)
     rescue => ex
-      return redirect_to(@event, alert: t('emails_module.error_state_update_ex', {ex: ex}))
+      return redirect_to(@event, alert: t('emails_module.error_state_update_ex', ex: ex))
     end
 
     redirect_to @event, notice: t('emails_module.notice_event_updated')
@@ -384,7 +384,7 @@ class EventsController < BaseConferenceController
     begin
       @event.event_people.subscriber.each { |p| p.set_default_notification(state) }
     rescue Errors::NotificationMissingException => ex
-      return redirect_to(@event, alert: t('emails_module.error_failed_setting_notification', {ex: ex}))
+      return redirect_to(@event, alert: t('emails_module.error_failed_setting_notification', ex: ex))
     end
 
     redirect_to edit_people_event_path(@event)

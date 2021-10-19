@@ -17,7 +17,7 @@
           = f.input :email
 
           - if @minimum_password_length
-            = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', {length: @minimum_password_length})
+            = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', length: @minimum_password_length)
           - else
             = f.input :password, autocomplete: 'off'
 
