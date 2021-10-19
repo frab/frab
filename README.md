@@ -4,16 +4,15 @@ frab is a web-based conference planning and management system.
 It helps to collect submissions, to manage talks and speakers
 and to create a schedule.
 
-[![Build Status](https://travis-ci.org/frab/frab.svg?branch=master)](https://travis-ci.org/frab/frab)
+[![Tests](https://github.com/frab/frab/actions/workflows/ci.yaml/badge.svg?event=schedule)](https://github.com/frab/frab/actions/workflows/ci.yaml)
 [![Code Climate](https://codeclimate.com/github/frab/frab.png)](https://codeclimate.com/github/frab/frab)
-[![Docker Build Status](https://img.shields.io/docker/build/frab/frab.svg)](https://hub.docker.com/r/frab/frab/)
 
 ## Current Status
 
 frab is not under heavy development anymore.
 [Releases](https://github.com/frab/frab/releases) merely mark huge updates and
 add a changelog.  There are no separate release branches, fixes and development
-happen in master.  We want the master branch to be usable at all times.
+happen in main.  We want the main branch to be usable at all times.
 
 frab has been used to organize [FrOSCon](https://froscon.de) since 2011, a
 conference with more than 100 talks (and as many speakers) in more
@@ -35,7 +34,7 @@ deploy and setup these.
 
 See [installation](INSTALL.md) for more frab specific information.
 
-It's possible to run frab via [docker](https://github.com/frab/frab/blob/master/README.docker.md), or on a [PaaS](https://github.com/frab/frab/blob/master/README.PaaS.md) like heroku or dokku.
+It's possible to run frab via [docker](https://github.com/frab/frab/blob/main/README.docker.md), or on a [PaaS](https://github.com/frab/frab/blob/main/README.PaaS.md) like heroku or dokku.
 
 ## Rake Tasks
 
