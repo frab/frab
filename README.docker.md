@@ -11,7 +11,7 @@ To download a pre-built docker image for frab from the [Docker Hub](https://hub.
 
 
 ```
-docker pull frab/frab
+docker pull ghcr.io/frab/frab:latest
 ```
 
 ## Building the Docker Image

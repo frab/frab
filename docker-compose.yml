@@ -2,7 +2,7 @@ version: '3'
 
 services:
     frab:
-        image: frab/frab
+        image: ghcr.io/frab/frab:latest
         build: .
         container_name: frab_app
         volumes:
