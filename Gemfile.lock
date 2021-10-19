@@ -82,8 +82,8 @@ GEM
     arel (9.0.0)
     ast (2.4.2)
     attr_required (1.0.1)
-    bindata (2.4.4)
     bcrypt (3.1.16)
+    bindata (2.4.4)
     bootsnap (1.7.2)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -336,13 +336,13 @@ GEM
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
     racc (1.5.2)
+    rack (2.2.3)
     rack-oauth2 (1.10.1)
       activesupport
       attr_required
       httpclient
       json-jwt (>= 1.11.0)
       rack
-    rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.6)
@@ -468,7 +468,7 @@ GEM
     will_paginate (3.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.25)
+    yard (0.9.26)
 
 PLATFORMS
   ruby
