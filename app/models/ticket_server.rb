@@ -7,11 +7,11 @@ class TicketServer < ApplicationRecord
     type = conference.ticket_type.to_sym
 
     if type == :otrs
-      TicketServerAdapter::OTRSAdapter.new(self)
+      TicketServerAdapter::OtrsAdapter.new(self)
     elsif type == :redmine
       TicketServerAdapter::RedmineAdapter.new(self)
     else
-      TicketServerAdapter::RTAdapter.new(self)
+      TicketServerAdapter::RtAdapter.new(self)
     end
   end
 

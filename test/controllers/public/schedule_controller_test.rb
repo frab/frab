@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'rexml/document'
 
 class Public::ScheduleControllerTest < ActionController::TestCase
   setup do

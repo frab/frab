@@ -552,6 +552,7 @@ DEPENDENCIES
   rb-kqueue (>= 0.2)
   redcarpet
   repost (~> 0.3.7)
+  rexml
   ri_cal
   roust!
   rqrcode

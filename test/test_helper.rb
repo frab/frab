@@ -3,6 +3,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 require 'minitest/pride'
+require 'minitest/spec'
 require 'database_cleaner/active_record'
 require 'sucker_punch/testing/inline'
 

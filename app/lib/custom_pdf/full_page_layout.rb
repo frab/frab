@@ -1,4 +1,4 @@
-module CustomPDF
+module CustomPdf
   class FullPageLayout
     def initialize(page_size)
       @page_size = page_size

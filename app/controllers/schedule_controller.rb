@@ -100,9 +100,9 @@ class ScheduleController < BaseConferenceController
 
   def page_layout(page_size, half_page)
     if half_page
-      CustomPDF::HalfPageLayout.new(page_size)
+      CustomPdf::HalfPageLayout.new(page_size)
     else
-      CustomPDF::FullPageLayout.new(page_size)
+      CustomPdf::FullPageLayout.new(page_size)
     end
   end
 

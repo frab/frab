@@ -104,6 +104,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'rexml'
   gem 'factory_bot_rails'
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'

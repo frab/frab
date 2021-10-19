@@ -1,5 +1,5 @@
 module TicketServerAdapter
-  class OTRSAdapter < BaseAdapter
+  class OtrsAdapter < BaseAdapter
     require 'uri'
     require 'net/http'
 

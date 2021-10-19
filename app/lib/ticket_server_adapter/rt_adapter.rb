@@ -1,5 +1,5 @@
 module TicketServerAdapter
-  class RTAdapter < BaseAdapter
+  class RtAdapter < BaseAdapter
     require 'rubygems'
     require 'roust'
 

@@ -1,2 +1,2 @@
-module CustomPDF
+module CustomPdf
 end
