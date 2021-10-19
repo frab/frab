@@ -21,7 +21,7 @@ Style/HashSyntax:
 
 # Never break line due to length, except in data
 # vim: set wrap
-Metrics/LineLength:
+Layout/LineLength:
   Max: 1024
 
 # Rails controllers and such
@@ -77,21 +77,18 @@ Lint/AssignmentInCondition:
   Enabled: false
 
 # Too much manual horizontal alignment
-Style/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
-Style/AlignParameters:
-  Enabled: false
-
-Style/AlignArray:
+Layout/ArrayAlignment:
   Enabled: false
 
 # Vim prefers fixed indent, avoid manual vertical alignment
-Style/AlignParameters:
+Layout/ArgumentAlignment:
   Enabled: true
   EnforcedStyle: with_fixed_indentation
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
 # Load order is important
