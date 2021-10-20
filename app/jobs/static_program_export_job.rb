@@ -18,7 +18,7 @@ class StaticProgramExportJob
 
       Rails.logger.info "Attach static export tarball #{file}"
       conference_export = ConferenceExport.where(conference_id: conference.id, locale: locale).first_or_create
-      conference_export.update_attributes tarball: File.open(file)
+      conference_export.update tarball: File.open(file)
     end
   end
 end

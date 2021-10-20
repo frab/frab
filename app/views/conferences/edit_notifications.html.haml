@@ -7,7 +7,7 @@
   - locales_present = @conference.notifications.map(&:locale).uniq
 
   - if !(locales_needed - locales_present).empty?
-    .alert-message.error.span12= t('notifications_module.missing_locale', {locales: locales_needed - locales_present })
+    .alert-message.error.span12= t('notifications_module.missing_locale', locales: locales_needed - locales_present )
   - else
     %h1= t('send')
 

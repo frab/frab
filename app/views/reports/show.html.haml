@@ -6,7 +6,7 @@
   - if @people or @events
     = render 'shared/simple_search', path: request.path
   - unless @search_count.nil?
-    = t('reports_module.found_x_results', {nb: @search_count})
+    = t('reports_module.found_x_results', nb: @search_count)
   - if not @people.nil? and not @people.empty?
     .row
       .span16

@@ -9,7 +9,7 @@ class AddAllowedEventTimeslotsToConferences < ActiveRecord::Migration[5.2]
     add_column :conferences, :allowed_event_timeslots_csv, :string, :limit => 400
 
     Conference.all.each do |conference|
-      conference.update_attributes(allowed_event_timeslots: (1..conference.max_timeslots))
+      conference.update(allowed_event_timeslots: (1..conference.max_timeslots))
     end
   end
 

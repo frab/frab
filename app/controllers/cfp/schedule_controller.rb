@@ -15,7 +15,7 @@ class Cfp::ScheduleController < ApplicationController
 
   def update_event
     event = @conference.events.find(params[:id])
-    affected_event_ids = event.update_attributes_and_return_affected_ids(event_params)
+    affected_event_ids = event.update_and_return_affected_ids(event_params)
     @affected_events = @conference.events.find(affected_event_ids)
   end
 

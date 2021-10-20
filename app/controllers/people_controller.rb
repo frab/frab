@@ -1,7 +1,7 @@
 class PeopleController < BaseConferenceController
   before_action :manage_only!, except: %i[show]
   include Searchable
-  
+
   MAX_PERSONS_FOR_DROPDOWN_FILTER = 99
 
   # GET /people
@@ -37,7 +37,7 @@ class PeopleController < BaseConferenceController
       format.html
     end
   end
-  
+
   # GET /lookup.json
   def lookup
     authorize Person, :manage?
@@ -117,7 +117,7 @@ class PeopleController < BaseConferenceController
     @person = authorize Person.find(params[:id])
 
     respond_to do |format|
-      if @person.update_attributes(person_params)
+      if @person.update(person_params)
         format.html { redirect_to(@person, notice: t('people_module.notice_person_updated')) }
       else
         flash_model_errors(@person)
@@ -145,7 +145,7 @@ class PeopleController < BaseConferenceController
         return @search if @search
       end
     end
-    
+
     @search = perform_search(people, params,
       %i(first_name_cont last_name_cont public_name_cont email_cont
       abstract_cont description_cont user_email_cont))

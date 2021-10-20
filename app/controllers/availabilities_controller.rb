@@ -3,7 +3,7 @@ class AvailabilitiesController < BaseConferenceController
 
   def new
     @availabilities = Availability.build_for(@conference)
-    flash[:alert] = t('availabilities.error_person_unavailable', {person: @person.full_name})
+    flash[:alert] = t('availabilities.error_person_unavailable', person: @person.full_name)
   end
 
   def edit
@@ -11,7 +11,7 @@ class AvailabilitiesController < BaseConferenceController
   end
 
   def update
-    @person.update_attributes_from_slider_form(person_params)
+    @person.update_from_slider_form(person_params)
     redirect_to(person_url(@person), notice: t('availabilities.success_update'))
   end
 

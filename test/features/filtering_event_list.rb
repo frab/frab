@@ -9,9 +9,9 @@ class EditingEventRatingTest < FeatureTest
     @event1 = @conference.events[0]
     @event2 = @conference.events[1]
     @event3 = @conference.events[2]
-    @event1.update_attributes(event_type: 'film')
-    @event2.update_attributes(event_type: 'lecture')
-    @event3.update_attributes(event_type: 'dance')
+    @event1.update(event_type: 'film')
+    @event2.update(event_type: 'lecture')
+    @event3.update(event_type: 'dance')
 
     EventRating.create(event: @event2, person: @coordinator.person, rating: 3, comment: "comment1")
   end

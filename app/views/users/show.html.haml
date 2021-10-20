@@ -2,7 +2,7 @@
   .page-header
     .pull-right
       = action_button "primary", t('users_module.edit_user_account'), edit_person_user_path(@person), hint: t('users_module.edit_user_account_hint')
-    %h1= t('titles.person', {person: @person.full_name})
+    %h1= t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
   .row
     .span16

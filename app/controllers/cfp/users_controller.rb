@@ -12,7 +12,7 @@ class Cfp::UsersController < ApplicationController
       params[:user].delete(password_key) if params[:user][password_key].blank?
     end
 
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       bypass_sign_in(@user) if Devise.sign_in_after_reset_password
       if @conference
         redirect_to cfp_person_path, notice: t(:"cfp.updated")

@@ -14,7 +14,7 @@
         %fieldset.inputs
           = f.hidden_field :reset_password_token
           - if @minimum_password_length
-            = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', {length: @minimum_password_length})
+            = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', length: @minimum_password_length)
           - else
             = f.input :password, autocomplete: 'off'
 

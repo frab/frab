@@ -4,12 +4,12 @@ class EventRatingsController < BaseConferenceController
 
   def show
     @rating = @event.event_ratings.find_by(person_id: current_user.person.id) || EventRating.new
-    
+
     # Add any review_metrics missing from @rating
     missing_ids = @conference.review_metrics.pluck(:id) - (@rating.review_scores.pluck(:review_metric_id))
-    
+
     @rating.review_scores_attributes = missing_ids.map{ |rmid| { review_metric_id: rmid, score: 0} }
-      
+
     setup_batch_reviews_next_event
   end
 
@@ -21,7 +21,7 @@ class EventRatingsController < BaseConferenceController
     if @rating.save
       redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_created')
     else
-      flash[:alert] = t('ratings_module.error_creating', {error:  @rating.errors.full_messages.join})
+      flash[:alert] = t('ratings_module.error_creating', error:  @rating.errors.full_messages.join)
       render action: 'show'
     end
   end
@@ -29,7 +29,7 @@ class EventRatingsController < BaseConferenceController
   def update
     @rating = @event.event_ratings.find_by!(person_id: current_user.person.id)
 
-    if @rating.update_attributes(event_rating_params)
+    if @rating.update(event_rating_params)
       redirect_to event_event_rating_path, notice: t('ratings_module.notice_rating_updated')
     else
       flash[:alert] = t('ratings_module.error_updating')

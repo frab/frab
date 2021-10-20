@@ -108,35 +108,35 @@ class Conference < ApplicationRecord
     return parent.timeslot_duration if sub_conference?
     attributes['timeslot_duration']
   end
-  
+
   def allowed_event_types_presets
     Event::TYPES & allowed_event_types_as_list
   end
-  
+
   def allowed_event_types_presets=(list)
      unchanged_extras = allowed_event_types_as_list - Event::TYPES
      new_presets = list & Event::TYPES
-     update_attributes(allowed_event_types_as_list: unchanged_extras + new_presets)
+     update(allowed_event_types_as_list: unchanged_extras + new_presets)
   end
 
   def allowed_event_types_extras
     (allowed_event_types_as_list - Event::TYPES).join(';')
   end
-  
+
   def allowed_event_types_extras=(s)
      new_extras = s.split(';').map(&:strip) - Event::TYPES
      unchanged_presets = allowed_event_types_as_list & Event::TYPES
-     update_attributes(allowed_event_types_as_list: new_extras + unchanged_presets)
+     update(allowed_event_types_as_list: new_extras + unchanged_presets)
   end
-  
+
   def allowed_event_types_as_list
     (allowed_event_types || '').split(';').map(&:strip)
   end
-  
+
   def allowed_event_types_as_list=(list)
-    update_attributes(allowed_event_types: list.reject(&:empty?).sort.uniq.join(';'))
+    update(allowed_event_types: list.reject(&:empty?).sort.uniq.join(';'))
   end
-  
+
   def submission_data
     result = {}
     events = self.events.order(:created_at)
@@ -228,7 +228,7 @@ class Conference < ApplicationRecord
   def to_label
     acronym
   end
-  
+
   def persisted_acronym
     changed_attributes['acronym'] || acronym
   end
@@ -240,14 +240,14 @@ class Conference < ApplicationRecord
 
   def allowed_event_timeslots=(list)
     csv=list.to_set.sort.join(',')
-    update_attributes(allowed_event_timeslots_csv: csv)
+    update(allowed_event_timeslots_csv: csv)
   end
-  
+
   def allowed_durations_minutes
     return [] if timeslot_duration.blank?
     allowed_event_timeslots.map{|ts| ts*timeslot_duration}
   end
-  
+
   def allowed_durations_minutes_csv
     allowed_durations_minutes.join(',')
   end
@@ -256,18 +256,18 @@ class Conference < ApplicationRecord
     return if default_timeslots.blank? or timeslot_duration.blank? or max_timeslots.blank?
     list = csv.split(',').map(&:to_i)
     timeslots=(1..max_timeslots).select{|ts| (ts*timeslot_duration).in?(list)} << default_timeslots
-    update_attributes(allowed_event_timeslots: timeslots)
+    update(allowed_event_timeslots: timeslots)
   end
 
   private
-  
+
   def update_timeslots
     return unless saved_change_to_timeslot_duration? and events.count.positive?
     old_duration = timeslot_duration_before_last_save
     factor = old_duration / timeslot_duration
     PaperTrail.request.disable_model(Event)
     events_including_subs.each do |event|
-      event.update_attributes(time_slots: event.time_slots * factor)
+      event.update(time_slots: event.time_slots * factor)
     end
     PaperTrail.request.enable_model(Event)
   end
@@ -277,7 +277,7 @@ class Conference < ApplicationRecord
     return if days.count < 2
     days.each{ |day| day.does_not_overlap }
   end
-  
+
   def default_timeslot_must_not_exceed_max_timeslot
     return if default_timeslots.blank? or max_timeslots.blank?
     if default_timeslots > max_timeslots

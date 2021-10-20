@@ -58,7 +58,7 @@ class Cfp::EventsController < ApplicationController
     @event.recording_license = @event.conference.default_recording_license unless @event.recording_license
 
     respond_to do |format|
-      if @event.update_attributes(event_params)
+      if @event.update(event_params)
         format.html { redirect_to(cfp_person_path, notice: t('cfp.event_updated_notice')) }
       else
         flash_model_errors(@event)
@@ -107,7 +107,7 @@ class Cfp::EventsController < ApplicationController
     @event = @token.blank? ? nil : Event.find_by(invite_token: @token)
 
     return unless request.post?
-    
+
     raise Pundit::NotAuthorizedError unless @join_as&.to_sym&.in? EventPerson::JOINABLES
 
     if @event&.conference&.call_for_participation&.hard_deadline_over?

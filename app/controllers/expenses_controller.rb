@@ -5,7 +5,7 @@ class ExpensesController < BaseConferenceController
 
   def new
     @expense = Expense.new
-    flash[:alert] = t('expenses_module.error_person_have_no_expense', {person: @person.full_name})
+    flash[:alert] = t('expenses_module.error_person_have_no_expense', person: @person.full_name)
   end
 
   def edit
@@ -20,7 +20,7 @@ class ExpensesController < BaseConferenceController
 
   def update
     expense = @person.expenses.find(params[:id])
-    unless expense.update_attributes(expenses_params)
+    unless expense.update(expenses_params)
       flash_model_errors(expense)
       redirect_to person_expenses_path(@person) and return
     end

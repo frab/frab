@@ -33,7 +33,7 @@ class Cfp::PeopleController < ApplicationController
     respond_to do |format|
       foaf = ActionController::Parameters.new(JSON.parse(foaf_params))
       @person.avatar = StringIO.new(Base64.decode64(foaf['avatar'])) if foaf['avatar']
-      if @person.update_attributes(person_foaf_params(foaf))
+      if @person.update(person_foaf_params(foaf))
         format.html { redirect_to(cfp_person_path, notice: t('cfp.person_updated_notice')) }
       else
         format.html { render action: 'export' }
@@ -91,7 +91,7 @@ class Cfp::PeopleController < ApplicationController
     @person = current_user.person
 
     respond_to do |format|
-      if @person.update_attributes(person_params)
+      if @person.update(person_params)
         format.html { redirect_to(cfp_person_path, notice: t('cfp.person_updated_notice')) }
         format.xml  { head :ok }
       else

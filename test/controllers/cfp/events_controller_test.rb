@@ -52,7 +52,7 @@ class Cfp::EventsControllerTest < ActionController::TestCase
   end
 
   def setup_unconfirmed(person)
-    @event.update_attributes(state: 'unconfirmed')
+    @event.update(state: 'unconfirmed')
     event_person = create(:event_person, event: @event, person: person)
     event_person.generate_token!
     event_person

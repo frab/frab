@@ -13,7 +13,7 @@ class Cfp::AvailabilitiesController < ApplicationController
 
   def update
     if params.key? :person
-      current_user.person.update_attributes_from_slider_form(person_params)
+      current_user.person.update_from_slider_form(person_params)
     end
     redirect_to cfp_person_path, notice: t('cfp.update_availability_notice')
   end

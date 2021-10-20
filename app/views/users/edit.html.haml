@@ -1,6 +1,6 @@
 %section
   .page-header
-    %h1= t('titles.edit_account', {person: @person.full_name})
+    %h1= t('titles.edit_account', person: @person.full_name)
   - if @conference
     = render 'shared/people_tabs'
   .row

@@ -40,7 +40,7 @@ class MailTemplatesController < BaseConferenceController
     @mail_template = @conference.mail_templates.find(params[:id])
 
     respond_to do |format|
-      if @mail_template.update_attributes(mail_template_params)
+      if @mail_template.update(mail_template_params)
         format.html { redirect_to(@mail_template, notice: t('emails_module.notice_template_updated')) }
         format.xml  { head :ok }
         format.js   { head :ok }

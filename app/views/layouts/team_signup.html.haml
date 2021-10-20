@@ -10,7 +10,7 @@
         .fill
           .container
             - if @conference
-              = link_to t('titles.frab_conference', {conference: @conference.title}), new_cfp_session_path, class: "brand"
+              = link_to t('titles.frab_conference', conference: @conference.title), new_cfp_session_path, class: "brand"
             - else
               = link_to t('conference_management'), '#', class: 'brand'
             %ul.nav.secondary-nav.pull-right

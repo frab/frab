@@ -30,7 +30,7 @@ class CallForParticipationsController < BaseConferenceController
   def update
     authorize @conference, :manage?
     @call_for_participation = @conference.call_for_participation
-    if @call_for_participation.update_attributes(call_for_participation_params)
+    if @call_for_participation.update(call_for_participation_params)
       redirect_to edit_call_for_participation_path, notice: t('alert_notifications.update_successful')
     else
       flash[:alert] = t('alert_notifications.update_failed')
