@@ -88,7 +88,7 @@ FactoryBot.define do
         conference.review_metrics.each do |review_metric|
           event_rating = create(:event_rating, event: event, rating: score)
           create(:review_score, event_rating: event_rating, review_metric: review_metric, score: score)
-          
+
           score += 1
           score = 1 if score > 5
         end
@@ -109,6 +109,13 @@ FactoryBot.define do
       if conference.main_conference?
         create(:conference, parent: conference)
       end
+    end
+  end
+
+  trait :with_languages do
+    after :create do |conference|
+      conference.languages << create(:german_language, attachable: conference)
+      conference.languages << create(:english_language, attachable: conference)
     end
   end
 
@@ -134,5 +141,6 @@ FactoryBot.define do
     factory :three_day_conference_with_review_metrics_and_events_and_speakers, traits: [:three_days, :with_rooms, :with_events, :with_review_metrics, :with_sub_conference, :with_speakers]
     factory :sub_conference_with_events, traits: [:with_rooms, :with_events, :with_parent_conference]
     factory :past_days_conference, traits: [:past_three_days]
+    factory :multilingual_conference, traits: [:three_days, :with_rooms, :with_events, :with_speakers, :with_languages]
   end
 end

@@ -114,9 +114,9 @@ class Conference < ApplicationRecord
   end
 
   def allowed_event_types_presets=(list)
-     unchanged_extras = allowed_event_types_as_list - Event::TYPES
-     new_presets = list & Event::TYPES
-     update(allowed_event_types_as_list: unchanged_extras + new_presets)
+    unchanged_extras = allowed_event_types_as_list - Event::TYPES
+    new_presets = list & Event::TYPES
+    update(allowed_event_types_as_list: unchanged_extras + new_presets)
   end
 
   def allowed_event_types_extras
@@ -124,9 +124,9 @@ class Conference < ApplicationRecord
   end
 
   def allowed_event_types_extras=(s)
-     new_extras = s.split(';').map(&:strip) - Event::TYPES
-     unchanged_presets = allowed_event_types_as_list & Event::TYPES
-     update(allowed_event_types_as_list: new_extras + unchanged_presets)
+    new_extras = s.split(';').map(&:strip) - Event::TYPES
+    unchanged_presets = allowed_event_types_as_list & Event::TYPES
+    update(allowed_event_types_as_list: new_extras + unchanged_presets)
   end
 
   def allowed_event_types_as_list
@@ -165,8 +165,13 @@ class Conference < ApplicationRecord
 
   def language_codes
     codes = languages.map { |l| l.code.downcase }
-    codes = %w(en) if codes.empty?
+    return [I18n.default_locale.to_s] if codes.empty?
+
     codes
+  end
+
+  def language_default
+    language_codes.first
   end
 
   def start_times_by_day

@@ -1,8 +1,12 @@
 class Track < ApplicationRecord
+  extend Mobility
+
   after_destroy :update_events
 
   belongs_to :conference
   has_many :events
+
+  translates :name, column_fallback: true
 
   default_scope -> { order(:name) }
 

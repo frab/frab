@@ -47,7 +47,6 @@ end
 # Integration tests in test/integration
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
-
 end
 
 # Integration tests in test/integration

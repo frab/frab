@@ -1,17 +1,20 @@
 class Public::ScheduleController < ApplicationController
   layout 'public_schedule'
   before_action :maybe_authenticate_user!
+  before_action :set_lang, only: %i[index speakers]
   after_action :cors_set_access_control_headers
 
   def index
     @days = @conference.days
 
-    respond_to do |format|
-      format.html
-      format.xml
-      format.xcal
-      format.ics
-      format.json
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+        format.xml
+        format.xcal
+        format.ics
+        format.json
+      end
     end
   end
 
@@ -75,10 +78,12 @@ class Public::ScheduleController < ApplicationController
 
   def speakers
     @view_model = ScheduleViewModel.new(@conference)
-    respond_to do |format|
-      format.html
-      format.json
-      format.xls { render file: 'public/schedule/speakers.xls.erb', content_type: 'application/xls' }
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+        format.json
+        format.xls { render file: 'public/schedule/speakers.xls.erb', content_type: 'application/xls' }
+      end
     end
   end
 
@@ -108,5 +113,14 @@ class Public::ScheduleController < ApplicationController
 
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
+  end
+
+  def set_lang
+    @lang = if params[:lang] && @conference.language_codes.include?(params[:lang])
+              params[:lang]
+            else
+              # no op
+              I18n.default_locale
+            end
   end
 end

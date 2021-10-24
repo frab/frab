@@ -83,6 +83,36 @@ module ApplicationHelper
     render 'shared/dynamic_association', association_name: association_name, title: title, f: form_builder, hint: options[:hint]
   end
 
+  def languages
+    priority_sort_languages(@conference&.language_codes)
+  end
+
+  def priority_sort_languages(langs)
+    t = langs - [I18n.default_locale.to_s]
+    [I18n.default_locale.to_s] + t.sort
+  end
+
+  def language_hint(locale)
+    l = t("languages.#{locale}")
+    return "* #{l}" if locale == I18n.default_locale.to_s
+
+    l
+  end
+
+  def language_label(field, locale)
+    t("activerecord.attributes.#{field}") + " (#{locale})"
+  end
+
+  def translated_input(form_builder, attrib, locale)
+    p = Mobility.normalize_locale(locale)
+    form_builder.input :"#{attrib}_#{p}", label: language_label(attrib, locale), hint: language_hint(locale)
+  end
+
+  def translated_textbox(form_builder, attrib, locale, label, hint)
+    p = Mobility.normalize_locale(locale)
+    form_builder.input :"#{attrib}_#{p}", input_html: {rows: 4}, as: :text, label: label, hint: hint
+  end
+
   def translated_options(collection)
     result = []
     collection.each do |element|

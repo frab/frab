@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class Event < ApplicationRecord
+  extend Mobility
   include ActionView::Helpers::TextHelper
   include EventState
   include HasEventConflicts
@@ -23,6 +24,11 @@ class Event < ApplicationRecord
   belongs_to :conference
   belongs_to :track, optional: true
   belongs_to :room, optional: true
+
+  translates :title, column_fallback: true
+  translates :subtitle, column_fallback: true
+  translates :abstract, column_fallback: true
+  translates :description, column_fallback: true
 
   has_attached_file :logo,
     styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_165533) do
+ActiveRecord::Schema.define(version: 2021_11_21_223350) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -193,9 +193,22 @@ ActiveRecord::Schema.define(version: 2020_11_14_165533) do
     t.index ["person_id"], name: "index_event_ratings_on_person_id"
   end
 
+  create_table "event_translations", force: :cascade do |t|
+    t.string "title"
+    t.string "subtitle"
+    t.text "abstract"
+    t.text "description"
+    t.string "locale", null: false
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id", "locale"], name: "index_event_translations_on_event_id_and_locale", unique: true
+    t.index ["locale"], name: "index_event_translations_on_locale"
+  end
+
   create_table "events", force: :cascade do |t|
     t.integer "conference_id", null: false
-    t.string "title", limit: 255, null: false
+    t.string "title", limit: 255
     t.string "subtitle", limit: 255
     t.string "event_type", limit: 255, default: "talk"
     t.integer "time_slots", default: 3
@@ -319,6 +332,17 @@ ActiveRecord::Schema.define(version: 2020_11_14_165533) do
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
+  create_table "person_translations", force: :cascade do |t|
+    t.text "abstract"
+    t.text "description"
+    t.string "locale", null: false
+    t.integer "person_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locale"], name: "index_person_translations_on_locale"
+    t.index ["person_id", "locale"], name: "index_person_translations_on_person_id_and_locale", unique: true
+  end
+
   create_table "phone_numbers", force: :cascade do |t|
     t.integer "person_id"
     t.string "phone_type", limit: 255
@@ -384,6 +408,16 @@ ActiveRecord::Schema.define(version: 2020_11_14_165533) do
     t.datetime "updated_at", null: false
     t.string "object_type"
     t.index ["object_id"], name: "index_tickets_on_object_id"
+  end
+
+  create_table "track_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "locale", null: false
+    t.integer "track_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locale"], name: "index_track_translations_on_locale"
+    t.index ["track_id", "locale"], name: "index_track_translations_on_track_id_and_locale", unique: true
   end
 
   create_table "tracks", force: :cascade do |t|
