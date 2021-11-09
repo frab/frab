@@ -67,6 +67,10 @@ class Person < ApplicationRecord
     updated_at > person.updated_at
   end
 
+  def name
+    public_name
+  end
+
   def full_name
     if first_name.blank? or last_name.blank?
       public_name
@@ -77,6 +81,18 @@ class Person < ApplicationRecord
 
   def full_name_annotated
     full_name + " (#{email}, \##{id})"
+  end
+
+  def guid
+    Digest::UUID.uuid_v5(Digest::UUID::URL_NAMESPACE, uri)
+  end
+
+  def uri
+    if email.present?
+      "acct:#{email}" 
+    else
+      URI::HTTP.build({ path: "/people/#{id}", host: ENV.fetch('FRAB_HOST'), protocol: ENV.fetch('FRAB_PROTOCOL'), port: ENV['FRAB_PORT'].presence }).to_s
+    end
   end
 
   def user_email
