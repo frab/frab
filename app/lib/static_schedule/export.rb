@@ -16,9 +16,10 @@ module StaticSchedule
       @locale = locale || 'en'
       @destination = destination || EXPORT_PATH
 
-      I18n.locale = @locale
-      @renderer = ProgramRenderer.new(@conference, @locale)
-      @pages = Pages.new(@renderer, @conference)
+      I18n.with_locale(@locale) do
+        @renderer = ProgramRenderer.new(@conference, @locale)
+        @pages = Pages.new(@renderer, @conference)
+      end
     end
 
     # create a tarball from the conference export directory
@@ -46,7 +47,9 @@ module StaticSchedule
         unlock_schedule unless @original_schedule_public
 
         setup_directories
-        download_pages
+        I18n.with_locale(@locale) do
+          download_pages
+        end
         copy_stripped_assets
         copy_static_assets
 
