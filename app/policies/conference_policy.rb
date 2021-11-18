@@ -18,6 +18,7 @@ class ConferencePolicy < ApplicationPolicy
   alias create? orga?
 
   def manage?
+    return false unless user
     return (user.is_admin? || user.any_crew?('orga', 'coordinator')) if record.is_a?(Class)
     user.is_admin? || user.is_manager_of?(record)
   end

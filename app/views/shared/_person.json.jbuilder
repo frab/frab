@@ -12,7 +12,7 @@ json.links person.links do |link|
   json.url url_for(link.url)
   json.title link.title
 end
-if policy(Conference).manage?
+if @request and policy(Conference).manage?
   json.full_name person.full_name
   json.email person.email
   json.contacts do

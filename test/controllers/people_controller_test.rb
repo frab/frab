@@ -58,7 +58,7 @@ class PeopleControllerTest < ActionController::TestCase
     assert_response :success
     people = JSON.parse(response.body)['people']
     assert_equal 3, people.count
-    assert_includes people[0].keys, 'full_public_name'
+    assert_includes people[0].keys, 'name'
     assert_includes people[0].keys, 'links'
   end
 
@@ -66,7 +66,7 @@ class PeopleControllerTest < ActionController::TestCase
     get :show, format: :json, params: { id: @person.to_param, conference_acronym: @conference.acronym }
     assert_response :success
     person = JSON.parse(response.body)
-    assert_includes person.keys, 'full_public_name'
+    assert_includes person.keys, 'name'
     assert_includes person.keys, 'links'
   end
 end
