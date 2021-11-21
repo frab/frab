@@ -15,6 +15,11 @@ json.schedule do
     json.daysCount @conference.days.length
     json.timeslot_duration duration_to_time(@conference.timeslot_duration)
     json.time_zone_name @conference.timezone_IANA
+    json.rooms @conference.rooms_including_subs.each do |room|
+      json.name room.name
+      json.guid room.guid
+      json.capacity room.size
+    end
     index = 1
     json.days @conference.days do |day|
       json.index index
@@ -43,7 +48,7 @@ json.schedule do
             json.description event.description
             json.recording_license event.recording_license
             json.do_not_record event.do_not_record
-            json.persons event.speakers, :id, :public_name
+            json.persons event.speakers, :guid, :id, :name, :public_name
             json.links event.links do |link|
               json.url url_for(link.url)
               json.title link.title

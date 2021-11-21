@@ -44,6 +44,8 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    FileUtils.remove_dir(@dir) if File.exist?(@dir)
+    unless @dir.nil?
+      FileUtils.remove_dir(@dir) if File.exist?(@dir) 
+    end
   end
 end

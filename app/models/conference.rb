@@ -221,6 +221,17 @@ class Conference < ApplicationRecord
     events.with_review_averages(self)
   end
 
+  def url_options
+    { protocol: ENV.fetch('FRAB_PROTOCOL'),
+      host: ENV.fetch('FRAB_HOST'), 
+      port: ENV['FRAB_PORT'].presence, 
+      path: "/#{acronym}" }
+  end
+
+  def uri
+    URI::HTTP.build(url_options).to_s
+  end
+
   def to_s
     "#{model_name.human}: #{title} (#{acronym})"
   end

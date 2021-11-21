@@ -19,7 +19,7 @@
   - @conference.days.each_with_index do |day, index|
     %day{index: (index + 1), date: day.start_date.strftime('%Y-%m-%d'), start: day.start_date.iso8601, end: day.end_date.iso8601}
       - @conference.rooms_including_subs.each do |room|
-        %room{name: room.name}
+        %room{name: room.name, guid: room.guid}
           - room.events.is_public.accepted.scheduled_on(day).order(:start_time).each do |event|
             %event{id: event.id, guid: event.guid}
               %date= event.start_time.iso8601
