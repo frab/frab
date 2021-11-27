@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
   Exclude:
     - bin/**/*
     - contrib/**/*
@@ -93,4 +93,10 @@ Layout/MultilineMethodCallIndentation:
 
 # Load order is important
 Bundler/OrderedGems:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
   Enabled: false
