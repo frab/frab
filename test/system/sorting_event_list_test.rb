@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class SortingEventListTest < FeatureTest
+class SortingEventListTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_review_metrics_and_events_and_reviews)
     @conference.events.each do |event|
@@ -14,7 +14,7 @@ class SortingEventListTest < FeatureTest
     @conference.events.first.update( event_attachments_attributes: { 'xx' => { 'title' => 'proposal', 'attachment' => upload } })
   end
 
-  it 'can sort', js: true do
+  test 'can sort' do
     sign_in_user(@coordinator.user)
     visit "/#{@conference.acronym}/events/"
     find_all(:css, 'ul.tabs li').map(&:text).each do |tabname|

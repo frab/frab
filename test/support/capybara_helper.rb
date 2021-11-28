@@ -11,11 +11,8 @@ module CapybaraHelper
     sign_in(user.email, 'frab123')
   end
 
-  def visit_conference_settings_for(conference)
-    click_on 'Conferences'
-    within find('tr', text: conference.title) do
-      click_on 'Show'
-    end
-    find('ul.nav:eq(2)').click_link('Settings')
+  def sign_out
+    click_on 'Account'
+    click_on 'Logout'
   end
 end

@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class EditingEventRatingTest < FeatureTest
+class EditingEventRatingTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @coordinator = create(:conference_coordinator, conference: @conference)
@@ -16,10 +16,10 @@ class EditingEventRatingTest < FeatureTest
     EventRating.create(event: @event2, person: @coordinator.person, rating: 3, comment: "comment1")
   end
 
-  it 'can filter event list by clicking a term', js: true do
+  test 'can filter event list by clicking a term' do
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/"
-    
+
     click_on 'Film'
     assert_content page, '╳ Event type : Film'
     assert_content page, @event1.title
@@ -27,7 +27,7 @@ class EditingEventRatingTest < FeatureTest
     refute_content page, @event3.title
   end
 
-  it 'can filter event list by clicking a number', js: true do
+  test 'can filter event list by clicking a number' do
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/ratings"
     find('a', text: /^1$/).click
@@ -37,22 +37,22 @@ class EditingEventRatingTest < FeatureTest
     refute_content page, @event3.title
   end
 
-  it 'can filter event list by using the multi-filter', js: true do
+  test 'can filter event list by using the multi-filter' do
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/"
-    
+
     # click the filter icon next to table header "Type"
-    find('th', text: 'Type').find('.show_events_modal').trigger('click')
+    find('th', text: 'Type').find('.show_events_modal').click
     assert_content page, 'Select filter for'
-    
+
     check 'Film'
     check 'dance'
-    
+
     find('#apply_filter_btn')
     # TODO - this fails because phantomjs does not support URL.searchParams.set
     # click_on 'Apply filter'
     visit "/#{@conference.acronym}/events?event_type=film|dance"
-    
+
     assert_content page, '╳ Event type : multiple'
 
     assert_content page, @event1.title
@@ -60,14 +60,14 @@ class EditingEventRatingTest < FeatureTest
     assert_content page, @event3.title
   end
 
-  it 'can filter event list by using numeric modal', js: true do
+  test 'can filter event list by using numeric modal' do
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/ratings"
-    
+
     # click the filter icon next to table header "Event ratings count"
-    find('th', text: 'Event ratings count').find('.show_events_modal').trigger('click')
+    find('th', text: 'Event ratings count').find('.show_events_modal').click
     assert_content page, 'Select filter for Event ratings count:'
-    
+
     page.find_all(class: "radio", text: "at most").select
     find("input#filter_form_num").send_keys('0.5')
 

@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class CfpAccountTest < FeatureTest
+class ExportProfileTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @event = @conference.events.last
@@ -10,12 +10,13 @@ class CfpAccountTest < FeatureTest
     create(:event_person, event: @event, person: @user.person, role_state: 'confirmed')
 
     sign_in_user(@user)
+    click_on 'Participate'
   end
 
-  test 'can edit account' do
-    assert_content page, 'List of conferences'
+  test 'export profile' do
     click_on 'Account'
-    assert_content page, 'Select a conference for more options'
-    click_on 'Settings'
+    click_on 'Export profile'
+    assert_content page, 'Export Profile'
+    assert_content page, 'Profile data'
   end
 end

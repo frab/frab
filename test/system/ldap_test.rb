@@ -1,9 +1,9 @@
-require 'test_helper'
+require 'application_system_test_case'
 
 # TODO This test uses a remote service and is flaky.
 # Fails with: `Authentication failure! ldap_error: Net::LDAP::Error, Connection
 # timed out - user specified timeout`
-class LdapTest < FeatureTest
+class LdapTest < ApplicationSystemTestCase
   LOGIN='tesla'     # see https://www.forumsys.com/category/tutorials/integration-how-to/
   PASSWORD='password'
   EMAIL='tesla@ldap.forumsys.com'
@@ -26,7 +26,7 @@ class LdapTest < FeatureTest
     assert_content page, 'Successfully authenticated'
     assert User.where(email: EMAIL).any?
 
-    click_on 'Logout'
+    sign_out
   end
 
   test 'can sign up and sign in with LDAP' do

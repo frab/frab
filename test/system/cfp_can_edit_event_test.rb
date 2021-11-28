@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class CfpCanEditEventTest < FeatureTest
+class CfpCanEditEventTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @event = @conference.events.last
@@ -21,7 +21,7 @@ class CfpCanEditEventTest < FeatureTest
     assert_content page, 'A new title'
     #save_and_open_page
   end
-  
+
   test 'presented with limited set of durations' do
     sign_in_user(@user)
     click_on 'Participate'

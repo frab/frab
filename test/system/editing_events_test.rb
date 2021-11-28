@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class EditingEventsTest < FeatureTest
+class EditingEventsTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @event = @conference.events.last

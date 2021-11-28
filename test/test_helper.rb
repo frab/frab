@@ -1,15 +1,14 @@
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require_relative '../config/environment'
 require 'rails/test_help'
+
 require 'minitest/pride'
 require 'database_cleaner/active_record'
 require 'sucker_punch/testing/inline'
 
-require 'minitest/rails/capybara'
-require 'capybara/poltergeist'
-
 Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f }
 
+# Unit tests in test/unit
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
   include FactoryBot::Syntax::Methods
@@ -18,8 +17,6 @@ class ActiveSupport::TestCase
   # fixtures :all
 
   # Add more helper methods to be used by all tests here...
-
-  Capybara.javascript_driver = :poltergeist
   DatabaseCleaner.strategy = :truncation
 
   def setup
@@ -32,6 +29,7 @@ class ActiveSupport::TestCase
   end
 end
 
+# Controller tests in test/controllers
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
@@ -46,15 +44,13 @@ class ActionController::TestCase
   end
 end
 
+# Integration tests in test/integration
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
 end
 
+# Integration tests in test/integration
 class PunditControllerTest < ActionDispatch::IntegrationTest
   include CrewRolesHelper
-end
-
-class FeatureTest < Capybara::Rails::TestCase
-  include CapybaraHelper
 end

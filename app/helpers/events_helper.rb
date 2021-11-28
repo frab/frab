@@ -8,7 +8,7 @@ module EventsHelper
   end
 
   def showing_my_events?
-     params[:events]=='my'
+    params[:events] == 'my'
   end
 
   def event_start_time
@@ -23,7 +23,7 @@ module EventsHelper
     end
     slots
   end
-  
+
   def timeslots_for_cfp
     @conference.allowed_event_timeslots.map{|slots| [format_time_slots(slots), slots]}
   end
@@ -73,12 +73,12 @@ module EventsHelper
     end
     false
   end
-  
+
   def localized_filter_options(c, i18n_scope)
     c = split_filter_string(c) if c.is_a? String
-    options = (c - ['',nil]).map{|v| [ if i18n_scope 
+    options = (c - ['',nil]).map{|v| [ if i18n_scope
                                          t(v, scope: i18n_scope, default: v)
-                                       else  
+                                       else
                                          v
                                        end,
                                        v]    }.sort
@@ -87,7 +87,7 @@ module EventsHelper
     end
     options
   end
-  
+
   def split_filter_string(s)
     return [''] if s==''
     s.split('|', -1)
@@ -98,7 +98,7 @@ module EventsHelper
             class: [ 'show_events_modal', ('filter_icon' unless text.present?), params[qname].present? ] ,
             data: { url: filter_modal_events_url(request.query_parameters.merge(which_filter: qname)) }
   end
-  
+
   def get_op_and_val(str)
     /^(?<op>[≤≥=]?)(?<val>.*)$/ =~ str
     return op, val

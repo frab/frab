@@ -1,13 +1,13 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class EditingUsersTest < FeatureTest
+class EditingUsersTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference)
     @admin = create(:admin_user)
     @person = create(:person, public_name: 'FakeName')
   end
 
-  it 'creates and makes user into crew', js: true do
+  test 'creates and makes user into crew' do
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/people/all"
     assert_content page, @person.email

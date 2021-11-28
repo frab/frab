@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class FilterAndSendMailTest < FeatureTest
+class FilterAndSendMailTest < ApplicationSystemTestCase
   BCC_ADDRESS = "jimmy@example.com"
   setup do
     ActionMailer::Base.deliveries = []
@@ -10,9 +10,9 @@ class FilterAndSendMailTest < FeatureTest
     @admin = create(:admin_user)
   end
 
-  it 'can create a template and use it for filter and send', js: true do
+  test 'can create a template and use it for filter and send' do
     sign_in_user(@admin)
-    
+
     # Add mail template
     visit "/#{@conference.acronym}/mail_templates/new"
     fill_in 'Name', with: 'template1'
@@ -34,17 +34,19 @@ class FilterAndSendMailTest < FeatureTest
         refute_content page, e.title
       end
     end
-    
+
     # and Send
     click_on 'Send mail to all these people'
     select 'template1', from: "template_name"
-    find('input', id: 'bulk_email').trigger('click')
-    
+    accept_alert do
+      find('input', id: 'bulk_email').click
+    end
+
     assert_content page, 'Mails delivered'
-    
-    emails = ActionMailer::Base.deliveries                                      
-    assert emails.count == 1 # without filtering, we would've seen 3            
-    
+
+    emails = ActionMailer::Base.deliveries
+    assert emails.count == 1 # without filtering, we would've seen 3
+
     m = emails.first
     assert m.to == [ @event.event_people.where(event_role: :speaker).first.person.email ]
     assert m.subject == "mail regarding #{@event.title}"

@@ -85,5 +85,13 @@ jobs:
         sh -c "[ '$DB' != 'sqlite' ] || diff db/schema.rb db/schema.rb.original "
         bundle exec rails db:test:prepare
         bundle exec rails test
+        bundle exec rails test:system
       env:
         DB: ${{ matrix.db }}
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: screenshots-${{matrix.ruby_version}}-${{matrix.db}}
+        path: tmp/screenshots/*
+        retention-days: 5
