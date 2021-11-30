@@ -105,8 +105,11 @@ group :test do
   gem 'factory_bot_rails', '~> 6.2'
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
-  gem 'minitest-rails-capybara'
-  gem 'poltergeist'
+
+  gem 'capybara', '>= 3.26'
+  gem 'selenium-webdriver'
+  # Easy installation and use of web drivers to run system tests with browsers
+  gem 'webdrivers'
 end
 
 group :doc, optional: true do

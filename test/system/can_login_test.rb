@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class CanLoginTest < FeatureTest
+class CanLoginTest < ApplicationSystemTestCase
   setup do
     @admin = create(:admin_user)
   end

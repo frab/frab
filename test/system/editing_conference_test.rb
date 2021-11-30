@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class EditingConferenceTest < FeatureTest
+class EditingConferenceTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events_and_speakers)
     create(:event_ticket, object: @conference.events.first)
@@ -10,7 +10,12 @@ class EditingConferenceTest < FeatureTest
 
   test 'set ticket server to RT' do
     assert_content page, 'Conferences'
-    visit_conference_settings_for(@conference)
+    click_on 'Conferences'
+    within find('tr', text: @conference.title) do
+      click_on 'Show'
+    end
+    click_on 'Settings'
+
     choose('Request Tracker')
     click_on 'Update conference'
     assert_content page, 'Conference was successfully updated.'
@@ -27,8 +32,7 @@ class EditingConferenceTest < FeatureTest
     assert_content page, Event.last.title
   end
 
-  it 'edit classifiers', js: true do
-    sign_in_user(@admin)
+  test 'edit classifiers' do
     visit "/#{@conference.acronym}/conference/edit_classifiers"
     assert_content page, 'Here you can create and edit the classifiers'
     click_on 'Update conference'

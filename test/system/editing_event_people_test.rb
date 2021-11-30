@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class EditingEventsPeopleTest < FeatureTest
+class EditingEventsPeopleTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @event = @conference.events.last
@@ -8,16 +8,23 @@ class EditingEventsPeopleTest < FeatureTest
     @admin = create(:admin_user)
   end
 
-  it 'admin can add user to event', js: true do
+  test 'admin can add user to event' do
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/events/#{@event.id}/edit_people"
 
+    @user.reload
+
     assert_content page, 'Editing People'
     click_on 'Add person'
-    find('input', id: 'filter').click()
-    find('input', id: 'filter').send_keys("#{@user.id}")
+    find('input', id: 'filter').click
+    fill_in 'filter', with: @user.person.email
     select 'Speaker'
+
+    Capybara.using_wait_time(10) do
+      assert_content page, @user.person.public_name
+    end
     click_on 'Update event'
+
     assert_content page, 'Event was successfully updated.'
     assert_content page, @user.person.public_name
   end

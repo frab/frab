@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class EventJoinTest < FeatureTest
+class EventJoinTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @event = @conference.events.last
@@ -47,11 +47,11 @@ class EventJoinTest < FeatureTest
     visit cfp_events_join_path(token: @event.invite_token, conference_acronym: @conference.acronym)
     select 'speaker'
     click_on('Join event')
-    
+
     assert_content page, 'deadline for submitting events is over'
     assert_equal @event.speakers.count, 1
   end
-  
+
   test 'can join an event as assistant after hard deadline' do
     join_user = create(:cfp_user)
     sign_in_user(join_user)
@@ -61,7 +61,7 @@ class EventJoinTest < FeatureTest
     visit cfp_events_join_path(token: @event.invite_token, conference_acronym: @conference.acronym)
     select 'assistant'
     click_on('Join event')
-    
+
     assert_content page, 'added to this event'
     assert @event.people.include?(join_user.person)
   end

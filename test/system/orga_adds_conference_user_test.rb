@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class OrgaAddsConferenceUserTest < FeatureTest
+class OrgaAddsConferenceUserTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference)
     @orga = create(:conference_orga, conference: @conference)
@@ -8,7 +8,7 @@ class OrgaAddsConferenceUserTest < FeatureTest
     @person = @crew_user.person
   end
 
-  it 'adds crew user as orga', js: true do
+  test 'adds crew user as orga' do
     sign_in_user(@orga.user)
     visit "/#{@conference.acronym}/people/all"
     assert_content page, @person.email

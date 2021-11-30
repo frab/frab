@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class EditingEventRatingTest < FeatureTest
+class EditingEventRatingTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @event = @conference.events.last
@@ -10,7 +10,7 @@ class EditingEventRatingTest < FeatureTest
 
   end
 
-  it 'can create event rating and delete it', js: true do
+  test 'can create event rating and delete it' do
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/#{@event.id}/event_rating"
     assert_content page, 'My rating'
@@ -21,7 +21,9 @@ class EditingEventRatingTest < FeatureTest
 
     assert_content page, 'My rating'
     assert_content page, 'Quite good event'
-    click_on 'Delete Event rating'
+    accept_alert do
+      click_on 'Delete Event rating'
+    end
 
     assert_content page, 'My rating'
     refute_content page, 'Quite good event'

@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class SubmitEventTest < FeatureTest
+class SubmitEventTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference)
     create(:call_for_participation, conference: @conference)

@@ -74,7 +74,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     aes_key_wrap (1.0.1)
     airbrussh (1.4.0)
@@ -108,17 +108,18 @@ GEM
       capistrano (~> 3.7)
       capistrano-bundler
       puma (~> 4.0)
-    capybara (3.32.2)
+    capybara (3.36.0)
       addressable
+      matrix
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      regexp_parser (~> 1.5)
+      regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    childprocess (4.1.0)
     chunky_png (1.4.0)
     climate_control (0.2.0)
-    cliver (0.3.2)
     cocoon (1.2.15)
     coderay (1.1.3)
     coffee-rails (5.0.0)
@@ -232,6 +233,7 @@ GEM
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
     marcel (1.0.1)
+    matrix (0.4.2)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -239,23 +241,9 @@ GEM
     mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
-    mini_mime (1.0.2)
-    mini_portile2 (2.5.3)
+    mini_mime (1.1.2)
+    mini_portile2 (2.6.1)
     minitest (5.14.4)
-    minitest-capybara (0.9.0)
-      capybara
-      minitest (~> 5.0)
-      rake
-    minitest-metadata (0.6.0)
-      minitest (>= 4.7, < 6.0)
-    minitest-rails (3.0.0)
-      minitest (~> 5.8)
-      railties (~> 5.0)
-    minitest-rails-capybara (3.0.2)
-      capybara (>= 2.7, <= 4)
-      minitest-capybara (~> 0.8)
-      minitest-metadata (~> 0.6)
-      minitest-rails (~> 3.0)
     msgpack (1.4.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -266,8 +254,8 @@ GEM
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
     nio4r (2.5.8)
-    nokogiri (1.11.7)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -311,10 +299,6 @@ GEM
       ast (~> 2.4.1)
     pdf-core (0.1.6)
     pg (1.2.3)
-    poltergeist (1.18.1)
-      capybara (>= 2.1, < 4)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     prawn (0.15.0)
       pdf-core (~> 0.1.3)
       ttfunk (~> 1.1.0)
@@ -329,13 +313,13 @@ GEM
       pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    public_suffix (4.0.5)
+    public_suffix (4.0.6)
     puma (4.3.10)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-oauth2 (1.10.1)
       activesupport
@@ -389,13 +373,14 @@ GEM
     rb-kqueue (0.2.6)
       ffi (>= 0.5.0)
     redcarpet (3.5.1)
-    regexp_parser (1.7.1)
+    regexp_parser (2.1.1)
     repost (0.3.8)
     request_store (1.5.0)
       rack (>= 1.4)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rexml (3.2.5)
     ri_cal (0.8.8)
     rqrcode (1.2.0)
       chunky_png (~> 1.0)
@@ -403,6 +388,7 @@ GEM
     rqrcode_core (0.2.0)
     ruby2_keywords (0.0.4)
     rubyntlm (0.6.2)
+    rubyzip (2.3.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -415,6 +401,10 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     scanf (1.0.0)
+    selenium-webdriver (4.1.0)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -459,6 +449,10 @@ GEM
       public_suffix
     warden (1.2.9)
       rack (>= 2.0.9)
+    webdrivers (5.0.0)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (~> 4.0)
     webfinger (1.1.0)
       activesupport
       httpclient (>= 2.4)
@@ -485,6 +479,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capistrano3-puma
+  capybara (>= 3.26)
   cocoon
   coffee-rails
   dalli
@@ -508,7 +503,6 @@ DEPENDENCIES
   letter_opener
   listen
   localized_language_select!
-  minitest-rails-capybara
   mysql2
   nokogiri
   omniauth-google-oauth2
@@ -516,7 +510,6 @@ DEPENDENCIES
   omniauth_openid_connect
   paper_trail
   pg
-  poltergeist
   prawn (< 1.0)
   prawn_rails
   pry-byebug
@@ -535,11 +528,13 @@ DEPENDENCIES
   rqrcode
   sass-rails (< 6)
   scanf
+  selenium-webdriver
   simple_form
   sqlite3
   sucker_punch
   transitions
   uglifier
+  webdrivers
   will_paginate
   yard
 

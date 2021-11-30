@@ -68,7 +68,7 @@ class ImportExportHelper
       unpack_paperclip_files
       restore_all_data
     end
-    
+
     enable_callbacks
   end
 
@@ -191,7 +191,7 @@ class ImportExportHelper
       obj.attachable_id = @conference_id
       obj.save!
     end
-        
+
     restore_multiple('conference_review_metrics', ReviewMetric) do |id, obj|
       obj.conference_id = @conference_id
       obj.save!
@@ -330,7 +330,9 @@ class ImportExportHelper
   def restore_multiple(name, obj)
     records = read_yaml_from_file(name)
     records.each do |record|
-      tmp = obj.new(record)
+      tmp = obj.new
+      record.select! { |k, _| tmp.attributes.keys.member?(k.to_s) }
+      tmp.attributes = record
       tmp.id = nil
       yield record['id'], tmp
     end
@@ -397,7 +399,7 @@ class ImportExportHelper
     EventRating.skip_callback(:save, :after, :update_average)
     EventFeedback.skip_callback(:save, :after, :update_average)
   end
-  
+
   def enable_callbacks
     EventPerson.set_callback(:save, :after, :update_speaker_count)
     Event.set_callback(:save, :after, :update_conflicts)
@@ -405,7 +407,7 @@ class ImportExportHelper
     EventRating.set_callback(:save, :after, :update_average)
     EventFeedback.set_callback(:save, :after, :update_average)
   end
-  
+
   def update_counters
     ActiveRecord::Base.connection.execute("UPDATE events SET speaker_count=(SELECT count(*) FROM event_people WHERE events.id=event_people.event_id AND event_people.event_role='speaker')")
     update_event_average('event_ratings', 'average_rating')

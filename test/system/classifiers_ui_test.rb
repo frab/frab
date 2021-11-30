@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class ClassifiersUiTest < FeatureTest
+class ClassifiersUiTest < ApplicationSystemTestCase
   setup do
     @conference = create(:three_day_conference_with_events)
     @admin = create(:admin_user)
@@ -10,7 +10,7 @@ class ClassifiersUiTest < FeatureTest
     @classifier2 = create(:classifier, name: 'TestClassifier2', conference: @conference)
   end
 
-  it 'can toggle classifier', js: true do
+  test 'can toggle classifier' do
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
 
@@ -29,7 +29,7 @@ class ClassifiersUiTest < FeatureTest
     assert_content page, 'TestClassifier2'
   end
 
-  it 'can toggle off classifiers', js: true do
+  test 'can toggle off classifiers' do
     sign_in_user(@admin)
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
     assert_selector('.event_event_classifiers_value', count: 0)
