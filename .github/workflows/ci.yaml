@@ -80,7 +80,7 @@ jobs:
         sed -i 's/config.eager_load = .*/config.eager_load = true/' config/environments/test.rb
         bundle exec rails db:schema:load --trace
         mv db/schema.rb db/schema.rb.original
-        bundle exec rails db:rollback STEP=9
+        bundle exec rails db:rollback STEP=4
         bundle exec rails db:migrate
         sh -c "[ '$DB' != 'sqlite' ] || diff db/schema.rb db/schema.rb.original "
         bundle exec rails db:test:prepare
