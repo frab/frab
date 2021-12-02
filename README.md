@@ -56,6 +56,31 @@ The ticket server type can be configured for every conference.
 
 Install the iPHoneHandle support if you're using OTRS.
 
+## Localization
+
+Frab's UI has been translated into [several languages](config/locales): de en es fr it pt-BR ru zh.
+If a translation for a text is not found, production systems will fallback to the `I18n.default_locale` as configured in `config/environments/production.rb`.
+
+Frab *chooses* the UI's language, by looking at the `?locale=` URL parameter first. If that is unset or contains an unsupported language, Frab falls back to the clients `HTTP_ACCEPT_LANGUAGE` header.
+If neither value is in the list of supported languages, frab uses English.
+
+Conferences, events and persons have languages, these are *displayed* in the schedule and are used for the notifications feature.
+
+The mail *notification* feature sends mails to speakers. It sends those notifications in a language the speaker has configured and falls back to English. Also tries to find a match between the conference locales and the speakers locale.
+
+Localization for *model fields*, like the event's description is provided by the mobility gem. This allows frab to publish texts for the same resource in several languages:
+
+* event title, subtitle, description, abstract
+* person description, abstract
+* track name
+
+If a field has no stored translation, the supported languages will fallback to the `I18n.default_locale`. The unsupported languages, will return nil, until a translation is stored.
+
+Frab uses the models database column, e.g. 'title', for the default language (`I18n.default_locale`), other languages are stored in seperate database tables.
+Mobility calls that a `column fallback`, it helps with existing installations and avoids JOIN statements if only one language is used.
+
+The default language is assumed to be English (`I18n.default_locale`), but could be changed in an initializer.
+
 ## History
 
 frab was originally created for the organization of [FrOSCon 2011](http://www.froscon.de).

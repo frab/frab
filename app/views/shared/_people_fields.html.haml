@@ -19,6 +19,7 @@
 
 %fieldset.inputs
   %legend= t("cfp.bio")
-  = f.input :abstract, input_html: {rows: 4}, hint: t("cfp.abstract_hint")
-  = f.input :description, hint: t("cfp.description_hint")
+  - person_languages.each do |l|
+    = translated_textbox f, 'abstract', l, language_label('person.abstract', l), t('cfp.abstract_hint')
+    = translated_textbox f, 'description', l, language_label('person.description', l), t('cfp.description_hint')
   = dynamic_association :links, t("cfp.links"), f

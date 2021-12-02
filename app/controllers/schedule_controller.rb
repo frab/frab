@@ -94,7 +94,7 @@ class ScheduleController < BaseConferenceController
     if @conference.language_codes.include?(locale)
       locale
     else
-      @conference.language_codes.first
+      @conference.language_default
     end
   end
 

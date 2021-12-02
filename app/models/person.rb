@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  extend Mobility
+
   GENDERS = %w(male female other).freeze
   DEFAULT_AVATAR_SIZE = '32'.freeze
 
@@ -13,6 +15,9 @@ class Person < ApplicationRecord
   has_many :expenses, dependent: :destroy
   has_many :transport_needs, dependent: :destroy
   has_one :ticket, as: :object, dependent: :destroy
+
+  translates :abstract, column_fallback: true
+  translates :description, column_fallback: true
 
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank
   accepts_nested_attributes_for :im_accounts, reject_if: :all_blank, allow_destroy: true

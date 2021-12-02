@@ -442,8 +442,14 @@ class EventsController < BaseConferenceController
   end
 
   def event_params
+    translated_params = @conference.language_codes.map { |l|
+      n = Mobility.normalize_locale(l)
+      [:"title_#{n}", :"subtitle_#{n}", :"abstract_#{n}", :"description_#{n}"]
+    }.flatten
+
     params.require(:event).permit(
       :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license, :tech_rider,
+      *translated_params,
       event_attachments_attributes: %i(id title attachment public _destroy),
       ticket_attributes: %i(id remote_ticket_id),
       links_attributes: %i(id title url _destroy),

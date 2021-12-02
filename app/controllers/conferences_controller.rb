@@ -148,7 +148,7 @@ class ConferencesController < BaseConferenceController
 
   def default_notifications
     authorize @conference, :orga?
-    locale = params[:code] || @conference.language_codes.first
+    locale = params[:code] || @conference.language_default
     @notification = Notification.new(locale: locale)
     @notification.default_text = locale
   end
@@ -228,12 +228,17 @@ class ConferencesController < BaseConferenceController
       ]
     end
 
+    translated_params = @conference.language_codes.map { |l|
+      n = Mobility.normalize_locale(l)
+      :"name_#{n}"
+    }.flatten
+
     if @conference.main_conference? || policy(@conference.parent).manage?
       allowed += [
         classifiers_attributes: %i(name description _destroy id),
         review_metrics_attributes: %i(name description _destroy id),
         rooms_attributes: %i(name size public rank _destroy id),
-        tracks_attributes: %i(name color _destroy id)
+        tracks_attributes: [:color, :_destroy, :id, *translated_params]
       ]
     end
 

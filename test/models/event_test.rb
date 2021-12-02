@@ -198,4 +198,70 @@ class EventTest < ActiveSupport::TestCase
     assert_empty event.errors.full_messages
   end
 
+  test 'localization setup' do
+    conference = create(:multilingual_conference)
+    event = conference.events.first
+
+    # this test assumes I18n.default_locale is :en and won't work otherwise
+    assert_equal :en, I18n.default_locale
+    assert_equal I18n.default_locale, I18n.locale
+    assert_equal I18n.default_locale, Mobility.locale
+
+    title_org = event.title
+
+    # data is still stored on the model by default
+    assert_equal title_org, event['title']
+
+    # ar has no fallback, no value for unknown locales
+    assert_nil event.title_ar
+    # other accessors behave the same
+    assert_nil event.title(locale: :ar)
+
+    Mobility.with_locale(:ar) do
+      assert_nil event.title
+    end
+
+    # de has fallback, no value for unset conference locales via locale_accessor
+    assert_nil event.title_de
+
+    # using locale with I18n.fallback, fallbacks work
+    Mobility.with_locale(:de) do
+      assert_equal title_org, event.title
+    end
+
+    # en being the default just works
+    assert_equal title_org, event.title_en
+
+    # setting another language
+    Mobility.with_locale(:de) do
+      event.title = 'deu'
+      event.save
+    end
+    event.reload
+
+    # it is accessible
+    assert_equal 'deu', event.title_de
+    Mobility.with_locale(:de) do
+      assert_equal 'deu', event.title
+    end
+
+    # others still work
+    assert_equal title_org, event.title_en
+    assert_nil event.title_ar
+
+    # and the number of translations increased
+    assert_equal 1, Event::Translation.count
+
+    # without locale, reader uses the fallback language
+    Mobility.with_locale(nil) do
+      assert_equal title_org, event.title
+    end
+
+    # changing I18n.fallback locale works, too
+    I18n.with_locale(:zh) do
+      event.title = 'zh'
+      event.save
+    end
+    assert_equal 'zh', event.reload.title_zh
+  end
 end
