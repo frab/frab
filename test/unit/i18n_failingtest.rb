@@ -2,8 +2,6 @@ require 'test_helper'
 require 'i18n/tasks'
 
 class I18nTest < ActiveSupport::TestCase
-  self.use_transactional_tests = false
-
   setup do
     @i18n = I18n::Tasks::BaseTask.new
   end

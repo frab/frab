@@ -1,10 +1,11 @@
 require 'test_helper'
+require 'tmpdir'
 
 class StaticScheduleExportTest < ActionDispatch::IntegrationTest
   setup do
     @conference = create(:three_day_conference_with_events_and_speakers,
                          program_export_base_url: '/')
-    @target_dir = Rails.root.join('tmp', 'static_export')
+    @target_dir = Dir.mktmpdir('frab_static_export')
     @dir = Pathname.new(@target_dir).join(@conference.acronym)
   end
 
@@ -44,8 +45,6 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    unless @dir.nil?
-      FileUtils.remove_dir(@dir) if File.exist?(@dir) 
-    end
+    FileUtils.remove_entry_secure @target_dir if @target_dir
   end
 end

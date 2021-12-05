@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class MailTemplateTest < ActiveSupport::TestCase
-  self.use_transactional_tests = false
-
   setup do
     ActionMailer::Base.deliveries = []
     @event = create(:event, state: 'confirmed')

@@ -149,10 +149,6 @@ GEM
     concurrent-ruby (1.1.9)
     crass (1.0.6)
     dalli (3.0.2)
-    database_cleaner-active_record (2.0.1)
-      activerecord (>= 5.a)
-      database_cleaner-core (~> 2.0.0)
-    database_cleaner-core (2.0.1)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -511,7 +507,6 @@ DEPENDENCIES
   cocoon
   coffee-rails
   dalli
-  database_cleaner-active_record
   devise
   dotenv-rails
   exception_notification
