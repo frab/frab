@@ -55,7 +55,7 @@ class ScheduleController < BaseConferenceController
                    when 'portrait'
                      :portrait
                    else
-                      rooms.size > 3 ? :landscape : :portrait
+                     rooms.size > 3 ? :landscape : :portrait
                    end
 
     respond_to do |format|

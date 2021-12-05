@@ -16,6 +16,7 @@ module StaticSchedule
       @locale = locale || 'en'
       @destination = destination || EXPORT_PATH
 
+      # this does not support all combinations, e.g. cannot show nl event fields with fr locales
       I18n.with_locale(@locale) do
         @renderer = ProgramRenderer.new(@conference, @locale)
         @pages = Pages.new(@renderer, @conference)
