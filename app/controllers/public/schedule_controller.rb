@@ -1,7 +1,7 @@
 class Public::ScheduleController < ApplicationController
   layout 'public_schedule'
   before_action :maybe_authenticate_user!
-  before_action :set_lang, only: %i[index speakers]
+  before_action :set_lang, except: %i[style qrcode]
   after_action :cors_set_access_control_headers
 
   def index
@@ -35,49 +35,64 @@ class Public::ScheduleController < ApplicationController
 
     @view_model = ScheduleViewModel.new(@conference).for_day(@day)
 
-    respond_to do |format|
-      format.html
-      format.pdf do
-        @layout = CustomPDF::FullPageLayout.new('A4')
-        @rooms_per_page = 5
-        render template: 'schedule/custom_pdf'
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+        format.pdf do
+          @layout = CustomPDF::FullPageLayout.new('A4')
+          @rooms_per_page = 5
+          render template: 'schedule/custom_pdf'
+        end
       end
     end
   end
 
   def events
     @view_model = ScheduleViewModel.new(@conference)
-    respond_to do |format|
-      format.html
-      format.json
-      format.xls { render file: 'public/schedule/events.xls.erb', content_type: 'application/xls' }
+
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+        format.json
+        format.xls { render file: 'public/schedule/events.xls.erb', content_type: 'application/xls' }
+      end
     end
   end
 
   def timeline
     @view_model = ScheduleViewModel.new(@conference)
-    respond_to do |format|
-      format.html
+
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+      end
     end
   end
 
   def booklet
     @view_model = ScheduleViewModel.new(@conference)
-    respond_to do |format|
-      format.html
+
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+      end
     end
   end
 
   def event
     @view_model = ScheduleViewModel.new(@conference).for_event(params[:id])
-    respond_to do |format|
-      format.html
-      format.ics
+
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+        format.ics
+      end
     end
   end
 
   def speakers
     @view_model = ScheduleViewModel.new(@conference)
+
     Mobility.with_locale(@lang) do
       respond_to do |format|
         format.html
@@ -89,6 +104,12 @@ class Public::ScheduleController < ApplicationController
 
   def speaker
     @view_model = ScheduleViewModel.new(@conference).for_speaker(params[:id])
+
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+      end
+    end
   end
 
   def qrcode
@@ -119,8 +140,7 @@ class Public::ScheduleController < ApplicationController
     @lang = if params[:lang] && @conference.language_codes.include?(params[:lang])
               params[:lang]
             else
-              # no op
-              I18n.default_locale
+              params[:locale]
             end
   end
 end

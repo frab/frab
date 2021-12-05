@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     if supported_languages.include?(params[:locale])
       I18n.locale = params[:locale]
     else
-      preferred_language = http_accept_language.preferred_language_from(supported_languages) || 'en'
+      preferred_language = http_accept_language.preferred_language_from(supported_languages) || I18n.default_locale
 
       I18n.locale     = preferred_language
       params[:locale] = preferred_language
