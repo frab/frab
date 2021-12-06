@@ -1,7 +1,9 @@
 %section
   .page-header
     .pull-right
-      = action_button "", schedule_button_text, public_schedule_index_path, hint: t('schedule_module.view_live_version_hint')
+      = action_button "", schedule_button_text, public_schedule_index_path(lang: @conference.language_default), hint: t('schedule_module.view_live_version_hint')
+      - @conference.language_codes[1..-1].each do |lang|
+        = action_button "",  "#{lang}", public_schedule_index_path(lang: lang), hint: t('schedule_module.view_live_version_hint')
       = action_button "", t('schedule_module.create_pdf_export'), new_schedule_pdf_path, hint: t('schedule_module.create_pdf_export_hint')
       = action_button "success", t('schedule_module.publish_html_export'), schedule_html_exports_path, hint: t('schedule_module.publish_html_export_hint')
     %h1= t('schedule')

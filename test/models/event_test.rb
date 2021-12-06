@@ -3,6 +3,8 @@ require 'test_helper'
 class EventTest < ActiveSupport::TestCase
   setup do
     ActionMailer::Base.deliveries = []
+    I18n.locale = :en
+    Mobility.locale = nil
   end
 
   def setup_notification_event
