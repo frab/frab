@@ -228,8 +228,8 @@ class Conference < ApplicationRecord
 
   def url_options
     { protocol: ENV.fetch('FRAB_PROTOCOL'),
-      host: ENV.fetch('FRAB_HOST'), 
-      port: ENV['FRAB_PORT'].presence, 
+      host: ENV.fetch('FRAB_HOST'),
+      port: ENV['FRAB_PORT'].presence,
       path: "/#{acronym}" }
   end
 

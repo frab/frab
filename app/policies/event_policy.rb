@@ -15,6 +15,7 @@ class EventPolicy < ApplicationPolicy
   alias edit_people? edit?
   alias update? edit?
   alias update_state? edit?
+  alias translations? edit?
 
   class Scope < Scope
     def resolve

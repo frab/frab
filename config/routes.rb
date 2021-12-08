@@ -136,6 +136,7 @@ Rails.application.routes.draw do
           get :people
           get :edit_people
           get :ticket
+          get :translations
           put :update_state
           post :custom_notification
         end

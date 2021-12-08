@@ -157,6 +157,12 @@ class EventsController < BaseConferenceController
     end
   end
 
+  def translations
+    @event = authorize Event.find(params[:id])
+
+    @translations = @event.translations
+  end
+
   # start batch event review
   def start_review
     authorize @conference, :read?
