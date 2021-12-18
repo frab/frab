@@ -4,7 +4,7 @@
 .env.production
 .ruby-version
 config/database.yml
-db/*.sqlite3
+db/*.sqlite3*
 log/*.log
 tmp/*
 tmp/**/*
@@ -30,3 +30,6 @@ config/deploy/*.rb
 config/puma.rb
 contrib/
 db/development.sqlite3.*
+.envrc
+.solargraph.yml
+Session.vim
