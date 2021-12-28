@@ -80,6 +80,8 @@ jobs:
       run: |
         sed -i 's/config.eager_load = .*/config.eager_load = true/' config/environments/test.rb
         bundle exec rails db:setup
+        bundle exec rails db:rollback STEP=5
+        bundle exec rails db:migrate
         bundle exec rails test
         bundle exec rails test:system
       env:
