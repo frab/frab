@@ -11,6 +11,7 @@
     = f.association :track, collection: @conference.tracks
     = f.input :time_slots, as: :select, collection: custom_timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes
+    = f.input :interpreter, collection: translated_options(Event::INTERPRETER)
     = f.input :public, as: :inline_boolean, hint: t('events_module.inputs.hints.public')
     - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
       = image_input_box(f.object.logo)

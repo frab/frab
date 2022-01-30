@@ -455,6 +455,7 @@ class EventsController < BaseConferenceController
 
     params.require(:event).permit(
       :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license, :tech_rider,
+      :interpreter,
       *translated_params,
       :target_audience_experience, :target_audience_experience_text, :number_of_repeats, :other_locations,
       methods: [],
