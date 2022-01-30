@@ -17,7 +17,7 @@
       = f.input :logo
   %fieldset.inputs
     %legend Zielgruppe
-    = f.input :target_audience_experience, collection: Event::EXPERIENCE
+    = f.input :target_audience_experience, collection: translated_options(Event::EXPERIENCE)
     = f.input :target_audience_experience_text, input_html: { rows: 2 }, hint: "ggf."
   %fieldset.inputs
     %legend= t('state')
@@ -37,7 +37,7 @@
       - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
         = translated_textbox f, 'description', l, language_label('event.description', l), t('cfp.event_description_hint')
     = f.input :other_locations, input_html: { rows: 2 }
-    = f.input :methods, as: :check_boxes, collection: Event::METHODS, hint: t('cfp.methods_hint')
+    = f.input :methods, as: :check_boxes, collection: translated_options(Event::METHODS), hint: t('cfp.methods_hint')
   %fieldset.inputs
     %legend= t('notes')
     = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')

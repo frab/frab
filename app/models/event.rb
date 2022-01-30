@@ -9,8 +9,9 @@ class Event < ApplicationRecord
 
   TYPES = %w(lecture workshop podium forum lightning_talk meeting film concert djset performance other seminar).freeze
   ACCEPTED = %w(accepting unconfirmed confirmed scheduled).freeze
-  METHODS = %w(Referat Referat/Diskussion Gruppenarbeit Expert_innen-Diskussion).freeze
-  EXPERIENCE = ['keine Vorkenntnisse', 'Vorinformationen vorhanden (Vertiefung erwünscht)'].freeze
+  METHODS = %w(referat referat_discussion group_work expert_discussion).freeze
+  EXPERIENCE = %w(no_prior_knowledge prior_knowledge).freeze
+  INTERPRETER = %w(monolingual self_organized organized_by_host).freeze
 
   has_one :ticket, as: :object, dependent: :destroy
   has_many :event_attachments, dependent: :destroy

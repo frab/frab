@@ -1850,9 +1850,12 @@ de:
     declined: Abgelehnt
     dect: DECT
     djset: DJ-Set
+    expert_discussion: Expert_innen-Diskussion
     fax: Fax
     female: weiblich
     film: Film
+    forum: Forum
+    group_work: Gruppenarbeit
     icq: ICQ
     idea: Idee
     integrated: Integriert
@@ -1863,19 +1866,27 @@ de:
     meeting: Meeting
     mobile: Mobil
     moderator: Moderator
+    monolingual: einsprachig
     msn: Msn
+    no_prior_knowledge: keine Vorkenntnisse
     offer: Angebot
     orga: Organisator
+    organized_by_host: vom veranstalter nach kapazitaet
     other: Andere
     otrs: OTRS
     performance: Theater/Performance
     phone: Telefon
     podium: Podiumsdiskussion
+    prior_knowledge: Vorinformationen vorhanden (Vertiefung erwünscht)
     private: Privat
     redmine: Redmine
+    referat: Referat
+    referat_discussion: Referat/Diskussion
     reviewer: Reviewer
     rt: Request Tracker
     secretary: Sekretär/Vorzimmer
+    self_organized: selbst organisiert
+    seminar: Seminar
     shuttle: Shuttle
     skype: Skype
     speaker: Sprecher
