@@ -338,7 +338,9 @@ de:
     login_existing_headline: Einloggen mit existierendem Konto
     login_required: Nach der Anmeldung können Sie Ihren Beitrag eingeben.
     login_required_title: Melden Sie sich an, um teilzunehmen
+    logo_hint: "Ein Logo zur Veranstaltung/ Logo der Organisation"
     looking_for_login_form: Suchen Sie den Login für Vortragende?
+    methods_hint: 'Mit welcher/n Methode/n soll die Veranstaltung durchgeführt werden?'
     no_confirmation_token: Bestätigungs-Token nicht gefunden. Vermutlich haben Sie den Token schon verwendet. Bitte loggen Sie sich ein und prüfen Sie den Status Ihrer Einreichung.
     not_forget_personal_details: Und vergessen Sie nicht, Ihr Profil auszufüllen. Sie können Ihr Profil jederzeit über den Button in der rechten Seitenleiste ändern.
     notifications:
@@ -389,14 +391,17 @@ de:
     sign_up_headline: Neu registrieren
     signed_up: Sie haben sich erfolgreich registriert. Um die Registrierung abzuschliessen, folgen Sie bitte der Anleitung in der Bestätigungsmail, die an Ihre E-Mailadresse gesendet wurde.
     specify_availability: 'Lassen Sie uns wissen, zu welchen Zeiten Sie verfügbar sind:'
-    submission_note_hint: Wird nicht veröffentlicht
+    submission_note_hint: "Wann sollte die Veranstaltung bestenfalls stattfinden? Samstag oder Sonntag? Sind Hilfsmittel gewünscht (z. B. Beamer, Flipchart, Moderationskoffer, Tonanlage)? (Wird nicht veröffentlicht)"
     submit_another_event: Einen weiteren Vorschlag einreichen
     submit_new_event: Vorschlag einreichen
     successfully_confirmed: Ihr Konto ist bestätigt. Vielen Dank für die Registrierung.
     take_time_to_submit: 'Bitte nehmen Sie sich die Zeit, eine Einreichung zu erstellen:'
+    target_audience_experience_hint: "Handelt es sich um eine Einstiegsveranstaltung zu der keine Vorkenntnisse nötig sind, bitte hier angeben."
+    target_audience_experience_text_hint: "Z.Bsp.: Gibt es weitere ReferentInnen? Wenn ja bitte Vor- und Nachnamen angeben!"
     thanks_for_confirmation: Vielen Dank, dass Sie Ihre Teilnahme bestätigt haben.
     thanks_for_interest: Vielen Dank für Ihr Interesse an einem Beitrag zu unserer Veranstaltung, %{title}.
     to: zu
+    track_hint: 'Die Veranstaltung soll im Programm folgender Rubrik zugeordnet werden.'
     update: Speichern
     update_availability_notice: Vielen Dank, dass Sie Ihre Verfügbarkeit angegeben haben.
     updated: Erfolgreich gespeichert. E-Mail Veränderungen müssen neu bestätigt werden.
@@ -620,7 +625,7 @@ de:
     - Fr
     - Sa
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mär
@@ -647,7 +652,7 @@ de:
       only_day: "%e"
       short: "%e. %b"
     month_names:
-    - 
+    -
     - Januar
     - Februar
     - März

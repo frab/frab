@@ -8,13 +8,13 @@
         %p{style: "padding-top: 0.5em;"}
           %b=@event.speakers.map(&:public_name).join(", ").html_safe
     = f.hidden_field :event_type, value: "Workshop"
-    = f.association :track, collection: @conference.tracks, hint: 'Die Veranstaltung soll im Programm folgender Rubrik zugeordnet werden.'
+    = f.association :track, collection: @conference.tracks, hint: t('cfp.track_hint')
     = f.hidden_field :time_slots, value: "7"
     = f.input :number_of_repeats, as: :select, collection: 1..4, hint: '1-4'
     = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
     - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
       = image_input_box(f.object.logo)
-      = f.input :logo, hint: "Ein Logo zur Veranstaltung/ Logo der Organisation"
+      = f.input :logo, hint: t('cfp.logo_hint')
   - if @conference.classifiers.any?
     = render partial: '/events/event_classifiers', locals: {f: f}
   %fieldset.inputs
@@ -22,10 +22,10 @@
     = f.input :abstract, input_html: {rows: 4}, hint: t("cfp.event_abstract_hint")
     - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
       = f.input :description, hint: t("cfp.event_description_hint")
-    = f.input :submission_note, hint: "Wann sollte die Veranstaltung bestenfalls stattfinden? Samstag oder Sonntag? Sind Hilfsmittel gewünscht (z. B. Beamer, Flipchart, Moderationskoffer, Tonanlage)?"
-    = f.input :target_audience_experience, collection: Event::EXPERIENCE, hint: "Handelt es sich um eine Einstiegsveranstaltung zu der keine Vorkenntnisse nötig sind, bitte hier angeben."
-    = f.input :target_audience_experience_text, input_html: { rows: 2 }, hint: "Z.Bsp.: Gibt es weitere ReferentInnen? Wenn ja bitte Vor- und Nachnamen angeben!"
-    = f.input :methods, as: :check_boxes, collection: Event::METHODS, hint: 'Mit welcher/n Methode/n soll die Veranstaltung durchgeführt werden?'
+    = f.input :submission_note, hint: t('cfp.submission_note_hint')
+    = f.input :target_audience_experience, collection: Event::EXPERIENCE, hint: t('target_audience_experience_hint')
+    = f.input :target_audience_experience_text, input_html: { rows: 2 }, hint: t('cfp.target_audience_experience_text_hint')
+    = f.input :methods, as: :check_boxes, collection: Event::METHODS, hint: t('cfp.methods_hint')
     = dynamic_association :links, t("cfp.links"), f
     = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
   .actions
