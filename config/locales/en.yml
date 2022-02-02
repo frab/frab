@@ -358,7 +358,7 @@ en:
     sign_up_headline: Sign up for a new account
     signed_up: You have signed up successfully. An email with confirmation instructions has been sent to the address you provided. Please follow these instructions to complete your registration.
     specify_availability: 'Please let us know, at what times you would be available to hold your event:'
-    submission_note_hint: Visible for admins and users, contains additional information.
+    submission_note_hint: When should the event ideally take place? Thursday, Friday or Saturday? Are aids desired (e.g. beamer, flipchart, presentation case, sound system)? (Will not be published)
     submit_another_event: Submit another event
     submit_new_event: Submit a new event
     successfully_confirmed: Your account has been successfully confirmed. Thank you for signing up!

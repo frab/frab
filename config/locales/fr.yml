@@ -360,7 +360,7 @@ fr:
     sign_up_headline: Créer un nouveau compte
     signed_up: Vous êtes enregistré(e). Un courriel avec les instructions de confirmation a été envoyé à l’adresse fournie. Veuillez suivre ces instructions pour valider votre enregistrement.
     specify_availability: 'Veuillez nous donner vos disponibilités pour cet évènement : '
-    submission_note_hint: Visible pour les admins et les utilisateurs, contient des informations additionnelles.
+    submission_note_hint: Quand l'événement doit-il idéalement avoir lieu ? Jeudi, vendredi ou samedi ? Des aides sont-elles souhaitées (par exemple, vidéoprojecteur, tableau à feuilles mobiles, mallette de présentation, système de sonorisation) ? (Ne sera pas publié)
     submit_another_event: Proposer un autre évènement
     submit_new_event: Proposer un nouvel évènement
     successfully_confirmed: Votre compte a été confirmé. Merci de nous avoir rejoint !

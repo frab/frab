@@ -26,7 +26,7 @@
     = f.input :submission_note, hint: t('cfp.submission_note_hint')
     = f.input :target_audience_experience, collection: translated_options(Event::EXPERIENCE), hint: t('target_audience_experience_hint')
     = f.input :target_audience_experience_text, input_html: { rows: 2 }, hint: t('cfp.target_audience_experience_text_hint')
-    = f.input :methods, as: :check_boxes, collection: translated_options(Event::METHODS), hint: t('cfp.methods_hint')
+    = f.input :methods, as: :check_boxes, collection: translated_options(Event::METHODS)
     = dynamic_association :links, t("cfp.links"), f
     = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
   .actions

@@ -38,7 +38,7 @@
       - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
         = translated_textbox f, 'description', l, language_label('event.description', l), t('cfp.event_description_hint')
     = f.input :other_locations, input_html: { rows: 2 }
-    = f.input :methods, as: :check_boxes, collection: translated_options(Event::METHODS), hint: t('cfp.methods_hint')
+    = f.input :methods, as: :check_boxes, collection: translated_options(Event::METHODS)
   %fieldset.inputs
     %legend= t('notes')
     = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')

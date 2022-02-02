@@ -74,6 +74,7 @@ de:
         event_ratings_count: Anzahl der Bewertungen durch Reviewer
         event_type: Art des Events
         guid: GUID
+        interpreter: Dolmetschen
         invite_token: Invite-Token
         language: Sprache
         logo: Logo
@@ -391,7 +392,7 @@ de:
     sign_up_headline: Neu registrieren
     signed_up: Sie haben sich erfolgreich registriert. Um die Registrierung abzuschliessen, folgen Sie bitte der Anleitung in der Bestätigungsmail, die an Ihre E-Mailadresse gesendet wurde.
     specify_availability: 'Lassen Sie uns wissen, zu welchen Zeiten Sie verfügbar sind:'
-    submission_note_hint: "Wann sollte die Veranstaltung bestenfalls stattfinden? Samstag oder Sonntag? Sind Hilfsmittel gewünscht (z. B. Beamer, Flipchart, Moderationskoffer, Tonanlage)? (Wird nicht veröffentlicht)"
+    submission_note_hint: Wann sollte die Veranstaltung bestenfalls stattfinden? Donnerstag, Freitag oder Samstag? Sind Hilfsmittel gewünscht (z. B. Beamer, Flipchart, Moderationskoffer, Tonanlage)? (Wird nicht veröffentlicht)
     submit_another_event: Einen weiteren Vorschlag einreichen
     submit_new_event: Vorschlag einreichen
     successfully_confirmed: Ihr Konto ist bestätigt. Vielen Dank für die Registrierung.
@@ -1871,7 +1872,7 @@ de:
     no_prior_knowledge: keine Vorkenntnisse
     offer: Angebot
     orga: Organisator
-    organized_by_host: vom veranstalter nach kapazitaet
+    organized_by_host: Vom Veranstalter /nach Kapazität
     other: Andere
     otrs: OTRS
     performance: Theater/Performance
