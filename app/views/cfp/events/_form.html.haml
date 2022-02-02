@@ -10,7 +10,7 @@
     = f.hidden_field :event_type, value: "Workshop"
     = f.association :track, collection: @conference.tracks, hint: t('cfp.track_hint')
     = f.hidden_field :time_slots, value: "7"
-    = f.input :number_of_repeats, as: :select, collection: 1..4, hint: '1-4'
+    = f.input :number_of_repeats, as: :select, collection: 1..3, hint: '1-3'
     = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
     = f.input :interpreter, collection: translated_options(Event::INTERPRETER)
     - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
