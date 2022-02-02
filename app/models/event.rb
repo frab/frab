@@ -9,7 +9,7 @@ class Event < ApplicationRecord
 
   TYPES = %w(lecture workshop podium forum lightning_talk meeting film concert djset performance other seminar).freeze
   ACCEPTED = %w(accepting unconfirmed confirmed scheduled).freeze
-  METHODS = %w(workshop seminar podium lecture film concert theatre).freeze
+  METHODS = %w(workshop worldcafe open_space exkursion intervention other_format).freeze
   EXPERIENCE = %w(no_prior_knowledge prior_knowledge).freeze
   INTERPRETER = %w(monolingual self_organized organized_by_host).freeze
 

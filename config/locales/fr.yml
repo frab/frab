@@ -750,9 +750,9 @@ fr:
         headline: Bienvenue, %{email} !
         link: Confirmer mon compte
         subject: Instructions de confirmation
-        text: 'Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
+        text: |
+          Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
 
-'
       email_change:
         headline: Bonjour, %{email} !
         text_been_changed: |
@@ -1889,6 +1889,11 @@ fr:
     work: Travail
     workshop: Atelier
     yahoo: Yahoo
+    worldcafe: Café du monde
+    open_space: Open Space
+    exkursion: Excursion
+    intervention: Intervention culturel
+    other_format: autre
   others_only: Autres seulement
   page_titles:
     admin_users: frab - Administrateurs
