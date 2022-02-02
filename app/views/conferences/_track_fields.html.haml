@@ -1,6 +1,6 @@
 .nested-fields
   %fieldset.inputs
     - languages.each do |l|
-      = translated_input f, 'name', l
+      = translated_input f, 'track', 'name', l
     = f.input :color, input_html: {size: 6, class: "color"}
     = remove_association_link :track, f

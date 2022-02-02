@@ -2,8 +2,8 @@
   %fieldset.inputs
     %legend= t('basic_information')
     - languages.each do |l|
-      = translated_input f, 'title', l
-      = translated_input f, 'subtitle', l
+      = translated_input f, 'event', 'title', l
+      = translated_input f, 'event', 'subtitle', l
     - @event.build_ticket unless @event.ticket
     = f.simple_fields_for :ticket do |ticket|
       = ticket.input :remote_ticket_id
