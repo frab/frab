@@ -70,6 +70,7 @@ fr:
         invite_token: Jeton d’invitation
         language: Langue
         logo: Logo
+        methods: type d'activité
         note: Note
         public: Public
         recording_license: Licence d’enregistrement

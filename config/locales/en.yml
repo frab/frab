@@ -69,6 +69,7 @@ en:
         guid: GUID
         invite_token: Invite token
         language: Language
+        methods: Type of event
         logo: Logo
         note: Note
         public: Public
