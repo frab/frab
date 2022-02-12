@@ -2,7 +2,7 @@ module CapybaraHelper
   def sign_in(email, password)
     visit root_path
     click_on 'Log-in'
-    fill_in 'Email', with: email
+    fill_in 'Email', match: :first, with: email
     fill_in 'Password', with: password
     click_on 'Log in'
   end

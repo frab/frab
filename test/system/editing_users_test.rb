@@ -16,7 +16,7 @@ class EditingUsersTest < ApplicationSystemTestCase
     end
     assert_content page, "Create account for #{@person.public_name}"
 
-    fill_in 'Email', with: @person.email
+    fill_in 'Email', match: :first, with: @person.email
     fill_in 'Password', with: 'frab123'
     fill_in 'Password confirmation', with: 'frab123'
     click_on 'Create User'
