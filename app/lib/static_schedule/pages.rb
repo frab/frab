@@ -49,11 +49,11 @@ module StaticSchedule
           @paths << {
             action: :day,
             template: 'schedule/custom_pdf.pdf.prawn',
-            format: :prawn,
+            format: :pdf,
             assigns: {
               day: day,
               view_model: @renderer.view_model.for_day(day),
-              layout: CustomPDF::FullPageLayout.new('A4'),
+              layout: CustomPdf::FullPageLayout.new('A4'),
               rooms_per_page: 5
             },
             target: "schedule/#{day_index}.pdf"

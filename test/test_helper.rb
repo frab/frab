@@ -3,7 +3,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 require 'minitest/pride'
-require 'database_cleaner/active_record'
+require 'minitest/spec'
 require 'sucker_punch/testing/inline'
 
 Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f }
@@ -12,20 +12,15 @@ Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f }
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
   include FactoryBot::Syntax::Methods
+  parallelize
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  DatabaseCleaner.strategy = :truncation
 
   def setup
-    DatabaseCleaner.start
     I18n.locale = I18n.default_locale
-  end
-
-  def teardown
-    DatabaseCleaner.clean
   end
 end
 

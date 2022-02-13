@@ -20,9 +20,8 @@ class EditingEventsPeopleTest < ApplicationSystemTestCase
     fill_in 'filter', with: @user.person.email
     select 'Speaker'
 
-    Capybara.using_wait_time(10) do
-      assert_content page, @user.person.public_name
-    end
+    assert_content page, @user.person.public_name
+    page.has_field?("span#person_id input", with: "1")
     click_on 'Update event'
 
     assert_content page, 'Event was successfully updated.'

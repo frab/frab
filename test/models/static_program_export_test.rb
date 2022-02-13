@@ -5,7 +5,7 @@ class StaticSchedule::ExportText < ActiveSupport::TestCase
     @conference = create(:three_day_conference_with_events,
                         program_export_base_url: '/')
     @locale = 'en'
-    @target_dir = File.join(Rails.root, 'tmp', 'static_export')
+    @target_dir = Dir.mktmpdir('frab_static_export')
   end
 
   test 'static exporter can create a tarball' do
@@ -21,6 +21,6 @@ class StaticSchedule::ExportText < ActiveSupport::TestCase
   end
 
   teardown do
-    FileUtils.remove_dir File.join(@target_dir, @conference.acronym)
+    FileUtils.remove_entry_secure @target_dir if @target_dir
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   sequence :event_title do |n|
-    "Introducing frap part #{n}"
+    "Introducing frap part #{3 * n}"
   end
 
   factory :event do

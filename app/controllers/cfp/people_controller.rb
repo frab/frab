@@ -45,7 +45,7 @@ class Cfp::PeopleController < ApplicationController
     @person = current_user.person
     @foaf = Cfp::PeopleController.renderer.render(
         action: :export,
-        formats: ['json'],
+        formats: :json,
         locals: { conference: @conference, person: @person }
     )
   end

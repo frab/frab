@@ -36,7 +36,7 @@ class Public::ScheduleController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        @layout = CustomPDF::FullPageLayout.new('A4')
+        @layout = CustomPdf::FullPageLayout.new('A4')
         @rooms_per_page = 5
         render template: 'schedule/custom_pdf'
       end
@@ -49,7 +49,7 @@ class Public::ScheduleController < ApplicationController
     respond_to do |format|
       format.html
       format.json
-      format.xls { render file: 'public/schedule/events.xls.erb', content_type: 'application/xls' }
+      format.xls { render file: Rails.root.join('app/views/public/schedule/events.xls.erb'), content_type: 'application/xls' }
     end
   end
 
@@ -81,10 +81,12 @@ class Public::ScheduleController < ApplicationController
   def speakers
     @view_model = ScheduleViewModel.new(@conference)
 
-    respond_to do |format|
-      format.html
-      format.json
-      format.xls { render file: 'public/schedule/speakers.xls.erb', content_type: 'application/xls' }
+    Mobility.with_locale(@lang) do
+      respond_to do |format|
+        format.html
+        format.json
+        format.xls { render file: Rails.root.join('app/views/public/schedule/speakers.xls.erb'), content_type: 'application/xls' }
+      end
     end
   end
 

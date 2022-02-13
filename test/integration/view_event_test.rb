@@ -44,7 +44,6 @@ class ViewEventTest < ActionDispatch::IntegrationTest
 
     assert_includes @response.body, 'proposal' # proposal appears as a table header, not a link
     assert_select 'a', {text: 'proposal', count: 0}
-
   end
 
   test 'reports no results for missing terms' do

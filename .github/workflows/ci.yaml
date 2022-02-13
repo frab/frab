@@ -13,10 +13,11 @@ jobs:
       RAILS_ENV: test
 
     strategy:
+      fail-fast: false
       matrix:
         ruby_version:
-          - 2.6
           - 2.7
+          - '3.0'
         db:
           - mysql
           - postgresql
@@ -78,12 +79,9 @@ jobs:
     - name: Run tests
       run: |
         sed -i 's/config.eager_load = .*/config.eager_load = true/' config/environments/test.rb
-        bundle exec rails db:schema:load --trace
-        mv db/schema.rb db/schema.rb.original
-        bundle exec rails db:rollback STEP=4
+        bundle exec rails db:setup
+        bundle exec rails db:rollback STEP=5
         bundle exec rails db:migrate
-        sh -c "[ '$DB' != 'sqlite' ] || diff db/schema.rb db/schema.rb.original "
-        bundle exec rails db:test:prepare
         bundle exec rails test
         bundle exec rails test:system
       env:
