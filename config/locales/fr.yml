@@ -70,6 +70,7 @@ fr:
         invite_token: Jeton d’invitation
         language: Langue
         logo: Logo
+        methods: type d'activité
         note: Note
         public: Public
         recording_license: Licence d’enregistrement
@@ -307,7 +308,9 @@ fr:
     login_existing_headline: Identification avec un compte existant
     login_required: Après vous être connecté, vous pouvez entrer votre soumission.
     login_required_title: Connectez-vous pour participer
+    logo_hint: "Un logo pour l'événement / logo de l'organisation"
     looking_for_login_form: Vous cherchez la page de connexion pour conférenciers ?
+    methods_hint: Quelle méthode / n devrait-elle être effectuée?
     no_confirmation_token: Votre clé de confirmation n’est pas valide. Veuillez vérifier le statut de l’évènement sur l’interface de l’Appel à participation.
     not_forget_personal_details: Et n’oubliez pas de remplir vos détails personnels si ce n’est pas déjà fait. Gardez à l’esprit que vous pouvez toujours revenir en arrière et éditer votre profil en utilisant le bouton dans la barre latérale de droite.
     notifications:
@@ -358,14 +361,17 @@ fr:
     sign_up_headline: Créer un nouveau compte
     signed_up: Vous êtes enregistré(e). Un courriel avec les instructions de confirmation a été envoyé à l’adresse fournie. Veuillez suivre ces instructions pour valider votre enregistrement.
     specify_availability: 'Veuillez nous donner vos disponibilités pour cet évènement : '
-    submission_note_hint: Visible pour les admins et les utilisateurs, contient des informations additionnelles.
+    submission_note_hint: Quand l'événement doit-il idéalement avoir lieu ? Jeudi, vendredi ou samedi ? Des aides sont-elles souhaitées (par exemple, vidéoprojecteur, tableau à feuilles mobiles, mallette de présentation, système de sonorisation) ? (Ne sera pas publié)
     submit_another_event: Proposer un autre évènement
     submit_new_event: Proposer un nouvel évènement
     successfully_confirmed: Votre compte a été confirmé. Merci de nous avoir rejoint !
     take_time_to_submit: 'Veuillez prendre le temps de soumettre votre proposition ou de vous joindre à un événement existant :'
+    target_audience_experience_hint: "S'il s'agit d'un événement d'entrée d'entrée sur lequel aucune connaissance antérieure n'est nécessaire, veuillez préciser ici."
+    target_audience_experience_text_hint: "Y a-t-il d'autres orateurs? Si oui, veuillez préciser le prénom et le nom de famille!"
     thanks_for_confirmation: Merci d’avoir confirmé votre participation.
     thanks_for_interest: Merci de vôtre intérêt à participer à %{title}.
     to: en
+    track_hint: L'événement doit être attribué à la catégorie suivante du programme.
     update: Mettre à jour
     update_availability_notice: Merci d’avoir spécifié vos disponibilités.
     updated: Mis à jour avec succès.
@@ -608,7 +614,7 @@ fr:
     - Sam
     - Dim
     abbr_month_names:
-    - 
+    -
     - Jan
     - Fév
     - Mar
@@ -634,7 +640,7 @@ fr:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    - 
+    -
     - Janvier
     - Février
     - Mars
@@ -745,9 +751,9 @@ fr:
         headline: Bienvenue, %{email} !
         link: Confirmer mon compte
         subject: Instructions de confirmation
-        text: 'Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
+        text: |
+          Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
 
-'
       email_change:
         headline: Bonjour, %{email} !
         text_been_changed: |
@@ -1855,28 +1861,40 @@ fr:
     meeting: Meeting
     mobile: Mobile
     moderator: Modérateur
+    monolingual: monolingue
     msn: Msn
+    no_prior_knowledge: no prior knowledge
     offer: Demande
     orga: Organisateur
+    organized_by_host: Organisé par l'hôte (capacité limitée)
     other: Autre
     otrs: OTRS
     performance: Représentation/Performance
     phone: Téléphone
-    podium: Podium
+    podium: Discussion en groupe
+    prior_knowledge: priork knowledge
     private: Privé
     redmine: Redmine
     reviewer: Critique
     rt: Request Tracker
     secretary: Secrétariat
+    self_organized: auto-organisé
+    seminar: Séminaire
     shuttle: Navette
     skype: Skype
     speaker: Orateur
     submitter: Déposant
     talk: Conférence
+    theatre: Théâtre
     unclear: Incertain
     work: Travail
     workshop: Atelier
     yahoo: Yahoo
+    worldcafe: Café du monde
+    open_space: Open Space
+    exkursion: Excursion
+    intervention: Intervention culturel
+    other_format: autre
   others_only: Autres seulement
   page_titles:
     admin_users: frab - Administrateurs

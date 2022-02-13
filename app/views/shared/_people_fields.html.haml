@@ -14,8 +14,6 @@
   = f.input :email, hint: t("cfp.email_hint")
   = f.input :email_public, as: :inline_boolean, hint: t("cfp.email_public_hint")
   = f.input :include_in_mailings, as: :inline_boolean, hint: t('cfp.email_accept_upcoming_infos')
-  = dynamic_association :phone_numbers, t("cfp.phone_numbers"), f
-  = dynamic_association :im_accounts, t("cfp.im_accounts"), f
 
 %fieldset.inputs
   %legend= t("cfp.bio")

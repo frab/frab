@@ -30,6 +30,14 @@ class Person < ApplicationRecord
   belongs_to :user, dependent: :destroy, optional: true
 
   before_save :nilify_empty
+  before_validation :email_from_user
+
+  def email_from_user
+    return if email
+    return unless user
+    self.email = user.email
+    self.email_public = false
+  end
 
   has_paper_trail
 
@@ -94,7 +102,7 @@ class Person < ApplicationRecord
 
   def uri
     if email.present?
-      "acct:#{email}" 
+      "acct:#{email}"
     else
       URI::HTTP.build({ path: "/people/#{id}", host: ENV.fetch('FRAB_HOST'), protocol: ENV.fetch('FRAB_PROTOCOL'), port: ENV['FRAB_PORT'].presence }).to_s
     end

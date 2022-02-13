@@ -74,6 +74,9 @@
         %p
           %b= t('col_start_time')
           = event_start_time
+        %p
+          %b Mehrtägig, Anzahl der Tage:
+          = @event.number_of_repeats
       %p
         %b= t('col_room')
         = @event.room.try(:name)
@@ -84,13 +87,14 @@
       = image_box @event.logo, :large
   .row
     .span16
+      %hr
       %h2= t('content')
   .row
-    .span6
+    .span8
       %p
         %b= t('col_abstract')
         = simple_format @event.abstract
-    .span10
+    .span8
       %p
         %b= t('col_description')
         = simple_format @event.description
@@ -134,6 +138,23 @@
       %p
         %b= Event.human_attribute_name(:tech_rider) + ':'
         = @event.tech_rider
+
+  .row
+    .span8
+      = render partial: 'events/event_tags', locals: { event: @event, short: false }
+
+    .span8
+      %p
+        %b #{Event.human_attribute_name('methods')}:
+        = methods_string(@event)
+
   .row
     .span16
-      = render partial: 'events/event_tags', locals: { event: @event, short: false }
+      %p
+        %b #{Event.human_attribute_name('other_locations')}:
+        = @event.other_locations
+  .row
+    .span8
+      %p
+        %b #{Event.human_attribute_name('target_audience_experience')}:
+        = @event.target_audience_experience

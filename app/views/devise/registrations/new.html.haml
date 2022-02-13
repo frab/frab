@@ -14,7 +14,7 @@
         = f.invisible_captcha :subtitle
 
         %fieldset.inputs
-          = f.input :email
+          = f.input :email, hint: t('col_email_for_login')
 
           - if @minimum_password_length
             = f.input :password, autocomplete: 'off', hint: t('inputs.hints.password_length', length: @minimum_password_length)
@@ -23,7 +23,11 @@
 
           = f.input :password_confirmation, autocomplete: 'off'
 
+        = f.simple_fields_for :person do |f|
+          = render partial: 'shared/people_registration_fields', locals: { person: resource.person, f: f }
+
         .actions
           = f.button :submit, class: 'primary', value: t('session.signup')
+
 
 = render 'devise/shared/links'

@@ -8,9 +8,10 @@ class SubmitEventTest < ApplicationSystemTestCase
 
   def sign_up_steps
     click_on 'Sign Up', match: :first
-    fill_in 'Email', with: @user.email
+    fill_in 'Email', match: :first, with: @user.email
     fill_in 'Password', with: @user.password
     fill_in 'Password confirmation', with: @user.password
+    fill_in 'Public name', with: 'fake-name'
     click_on 'Sign up'
     assert_content page, 'A message with a confirmation link has been sent to your email address'
 
@@ -19,7 +20,7 @@ class SubmitEventTest < ApplicationSystemTestCase
 
   def sign_in_steps
     click_on 'Log-in', match: :first
-    fill_in 'Email', with: @user.email
+    fill_in 'Email', match: :first, with: @user.email
     fill_in 'Password', with: @user.password
     click_on 'Log in'
     assert_content page, 'Signed in successfully'
@@ -33,7 +34,7 @@ class SubmitEventTest < ApplicationSystemTestCase
     sign_in_steps
 
     click_on 'Participate'
-    assert_content page, 'Personal details'
+    assert_content page, 'edit your profile'
   end
 
   test 'sign up and sign in new submitter to cfp' do
@@ -43,7 +44,7 @@ class SubmitEventTest < ApplicationSystemTestCase
     sign_up_steps
     sign_in_steps
 
-    assert_content page, 'Personal details'
+    assert_content page, 'edit your profile'
   end
 
   test 'submit an event' do
@@ -56,7 +57,7 @@ class SubmitEventTest < ApplicationSystemTestCase
     click_on 'Submit a new event', match: :first
 
     fill_in 'Title', with: 'fake-title', match: :first
-    select '00:45', from: 'Duration'
+    #select '00:45', from: 'Duration'
     click_on 'Create event'
 
     assert_content page, 'Events you already submitted'
