@@ -91,6 +91,9 @@ Layout/ArgumentAlignment:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
 # Load order is important
 Bundler/OrderedGems:
   Enabled: false
