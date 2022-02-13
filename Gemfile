@@ -13,10 +13,10 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.1'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '< 6'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
@@ -59,7 +59,7 @@ gem 'haml'
 gem 'http_accept_language'
 gem 'invisible_captcha'
 gem 'localized_language_select', github: 'frab/localized_language_select', branch: 'master'
-gem 'mobility', '~> 1.2.2'
+gem 'mobility', '~> 1.2.5'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
 gem 'gitlab_omniauth-ldap'
@@ -99,12 +99,13 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'letter_opener'
   gem 'faker'
-  gem 'i18n-tasks'
+  # TODO depends on railties
+  gem 'i18n-tasks',  '~> 0.9.34'
 end
 
 group :test do
-  gem 'factory_bot_rails', '~> 6.2'
-  gem 'database_cleaner-active_record'
+  gem 'rexml'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
 
   gem 'capybara', '>= 3.26'
