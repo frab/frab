@@ -5,6 +5,13 @@ fr:
   accepted_event_durations: Durée des événements acceptés
   accepted_only: Seulement les acceptés
   actions: Actions
+  activemodel:
+    errors:
+      template:
+        body: 'Veuillez vérifier les champs suivants :'
+        header:
+          one: 'Impossible d''enregistrer %{model} : une erreur.'
+          other: 'Impossible d''enregistrer %{model} : erreur %{count}.'
   activerecord:
     attributes:
       availability:
@@ -84,6 +91,7 @@ fr:
         title: Titre
         track: Fil
       event_attachment:
+        attachment: déposer
         public: Public
         title: Titre
       event_classifier:
@@ -91,6 +99,7 @@ fr:
       event_feedback:
         comment: Commentaire
         note: Note
+        rating: évaluation
       event_rating:
         comment: Commentaire
         rating: Évaluation
@@ -103,6 +112,8 @@ fr:
         im_type: Type
       langage:
         code: Langue
+      language:
+        language: Langue
       link:
         title: Titre
         url: Adresse
@@ -120,6 +131,7 @@ fr:
         schedule_subject: Programmation - Sujet
       person:
         abstract: Résumé
+        avatar: photo de profil
         description: Description
         email: Courriel
         email_public: Courriel public
@@ -134,6 +146,7 @@ fr:
         phone_type: Type
       room:
         name: Nom
+        public: Publique
         rank: Rang
         size: Taille
       ticket:
@@ -155,11 +168,24 @@ fr:
         seats: Nb. sièges
         transport_type: Type de transport
       user:
+        current_password: Mot de passe actuel
         email: Courriel
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
         remember_me: Se souvenir de moi
         role: Rôle
+    errors:
+      full_messages:
+        format: "%{attribute}%{message}"
+      messages:
+        confirmation: ne correspond pas à la confirmation
+        record_invalid: 'Échec du contrôle de validation : %{errors}'
+        taken: est déjà pris
+      template:
+        body: 'Veuillez vérifier les champs suivants :'
+        header:
+          one: 'Impossible d''enregistrer %{model} : une erreur.'
+          other: 'Impossible d''enregistrer %{model} : erreur %{count}.'
     models:
       call_for_participation: Appel à participation
       classifier: catégorie
@@ -169,7 +195,9 @@ fr:
       event: évènement
       event_attachment: fichier
       event_classifier: catégorie
+      event_feedback: Rétroaction
       event_person: personne
+      event_rating: évaluation
       im_account: compte de messagerie instantanée
       language: langue
       link: lien
@@ -307,8 +335,8 @@ fr:
     login_existing_headline: Identification avec un compte existant
     login_required: Après vous être connecté, vous pouvez entrer votre soumission.
     login_required_title: Connectez-vous pour participer
+    logo_hint: Un logo pour l'événement / logo de l'organisation
     looking_for_login_form: Vous cherchez la page de connexion pour conférenciers ?
-    logo_hint: "Un logo pour l'événement / logo de l'organisation"
     no_confirmation_token: Votre clé de confirmation n’est pas valide. Veuillez vérifier le statut de l’évènement sur l’interface de l’Appel à participation.
     not_forget_personal_details: Et n’oubliez pas de remplir vos détails personnels si ce n’est pas déjà fait. Gardez à l’esprit que vous pouvez toujours revenir en arrière et éditer votre profil en utilisant le bouton dans la barre latérale de droite.
     notifications:
@@ -634,6 +662,7 @@ fr:
     formats:
       default: "%Y-%m-%d"
       long: "%B %d, %Y"
+      only_day: "%e"
       short: "%b %d"
     month_names:
     -
@@ -739,8 +768,8 @@ fr:
     links:
       google_oauth2: Google
       ldap: Serveur LDAP
-      openid_connect: OpenID Connect
       no_unlock_instructions: Vous n’avez pas reçu d’instructions de déverrouillage ?
+      openid_connect: OpenID Connect
       sign_in_with: Se connecter avec %{provider}
     mailer:
       confirmation_instructions:
@@ -749,7 +778,7 @@ fr:
         subject: Instructions de confirmation
         text: 'Vous devez maintenant confirmer votre compte en cliquant sur le lien suivant :
 
-'
+          '
       email_change:
         headline: Bonjour, %{email} !
         text_been_changed: |
@@ -1092,6 +1121,11 @@ fr:
     events_in_current_conference: Évènements dans la conférence actuelle
     events_in_other_conferences: Évènements dans d’autres conférences
     feedback_not_enabled: Le système de retours n’est pas activé.
+    filter_modal:
+      at_least: "≥"
+      at_most: "≤"
+      exactly: "="
+      select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
     hide_all: Tout cacher
     indicator:
       full:
@@ -1152,11 +1186,6 @@ fr:
     reject_event_hint: Rejette cet évènement. Les orateurs seront notifiés de ce rejet par courriel.
     reject_event_no_email: Rejeter l’évènement (pas de courriel)
     reject_event_no_email_hint: Rejeter cet évènement sans envoyer de courriel automatique.
-    filter_modal:
-      at_least: '≥'
-      at_most: '≤'
-      exactly: '='
-      select_filter_for: 'Sélectionnez le filtre pour %{filtername}:'
     toggle_description: Afficher la description >>
     toggle_send_bulk_mail: Envoyez un courrier à toutes ces personnes >>
     track_select: filtrer par fil
@@ -1229,6 +1258,7 @@ fr:
     art: Langage artificiel
     arw: Arawak
     as: Assamese
+    asa: Asu (Tanzanie)
     ast: Asturien
     ath: Langue Athapascan
     aus: Langue australienne
@@ -1247,6 +1277,7 @@ fr:
     bej: Beja
     bem: Bemba
     ber: Berbère
+    bez: Bena (Tanzanie)
     bg: Bulgare
     bh: Bihari
     bho: Bhojpuri
@@ -1260,6 +1291,7 @@ fr:
     bo: Tibétain
     br: Breton
     bra: Braj
+    brx: brx
     bs: Bosniaque
     btk: Batak
     bua: Buriat
@@ -1318,6 +1350,7 @@ fr:
     dv: Divehi
     dyu: Dyula
     dz: Dzongkha
+    ebu: gimbu
     ee: Ewe
     efi: Efik
     egy: ​​"Ancien égyptien"
@@ -1427,6 +1460,7 @@ fr:
     kaw: Kawi
     kbd: Kabardien
     kcg: Tyap
+    kea: Kabuverdianu
     kfo: Koro
     kg: Kongo
     kha: Khasi
@@ -1474,6 +1508,7 @@ fr:
     lun: Lunda
     luo: Luo
     lus: Lushai
+    luy: Olulujia
     lv: Letton
     mad: Madurese
     mag: Magahi
@@ -1577,10 +1612,12 @@ fr:
     rn: Rundi
     ro: Roumain
     roa: Langues romanes
+    rof: rof
     rom: Romany
     ru: Russe
     rup: Aroumain
     rw: Kinyarwanda
+    rwk: rwk
     sa: Sanskrit
     sad: Sandawe
     sah: Yakut
@@ -1632,6 +1669,7 @@ fr:
     sux: Sumérien
     sv: Suédois
     sw: Swahili
+    swb: comique
     syc: Classique syriaque
     syr: Syriaque
     ta: Tamil
@@ -1694,6 +1732,7 @@ fr:
     yi: Yiddish
     yo: Yoruba
     ypk: Langue Yupik
+    yue: Cantonais
     za: Zhuang
     zap: Zapotec
     zbl: Blissymbols
@@ -1801,9 +1840,15 @@ fr:
       decimal_units:
         format: "%n %u"
         units:
-          billion: Milliard
+          billion:
+            one: milliard
+            other: milliard
+            others: milliard
           million: Million
-          quadrillion: Quadrillion
+          quadrillion:
+            one: quadrillion
+            other: quadrillion
+            others: quadrillion
           thousand: Mille
           trillion: Billion
           unit: ''
@@ -2049,6 +2094,7 @@ fr:
     notice_rating_deleted: Note supprimée avec succès.
     notice_rating_saved: Notation mise à jour avec succès.
     notice_rating_updated: Note mise à jour avec succès.
+    show ratings: Afficher les notes
     show_ratings: Montrer les évaluations
     start_reviewing: Commencer l’évaluation
     start_reviewing_hint: |
@@ -2206,6 +2252,8 @@ fr:
       last_word_connector: ", et "
       two_words_connector: " et "
       words_connector: ", "
+    select:
+      prompt: 'Choisissez s''il vous plaît:'
   switch_conference: Changer de conférence
   this_conference: Cette conférence
   ticket: Ticket
@@ -2316,9 +2364,9 @@ fr:
   value: Valeur
   version_on_item: "%{version} sur %{item}"
   will_paginate:
-    next_label: Suivant 🡆
+    next_label: "Suivant \U0001F846"
     page_gap: "…"
-    previous_label: "🡄 Précédent"
+    previous_label: "\U0001F844 Précédent"
   work_in_progress: En cours…
   workshops: Ateliers
   workshops_only: Ateliers seulement

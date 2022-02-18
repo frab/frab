@@ -1,0 +1,2349 @@
+---
+nl:
+  ability:
+    denied: Deze actie is niet toegestaan.
+  accepted_event_durations: Geaccepteerde duur van evenementen
+  accepted_only: Alleen geaccepteerd
+  actions: Acties
+  activemodel:
+    errors:
+      template:
+        body: 'Controleer de volgende velden:'
+        header:
+          one: 'Kon %{model} niet opslaan: een fout.'
+          other: 'Kon %{model}: %{count} fout niet opslaan.'
+  activerecord:
+    attributes:
+      availability:
+        end_date: einddatum
+        start_date: begin datum
+      call_for_participation:
+        contact_email: Contact email
+        end_date: Einddatum
+        hard_deadline: Harde deadline
+        info_url: Info-URL
+        start_date: Begin datum
+        welcome_text: Welkomsttekst
+      classifier:
+        description: Beschrijving
+        name: Naam
+      conference:
+        acronym: Acroniem
+        allowed_event_types_as_list: Toegestane gebeurtenistypen
+        attachment_title_is_freeform: Titel van bijlage is vrije vorm
+        bcc_address: BCC-adres
+        bulk_notification_enabled: Bulkmeldingen
+        color: Kleur
+        default_recording_license: Standaard opnamelicentie
+        default_timeslots: standaard tijdsloten
+        email: E-mail
+        event_state_visible: Gebeurtenisstatus zichtbaar
+        expenses_enabled: Onkosten bijhouden
+        feedback_enabled: Feedback
+        max_timeslots: Maximaal tijdsloten
+        program_export_base_url: Programma-export-URL
+        schedule_custom_css: Aangepaste CSS plannen
+        schedule_html_intro: HTML-intro plannen
+        schedule_open: Schema open
+        schedule_public: Plan openbaar
+        schedule_version: Plan versie
+        ticket_type: Tickettype
+        timeslot_duration: Tijdslotduur
+        timezone: Tijdzone
+        title: titel
+        transport_needs_enabled: Traceren van transportbehoeften
+      conference_export:
+        locale: Lokaal
+      conference_user:
+        conference_id: Conferentie
+        role: Rol
+      conflict:
+        conflict_type: Type conflict
+        conflicting_event_id: Conflicterende gebeurtenis
+        severity: Ernst
+      day:
+        end_date: Einddatum
+        start_date: begin
+      event:
+        abstract: Overzicht
+        average_feedback: Gemiddelde feedback
+        average_rating: Gemiddelde score
+        description: Beschrijving
+        do_not_record: Niet opnemen
+        event_feedback_count: Evenement feedback telt
+        event_ratings_count: Evenementbeoordelingen tellen mee
+        event_type: Evenementtype
+        guid: GUID
+        invite_token: Token uitnodigen
+        language: Taal
+        logo: Logo
+        note: Opmerking
+        public: Openbaar
+        recording_license: Opnamelicentie
+        speaker_count: Aantal sprekers
+        speakers: Sprekers
+        start_time: Starttijd
+        state: Staat
+        submission_note: Opmerkingen bij het indienen
+        subtitle: Ondertitel
+        tech_rider: technische rijder
+        time_slots: Looptijd
+        title: Titel
+        track: Spoor
+      event_attachment:
+        attachment: het dossier
+        public: Openbaar
+        title: Titel
+      event_classifier:
+        value: Waarde
+      event_feedback:
+        comment: Commentaar
+        note: Opmerking
+        rating: evaluatie
+      event_rating:
+        comment: Commentaar
+        rating: Beoordeling
+      expense:
+        name: Naam
+        reimbursed: terugbetaald
+        value: Waarde
+      im_account:
+        im_address: Adres
+        im_type: IM-type
+      langage:
+        code: Code
+      language:
+        language: taal
+      link:
+        title: Titel
+        url: Adres
+      mail_template:
+        content: Inhoud
+        name: Naam
+        subject: Onderwerp
+      notification:
+        accept_body: Accepteer lichaam
+        accept_subject: Onderwerp accepteren
+        locale: Taal
+        reject_body: lichaam weigeren
+        reject_subject: Onderwerp afwijzen
+        schedule_body: schema lichaam
+        schedule_subject: Onderwerp plannen
+      person:
+        abstract: Abstract
+        avatar: profiel foto
+        description: Beschrijving
+        email: E-mail
+        email_public: Openbare e-mail
+        first_name: Voornaam
+        gender: Geslacht
+        include_in_mailings: Opnemen in mailings
+        last_name: Achternaam
+        public_name: openbare naam
+        use_gravatar: Gebruik Gravatar
+      phone_number:
+        phone_number: Telefoonnummer
+        phone_type: Type
+      room:
+        name: Naam
+        public: Openbaar
+        rank: Rang
+        size: Maat
+      ticket:
+        object_id: ID kaart
+        object_type: Type
+        remote_ticket_id: Ticket op afstand
+      ticket_server:
+        password: Wachtwoord
+        queue: Wachtrij
+        url: Server-URL
+        user: Gebruiker
+      track:
+        color: Kleur
+        name: Naam
+      transport_need:
+        at: Bij
+        booked: Geboekt
+        note: Opmerking
+        seats: Stoelen
+        transport_type: 'Transporttype:'
+      user:
+        current_password: huidig wachtwoord
+        email: E-mail
+        password: Wachtwoord
+        password_confirmation: wachtwoordbevestiging
+        remember_me: Onthoud me
+        role: Rol
+    errors:
+      full_messages:
+        format: "%{attribute}%{message}"
+      messages:
+        confirmation: komt niet overeen met de bevestiging
+        record_invalid: 'Validatiecontrole mislukt: %{errors}'
+        taken: is al in gebruik
+      template:
+        body: 'Controleer de volgende velden:'
+        header:
+          one: 'Kon %{model} niet opslaan: een fout.'
+          other: 'Kon %{model}: %{count} fout niet opslaan.'
+    models:
+      call_for_participation: Oproep voor deelname
+      classifier: classificatie
+      conference: conferentie
+      conference_user: conferentie gebruiker
+      day: dag
+      event: evenement
+      event_attachment: het dossier
+      event_classifier: categorie
+      event_feedback: feedback
+      event_person: persoon
+      event_rating: evaluatie
+      im_account: IM-account
+      language: taal
+      link: koppeling
+      notification: Kennisgeving
+      person: profiel
+      phone_number: telefoonnummer
+      review_metric: Bekijk statistiek
+      room: Kamer
+      track: spoor
+  add: Toevoegen
+  add_association: Voeg %{name} . toe
+  additional_resources: Aanvullende bronnen
+  admin: beheerder
+  admin_accounts: Beheerdersaccounts
+  admin_visibility_only_hint: 'zichtbaarheid: alleen beheerder.'
+  alert_notifications:
+    update_failed: Bijwerken mislukt
+    update_successful: Veranderingen succesvol opgeslagen!
+  all: Allemaal
+  allowed_event_types: Toegestane gebeurtenistypen
+  allowed_event_types_extras: Extra toegestane gebeurtenistypen
+  apply_filter: Voeg filter toe
+  are_you_sure: Weet je zeker dat?
+  attachments_overview_module:
+    attachments: bijlagen
+    no_attachments: |
+      Er zijn nog geen bestanden gekoppeld aan een van de evenementen. eens mensen
+      begin met het uploaden van bestanden naar hun evenementen, je zult in staat zijn om
+      bekijk alle bijlagen in dit scherm.
+    no_event: Er zijn nog geen evenementen in deze conferentie. Zodra gebeurtenissen met bestandsbijlagen zijn toegevoegd, worden ze hier weergegeven.
+  availabilities:
+    alerts:
+      available_for_day: beschikbaar voor dag %{day}
+      no_availabilities: |
+        %{person} heeft momenteel geen beschikbaarheid.
+        U dient dit formulier in te leveren.
+    available_from: van
+    available_to: naar
+    error_person_unavailable: "%{person} heeft momenteel geen beschikbaarheid."
+    success_update: De beschikbaarheid is bijgewerkt.
+  availability: Beschikbaarheid
+  available: Beschikbaar
+  basic_information: Basisinformatie
+  blank_indication: "(blank)"
+  by: door
+  call_for_participation: Oproep voor deelname
+  cancel: Annuleren
+  cfp:
+    abstract_hint: Een korte alinea die je beknopt beschrijft. (HTML)
+    attachements_may_be_saved: |
+      Opmerking: de informatie die u hier invoert, inclusief bestandsbijlagen en koppelingen, kan:
+      behouden en beschikbaar zijn voor het conferentiepersoneel, zelfs nadat u het uit de
+      evenement. Neem contact op met de conferentieploeg als gegevens onmiddellijk moeten worden verwijderd.
+    avatar_hint: Upload een nieuwe foto.
+    back: Rug
+    basic_information: Basis informatie
+    bio: Bio
+    change_password_button: Verander mijn wachtwoord
+    change_password_headline: Verander uw wachtwoord
+    changed_from: veranderd van
+    classifiers_hint: Help uw publiek en reviewers om uw inzending te begrijpen. Kies en weeg de juiste categorieën voor uw inzending.
+    come_back: Kom alsjeblieft terug als de "Oproep tot deelname" open is!
+    conference_in_the_past: U kunt geen lezing indienen, omdat deze conferentie in het verleden is.
+    confirm: bevestigen
+    confirm_attendance: Aanwezigheid bevestigen
+    confirm_attendance_explanation: Klik op de knop om opnieuw te bevestigen dat je zal spreken op het evenement
+    confirmation_button: Vraag de bevestigingsinstructies opnieuw aan
+    confirmation_description: Dit kan een van de zeldzame gelegenheden zijn waarbij een e-mail daadwerkelijk niet is afgeleverd. Als je al een tijdje hebt gewacht en je spam-mappen hebt gecontroleerd, alsjeblieft
+    confirmation_headline: Ik heb me geregistreerd maar heb geen bevestigingsinstructies ontvangen
+    confirmation_instructions_sent: De bevestigingsinstructies zijn verzonden naar het door u opgegeven adres.
+    contact_data: Contactgegevens
+    contact_description_html: Als er iets misgaat met je inzending of als je vragen hebt, aarzel dan niet om contact met ons op te nemen via %{mail_to}
+    contact_headline: Contact
+    create_event_headline: Een nieuw evenement maken
+    current_password_hint: we hebben uw huidige wachtwoord nodig om uw wijzigingen te bevestigen
+    deadline_description: Zorg ervoor dat u uw voorstel indient tot **%{date}**
+    description_hint: Een langere beschrijving van jezelf. Gebruik dit om aanvullende details te geven die niet in de samenvatting pasten. (HTML)
+    detailed_description: Gedetailleerde beschrijving
+    edit_account: Bewerk je account
+    edit_availability: Bewerk beschikbaarheid
+    edit_availability_description: Laat ons weten wanneer je beschikbaar bent voor de evenementen die je indient. We zullen ons best doen om met deze wensen rekening te houden bij het plannen van de planning.
+    edit_availability_headline: Bewerk beschikbaarheid
+    edit_event_headline: Evenement bewerken
+    edit_profile: Bewerk je persoonlijke profiel
+    email_accept_upcoming_infos: Wilt u informatie over aankomende congressen per mail ontvangen?
+    email_hint: Voer het e-mailadres in dat we moeten gebruiken als onze belangrijkste manier om contact met u op te nemen.
+    email_public_hint: Als u wilt, kan dit e-mailadres worden gepubliceerd in ons openbare programma.
+    error_confirming: Er is een fout opgetreden bij het bevestigen van uw account. Zorg ervoor dat je de volledige link uit de e-mail hebt geplakt en dat je het account niet eerder hebt bevestigd.
+    error_sending_confirmation_instructions: Kan geen bevestigingsinstructies verzenden. Zorg ervoor dat u het juiste e-mailadres heeft ingevoerd en dat uw account nog niet is bevestigd.
+    event_abstract_hint: Een korte paragraaf die de gebeurtenis bondig beschrijft. (HTML)
+    event_confirmed: Evenement bevestigd
+    event_created_notice: Evenement is succesvol aangemaakt.
+    event_description_hint: Een langere beschrijving van het evenement. Gebruik dit om aanvullende details te geven die niet in de samenvatting pasten. Beide, abstract en beschrijving, zullen op de conferentiewebsite worden getoond. (HTML)
+    event_time_slots_hint: Duur van uw evenement in uren en minuten. Gebruik voor gewone gesprekken enz. gewoon de standaard.
+    event_updated_notice: Evenement is succesvol bijgewerkt.
+    event_withdrawn_notice: Uw inzending is ingetrokken.
+    events_submitted: 'Evenementen die je al hebt ingediend:'
+    fail_layout_use: GEBRUIK GEEN CONFERENTIEOPMAAK ZONDER EEN CONFERENTIE
+    forgot_password_button: Vraag een nieuw wachtwoord aan
+    forgot_password_description: Ben je hier eerder geweest, maar weet je je wachtwoord niet meer? We weten hoe het is, dus voel je vrij om
+    forgot_password_headline: uw wachtwoord vergeten?
+    hard_deadline_over: Sorry, de deadline voor het indienen van evenementen is voorbij.
+    im_accounts: Instant messaging-accounts
+    info_url_description_html: 'Weet u niet zeker wat u moet indienen? Lees alles over de Oproep tot deelname op: %{link}'
+    information_headline: Informatie
+    input_appreciation: 'We stellen uw inbreng tot dusver zeer op prijs. Voel je vrij om je in te schrijven of deel te nemen aan een ander evenement:'
+    inputs:
+      hints:
+        contact_email: Een e-mailadres waarop deelnemers contact met je kunnen opnemen als ze vragen hebben.
+        end_date: Kies een deadline voor het indienen van deelnemers. Deze deadline wordt aan de gebruikers getoond, maar wordt niet anderszins afgedwongen.
+        hard_deadline: Kies een harde deadline. Na deze datum is er geen inzending meer mogelijk. Laat leeg als u inzendingen voor onbepaalde tijd wilt toestaan.
+        info_url: Een webpagina met aanvullende informatie over de Oproep tot deelname. Voer een volledige URL in, inclusief 'http://'
+        start_date: Kies een datum waarop uw CfP open moet zijn voor het publiek.
+        welcome_text: Voer een welkomstbericht of aanvullende instructies in die u aan deelnemers wilt laten zien. (HTML)
+    join_alternative: 'Of zoek een andere uitnodigingstoken op:'
+    join_as: Doe mee als
+    join_as_hint: Als je als spreker aan dit evenement deelneemt, proberen we bij het plannen van dit evenement rekening te houden met je beschikbaarheid.
+    join_confirm: Wil je de uitnodiging accepteren?
+    join_description: 'Met de verstrekte token kun je deelnemen aan dit evenement:'
+    join_event: Deelnemen aan evenement
+    join_submitters_hint: Deel deze token met mensen aan wie je wilt deelnemen aan dit evenement. Nadat ze een account hebben aangemaakt, kunnen ze de token gebruiken in de interface 'Deelnemen aan evenement' en deelnemen als sprekers of als assistenten.
+    join_success: Je bent toegevoegd aan dit evenement.
+    join_token_already_used: Je bent al lid van dit evenement.
+    join_token_link: Deze link leidt direct naar de 'Deelnemen aan evenement' pagina voor dit evenement.
+    join_token_lookup: Opzoektoken
+    join_token_lookup_description: Voer de token in die je hebt gekregen om deel te nemen aan een evenement.
+    join_token_lookup_hint: 'Tip: de token kan worden bekeken door de oorspronkelijke inzender in de bewerkingsweergave van het evenement.'
+    join_token_unknown: Token %{token} onbekend.
+    languages_spoken: Talen gesproken
+    links: Links
+    login: Log in
+    login_existing_description: Je kunt inloggen als je een account hebt aangemaakt voor deze Oproep tot Deelname, of voor een eerder evenement.
+    login_existing_headline: Inloggen met een bestaand account
+    login_required: Na het inloggen kunt u uw inzending invoeren.
+    login_required_title: Aanmelden om deel te nemen
+    logo_hint: Een logo voor het evenement / logo van de organisatie
+    looking_for_login_form: Bent u op zoek naar de login van indieners?
+    no_confirmation_token: Uw bevestigingssleutel is niet geldig. Controleer uw evenementstatus in de oproep voor deelname-interface.
+    not_forget_personal_details: En vergeet niet uw persoonlijke gegevens in te vullen als u dat nog niet heeft gedaan. Houd er rekening mee dat u altijd terug kunt gaan en uw profiel kunt bewerken met de knop in de rechterzijbalk.
+    notifications:
+      launched: Oproep tot deelname gelanceerd.
+    pages:
+      conference_open_mode: De conferentie bevindt zich in de open modus. Zelf plannen is toegestaan
+      event_confirm_attendence: Aanwezigheid bevestigen
+      event_confirmation_request: 'Uw bevestiging is vereist voor het evenement: ** %{event} **.'
+      not_started_cfp: |
+        Helaas is de Oproep tot Participatie nog niet gestart. Heb geduld met ons
+        en laat ons wat meer tijd over voor onze voorbereidingen.
+      profile_data: 'Profielgegevens:'
+      start_date_tip: |
+        De Oproep tot deelname gaat van start op **%{start_date}**. Gelieve terug te keren op of na deze datum.
+        We kijken uit naar uw inzending.
+      thank_for_interest: Bedankt voor uw interesse in deelname aan %{conference}.
+      unexisting_cfp: Helaas bestaat de Oproep tot Participatie (nog?) niet.
+    password_hint: laat leeg als je het niet wilt veranderen
+    password_updated: Uw wachtwoord is bijgewerkt.
+    person_created_notice: Profiel is succesvol aangemaakt.
+    person_updated_notice: Profiel is succesvol bijgewerkt.
+    personal_details_description: Vul het volgende formulier in om ons (en, als uw inzendingen zijn geselecteerd, de conferentiedeelnemers) u een beetje beter te laten leren kennen.
+    personal_details_headline: Persoonlijke gegevens - Laat ons iets over u weten
+    personal_details_later: Houd er rekening mee dat u nu het absolute minimum kunt invullen en altijd later terug kunt komen om meer details toe te voegen.
+    phone_numbers: Telefoonnummers
+    problem_sending_password_reset_instructions: Kan instructies voor wachtwoordherstel niet verzenden. Zorg ervoor dat u het juiste e-mailadres heeft ingevoerd.
+    public_name_hint: Dit is de naam die in het openbare programma wordt getoond.
+    resend_confirmation_button: Bevestigingsinstructies opnieuw verzenden
+    resend_confirmation_headline: Bevestigingsinstructies opnieuw verzenden
+    save_availability: Bewaar beschikbaarheid
+    save_cfp: Bewaar de oproep voor deelname
+    scheduled: Geplande tijd
+    send_reset_instructions: Stuur mij instructies voor het opnieuw instellen van het wachtwoord
+    sent_password_reset_instructions: Instructies voor het opnieuw instellen van uw wachtwoord zijn verzonden naar het door u opgegeven e-mailadres.
+    set_to: ingesteld op
+    show:
+      conference_empty_days: De conferentie wordt pas weergegeven als er dagen zijn toegevoegd.
+      dates_hint: De oproep tot deelname begint bij %{start_date} en eindigt bij %{end_date}.
+      deadline_passed: De harde cfp-deadline is verstreken, inzendingen zijn niet mogelijk.
+      edit_cfp_hint: Bewerk de gegevens van deze Oproep tot deelname
+      empty_description: De oproep tot deelname loopt, maar de "welkomsttekst" is leeg. frab linkt niet naar de cfp.
+      new_events_by_day: Nieuwe evenementen per dag
+      submitters_interface_link: 'De interface voor indieners is beschikbaar op:'
+      total_event_count: Totaal aantal gebeurtenissen
+    sign_in: Inloggen
+    sign_up: Inschrijven
+    sign_up_description: Als %{title} nieuw voor u is, neem dan even de tijd om een account aan te maken. Het is echt makkelijk en snel.
+    sign_up_headline: Aanmelden voor een nieuw account
+    signed_up: Je hebt je succesvol aangemeld. Er is een e-mail met bevestigingsinstructies verzonden naar het door u opgegeven adres. Volg deze instructies om uw registratie te voltooien.
+    specify_availability: 'Laat ons weten op welke tijden je beschikbaar bent om je evenement te houden:'
+    submission_note_hint: Zichtbaar voor beheerders en gebruikers, bevat aanvullende informatie.
+    submit_another_event: Dien nog een evenement in
+    submit_new_event: Dien een nieuw evenement in
+    successfully_confirmed: Uw account is succesvol bevestigd. Dankjewel voor het aanmelden!
+    take_time_to_submit: 'Neem de tijd om uw voorstel in te dienen of neem deel aan een bestaand evenement:'
+    thanks_for_confirmation: Bedankt voor het bevestigen van je deelname.
+    thanks_for_interest: Bedankt voor uw interesse in deelname aan %{title}.
+    to: naar
+    track_hint: Het evenement wordt in het programma ingedeeld in de volgende categorie.
+    update: Bijwerken
+    update_availability_notice: Bedankt voor het aangeven van uw beschikbaarheid.
+    updated: Succesvol geüpdatet. Nieuwe e-mailadressen moeten opnieuw worden bevestigd.
+    uploaded_files: Geüploade bestanden
+    welcome: Welkom
+    welcome_text: Welkom bij de oproep tot deelname. Om uw inzendingen te maken of te beoordelen, moet u inloggen. Als %{title} nieuw voor u is, moet u zich aanmelden voor een account.
+    withdraw: terugtrekken
+    withdrawal_confirmation: Dit evenement echt terugtrekken uit de Oproep tot deelname?
+  classifiers: classificaties
+  classifiers_module:
+    current_classifiers: 'De momenteel geconfigureerde classificaties zijn:'
+    empty_classifiers: |
+      Hier kunt u de classificaties maken en bewerken die indieners
+      kunnen geven aan hun evenementen
+    modify_classifier_with_parent: |
+      De classificaties voor deze conferentie kunnen alleen worden gewijzigd met
+      beheerdersrechten voor de ouderconferentie %{parent}
+  clear: Duidelijk
+  col_abstract: 'Overzicht:'
+  col_availability: 'Beschikbaarheid:'
+  col_avg_audience_feedback: 'Gemiddelde feedback van het publiek:'
+  col_classifiers: 'classificaties:'
+  col_col_template: "%{data}:"
+  col_conference: 'Conferentie:'
+  col_description: 'Beschrijving:'
+  col_email: 'E-mail:'
+  col_email_for_login: 'E-mail om in te loggen:'
+  col_event_state: Gebeurtenisstatus
+  col_files: 'bestanden:'
+  col_filters: 'Filters:'
+  col_first_name: 'Voornaam:'
+  col_full_name: 'Voor-en achternaam:'
+  col_gender: 'Geslacht:'
+  col_language: 'Taal:'
+  col_last_login: 'Laatste aanmelding:'
+  col_last_name: 'Achternaam:'
+  col_links: 'koppelingen:'
+  col_non_reimbursed_expenses: 'Niet vergoede kosten:'
+  col_notes_admin: 'Opmerkingen (beheerder):'
+  col_phone_number_with_type: 'Telefoonnummer (%{type}):'
+  col_public: 'Openbaar:'
+  col_public_name: 'openbare naam:'
+  col_reimbursed_expenses: 'Vergoede kosten:'
+  col_role: 'Rol:'
+  col_room: 'Kamers:'
+  col_rooms: 'Kamers:'
+  col_speakers: 'Sprekers:'
+  col_start_time: 'Starttijd:'
+  col_submission_notes: 'Indieningsnotities (gebruiker en beheerder):'
+  col_ticket: 'Ticket:'
+  col_time_slots: 'Looptijd:'
+  col_total: 'Totaal:'
+  col_track: 'Spoor:'
+  col_tracks: 'Sporen:'
+  col_type: 'Type:'
+  comment: Commentaar
+  comments: Opmerkingen
+  conference: Conferentie
+  conference_management: Conferentiebeheer
+  conferences: Conferenties
+  conferences_module:
+    accepting: Accepteren
+    add_conference: Conferentie toevoegen
+    add_conference_hint: Een nieuwe conferentie toevoegen
+    canceled: Geannuleerd
+    conference_in_past: De congresdagen zijn verleden tijd. Er zijn geen inzendingen mogelijk.
+    confirmed: Bevestigd
+    current_conferences: Huidige conferenties
+    error_specified_conference_not_found: Opgegeven conferentie niet gevonden
+    footer: Dit schema is gegenereerd met [frab](http://frab.github.io/frab/).
+    inputs:
+      hints:
+        accepted_event_durations: |
+          Gebruik de selectievakjes hierboven om te bepalen welke opties worden aangeboden aan:
+          indieners voor het aangeven van de duur van hun voorgestelde evenement.
+          Indieners kunnen een van de waarden kiezen die u hier hebt aangevinkt.
+          Als conferentieploeg kunt u later evenementen wijzigen in elke
+          duur, niet alleen degene die hier zijn aangevinkt.
+        acronym: |
+          Een korte en unieke handgreep voor uw conferentie, met alleen kleine letters
+          letters, cijfers en underscores. Dit wordt gebruikt om uw
+          conferentie in URL's etc. Voorbeeld: 'froscon2011'
+        allowed_event_types: |
+          Hier kun je kiezen welke soorten evenementen worden geaccepteerd als inzendingen voor
+          deze conferentie. Deze lijst is alleen van invloed op nieuwe inzendingen. Bestaande inzendingen
+          wordt niet gewijzigd als u deze lijst wijzigt.
+        allowed_event_types_extras: |
+          Als u wilt dat de conferentie inzendingen voor evenementen met andere typen accepteert
+          dan degene die hierboven beschikbaar zijn, schrijf hier de gebeurtenistypes. Aparte verschillende
+          gebeurtenistypes met puntkomma. Voorbeeld: 'spel;discussiepaneel'
+        attachment_title_is_freeform: |
+          Als deze optie is geselecteerd, kunnen indieners elke gewenste titel opgeven
+          voor bestanden die ze uploaden als bijlagen. Als deze optie is uitgeschakeld, zullen ze
+          moet kiezen tussen een reeks vooraf geconfigureerde titels.
+        bcc_address: |
+          U kunt hier een e-mailadres opgeven. frab stuurt dit adres a
+          kopie van elke e-mail die het naar de indieners stuurt. Je kunt dit gebruiken als een manier om te bewaren
+          een logboek van alle verzonden e-mails.
+        bulk_notification_enabled: |
+          Als u dit inschakelt, worden meldingen in bulk per e-mail verzonden
+          of ticketsubsysteem.
+        color: U kunt een kleur voor uw conferentie definiëren.
+        default_recording_license: Standaard opnamelicentie voor alle gesprekken
+        default_timeslots: |
+          Wat is de standaardlengte van uw evenementen? Voorbeeld: Als u koos:
+          een tijdslotduur van 15 minuten om rekening te houden met pauzes, maar uw
+          gesprekken duren meestal 1 uur, selecteer 4, want 4 keer 15 minuten is een uur.
+        email: |
+          Contact e-mailadres voor uw conferentie. Wordt gebruikt als antwoord op
+          adres in e-mails die door het systeem worden verzonden.
+        event_languages: Kies in welke talen evenementen in deze conferentie kunnen worden gehouden.
+        event_state_visible: |
+          Als je dit inschakelt, kunnen sprekers de status opzoeken
+          van hun inzending in de cfp-interface en bevestig hun aanwezigheid
+          door op de bevestigingsknop te drukken.
+        expenses_enabled: Als u dit inschakelt, kunt u met frab de uitgaven van mensen volgen.
+        feedback_enabled: |
+          Als u dit inschakelt, bevat uw programma-export koppelingen naar een feedback
+          formulier waarin bezoekers een evenement kunnen beoordelen.
+        max_timeslots: Wat is de maximale lengte van een enkele gebeurtenis (bijvoorbeeld een enkele lezing)?
+        timeslot_duration: |
+          Hoe lang wil je dat de kleinste timeslots zijn? Dit in wezen
+          definieert het raster waarop u uw programma kunt plannen. WAARSCHUWING: Dit
+          een is lastig en kan later niet gemakkelijk worden gewijzigd, dus geef dit wat
+          gedachte. Over het algemeen maken grotere tijdsloten de zaken een stuk eenvoudiger, maar
+          kleinere maken je flexibeler. Voorbeeld: Als alles wat je nodig hebt is:
+          30 minuten gesprekken plannen die perfect aansluiten op hele en halve uren,
+          kies 30 minuten als slotgrootte. Als je gesprekken van een uur hebt en
+          Pauzes van 15 minuten ertussen, 15 minuten is de perfecte slotgrootte.
+          Houd er rekening mee dat u de sleuf later kleiner kunt maken, zolang de
+          oude slotgrootte is een veelvoud van de nieuwe. Dus vanaf 15 minuten
+          omlaag naar 5 is prima, terwijl teruggaan naar 10 minuten niet zal werken.
+        timezone: |
+          Selecteer in welke tijdzone uw conferentie zal plaatsvinden.
+          Dit is nodig om de tijden voor uw evenementen correct weer te geven.
+        title: |
+          De naam van uw conferentie zoals deze op de hele site zal verschijnen.
+          Voorbeeld: 'FrOSCon'
+        transport_needs_enabled: |
+          Als u dit inschakelt, kunt u met frab de transportbehoeften van
+          mensen.
+    manage_conferences: Conferenties beheren
+    manage_conferences_hint: Beheer alle conferenties
+    new: Nieuw
+    new_welcome: |
+      Welkom! Het lijkt alsof dit je eerste keer hier is.
+      Om te beginnen met het organiseren van een conferentie moet je eerst
+      voer er wat gegevens over in. Je kunt het meeste veranderen
+      u voert nu later in. Maar sommige dingen kunnen niet worden veranderd
+      gemakkelijk nadat u dit formulier heeft verzonden, dus lees alstublieft de
+      hints voor elk formulierveld zorgvuldig en dubbelcheck
+      wat je invoert.
+    no_conference: Er is nog geen enkele conferentie.
+    no_conference_with_cfp: Er is momenteel geen conferentie met een oproep tot deelname. Misschien moet je inloggen?
+    no_conferences: |
+      Er is nog geen enkele conferentie.
+      Begin met het toevoegen van een conferentie door te klikken op de
+      knop aan de rechterkant.
+    notice_bulk_notification_queued: Bulkmeldingen voor gebeurtenissen in %{notification} in de wachtrij geplaatst.
+    notice_conference_created: Conferentie is aangemaakt.
+    notice_conference_not_updated: Conferentie is niet bijgewerkt.
+    notice_conference_updated: Conferentie is succesvol bijgewerkt.
+    past_conferences: Eerdere conferenties
+    recent_changes: Recente veranderingen
+    recent_changes_text: |
+      Zodra u, of anderen beginnen met het maken van gegevens hiervoor
+      conferentie, vindt u hier wie wat heeft gewijzigd.
+      Dit is vooral interessant als u telefoneert
+      voor deelname. In dit geval staat dit gebied toe:
+      om snel te zien of er nieuwe inzendingen zijn binnengekomen.
+    rejected: Afgekeurd
+    rejecting: afwijzen
+    review: Beoordeling
+    scheduled: Gepland
+    search: Zoekopdracht
+    search_hint: Zoek conferenties
+    show_no_event: |
+      Deze conferentie heeft nog geen evenementen.
+      (Merk op dat in de hele applicatie de
+      generieke term 'gebeurtenis' wordt gebruikt om naar alles te verwijzen
+      sessies binnen uw conferentie, ongeacht of
+      het zijn lezingen, workshops, panels of zoiets
+      anders helemaal).
+
+      Begin met het toevoegen van evenementen door te klikken op de
+      tabblad _Evenementen_ hierboven. Of start een oproep voor
+      deelname, zodat anderen kunnen indienen
+      evenementen die u kunt bekijken.
+    show_welcome: |
+      Welkom, het lijkt erop dat je dit zojuist hebt gemaakt
+      conferentie. Een goede eerste stap zou zijn om te gaan
+      naar het tabblad _Conferentie-instellingen_ hierboven
+      en voeg een ruimte toe aan deze conferentie. Dit zal
+      nodig zijn om uw programma in te plannen.
+    statistics: Statistieken
+    statistics_empty: |
+      Nadat u enkele evenementen voor deze conferentie heeft gemaakt,
+      of verzamelde inzendingen via een oproep tot deelname,
+      u vindt hier enkele statistieken over hen.
+    total: Totaal
+    unconfirmed: Niet bevestigd
+    variables:
+      conference: Naam conferentie
+      date: Datum presentatie
+      duration: Duur evenement
+      event: Titel van het evenement
+      event_id: Interne gebeurtenis-ID
+      forename: Voornaam spreker
+      joinlink: Link voor deelname aan evenement
+      link: Bevestigingslink
+      public_name: Publieke naam spreker
+      room: Zaal van presentatie
+      subtitle: Ondertitel
+      surname: Achternaam spreker
+      time: Tijdstip van presentatie
+      track: Tracknaam
+      type: Evenementtype
+    version: Versie %{version}
+    withdrawn: ingetrokken
+  conflict:
+    events_overlap: overlapt met
+    has_no_availability: heeft nog geen beschikbaarheid ingevuld.
+    person_already_speaking: spreekt al om
+    person_unavailable: is niet beschikbaar op de geplande tijd.
+  contact_information: Contactgegevens
+  content: Inhoud
+  create_new_conference: Nieuwe conferentie maken
+  create_your_first_conference: Creëer uw eerste conferentie
+  created_at: Gemaakt bij
+  creation_date: Datum gecreeërd
+  crew: Bemanning
+  crew_accounts: Bemanningsaccounts
+  date:
+    abbr_day_names:
+    - zon
+    - maandag
+    - di
+    - wo
+    - do
+    - vrij
+    - Za
+    abbr_month_names:
+    -
+    - Jan
+    - februari
+    - maart
+    - april
+    - Kunnen
+    - juni
+    - juli
+    - aug
+    - september
+    - okt
+    - november
+    - december
+    day_names:
+    - zondag
+    - maandag
+    - dinsdag
+    - woensdag
+    - Donderdag
+    - vrijdag
+    - zaterdag
+    formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      only_day: "%e"
+      short: "%b %d"
+    month_names:
+    -
+    - januari
+    - februari
+    - maart
+    - april
+    - Kunnen
+    - juni-
+    - juli-
+    - augustus
+    - september
+    - oktober
+    - november
+    - december
+    order:
+    - :year
+    - :month
+    - :day
+  date_not_set: Datum nog niet vastgesteld
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: ongeveer 1 uur
+        other: ongeveer %{count} uur
+      about_x_months:
+        one: ongeveer 1 maand
+        other: over %{count} maanden
+      about_x_years:
+        one: ongeveer 1 jaar
+        other: over %{count} jaar
+      almost_x_years:
+        one: bijna 1 jaar
+        other: bijna %{count} jaar
+      half_a_minute: een halve minuut
+      less_than_x_minutes:
+        one: minder dan een minuut
+        other: minder dan %{count} minuten
+      less_than_x_seconds:
+        one: minder dan 1 seconde
+        other: minder dan %{count} seconden
+      over_x_years:
+        one: meer dan 1 jaar
+        other: meer dan %{count} jaar
+      x_days:
+        one: 1 dag
+        other: "%{count} dagen"
+      x_minutes:
+        one: 1 minuut
+        other: "%{count} minuten"
+      x_months:
+        one: 1 maand
+        other: "%{count} maanden"
+      x_seconds:
+        one: 1 seconde
+        other: "%{count} seconden"
+    prompts:
+      day: Dag
+      hour: Uur
+      minute: Minuut
+      month: Maand
+      second: seconden
+      year: Jaar
+  day: Dag
+  days: dagen
+  days_module:
+    configured_days: 'De momenteel geconfigureerde dagen zijn:'
+    empty_days: |
+      Hier kunt u de congresdagen aanmaken en bewerken.
+      Je 'dagen' kunnen op elk moment beginnen en eindigen, maar dat mag niet
+      overlappen.
+    inherited_conference_change: |
+      De dagen voor deze conferentie kunnen alleen worden gewijzigd met
+      beheerdersrechten voor de ouderconferentie %{parent}
+      en kan alleen gewijzigd worden via de administratie
+      interface van die conferentie.
+  default_text: standaard tekst
+  destroy: vernietigen
+  detailed_changes: Gedetailleerde wijzigingen
+  details: Details
+  devise:
+    cancel_account: Annuleer mijn account
+    cancel_account_text: Ongelukkig? %{link}
+    change_my_password: Verander mijn wachtwoord
+    confirmations:
+      confirmed: Uw e-mailadres is succesvol bevestigd.
+      send_instructions: U ontvangt binnen enkele minuten een e-mail met instructies om uw e-mailadres te bevestigen.
+      send_paranoid_instructions: Als uw e-mailadres in onze database bestaat, ontvangt u binnen enkele minuten een e-mail met instructies om uw e-mailadres te bevestigen.
+    current_password_hint: We hebben uw huidige wachtwoord nodig om uw wijzigingen te bevestigen
+    failure:
+      already_authenticated: Je bent al ingelogd.
+      inactive: Jouw account is nog niet geactiveerd.
+      invalid: Ongeldig %{authentication_keys} of wachtwoord.
+      last_attempt: U heeft nog één poging voordat uw account wordt vergrendeld.
+      locked: Je account is geblokkeerd.
+      not_found_in_database: Ongeldig %{authentication_keys} of wachtwoord.
+      timeout: Je sessie is verlopen. Log opnieuw in om door te gaan.
+      unauthenticated: U moet zich aanmelden of aanmelden voordat u verder kunt gaan.
+      unconfirmed: U moet uw e-mailadres bevestigen voordat u verder gaat.
+    leave_password_blank_hint: Laat leeg als u het niet wilt wijzigen
+    links:
+      google_oauth2: Google
+      ldap: LDAP-server
+      no_unlock_instructions: Geen ontgrendelingsinstructies ontvangen?
+      openid_connect: OpenID Connect
+      sign_in_with: Log in met %{provider}
+    mailer:
+      confirmation_instructions:
+        headline: Welkom %{email} !
+        link: Bevestig mijn account
+        subject: Instructies ter bevestiging
+        text: 'U dient uw e-mailadres te bevestigen met de volgende link:
+
+          '
+      email_change:
+        headline: Hallo, %{email}!
+        text_been_changed: 'We nemen contact met u op om u te laten weten dat uw e-mailadres is gewijzigd in %{email}.
+
+          '
+        text_being_changed: 'We nemen contact met u op om u te laten weten dat uw e-mailadres wordt gewijzigd in %{email}.
+
+          '
+      email_changed:
+        subject: E-mail gewijzigd
+      password_change:
+        headline: Hallo, %{email} !
+        subject: Wachtwoord veranderd
+        text: |
+          We nemen contact met u op om u te laten weten dat uw wachtwoord is
+          veranderd.
+      password_change_instructions:
+        headline: Hallo, %{email} !
+        text: |
+          Iemand heeft om een link gevraagd om je wachtwoord te wijzigen. Je kunt het doen
+          dit via onderstaande link.
+
+          %{link}
+
+          Als u hier niet om heeft gevraagd, kunt u deze e-mail negeren.
+
+          Uw wachtwoord verandert pas als u de bovenstaande link opent en een nieuwe maakt.
+      reset_password_instructions:
+        subject: Instructies voor wachtwoord opnieuw instellen
+      unlock_instructions:
+        headline: Hallo, %{email} !
+        subject: Ontgrendel instructies
+        text: |
+          Uw account is vergrendeld vanwege een te groot aantal mislukte inlogpogingen.
+
+          Klik op de onderstaande link om uw account te ontgrendelen:
+
+          %{link}
+    omniauth_callbacks:
+      failure: Kon je niet authenticeren vanaf %{kind} omdat "%{reason}".
+      success: Met succes geverifieerd vanaf %{kind}-account.
+      unknown_failure: Verificatie mislukt.
+    passwords:
+      no_token: U heeft geen toegang tot deze pagina zonder een e-mail voor het opnieuw instellen van uw wachtwoord. Als je een e-mail voor het opnieuw instellen van je wachtwoord hebt ontvangen, zorg er dan voor dat je de volledige URL hebt gebruikt.
+      send_instructions: U ontvangt binnen enkele minuten een e-mail met instructies om uw wachtwoord opnieuw in te stellen.
+      send_paranoid_instructions: Als uw e-mailadres in onze database bestaat, ontvangt u binnen enkele minuten een wachtwoordherstellink op uw e-mailadres.
+      updated: Je wachtwoord is met succes veranderd. U bent nu aangemeld.
+      updated_not_active: Je wachtwoord is met succes veranderd.
+    registrations:
+      destroyed: Doei! Uw account is succesvol geannuleerd. We hopen je snel weer te zien.
+      signed_up: Welkom! Je hebt je succesvol aangemeld.
+      signed_up_but_inactive: Je hebt je succesvol aangemeld. We kunnen u echter niet aanmelden omdat uw account nog niet is geactiveerd.
+      signed_up_but_locked: Je hebt je succesvol aangemeld. We kunnen u echter niet aanmelden omdat uw account is vergrendeld.
+      signed_up_but_unconfirmed: Er is een bericht met een bevestigingslink naar uw e-mailadres verzonden. Volg de link om uw account te activeren.
+      update_needs_confirmation: U heeft uw account met succes bijgewerkt, maar we moeten uw nieuwe e-mailadres verifiëren. Controleer uw e-mail en volg de bevestigingslink om uw nieuwe e-mailadres te bevestigen.
+      updated: Uw account is succesvol bijgewerkt.
+    resend_password_instructions: Stuur mij instructies voor het opnieuw instellen van het wachtwoord
+    resend_unlock_instructions: Ontgrendelinstructies opnieuw verzenden
+    sessions:
+      already_signed_out: Met succes uitgelogd.
+      signed_in: Succesvol ingelogd.
+      signed_out: Met succes uitgelogd.
+    unlock_my_account: Ontgrendel mijn account
+    unlocks:
+      send_instructions: U ontvangt binnen enkele minuten een e-mail met instructies voor het ontgrendelen van uw account.
+      send_paranoid_instructions: Als uw account bestaat, ontvangt u binnen enkele minuten een e-mail met instructies om deze te ontgrendelen.
+      unlocked: Uw account is succesvol ontgrendeld. Log alstublieft in om verder te gaan.
+    update_account: Mijn account bijwerken
+    waiting_for_confirmation: 'Wacht momenteel op bevestiging voor: %{email}'
+  edit: bewerking
+  edit_account: Bewerk account
+  edit_conference: Conferentie bewerken
+  edit_conference_classifiers: Conferentieclassificaties bewerken
+  edit_conference_days: Conferentiedagen bewerken
+  edit_conference_rooms: Vergaderruimtes bewerken
+  edit_conference_schedule: Conferentieplanning bewerken
+  edit_conference_tracks: Conferentietracks bewerken
+  edit_person: Bewerk persoon
+  edit_profile: Profiel
+  edit_ticket_server: Ticketserver bewerken
+  email: E-mail
+  emails:
+    event_acceptance:
+      accepted_event: |
+        We zijn erg blij u te kunnen vertellen dat we uw inzending hebben geaccepteerd
+
+        %{event}
+      check_data: |
+        Terwijl u toch bezig bent: na bevestiging via die link, zult u:
+        ingelogd zijn in het vergaderplanningssysteem. Neem alsjeblieft de tijd
+        om daar uw gegevens te controleren. De gegevens worden gebruikt in de officiële
+        conferentie programma. U kunt uw beschikbaarheid ook aangeven op
+        verschillende tijden daar. We zullen proberen hiermee rekening te houden bij het plannen van de
+        definitieve schema.
+      confirmation: |
+        Bevestig snel opnieuw dat u aanwezig zult zijn en afleveren
+        uw lezing, via de volgende link:
+
+        %{link}
+      goodbye: |
+        Vriendelijke groeten
+
+        Het %{conference}-team
+      greeting: Beste %{forename},
+      subject: Uw inzending voor %{conference}
+    event_rejection:
+      goodbye: |
+        Vriendelijke groeten
+
+        Het %{conference}-team
+      greeting: Beste %{forename},
+      rejection: |
+        Wij willen u hartelijk bedanken voor uw inzending. We waren
+        verrast en overweldigd door de enorme hoeveelheid van de hoge kwaliteit
+        inzendingen die we hebben ontvangen.
+
+        Na een uitgebreid selectieproces hebben wij helaas jouw . moeten afwijzen
+        dwang
+
+        %{event}
+
+        We kunnen u verzekeren dat dit geen gemakkelijke beslissing was.
+        We hopen u alsnog te mogen verwelkomen op de conferentie.
+      subject: Uw inzending voor %{conference}
+    event_schedule:
+      goodbye: |
+        Tot ziens op %{conference}
+
+        Het %{conference}-team
+      greeting: Beste %{forename},
+      info: |
+        We zijn verheugd u te kunnen mededelen dat uw inzending
+
+        %{event}
+
+        is gepland voor de %{date} op %{time}.
+
+        Je spreekt op %{room}.
+      subject: Uw inzending voor %{conference} gepland op %{date} om %{time}
+  emails_module:
+    add_mail_template: E-mailsjabloon toevoegen
+    add_mail_template_hint: Voeg een nieuw e-mailsjabloon toe.
+    edit_template: E-mailsjabloon bewerken
+    edit_template_hint: Bewerk deze e-mailsjabloon.
+    edit_template_title: Mailsjabloon "%{template}"
+    error_failed_setting_notification: 'Kan standaardmelding niet instellen: %{ex}.'
+    error_missing_conference_email: 'Kan geen e-mails verzenden: Geef een e-mailadres op voor deze conferentie.'
+    error_missing_notification_text: |
+      Geen meldingstekst aanwezig. Wijzig de standaardtekst voor uw
+      behoeften, alvorens gebeurtenissen te accepteren/afwijzen.
+    error_missing_speaker_email: 'Kan geen e-mails verzenden: niet alle sprekers hebben een e-mailadres.'
+    error_state_update: Kan status niet updaten.
+    error_state_update_ex: 'Kan status niet bijwerken: %{ex}.'
+    error_template_add_failed: Het maken van een e-mailsjabloon is mislukt.
+    error_unnotifiable_state: Evenement niet in een meldingsplichtige staat.
+    filters:
+      all_speakers_in_confirmed_events: Alle sprekers betrokken bij alle bevestigde evenementen
+      all_speakers_in_scheduled_event: Alle sprekers betrokken bij alle geplande evenementen
+      all_speakers_in_unconfirmed_events: Alle sprekers betrokken bij alle niet-bevestigde evenementen
+    mail_subject: Onderwerp
+    mail_template_hint: |
+      Gebruik dit e-mailsjabloon om een e-mail te sturen naar alle mensen die betrokken zijn bij de evenementen
+      van deze conferentie.
+    new_mail_template: Nieuw e-mailsjabloon
+    notice_event_updated: Evenement is succesvol bijgewerkt.
+    notice_mails_delivered: Mails bezorgd.
+    notice_mails_queued: Postbezorging in de wachtrij.
+    notice_template_added: E-mailsjabloon is succesvol toegevoegd.
+    notice_template_destroyed: E-mailsjabloon is succesvol vernietigd.
+    notice_template_updated: E-mailsjabloon is succesvol bijgewerkt.
+    placeholders_hint_header: |
+      U kunt dynamische variabelevervanging gebruiken in de secties 'onderwerp' en 'inhoud' van elk
+      sjabloon. Vermijd het gebruik van gebeurtenisspecifieke variabelen als je niet wilt dat mensen krijgen
+      meer dan één e-mailbericht.
+    send_mail: Verzend mail
+    template_subject: 'Onderwerp: %{subject}'
+  error_signing_in: Ongeldig e-mailadres of wachtwoord.
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: moet worden geaccepteerd
+      already_confirmed: is al bevestigd, probeer a.u.b. in te loggen
+      blank: kan niet leeg zijn
+      confirmation: komt niet overeen met %{attribute}
+      confirmation_period_expired: moet worden bevestigd binnen %{period}, vraag een nieuwe aan
+      empty: kan niet leeg zijn
+      equal_to: moet gelijk zijn aan %{count}
+      even: moet gelijk zijn
+      exceeds: kan %{what} niet overschrijden
+      exclusion: is gereserveerd
+      expired: is verlopen, vraag een nieuwe aan
+      greater_than: moet groter zijn dan %{count}
+      greater_than_or_equal_to: moet groter zijn dan of gelijk zijn aan %{count}
+      inclusion: staat niet in de lijst
+      invalid: is ongeldig
+      less_than: moet kleiner zijn dan %{count}
+      less_than_or_equal_to: moet kleiner zijn dan of gelijk zijn aan %{count}
+      not_a_number: is geen nummer
+      not_an_integer: moet een geheel getal zijn
+      not_found: niet gevonden
+      not_locked: was niet vergrendeld
+      not_saved:
+        one: '1 fout zorgde ervoor dat deze %{resource} niet kon worden opgeslagen:'
+        other: "%{count}-fouten zorgden ervoor dat deze %{resource} niet kon worden opgeslagen:"
+      odd: moet vreemd zijn
+      other_than: moet anders zijn dan %{count}
+      present: moet leeg zijn
+      record_invalid: 'Validatie mislukt: %{errors}'
+      restrict_dependent_destroy:
+        many: Kan record niet verwijderen omdat afhankelijke %{record} bestaat
+        one: Kan record niet verwijderen omdat er een afhankelijke %{record} bestaat
+      taken: is al bezet
+      too_long:
+        one: is te lang (maximaal 1 teken)
+        other: is te lang (maximum is %{count} tekens)
+      too_short:
+        one: is te kort (minimaal 1 teken)
+        other: is te kort (minimaal %{count} tekens)
+      wrong_length:
+        one: is de verkeerde lengte (moet 1 teken zijn)
+        other: is de verkeerde lengte (moet %{count} tekens zijn)
+    template:
+      body: 'Er waren problemen met de volgende velden:'
+      header:
+        one: 1 fout zorgde ervoor dat deze %{model} niet kon worden opgeslagen
+        other: "%{count} fouten zorgden ervoor dat deze %{model} niet kon worden opgeslagen"
+  event: Evenement
+  event_languages: Talen van evenementen
+  events: Evenementen
+  events_in: Evenementen in
+  events_module:
+    accept_event: Gebeurtenis accepteren
+    accept_event_hint: |
+      Accepteer dit evenement. De spreker(s) wordt op de hoogte gebracht van de aanvaarding via
+      e-mail. Als ze toegang hebben tot het oproepsysteem voor deelname, zullen ze
+      ontvangen ook een link om hun aanwezigheid te bevestigen.
+    accept_event_no_email: Accepteer evenement (geen e-mail)
+    accept_event_no_email_hint: Accepteer dit evenement zonder een automatische e-mail te sturen.
+    add_event: Voeg evenement toe
+    add_event_at: Evenement toevoegen op %{time}
+    add_event_hint: Voeg een nieuw evenement toe.
+    add_ticket: Ticket toevoegen
+    add_ticket_hint: Maak een ticket aan voor dit evenement.
+    ago: "%{time_ago} geleden"
+    all_events: Alle evenementen
+    all_rating: Alle beoordelingen
+    attachments_overview: Bijlagen
+    average_feedback: 'Gemiddelde feedback:'
+    average_speaker_feedback: 'Gemiddelde feedback als spreker:'
+    bulk_edit:
+      add_person: Persoon toevoegen
+      add_person_confirm:
+        one: Weet je zeker dat je een persoon wilt toevoegen aan dit evenement?
+        other: Weet je zeker dat je een persoon wilt toevoegen aan alle %{count}-evenementen?
+      set_duration: Duur instellen
+      set_duration_confirm:
+        one: Weet je zeker dat je de duur van dit evenement wilt wijzigen?
+        other: Weet je zeker dat je de duur van alle %{count}-evenementen wilt wijzigen?
+      set_events_confirm:
+        one: weet je zeker dat je de status voor dit evenement wilt wijzigen?
+        other: Weet u zeker dat u de status voor alle %{count}-evenementen wilt wijzigen?
+      set_events_type_confirm:
+        one: Weet je zeker dat je het type evenement wilt wijzigen?
+        other: Weet u zeker dat u het type voor alle %{count}-gebeurtenissen wilt wijzigen?
+      set_new_event_type: Gebeurtenistype wijzigen
+      set_new_state: Staat toewijzen
+      set_new_track: Spoor toewijzen
+      set_track_confirm:
+        one: Weet je zeker dat je de track van dit evenement wilt wijzigen?
+        other: Weet je zeker dat je het spoor van alle %{count}-evenementen wilt wijzigen?
+      show: Bewerk deze evenementen
+      title:
+        one: "%{count}-gebeurtenis bewerken:"
+        other: "%{count}-evenementen bewerken:"
+      update_failed:
+        one: "%{count} bewerken mislukt."
+        other: "%{count} bewerkingen mislukt."
+      update_skipped:
+        one: "%{count} bewerking overgeslagen."
+        other: "%{count} bewerkingen overgeslagen."
+      update_successful:
+        one: "%{count} bewerking succesvol voltooid."
+        other: "%{count}-bewerkingen zijn voltooid."
+    cancel_event: Evenement annuleren
+    cancel_event_hint: Markeer dit evenement als geannuleerd. Meestal betekent dit dat de speakers hun verschijning moesten annuleren.
+    col_toggle_rooms: 'Schakel kamers:'
+    confirm_event: Bevestig evenement
+    confirm_event_hint: Bevestig dat de spreker(s) aanwezig zullen zijn en dat het evenement daadwerkelijk zal plaatsvinden.
+    custom_notification: Aangepaste melding
+    custom_notification_hint: Voeg aangepaste meldingen toe voor alle sprekers. Deze worden verzonden in plaats van de standaardmelding bij de volgende bulkmeldingsrun. Pas ze aan op het tabblad 'Mensen bewerken'.
+    delete_rating: Evenementbeoordeling verwijderen
+    edit_event: Evenement bewerken
+    edit_event_hint: Bewerk de gegevens van dit evenement.
+    edit_people: Bewerk mensen
+    edit_people_hint: Voeg mensen toe aan of verwijder ze uit dit evenement.
+    error_no_day: |
+      Voordat u evenementen kunt plannen, moet u:
+      om hiervoor minimaal één dag te hebben gedefinieerd
+      conferentie. Ga naar <em>Conferentie-instellingen</em>
+      hierboven om een dag in te voeren.
+    error_no_event: |
+      Deze conferentie heeft nog geen evenementen.
+      Maak er een aantal onder het tabblad _Evenementen_ hierboven,
+      of lanceer een oproep voor deelname om evenementen te verzamelen.
+      Zodra je evenementen hebt, kun je ze plannen
+      hier.
+    error_no_room: |
+      Voordat u evenementen kunt plannen, moet u:
+      om hiervoor minimaal één ruimte te hebben gedefinieerd
+      conferentie. Ga naar Instellingen_
+      hierboven om een kamer binnen te gaan.
+    event_attachments: Geüploade bestanden
+    event_classifiers: Evenementclassificaties
+    event_details: Evenement details
+    event_feedbacks: Evenement Feedback
+    event_ratings: Evenementbeoordelingen
+    event_type_select: filter op gebeurtenistype
+    events_by_gender: Evenementen op geslacht
+    events_by_language: Evenementen per taal
+    events_by_state: Evenementen per staat
+    events_in_current_conference: Evenementen in huidige conferentie
+    events_in_other_conferences: Evenementen in andere conferenties
+    feedback_not_enabled: Het feedbacksysteem is niet ingeschakeld.
+    filter_modal:
+      at_least: tenminste
+      at_most: hoogstens
+      exactly: precies
+      select_filter_for: 'Selecteer filter voor %{filtername}:'
+    hide_all: verstop alles
+    indicator:
+      full:
+        submitted_after_hard_deadline: Ingediend na harde deadline
+        submitted_after_soft_deadline: Ingediend na deadline
+      short:
+        submitted_after_hard_deadline: Laat
+        submitted_after_soft_deadline: LAAT
+    inputs:
+      hints:
+        do_not_record: Wordt dit evenement opgenomen?
+        note: 'zichtbaarheid: alleen beheerder.'
+        public: Is dit evenement zichtbaar in de openbare agenda?
+        recording_license: Opnamelicentie voor dit gesprek
+        submission_note: 'zichtbaarheid: admin en gebruiker; Extra informatie.'
+        tech_rider: Wat is er nodig voor dit evenement?
+    listing_n_events:
+      one: Lijst %{n} van %{count} gebeurtenis.
+      other: Lijst van %{n} van %{count} gebeurtenissen.
+    my_events: Mijn evenementen
+    my_rating: Mijn score
+    my_ratings: Mijn beoordelingen
+    no_attende_more_infos: |
+      Feedback van deelnemers in de conferentie inschakelen
+      instellingen en het schema van het webprogramma zal een
+      formulier voor uw deelnemers om feedback te geven. Deze
+      feedback zal hier verschijnen.
+    no_attendee: Er is nog geen feedback van bezoekers voor dit evenement.
+    no_events: |
+      Deze conferentie heeft nog geen evenementen. Begin met het toevoegen van evenementen door te klikken op de
+      knop aan de rechterkant. Of start een oproep voor deelname, zodat anderen evenementen kunnen indienen voor
+      u te herzien.
+    no_ratings: |
+      Er heeft nog niemand een beoordeling voor dit evenement ingevuld. Wees de eerste
+      en beoordeel het evenement met behulp van het bovenstaande formulier.
+    not_applicable: Nvt
+    not_involved: |
+      U bent hier nog niet bij betrokken
+      conferentie. Voeg jezelf toe aan een evenement in wat dan ook
+      rol die je leuk vindt en het evenement zal hierin verschijnen
+      lijst.
+    predefined_title_types:
+      handouts: hand-outs
+      media: media
+      other: ander
+      poster: poster
+      proposal: voorstel
+      slides: dia's
+      video: video-
+    print_accepted_cards: Kaarten afdrukken (alleen geaccepteerd)
+    print_accepted_cards_hint: |
+      Download een PDF met alleen de geaccepteerde evenementen als kaarten (vier kaarten per pagina).
+      Vooral handig om je programmaschema offline te plannen.
+    print_cards: Kaarten afdrukken
+    print_cards_hint: |
+      Download een PDF met alle gebeurtenissen als kaarten (vier kaarten per pagina). Print dit
+      uit om uw planning offline te halen.
+    public_attachment_hint: Is deze bijlage zichtbaar voor het publiek?
+    rate_next: Beoordeel volgende evenement
+    reject_event: Evenement afwijzen
+    reject_event_hint: Weiger dit evenement. De spreker(s) worden per e-mail op de hoogte gesteld van de afwijzing.
+    reject_event_no_email: Evenement afwijzen (geen e-mail)
+    reject_event_no_email_hint: Weiger dit evenement zonder een automatische e-mail te sturen.
+    toggle_description: Toggle Beschrijving >>
+    toggle_send_bulk_mail: Stuur mail naar al deze mensen >>
+    track_select: filteren op nummer
+  expenses: Uitgaven
+  expenses_module:
+    error_person_have_no_expense: "%{person} heeft momenteel geen kosten."
+    is_this_reimbursed_hint: Is deze uitgave al vergoed?
+    new_expense: Nieuwe uitgave
+    notice_expense_created: Uitgave is succesvol toegevoegd.
+    notice_expense_destroyed: De kosten zijn succesvol vernietigd.
+    notice_expense_updated: Onkosten zijn bijgewerkt.
+    notice_expenses_disabled: Onkosten zijn niet ingeschakeld voor deze conferentie
+    reimbursed: terugbetaald
+    sum_not_reimbursed: Som van alle niet-vergoede
+    sum_reimbursed: Som van alles vergoed
+  export_profile: Profiel exporteren
+  features: Extra functies
+  feedback: Feedback
+  feedback_system: Feedbacksysteem
+  frab_footer: |
+    [frab](http://frab.github.io/frab/) is een systeem voor het plannen en beheren van conferenties.
+    Het helpt bij het verzamelen van inzendingen, het beheren van lezingen en sprekers en het maken van een planning.
+
+    De [gebruikershandleiding](https://github.com/frab/frab/wiki/Manual) wordt bijgehouden in de
+    [wiki](https://github.com/frab/frab/wiki/). De broncode wordt gehost op
+    [Github](https://github.com/frab/frab).
+  full_name: Voor-en achternaam
+  helpers:
+    select:
+      prompt: Selecteer alstublieft
+    submit:
+      create: Maak %{model}
+      submit: Opslaan %{model}
+      update: Update zxzxxx0
+  hint: 'Tip:'
+  home: Thuis
+  import: Importeren
+  inputs:
+    hints:
+      password_length: "%{length} tekens minimaal"
+  is_not_public: niet-openbaar
+  is_public: openbaar
+  languages:
+    Ga: Iers
+    ab: Abchazisch
+    ace: Een Chinees
+    ach: Acoli
+    ada: Adangme
+    ady: Adyghe
+    ae: Avestan
+    af: Afrikaans
+    afa: Afro-Aziatische taal
+    afh: Afrihili
+    ain: Ainu
+    ak: Akani
+    akk: Akkadisch
+    ale: Aleut
+    alg: Algonkische taal
+    alt: Zuid-Altai
+    am: Amhaars
+    an: Aragonees
+    ang: Oud Engels
+    anp: Angika
+    apa: Apache-taal
+    ar: Arabisch
+    arc: Aramees
+    arn: Araucaanse
+    arp: Arapaho
+    art: Kunstmatige taal
+    arw: Arawak
+    as: Assamees
+    asa: Asu (Tanzania)
+    ast: Asturische
+    ath: Athapascaanse taal
+    aus: Australische taal
+    av: hebzuchtig
+    awa: Awadhi
+    ay: Aymara
+    az: Azerbeidzjaans
+    ba: Bashkir
+    bad: Banda
+    bai: Bamileke taal
+    bal: Baluchi
+    ban: Balinees
+    bas: Basa
+    bat: Baltische taal
+    be: Wit-Russisch
+    bej: Beja
+    bem: Bemba
+    ber: Berber
+    bez: Bena (Tanzania)
+    bg: Bulgaars
+    bh: Bihari
+    bho: Bhojpuri
+    bi: Bislama
+    bik: Bikol
+    bin: Bini
+    bla: Siksika
+    bm: Bambara
+    bn: Bengaals
+    bnt: Bantoe
+    bo: Tibetaans
+    br: Breton
+    bra: Braj
+    brx: brx
+    bs: Bosnisch
+    btk: Batak
+    bua: Buriat
+    bug: Buginees
+    byn: Blin
+    ca: Catalaans
+    cad: Caddo
+    cai: Midden-Amerikaanse Indiase taal
+    car: Caraïben
+    cau: Kaukasische taal
+    cch: Atsam
+    ce: Tsjetsjeens
+    ceb: Cebuano
+    cel: Keltische taal
+    ch: Chamorro
+    chb: Chibcha
+    chg: Chagatai
+    chk: Chuukese
+    chm: Mari
+    chn: Chinook-jargon
+    cho: Choctaw
+    chp: Chipewyan
+    chr: Cherokee
+    chy: Cheyenne
+    cmc: Chamische taal
+    co: Corsicaans
+    cop: Koptisch
+    cpe: Engels gebaseerde Creools of Pidgin
+    cpf: Frans gebaseerde Creools of Pidgin
+    cpp: Portugees-gebaseerde Creools of Pidgin
+    cr: Cree
+    crh: Krim Turks
+    crp: Creools of Pidgin
+    cs: Tsjechisch
+    csb: Kasjoebisch
+    cu: Kerkslavisch
+    cus: Koesjitische taal
+    cv: Tsjoevasj
+    cy: Welsh
+    da: Deens
+    dak: Dakota
+    dar: Dargwa
+    day: Dayak
+    de: Duits
+    de-AT: Oostenrijks Duits
+    de-CH: Zwitsers Hoogduits
+    del: Delaware
+    den: Slaaf
+    dgr: Dogrib
+    din: Dinka
+    doi: Dogri
+    dra: Dravidische taal
+    dsb: Nedersorbisch
+    dua: Duala
+    dum: Middelnederlands
+    dv: duikhi
+    dyu: Dyula
+    dz: Dzongkha
+    ebu: gimbu
+    ee: Ooi
+    efi: efik
+    egy: Oude Egyptenaar
+    eka: Ekajuk
+    el: Grieks
+    elx: Elamitisch
+    en: Engels
+    en-AU: Australisch Engels
+    en-CA: Canadees Engels
+    en-GB: Brits Engels
+    en-US: Amerikaans Engels
+    enm: Middel Engels
+    eo: Esperanto
+    es: Spaans
+    es-ES: Iberisch Spaans
+    et: Ests
+    eu: baskisch
+    ewo: Ewondo
+    fa: Perzisch
+    'false': Noors
+    fan: Hoektand
+    fat: fanatiek
+    ff: Fulah
+    fi: Fins
+    fil: Filipijns
+    fiu: Fins-Oegrische taal
+    fj: Fiji
+    fo: Faeröers
+    fon: fon
+    fr: Frans
+    fr-CA: Canadees Frans
+    fr-CH: Zwitsers Frans
+    frm: Middel Frans
+    fro: Oud Frans
+    frr: Noord-Fries
+    frs: Oost-Fries
+    fur: Friulisch
+    fy: West-Fries
+    ga: Iers
+    gaa: Ga
+    gay: Gayo
+    gba: Gbaya
+    gd: Schots-Gaelisch
+    gem: Germaanse taal
+    gez: jezus
+    gil: Gilbertees
+    gl: Galicisch
+    gmh: Middelhoogduits
+    gn: Guarani
+    goh: Oudhoogduits
+    gon: Gondi
+    gor: Gorontalo
+    got: Gotisch
+    grb: Grebo
+    grc: Oud Grieks
+    gsw: Zwitserse Duitser
+    gu: Gujarati
+    gv: Manx
+    gwi: Gwichʼin
+    ha: Hausa
+    hai: Haida
+    haw: Hawaiiaans
+    he: Hebreeuws
+    hi: Hindi
+    hil: Hiligaynon
+    him: Himachali
+    hit: Hettitisch
+    hmn: Hmong
+    ho: Hiri Motu
+    hr: Kroatisch
+    hsb: Oppersorbisch
+    ht: Haïtiaans
+    hu: Hongaars
+    hup: Hupa
+    hy: Armeens
+    hz: Herero
+    ia: Interlingua
+    iba: Iban
+    id: Indonesisch
+    ie: Interlingue
+    ig: Igbo
+    ii: Sichuan Yi
+    ijo: Ijo
+    ik: Inupiaq
+    ilo: Iloko
+    inc: Indische taal
+    ine: Indo-Europese taal
+    inh: Ingoesj
+    io: Ik doe
+    ira: Iraanse taal
+    iro: Irokese taal
+    is: IJslands
+    it: Italiaans
+    iu: Inuktitut
+    ja: Japans
+    jbo: Lojban
+    jpr: Joods-Perzisch
+    jrb: Joods-Arabisch
+    jv: Javaans
+    ka: Georgisch
+    kaa: Kara-Kalpak
+    kab: Kabyle
+    kac: Kachin
+    kaj: Jju
+    kam: Kamba
+    kar: Karen
+    kaw: Kawi
+    kbd: Kabardiaan
+    kcg: tyap
+    kea: Kabuverdianu
+    kfo: Koro
+    kg: Kongo
+    kha: Khasi
+    khi: Khoisan-taal
+    kho: Khotanese
+    ki: Kikuyu
+    kj: Kuanyama
+    kk: Kazachs
+    kl: Kalaallisut
+    km: Khmer
+    kmb: Kimbundu
+    kn: Kannada
+    ko: Koreaans
+    kok: Konkani
+    kos: Kosraeaans
+    kpe: Kpelle
+    kr: Kanuri
+    krc: Karatsjai-Balkar
+    krl: Karelisch
+    kro: Kru
+    kru: Kurukho
+    ks: Kasjmir
+    ku: Koerdisch
+    kum: Kumyk
+    kut: Kutenai
+    kv: Komi
+    kw: Cornish
+    ky: Kirgizisch
+    la: Latijns
+    lad: Ladino
+    lah: Lahnda
+    lam: Lamba
+    lb: Luxemburgs
+    lez: Lezghian
+    lg: Ganda
+    li: Limburgs
+    ln: Lingala
+    lo: Laos
+    lol: Mongools
+    loz: Lozi
+    lt: Litouws
+    lu: Luba-Katanga
+    lua: Luba-Lulua
+    lui: Luiseno
+    lun: Lunda
+    luo: Luo
+    lus: Lushai
+    luy: Olulujia
+    lv: Lets
+    mad: Madurese
+    mag: Magahi
+    mai: Maithili
+    mak: Makasar
+    man: Mandingo
+    map: Austronesische taal
+    mas: Masai
+    mdf: Moksha
+    mdr: Mandar
+    men: Mende
+    mg: Madagaskar-
+    mga: Midden Iers
+    mh: Marshallees
+    mi: Maori-
+    mic: Micmac
+    min: Minangkabau
+    mis: Diverse talen
+    mk: Macedonisch
+    mkh: Mon-Khmer-taal
+    ml: Malayalam
+    mn: Mongools
+    mnc: Manchu
+    mni: Manipuri
+    mno: Manobo-taal
+    mo: Moldavisch
+    moh: Mohawk
+    mos: Mossi
+    mr: Marathi
+    ms: Maleis-
+    mt: Maltees
+    mul: Meerdere talen
+    mun: Munda Taal
+    mus: Kreek
+    mwl: Mirandees
+    mwr: Marwari
+    my: Birmees
+    myn: Maya taal
+    myv: Erzya
+    na: Nauru
+    nah: Nahuatl
+    nai: Noord-Amerikaanse Indiase taal
+    nap: Napolitaans
+    nb: Noorse Bokmål
+    nd: Noord Ndebele
+    nds: Nederduits
+    ne: Nepalees
+    new: Newari
+    ng: Ndonga
+    nia: Nias
+    nic: Niger-Kordofaanse taal
+    niu: Niuean
+    nl: Nederlands
+    nl-BE: Vlaams
+    nn: Noorse Nynorsk
+    nog: Nogai
+    non: Oud-Noors
+    nqo: N'Ko
+    nr: Zuid Ndebele
+    nso: Noord-Sotho
+    nub: Nubische taal
+    nv: Navajo
+    nwc: Klassiek Newari
+    ny: Nyanja
+    nym: Nyamwezi
+    nyn: Nyankole
+    nyo: Nyoro
+    nzi: Nzima
+    oc: Occitaans
+    oj: Ojibwa
+    om: Oromo
+    or: Oriya
+    os: Ossetisch
+    osa: Osage
+    ota: Ottomaans Turks
+    oto: Ottomaanse taal
+    pa: Punjabi
+    paa: Papoea-taal
+    pag: Pangasinan
+    pal: Pahlavi
+    pam: Pampanga
+    pap: Papiaments
+    pau: Palauan
+    peo: Oud Perzisch
+    phi: Filippijnse taal
+    phn: Fenicisch
+    pi: Pali
+    pl: Pools
+    pon: Pohnpeian
+    pra: Prakrit-taal
+    pro: Oud Provençaals
+    ps: Pasjtoe
+    pt: Portugees
+    pt-BR: Braziliaans Portugees
+    pt-PT: Iberisch Portugees
+    qu: Quechua
+    raj: Rajasthan
+    rap: Rapanui
+    rar: Rarotongan
+    rm: Reto-romantiek
+    rn: Rundi
+    ro: Roemeense
+    roa: Romantische taal
+    rof: rof
+    rom: Roma
+    ru: Russisch
+    rup: Aromanian
+    rw: Kinyarwanda
+    rwk: rwk
+    sa: Sanskriet-
+    sad: Sandaw
+    sah: Yakuto
+    sai: Zuid-Amerikaanse Indiase taal
+    sal: Salishan-taal
+    sam: Samaritaans Aramees
+    sas: Sasak
+    sat: Santali
+    sc: Sardinisch
+    scn: Siciliaans
+    sco: Schotten
+    sd: Sindhi
+    se: Noord-Samic
+    sel: Selkup
+    sem: Semitische taal
+    sg: Sango
+    sga: Oud Iers
+    sgn: Gebarentaal
+    sh: Servo-Kroatisch
+    shn: Shan
+    si: Sinhala
+    sid: Sidamo
+    sio: Siouan-taal
+    sit: Sino-Tibetaanse taal
+    sk: Slowaaks
+    sl: Sloveens
+    sla: Slavische taal
+    sm: Samoaans
+    sma: Zuid-Samic
+    smi: Sami taal
+    smj: Lule Sami
+    smn: Inari Sami
+    sms: Skolt Sami
+    sn: Shona
+    snk: Soninke
+    so: Somalisch
+    sog: Sogdien
+    son: Songhai
+    sq: Albanees
+    sr: Servisch
+    srn: Sranan Tongo
+    srr: Serer
+    ss: Swati
+    ssa: Nilo-Sahara taal
+    st: Zuid-Sotho
+    su: Soendanees
+    suk: Sukuma
+    sus: Susu
+    sux: Sumerisch
+    sv: Zweeds
+    sw: Swahili
+    swb: komisch
+    syc: Klassiek Syrisch
+    syr: Syrisch
+    ta: Tamil
+    tai: Tai-taal
+    te: Telugu
+    tem: Timne
+    ter: Tereno
+    tet: Tetum
+    tg: Tadzjiekse
+    th: Thais
+    ti: Tigrinya
+    tig: Tigre
+    tiv: Tiv
+    tk: Turkmeens
+    tkl: Tokelau
+    tl: Tagalog
+    tlh: Klingon
+    tli: Tlingit
+    tmh: Tamashek
+    tn: Tswana
+    to: Tonga
+    tog: Nyasa Tonga
+    tpi: Tok Pisin
+    tr: Turks
+    trv: Taroko
+    ts: Tsonga
+    tsi: Tsimshian
+    tt: Tataars
+    tum: Tumbuka
+    tup: Tupi-taal
+    tut: Altaïsche taal
+    tvl: Tuvalu
+    tw: twee keer
+    ty: Tahitiaans
+    tyv: Tuvinisch
+    udm: Oedmoert
+    ug: Oeigoerse
+    uga: Ugaritisch
+    uk: Oekraïens
+    umb: Umbundu
+    und: Onbekende of ongeldige taal
+    ur: Urdu
+    uz: Oezbeeks
+    vai: Vai
+    ve: Venda
+    vi: Vietnamees
+    vo: Volapuk
+    vot: stem
+    wa: Waals
+    wak: Wakashan-taal
+    wal: Walamo
+    war: Waray
+    was: Wassen
+    wen: Sorbische taal
+    wo: Wolof
+    xal: Kalmyk
+    xh: Xhosa
+    yao: Yao
+    yap: Yapes
+    yi: Jiddisch
+    yo: Yoruba
+    ypk: Yupik-taal
+    yue: Kantonees
+    za: Zhuang
+    zap: Zapotec
+    zbl: Blissymbols
+    zen: Zenaga
+    zh: Chinese
+    zh-Hans: Vereenvoudigd Chinees
+    zh-Hant: Traditioneel Chinees
+    znd: Zande
+    zu: Zulu
+    zun: Zuni
+    zxx: Geen taalkundige inhoud
+    zza: Zaza
+  launch_call_for_participation: Oproep voor deelname lanceren
+  layouts:
+    public_schedule:
+      booklet: boek
+      timeline: tijdlijn
+  lectures: lezingen
+  lectures_commited: Lezingen gepleegd
+  lectures_confirmed: Lezingen bevestigd
+  lectures_only: Alleen lezingen
+  lectures_unconfirmed: Lezingen niet bevestigd
+  links: Links
+  logout: Uitloggen
+  mail_templates: E-mailsjablonen
+  mailers:
+    user_mailer:
+      confirmation_instructions: Account activatie
+      password_reset_instructions: Wachtwoord opnieuw instellen
+  manage_conference: Deze conferentie beheren
+  manage_conference_flash: U bent ingelogd als crewlid voor deze conferentie. Wilt u deze conferentie beheren?
+  manual: Handleiding
+  more: Meer...
+  multiple_indication: meerdere
+  name: Naam
+  navigation:
+    back: Rug
+    conferences: Conferenties
+    event: Evenementdetails
+    feedbacks: Feedback
+    history: Geschiedenis
+    more: Meer >>
+    people: Mensen
+    ratings: Waarderingen
+    users: Gebruikers
+  new_conference: Nieuwe conferentie
+  no_data: Geen gegevens
+  non_reimbursed_expenses: Niet-vergoede kosten
+  not_speaking: niet spreken
+  not_specified: niet gespecificeerd
+  note: Opmerking
+  notes: 'Opmerkingen:'
+  notifications: Meldingen
+  notifications_module:
+    edit_send_notifications: Meldingen bewerken en verzenden
+    event_without_ticket_warning:
+      one: 'Let op: 1 evenement zonder ticket:'
+      other: 'Let op: %{count} evenementen zonder ticket:'
+    inputs:
+      hints:
+        locale: Beschikbare locaties voor deze conferentie en de sprekers
+    missing_locale: 'Kan geen bulkmeldingen verzenden: melding voor landinstellingen %{locales} ontbreekt'
+    n_events:
+      one: 1 evenement
+      other: "%{count} evenementen"
+    n_events_in_state_x:
+      one: 1 gebeurtenis in staat %{state}
+      other: "%{count} gebeurtenissen in staat %{state}"
+    no_events_tickets: Geen evenementen met tickets
+    notif:
+      acceptance: aanvaarding
+      rejection: afwijzing
+      scheduling: het roosteren
+    possible_variables: Mogelijke variabelen
+    send_notification: stuur %{name}-meldingen naar %{speakers} in %{count}
+    send_notification_confirm:
+      one: Weet je zeker dat je %{name}-meldingen wilt verzenden voor 1 evenement?
+      other: Weet je zeker dat je %{name}-meldingen wilt verzenden voor %{count}-evenementen?
+    send_notification_to_subscribers:
+      one: Stuur %{name}-meldingen naar 1 persoon die betrokken is bij %{event}
+      other: Stuur %{name}-meldingen naar %{count} mensen die betrokken zijn bij %{event}
+    send_unspecified_notification_confirm:
+      one: Weet u zeker dat u e-mails wilt verzenden voor het %{count}-evenement?
+      other: Weet u zeker dat u e-mails wilt verzenden voor %{count}-evenementen?
+    warning_events_without_speakers:
+      one: 'Waarschuwing: 1 evenement zonder sprekers:'
+      other: 'Waarschuwing: %{count} evenementen zonder sprekers:'
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "$"
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion:
+            one: miljard
+            other: miljard
+            others: miljard
+          million: Miljoen
+          quadrillion:
+            one: quadriljoen
+            other: quadriljoen
+            others: quadriljoen
+          thousand: Duizend
+          trillion: biljoen
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: NL
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%N%"
+    precision:
+      format:
+        delimiter: ''
+  options:
+    admin: Beheerder
+    aim: DOEL
+    assistant: Assistent
+    attending: Bijwonen
+    bus: Bus
+    business: Bedrijf
+    canceled: Geannuleerd
+    concert: Concert
+    confirmed: Bevestigd
+    coordinator: Coördinator
+    crew: Bemanningslid
+    declined: Afgewezen
+    dect: DECT
+    djset: DJ-set
+    fax: Fax
+    female: Vrouwelijk
+    film: Film
+    icq: ICQ
+    idea: Idee
+    integrated: Geïntegreerd
+    jabber: Jabber/XMPP
+    lecture: Lezing
+    lightning_talk: Bliksem praten
+    male: Mannelijk
+    meeting: Ontmoeting
+    mobile: mobiel
+    moderator: Moderator
+    msn: Msn
+    offer: Aanbieding
+    orga: organisator
+    other: Ander
+    otrs: OTRS
+    performance: Theater/Performance
+    phone: Telefoon
+    podium: Podium
+    private: Privaat
+    redmine: Redmine
+    reviewer: Recensent
+    rt: Tracker aanvragen
+    secretary: Secretaris
+    shuttle: Shuttle
+    skype: Skype
+    speaker: Spreker
+    submitter: indiener
+    talk: Praten
+    unclear: Onduidelijk
+    work: Het werk
+    workshop: werkplaats
+    yahoo: Yahoo
+  others_only: Alleen anderen
+  page_titles:
+    admin_users: frab - admin gebruikers
+    change_password: frab - Wachtwoord wijzigen
+    crew_users: frab - crew gebruikers
+    edit_account: frab - Account bewerken
+    login: Inloggen op fra
+    my_profile: frab - Mijn profiel
+    resend_confirmation: frab - Bevestigingsinstructies opnieuw verzenden
+    signup: Schrijf je in bij frab
+    unlock_instructions: frab - Ontgrendel instructies
+    welcome: welkom bij frab
+  paper_trail:
+    events:
+      create: gemaakt
+      destroy: verwijderd
+      touch: aangeraakt
+      update: bijgewerkt
+  participate: Deelnemen
+  people: Mensen
+  people_module:
+    add_person: Persoon toevoegen
+    add_person_hint: Voeg een nieuwe persoon toe.
+    add_ticket: Ticket toevoegen
+    add_ticket_hint: Maak een ticket aan voor deze persoon.
+    all_people: Alle mensen
+    attending: Bijwonen
+    attending_hint: Markeer persoon als aanwezig.
+    edit_person: Bewerk persoon
+    edit_person_hint: Bewerk de gegevens van deze persoon.
+    filter:
+      not_found: Niet gevonden.
+      pick_one: "-- Kies een van de onderstaande namen van %{count} --"
+      too_many: Te veel namen om weer te geven. Filter gebruiken.
+    inputs:
+      hints:
+        event_role: |
+          Coördinatoren maken deel uit van het conferentieteam, zij coördineren de spreker
+          aanwezigheid en evenementen. Indieners beantwoorden de cfp om gebeurtenissen in frab in te voeren.
+          Sprekers nemen deel aan evenementen, hun beschikbaarheid is belangrijk. Moderators nemen
+          deel te nemen aan paneldiscussies, hun beschikbaarheid is belangrijk. Assistenten hebben de
+          dezelfde machtigingen als indieners, en worden op de hoogte gesteld van eventuele updates; maar
+          hun beschikbaarheid wordt nooit in aanmerking genomen.
+        notification_body: 'Geldige variabelen: %{variables}'
+        person_filter: |
+          Filter personen in het optiemenu hieronder op hun voornaam, achternaam
+          naam, e-mailadres of gebruikers-ID. Laat leeg om niet te filteren.
+      notification_body: Meldingsinstantie
+      notification_subject: Meldingsonderwerp
+    list_of_people: Lijst van mensen
+    new_person: Nieuw persoon
+    no_people_data: |
+      U heeft nog geen gegevens over personen. Gebruik de knop aan de rechterkant om
+      begin met het toevoegen van mensen. Houd er rekening mee dat ze hier niet goed verschijnen
+      weg, tenzij ze betrokken zijn bij een van de evenementen van deze conferentie. Gebruik de
+      _Alle mensen_ tabblad hierboven om alle mensen in al uw conferenties te zien.
+    no_people_in_event: |
+      Er zijn nog geen mensen aan dit evenement gekoppeld.
+      Gebruik de knop aan de rechterkant om mensen toe te voegen. Alsjeblieft
+      merk op dat je alleen mensen kunt toevoegen die dat al zijn
+      in het systeem. Als de persoon die u wilt toevoegen
+      nog niet in het systeem staat, ga naar de _People_
+      tabblad hierboven en maak eerst deze persoon aan.
+    no_people_involved: |
+      Er zijn nog geen mensen aan deze conferentie verbonden. Mensen zullen
+      beginnen hier te verschijnen, zodra ze een rol spelen in een van deze
+      evenementen van de conferentie.
+    no_user_account: Persoon heeft nog geen gebruikersaccount en kan niet inloggen. Klik op het tabblad gebruiker om een account aan te maken.
+    no_user_account_for_person: |
+      %{person} heeft momenteel geen gebruikersaccount en kan dus niet inloggen.
+      U kunt nu direct een gebruikersaccount aanmaken door dit formulier in te vullen.
+    notice_person_created: Persoon is aangemaakt.
+    notice_person_updated: Persoon is succesvol bijgewerkt.
+  person: Persoon
+  preview: Voorbeeld
+  profile: Profiel
+  public:
+    feedback:
+      new:
+        feedback_for: 'Feedback voor: %{title}'
+        how_would_you_rate: Hoe zou u dit evenement beoordelen? 5 is de beste beoordeling en 1 is de slechtste.
+        please_let_us_know: 'Laat ons weten wat je van dit evenement vond:'
+        submit_feedback: Feedback verzenden
+        what_did_you_like: Wat vond je leuk? Wat vond je niet leuk? Hoe zou dit evenement verbeterd kunnen worden? Deel alstublieft uw mening.
+      thank_you:
+        return: Terug naar het schema
+        thank_you: Dank u!
+        thank_you_for_helping_us: Bedankt voor je hulp bij het verbeteren van onze evenementen. Beoordeel zoveel mogelijk evenementen die u hebt bijgewoond. Als je de streams hebt bekeken, vertel ons dan over de kwaliteit.
+    schedule:
+      booklet:
+        events: Evenementen
+      day:
+        schedule: Schema – %{label}
+        schedule_for_day: Schema voor dag %{index} – %{label}
+      event:
+        concurrent_events: Gelijktijdige evenementen
+        day: Dag
+        duration: Looptijd
+        feedback: Feedback
+        feedback_link: Klik hier om ons te laten weten wat je van dit evenement vond.
+        files: Bestanden
+        info: Info
+        language: Taal
+        links: Links
+        no_recording: Dit evenement wordt niet opgenomen
+        room: Kamer
+        speakers: Sprekers
+        start_time: Starttijd
+        track: Spoor
+      events:
+        events: Evenementen
+        speakers: Sprekers
+        title: Titel
+        track: Spoor
+      events_by_track:
+        events: Evenementen per track
+      index:
+        booklet: boek
+        day: Dag %{index} – %{label}
+        events: Evenementen
+        events_by_track: Evenementen per track
+        schedule: Schema – %{label}
+        schedule_index: Schema overzicht
+        speakers: Sprekers
+        timeline: Tijdlijn
+      nav:
+        day: Dag %{index}
+        events: Evenementen
+        index: Overzicht
+        qrcode: QR code
+        schedule: Schema
+        speakers: Sprekers
+      qrcode:
+        link_to_public_schedule: |
+          Deze QR-code bevat de URL naar de machineleesbare versie van het openbare planningsbestand.
+          Scan het met een applicatie zoals Giggity of BarfBag om het schema voor deze conferentie te importeren.
+      speaker:
+        contact: Contact
+        email: E-mail
+        events_in_this_conference: Evenementen in deze conferentie
+        links: Links
+        speaker: Spreker
+      speakers:
+        events: Evenementen
+        name: Naam
+        speakers: Sprekers
+      timeline:
+        events: Evenementen
+      title: Schema zxzxxx0
+  public_name: openbare naam
+  rating: Beoordeling
+  ratings: Waarderingen
+  ratings_module:
+    error_creating: 'Kan gebeurtenisbeoordeling niet maken: %{error}'
+    error_updating: Kan evenementclassificatie niet updaten
+    no_event: |
+      Er zijn nog geen evenementen in deze conferentie. Een keer
+      je voegt evenementen toe, ze verschijnen hier samen
+      met hun huidige beoordelingen. U kunt uw bewerken
+      beoordelen door op een evenement te klikken, of u kunt
+      de knop "Begin met beoordelen" aan de rechterkant, om
+      een hele reeks gebeurtenissen achter elkaar beoordelen.
+    notice_already_rated_everything: 'Je hebt alle evenementen al bekeken:'
+    notice_rating_created: Beoordeling succesvol opgeslagen.
+    notice_rating_deleted: Beoordeling succesvol verwijderd.
+    notice_rating_saved: Beoordeling succesvol bijgewerkt.
+    notice_rating_updated: Opmerking succesvol bijgewerkt.
+    show ratings: Beoordelingen weergeven
+    show_ratings: Toon beoordelingen
+    start_reviewing: Begin met beoordelen
+    start_reviewing_hint: |
+      Bekijk een reeks gebeurtenissen op een rij. Je krijgt het evenement te zien
+      die eerst de minste beoordelingen heeft en gemakkelijk naar de volgende kan navigeren
+      evenement in de rij.
+    statistics: Statistieken
+    total_number_of_events: 'Totaal aantal evenementen:'
+    total_number_of_events_no_review: 'Totaal aantal evenementen zonder beoordeling:'
+    total_number_of_not_reviewed: 'Evenementen die je niet hebt beoordeeld:'
+    total_number_of_reviewed: 'Evenementen die je hebt beoordeeld:'
+  remove: Verwijderen
+  remove_association: Verwijder %{name}
+  reports: Rapporten
+  reports_module:
+    all: overzicht van transportbehoeften
+    all_transportation_needs: overzicht van transportbehoeften
+    available_reports: Beschikbare rapporten
+    confirmed_events_by_track: bevestigde evenementnummers per track
+    do_not_record_events: gebeurtenissen met de vlag 'niet opnemen' ingesteld
+    event_timeslot_deviation: lijst alle lezingen met niet-standaard tijdsloten
+    event_timeslot_sum: gebruikte tijdsloten (uren)
+    events_by_track: evenementnummers per track
+    events_not_public: evenementen die niet openbaar zijn
+    events_that_are_no_lectures: evenementen die geen lezingen of workshops zijn
+    events_that_are_workshops: lijst van alle workshops
+    events_with_a_note: evenementen met een notitie
+    events_with_more_than_one_speaker: evenementen met meer dan één spreker
+    events_with_tech_rider: een lijst van alle geplande evenementen met technische rijders
+    events_with_unusual_state_speakers: evenementen met sprekers in een problematische staat
+    events_without_abstract: evenementen zonder abstract
+    events_without_speaker: evenementen zonder spreker
+    events_without_subtitle: evenementen zonder ondertiteling
+    expected_speakers: ontbrekende luidsprekers voor de komende 4 uur
+    found_x_results: Gevonden %{nb} resultaten.
+    lectures_not_confirmed: lezingen die nieuw of herzien zijn
+    lectures_with_speaker: lezingen met spreker
+    no_search_results: Sorry, maar uw zoekopdracht heeft geen resultaten opgeleverd.
+    non_attending_speakers: niet-aanwezige sprekers voor de komende 2 uur
+    people_speaking_at: bevestigde mensen die spreken op de conferentie
+    people_speaking_by_day: bevestigde sprekers per dag met aanwezigheidsstatus
+    people_with_a_note: mensen met een briefje in hun inzending
+    people_with_more_than_one: mensen met meer dan één inzending
+    people_with_non_reimbursed_expenses: mensen met niet-vergoede onkosten
+    query_speakers: Query-luidsprekers
+    speakers_without_availabilities: luidsprekers zonder beschikbaarheid
+    unconfirmed_lectures: onbevestigde lezingen
+  resend: Opnieuw versturen
+  reviewing: Reviewen
+  reviewing_module:
+    current_review_metrics: 'De momenteel geconfigureerde beoordelingsstatistieken zijn:'
+    empty_review_metrics: |
+      U kunt indieningsrecensenten vragen zich te concentreren op specifieke
+      aspecten van elke inzending tijdens het beoordelen, door toe te voegen
+      metrische gegevens naar deze lijst te herzien.
+    modify_review_metric_with_parent: |
+      Beoordelingsstatistieken voor deze conferentie kunnen alleen worden gewijzigd met
+      beheerdersrechten voor de ouderconferentie %{parent}
+  role:
+    admin: beheerder
+    assistant: Assistent
+    coordinator: Coördinator
+    crew: Bemanning
+    moderator: Moderator
+    orga: orga
+    reviewer: Recensent
+    submitter: indiener
+  role_str: Rol
+  rooms: Kamers
+  rooms_module:
+    configured_rooms: 'De momenteel geconfigureerde kamers zijn:'
+    empty_rooms: |
+      Hier kunt u de kamers maken en bewerken waarin:
+      uw evenementen plaatsvinden. Voer ten minste één in
+      Kamer. Dit is nodig om het aantal
+      kolommen in uw programmaschema.
+    modify_room_with_parent: |
+      De zalen voor deze conferentie kunnen alleen worden gewijzigd met
+      beheerdersrechten voor de ouderconferentie %{parent}
+  schedule: Schema
+  schedule_configuration: Configuratie van planning
+  schedule_module:
+    col_orientation: 'Oriëntatie:'
+    col_rooms_per_page: 'Kamers om per pagina weer te geven:'
+    col_select_day: 'Selecteer dag:'
+    col_select_paper_format: 'Selecteer deelnamevorm:'
+    col_select_rooms: 'Selecteer kamers:'
+    col_use_half_page: 'Gebruik alleen halve paginabreedte:'
+    create_locale: Maak %{export_locale}
+    create_locale_hint: Maak een statische HTML-export van uw programmaschema.
+    create_pdf: PDF maken
+    create_pdf_export: Aangepaste PDF-export maken
+    create_pdf_export_hint: Maak een pdf-versie van je programmaschema die eenvoudig kan worden afgedrukt.
+    create_static_export: Statische planningsexport maken
+    download_static_export: Statische planningsexport downloaden
+    error_day_not_found: Kan dag niet vinden.
+    error_event_not_public: Geen evenementen zijn openbaar en gepland.
+    html_exports: HTML-exports
+    inputs:
+      hints:
+        program_export_base_url: |
+          Als u de statische programma-export wilt gebruiken, voert u de URL in waar
+          je wilt de bestanden hier onder zetten. Alle referenties zijn:
+          gegenereerd met dit als voorvoegsel. Dit wordt gebruikt voor de QR-code
+          koppelen aan het schema.
+        schedule_custom_css: Aangepaste CSS toegevoegd aan de HTML-export. (CSS)
+        schedule_html_intro: Introtekst voor de HTML-export. (HTML)
+        schedule_open: |
+          Geef sprekers de mogelijkheid om hun lezingen zelf in te plannen. Alles zal zijn
+          automatisch geaccepteerd. Misschien kunnen we dit uitzetten en controleren voordat we plannen.
+        schedule_public: |
+          Is het dynamische schema openbaar? U kunt nog steeds statische exports maken
+          ongeacht deze instelling.
+        schedule_version: Wat is de huidige planningsversie?
+    notice_no_base_url: program_export_base_url moet worden ingesteld
+    notice_no_export_found: Geen export gevonden om te downloaden.
+    notice_static_export_started: Export van statische planning gestart. Laad deze pagina na een minuut opnieuw.
+    preview_public_schedule: Preview openbare planning
+    preview_schedule: Voorbeeldschema
+    publish_html_export: HTML-export publiceren
+    publish_html_export_hint: Maak een HTML-versie van uw programmaschema die naar een andere webserver kan worden gekopieerd.
+    select_all_none: Selecteer alles/geen
+    view_live_version_hint: Bekijk de openbare live-versie van uw planning zoals elke deelnemer deze zou kunnen zien.
+  scheduling: Het roosteren
+  select_one: "-- Kies een --"
+  send: Versturen
+  session:
+    login: Log in
+    signup: Inschrijven
+    update_password: Update mijn wachtwoord
+  set: Set
+  settings: Instellingen
+  show: Laten zien
+  show_account: Rekening
+  sign_in_successful: Succesvol ingelogd.
+  simple_form:
+    error_notification:
+      default_message: 'Bekijk de onderstaande problemen:'
+    labels:
+      languages:
+        code: Taal
+    'no': Nee
+    required:
+      mark: "*"
+      text: vereist
+    'yes': Ja
+  speakers: Sprekers
+  state: Staat
+  static_program_export: Statische programma-export
+  submission_configuration: Indieningsconfiguratie
+  support:
+    array:
+      last_word_connector: ", en"
+      two_words_connector: " en"
+      words_connector: ","
+    select:
+      prompt: 'Gelieve te kiezen:'
+  switch_conference: Conferentie wisselen
+  this_conference: deze conferentie
+  ticket: Ticket
+  ticket_server: Ticketserver
+  tickets:
+    error_failed_to_create: 'Kan ticket niet maken: %{message}'
+    error_failed_to_receive_id: Kan externe id niet ontvangen
+    error_no_ticket_server: Geen ticketserver geconfigureerd
+    inputs:
+      hints:
+        password: Wachtwoord of API-toegangssleutel die wordt gebruikt om in te loggen op het ticketsysteem
+        queue: Naam van deze evenementenwachtrij
+        url: URL van je ticketsysteem, bijvoorbeeld https://localhost/otrs/
+        user: Gebruikersnaam gebruikt om tickets te maken
+  time:
+    am: ben
+    formats:
+      day: "%EEN"
+      default: "%Advertentie. %B %Y, %H:%M"
+      long: "%Advertentie. %B %Y, %H:%M"
+      month_datetime: "%D. %b %H:%M"
+      pretty_datetime: "%Y-%m-%d %H:%M"
+      short: "%D. %B, %H:%M"
+      short_datetime: "%D. %H:%M"
+      time: "%H:%M"
+    pm: p.m
+    time_range_seperator: " naar"
+  time_and_place: Tijd en plaats
+  timeslot_configuration: Tijdslotconfiguratie
+  title: Titel
+  titles:
+    admin_accounts: Lijst met beheerdersaccounts
+    attachments_overview: Bijlagen overzicht
+    cfp_edit_cfp: Oproep tot deelname bewerken
+    cfp_new_cfp: Lanceer een oproep tot deelname
+    cfp_view: Oproep voor deelname
+    cfp_welcome: "%{conference} - Oproep tot deelname"
+    change_your_password: Verander uw wachtwoord
+    conferences_index: Lijst met conferenties
+    conferences_list: Lijst met conferenties
+    cpf_event_confirm: Bevestig je aanwezigheid
+    create_account: Account aanmaken voor %{person}
+    crew_users: Lijst met bemanningsaccounts
+    edit_account: 'Account bewerken: %{person}'
+    edit_an_account: Bewerk %{name}
+    edit_mail_template: E-mailsjabloon bewerken
+    edit_people_for_event: Mensen bewerken voor "%{event}"
+    edit_person: 'Persoon bewerken: %{person}'
+    event: 'Evenement: %{event}'
+    event_list: Lijst met evenementen
+    event_ratings: Evenementbeoordelingen
+    forgot_your_password: uw wachtwoord vergeten?
+    frab: frab - Conferentiebeheer
+    frab_conference: "%{conference} - Conferentiebeheer"
+    list_mail_templates: Lijst met e-mailsjablonen
+    new_event: Nieuw evenement
+    person: 'Persoon: %{person}'
+    resend_confirmation_instructions: Bevestigingsinstructies opnieuw verzenden
+    session_login: Log in
+    session_signup: Maak een nieuw account aan
+    unlock_instructions: Ontgrendel instructies
+  total: Totaal
+  track: Spoor
+  tracks: Sporen
+  tracks_module:
+    configured_tracks: 'De momenteel geconfigureerde tracks zijn:'
+    empty_tracks: |
+      Als u uw conferentie in verschillende tracks organiseert,
+      dit is de plek om ze te maken. Ook als je dat niet doet
+      heb meer dan één nummer, ga je gang en voer dit in
+      één spoor.
+    empty_tracks_more_infos: |
+      Tracks hebben een naam en een kleur. De kleur is gebruikt in
+      het webgebaseerde programma, dus voel je vrij om het aan te passen
+      zoveel als je wilt.
+    modify_track_with_parent: |
+      De tracks voor deze conferentie kunnen alleen worden gewijzigd met
+      beheerdersrechten voor de ouderconferentie %{parent}
+  transport_needs: Transportbehoeften
+  transport_needs_module:
+    booked_question: Geboekt?
+    is_booked_hint: Is dit vervoer geboekt?
+    nb_seats: "# stoelen"
+    nb_seats_needed_hint: Hoeveel stoelen zijn er nodig?
+    new_transport_need: Nieuwe vervoersbehoefte
+    notice_need_created: Transportbehoefte is succesvol toegevoegd.
+    notice_need_destroyed: Transportbehoefte werd met succes vernietigd.
+    notice_need_disabled: Transportbehoeften zijn niet ingeschakeld voor deze conferentie.
+    notice_need_updated: De vervoersbehoefte is succesvol bijgewerkt.
+    transport_needs: Transportbehoeften
+    what_type_id_needed_hints: Welk type vervoer is nodig?
+    when: Wanneer
+  type: Type
+  unknown_id: Onbekende id
+  user: Gebruiker
+  user_account: Gebruikers account
+  user_role: Rol
+  user_settings: Instellingen
+  users: Gebruikers
+  users_module:
+    edit_user_account: Gebruikersaccount bewerken
+    edit_user_account_hint: Bewerk dit gebruikersaccount.
+    error_invalid_person: Geen geldig persoon
+    error_invalid_public_name: Uw e-mailadres is geen geldige openbare naam, wijzig het alstublieft.
+    not_in_crew: Deze gebruiker maakt nog geen deel uit van een conferentieploeg.
+    notice_profile_updated: Uw profiel is succesvol bijgewerkt.
+    notice_user_created: Gebruiker is succesvol aangemaakt.
+    notice_user_updated: Gebruiker is succesvol bijgewerkt.
+    save_needed_before_changes: U moet eerst opslaan voordat u conferenties toevoegt aan een bemanningslid.
+  value: Waarde
+  version_on_item: "%{version} op %{item}"
+  will_paginate:
+    next_label: Volgende
+    page_gap: "…"
+    previous_label: "\U0001F844 Vorige"
+  work_in_progress: werken...
+  workshops: Workshops
+  workshops_only: Alleen workshops
+  your_submission: Jouw inzending
