@@ -306,6 +306,7 @@ en:
     login_required: After signing in you can enter your submission.
     login_required_title: Sign In To Participate
     looking_for_login_form: Are you looking for the login of submitters?
+    logo_hint: "A logo for the event / logo of the organization"
     no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface.
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
     notifications:
@@ -364,6 +365,7 @@ en:
     thanks_for_confirmation: Thank you for confirming your participation.
     thanks_for_interest: Thank you for your interest in participating in %{title}.
     to: to
+    track_hint: The event is to be assigned to the following category in the program.
     update: Update
     update_availability_notice: Thank you for specifying your availability.
     updated: Successfully updated. New email addresses have to reconfirmed.
@@ -459,7 +461,7 @@ en:
           for files they upload as attachments. If this option is deselected, they
           must select between a set of pre-configured titles.
         bcc_address: |
-          You can specify an e-mail address here. frab will send this address a 
+          You can specify an e-mail address here. frab will send this address a
           copy of each mail it sends to submitters. You can use this as a way to keep
           a log of all e-mails sent.
         bulk_notification_enabled: |
@@ -606,7 +608,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -632,7 +634,7 @@ en:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    - 
+    -
     - January
     - February
     - March
@@ -1063,7 +1065,7 @@ en:
     events_by_state: Events by state
     events_in_current_conference: Events in current conference
     events_in_other_conferences: Events in other conferences
-    feedback_not_enabled: The feedback system is not enabled.    
+    feedback_not_enabled: The feedback system is not enabled.
     filter_modal:
       at_least: at least
       at_most: at most
@@ -1085,7 +1087,7 @@ en:
         recording_license: Recording license for this talk
         submission_note: 'visibiliy: admin and user; additional information.'
         tech_rider: What is needed for this event?
-    listing_n_events: 
+    listing_n_events:
       one: Listing %{n} of %{count} event.
       other: Listing %{n} of %{count} events.
     my_events: My Events
@@ -1894,7 +1896,7 @@ en:
           attendance and events. Submitters answer the cfp to enter events into frab.
           Speakers take part in events, their availability matters. Moderators take
           part in panel discussions, their availability matters. Assistants have the
-          same permissions as submitters, and will be notified of any updates; but 
+          same permissions as submitters, and will be notified of any updates; but
           their availabilities is never taken into account.
         notification_body: 'Valid variables: %{variables}'
         person_filter: |

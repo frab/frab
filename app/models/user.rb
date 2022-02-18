@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_one :person
 
   accepts_nested_attributes_for :conference_users, allow_destroy: true
+  accepts_nested_attributes_for :person
 
   attr_accessor :remember_me
 
@@ -65,7 +66,7 @@ class User < ApplicationRecord
 
     return user
   end
-    
+
   def newer_than?(user)
     updated_at > user.updated_at
   end
@@ -121,7 +122,7 @@ class User < ApplicationRecord
   def is_speaker_in?(event)
     person.events.exists?(event.id)
   end
-  
+
   def credentials_editable?
     provider.blank?
   end

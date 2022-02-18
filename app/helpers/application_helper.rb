@@ -103,9 +103,9 @@ module ApplicationHelper
     t("activerecord.attributes.#{field}") + " (#{locale})"
   end
 
-  def translated_input(form_builder, attrib, locale)
+  def translated_input(form_builder, model, attrib, locale)
     p = Mobility.normalize_locale(locale)
-    form_builder.input :"#{attrib}_#{p}", label: language_label(attrib, locale), hint: language_hint(locale)
+    form_builder.input :"#{attrib}_#{p}", label: language_label("#{model}.#{attrib}", locale), hint: language_hint(locale)
   end
 
   def translated_textbox(form_builder, attrib, locale, label, hint)

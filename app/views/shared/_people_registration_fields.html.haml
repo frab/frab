@@ -1,0 +1,7 @@
+%fieldset.inputs
+  %legend= t('basic_information')
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :public_name, hint: t("cfp.public_name_hint")
+  - unless ENV['DISABLE_FRAB_GENDER_FIELD'].present?
+    = f.input :gender, collection: translated_options(Person::GENDERS)
