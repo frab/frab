@@ -99,8 +99,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'letter_opener'
   gem 'faker'
-  # TODO depends on railties
-  gem 'i18n-tasks',  '~> 0.9.34'
+  gem 'i18n-tasks'
+  gem 'easy_translate'
 end
 
 group :test do
