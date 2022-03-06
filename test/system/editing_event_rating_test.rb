@@ -17,12 +17,12 @@ class EditingEventRatingTest < ApplicationSystemTestCase
 
     find('div#my_rating').find(:xpath, '//img[@title="good"]').click()
     find('textarea').set('Quite good event')
-    click_on 'Create Event rating'
+    click_on 'Create rating'
 
     assert_content page, 'My rating'
     assert_content page, 'Quite good event'
     accept_alert do
-      click_on 'Delete Event rating'
+      click_on 'Delete rating'
     end
 
     assert_content page, 'My rating'
