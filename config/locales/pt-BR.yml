@@ -178,10 +178,14 @@ pt-BR:
       full_messages:
         format: "%{attribute}%{message}"
       messages:
+        confirmation: não corresponde à confirmação
         record_invalid: 'A validação falhou: %{errors}'
         taken: já está em uso
       template:
         body: 'Por favor, verifique o(s) seguinte(s) campo(s):'
+        header:
+          one: 'Não foi possível salvar %{model}: um erro.'
+          other: 'Não foi possível salvar %{model}: erro %{count}.'
     models:
       call_for_participation: Chamada para Participação
       classifier: classificador
@@ -191,7 +195,9 @@ pt-BR:
       event: Evento
       event_attachment: Arquivo
       event_classifier: categoria
+      event_feedback: comentários
       event_person: Pessoa
+      event_rating: avaliação
       im_account: Conta IM
       language: Linguagem
       link: Link
@@ -327,6 +333,7 @@ pt-BR:
     login_existing_headline: Entrar com uma conta existente
     login_required: Após fazer login, você pode inserir seu envio.
     login_required_title: Entre para participar
+    logo_hint: Um logotipo para o evento / logotipo da organização
     looking_for_login_form: Localize o login para os apresentadores?
     no_confirmation_token: Sua chave de confirmação não é válida. Por favor, verifique o status do seu evento na interface de participação.
     not_forget_personal_details: Não se esqueça de preencher o seu perfil. Você sempre pode fazer alterações em seu perfil usando o botão na barra lateral direita.
@@ -386,6 +393,7 @@ pt-BR:
     thanks_for_confirmation: Obrigado por confirmar a sua participação.
     thanks_for_interest: Obrigado por seu interesse em participar do %{title}.
     to: para
+    track_hint: O evento deve ser atribuído à seguinte categoria no programa.
     update: Atualizar
     update_availability_notice: Obrigado por sua especificar sua disponibilidade.
     updated: Atualizado com sucesso.
@@ -628,7 +636,7 @@ pt-BR:
     - Sex
     - Sáb
     abbr_month_names:
-    - 
+    -
     - Jan
     - Fev
     - Mar
@@ -655,7 +663,7 @@ pt-BR:
       only_day: "%e"
       short: "%d de %B"
     month_names:
-    - 
+    -
     - Janeiro
     - Fevereiro
     - Março
@@ -756,8 +764,8 @@ pt-BR:
     links:
       google_oauth2: Google
       ldap: Servidor LDAP
-      openid_connect: OpenID Connect
       no_unlock_instructions: Não recebeu instruções de desbloqueio?
+      openid_connect: OpenID Connect
       sign_in_with: Faça o login com %{provider}
     mailer:
       confirmation_instructions:
@@ -1077,6 +1085,11 @@ pt-BR:
     events_in_current_conference: Eventos na conferência atual
     events_in_other_conferences: Eventos em outras conferências
     feedback_not_enabled: O sistema de feedback não está ativado.
+    filter_modal:
+      at_least: "≥"
+      at_most: "≤"
+      exactly: "="
+      select_filter_for: 'Selecione o filtro para %{filtername}:'
     hide_all: esconda tudo
     indicator:
       full:
@@ -1140,11 +1153,6 @@ pt-BR:
     reject_event_hint: Rejeite este evento. O (s) orador (es) será notificado (a) da rejeição por email.
     reject_event_no_email: Rejeitar evento (sem email)
     reject_event_no_email_hint: Rejeite este evento sem enviar um email automático.
-    filter_modal:
-      at_least: '≥'
-      at_most: '≤'
-      exactly: '='
-      select_filter_for: 'Selecione o filtro para %{filtername}:'
     toggle_description: Alternar Descrição >>
     toggle_send_bulk_mail: Enviar email para todas essas pessoas >>
     track_select: filtrar por faixa
@@ -2327,9 +2335,9 @@ pt-BR:
   value: Valor
   version_on_item: "%{version} em %{item}"
   will_paginate:
-    next_label: Próximo 🡆
+    next_label: "Próximo \U0001F846"
     page_gap: "..."
-    previous_label: "🡄 Anterior"
+    previous_label: "\U0001F844 Anterior"
   work_in_progress: trabalhando...
   workshops: Workshops
   workshops_only: Apenas workshops

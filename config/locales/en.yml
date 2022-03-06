@@ -2,9 +2,16 @@
 en:
   ability:
     denied: This action is not allowed.
+  accepted_event_durations: Accepted event durations
   accepted_only: Accepted only
   actions: Actions
-  accepted_event_durations: Accepted event durations
+  activemodel:
+    errors:
+      template:
+        body: 'Please check the following fields:'
+        header:
+          one: 'Could not save %{model}: an error.'
+          other: 'Could not save %{model}: %{count} error.'
   activerecord:
     attributes:
       availability:
@@ -84,6 +91,7 @@ en:
         title: Title
         track: Track
       event_attachment:
+        attachment: file
         public: Public
         title: Title
       event_classifier:
@@ -91,6 +99,7 @@ en:
       event_feedback:
         comment: Comment
         note: Note
+        rating: evaluation
       event_rating:
         comment: Comment
         rating: Rating
@@ -103,6 +112,8 @@ en:
         im_type: IM Type
       langage:
         code: Code
+      language:
+        language: language
       link:
         title: Title
         url: Address
@@ -120,6 +131,7 @@ en:
         schedule_subject: Schedule subject
       person:
         abstract: Abstract
+        avatar: profile pic
         description: Description
         email: Email
         email_public: Public email
@@ -134,6 +146,7 @@ en:
         phone_type: Type
       room:
         name: Name
+        public: Public
         rank: Rank
         size: Size
       ticket:
@@ -155,11 +168,24 @@ en:
         seats: Seats
         transport_type: Transport type
       user:
+        current_password: Current Password
         email: Email
         password: Password
         password_confirmation: Password confirmation
         remember_me: Remember me
         role: Role
+    errors:
+      full_messages:
+        format: "%{attribute}%{message}"
+      messages:
+        confirmation: does not match the confirmation
+        record_invalid: 'Validation check failed: %{errors}'
+        taken: is already taken
+      template:
+        body: 'Please check the following fields:'
+        header:
+          one: 'Could not save %{model}: an error.'
+          other: 'Could not save %{model}: %{count} error.'
     models:
       call_for_participation: Call for Participation
       classifier: classifier
@@ -169,7 +195,9 @@ en:
       event: event
       event_attachment: file
       event_classifier: category
+      event_feedback: feedback
       event_person: person
+      event_rating: rating
       im_account: IM account
       language: language
       link: link
@@ -213,7 +241,7 @@ en:
   availability: Availability
   available: Available
   basic_information: Basic informations
-  blank_indication: (blank)
+  blank_indication: "(blank)"
   by: by
   call_for_participation: Call for Participation
   cancel: Cancel
@@ -305,8 +333,8 @@ en:
     login_existing_headline: Log in with an existing account
     login_required: After signing in you can enter your submission.
     login_required_title: Sign In To Participate
+    logo_hint: A logo for the event / logo of the organization
     looking_for_login_form: Are you looking for the login of submitters?
-    logo_hint: "A logo for the event / logo of the organization"
     no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface.
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
     notifications:
@@ -438,16 +466,16 @@ en:
     footer: This schedule was generated with [frab](http://frab.github.io/frab/).
     inputs:
       hints:
-        acronym: |
-          A short and unique handle for your conference, using only lower-case
-          letters, numbers and underscores. This will be used to identify your
-          conference in URLs etc. Example: 'froscon2011'
         accepted_event_durations: |
           Use the checkboxes above to determine which options are presented to
           submitters for indicating the duration of their proposed event.
           Submitters will be able to pick one of the values you checked here.
           As conference crew, you will be able to later change events to any
           duration, not only those checked here.
+        acronym: |
+          A short and unique handle for your conference, using only lower-case
+          letters, numbers and underscores. This will be used to identify your
+          conference in URLs etc. Example: 'froscon2011'
         allowed_event_types: |
           Here you can pick which types of events are accepted as submissions to
           this conference. This list affects only new submissions. Existing submissions
@@ -632,6 +660,7 @@ en:
     formats:
       default: "%Y-%m-%d"
       long: "%B %d, %Y"
+      only_day: "%e"
       short: "%b %d"
     month_names:
     -
@@ -735,8 +764,8 @@ en:
     links:
       google_oauth2: Google
       ldap: LDAP server
-      openid_connect: OpenID Connect
       no_unlock_instructions: Didn't receive unlock instructions?
+      openid_connect: OpenID Connect
       sign_in_with: Sign in with %{provider}
     mailer:
       confirmation_instructions:
@@ -926,9 +955,9 @@ en:
       confirmation: doesn't match %{attribute}
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       empty: can't be empty
-      exceeds: can't exceed %{what}
       equal_to: must be equal to %{count}
       even: must be even
+      exceeds: can't exceed %{what}
       exclusion: is reserved
       expired: has expired, please request a new one
       greater_than: must be greater than %{count}
@@ -986,6 +1015,9 @@ en:
     ago: "%{time_ago} ago"
     all_events: All events
     all_rating: All ratings
+    attachments_overview: Attachments
+    average_feedback: 'Average Feedback:'
+    average_speaker_feedback: 'Average feedback as speaker:'
     bulk_edit:
       add_person: Add person
       add_person_confirm:
@@ -995,27 +1027,18 @@ en:
       set_duration_confirm:
         one: Are you sure you want to change duration for this event?
         other: Are you sure you want to change duration for all %{count} events?
-      set_new_state: Assign state
-      set_new_track: Assign track
-      set_new_event_type: Change event type
       set_events_confirm:
-        one: Are you sure you want to change state for this event?
+        one: you sure you want to change state for this event?
         other: Are you sure you want to change state for all %{count} events?
       set_events_type_confirm:
         one: Are you sure you want to modify this event's type?
         other: Are you sure you want to modify the type for all %{count} events?
+      set_new_event_type: Change event type
+      set_new_state: Assign state
+      set_new_track: Assign track
       set_track_confirm:
         one: Are you sure you want to change the track of this event?
         other: Are you sure you want to change the track of all %{count} events?
-      set_events_confirm:
-        one: you sure you want to change state for this event?
-        other: Are you sure you want to change state for all %{count} events?
-      update_successful:
-        one: "%{count} edit completed successfully."
-        other: "%{count} edits completed successfully."
-      update_skipped:
-        one: "%{count} edit skipped."
-        other: "%{count} edits skipped."
       show: Edit these events
       title:
         one: 'Edit %{count} event:'
@@ -1023,9 +1046,12 @@ en:
       update_failed:
         one: "%{count} edit failed."
         other: "%{count} edits failed."
-    attachments_overview: Attachments
-    average_feedback: 'Average Feedback:'
-    average_speaker_feedback: 'Average feedback as speaker:'
+      update_skipped:
+        one: "%{count} edit skipped."
+        other: "%{count} edits skipped."
+      update_successful:
+        one: "%{count} edit completed successfully."
+        other: "%{count} edits completed successfully."
     cancel_event: Cancel event
     cancel_event_hint: Mark this event as cancelled. Usually this means that the speakers had to cancel their appearance.
     col_toggle_rooms: 'Toggle rooms:'
@@ -1033,7 +1059,7 @@ en:
     confirm_event_hint: Confirm that the speaker(s) will be present and that the event will actually take place.
     custom_notification: Custom notification
     custom_notification_hint: Add custom notifications for all speakers. These will be sent instead of the default notification on next bulk notification run. Modify them in 'Edit people' tab.
-    delete_rating: Delete Event rating
+    delete_rating: Delete rating
     edit_event: Edit Event
     edit_event_hint: Edit this event's data.
     edit_people: Edit people
@@ -1205,6 +1231,7 @@ en:
     art: Artificial Language
     arw: Arawak
     as: Assamese
+    asa: Asu (Tanzania)
     ast: Asturian
     ath: Athapascan Language
     aus: Australian Language
@@ -1223,6 +1250,7 @@ en:
     bej: Beja
     bem: Bemba
     ber: Berber
+    bez: Bena (Tanzania)
     bg: Bulgarian
     bh: Bihari
     bho: Bhojpuri
@@ -1236,6 +1264,7 @@ en:
     bo: Tibetan
     br: Breton
     bra: Braj
+    brx: brx
     bs: Bosnian
     btk: Batak
     bua: Buriat
@@ -1294,6 +1323,7 @@ en:
     dv: Divehi
     dyu: Dyula
     dz: Dzongkha
+    ebu: gimbu
     ee: Ewe
     efi: Efik
     egy: Ancient Egyptian
@@ -1403,6 +1433,7 @@ en:
     kaw: Kawi
     kbd: Kabardian
     kcg: Tyap
+    kea: Kabuverdianu
     kfo: Koro
     kg: Kongo
     kha: Khasi
@@ -1450,6 +1481,7 @@ en:
     lun: Lunda
     luo: Luo
     lus: Lushai
+    luy: Olulujia
     lv: Latvian
     mad: Madurese
     mag: Magahi
@@ -1553,10 +1585,12 @@ en:
     rn: Rundi
     ro: Romanian
     roa: Romance Language
+    rof: rof
     rom: Romany
     ru: Russian
     rup: Aromanian
     rw: Kinyarwanda
+    rwk: rwk
     sa: Sanskrit
     sad: Sandawe
     sah: Yakut
@@ -1608,6 +1642,7 @@ en:
     sux: Sumerian
     sv: Swedish
     sw: Swahili
+    swb: comeric
     syc: Classical Syriac
     syr: Syriac
     ta: Tamil
@@ -1670,6 +1705,7 @@ en:
     yi: Yiddish
     yo: Yoruba
     ypk: Yupik Language
+    yue: Cantonese
     za: Zhuang
     zap: Zapotec
     zbl: Blissymbols
@@ -1777,9 +1813,15 @@ en:
       decimal_units:
         format: "%n %u"
         units:
-          billion: Billion
+          billion:
+            one: billion
+            other: billion
+            others: billion
           million: Million
-          quadrillion: Quadrillion
+          quadrillion:
+            one: quadrillion
+            other: quadrillion
+            others: quadrillion
           thousand: Thousand
           trillion: Trillion
           unit: ''
@@ -1886,9 +1928,9 @@ en:
     edit_person: Edit person
     edit_person_hint: Edit this person's data.
     filter:
-      pick_one: -- Pick one of %{count} names below --
-      too_many: Too many names to display. Use filter.
       not_found: Not found.
+      pick_one: "-- Pick one of %{count} names below --"
+      too_many: Too many names to display. Use filter.
     inputs:
       hints:
         event_role: |
@@ -2022,6 +2064,7 @@ en:
     notice_rating_deleted: Rating deleted successfully.
     notice_rating_saved: Rating updated successfully.
     notice_rating_updated: Note updated successfully.
+    show ratings: Show ratings
     show_ratings: Show Ratings
     start_reviewing: Start reviewing
     start_reviewing_hint: |
@@ -2177,6 +2220,8 @@ en:
       last_word_connector: ", and "
       two_words_connector: " and "
       words_connector: ", "
+    select:
+      prompt: 'Please choose:'
   switch_conference: Switch conference
   this_conference: This conference
   ticket: Ticket
@@ -2289,9 +2334,9 @@ en:
   value: Value
   version_on_item: "%{version} on %{item}"
   will_paginate:
-    next_label: "Next 🡆"
+    next_label: "Next \U0001F846"
     page_gap: "…"
-    previous_label: "🡄 Previous"
+    previous_label: "\U0001F844 Previous"
   work_in_progress: working...
   workshops: Workshops
   workshops_only: Workshops only

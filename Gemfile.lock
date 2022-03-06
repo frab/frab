@@ -159,6 +159,9 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    easy_translate (0.5.1)
+      thread
+      thread_safe
     erubi (1.10.0)
     exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
@@ -455,6 +458,8 @@ GEM
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.1.0)
+    thread (0.2.2)
+    thread_safe (0.3.6)
     tilt (2.0.10)
     transitions (1.2.1)
     ttfunk (1.1.1)
@@ -509,6 +514,7 @@ DEPENDENCIES
   dalli
   devise
   dotenv-rails
+  easy_translate
   exception_notification
   factory_bot_rails
   faker
@@ -516,7 +522,7 @@ DEPENDENCIES
   gitlab_omniauth-ldap
   haml
   http_accept_language
-  i18n-tasks (~> 0.9.34)
+  i18n-tasks
   invisible_captcha
   jbuilder
   jquery-migrate-rails

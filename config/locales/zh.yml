@@ -5,6 +5,13 @@ zh:
   accepted_event_durations: 接受的事件持续时间
   accepted_only: 仅接受
   actions: 操作
+  activemodel:
+    errors:
+      template:
+        body: 请检查以下字段：
+        header:
+          one: 无法保存 %{model}：错误。
+          other: 无法保存 %{model}：%{count} 错误。
   activerecord:
     attributes:
       availability:
@@ -84,6 +91,7 @@ zh:
         title: 标题
         track: 跟踪
       event_attachment:
+        attachment: 文件
         public: 上市
         title: 标题
       event_classifier:
@@ -91,6 +99,7 @@ zh:
       event_feedback:
         comment: 评论
         note: 注意
+        rating: 评估
       event_rating:
         comment: 评论
         rating: 评分
@@ -103,6 +112,8 @@ zh:
         im_type: IM类型
       langage:
         code: 码
+      language:
+        language: 语
       link:
         title: 标题
         url: 地址
@@ -120,6 +131,7 @@ zh:
         schedule_subject: 附表科目
       person:
         abstract: 抽象
+        avatar: 用户照片
         description: 描述
         email: 电子邮件
         email_public: 公共邮件
@@ -134,6 +146,7 @@ zh:
         phone_type: 类型
       room:
         name: 名称
+        public: 上市
         rank: 秩
         size: 尺寸
       ticket:
@@ -155,11 +168,24 @@ zh:
         seats: 座位
         transport_type: 运输类型
       user:
+        current_password: 当前密码
         email: 电子邮件
         password: 密码
         password_confirmation: 确认密码
         remember_me: 记住我
         role: 角色
+    errors:
+      full_messages:
+        format: "%{attribute}%{message}"
+      messages:
+        confirmation: 与确认不符
+        record_invalid: 验证检查失败：%{errors}
+        taken: 已经被拿掉了
+      template:
+        body: 请检查以下字段：
+        header:
+          one: 无法保存 %{model}：错误。
+          other: 无法保存 %{model}：%{count} 错误。
     models:
       call_for_participation: 呼吁参与
       classifier: 分类
@@ -169,7 +195,9 @@ zh:
       event: 事件
       event_attachment: 文件
       event_classifier: 类别
+      event_feedback: 回馈
       event_person: 人
+      event_rating: 评估
       im_account: IM帐户
       language: 语言
       link: 链接
@@ -305,6 +333,7 @@ zh:
     login_existing_headline: 使用现有帐户登录
     login_required: 登录后，您可以输入提交内容。
     login_required_title: 登录参加
+    logo_hint: 活动的标志/组织的标志
     looking_for_login_form: 你在寻找提交者的登录名吗？
     no_confirmation_token: 您的确认密钥无效。请在参与界面的电话中查看您的活动状态。
     not_forget_personal_details: 如果您还没有填写您的个​​人资料，请不要忘记填写。请记住，您可以随时返回并使用右侧边栏中的按钮编辑您的个人资料。
@@ -364,6 +393,7 @@ zh:
     thanks_for_confirmation: 感谢您确认您的参与。
     thanks_for_interest: 感谢您对参与%{title}的兴趣。
     to: 至
+    track_hint: 该事件将被分配到程序中的以下类别。
     update: 更新
     update_availability_notice: 感谢您指定您的可用性。
     updated: 成功更新。
@@ -606,7 +636,7 @@ zh:
     - 周五
     - 星期六
     abbr_month_names:
-    - 
+    -
     - 一月
     - 二月
     - 损伤
@@ -630,9 +660,10 @@ zh:
     formats:
       default: "%Y-%m-%d"
       long: "%B %d, %Y"
+      only_day: "%e"
       short: "%b %d"
     month_names:
-    - 
+    -
     - 一月
     - 二月
     - 游行
@@ -733,8 +764,8 @@ zh:
     links:
       google_oauth2: 谷歌
       ldap: LDAP伺服器
-      openid_connect: OpenID Connect
       no_unlock_instructions: 没有收到解锁指示？
+      openid_connect: OpenID Connect
       sign_in_with: 用%{provider}登录
     mailer:
       confirmation_instructions:
@@ -1067,6 +1098,11 @@ zh:
     events_in_current_conference: 当前会议中的事件
     events_in_other_conferences: 其他会议中的活动
     feedback_not_enabled: 反馈系统未启用。
+    filter_modal:
+      at_least: "≥"
+      at_most: "≤"
+      exactly: "="
+      select_filter_for: 为%{filtername}选择过滤器：
     hide_all: 全部藏起来
     indicator:
       full:
@@ -1130,11 +1166,6 @@ zh:
     reject_event_hint: 拒绝此事件。发言者将通过电子邮件通知拒绝。
     reject_event_no_email: 拒绝活动(无电子邮件)
     reject_event_no_email_hint: 拒绝此事件而不发送自动电子邮件。
-    filter_modal:
-      at_least: '≥'
-      at_most: '≤'
-      exactly: '='
-      select_filter_for: 为%{filtername}选择过滤器：
     toggle_description: 切换说明>>
     toggle_send_bulk_mail: 发送邮件给所有这些人>>
     track_select: 按轨道过滤
@@ -1206,6 +1237,7 @@ zh:
     art: 人工语言
     arw: 阿拉瓦克
     as: 阿萨姆
+    asa: 阿苏（坦桑尼亚）
     ast: 阿斯图里亚斯
     ath: 阿塔帕斯卡语言
     aus: 澳大利亚语
@@ -1224,6 +1256,7 @@ zh:
     bej: 贝雅
     bem: 本巴
     ber: 柏柏尔
+    bez: 贝纳（坦桑尼亚）
     bg: 保加利亚语
     bh: 比哈里
     bho: 博杰普尔
@@ -1237,6 +1270,7 @@ zh:
     bo: 藏
     br: 布列塔尼
     bra: Braj
+    brx: brx
     bs: 波斯尼亚
     btk: 巴塔克
     bua: 布里亚特
@@ -1295,6 +1329,7 @@ zh:
     dv: 迪维希
     dyu: Dyula
     dz: 不丹文
+    ebu: 金布
     ee: 母羊
     efi: 埃菲克
     egy: 古埃及人
@@ -1404,6 +1439,7 @@ zh:
     kaw: 卡维
     kbd: 卡巴尔达
     kcg: Tyap
+    kea: 卡布维尔迪亚努
     kfo: 少佐
     kg: 金刚
     kha: 卡西
@@ -1451,6 +1487,7 @@ zh:
     lun: 隆达
     luo: 罗
     lus: Lushai
+    luy: 欧鲁鲁家
     lv: 拉脱维亚
     mad: 马都拉
     mag: Magahi
@@ -1554,10 +1591,12 @@ zh:
     rn: 隆迪语
     ro: 罗马尼亚
     roa: 浪漫语言
+    rof: 罗夫
     rom: 吉普赛
     ru: 俄语
     rup: 亚美尼亚语
     rw: 卢旺达语
+    rwk: rwk
     sa: 梵文
     sad: Sandawe
     sah: 雅库特
@@ -1609,6 +1648,7 @@ zh:
     sux: 苏美尔
     sv: 瑞典
     sw: 斯瓦希里
+    swb: 喜剧的
     syc: 古典叙利亚语
     syr: 叙利亚
     ta: 泰米尔人
@@ -1671,6 +1711,7 @@ zh:
     yi: 意第绪语
     yo: 约鲁巴
     ypk: Yupik语言
+    yue: 广东话
     za: 庄
     zap: 萨波蒂克
     zbl: 布列斯符号
@@ -1778,9 +1819,15 @@ zh:
       decimal_units:
         format: "%n %u"
         units:
-          billion: 十亿
+          billion:
+            one: 十亿
+            other: 十亿
+            others: 十亿
           million: 百万
-          quadrillion: 万亿
+          quadrillion:
+            one: 千万亿
+            other: 千万亿
+            others: 千万亿
           thousand: 千
           trillion: 兆
           unit: ''
@@ -2179,6 +2226,8 @@ zh:
       last_word_connector: "，和"
       two_words_connector: " 和"
       words_connector: "，"
+    select:
+      prompt: 请选择：
   switch_conference: 切换会议
   this_conference: 这次会议
   ticket: 票
@@ -2291,9 +2340,9 @@ zh:
   value: 值
   version_on_item: "%{item}上的%{version}"
   will_paginate:
-    next_label: 下一个🡆
+    next_label: "下一个\U0001F846"
     page_gap: "…"
-    previous_label: "🡄上一个"
+    previous_label: "\U0001F844上一个"
   work_in_progress: 加工...
   workshops: 研讨会
   workshops_only: 只有研讨会

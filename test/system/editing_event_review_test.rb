@@ -25,7 +25,7 @@ class EditingEventReviewTest < ApplicationSystemTestCase
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/#{@event.id}/event_rating"
     find('form').find('div', text: @review_metric.name).find('span', text: '4').find('input').click
-    click_on 'Create Event rating'
+    click_on 'Create rating'
     assert_content page, 'saved successfully'
 
     visit "/#{@conference.acronym}/events/ratings"
@@ -40,7 +40,7 @@ class EditingEventReviewTest < ApplicationSystemTestCase
     # Test that when @user deletes the review, the average is updated correctly
     visit "/#{@conference.acronym}/events/#{@event.id}/event_rating"
     accept_alert do
-      click_on 'Delete Event rating'
+      click_on 'Delete rating'
     end
     assert_content page, 'deleted successfully'
 

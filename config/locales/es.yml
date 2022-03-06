@@ -213,7 +213,9 @@ es:
       event: evento
       event_attachment: archivo
       event_classifier: categoría
+      event_feedback: reacción
       event_person: persona
+      event_rating: evaluación
       im_account: cuenta de mensajería instantánea
       language: idioma
       link: enlace
@@ -350,6 +352,7 @@ es:
     login_existing_headline: Iniciar sesión con una cuenta existente
     login_required: Después de iniciar sesión, puede ingresar su envío.
     login_required_title: Iniciar sesión para participar
+    logo_hint: Un logo para el evento / logo de la organización
     looking_for_login_form: "¿Estás buscando el inicio de sesión de los remitentes?"
     no_confirmation_token: Su clave de confirmación no es válida. Por favor verifique el estado de su evento en la interfaz de la convocatoria.
     not_forget_personal_details: No olvide llenar sus datos personales. Por favor recuerde que siempre es posible regresar y editar su perfil usando el botón en la barra lateral.
@@ -409,6 +412,7 @@ es:
     thanks_for_confirmation: Gracias por confirmar su participación
     thanks_for_interest: Gracias por su interés en participar en %{title}.
     to: a
+    track_hint: El evento debe ser asignado a la siguiente categoría en el programa.
     update: Actualizar
     update_availability_notice: Gracias por especificar su disponibilidad.
     updated: Actualizado exitosamente.
@@ -651,7 +655,7 @@ es:
     - Vie
     - Sáb
     abbr_month_names:
-    - 
+    -
     - ene
     - feb
     - mar
@@ -678,7 +682,7 @@ es:
       only_day: "%e"
       short: "%e. %b"
     month_names:
-    - 
+    -
     - enero
     - febrero
     - marzo
@@ -779,8 +783,8 @@ es:
     links:
       google_oauth2: Google
       ldap: Servidor LDAP
-      openid_connect: OpenID Connect
       no_unlock_instructions: "¿No recibió instrucciones de desbloqueo?"
+      openid_connect: OpenID Connect
       sign_in_with: Iniciar sesión con %{provider}
     mailer:
       confirmation_instructions:
@@ -1109,6 +1113,11 @@ es:
     events_in_current_conference: Eventos en conferencia actual
     events_in_other_conferences: Eventos en otras conferencias
     feedback_not_enabled: El sistema de retroalimentación no está habilitado.
+    filter_modal:
+      at_least: "≥"
+      at_most: "≤"
+      exactly: "="
+      select_filter_for: 'Seleccionar filtro para %{filtername}:'
     hide_all: ocultar todo
     indicator:
       full:
@@ -1172,11 +1181,6 @@ es:
     reject_event_hint: Rechazar este evento El o los oradores serán notificados del rechazo por correo electrónico.
     reject_event_no_email: Rechazar evento (sin correo electrónico)
     reject_event_no_email_hint: Rechace este evento sin enviar un correo electrónico automático.
-    filter_modal:
-      at_least: '≥'
-      at_most: '≤'
-      exactly: '='
-      select_filter_for: 'Seleccionar filtro para %{filtername}:'
     toggle_description: Alternar Descripción >>
     toggle_send_bulk_mail: Enviar correo a todas estas personas >>
     track_select: filtrar por la pista
@@ -1252,6 +1256,7 @@ es:
     art: Artificial Language
     arw: Arawak
     as: Assamese
+    asa: Asu (Tanzania)
     ast: Asturian
     ath: Athapascan Language
     aus: Australian Language
@@ -1270,6 +1275,7 @@ es:
     bej: Beja
     bem: Bemba
     ber: Berber
+    bez: Bena (Tanzania)
     bg: Bulgarian
     bh: Bihari
     bho: Bhojpuri
@@ -1283,6 +1289,7 @@ es:
     bo: Tibetan
     br: Breton
     bra: Braj
+    brx: brx
     bs: Bosnian
     btk: Batak
     bua: Buriat
@@ -1341,6 +1348,7 @@ es:
     dv: Divehi
     dyu: Dyula
     dz: Dzongkha
+    ebu: gimbu
     ee: Ewe
     efi: Efik
     egy: Ancient Egyptian
@@ -1450,6 +1458,7 @@ es:
     kaw: Kawi
     kbd: Kabardian
     kcg: Tyap
+    kea: Kabuverdianu
     kfo: Koro
     kg: Kongo
     kha: Khasi
@@ -1497,6 +1506,7 @@ es:
     lun: Lunda
     luo: Luo
     lus: Lushai
+    luy: Olulujia
     lv: Latvian
     mad: Madurese
     mag: Magahi
@@ -1600,10 +1610,12 @@ es:
     rn: Rundi
     ro: Romanian
     roa: Romance Language
+    rof: techo
     rom: Romany
     ru: Russian
     rup: Aromanian
     rw: Kinyarwanda
+    rwk: rwk
     sa: Sanskrit
     sad: Sandawe
     sah: Yakut
@@ -1655,6 +1667,7 @@ es:
     sux: Sumerian
     sv: Swedish
     sw: Swahili
+    swb: comerico
     syc: Classical Syriac
     syr: Syriac
     ta: Tamil
@@ -1717,6 +1730,7 @@ es:
     yi: Yiddish
     yo: Yoruba
     ypk: Yupik Language
+    yue: cantonés
     za: Zhuang
     zap: Zapotec
     zbl: Blissymbols
@@ -1827,10 +1841,12 @@ es:
         units:
           billion:
             one: millardo
+            other: mil millones
             others: mil millones
           million: millones
           quadrillion:
             one: billardo
+            other: cuatrillón
             others: mil billones
           thousand: mil
           trillion: billones
@@ -2074,6 +2090,7 @@ es:
     notice_rating_deleted: Calificación eliminada con éxito.
     notice_rating_saved: Calificación actualizada con éxito.
     notice_rating_updated: Nota actualizada con éxito.
+    show ratings: Mostrar calificaciones
     show_ratings: Mostrar calificaciones
     start_reviewing: Comience a revisar
     start_reviewing_hint: |
