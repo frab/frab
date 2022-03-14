@@ -33,6 +33,7 @@ json.schedule do
             json.url public_program_event_url(event)
             json.id event.id
             json.guid event.guid
+            json.organization event.organization
             json.logo event.logo_path
             json.date event.start_time.iso8601
             json.start event.start_time.strftime('%H:%M')

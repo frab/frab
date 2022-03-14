@@ -2,6 +2,7 @@ json.id event.id
 json.guid event.guid
 json.title event.title
 json.subtitle event.subtitle
+json.organization event.organization
 json.description event.description
 json.duration event.duration_in_minutes
 json.logo event.logo_path(:original)

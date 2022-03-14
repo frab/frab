@@ -27,6 +27,8 @@
     %br/
     %b #{t '.room'}:
     = event.room.try(:name)
+    %b #{t '.organization'}:
+    = event.organization
     %br/
     - unless event.track.blank?
       %b #{t '.track'}:

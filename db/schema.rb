@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_30_133258) do
+ActiveRecord::Schema.define(version: 2022_03_14_234117) do
 
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(version: 2022_01_30_133258) do
     t.string "invite_token"
     t.string "video_url", limit: 255
     t.string "interpreter", limit: 255
+    t.string "organization", default: "", null: false
     t.index ["conference_id"], name: "index_events_on_conference_id"
     t.index ["event_type"], name: "index_events_on_type"
     t.index ["guid"], name: "index_events_on_guid", unique: true

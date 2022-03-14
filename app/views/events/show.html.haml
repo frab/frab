@@ -80,6 +80,9 @@
       %p
         %b= t('col_room')
         = @event.room.try(:name)
+      %p
+        %b= t('organization')
+        = @event.organization
       -if @event.conference != @conference
         %b= t('col_conference')
         = @event.conference.acronym

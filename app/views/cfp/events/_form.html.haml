@@ -13,6 +13,7 @@
     = f.input :number_of_repeats, as: :select, collection: 1..3, hint: '1-3'
     = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
     = f.input :interpreter, collection: translated_options(Event::INTERPRETER)
+    = f.input :organization
     - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
       = image_input_box(f.object.logo)
       = f.input :logo, hint: t('cfp.logo_hint')
