@@ -1159,10 +1159,10 @@ de:
   feedback_system: Feedback-System
   frab_footer: |
     [frab] (http://frab.github.io/frab/) ist ein Konferenzplanungs- und -verwaltungssystem.
-    Es hilft, Einsendungen zu sammeln, Vorträge und Redner zu verwalten und eine Programm zu erstellen.
+    Es hilft, Einsendungen zu sammeln, Vorträge und Redner zu verwalten und ein Programm zu erstellen.
 
-    Das [Benutzerhandbuch] (https://github.com/frab/frab/wiki/Manual) wird in der
-    [wiki] (https://github.com/frab/frab/wiki/). Der Quellcode wird gehostet
+    Das [Benutzerhandbuch] (https://github.com/frab/frab/wiki/Manual) befindet sich im
+    [wiki] (https://github.com/frab/frab/wiki/). Der Quellcode ist auf
     [Github] (https://github.com/frab/frab).
   full_name: Vollständiger Name
   helpers:
