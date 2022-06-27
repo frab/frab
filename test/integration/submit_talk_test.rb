@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SubmitTalkTest < ActionDispatch::IntegrationTest
   setup do
-    @conference = create(:three_day_conference, title: 'present conference')
+    @conference = create(:multilingual_conference, title: 'present conference')
     create(:call_for_participation, conference: @conference)
     @user = create(:user)
   end
