@@ -168,6 +168,10 @@ class Person < ApplicationRecord
     end
   end
 
+  def confirmation_token(event)
+    event_people.where(event: event).pluck(:confirmation_token).compact.first
+  end
+
   def update_from_omniauth(auth)
     unless ENV['OVERRIDE_PROFILE_PHOTO']
       return if avatar.present?
