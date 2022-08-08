@@ -66,6 +66,7 @@ de:
         start_date: Anfangsdatum
       event:
         abstract: Zusammenfassung
+        audio_languages: Audio Sprachen
         average_feedback: Durchschnittliches Publikums-Feedback
         average_rating: Durchschnittliches Bewertung der Reviewer
         description: Beschreibung

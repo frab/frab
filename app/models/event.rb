@@ -25,6 +25,7 @@ class Event < ApplicationRecord
   has_many :people, through: :event_people
 
   serialize :methods, Array
+  serialize :audio_languages, Array
 
   belongs_to :conference
   belongs_to :track, optional: true

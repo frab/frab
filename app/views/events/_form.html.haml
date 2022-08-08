@@ -11,6 +11,7 @@
     = f.association :track, collection: @conference.tracks
     = f.input :time_slots, as: :select, collection: custom_timeslots
     = f.input :language, as: :language_select, only: @conference.language_codes
+    = f.input :audio_languages, as: :check_boxes, collection: languages
     = f.input :interpreter, collection: translated_options(Event::INTERPRETER)
     = f.input :organization
     = f.input :public, as: :inline_boolean, hint: t('events_module.inputs.hints.public')

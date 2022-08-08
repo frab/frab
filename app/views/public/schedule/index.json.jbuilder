@@ -45,6 +45,7 @@ json.schedule do
             json.track event.track.try(:name)
             json.type event.event_type
             json.language event.language
+            json.audio_languages audio_languages_string(event)
             json.abstract event.abstract
             json.description event.description
             json.recording_license event.recording_license

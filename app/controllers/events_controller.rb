@@ -459,6 +459,7 @@ class EventsController < BaseConferenceController
       *translated_params,
       :target_audience_experience, :target_audience_experience_text, :number_of_repeats, :other_locations,
       methods: [],
+      audio_languages: [],
       event_attachments_attributes: %i(id title attachment public _destroy),
       ticket_attributes: %i(id remote_ticket_id),
       links_attributes: %i(id title url _destroy),

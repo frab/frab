@@ -15,6 +15,10 @@ module EventsHelper
     event.methods.select { |m| m.present? }.join(', ')
   end
 
+  def audio_languages_string(event)
+    event.audio_languages.select(&:present?).join(', ')
+  end
+
   def event_start_time
     return t(:date_not_set) unless @event.start_time
     I18n.l(@event.start_time, format: :pretty_datetime)

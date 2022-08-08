@@ -66,6 +66,7 @@ en:
         start_date: start
       event:
         abstract: Summary
+        audio_languages: Audio languages
         average_feedback: Average feedback
         average_rating: Average rating
         description: Description
