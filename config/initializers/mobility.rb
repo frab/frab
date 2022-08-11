@@ -1,4 +1,18 @@
 Mobility.configure do
+  frab_fallbacks = {
+    de: I18n.default_locale,
+    en: I18n.default_locale,
+    es: I18n.default_locale,
+    fr: I18n.default_locale,
+    it: I18n.default_locale,
+    'pr-BR': I18n.default_locale,
+    ru: I18n.default_locale,
+    zh: I18n.default_locale
+  }
+  if ENV['FRAB_DEFAULT_LOCALE_FALLBACK']
+    frab_fallbacks[I18.default_locale] = ENV['FRAB_DEFAULT_LOCALE_FALLBACK'].to_sym
+  end
+
   # PLUGINS
   plugins do
     # Backend
@@ -66,14 +80,7 @@ Mobility.configure do
     #
     # Or uncomment this line to enable fallbacks with a global default.
     # fallbacks { :pt => :en }
-    fallbacks de: I18n.default_locale,
-      en: I18n.default_locale,
-      es: I18n.default_locale,
-      fr: I18n.default_locale,
-      it: I18n.default_locale,
-      'pr-BR': I18n.default_locale,
-      ru: I18n.default_locale,
-      zh: I18n.default_locale
+    fallbacks frab_fallbacks
 
     # Use columns on model directly, only reads/writes from/to backend if locale is
     # not I18n.default_locale
