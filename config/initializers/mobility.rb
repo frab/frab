@@ -10,7 +10,7 @@ Mobility.configure do
     zh: I18n.default_locale
   }
   if ENV['FRAB_DEFAULT_LOCALE_FALLBACK']
-    frab_fallbacks[I18.default_locale] = ENV['FRAB_DEFAULT_LOCALE_FALLBACK'].to_sym
+    frab_fallbacks[I18n.default_locale] = ENV['FRAB_DEFAULT_LOCALE_FALLBACK'].to_sym
   end
 
   # PLUGINS
