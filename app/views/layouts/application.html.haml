@@ -37,7 +37,5 @@
       .main-content
         = render 'shared/flash', flash: flash
         = yield
-    %footer.footer
-      .container
-        - if content_for? :footer
-          = yield :footer
+
+    = render 'shared/footer'
