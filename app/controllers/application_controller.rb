@@ -37,6 +37,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def translated_person_params
+    # Person can be edited without a conference, so allow all languages
+    translated_params = Language.all_normalized.map { |l|
+      [:"abstract_#{l}", :"description_#{l}"]
+    }.flatten
+  end
+
   def load_conference
     @conference = conference_from_params
     @conference ||= conference_from_session

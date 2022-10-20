@@ -106,7 +106,9 @@ class Cfp::PeopleController < ApplicationController
 
   def person_params
     params.require(:person).permit(
-      :first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar, :abstract, :description, :include_in_mailings,
+      :first_name, :last_name, :public_name, :email, :email_public, :gender, :avatar,
+      :include_in_mailings,
+      *translated_person_params,
       im_accounts_attributes: %i(id im_type im_address _destroy),
       languages_attributes: %i(id code _destroy),
       links_attributes: %i(id title url _destroy),
