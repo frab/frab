@@ -1,5 +1,12 @@
 require 'test_helper'
 require 'rake'
+require 'active_support'
+
+PERMITTED_CLASSES = [
+  Time,
+  ActiveSupport::TimeZone,
+  ActiveSupport::TimeWithZone
+].freeze
 
 # frab:conference_export_import
 class RakeTaskExportImportConferenceTest < ActiveSupport::TestCase
@@ -24,7 +31,12 @@ class RakeTaskExportImportConferenceTest < ActiveSupport::TestCase
 
     # Edit the export file to use a different acronym and title
     # otherwise it would not import
-    data = YAML.load_file 'tmp/frab_export/conference.yaml'
+    file = 'tmp/frab_export/conference.yaml'
+    data = begin
+      YAML.load_file(file, aliases: true, permitted_classes: PERMITTED_CLASSES)
+    rescue ArgumentError
+      YAML.load_file(file)
+    end
     data["acronym"] = NEW_ACRONYM
     data["title"] = "NewTitle"
     File.open("tmp/frab_export/conference.yaml", 'w') { |f| YAML.dump(data, f) }

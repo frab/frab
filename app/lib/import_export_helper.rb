@@ -1,5 +1,10 @@
 class ImportExportHelper
   EXPORT_DIR = 'tmp/frab_export'.freeze
+  PERMITTED_CLASSES = [
+    Time,
+    ActiveSupport::TimeZone,
+    ActiveSupport::TimeWithZone
+  ].freeze
 
   def initialize(conference = nil)
     @export_dir = EXPORT_DIR
@@ -316,7 +321,12 @@ class ImportExportHelper
     puts "[ ] restore #{name}" if verbose?
     file = File.join(@export_dir, name) + '.yaml'
     return unless File.readable? file
-    YAML.load_file(file)
+
+    begin
+      YAML.load_file(file, aliases: true, permitted_classes: PERMITTED_CLASSES)
+    rescue ArgumentError
+      YAML.load_file(file)
+    end
   end
 
   def restore(name, obj)
