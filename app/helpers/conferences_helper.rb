@@ -1,9 +1,7 @@
 module ConferencesHelper
-  def conference_tab(current, active)
-    css_class = 'active' if current == active
-    haml_tag :li, class: css_class do
-      yield
-    end
+  def active_tab(current, active)
+    return 'active' if current == active
+    ''
   end
 
   def timeslot_durations(conference)
