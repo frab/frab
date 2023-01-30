@@ -3,7 +3,7 @@
         class: event.conflict_level,
         :"data-update-url" => cfp_schedule_update_event_path(id: event.id),
         :"data-room" => event.room&.name&.downcase,
-        :"data-time" => event.start_time&.to_s(:rfc822) }
+        :"data-time" => event.start_time&.to_fs(:rfc822) }
   .color-preview{ style: "background-color: ##{event.track.try(:color)}" }
   = event.title
   %p.small

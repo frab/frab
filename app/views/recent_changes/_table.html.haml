@@ -8,7 +8,7 @@
             - user = User.find(version.whodunnit)
           - rescue
         %tr
-          %td= version.created_at.to_s(:long)
+          %td= version.created_at.to_fs(:long)
           - if user and user.person
             %td= image_box user.person.avatar, :small
             %td= link_to user.person.full_name, user.person

@@ -48,7 +48,7 @@ module StaticSchedule
           }
           @paths << {
             action: :day,
-            template: 'schedule/custom_pdf.pdf.prawn',
+            template: 'schedule/custom_pdf',
             format: :pdf,
             assigns: {
               day: day,

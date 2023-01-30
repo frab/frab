@@ -1,21 +1,21 @@
 %ul.tabs
-  - conference_tab(:settings, active) do
+  %li{class: active_tab(:settings, active)}
     = link_to t(:settings), edit_conference_path
-  - conference_tab(:days, active) do
+  %li{class: active_tab(:days, active)}
     = link_to t(:days), edit_days_conference_path
-  - conference_tab(:tracks, active) do
+  %li{class: active_tab(:tracks, active)}
     = link_to t(:tracks), edit_tracks_conference_path
-  - conference_tab(:rooms, active) do
+  %li{class: active_tab(:rooms, active)}
     = link_to t(:rooms), edit_rooms_conference_path
-  - conference_tab(:schedule, active) do
+  %li{class: active_tab(:schedule, active)}
     = link_to t(:schedule), edit_schedule_conference_path
   - if @conference.ticket_server_enabled?
-    - conference_tab(:ticket_server, active) do
+    %li{class: active_tab(:ticket_server, active)}
       = link_to t(:ticket_server), edit_ticket_server_conference_path
-  - conference_tab(:classifiers, active) do
+  %li{class: active_tab(:classifiers, active)}
     = link_to t(:classifiers), edit_classifiers_conference_path
-  - conference_tab(:reviewing, active) do
+  %li{class: active_tab(:reviewing, active)}
     = link_to t(:reviewing), edit_review_metrics_conference_path
   - if @conference.ticket_type == 'integrated' or @conference.bulk_notification_enabled
-    - conference_tab(:notifications, active) do
+    %li{class: active_tab(:notifications, active)}
       = link_to t('notifications'), edit_notifications_conference_path
