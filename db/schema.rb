@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_21_223350) do
-
+ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
     t.integer "conference_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.integer "day_id"
     t.index ["conference_id"], name: "index_availabilities_on_conference_id"
     t.index ["person_id"], name: "index_availabilities_on_person_id"
@@ -39,8 +38,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.date "hard_deadline"
     t.text "welcome_text"
     t.integer "conference_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "info_url", limit: 255
     t.string "contact_email", limit: 255
     t.index ["start_date", "end_date"], name: "index_call_for_papers_on_dates"
@@ -61,9 +60,9 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "tarball_file_name", limit: 255
     t.string "tarball_content_type", limit: 255
     t.integer "tarball_file_size"
-    t.datetime "tarball_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "tarball_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["conference_id"], name: "index_conference_exports_on_conference_id"
   end
 
@@ -71,8 +70,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "role", limit: 255
     t.integer "user_id"
     t.integer "conference_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["conference_id"], name: "index_conference_users_on_conference_id"
     t.index ["user_id"], name: "index_conference_users_on_user_id"
   end
@@ -85,8 +84,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "default_timeslots", default: 3, null: false
     t.integer "max_timeslots", default: 20, null: false
     t.boolean "feedback_enabled", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "email", limit: 255
     t.string "program_export_base_url", limit: 255
     t.string "schedule_version", limit: 255
@@ -104,10 +103,10 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "logo_file_name"
     t.string "logo_content_type"
     t.integer "logo_file_size"
-    t.datetime "logo_updated_at"
+    t.datetime "logo_updated_at", precision: nil
     t.boolean "schedule_open", default: false, null: false
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.boolean "attachment_title_is_freeform", default: true
     t.string "allowed_event_types", default: "lecture;workshop;podium;lightning_talk;meeting;film;concert;djset;performance;other"
     t.string "allowed_event_timeslots_csv", limit: 400
@@ -122,16 +121,16 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "person_id"
     t.string "conflict_type", limit: 255
     t.string "severity", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["event_id", "conflicting_event_id"], name: "index_conflicts_on_event_id"
     t.index ["person_id"], name: "index_conflicts_on_person_id"
   end
 
   create_table "days", force: :cascade do |t|
     t.integer "conference_id"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.index ["conference_id"], name: "index_days_on_conference"
   end
 
@@ -141,9 +140,9 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "attachment_file_name", limit: 255
     t.string "attachment_content_type", limit: 255
     t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "attachment_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "public", default: true
     t.index ["event_id"], name: "index_event_attachments_on_event_id"
   end
@@ -162,8 +161,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "event_id"
     t.float "rating"
     t.text "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["event_id"], name: "index_event_feedbacks_on_event_id"
   end
 
@@ -173,8 +172,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "event_role", limit: 255, default: "submitter", null: false
     t.string "role_state", limit: 255
     t.string "comment", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "confirmation_token", limit: 255
     t.string "notification_subject", limit: 255
     t.text "notification_body"
@@ -187,8 +186,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "person_id"
     t.float "rating"
     t.text "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["event_id"], name: "index_event_ratings_on_event_id"
     t.index ["person_id"], name: "index_event_ratings_on_person_id"
   end
@@ -200,8 +199,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.text "description"
     t.string "locale", null: false
     t.integer "event_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["event_id", "locale"], name: "index_event_translations_on_event_id_and_locale", unique: true
     t.index ["locale"], name: "index_event_translations_on_locale"
   end
@@ -214,18 +213,18 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "time_slots", default: 3
     t.string "state", limit: 255, default: "new", null: false
     t.string "language", limit: 255
-    t.datetime "start_time"
+    t.datetime "start_time", precision: nil
     t.text "abstract"
     t.text "description"
     t.boolean "public", default: true
     t.string "logo_file_name", limit: 255
     t.string "logo_content_type", limit: 255
     t.integer "logo_file_size"
-    t.datetime "logo_updated_at"
+    t.datetime "logo_updated_at", precision: nil
     t.integer "track_id"
     t.integer "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.float "average_rating"
     t.integer "event_ratings_count", default: 0
     t.text "note"
@@ -236,6 +235,11 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "guid", limit: 255
     t.boolean "do_not_record", default: false
     t.string "recording_license", limit: 255
+    t.integer "number_of_repeats", default: 1
+    t.text "other_locations"
+    t.text "methods"
+    t.text "target_audience_experience"
+    t.text "target_audience_experience_text"
     t.text "tech_rider"
     t.string "invite_token"
     t.string "video_url", limit: 255
@@ -252,8 +256,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.boolean "reimbursed"
     t.integer "person_id"
     t.integer "conference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["conference_id"], name: "index_expenses_on_conference_id"
     t.index ["person_id"], name: "index_expenses_on_person_id"
   end
@@ -262,8 +266,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "person_id"
     t.string "im_type", limit: 255
     t.string "im_address", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["person_id"], name: "index_im_accounts_on_person_id"
   end
 
@@ -271,8 +275,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "code", limit: 255
     t.integer "attachable_id"
     t.string "attachable_type", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["attachable_id"], name: "index_languages_on_attachable_id"
   end
 
@@ -281,8 +285,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "url", limit: 255, null: false
     t.integer "linkable_id", null: false
     t.string "linkable_type", limit: 255, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["linkable_id"], name: "index_links_on_linkable_id"
   end
 
@@ -291,14 +295,14 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "name"
     t.string "subject"
     t.text "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["conference_id"], name: "index_mail_templates_on_conference_id"
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "locale", limit: 255
     t.string "accept_subject", limit: 255
     t.string "reject_subject", limit: 255
@@ -319,11 +323,11 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "avatar_file_name", limit: 255
     t.string "avatar_content_type", limit: 255
     t.integer "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.datetime "avatar_updated_at", precision: nil
     t.text "abstract"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.text "note"
     t.boolean "include_in_mailings", default: false, null: false
@@ -337,8 +341,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.text "description"
     t.string "locale", null: false
     t.integer "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["locale"], name: "index_person_translations_on_locale"
     t.index ["person_id", "locale"], name: "index_person_translations_on_person_id_and_locale", unique: true
   end
@@ -347,8 +351,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "person_id"
     t.string "phone_type", limit: 255
     t.string "phone_number", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["person_id"], name: "index_phone_numbers_on_person_id"
   end
 
@@ -356,8 +360,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "name"
     t.string "description"
     t.integer "conference_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["conference_id"], name: "index_review_metrics_on_conference_id"
     t.index ["name", "conference_id"], name: "index_review_metrics_on_name_and_conference_id", unique: true
   end
@@ -366,8 +370,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "event_rating_id"
     t.integer "review_metric_id"
     t.integer "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["event_rating_id"], name: "index_review_scores_on_event_rating_id"
     t.index ["review_metric_id"], name: "index_review_scores_on_review_metric_id"
   end
@@ -376,8 +380,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.integer "conference_id", null: false
     t.string "name", limit: 255, null: false
     t.integer "size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "rank"
     t.index ["conference_id"], name: "index_rooms_on_conference_id"
   end
@@ -385,8 +389,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", limit: 255, null: false
     t.text "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["session_id"], name: "index_sessions_on_session_id"
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
@@ -396,16 +400,16 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "url", limit: 255
     t.string "user", limit: 255
     t.string "password", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "queue", limit: 255
   end
 
   create_table "tickets", force: :cascade do |t|
     t.integer "object_id", null: false
     t.string "remote_ticket_id", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "object_type"
     t.index ["object_id"], name: "index_tickets_on_object_id"
   end
@@ -414,8 +418,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "name"
     t.string "locale", null: false
     t.integer "track_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["locale"], name: "index_track_translations_on_locale"
     t.index ["track_id", "locale"], name: "index_track_translations_on_track_id_and_locale", unique: true
   end
@@ -423,8 +427,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
   create_table "tracks", force: :cascade do |t|
     t.integer "conference_id"
     t.string "name", limit: 255, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "color", limit: 255, default: "fefd7f"
     t.index ["conference_id"], name: "index_tracks_on_conference_id"
   end
@@ -432,13 +436,13 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
   create_table "transport_needs", force: :cascade do |t|
     t.integer "person_id"
     t.integer "conference_id"
-    t.datetime "at"
+    t.datetime "at", precision: nil
     t.string "transport_type"
     t.integer "seats"
     t.boolean "booked"
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["conference_id"], name: "index_transport_needs_on_conference_id"
     t.index ["person_id"], name: "index_transport_needs_on_person_id"
   end
@@ -446,25 +450,25 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
   create_table "users", force: :cascade do |t|
     t.string "email", limit: 255, default: "", null: false
     t.string "reset_password_token", limit: 255
-    t.datetime "remember_created_at"
+    t.datetime "remember_created_at", precision: nil
     t.string "remember_token", limit: 255
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip", limit: 255
     t.string "last_sign_in_ip", limit: 255
     t.string "confirmation_token", limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "role", limit: 255, default: "submitter"
     t.string "encrypted_password", default: "", null: false
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.string "provider"
     t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -479,7 +483,7 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.string "event", limit: 255, null: false
     t.string "whodunnit", limit: 255
     t.text "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.integer "conference_id"
     t.integer "associated_id"
     t.string "associated_type", limit: 255
@@ -487,4 +491,15 @@ ActiveRecord::Schema.define(version: 2021_11_21_223350) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "average_review_scores", "events"
+  add_foreign_key "average_review_scores", "review_metrics"
+  add_foreign_key "classifiers", "conferences"
+  add_foreign_key "event_classifiers", "classifiers"
+  add_foreign_key "event_classifiers", "events"
+  add_foreign_key "event_translations", "events"
+  add_foreign_key "person_translations", "people"
+  add_foreign_key "review_metrics", "conferences"
+  add_foreign_key "review_scores", "event_ratings"
+  add_foreign_key "review_scores", "review_metrics"
+  add_foreign_key "track_translations", "tracks"
 end
