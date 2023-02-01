@@ -64,6 +64,7 @@ jobs:
 
     - name: Prepare MySQL
       run: |
+        cp db/schema.rb-mysql db/schema.rb
         bundle exec rails db:create
         echo "DATABASE_URL=$DATABASE_URL" >> $GITHUB_ENV
       env:

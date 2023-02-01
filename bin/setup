@@ -24,6 +24,12 @@ FileUtils.chdir APP_ROOT do
   # Install JavaScript dependencies if using Yarn
   # system('bin/yarn')
 
+  # naive mysql detection to work around bigint id issues
+  if ENV.fetch('DATABASE_URL', '').match('mysq') || File.open('config/database.yml').grep('mysql:')
+    puts "\n== Copying mysql schema =="
+    FileUtils.cp 'db/schema.rb-mysql', 'db/schema.rb'
+  end
+
   puts "\n== Preparing database =="
   system! 'bin/rails db:setup'
 
