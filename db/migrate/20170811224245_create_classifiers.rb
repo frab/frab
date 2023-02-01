@@ -1,4 +1,4 @@
-class CreateClassifiers < ActiveRecord::Migration[5.0]
+class CreateClassifiers < ActiveRecord::Migration[6.0]
   def change
     create_table :classifiers do |t|
       t.string :name

@@ -1,5 +1,5 @@
 class CreateEventTitleAndSubtitleAndAbstractAndDescriptionTranslationsForMobilityTableBackend < ActiveRecord::Migration[5.2]
-  def change
+  def up
     create_table :event_translations do |t|
 
       # Translated attribute(s)
@@ -17,5 +17,9 @@ class CreateEventTitleAndSubtitleAndAbstractAndDescriptionTranslationsForMobilit
     add_index :event_translations, :locale, name: :index_event_translations_on_locale
     add_index :event_translations, [:event_id, :locale], name: :index_event_translations_on_event_id_and_locale, unique: true
 
+  end
+
+  def down
+    drop_table :event_translations
   end
 end

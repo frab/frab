@@ -1,4 +1,4 @@
-class CreateEventClassifiers < ActiveRecord::Migration[5.0]
+class CreateEventClassifiers < ActiveRecord::Migration[6.0]
   def change
     create_table :event_classifiers do |t|
       t.integer :value, default: 0
