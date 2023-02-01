@@ -18,8 +18,6 @@ WORKDIR /home/frab/app
 
 RUN bundle install
 
-RUN cp config/database.yml.template config/database.yml
-
 VOLUME /home/frab/app/public
 
 EXPOSE 3000

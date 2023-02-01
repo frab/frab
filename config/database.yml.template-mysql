@@ -1,0 +1,19 @@
+# MySQL
+#   bundle install --with mysql
+#   # not in production
+#   mysqladmin -u root password root
+mysql: &base
+  adapter: mysql2
+  username: root
+  password:
+  database: frab_<%= Rails.env %>
+  min_messages: ERROR
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+production:
+  <<: *base

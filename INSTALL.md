@@ -70,7 +70,7 @@ want to use, exclude drivers with
 
 2) Create (and possibly modify) the database configuration:
 
-    cp config/database.yml.template config/database.yml
+    cp config/database.yml.template-sqlite config/database.yml
 
 3) Configuration
 

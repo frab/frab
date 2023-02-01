@@ -18,14 +18,14 @@ FileUtils.chdir APP_ROOT do
   system('bundle check') || system!('bundle install --without mysql postgresql')
 
   puts "\n== Copying sample files =="
-  unless File.exist?('config/database.yml')
-    FileUtils.cp 'config/database.yml.template', 'config/database.yml'
+  unless File.exist?('config/database.yml') || ENV.key?('DATABASE_URL')
+    FileUtils.cp 'config/database.yml.template-sqlite', 'config/database.yml'
   end
   # Install JavaScript dependencies if using Yarn
   # system('bin/yarn')
 
   # naive mysql detection to work around bigint id issues
-  if ENV.fetch('DATABASE_URL', '').match('mysq') || File.open('config/database.yml').grep('mysql:')
+  if ENV.fetch('DATABASE_URL', '').match('mysql') || File.open('config/database.yml').grep('mysql:')
     puts "\n== Copying mysql schema =="
     FileUtils.cp 'db/schema.rb-mysql', 'db/schema.rb'
   end
