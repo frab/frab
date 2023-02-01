@@ -1,5 +1,5 @@
 class CreatePersonAbstractAndDescriptionTranslationsForMobilityTableBackend < ActiveRecord::Migration[5.2]
-  def change
+  def up
     create_table :person_translations do |t|
 
       # Translated attribute(s)
@@ -15,5 +15,9 @@ class CreatePersonAbstractAndDescriptionTranslationsForMobilityTableBackend < Ac
     add_index :person_translations, :locale, name: :index_person_translations_on_locale
     add_index :person_translations, [:person_id, :locale], name: :index_person_translations_on_person_id_and_locale, unique: true
 
+  end
+
+  def down
+    drop_table :person_translations
   end
 end

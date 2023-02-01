@@ -57,16 +57,16 @@ jobs:
     - name: Prepare Postgresql
       run: |
         bundle exec rails db:create
-        sed 's#url: POSTGRES#url: '$DATABASE_URL'#' .github/database.yml > config/database.yml
+        echo "DATABASE_URL=$DATABASE_URL" >> $GITHUB_ENV
       env:
         DATABASE_URL: postgres://postgres:root@127.0.0.1:${{ job.services.postgres.ports[5432] }}/frab_test
       if: matrix.db == 'postgresql'
 
     - name: Prepare MySQL
       run: |
+        cp db/schema.rb-mysql db/schema.rb
         bundle exec rails db:create
-        echo $DATABASE_URL
-        sed 's#url: MYSQL#url: '$DATABASE_URL'#' .github/database.yml > config/database.yml
+        echo "DATABASE_URL=$DATABASE_URL" >> $GITHUB_ENV
       env:
         DATABASE_URL: mysql2://root:root@127.0.0.1:${{ job.services.mysql.ports[3306] }}/frab_test
       if: matrix.db == 'mysql'

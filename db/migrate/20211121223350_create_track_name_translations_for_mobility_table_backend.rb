@@ -1,5 +1,5 @@
 class CreateTrackNameTranslationsForMobilityTableBackend < ActiveRecord::Migration[5.2]
-  def change
+  def up
     create_table :track_translations do |t|
 
       # Translated attribute(s)
@@ -14,5 +14,9 @@ class CreateTrackNameTranslationsForMobilityTableBackend < ActiveRecord::Migrati
     add_index :track_translations, :locale, name: :index_track_translations_on_locale
     add_index :track_translations, [:track_id, :locale], name: :index_track_translations_on_track_id_and_locale, unique: true
 
+  end
+
+  def down
+    drop_table :track_translations
   end
 end

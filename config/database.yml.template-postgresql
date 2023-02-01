@@ -1,0 +1,19 @@
+# PostgreSQL
+#   bundle install --with pq
+#   # not in production
+#   createuser -U $USER --superuser postgres
+postgresql: &base
+  adapter: postgresql
+  username: postgres
+  password:
+  database: frab_<%= Rails.env %>
+  min_messages: ERROR
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+production:
+  <<: *base
