@@ -158,7 +158,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     crass (1.0.6)
     dalli (3.2.3)
     date (3.3.3)
@@ -408,7 +408,7 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     rangesliderjs-rails (2.3.1)
-    ransack (3.2.1)
+    ransack (4.0.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
