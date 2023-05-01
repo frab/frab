@@ -158,11 +158,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     crass (1.0.6)
     dalli (3.2.3)
     date (3.3.3)
-    devise (4.8.1)
+    devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -213,7 +213,7 @@ GEM
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     httpclient (2.8.3)
-    i18n (1.12.0)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     i18n-tasks (1.0.12)
       activesupport (>= 4.0.2)
@@ -258,7 +258,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.19.1)
+    loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -270,8 +270,8 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
-    minitest (5.17.0)
+    mini_portile2 (2.8.2)
+    minitest (5.18.0)
     mobility (1.2.9)
       i18n (>= 0.6.10, < 2)
       request_store (~> 1.0)
@@ -361,7 +361,7 @@ GEM
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
     racc (1.6.2)
-    rack (2.2.6.2)
+    rack (2.2.7)
     rack-oauth2 (1.21.3)
       activesupport
       attr_required
@@ -370,7 +370,7 @@ GEM
       rack (>= 2.1.0)
     rack-protection (3.0.5)
       rack
-    rack-test (2.0.2)
+    rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.4.2)
       actioncable (= 7.0.4.2)
@@ -422,9 +422,9 @@ GEM
     repost (0.4.1)
     request_store (1.5.1)
       rack (>= 1.4)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.5)
     ri_cal (0.8.8)
     rqrcode (2.1.2)
@@ -518,7 +518,7 @@ GEM
       nokogiri (~> 1.8)
     yard (0.9.28)
       webrick (~> 1.7.0)
-    zeitwerk (2.6.6)
+    zeitwerk (2.6.8)
 
 PLATFORMS
   ruby
