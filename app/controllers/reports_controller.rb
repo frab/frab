@@ -55,7 +55,7 @@ class ReportsController < BaseConferenceController
     end
 
     unless r.nil? or r.empty?
-      @search = r.search(params[:q])
+      @search = r.ransack(params[:q])
       @search_count = r.count
       @events = @search.result.paginate page: page_param
     end
@@ -119,7 +119,7 @@ class ReportsController < BaseConferenceController
     end
 
     unless r.nil? or r.empty?
-      @search = r.search(params[:q])
+      @search = r.ransack(params[:q])
       @search_count = r.length
       @people = @search.result.paginate page: page_param
     end
@@ -180,7 +180,7 @@ class ReportsController < BaseConferenceController
   end
 
   def show_transport_needs
-    @search = @conference.transport_needs.search(params[:q])
+    @search = @conference.transport_needs.ransack(params[:q])
     @transport_needs = @search.result
     @report_type = params[:id]
 
