@@ -13,8 +13,8 @@
       .span16
         .blank-slate
           - if Person.count <= 1
-            %p= raw(GitHub::Markdown.render(t('people_module.no_people_data')))
+            %p= raw(markdown_render(t('people_module.no_people_data')))
           - else
-            %p= raw(GitHub::Markdown.render(t('people_module.no_people_involved')))
+            %p= raw(markdown_render(t('people_module.no_people_involved')))
   - else
     = render 'shared/search_and_table', collection: @people

@@ -160,4 +160,9 @@ module ApplicationHelper
     return t('role.submitter') if current_user.is_submitter?
     fail 'should not happen: user without acl'
   end
+
+  def markdown_render(arg)
+    @md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
+    @md.render(arg)
+  end
 end

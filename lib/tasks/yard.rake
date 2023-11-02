@@ -1,5 +1,4 @@
 begin
-  require 'github/markdown'
   require 'redcarpet'
   require 'yard'
   require 'yard/rake/yardoc_task'
