@@ -8,10 +8,10 @@
                                     collection: [[f.object.person&.full_name_annotated, f.object.person_id]],
                                     label: false,
                                     style: 'width: 360px;'
-      %span#person_id= f.input_field :person_id, as: :hidden                              
+      %span#person_id= f.input_field :person_id, as: :hidden
     = f.input :event_role, as: :select, collection: translated_options(EventPerson::ROLES), hint: t('people_module.inputs.hints.event_role')
     = f.input :role_state, as: :select, collection: translated_options(EventPerson::STATES)
     - if f.object.notification_subject.present? or f.object.notification_body.present?
       = f.input :notification_subject, label: t('people_module.inputs.notification_subject')
-      = f.input :notification_body, label: t('people_module.inputs.notification_body'), as: :text, hint: t('people_module.inputs.hints.notification_body', {variables: Notification::VARIABLES.collect{ |key, desc| '%{'+key+'}' }.join(', ')})
+      = f.input :notification_body, label: t('people_module.inputs.notification_body'), as: :text, hint: t('people_module.inputs.hints.notification_body', variables: Notification::VARIABLES.collect{ |key, desc| '%{'+key+'}' }.join(', '))
     = remove_association_link :event_person, f

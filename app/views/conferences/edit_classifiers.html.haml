@@ -7,7 +7,7 @@
     .row
       .span16
         .blank-slate
-          %p= raw(GitHub.render(t('classifiers_module.modify_classifier_with_parent', {parent: @conference.parent.title})))
+          %p= raw(GitHub.render(t('classifiers_module.modify_classifier_with_parent', parent: @conference.parent.title)))
           %p= t('classifiers_module.current_classifiers')
 
           %uls
