@@ -6,5 +6,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def setup
     I18n.locale = I18n.default_locale
+
+    Webdrivers::Chromedriver.required_version = '114.0.5735.90'
   end
 end
