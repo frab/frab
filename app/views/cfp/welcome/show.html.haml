@@ -36,4 +36,4 @@
         - if @conference.in_the_past?
           =t("cfp.conference_in_the_past")
         - else
-          = raw GitHub::Markdown.render(t('cfp.deadline_description', date: l(@conference.call_for_participation.end_date)))
+          = raw markdown_render(t('cfp.deadline_description', date: l(@conference.call_for_participation.end_date)))
