@@ -3,7 +3,7 @@ module StaticSchedule
     include RakeLogger
 
     EXPORT_PATH = Rails.root.join('tmp', 'static_export').to_s
-    STATIC_ASSET_PATHS = %w[app/assets/stylesheets/public_schedule.css app/assets/stylesheets/public_schedule_print.css].freeze
+    STATIC_ASSET_PATHS = %w[app/assets/stylesheets/public_schedule.css app/assets/stylesheets/public_schedule_print.css app/assets/stylesheets/firasans-italic-latin-ext.woff2 app/assets/stylesheets/firasans-italic-latin.woff2 app/assets/stylesheets/firasans-latin-ext.woff2 app/assets/stylesheets/firasans-latin.woff2 app/assets/stylesheets/firasans-medium-latin-ext.woff2 app/assets/stylesheets/firasans-medium-latin.woff2].freeze
     STATIC_ASSET_REGEX = %r{.*/(.*)-(?:[a-f0-9]+)\.(.{3})}
 
     # Export a static html version of the conference program.
