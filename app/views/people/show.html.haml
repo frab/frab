@@ -13,7 +13,7 @@
   - if policy(Conference).manage? && @person.user.nil?
     .row
       .span16
-        %p.message= raw(GitHub::Markdown.render(t('people_module.no_user_account')))
+        %p.message= raw(markdown_render(t('people_module.no_user_account')))
 
   .row
     .span6

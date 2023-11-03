@@ -8,4 +8,4 @@
           %p= t('cfp.pages.thank_for_interest', conference: @conference.title)
           %p= t('cfp.pages.not_started_cfp')
 
-        = raw GitHub::Markdown.render(t('cfp.pages.start_date_tip', start_date: @conference.call_for_participation.start_date))
+        = raw markdown_render(t('cfp.pages.start_date_tip', start_date: @conference.call_for_participation.start_date))
