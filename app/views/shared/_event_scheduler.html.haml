@@ -6,17 +6,17 @@
   .row
     .span16
       .blank-slate
-        %p= raw(GitHub::Markdown.render(t('events_module.error_no_room')))
+        %p= raw(markdown_render(t('events_module.error_no_room')))
 - elsif @conference.events.count == 0
   .row
     .span16
       .blank-slate
-        %p= raw(GitHub::Markdown.render(t('events_module.error_no_event')))
+        %p= raw(markdown_render(t('events_module.error_no_event')))
 - elsif @conference.days.count == 0
   .row
     .span16
       .blank-slate
-        %p= raw(GitHub::Markdown.render(t('events_module.error_no_day')))
+        %p= raw(markdown_render(t('events_module.error_no_day')))
 - else
   .row
     .span16
