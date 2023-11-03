@@ -1,5 +1,5 @@
 .bulk-notification
-  %h3= t('notifications_module.n_events_in_state_x', **{ count: e.count, state: t(state, scope: 'conferences_module') })
+  %h3= t('notifications_module.n_events_in_state_x', count: e.count, state: t(state, scope: 'conferences_module'))
   - noticket = e.select { |e| e.ticket == nil }
   - subscribers = e.map { |e| e.subscribers.count }.sum
   - nosubscribers = e.select { |e| e.subscribers.count == 0 }

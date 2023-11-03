@@ -7,7 +7,7 @@
     .row
       .span16
         .blank-slate
-          %p= raw(GitHub.render(t('reviewing_module.modify_review_metric_with_parent', {parent: @conference.parent.title})))
+          %p= raw(GitHub.render(t('reviewing_module.modify_review_metric_with_parent', parent: @conference.parent.title)))
           %p= t('reviewing_module.current_review_metrics')
 
           %uls

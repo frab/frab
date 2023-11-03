@@ -4,22 +4,20 @@
       - @versions.each do |version|
         - user = nil
         - if version.whodunnit
-          - begin
-            - user = User.find(version.whodunnit)
-          - rescue
+          - user = User.find_by(id: version.whodunnit)
         %tr
           %td= version.created_at.to_fs(:long)
           - if user and user.person
             %td= image_box user.person.avatar, :small
             %td= link_to user.person.full_name, user.person
-          -else
+          - else
             %td= image_box Person.new.avatar, :small
             %td= t('unknown_id')
           %td= verb_for version.event
           %td
             - if version.item
               - if version.associated_id
-                = raw(t('version_on_item', {version: version.item.to_s, item: associated_link_for(version)}))
+                = raw(t('version_on_item', version: version.item.to_s, item: associated_link_for(version)))
               - else
                 - if version.item.is_a? Conference
                   = link_to version.item.to_s, conference_path(conference: version.item)
