@@ -5,11 +5,11 @@
     .span16
       - if @conference.rooms.count == 0
         .blank-slate
-          = raw(GitHub::Markdown.render(t('conferences_module.show_welcome')))
+          = raw(markdown_render(t('conferences_module.show_welcome')))
 
       - if @conference.events.count == 0 and @conference.call_for_participation.nil?
         .blank-slate
-          = raw(GitHub::Markdown.render(t('conferences_module.show_no_event')))
+          = raw(markdown_render(t('conferences_module.show_no_event')))
   - if policy(@conference).orga?
     .row
       .span16
@@ -23,7 +23,7 @@
           %small= link_to t('navigation.more'), recent_changes_path
         - if @versions.empty?
           .blank-slate
-            %p= raw(GitHub::Markdown.render(t('conferences_module.recent_changes_text')))
+            %p= raw(markdown_render(t('conferences_module.recent_changes_text')))
         - else
           = render "recent_changes/table"
           %p

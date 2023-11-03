@@ -13,7 +13,7 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
 
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 7.0.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -54,7 +54,6 @@ gem 'bootsnap'
 gem 'cocoon'
 gem 'devise'
 gem 'dotenv-rails'
-gem 'github-markdown'
 gem 'haml'
 gem 'http_accept_language'
 gem 'invisible_captcha'
@@ -110,8 +109,6 @@ group :test do
 
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
 end
 
 group :doc, optional: true do
