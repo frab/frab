@@ -292,7 +292,7 @@ GEM
       net-protocol
     net-ssh (7.0.1)
     nio4r (2.5.9)
-    nokogiri (1.15.4)
+    nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (2.0.9)
@@ -359,7 +359,7 @@ GEM
     pundit (2.3.0)
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
-    racc (1.7.2)
+    racc (1.7.3)
     rack (2.2.8)
     rack-oauth2 (1.21.3)
       activesupport
