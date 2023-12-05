@@ -1,11 +1,12 @@
 json.array! @events do |e|
   json.event_id e.id
-  json.extract! e, :id, :track_id, :room_id, :start_time, :title, :subtitle, :description, :abstract, :language
+  json.event_url event_url(e)
+  json.public_event_url public_program_event_url(e)
+  json.extract! e, :guid, :id, :track_id, :room_id, :start_time, :title, :subtitle, :description, :abstract, :language
   json.track_name e.track.try(:name)
   json.room_name e.room.try(:name)
   json.duration e.duration_in_minutes
   json.speaker_names e.speakers.map(&:public_name).join(', ')
-  json.event_url event_url(e)
   json.type e.event_type
   json.speakers e.speakers do |speaker|
     json.id speaker.id
