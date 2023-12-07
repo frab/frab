@@ -76,7 +76,7 @@ Localization for *model fields*, like the event's description is provided by the
 
 If a field has no stored translation, the supported languages will fallback to the `I18n.default_locale`. The unsupported languages, will return nil, until a translation is stored.
 
-Frab uses the models database column, e.g. 'title', for the default language (`I18n.default_locale`), other languages are stored in seperate database tables.
+Frab uses the models database column, e.g. 'title', for the default language (`I18n.default_locale`), other languages are stored in separate database tables.
 Mobility calls that a `column fallback`, it helps with existing installations and avoids JOIN statements if only one language is used.
 
 The default language is assumed to be English (`I18n.default_locale`), but could be changed in an initializer.
