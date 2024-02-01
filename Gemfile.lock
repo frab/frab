@@ -105,6 +105,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.2)
     attr_required (1.0.1)
+    base64 (0.2.0)
     bcrypt (3.1.18)
     better_html (2.0.1)
       actionview (>= 6.0)
@@ -160,7 +161,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
-    dalli (3.2.3)
+    dalli (3.2.7)
+      base64
     date (3.3.3)
     devise (4.8.1)
       bcrypt (~> 3.0)
