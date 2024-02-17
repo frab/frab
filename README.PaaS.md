@@ -7,19 +7,17 @@ To deploy a Frab application with `dokku`, please proceed as follows from within
 
 ## 1. Setting up Dokku
 
-Given you have access to your Dokku service via a simple shell alias (`alias dokku='ssh -t dokku@<DOKKU_HOST>'`) and `dokku version` works, you will also need to install [the PostgreSQL](https://github.com/dokku/dokku-postgres) and [Let's Encrypt](https://github.com/dokku/dokku-letsencrypt) plugins.
+From your local machine SSH into your server, or create a simple shell alias to access Dokku (`alias dokku='ssh -t dokku@<DOKKU_HOST>'`). Check if `dokku version` works.
+
+You will also need to install [the PostgreSQL](https://github.com/dokku/dokku-postgres) and [Let's Encrypt](https://github.com/dokku/dokku-letsencrypt) plugins.
+
+    sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git
+
+    sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt
 
 You can then proceed setting up your application.
 
-```
-dokku create <APP_NAME>
-```
-
-Set up your Ruby version:
-
-```
-dokku config:set CUSTOM_RUBY_VERSION 2.3
-```
+    dokku apps:create <APP_NAME>
 
 ## 2. Setting up frab
 
@@ -47,6 +45,23 @@ BUNDLE_WITHOUT=development:test:mysql:sqlite3
 RAILS_SERVE_STATIC_FILES=true
 ```
 
+Here is an example .env file using SMTP with TLS:
+
+```
+SECRET_KEY_BASE=eem4ohxaeXu4aem3chohThooZeecei4w
+FRAB_HOST=subdomain.domain.com
+FRAB_PROTOCOL=https
+FROM_EMAIL=sender@host.tld
+SMTP_ADDRESS=smtp.host.com
+SMTP_PORT=587
+SMTP_NOTLS=false
+SMTP_USER_NAME=user
+SMTP_PASSWORD=em3chohThooZeec
+BUNDLE_WITHOUT=development:test:mysql:sqlite3
+RAILS_SERVE_STATIC_FILES=true
+
+```
+
 Pipe this configuration to Dokku with
 
     dokku config:set <APP_NAME> `paste -d " " -s .env`
@@ -56,7 +71,7 @@ Pipe this configuration to Dokku with
 The associated database service is created and linked with
 
     dokku postgresql:create <DB_NAME>
-    dokku postgresql:link <APP_NAME> <DB_NAME>
+    dokku postgresql:link <DB_NAME> <APP_NAME>
 
 `dokku config <APP_NAME>` should now report your whole configuration.
 
@@ -73,23 +88,56 @@ Add the desired `APP_FQDN` domain to the application and remove the standard Dok
     dokku domains:add <APP_NAME> <APP_FQDN>
     dokku domains:remove <APP_NAME> <APP_NAME.DOKKU_HOST>
 
-Only then issue
+Only then deploy your app via git.
 
-### git deployment
+### Git deployment
+
+In the folder of your local frab repo on your local machine, run:
 
     git remote add dokku dokku@<DOKKU_HOST>:<APP_NAME>
     git push dokku master
 
+> On Windows, git and SSH are sometimes tricky to get working on the command-line. If you are getting errors like:
+
+```
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+```
+
+> Use Sourcetree and add your Dokku private SSH key there via "Tools > Launch SSH Agent". Then push via Sourcetree to your dokku remote (select from dropdown).
+
+### Troubleshooting
+
+If push fails, maybe you need to delete the Dockerfile in your repo, so that dokku will know to build using herokuish.
+
 ### TLS setup
 
-To omit an appearing **502 Bad Gateway** error, we finish the TLS setup with
+To omit an appearing **502 Bad Gateway** error, we finish the TLS setup.
 
-    dokku letsencrypt <APP_NAME>
+Configure your email address:
+
+    dokku config:set --no-restart <APP_NAME> DOKKU_LETSENCRYPT_EMAIL=<YOUR_EMAIL>
+
+Set a custom domain that you own for your application:
+
+    dokku domains:set <APP_NAME> your.domain.com
+
+Enable letsencrypt:
+
+    dokku letsencrypt:enable <APP_NAME>
+
+Optionally: Enable auto-renewal:
+
+    dokku letsencrypt:cron-job --add
+
+### Seed the Database
 
 After this has completed successfully, manually load the database schema
 
     dokku run <APP_NAME> bundle exec rake db:setup
 
----
+Your application should be running at `https://<APP_FQDN>`. If not, you may have to
 
-That's it. Your application should be running at `<PROTO>://<APP_NAME>.<DOKKU_HOST>`.
+### Configure Ports
+
+dokku proxy:ports-set <APP_NAME> http:80:3000 https:443:3000
