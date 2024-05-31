@@ -16,8 +16,8 @@ module WillPaginate
         tag :li, link(page, page, rel: rel_value(page)), class: ('active' if page == current_page)
       end
 
-      def previous_or_next_page(page, text, classname)
-        tag :li, link(text, page || '#'), class: [classname[0..3], classname, ('disabled' unless page)].join(' ')
+      def previous_or_next_page(page, text, classname, aria_label = nil)
+        tag :li, link(text, page || '#'), :'aria-label' => aria_label, class: [classname[0..3], classname, ('disabled' unless page)].join(' ')
       end
 
       def gap
