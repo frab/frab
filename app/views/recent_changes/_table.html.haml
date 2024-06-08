@@ -27,7 +27,11 @@
               = version.item_type
           %td
             - if version.event == "update"
-              %a{href: "#", rel: "popover", :"data-placement" => "below", :"data-original-title" => t('detailed_changes'), :"data-content" => render("recent_changes/detailed_changes", version: version), :"data-html" => "true", :"data-trigger" => "manual"}= t('details')
+              - begin
+                - popovercontent = render("recent_changes/detailed_changes", version: version)
+                %a{href: "#", rel: "popover", :"data-placement" => "below", :"data-original-title" => t('detailed_changes'), :"data-content" => popovercontent, :"data-html" => "true", :"data-trigger" => "manual"}= t('details')
+              - rescue
+                = 'Details unavailable'
             - if version.item_type == "Link"
               - begin
                 - v = version.item || ((version.next || version).reify)
