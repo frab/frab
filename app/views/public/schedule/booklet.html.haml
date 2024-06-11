@@ -30,7 +30,7 @@
                 = "(#{event.language})"
 
           - if event.abstract.present?
-            %p= simple_format event.abstract.truncate(250)
+            %p= event.abstract.truncate(250)
           - if event.description.present?
             %p= simple_format event.description.truncate(1200)
           .speakers
