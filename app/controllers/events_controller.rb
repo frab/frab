@@ -1,6 +1,8 @@
 class EventsController < BaseConferenceController
   include Searchable
 
+  before_action :not_submitter!, except: [:edit_people, :update, :show]
+  
   # GET /events
   # GET /events.json
   def index
@@ -305,8 +307,17 @@ class EventsController < BaseConferenceController
   end
 
   # GET /events/2/edit_people
+  # def edit_people
+  #   @event = authorize Event.find(params[:id])
+  #   @persons = Person.fullname_options
+  # end
   def edit_people
-    @event = authorize Event.find(params[:id])
+    @event = Event.find(params[:id])
+    authorize @event, :edit_people?
+    unless policy(@conference).manage? || current_user.person && @event.people.include?(current_user.person)
+      redirect_to event_path(@event), alert: t('authorization.unauthorized')
+      return
+    end
     @persons = Person.fullname_options
   end
 

@@ -4,6 +4,10 @@ class ConferencePolicy < ApplicationPolicy
     user.is_admin? || user.is_crew?
   end
 
+  def lookup?
+    manage? || (user.person && record.events.joins(:people).where(people: { id: user.person.id }).exists?)
+  end
+
   def read?
     return false unless user
     user.is_admin? || user.is_crew_of?(record)

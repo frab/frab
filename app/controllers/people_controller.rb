@@ -1,5 +1,5 @@
 class PeopleController < BaseConferenceController
-  before_action :manage_only!, except: %i[show]
+  before_action :manage_only!, except: %i[show lookup]
   include Searchable
 
   MAX_PERSONS_FOR_DROPDOWN_FILTER = 99
@@ -40,7 +40,12 @@ class PeopleController < BaseConferenceController
 
   # GET /lookup.json
   def lookup
-    authorize Person, :manage?
+    # authorize Person, :manage?
+    authorize @conference, :lookup?
+    unless policy(@conference).manage? || (current_user.person && @conference.events.joins(:people).where(people: { id: current_user.person.id }).exists?)
+      render json: [], status: :forbidden
+      return
+    end
     expires_in 3.minutes
     @people = search Person, true
     if not @people or @people.blank?
