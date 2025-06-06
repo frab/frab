@@ -354,3 +354,35 @@ span#display_box {
 span#display_box.accepted {
     font-weight: bold;
 }
+
+.person-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.author-order-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.author-order-actions form {
+  margin: 0;
+}
+
+.author-order-actions .btn {
+  padding: 4px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  background: #239d6a;
+  color: #fff;
+  border: 1px solid #239d6a;
+  transition: background 0.2s;
+  font-weight: 500;
+}
+
+.author-order-actions .btn:hover {
+  background: #19784e;
+  color: #fff;
+}
