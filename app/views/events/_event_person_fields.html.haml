@@ -18,5 +18,5 @@
       .person-actions
         = remove_association_link :event_person, f
         .author-order-actions
-          = button_to '위로', move_up_event_person_path(f.object), method: :post, form_class: 'inline', class: 'btn'
-          = button_to '아래로', move_down_event_person_path(f.object), method: :post, form_class: 'inline', class: 'btn'
+          = link_to '위로', move_up_event_person_path(f.object), method: :post, class: 'btn'
+          = link_to '아래로', move_down_event_person_path(f.object), method: :post, class: 'btn'
