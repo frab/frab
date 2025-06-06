@@ -28,6 +28,8 @@
   .actions
     = f.button :submit, class: 'primary'
     = link_to t('cancel'), :back, class: "btn"
+    = link_to t("events_module.edit_people"), edit_people_event_path(@event), class: 'btn'
+
 
 - if EventAttachment::PRESERVE_FILE_ATTACHMENTS
   %p{class: 'help-block'}
