@@ -98,6 +98,9 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    acts_as_list (1.2.4)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     aes_key_wrap (1.1.0)
@@ -524,6 +527,7 @@ DEPENDENCIES
   activemodel-serializers-xml
   activerecord-session_store
   activeresource
+  acts_as_list
   bcrypt
   bootsnap
   bullet

@@ -2,6 +2,8 @@ class EventPerson < ApplicationRecord
   include UniqueToken
   include Rails.application.routes.url_helpers
 
+  acts_as_list scope: :event
+
   ROLES = %i(coordinator submitter speaker moderator assistant).freeze
   STATES = %i(canceled confirmed declined idea offer unclear attending).freeze
   SPEAKERS = %i(speaker moderator).freeze
@@ -120,8 +122,9 @@ class EventPerson < ApplicationRecord
   private
 
   def update_speaker_count
-    event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKERS).count
-    event.save
+    # event.speaker_count = EventPerson.where(event_id: event.id, event_role: SPEAKERS).count
+    # event.save
+    event.update_column(:speaker_count, EventPerson.where(event_id: event.id, event_role: SPEAKERS).count)
   end
 
   def update_event_conflicts

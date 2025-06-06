@@ -14,4 +14,8 @@
     - if f.object.notification_subject.present? or f.object.notification_body.present?
       = f.input :notification_subject, label: t('people_module.inputs.notification_subject')
       = f.input :notification_body, label: t('people_module.inputs.notification_body'), as: :text, hint: t('people_module.inputs.hints.notification_body', variables: Notification::VARIABLES.collect{ |key, desc| '%{'+key+'}' }.join(', '))
+    - if f.object.persisted?
+      .author-order-actions
+        = button_to '위로', move_up_event_person_path(f.object), method: :post, form_class: 'inline'
+        = button_to '아래로', move_down_event_person_path(f.object), method: :post, form_class: 'inline'
     = remove_association_link :event_person, f

@@ -80,6 +80,7 @@ gem 'simple_form'
 gem 'sucker_punch'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'will_paginate'
+gem 'acts_as_list'
 gem 'yard'
 
 group :production do

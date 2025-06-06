@@ -318,6 +318,7 @@ class EventsController < BaseConferenceController
       redirect_to event_path(@event), alert: t('authorization.unauthorized')
       return
     end
+    @event_people = @event.event_people.order(:position)
     @persons = Person.fullname_options
   end
 

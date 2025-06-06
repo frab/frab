@@ -3,7 +3,8 @@
   - if hint
     %div.input.help-block= hint
   %div{class: association_name.to_s}
-    = f.simple_fields_for association_name do |association_form|
+    - items = local_assigns[:collection] || f.object.send(association_name)
+    = f.simple_fields_for association_name, items do |association_form|
       = render association_name.to_s.singularize + "_fields", f: association_form
     .links
       = add_association_link association_name, f, association_name

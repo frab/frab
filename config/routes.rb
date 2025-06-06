@@ -145,6 +145,11 @@ Rails.application.routes.draw do
         get 'history' => 'events#history'
       end
 
+      resources :event_people do
+        post :move_up, on: :member
+        post :move_down, on: :member
+      end
+
       get '/reports' => 'reports#index', as: 'reports'
       get '/reports/on_people/:id' => 'reports#show_people', as: 'report_on_people'
       get '/reports/on_events/:id' => 'reports#show_events', as: 'report_on_events'

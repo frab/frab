@@ -80,7 +80,13 @@ module ApplicationHelper
   end
 
   def dynamic_association(association_name, title, form_builder, options = {})
-    render 'shared/dynamic_association', association_name: association_name, title: title, f: form_builder, hint: options[:hint]
+    # render 'shared/dynamic_association', association_name: association_name, title: title, f: form_builder, hint: options[:hint]
+    render 'shared/dynamic_association',
+      association_name: association_name,
+      title: title,
+      f: form_builder,
+      hint: options[:hint],
+      collection: options[:collection]
   end
 
   def languages

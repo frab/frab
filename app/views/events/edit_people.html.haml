@@ -5,7 +5,7 @@
   .row
     .span16
       = simple_form_for(@event, data: { persons: @persons }) do |f|
-        = dynamic_association :event_people, nil, f
+        = dynamic_association :event_people, nil, f, collection: @event_people
         .actions
           = f.button :submit, class: 'primary'
           = link_to t('cancel'), :back, class: "btn"

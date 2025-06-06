@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
-  create_table "availabilities", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2025_06_06_102553) do
+  create_table "availabilities", force: :cascade do |t|
     t.bigint "person_id"
     t.bigint "conference_id"
     t.datetime "created_at", precision: nil, null: false
@@ -23,16 +23,16 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["person_id"], name: "index_availabilities_on_person_id"
   end
 
-  create_table "average_review_scores", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "event_id"
-    t.bigint "review_metric_id"
+  create_table "average_review_scores", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "review_metric_id"
     t.float "score"
     t.index ["event_id", "review_metric_id"], name: "index_average_review_scores_on_event_id_and_review_metric_id", unique: true
     t.index ["event_id"], name: "index_average_review_scores_on_event_id"
     t.index ["review_metric_id"], name: "index_average_review_scores_on_review_metric_id"
   end
 
-  create_table "call_for_participations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "call_for_participations", force: :cascade do |t|
     t.date "start_date", null: false
     t.date "end_date", null: false
     t.date "hard_deadline"
@@ -45,16 +45,16 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["start_date", "end_date"], name: "index_call_for_papers_on_dates"
   end
 
-  create_table "classifiers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "classifiers", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "conference_id"
+    t.integer "conference_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["conference_id"], name: "index_classifiers_on_conference_id"
   end
 
-  create_table "conference_exports", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "conference_exports", force: :cascade do |t|
     t.string "locale"
     t.bigint "conference_id"
     t.string "tarball_file_name"
@@ -66,7 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["conference_id"], name: "index_conference_exports_on_conference_id"
   end
 
-  create_table "conference_users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "conference_users", force: :cascade do |t|
     t.string "role"
     t.bigint "user_id"
     t.bigint "conference_id"
@@ -76,7 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["user_id"], name: "index_conference_users_on_user_id"
   end
 
-  create_table "conferences", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "conferences", force: :cascade do |t|
     t.string "acronym", null: false
     t.string "title", null: false
     t.string "timezone", default: "Berlin", null: false
@@ -93,8 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.string "color"
     t.string "ticket_type", default: "integrated"
     t.boolean "event_state_visible", default: true
-    t.text "schedule_custom_css", size: :medium
-    t.text "schedule_html_intro", size: :medium
+    t.text "schedule_custom_css"
+    t.text "schedule_html_intro"
     t.string "default_recording_license"
     t.boolean "expenses_enabled", default: false, null: false
     t.boolean "transport_needs_enabled", default: false, null: false
@@ -115,7 +115,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
 
-  create_table "conflicts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "conflicts", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "conflicting_event_id"
     t.bigint "person_id"
@@ -127,14 +127,14 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["person_id"], name: "index_conflicts_on_person_id"
   end
 
-  create_table "days", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "days", force: :cascade do |t|
     t.bigint "conference_id"
     t.datetime "start_date", precision: nil
     t.datetime "end_date", precision: nil
     t.index ["conference_id"], name: "index_days_on_conference"
   end
 
-  create_table "event_attachments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "event_attachments", force: :cascade do |t|
     t.bigint "event_id"
     t.string "title", null: false
     t.string "attachment_file_name"
@@ -147,17 +147,17 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["event_id"], name: "index_event_attachments_on_event_id"
   end
 
-  create_table "event_classifiers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "event_classifiers", force: :cascade do |t|
     t.integer "value", default: 0
-    t.bigint "classifier_id"
-    t.bigint "event_id"
+    t.integer "classifier_id"
+    t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["classifier_id"], name: "index_event_classifiers_on_classifier_id"
     t.index ["event_id"], name: "index_event_classifiers_on_event_id"
   end
 
-  create_table "event_feedbacks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "event_feedbacks", force: :cascade do |t|
     t.bigint "event_id"
     t.float "rating"
     t.text "comment"
@@ -166,7 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["event_id"], name: "index_event_feedbacks_on_event_id"
   end
 
-  create_table "event_people", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "event_people", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "person_id"
     t.string "event_role", default: "submitter", null: false
@@ -177,11 +177,12 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.string "confirmation_token"
     t.string "notification_subject"
     t.text "notification_body"
+    t.integer "position"
     t.index ["event_id"], name: "index_event_people_on_event_id"
     t.index ["person_id"], name: "index_event_people_on_person_id"
   end
 
-  create_table "event_ratings", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "event_ratings", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "person_id"
     t.float "rating"
@@ -192,20 +193,20 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["person_id"], name: "index_event_ratings_on_person_id"
   end
 
-  create_table "event_translations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "event_translations", force: :cascade do |t|
     t.string "title"
     t.string "subtitle"
     t.text "abstract"
     t.text "description"
     t.string "locale", null: false
-    t.bigint "event_id"
+    t.integer "event_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["event_id", "locale"], name: "index_event_translations_on_event_id_and_locale", unique: true
     t.index ["locale"], name: "index_event_translations_on_locale"
   end
 
-  create_table "events", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.bigint "conference_id"
     t.string "title"
     t.string "subtitle"
@@ -250,7 +251,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["state"], name: "index_events_on_state"
   end
 
-  create_table "expenses", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "expenses", force: :cascade do |t|
     t.string "name"
     t.decimal "value", precision: 9, scale: 4
     t.boolean "reimbursed"
@@ -262,7 +263,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["person_id"], name: "index_expenses_on_person_id"
   end
 
-  create_table "im_accounts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "im_accounts", force: :cascade do |t|
     t.bigint "person_id"
     t.string "im_type"
     t.string "im_address"
@@ -271,7 +272,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["person_id"], name: "index_im_accounts_on_person_id"
   end
 
-  create_table "languages", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "languages", force: :cascade do |t|
     t.string "code"
     t.bigint "attachable_id"
     t.string "attachable_type"
@@ -280,7 +281,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["attachable_id"], name: "index_languages_on_attachable_id"
   end
 
-  create_table "links", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "links", force: :cascade do |t|
     t.string "title", null: false
     t.string "url", null: false
     t.bigint "linkable_id"
@@ -290,7 +291,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["linkable_id"], name: "index_links_on_linkable_id"
   end
 
-  create_table "mail_templates", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "mail_templates", force: :cascade do |t|
     t.bigint "conference_id"
     t.string "name"
     t.string "subject"
@@ -300,7 +301,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["conference_id"], name: "index_mail_templates_on_conference_id"
   end
 
-  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "notifications", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "locale"
@@ -313,7 +314,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.text "schedule_body"
   end
 
-  create_table "people", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "people", force: :cascade do |t|
     t.string "first_name", default: ""
     t.string "last_name", default: ""
     t.string "public_name", null: false
@@ -336,18 +337,18 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
-  create_table "person_translations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "person_translations", force: :cascade do |t|
     t.text "abstract"
     t.text "description"
     t.string "locale", null: false
-    t.bigint "person_id"
+    t.integer "person_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["locale"], name: "index_person_translations_on_locale"
     t.index ["person_id", "locale"], name: "index_person_translations_on_person_id_and_locale", unique: true
   end
 
-  create_table "phone_numbers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "phone_numbers", force: :cascade do |t|
     t.bigint "person_id"
     t.string "phone_type"
     t.string "phone_number"
@@ -356,19 +357,19 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["person_id"], name: "index_phone_numbers_on_person_id"
   end
 
-  create_table "review_metrics", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "review_metrics", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "conference_id"
+    t.integer "conference_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["conference_id"], name: "index_review_metrics_on_conference_id"
     t.index ["name", "conference_id"], name: "index_review_metrics_on_name_and_conference_id", unique: true
   end
 
-  create_table "review_scores", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "event_rating_id"
-    t.bigint "review_metric_id"
+  create_table "review_scores", force: :cascade do |t|
+    t.integer "event_rating_id"
+    t.integer "review_metric_id"
     t.integer "score"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -376,7 +377,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["review_metric_id"], name: "index_review_scores_on_review_metric_id"
   end
 
-  create_table "rooms", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "rooms", force: :cascade do |t|
     t.bigint "conference_id"
     t.string "name", null: false
     t.integer "size"
@@ -386,7 +387,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["conference_id"], name: "index_rooms_on_conference_id"
   end
 
-  create_table "sessions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
     t.datetime "created_at", precision: nil, null: false
@@ -395,7 +396,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "ticket_servers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "ticket_servers", force: :cascade do |t|
     t.bigint "conference_id"
     t.string "url"
     t.string "user"
@@ -405,7 +406,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.string "queue"
   end
 
-  create_table "tickets", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "tickets", force: :cascade do |t|
     t.bigint "object_id"
     t.string "remote_ticket_id"
     t.datetime "created_at", precision: nil, null: false
@@ -414,17 +415,17 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["object_id"], name: "index_tickets_on_object_id"
   end
 
-  create_table "track_translations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "track_translations", force: :cascade do |t|
     t.string "name"
     t.string "locale", null: false
-    t.bigint "track_id"
+    t.integer "track_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["locale"], name: "index_track_translations_on_locale"
     t.index ["track_id", "locale"], name: "index_track_translations_on_track_id_and_locale", unique: true
   end
 
-  create_table "tracks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "tracks", force: :cascade do |t|
     t.bigint "conference_id"
     t.string "name", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -433,7 +434,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["conference_id"], name: "index_tracks_on_conference_id"
   end
 
-  create_table "transport_needs", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "transport_needs", force: :cascade do |t|
     t.bigint "person_id"
     t.bigint "conference_id"
     t.datetime "at", precision: nil
@@ -447,7 +448,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["person_id"], name: "index_transport_needs_on_person_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "reset_password_token"
     t.datetime "remember_created_at", precision: nil
@@ -477,7 +478,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  create_table "versions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "versions", force: :cascade do |t|
     t.string "item_type", null: false
     t.bigint "item_id"
     t.string "event", null: false
@@ -487,7 +488,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_21_223350) do
     t.bigint "conference_id"
     t.bigint "associated_id"
     t.string "associated_type"
-    t.text "object_changes", size: :medium
+    t.text "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
