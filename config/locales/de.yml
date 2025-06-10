@@ -334,14 +334,14 @@ de:
     login_required: Nach der Anmeldung können Sie Ihren Beitrag eingeben.
     login_required_title: Melden Sie sich an, um teilzunehmen
     looking_for_login_form: Suchen Sie den Login für Vortragende?
-    no_confirmation_token: Bestätigungs-Token nicht gefunden. Vermutlich haben Sie den Token schon verwendet. Bitte loggen Sie sich ein und prüfen Sie den Status Ihrer Einreichung.
+    no_confirmation_token: Bestätigungs-Token nicht gefunden. Vermutlich haben Sie, oder Mitsprechende, den Token schon verwendet. Bitte loggen Sie sich ein und prüfen Sie den Status Ihrer Einreichung.
     not_forget_personal_details: Und vergessen Sie nicht, Ihr Profil auszufüllen. Sie können Ihr Profil jederzeit über den Button in der rechten Seitenleiste ändern.
     notifications:
       launched: Call for Participation gestartet.
     pages:
       conference_open_mode: Die Konferenz ist im offenen Modus. Einreicher können die Zeiten selber setzen.
       event_confirm_attendence: Bestätigen Sie die Teilnahme
-      event_confirmation_request: Für das Event ** %{event} **. wird ihre Bestätigung benötigt
+      event_confirmation_request: Für das Event ** %{event} **. wird ihre Bestätigung benötigt. Dies bestätigt den Event und führt zum Formular für Verfügbarkeit.
       not_started_cfp: |
         Leider hat die Einreichungsphase noch nicht begonnen. Bitte gedulden Sie sich noch ein wenig,
         während wir die Konferenz vorbereiten.
@@ -855,6 +855,9 @@ de:
         einfach folgenden Link nutzen:
 
         %{link}
+
+        Der Vortrag gilt als bestätigt, sobald eine Vortragende den Link
+        angeklickt hat.
       goodbye: "Schöne Grüße \n\nDas %{conference}-Team\n"
       greeting: Hallo %{forename},
       subject: Deine Einreichung zur %{conference}
