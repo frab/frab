@@ -97,7 +97,7 @@ group :development, :test do
   gem 'bullet'
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'letter_opener'
+  #gem 'letter_opener'
   gem 'faker'
   gem 'i18n-tasks'
   gem 'easy_translate'

@@ -1,4 +1,3 @@
-version: '3'
 
 services:
     frab:
@@ -13,6 +12,7 @@ services:
             - backend
         environment:
             - TZ=America/Los_Angeles
+            - RAILS_ENV=development
             - SECRET_KEY_BASE=5fe64927bda359b186be52191c1ce3e5ef34827a
             - DATABASE_URL=postgresql://frab:HWsJ54XvCOXyeSZhAQi9@db/frab
             - FRAB_CURRENCY_UNIT='$$'
@@ -34,6 +34,8 @@ services:
             - POSTGRES_USER=frab
             - POSTGRES_PASSWORD=HWsJ54XvCOXyeSZhAQi9
             - POSTGRES_DB=frab
+        ports:
+            - 5432:5432
 
 networks:
     backend:
