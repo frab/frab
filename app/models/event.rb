@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   include HasEventConflicts
 
   before_create :generate_guid
+  before_validation :default_language
 
   TYPES = %w(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
   ACCEPTED = %w(accepting unconfirmed confirmed scheduled).freeze
@@ -46,6 +47,14 @@ class Event < ApplicationRecord
 
   validates :title, :time_slots, presence: true
   validates :title, length: { maximum: 255 }
+  validates_each :language do |record, attr, value|
+    if record.conference
+      codes = record.conference.language_codes
+      unless codes.include?(value)
+        record.errors.add(attr, 'locale must match a conference locale')
+      end
+    end
+  end
 
   scope :accepted, -> { where(arel_table[:state].in(ACCEPTED)) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }
@@ -241,6 +250,11 @@ class Event < ApplicationRecord
 
   def generate_guid
     self.guid = SecureRandom.uuid
+  end
+
+  def default_language
+    self.language ||= conference.languages.first if conference
+    self.language ||= I18n.default_locale.to_s
   end
 
   def average(rating_type)
