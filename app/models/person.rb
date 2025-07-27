@@ -70,6 +70,14 @@ class Person < ApplicationRecord
     joins(events: :conference).where('conferences.id': conference).where('events.state': %w(confirmed scheduled))
   }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    ["abstract", "avatar_content_type", "avatar_file_name", "avatar_file_size", "avatar_updated_at", "created_at", "description", "email", "email_public", "first_name", "gender", "id", "id_value", "include_in_mailings", "last_name", "note", "public_name", "updated_at", "use_gravatar", "user_id"]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ["availabilities", "event_people", "event_ratings", "events", "expenses", "im_accounts", "languages", "links", "phone_numbers", "ticket", "translations", "transport_needs", "user", "versions"]
+  end
+
   def self.fullname_options
     all.sort_by(&:full_name).map do |p|
       { id: p.id, text: p.full_name_annotated }

@@ -84,6 +84,10 @@ class Conference < ApplicationRecord
     (Conference.has_submission(user.person) | Conference.future).select(&:call_for_participation).sort_by(&:created_at)
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    ["acronym", "allowed_event_timeslots_csv", "allowed_event_types", "attachment_title_is_freeform", "bcc_address", "bulk_notification_enabled", "color", "created_at", "default_recording_license", "default_timeslots", "email", "end_date", "event_state_visible", "expenses_enabled", "feedback_enabled", "id", "id_value", "logo_content_type", "logo_file_name", "logo_file_size", "logo_updated_at", "max_timeslots", "parent_id", "program_export_base_url", "schedule_custom_css", "schedule_html_intro", "schedule_open", "schedule_public", "schedule_version", "start_date", "ticket_type", "timeslot_duration", "timezone", "title", "transport_needs_enabled", "updated_at"]
+  end
+
   def days
     return parent.days if sub_conference?
     super

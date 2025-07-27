@@ -39,6 +39,10 @@ class User < ApplicationRecord
 
   self.per_page = 10
 
+  def self.ransackable_attributes(_auth_object = nil)
+    ["email", "failed_attempts", "id", "id_value", "provider", "role", "sign_in_count", "uid", "unconfirmed_email"]
+  end
+
   def setup_default_values
     if email && ENV.fetch('FRAB_EMAILS_OF_ADMINS','').downcase.split(',').include?(email.downcase)
       self.role = 'admin'
@@ -50,7 +54,7 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    user=where(email: auth.info.email.downcase).first_or_create do |user|
+    user = where(email: auth.info.email.downcase).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       user.password = Devise.friendly_token[0, 20]

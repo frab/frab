@@ -13,7 +13,7 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
 
-gem 'rails', '~> 7.0.0'
+gem 'rails', '~> 7.1.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'

@@ -105,6 +105,15 @@ Layout/EmptyLineAfterGuardClause:
 Style/IfUnlessModifier:
   Enabled: false
 
-# noisy
+# Noisy diagnostics and hard to read too for beginners
 Style/SymbolArray:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+# With rubocop-rails-omakase enforcing double quotes, I give up. Still prefer
+# readability of single quotes, as you can be sure they don't contain variable
+# interpolation.
+Style/StringLiterals:
   Enabled: false

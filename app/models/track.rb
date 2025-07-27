@@ -16,6 +16,10 @@ class Track < ApplicationRecord
   validates :name, presence: true
   validates :name, format: { without: /\|/ }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    ["color", "conference_id", "created_at", "id", "id_value", "name", "updated_at"]
+  end
+
   def to_s
     "#{model_name.human}: #{name}"
   end

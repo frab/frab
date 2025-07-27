@@ -73,11 +73,15 @@ class Event < ApplicationRecord
     e
   }
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
+    ["average_review_scores", "conference", "conflicts", "conflicts_as_conflicting", "event_attachments", "event_classifiers", "event_feedbacks", "event_people", "event_ratings", "links", "people", "review_scores", "room", "ticket", "track", "translations", "versions"]
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
     column_names + ReviewMetric.all.map(&:safe_name)
   end
 
-  def self.ransortable_attributes(auth_object = nil)
+  def self.ransortable_attributes(_auth_object = nil)
     column_names + ReviewMetric.all.map(&:safe_name)
   end
 
