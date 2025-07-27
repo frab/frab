@@ -21,6 +21,8 @@ class OrgaAddsConferenceUserTest < ApplicationSystemTestCase
     select 'Organisator', from: 'Role'
     select @conference.acronym, from: 'Conference'
     click_on 'Update User'
+
+    assert_content page, 'successfully updated'
     assert @crew_user.is_crew?
     assert @crew_user.is_orga_of?(@conference)
   end
