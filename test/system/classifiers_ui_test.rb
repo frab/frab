@@ -22,6 +22,7 @@ class ClassifiersUiTest < ApplicationSystemTestCase
     assert_selector('.event_event_classifiers_value', count: 2)
     click_on('Update event')
 
+    assert_content page, 'successfully updated'
     assert_equal 2, @event.event_classifiers.count, 'check two classifiers have been created in model'
     assert_equal 0, @event.event_classifiers.first.value, 'check default classifier value has been set'
 
@@ -35,12 +36,16 @@ class ClassifiersUiTest < ApplicationSystemTestCase
     assert_selector('.event_event_classifiers_value', count: 0)
     check 'classifier-checkbox-' + @classifier1.id.to_s
     click_on('Update event')
+
+    assert_content page, 'successfully updated'
     assert_equal 1, @event.event_classifiers.count
 
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"
     assert_selector('.event_event_classifiers_value', count: 1)
     uncheck 'classifier-checkbox-' + @classifier1.id.to_s
     click_on('Update event')
+
+    assert_content page, 'successfully updated'
     assert_equal 0, @event.event_classifiers.count
 
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"

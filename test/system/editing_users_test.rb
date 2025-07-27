@@ -32,6 +32,9 @@ class EditingUsersTest < ApplicationSystemTestCase
     select 'Organisator', from: 'Role'
     select @conference.acronym, from: 'Conference'
     click_on 'Update User'
+
+    assert_content page, 'User was successfully updated'
+
     @person.reload
     assert @person.user.is_crew?
     assert @person.user.is_orga_of?(@conference)

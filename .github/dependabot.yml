@@ -29,3 +29,8 @@ updates:
   - dependency-name: haml
     versions:
     - 5.2.1
+
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "weekly"
