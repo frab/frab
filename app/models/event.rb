@@ -48,11 +48,8 @@ class Event < ApplicationRecord
   validates :title, :time_slots, presence: true
   validates :title, length: { maximum: 255 }
   validates_each :language do |record, attr, value|
-    if record.conference
-      codes = record.conference.language_codes
-      unless codes.include?(value)
-        record.errors.add(attr, 'locale must match a conference locale')
-      end
+    if record.conference and record.conference.languages.present? and not record.conference.language_codes.include?(value)
+      record.errors.add(attr, 'locale must match a conference locale')
     end
   end
 
@@ -244,8 +241,6 @@ class Event < ApplicationRecord
     return false
   end
 
-
-
   private
 
   def generate_guid
@@ -253,7 +248,9 @@ class Event < ApplicationRecord
   end
 
   def default_language
-    self.language ||= conference.languages.first if conference
+    return unless conference
+
+    self.language ||= conference.languages.first
     self.language ||= I18n.default_locale.to_s
   end
 
