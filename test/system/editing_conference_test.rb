@@ -26,9 +26,11 @@ class EditingConferenceTest < ApplicationSystemTestCase
     fill_in 'User', with: 'user1'
     fill_in 'Password', with: 'password'
     click_on 'Update conference'
+
     assert_content page, 'Conference was successfully updated.'
     click_on 'Events'
-    assert_content page, 'Events'
+    assert_content page, 'List of events'
+    # TODO flaky assert
     assert_content page, Event.last.title
   end
 

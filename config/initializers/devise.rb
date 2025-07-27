@@ -7,6 +7,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'eb689c5ab4e4fa613ff53102d0f8e7cb0f2e0372ec0d40fcc0f628d046193b81a167bd294191719d5004365ed9bc487d3771df1971081cb9c8e318fb4a08b7c8'
+  config.secret_key = Rails.application.secret_key_base
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -251,7 +252,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  
+
   if ENV['OPENID_CONNECT_CLIENT_ID'].present?
     config.omniauth :openid_connect,
       :strategy_class => OmniAuth::Strategies::OpenIDConnect,
@@ -273,8 +274,8 @@ Devise.setup do |config|
     config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], skip_jwt: true
   end
 
-  require 'omniauth-ldap'
   if ENV['LDAP_HOST'].present?
+    require 'omniauth-ldap'
     config.omniauth :ldap,
       :strategy_class => OmniAuth::Strategies::LDAP,
       :title => ENV['LDAP_PROMPT_TITLE'],
@@ -288,9 +289,9 @@ Devise.setup do |config|
       :bind_dn => ENV['LDAP_BIND_DN'],
       :password => ENV['LDAP_BIND_PASSWORD'],
       :disable_verify_certificates => ENV['LDAP_DISABLE_VERIFY_CERT']
-  end
 
-  OmniAuth.config.logger = Rails.logger if Rails.env.development?
+    OmniAuth.config.logger = Rails.logger if Rails.env.development?
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -3,7 +3,7 @@ namespace :pentabarf do
     task default: :all
 
     task setup: :environment do
-      require 'pentabarf_import_helper'
+      require_relative './pentabarf_import_helper'
       @import_helper = PentabarfImportHelper.new
     end
 

@@ -10,7 +10,7 @@ Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f }
 
 # Unit tests in test/unit
 class ActiveSupport::TestCase
-  ActiveRecord::Migration.check_pending!
+  ActiveRecord::Migration.check_all_pending!
   include FactoryBot::Syntax::Methods
   parallelize
 

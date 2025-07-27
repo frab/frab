@@ -1,7 +1,7 @@
 namespace :frab do
-  PASSWORD = 'frab123'
-  MAIL_DOMAIN = 'localhost.localdomain'
-  MAIL_USER = 'root'
+  PASSWORD ||= 'frab123'
+  MAIL_DOMAIN ||= 'localhost.localdomain'
+  MAIL_USER ||= 'root'
 
   task default: :add_example_users
 

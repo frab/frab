@@ -2,7 +2,7 @@ namespace :frab do
   desc 'add fake conferences for testing'
   task add_fake_conferences: :environment do |_t, _args|
     ActiveRecord::Base.transaction do
-      10.times do
+      11.times do
         name = Faker::Superhero.name
         conference = Conference.create!(title: "#{name} Conference",
                                         acronym: name.parameterize,
@@ -18,7 +18,7 @@ namespace :frab do
         3.times do
           conference.languages << Language.create(code: %w(en de es pt-BR).sample)
         end
-        
+
         rand(4).times do
           conference.review_metrics_attributes = [ { name: Faker::Company.buzzword } ]
         end
@@ -92,7 +92,7 @@ namespace :frab do
                                   review_metric: review_metric,
                                   score: rand(6))
             end
-          end                                              
+          end
         end
 
         puts "Created conference #{conference.title} (#{conference.acronym}) with #{conference.tracks.count} tracks, #{conference.days.count} days, #{conference.events.count} events, #{conference.review_metrics.count} review metrics."
