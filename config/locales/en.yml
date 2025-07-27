@@ -335,14 +335,14 @@ en:
     login_required_title: Sign In To Participate
     logo_hint: A logo for the event / logo of the organization
     looking_for_login_form: Are you looking for the login of submitters?
-    no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface.
+    no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface. Maybe another speaker already confirmed the event?
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
     notifications:
       launched: Launched Call for Participation.
     pages:
       conference_open_mode: The conference is in open mode. Self scheduling is allowed
       event_confirm_attendence: Confirm attendance
-      event_confirmation_request: 'Your confirmation is required for the event: ** %{event} **.'
+      event_confirmation_request: 'Your confirmation is required for the event: ** %{event} **. This confirms the event and will send you to the availability form.'
       not_started_cfp: |
         Unfortunately, the Call for Participation has not yet started. Please bear with us
         and leave us a little more time for our preparations.
@@ -868,6 +868,9 @@ en:
         your talk, using the following link:
 
         %{link}
+
+        Only one speaker needs to confirm the event.
+
       goodbye: |
         Kind regards
 
