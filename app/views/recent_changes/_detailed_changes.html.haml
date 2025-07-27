@@ -1,17 +1,17 @@
 %ul
-  - yaml_load_version(version).each do |attribute, change|
-    %li
-      %em= attribute
-      - if change.is_a? Array
-        =t("cfp.changed_from")
-        %em
-          = sanitize(change[0].to_s, tags: [])
-        =t("cfp.to")
-        = succeed "." do
+  - if version.object_changes
+    - yaml_load_version(version).each do |attribute, change|
+      %li
+        %em= attribute
+        - if change.is_a? Array
+          =t("cfp.changed_from")
           %em
-            = sanitize(change[1].to_s, tags: [])
-      - else
-        =t("cfp.set_to")
-        %em
-          = sanitize(change.to_s, tags: [])
-  - end if version.object_changes
+            = sanitize(change[0].to_s, tags: [])
+          =t("cfp.to")
+          = succeed "." do
+            %em
+              = sanitize(change[1].to_s, tags: [])
+        - else
+          =t("cfp.set_to")
+          %em
+            = sanitize(change.to_s, tags: [])
