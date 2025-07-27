@@ -5,6 +5,7 @@ module CapybaraHelper
     fill_in 'Email', match: :first, with: email
     fill_in 'Password', with: password
     click_on 'Log in'
+    assert_content page, "Signed in successfully"
   end
 
   def sign_in_user(user)

@@ -85,8 +85,8 @@ Layout/ArrayAlignment:
 
 # Vim prefers fixed indent, avoid manual vertical alignment
 Layout/ArgumentAlignment:
-  Enabled: true
-  EnforcedStyle: with_fixed_indentation
+  Enabled: false
+  #EnforcedStyle: with_fixed_indentation
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -99,4 +99,12 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 
 Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+# Leads to very long lines
+Style/IfUnlessModifier:
+  Enabled: false
+
+# noisy
+Style/SymbolArray:
   Enabled: false

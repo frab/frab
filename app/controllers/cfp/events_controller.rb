@@ -117,7 +117,7 @@ class Cfp::EventsController < ApplicationController
     end
 
     if @event.nil?
-        return redirect_to cfp_join_event_path, flash: { error: t('cfp.join_token_unknown', token: @token) }
+      return redirect_to cfp_join_event_path, flash: { error: t('cfp.join_token_unknown', token: @token) }
     end
 
     if @event.people.exists?(@person.id)
