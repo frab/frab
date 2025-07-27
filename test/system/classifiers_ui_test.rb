@@ -46,6 +46,7 @@ class ClassifiersUiTest < ApplicationSystemTestCase
     click_on('Update event')
 
     assert_content page, 'successfully updated'
+    @event.reload
     assert_equal 0, @event.event_classifiers.count
 
     visit "/#{@conference.acronym}/events/#{@event.id}/edit"

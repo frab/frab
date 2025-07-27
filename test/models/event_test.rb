@@ -266,4 +266,11 @@ class EventTest < ActiveSupport::TestCase
     end
     assert_equal 'zh', event.reload.title_zh
   end
+
+  test 'cannot add event with another language to conference' do
+    conference = create(:multilingual_conference)
+    event = build(:event, language: 'fr', conference: conference)
+    event.valid?
+    assert_includes event.errors.full_messages, 'Language locale must match a conference locale'
+  end
 end
