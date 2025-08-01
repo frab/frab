@@ -5,7 +5,7 @@
 
   - if @conference.sub_conference? && !policy(@conference).manage?
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= raw(GitHub.render(t('reviewing_module.modify_review_metric_with_parent', parent: @conference.parent.title)))
           %p= t('reviewing_module.current_review_metrics')
@@ -18,9 +18,9 @@
   - else
     - if @conference.review_metrics.empty?
       .row
-        .span16
+        .col-md-12
           .blank-slate
             %p= t('reviewing_module.empty_review_metrics')
     .row
-      .span16
+      .col-md-12
         = render 'form_review_metrics'

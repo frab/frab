@@ -5,3 +5,19 @@
   = render partial: 'public/schedule/events_by_track'
 - else
   = render partial: 'public/schedule/events'
+
+/ Format options
+.card.border-0.shadow-sm.mb-4
+  .card-header.bg-primary.text-white
+    %h6.mb-0
+      %i.bi.bi-download.me-2
+      = t('.export_formats', default: 'Export Formats')
+  .card-body
+    .d-flex.flex-wrap.gap-2
+      = link_to public_events_path(format: 'json'), class: "btn btn-outline-secondary btn-sm" do
+        %i.bi.bi-filetype-json.me-1
+        JSON
+      = link_to public_events_path(format: 'xls'), class: "btn btn-outline-secondary btn-sm" do
+        %i.bi.bi-file-earmark-spreadsheet.me-1
+        Excel
+

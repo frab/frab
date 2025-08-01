@@ -1,11 +1,11 @@
 %section
   .page-header
-    .pull-right
-      = action_button "primary", t('users_module.edit_user_account'), edit_person_user_path(@person), hint: t('users_module.edit_user_account_hint')
+    .float-end
+      = action_button '<i class="bi bi-person"></i> '.html_safe + t('users_module.edit_user_account'), edit_person_user_path(@person), hint: t('users_module.edit_user_account_hint'), class: "btn btn-primary"
     %h1= t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
   .row
-    .span16
+    .col-md-12
       %p
         %b= t('col_email_for_login')
         = @user.email

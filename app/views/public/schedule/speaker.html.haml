@@ -2,30 +2,123 @@
 - content_for :title do
   = "#{t '.speaker'}: #{speaker.public_name} | #{schedule_title}"
 
-%h2.title #{t '.speaker'}: #{speaker.public_name}
+%article.schedule-container
+  .speaker-header.mb-5
+    .d-flex.flex-column.flex-md-row.align-items-center.text-center.text-md-start
+      .speaker-avatar.me-md-4.mb-3.mb-md-0
+        - if speaker.avatar.present?
+          = link_to speaker.avatar, "data-lightbox" => speaker.avatar do
+            = image_box(speaker.avatar, :large, class: "rounded-circle", loading: "lazy", alt: "The speaker's profile picture", style: "width: 120px; height: 120px; object-fit: cover;")
+        - else
+          .bg-light.rounded-circle.d-flex.align-items-center.justify-content-center{style: "width: 120px; height: 120px;"}
+            %i.bi.bi-person.text-muted{style: "font-size: 3rem;"}
 
-.column.left#basic
-  = image_box(speaker.avatar, :large)
-  = simple_format speaker.abstract, class: "abstract"
-  = simple_format speaker.description, class: "description"
+      .speaker-info.flex-grow-1
+        %h3.speaker-name.mb-2= speaker.public_name
+        - if speaker.abstract.present?
+          .speaker-tagline.text-muted.mb-3
+            = truncate(speaker.abstract, length: 150, separator: ' ')
 
-.column.left#details
-  - if speaker.email_public?
-    %h3= t '.contact'
-    %p
-      %b #{t '.email'}:
-      = mail_to speaker.email, nil, replace_at: "(at)", replace_dot: "(dot)", encode: :javascript
-  - if speaker.links.any?
-    %h3= t '.links'
-    %ul
-      - speaker.links.each do |link|
-        %li= link_to link.title, link.url
+        - if speaker.email_public? || speaker.links.any?
+          .speaker-contact.d-flex.flex-wrap.gap-3.justify-content-center.justify-content-md-start
+            - if speaker.email_public?
+              = mail_to speaker.email, nil, replace_at: "(at)", replace_dot: "(dot)", encode: :javascript, class: "btn btn-outline-primary btn-sm" do
+                %i.bi.bi-envelope.me-2
+                Email
+            - speaker.links.each do |link|
+              = link_to link.url, target: "_blank", class: "btn btn-outline-secondary btn-sm" do
+                %i.bi.bi-box-arrow-up-right.me-2
+                = link.title
 
-.column.right#sidebar
-  %h3= t '.events_in_this_conference'
-  %table.list
-    %tbody
-      - speaker.public_and_accepted_events_as_speaker_in(@conference.include_subs).each do |event|
-        %tr
-          %td= image_box event.logo, :small
-          %td= link_to event.title, public_event_path(id: event.id)
+  .row.g-4
+    .col-12.col-lg-8
+      .speaker-bio
+        - if speaker.description.present?
+          .content-section.mb-4
+            = simple_format speaker.description
+        - elsif speaker.abstract.present?
+          .content-section.mb-4
+            = simple_format speaker.abstract
+
+        - if speaker.public_and_accepted_events_as_speaker_in(@conference.include_subs).any?
+          %hr.my-4
+          %section.speaker-sessions
+            %h4.mb-3= t '.sessions'
+            - speaker.public_and_accepted_events_as_speaker_in(@conference.include_subs).each do |event|
+              = link_to public_event_path(id: event.id), class: "text-decoration-none" do
+                .session-card.mb-3
+                  .session-time-box
+                    - if event.start_time.present?
+                      .start.text-center
+                        = l(event.start_time, format: :short).split(' ')[0]
+                      .start.text-center.fw-bold
+                        = l(event.start_time, format: :time)
+                    - if event.time_slots
+                      .duration.text-center.small.text-muted
+                        = "#{event.time_slots * 15} min"
+
+                  .session-info
+                    .title.fw-semibold.mb-2= event.title
+                    - if event.abstract.present?
+                      .abstract.text-muted.mb-2
+                        = truncate(event.abstract, length: 200, separator: ' ')
+                    .bottom-info.d-flex.flex-wrap.gap-3.small.text-muted
+                      - if event.track.present?
+                        .track
+                          %i.bi.bi-tag.me-1
+                          = event.track.name
+                      - if event.room.present?
+                        .room
+                          %i.bi.bi-geo-alt.me-1
+                          = event.room.name
+
+%style
+  :css
+    .speaker-name {
+      color: #2d3748;
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    .speaker-tagline {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    .content-section {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #4a5568;
+    }
+    .session-card {
+      display: flex;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid var(--track-color, var(--bs-primary));
+      transition: all 0.2s ease;
+    }
+    .session-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+    .session-time-box {
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+      min-width: 80px;
+      text-align: center;
+    }
+    .session-info {
+      flex-grow: 1;
+      min-width: 0;
+    }
+    .title {
+      color: #2d3748;
+      font-size: 1.1rem;
+    }
+    .abstract {
+      font-size: 0.95rem;
+    }
+    .bottom-info {
+      font-size: 0.85rem;
+    }

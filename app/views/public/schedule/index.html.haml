@@ -1,29 +1,120 @@
-!= @conference.schedule_html_intro
-%h2= t '.schedule_index'
-%ul
-  - @conference.days.each_with_index do |day, index|
-    %li
-      - if @conference.days.length > 1
-        - label = t('.day', index: index + 1, label: l(day.date))
+- content_for :title do
+  = "#{@conference.title} :: Fahrplan"
+
+- if @conference.schedule_html_intro.present?
+  .alert.alert-info.mb-4
+    != @conference.schedule_html_intro
+
+/ Main schedule container
+.container-fluid
+  .text-center.mb-4
+    %h2.h3.fw-bold.schedule-heading= t '.schedule_index'
+
+  / Day selector
+  - if @conference.days.length > 1
+    .d-flex.justify-content-center.mb-4
+      .btn-group{role: "group"}
+        - @conference.days.each_with_index do |day, index|
+          = link_to public_schedule_path(day: index + 1), class: "btn btn-outline-primary" do
+            = l day.start_date, format: :day
+
+  / Schedule grid for all days
+  - @conference.days.each_with_index do |day, day_index|
+    .mb-5{id: "day-#{day_index + 1}"}
+      .text-center.mb-4
+        %h3.h4.fw-bold.schedule-heading
+          %i.bi.bi-calendar.me-2.schedule-icon-primary
+          = l day.start_date, format: :long
+
+      / Create a responsive schedule grid
+      - day_events = @conference.events.scheduled.joins(:room).where(start_time: day.start_date.beginning_of_day..day.start_date.end_of_day).includes(:people, :track, :room).order(:start_time)
+      - if day_events.any?
+        - day_events.group_by(&:start_time).each do |start_time, events|
+          .mb-5
+            .text-center.mb-3
+              %h4.h5.fw-semibold.schedule-text-muted
+                %i.bi.bi-clock.me-2.schedule-icon-primary
+                = l start_time, format: :time
+
+            .row.g-3
+              - events.each do |event|
+                .col-12.col-md-6.col-lg-4
+                  .session-card.card.h-100.border-0.shadow-sm.border-start.border-primary.border-4
+                    .card-body.p-3
+                      .d-flex.justify-content-between.align-items-start.mb-2
+                        %small.text-muted
+                          %i.bi.bi-geo-alt.me-1
+                          = event.room.name
+                        - if event.time_slots
+                          %span.badge.bg-light.text-dark.small
+                            = "#{event.time_slots * 15}min"
+
+                      %h5.card-title.mb-2.lh-sm
+                        = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none stretched-link text-dark"
+
+                      - if event.subtitle.present?
+                        %p.small.text-muted.mb-2= event.subtitle
+
+                      - if event.speakers.any?
+                        .mt-auto
+                          %small.text-primary.fw-medium
+                            %i.bi.bi-person.me-1
+                            = event.speakers.map(&:public_name).join(", ")
+
+                      .mt-2
+                        - if event.track.present?
+                          %span.badge.bg-secondary.small= event.track.name
+
+                        - if event.language.present? && @conference.languages_including_subs.count > 1
+                          %span.badge.bg-secondary
+                            %i.bi.bi-translate.me-1
+                            = event.language
       - else
-        - label = t('.schedule', label: l(day.date))
-      = link_to label, public_schedule_path(day: index + 1)
-      (#{link_to "PDF", public_schedule_path(day: index + 1, format: :pdf)})
+        .text-center.text-muted.py-5
+          %i.bi.bi-calendar-x.mb-3.opacity-50{style: "font-size: 3rem;"}
+          %h4.h5 No events scheduled for this day
 
-  %li= link_to t('.speakers'), public_speakers_path
+  %noscript.d-block
+    .alert.alert-info.m-4
+      .d-flex.align-items-center
+        %i.bi.bi-info-circle.me-2
+        %div
+          To see our interactive schedule, please enable JavaScript or use the links below for alternative views.
 
-  - if @conference.tracks_including_subs.present?
-    %li= link_to t('.events_by_track'), public_events_path
-  - else
-    %li= link_to t('.events'), public_events_path
-
-  %li= link_to t('.timeline'), public_timeline_path
-  %li= link_to t('.booklet'), public_booklet_path
-
-  %li= link_to "iCalendar", public_schedule_index_path(format: :ics)
-  %li= link_to "xCal", public_schedule_index_path(format: :xcal)
-  %li= link_to "XML", public_schedule_index_path(format: :xml)
-  %li= link_to("JSON", public_schedule_index_path(format: :json)) + " (" + link_to(t('.speakers'), public_speakers_path(format: :json)) + ")"
+/ Additional formats
+.row.mt-4
+  .col-12
+    .card.border-0.shadow-sm
+      .card-header.bg-secondary.text-white
+        %h5.mb-0
+          %i.bi.bi-download.me-2
+          = t('.export_formats', default: 'Export Formats')
+      .card-body
+        .row.g-2
+          .col-6.col-md-2
+            = link_to public_schedule_index_path(format: 'xml'), class: "btn btn-outline-secondary w-100 btn-sm" do
+              %i.bi.bi-filetype-xml.me-1
+              XML
+          .col-6.col-md-2
+            = link_to public_schedule_index_path(format: 'json'), class: "btn btn-outline-secondary w-100 btn-sm" do
+              %i.bi.bi-filetype-json.me-1
+              JSON
+          .col-6.col-md-2
+            = link_to public_schedule_index_path(format: 'ics'), class: "btn btn-outline-secondary w-100 btn-sm" do
+              %i.bi.bi-calendar.me-1
+              iCal
+          .col-6.col-md-2
+            = link_to public_schedule_index_path(format: 'xcal'), class: "btn btn-outline-secondary w-100 btn-sm" do
+              %i.bi.bi-calendar2.me-1
+              xCal
+          .col-6.col-md-2
+            = link_to public_events_path(format: 'xls'), class: "btn btn-outline-secondary w-100 btn-sm" do
+              %i.bi.bi-file-earmark-spreadsheet.me-1
+              Excel
+          .col-6.col-md-2
+            = link_to public_speakers_path(format: 'xls'), class: "btn btn-outline-secondary w-100 btn-sm" do
+              %i.bi.bi-people.me-1
+              Speakers XLS
 
 %script{:type => "application/ld+json"}
   :plain

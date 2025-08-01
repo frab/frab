@@ -2,6 +2,11 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 
+# Suppress the warning that SQLite3 issues when open writable connections are carried across fork()
+if ActiveRecord::Base.connection.adapter_name == 'SQLite'
+  SQLite3::ForkSafety.suppress_warnings!
+end
+
 require 'minitest/pride'
 require 'minitest/spec'
 require 'sucker_punch/testing/inline'
@@ -12,7 +17,9 @@ Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f }
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_all_pending!
   include FactoryBot::Syntax::Methods
-  parallelize
+
+  # Configure parallel testing with SQLite fork safety
+  parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all

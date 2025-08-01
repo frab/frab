@@ -1,6 +1,4 @@
 class Cfp::EventsController < ApplicationController
-  layout 'cfp'
-
   before_action :authenticate_user!, except: :confirm
   before_action :set_person
   before_action :load_event, except: %i[index show new create confirm join]

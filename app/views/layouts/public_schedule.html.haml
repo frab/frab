@@ -1,53 +1,103 @@
 !!!
-%html
+%html{lang: "en"}
   %head
-    %meta{ :"http-equiv" => "content-type", content: "text/html; charset=utf-8" }
+    %meta{charset: "utf-8"}
     - if content_for? :title
       %title= yield :title
     - else
-      %title= schedule_title
+      %title= "#{schedule_title} :: Fahrplan"
+
+    %link{rel: "icon", type: "image/svg+xml", href: "/favicon.svg"}
+    %meta{name: "title", content: "#{schedule_title} Fahrplan"}
+    %meta{name: "description", content: "Schedule, talks and talk submissions for #{schedule_title}"}
+    %meta{name: "application-name", content: "frab"}
+    %meta{name: "generator", content: "frab"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+    %meta{name: "theme-color", content: "#1f1fa3"}
+    %meta{name: "HandheldFriendly", content: "True"}
+    %meta{name: "robots", content: "index, follow"}
     = stylesheet_link_tag 'public_schedule'
-    = stylesheet_link_tag public_schedule_style_path(format: :css), media: "all"
-    = stylesheet_link_tag 'public_schedule_print', media: 'print'
-  %body
-    #wrapper
-      #banner
-      #header
-        %h1= schedule_title
-      #navigation
-        %ul
+    = javascript_importmap_tags 'public_schedule'
+
+  %body{"data-datetimeformat" => "YYYY-MM-DD HH:mm:ss", "data-dateformat" => "YYYY-MM-DD", "data-datetimelocale" => "en"}
+    / Header section with gradient
+    .schedule-header.d-flex.align-items-end.px-4.pb-3
+      - if @conference.logo.present?
+        = image_tag @conference.logo.url(:original), alt: @conference.title, class: "me-3", style: "height: 40px; width: auto;"
+      %h1.h2.mb-0.fw-bold.text-white
+        = link_to schedule_title, public_schedule_index_path, class: "text-decoration-none text-white"
+
+    / Main container with negative margin for overlapping card effect
+    .container.position-relative.mt-n4
+      / Header card
+      .card.shadow-sm.mb-4.schedule-main-card
+        .card-body.p-4
+
+          / Navigation tabs
           - unless feedback_page?
-            %li{class: selected(/schedule$/)}
-              = link_to t('public.schedule.nav.index'), public_schedule_index_path
-            - @conference.days.each_with_index do |day, index|
-              %li{class: day_selected(index + 1)}
-                %a{href: public_schedule_path(day: index + 1)}
-                  - if @conference.days.length > 1
-                    = l day.start_date, format: :day
-                    = " - "
-                    %span.small-font= l day.date
-                  - else
-                    = t 'public.schedule.nav.schedule'
+            .schedule-nav.d-flex.justify-content-center.flex-wrap.gap-2.mb-3
+              = link_to public_schedule_index_path, class: "nav-link #{selected(/schedule$/) ? 'active' : ''}" do
+                %i.bi.bi-calendar.me-2
+                = t('public.schedule.nav.index')
+              - @conference.days.each_with_index do |day, index|
+                - day_number = index + 1
+                - if day.rooms_with_events.any?
+                  = link_to public_schedule_path(day: day_number), class: "nav-link #{day_selected(day_number) ? 'active' : ''}" do
+                    %i.bi.bi-clock.me-2
+                    - if @conference.days.length > 1
+                      = l day.start_date, format: :day
+                    - else
+                      = t 'public.schedule.nav.schedule'
+                - else
+                  %span.nav-link.disabled.text-muted
+                    %i.bi.bi-clock.me-2
+                    - if @conference.days.length > 1
+                      = l day.start_date, format: :day
+                    - else
+                      = t 'public.schedule.nav.schedule'
+              = link_to public_speakers_path, class: "nav-link #{selected(/speakers.*$/) ? 'active' : ''}" do
+                %i.bi.bi-people.me-2
+                = t('public.schedule.nav.speakers')
+              = link_to public_events_path, class: "nav-link #{selected(/events.*$/) ? 'active' : ''}" do
+                %i.bi.bi-chat.me-2
+                = t('public.schedule.nav.events')
+              = link_to public_timeline_path, class: "nav-link #{selected(/timeline.*$/) ? 'active' : ''}" do
+                %i.bi.bi-list-ul.me-2
+                = t('.timeline')
+              = link_to public_booklet_path, class: "nav-link #{selected(/booklet.*$/) ? 'active' : ''}" do
+                %i.bi.bi-book.me-2
+                = t('.booklet')
 
-            %li{class: selected(/speakers.*$/)}
-              = link_to t('public.schedule.nav.speakers'), public_speakers_path
-            %li{class: selected(/events.*$/)}
-              = link_to t('public.schedule.nav.events'), public_events_path
-            %li{class: selected(/timeline.*$/)}
-              = link_to t('.timeline'), public_timeline_path
-            %li{class: selected(/booklet.*$/)}
-              = link_to t('.booklet'), public_booklet_path
+          / Version/Export dropdown
+          .d-flex.justify-content-center
+            - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
+              .dropdown
+                %button.btn.btn-outline-secondary.btn-sm.dropdown-toggle{"data-bs-toggle" => "dropdown", "aria-expanded" => "false"}
+                  = @conference.schedule_version
+                %ul.dropdown-menu
+                  %li
+                    = link_to "#{public_schedule_index_path}.json", class: "dropdown-item" do
+                      %span.me-2 { }
+                      JSON (frab compatible)
+                  %li
+                    = link_to "#{public_schedule_index_path}.xcal", class: "dropdown-item" do
+                      %i.bi.bi-calendar.me-2
+                      XCal (frab compatible)
+                  %li
+                    = link_to "#{public_schedule_index_path}.xml", class: "dropdown-item" do
+                      %i.bi.bi-code-slash.me-2
+                      XML (frab compatible)
 
-            %li{class: selected(/qrcode$/)}
-              = link_to t('public.schedule.nav.qrcode'), public_qrcode_path
+      / Track menu section
+      = yield :track_menu
 
-        = yield :track_menu
+      / Main content card
+      .card.shadow-sm.schedule-main-card
+        .card-body.p-4
+          = yield
 
-      #main-content
-        - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
-          %p.release= t('conferences_module.version', version: @conference.schedule_version)
-
-        = yield
-        %br.clear/
-
-    #footer= raw(markdown_render(t('conferences_module.footer')))
+      / Footer
+      %footer.mt-5.py-4.text-center.text-muted
+        .container
+          = raw(markdown_render(t('conferences_module.footer')))
+    = javascript_include_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'

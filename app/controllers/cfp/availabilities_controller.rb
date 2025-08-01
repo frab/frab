@@ -1,6 +1,4 @@
 class Cfp::AvailabilitiesController < ApplicationController
-  layout 'cfp'
-
   before_action :authenticate_user!
 
   def new

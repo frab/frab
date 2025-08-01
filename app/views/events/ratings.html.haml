@@ -1,90 +1,96 @@
 %section
   .page-header
-    .pull-right
-      = action_button "primary", t('ratings_module.start_reviewing'), start_review_events_path, hint: t('ratings_module.start_reviewing_hint'), disabled: @events_no_review == 0
+    .float-end
+      = action_button '<i class="bi bi-star"></i> '.html_safe + t('ratings_module.start_reviewing'), start_review_events_path, hint: t('ratings_module.start_reviewing_hint'), disabled: @events_no_review == 0, class: "btn btn-primary"
     %h1= t('titles.event_ratings')
   = render partial: "event_list_tabs"
   - if not @conference.events.any?
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= t('ratings_module.no_event')
   - else
-    = render partial: 'filters', locals: { params: params }
-    .row
-      .span16
-        %h2= t('ratings_module.statistics')
-        %p
-          %b= t('ratings_module.total_number_of_events')
-          = @events_total
-          %br/
-          %b= t('ratings_module.total_number_of_events_no_review')
-          = @events_no_review_total
-          %br/
-          %b= t('ratings_module.total_number_of_reviewed')
-          = @events_reviewed
-          %br/
-          %b= t('ratings_module.total_number_of_not_reviewed')
-          = @events_no_review
-    .row
-      .span16
-        = render 'shared/simple_search', path: request.path          
-    .row
-      .span16
-        - if @events.empty?
-          %p= t('reports_module.no_search_results')
-        - else
-          - review_metrics = @conference.review_metrics.all
-          %table.zebra-striped
-            %thead
-              %tr
-                %th
-                %th= sort_link @search, :title, term: params[:term]
-                %th.nowrap
-                  = sort_link @search, :track_name, t('track'), term: params[:term]
-                  = filter_link('track_name')
-                %th.nowrap
-                  = sort_link @search, :event_type, term: params[:term]
-                  = filter_link('event_type')
-                - if policy(@conference).manage?
-                  %th.nowrap
-                    = sort_link @search, :state, term: params[:term]
-                    = filter_link('event_state')
-                %th.nowrap
-                  = sort_link @search, :average_rating, term: params[:term]
-                  = filter_link('average_rating')
-                %th
-                  = sort_link @search, :event_ratings_count, term: params[:term]
-                  = filter_link('event_ratings_count')
-                - review_metrics.each do |review_metric|
-                  %th
-                    = sort_link @search, review_metric.safe_name, review_metric.name, term: params[:term]
-                    = filter_link(review_metric.safe_name)
-                %th
-            %tbody
-              - @events.includes(:track).each do |event|
+    %div
+      = render partial: 'filters', locals: { params: params }
+      .row
+        .col-md-12
+          %h2= t('ratings_module.statistics')
+          %p
+            %b= t('ratings_module.total_number_of_events')
+            = @events_total
+            %br/
+            %b= t('ratings_module.total_number_of_events_no_review')
+            = @events_no_review_total
+            %br/
+            %b= t('ratings_module.total_number_of_reviewed')
+            = @events_reviewed
+            %br/
+            %b= t('ratings_module.total_number_of_not_reviewed')
+            = @events_no_review
+      .row
+        .col-md-12
+          = render 'shared/simple_search', path: request.path
+      .row
+        .col-md-12
+          - if @events.empty?
+            %p= t('reports_module.no_search_results')
+          - else
+            - review_metrics = @conference.review_metrics.all
+            %table.table.table-striped
+              %thead
                 %tr
-                  %td= image_box event.logo, :small
-                  %td
-                    = link_to event.title, event
-                    %p.small
-                      = by_speakers(event)
-                  %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
-                  %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+                  %th
+                  %th= sort_link @search, :title, term: params[:term]
+                  %th.nowrap
+                    = sort_link @search, :track_name, t('track'), term: params[:term]
+                    = filter_link('track_name')
+                  %th.nowrap
+                    = sort_link @search, :event_type, term: params[:term]
+                    = filter_link('event_type')
                   - if policy(@conference).manage?
-                    %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
-                  %td
-                    - if event.average_rating
-                      = link_to_unless params[:average_rating].present?, raty_for("event_rating_#{event.id}", event.average_rating), request.query_parameters.merge(:average_rating => "≥#{event.average_rating}")
-                  %td= link_to_unless params[:event_ratings_count].present?, event.event_ratings_count, request.query_parameters.merge(:event_ratings_count => "≥#{event.event_ratings_count}")
+                    %th.nowrap
+                      = sort_link @search, :state, term: params[:term]
+                      = filter_link('event_state')
+                  %th.nowrap
+                    = sort_link @search, :average_rating, term: params[:term]
+                    = filter_link('average_rating')
+                  %th
+                    = sort_link @search, :event_ratings_count, term: params[:term]
+                    = filter_link('event_ratings_count')
                   - review_metrics.each do |review_metric|
-                    - avg = event[review_metric.safe_name]
+                    %th
+                      = sort_link @search, review_metric.safe_name, review_metric.name, term: params[:term]
+                      = filter_link(review_metric.safe_name)
+                  %th
+              %tbody
+                - @events.includes(:track).each do |event|
+                  %tr
+                    %td= image_box event.logo, :small
                     %td
-                      - unless avg.nil?
-                        = link_to_unless params[review_metric.safe_name].present?, avg.round(2), request.query_parameters.merge(review_metric.safe_name => "≥#{avg}")
-                  %td
-                    = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn small"
-          = actions_bar do
-            = will_paginate @events
-          = render 'below_table'
-= render partial: 'modal_holder'
+                      = link_to event.title, event
+                      %p.small
+                        = by_speakers(event)
+                    %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
+                    %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
+                    - if policy(@conference).manage?
+                      %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
+                    %td
+                      - if event.average_rating
+                        = link_to_unless params[:average_rating].present?, (render 'shared/star_rating', id: "event_rating_#{event.id}", value: event.average_rating, readonly: true, size: 'sm'), request.query_parameters.merge(:average_rating => "≥#{event.average_rating}")
+                    %td= link_to_unless params[:event_ratings_count].present?, event.event_ratings_count, request.query_parameters.merge(:event_ratings_count => "≥#{event.event_ratings_count}")
+                    - review_metrics.each do |review_metric|
+                      - avg = event[review_metric.safe_name]
+                      %td
+                        - unless avg.nil?
+                          = link_to_unless params[review_metric.safe_name].present?, avg.round(2), request.query_parameters.merge(review_metric.safe_name => "≥#{avg}")
+                    %td
+                      = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn btn-primary btn-sm"
+            = actions_bar do
+              = will_paginate @events
+            = render 'below_table'
+
+  - filters_data.each do |filter|
+    %div{id: "filterModal_#{filter.qname}", class: "modal fade", tabindex: "-1", "aria-hidden": "true"}
+      .modal-dialog.modal-lg.modal-dialog-scrollable
+        .modal-content
+          = render partial: 'filter_modal', locals: { filter: filter }

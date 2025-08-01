@@ -9,13 +9,17 @@ Rails.application.config.assets.version = "1.0"
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
-Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images', 'colorpicker')
 Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images', 'icons')
-Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images', 'images')
-Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images', 'raty')
+Rails.application.config.assets.paths << Rails.root.join('vendor', 'stylesheets')
+Rails.application.config.assets.paths << Rails.root.join('vendor', 'fonts')
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile = ["manifest.js"]
+
+# importmap path
+Rails.application.config.assets.paths << Rails.root.join('app', 'javascript')
+
+Rails.application.config.assets.precompile += %w(bootstrap.js popper.js)
