@@ -1,67 +1,51 @@
 .modal-header
-  = link_to "×", "#", class: "close"
-  %h3
-    = t('events_module.filter_modal.select_filter_for', filtername: @filter.filter_name || t(@filter.filter_name_i18n))
-.modal-body#filter_form
-  = simple_form_for(:filter_form, data: { qname: @filter.qname }, url: '#', method: :get ) do |f|
-    - case @filter.type
+  %h5.modal-title
+    = t('events_module.filter_modal.select_filter_for', filtername: filter.filter_name || t(filter.filter_name_i18n))
+  %button.btn-close{type: "button", "data-bs-dismiss": "modal", "aria-label": "Close"}
+
+.modal-body#filter_form{ data: { controller: "filter", "filter-qname-value": filter.qname } }
+  = simple_form_for(:filter_form, data: { "filter-target": "form" }, url: '#', method: :get ) do |f|
+    - case filter.type
     - when :text
-      %div#filter-values-select
+      - options = localized_filter_options(@conference.events.includes(:track).distinct.pluck(filter.attribute_name), filter.i18n_scope)
+      - selected_values = split_filter_string(params[filter.qname]) if params[filter.qname]
+      %div#filter-values-select{ data: { "filter-target": "valuesSelect" } }
         = f.input :possible_values,
-                  as: :check_boxes, 
+                  as: :check_boxes,
                   label: '',
                   required: false,
-                  collection: @options,
-                  checked: @selected_values
+                  collection: options,
+                  checked: selected_values
     - when :range
-      %div#filter-range
-        %table{width: '100%'}   
-          %tr
-            %td{ style: 'vertical-align: middle;', 'max-width': '25%' }
-              = f.input :op,
-                      as: :radio_buttons,
-                      required: false,
-                      label: '',
-                      collection: [[t('events_module.filter_modal.at_least'), '≥'],
-                                   [t('events_module.filter_modal.at_most'), '≤'],
-                                   [t('events_module.filter_modal.exactly'), '=']],
-                      checked: [@op]
-                    
-            %td{width: '75%', style: 'vertical-align: middle;', class: 'td-numval'}
-              = f.input_field :num, value: @current_numeric_value, style: "width: 150px;"
-    .actions
-      = link_to t('apply_filter'), '#', class: "btn primary", id: 'apply_filter_btn'
-      = link_to t('clear_filter'), '#', class: "btn",         id: 'clear_filter_btn'
-.modal-footer
-  &nbsp;
+      - op, current_numeric_value = get_op_and_val(params[filter.qname])
+      %div#filter-range{ data: { "filter-target": "range" } }
+        .row
+          .col-md-4
+            = f.input :op,
+                    as: :radio_buttons,
+                    required: false,
+                    label: '',
+                    collection: [[t('events_module.filter_modal.at_least'), '≥'],
+                                 [t('events_module.filter_modal.at_most'), '≤'],
+                                 [t('events_module.filter_modal.exactly'), '=']],
+                    checked: [op]
+          .col-md-8
+            = f.input_field :num,
+                          value: current_numeric_value,
+                          class: "form-control",
+                          data: { "filter-target": "numInput" }
 
-:coffeescript
-  $('#apply_filter_btn').on 'click', (event) -> 
-    qname = $('#filter_form form').data('qname')
+  .modal-footer.d-flex.justify-content-between
+    %button.btn.btn-outline-secondary{type: "button", "data-bs-dismiss": "modal"}
+      = t('cancel')
+    .d-flex.gap-2
+      = link_to t('clear_filter'), '#',
+              class: "btn btn-secondary",
+              data: { action: "click->filter#clearFilter" }
+      = link_to t('apply_filter'), '#',
+              id: "apply_filter_btn",
+              class: "btn btn-primary",
+              data: { action: "click->filter#applyFilter" }
 
-    new_value=''
-    if $("#filter-values-select").length
-      selected_vals = []
-      for a in $("#filter-values-select input:checked")
-        selected_vals.push(a.value) 
-      new_value = selected_vals.join('|')
-    if $("#filter-range input").length
-      op = $("#filter-range input:checked").val()
-      refval = parseFloat($(".td-numval input").val())
-      new_value = op + refval unless !op or isNaN(refval)
-    u = new URL(location.href)
-    u.searchParams.set(qname, new_value)
-    $("#apply_filter_btn").attr("href", u.toString())
-    $('#filters-modal').modal('hide')
-    true
-  
-  $('#clear_filter_btn').on 'click', (event) -> 
-    qname = $('#filter_form form').data('qname')
-    u = new URL(location.href)
-    u.searchParams.delete(qname)
-    $("#clear_filter_btn").attr("href", u.toString())
-    $('#filters-modal').modal('hide')
-    true
-  
 
-  
+

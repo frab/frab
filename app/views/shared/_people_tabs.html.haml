@@ -1,19 +1,27 @@
-%ul.tabs
-  %li{class: active_class?(person_path(@person), edit_person_path(@person))}= link_to t('profile'), @person
+%ul.nav.nav-tabs
+  %li.nav-item
+    = link_to t('profile'), @person, class: "nav-link #{'active' if active_class?(person_path(@person), edit_person_path(@person))}"
   - if policy(Person).manage?
     - if @person.user.nil?
-      %li{class: active_class?(new_person_user_path(@person))}= link_to t('user_account'), new_person_user_path(@person)
+      %li.nav-item
+        = link_to t('user_account'), new_person_user_path(@person), class: "nav-link #{'active' if active_class?(new_person_user_path(@person))}"
     - else
-      %li{class: active_class?(person_user_path(@person), edit_person_user_path(@person))}= link_to t('user_account'), person_user_path(@person)
+      %li.nav-item
+        = link_to t('user_account'), person_user_path(@person), class: "nav-link #{'active' if active_class?(person_user_path(@person), edit_person_user_path(@person))}"
 
   - if policy(@conference).manage?
     - if @person.availabilities_in(@conference).count == 0
-      %li{class: active_class?(new_person_availability_path(@person))}= link_to t('availability'), new_person_availability_path(@person)
+      %li.nav-item
+        = link_to t('availability'), new_person_availability_path(@person), class: "nav-link #{'active' if active_class?(new_person_availability_path(@person))}"
     - else
-      %li{class: active_class?(edit_person_availability_path(@person))}= link_to t('availability'), edit_person_availability_path(@person)
+      %li.nav-item
+        = link_to t('availability'), edit_person_availability_path(@person), class: "nav-link #{'active' if active_class?(edit_person_availability_path(@person))}"
     -if @conference.expenses_enabled? and policy(@conference).orga?
-      %li{class: active_class?(person_expenses_path(@person))}= link_to t('expenses'), person_expenses_path(@person)
+      %li.nav-item
+        = link_to t('expenses'), person_expenses_path(@person), class: "nav-link #{'active' if active_class?(person_expenses_path(@person))}"
     -if @conference.transport_needs_enabled? and policy(@conference).orga?
-      %li{class: active_class?(person_transport_needs_path(@person))}= link_to t('transport_needs'), person_transport_needs_path(@person)
+      %li.nav-item
+        = link_to t('transport_needs'), person_transport_needs_path(@person), class: "nav-link #{'active' if active_class?(person_transport_needs_path(@person))}"
   - if policy(@conference).manage?
-    %li{class: active_class?(feedbacks_people_path)}= link_to t('feedback'), feedbacks_people_path(id: @person.id)
+    %li.nav-item
+      = link_to t('feedback'), feedbacks_people_path(id: @person.id), class: "nav-link #{'active' if active_class?(feedbacks_people_path)}"

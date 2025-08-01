@@ -1,39 +1,67 @@
 - content_for :title do
   = "#{t('.events')} | #{schedule_title}"
 
-= render 'track_menu'
-
-%h2.title= t '.events'
+.row.mb-4
+  .col-12
+    %h2.title.mb-0
+      %i.bi.bi-book.me-2
+      = t '.events'
 
 = render 'day_menu'
 
 - @view_model.events_by_day.each do |day, start_times|
   %a{name: "day#{day.id}"}
-  %hr
-  - start_times.sort.each do |start_time, events|
-    %h2
-      = l(day.start_date, format: :day)
-      = start_time.strftime("%H:%M")
-    %hr.short
+  .mb-5
+    - start_times.sort.each do |start_time, events|
+      - if events.count > 0
+        .card.mb-4.border-0.shadow-sm
+          .card-header.bg-info.text-white
+            %h4.mb-0
+              %i.bi.bi-calendar.me-2
+              = l(day.start_date, format: :day)
+              %span.ms-2
+                %i.bi.bi-clock.me-1
+                = start_time.strftime("%H:%M")
 
-    - if events.count >  0
-      - events.sort_by { |a| [a.track&.name ? 1 : 0, a.track&.name] }.each do |event|
-        .event-book
-          %h2= link_to event.title, public_event_path(id: event.id)
-          .label
-            - if event.subtitle.present?
-              %span= event.subtitle
-              \-
-            %span{class: track_class(event)}
-              = event.room&.name
-              - if event.language.present? && @conference.languages_including_subs.count > 1
-                = "(#{event.language})"
+          .card-body.p-0
+            - events.sort_by { |a| [a.track&.name ? 1 : 0, a.track&.name] }.each_with_index do |event, index|
+              .event-book.p-4{class: (index < events.count - 1) ? 'border-bottom' : ''}
+                .row.g-4
+                  .col-12.col-md-8
+                    %h4.mb-3
+                      = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none"
 
-          - if event.abstract.present?
-            %p= simple_format event.abstract.truncate(250)
-          - if event.description.present?
-            %p= simple_format event.description.truncate(1200)
-          .speakers
-            %ul
-              - event.speakers.each do |speaker|
-                %li= link_to speaker.public_name, public_speaker_path(id: speaker.id)
+                    .label.mb-3
+                      .d-flex.flex-wrap.gap-3.align-items-center
+                        - if event.subtitle.present?
+                          %span.badge.bg-light.text-dark.fs-6= event.subtitle
+                        %span.badge{class: "bg-primary #{track_class(event)}"}
+                          %i.bi.bi-geo-alt.me-1
+                          = event.room&.name
+                        - if event.language.present? && @conference.languages_including_subs.count > 1
+                          %span.badge.bg-secondary
+                            %i.bi.bi-translate.me-1
+                            = event.language
+
+                    - if event.abstract.present?
+                      .alert.alert-light.border-start.border-primary.border-3.mb-3
+                        = simple_format event.abstract.truncate(250)
+
+                    - if event.description.present?
+                      .mb-3
+                        = simple_format event.description.truncate(1200)
+
+                  .col-12.col-md-4
+                    - if event.speakers.any?
+                      .card.border-0.bg-light
+                        .card-header.bg-success.text-white
+                          %h6.mb-0
+                            %i.bi.bi-people.me-2
+                            Speakers
+                        .card-body
+                          .speakers
+                            - event.speakers.each do |speaker|
+                              .d-flex.align-items-center.mb-2
+                                .me-2
+                                  = image_box speaker.avatar, :small, class: "rounded-circle"
+                                = link_to speaker.public_name, public_speaker_path(id: speaker.id), class: "text-decoration-none fw-medium"

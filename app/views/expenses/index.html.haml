@@ -1,11 +1,11 @@
 %section
   .page-header
-    .pull-right
+    .float-end
     %h1= t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
 
   - if @expenses.any?
-    %table.zebra-striped
+    %table.table.table-striped
       %thead
         %tr
           %th= t('creation_date')
@@ -22,8 +22,8 @@
             %td= e.reimbursed
             %td= to_currency e.value
             %td
-              =action_button "small", t('edit'), edit_person_expense_path(@person, e)
-              =action_button "small danger", t('destroy'), person_expense_path(@person, e), data: { confirm: t('are_you_sure') }, method: :delete
+              =action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('edit'), edit_person_expense_path(@person, e), class: "btn btn-primary btn-sm"
+              = delete_button person_expense_path(@person, e), hint: t('destroy')
 
         %tr
           %td{ colspan: 3 }
@@ -36,5 +36,5 @@
           %td{ colspan: 2 }
             %b= to_currency @expenses_sum_non_reimbursed
 
-  =action_button "small", t('expenses_module.new_expense'), new_person_expense_path
+  =action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('expenses_module.new_expense'), new_person_expense_path, class: "btn btn-primary btn-sm"
 

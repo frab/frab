@@ -32,3 +32,10 @@ db/development.sqlite3.*
 .solargraph.yml
 Session.vim
 .tool-versions
+vendor/bundle
+TODO.md
+
+/config/master.key
+
+# Claude Code instruction files
+CLAUDE.md

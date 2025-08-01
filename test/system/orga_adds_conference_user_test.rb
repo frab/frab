@@ -13,7 +13,7 @@ class OrgaAddsConferenceUserTest < ApplicationSystemTestCase
     visit "/#{@conference.acronym}/people/all"
     assert_content page, @person.email
     within('tr', text: @person.email) do
-      click_on('Edit account')
+      find('a[data-bs-content*="Edit account"]').click
     end
     assert_content page, "Edit Account: #{@person.public_name}"
 

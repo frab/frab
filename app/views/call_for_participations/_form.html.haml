@@ -8,11 +8,11 @@
     = f.input :contact_email, label: t('cfp.inputs.contact_email'), hint: t('cfp.inputs.hints.contact_email')
   .actions
     = link_to t('navigation.back'), call_for_participation_path, class: 'btn'
-    = f.button :submit, class: 'primary', value: t('cfp.save_cfp')
+    = f.button :submit, class: 'btn btn-primary', value: t('cfp.save_cfp')
 
 %hr
 .row
-  .span16
+  .col-md-12
     %h1
       = t('preview')
     = render 'cfp/welcome/welcome_text'

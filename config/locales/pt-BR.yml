@@ -1188,7 +1188,6 @@ pt-BR:
       submit: Salvar %{model}
       update: Atualizar %{model}
   hint: Sugestão
-  home: Casa
   import: Importar
   inputs:
     hints:
@@ -1732,7 +1731,7 @@ pt-BR:
   manage_conference: Gerenciar esta conferência
   manage_conference_flash: Você está logado como membro da tripulação para esta conferência. Deseja gerenciar esta conferência?
   manual: Manual
-  more: Mais...
+  more: Mais
   multiple_indication: múltiplo
   name: Nome
   navigation:

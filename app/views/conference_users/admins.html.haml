@@ -1,13 +1,15 @@
 - content_for :title do
-  = link_to t('page_titles.admin_users'), root_url, class: 'brand'
+  = link_to t('page_titles.admin_users'), root_url, class: 'navbar-brand'
 
 %section
   .page-header
     %h1= t('titles.admin_accounts')
 
-  %ul.tabs
-    %li= link_to t('crew_accounts'), conference_users_path
-    %li.active= link_to t('admin_accounts'), admin_users_path
+  %ul.nav.nav-tabs
+    %li.nav-item
+      = link_to t('crew_accounts'), conference_users_path, class: 'nav-link'
+    %li.nav-item
+      = link_to t('admin_accounts'), admin_users_path, class: 'nav-link active'
 
   .row
     - if @users.present?

@@ -3,7 +3,7 @@
     %h1= t('titles.create_account', person: @person.full_name)
   = render 'shared/people_tabs'
   .row
-    .span16
+    .col-md-12
       = content do
         = inner do
           %p= t('people_module.no_user_account_for_person', person: @person.full_name)

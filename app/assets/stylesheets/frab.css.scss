@@ -2,18 +2,6 @@ body {
   background-color: #eeeeee;
 }
 
-.topbar {
-  display: contents;
-}
-
-.topbar .fill {
-  padding: 0 1em;
-}
-
-.topbar .container {
-  width: 100%;
-}
-
 .main-content {
   background-color: #fff;
   border-radius: 0 0 6px 6px;
@@ -52,15 +40,10 @@ p.small{ font-size: 8px; }
   vertical-align: middle;
 }
 
-#my_rating {
-  padding-top: 8px;
-}
 
 div.rating {
   white-space: nowrap;
 }
-
-label.review-scores { width: auto; min-width: 40px; }
 
 table.room {
   width: 150px;
@@ -88,7 +71,7 @@ table.room tbody tr td.event-hover {
 }
 
 div.event {
-  background: #33EE33;
+  background: var(--bs-info-bg-subtle);
   width: 143px;
   z-index: 10;
   font-size: 10px;
@@ -96,6 +79,24 @@ div.event {
   -webkit-border-radius: 3px;
   border-radius: 3px;
   padding: 3px;
+}
+
+div.event.fatal {
+  background: var(--bs-danger-bg-subtle);
+}
+
+div.event.warning {
+  background: var(--bs-warning-bg-subtle);
+}
+
+div.unscheduled-event {
+  background: var(--bs-light-bg-subtle);
+  border: 1px solid #EEEEEE;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding: 3px;
+  margin: 5px;
 }
 
 div.color-preview {
@@ -106,40 +107,27 @@ div.color-preview {
   margin: .5ex 1ex .5ex .5ex;
 }
 
-div.event.fatal {
-  background: #EE3333;
+
+td.buttons { 
+  white-space: nowrap; 
+  
+  /* Make button_to forms display inline */
+  form {
+    display: inline-block;
+    margin: 0;
+  }
+  
+  /* On very small screens, allow buttons to wrap */
+  @media (max-width: 576px) {
+    white-space: normal;
+    
+    .btn, form {
+      margin-bottom: 0.25rem;
+    }
+  }
 }
-
-div.event.warning {
-  background: #EEEE00;
-}
-
-div.unscheduled-event {
-  background: #F9F9F9;
-  border: 1px solid #EEEEEE;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  padding: 3px;
-  margin: 5px;
-}
-
-table.room tr.odd {background: #F9F9F9}
-table.room tr.even {background: #EEEEEE;}
-
-span.right { float: right; }
-
-td.buttons { white-space: nowrap; }
 td.nowrap { white-space: nowrap; }
 th.nowrap { white-space: nowrap; }
-
-a.assoc {
-  margin-left: 150px;
-}
-
-textarea { height: auto; width: 420px; }
-
-input[type="text"] { height: auto; width: 420px; }
 
 ul#unscheduled-events {
   height: 400px;
@@ -185,28 +173,6 @@ p.availability span {
     border-radius: 5px;
     padding: 0.2em;
 }
-.rangeslider--horizontal {
-    height: 10px !important;
-    width: 430px !important;
-}
-
-.rangeslider--horizontal .rangeslider__handle  {
-    height: 20px;
-    width: 20px;
-    top: -5px !important;
-}
-.rangeslider__fill {
-    background-color: #239d6a !important;
-}
-.category-output {
-    margin-top: 8px;
-    float: left;
-}
-
-.span16 {
-    width: unset;
-    min-width: 940px;
-}
 
 .nested-fields .event_event_classifiers_value {
     float: left;
@@ -227,8 +193,8 @@ p.availability span {
 }
 
 .classifier-meter {
-    width: 8em;
-    margin-right: 0.5em;
+    width: 12em;
+    margin-right: 1.5em;
 }
 
 ul.event_classifiers_checkboxes {
@@ -247,9 +213,7 @@ ul.event_classifiers_checkboxes li {
 ul.event_classifiers_checkboxes input[type=checkbox] {
     margin-right: 0.5em;
 }
-.help-block {
-    width: 430px;
-}
+
 span.event-tag {
     display: inline;
     min-width: 200px;
@@ -264,46 +228,26 @@ span.event-tag.small {
     font-size: 8px; 
 }
 span.after-deadline.soft {
-    background-color: orange;
+    background-color: #d97706; /* Professional orange matching our theme */
+    color: white;
+    padding: 2px 4px;
+    border-radius: 3px;
 }
 span.after-deadline.hard {
-    background-color: red;
+    background-color: #dc2626; /* Professional red matching our theme */
+    color: white;
+    padding: 2px 4px;
+    border-radius: 3px;
 }
 
 .error {
     padding: 3px;
-    background-color: red;
-    color: yellow;
+    background-color: #dc2626; /* Professional red matching our theme */
+    color: white;
     border-style: solid;
-    border-color: black;
+    border-color: #b91c1c; /* Darker red for border */
 }
 
-div.filters-row {
-    margin-bottom: 13px;
-}
-
-.filterbox {
-    margin-left: 10px;
-    margin-right: 10px;
-    border-style: solid;
-    background: #E2E2E2;
-    padding: 4px;
-    border-color: #202020;
-    border-width: thin;
-}
-
-.filterbox-close-btn {
-    background: #222222;
-    padding: 4px;
-    color: #FFFF;
-    margin-left: -4px;
-    margin-right: 7px;
-}
-
-.filterbox-close-btn:hover {
-    color: lightblue;
-    text-decoration: none;
-}
 
 .filter_icon {
     display: inline-block;
@@ -331,9 +275,6 @@ div.filters-row {
     margin-left: auto;
 }
 
-p.warning {
-    background: #fbbebe
-}
 
 .conf-accepted-durations {
     columns: 6;
@@ -353,4 +294,26 @@ span#display_box {
 
 span#display_box.accepted {
     font-weight: bold;
+}
+
+// Event show page improvements
+.content-text {
+  line-height: 1.6;
+  p {
+    margin-bottom: 0.75rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Improve card spacing and appearance
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  
+  .card-header {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
 }

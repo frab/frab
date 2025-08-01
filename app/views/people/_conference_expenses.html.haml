@@ -1,18 +1,18 @@
 %section
   .row
-    .span16
+    .col-md-12
       %h2= t('expenses')
   .row
-    .span6
+    .col-md-6
       %p
         %b= t('col_reimbursed_expenses')
-    .span10
+    .col-md-10
       %p
         = to_currency @view_model.expenses_sum_reimbursed
   .row
-    .span6
+    .col-md-6
       %p
         %b= t('col_non_reimbursed_expenses')
-    .span10
+    .col-md-10
       %p
         = to_currency @view_model.expenses_sum_non_reimbursed

@@ -10,6 +10,7 @@ class TranslatedFieldsTest < ApplicationSystemTestCase
   test 'add track translation to conference' do
     assert_content page, 'Conferences'
     click_on 'Show'
+    click_on 'More'
     click_on 'Settings'
     click_on 'Tracks'
 
@@ -22,11 +23,16 @@ class TranslatedFieldsTest < ApplicationSystemTestCase
     # id is something like: conference_tracks_attributes_1638123861291_name_en
     fill_in 'Name (de)', with: 'Track 1 de'
     fill_in 'Name (en)', with: 'Track 1 en'
+    find('input[type="color"]', match: :first).set('#ff0000')
 
     click_on 'Add track'
 
-    find_all(:css, 'input')[3].set('Track 2 en')
-    find_all(:css, 'input')[4].set('Track 2 de')
+    # Fill in the second track's fields (the one that was just added)
+    within all('.nested-fields').last do
+      fill_in 'Name (en)', with: 'Track 2 en'
+      fill_in 'Name (de)', with: 'Track 2 de'
+      find('input[type="color"]').set('#00ff00')
+    end
 
     click_on 'Update conference'
     assert_content page, 'Conference was successfully updated.'
@@ -42,7 +48,7 @@ class TranslatedFieldsTest < ApplicationSystemTestCase
 
   test 'edit person description' do
     visit "/#{@conference.acronym}/people"
-    click_on 'Edit person', match: :first
+    find('i.bi-pencil-square', match: :first).click
 
     within_fieldset 'Bio' do
       fill_in 'Abstract (en)', with: 'english abstract'
@@ -60,7 +66,7 @@ class TranslatedFieldsTest < ApplicationSystemTestCase
 
   test 'edit event description' do
     visit "/#{@conference.acronym}/events"
-    click_on 'edit', match: :first
+    find('i.bi-pencil-square', match: :first).click
 
     within_fieldset 'Basic informations' do
       fill_in 'Title (de)', with: 'german title'

@@ -1,5 +1,5 @@
 = simple_form_for(@user, url: crew_user_path(@person)) do |f|
-  %fieldset.inputs
+  %fieldset.border.p-3.mb-4
     = f.input :email,                 disabled: !@user.credentials_editable?
     = f.input :password,              disabled: !@user.credentials_editable?
     = f.input :password_confirmation, disabled: !@user.credentials_editable?
@@ -16,5 +16,5 @@
         %p.inline-hint= t('users_module.save_needed_before_changes')
 
   .actions
-    = f.button :submit, class: 'primary'
+    = f.button :submit, class: 'btn btn-primary'
     = link_to t('cancel'), :back, class: "btn"

@@ -1,6 +1,6 @@
 %p
   .row
-    .col.span8
+    .col.col-md-8
       = raw(markdown_render(t('emails_module.placeholders_hint_header')))
     .col.offset8= render "shared/variable_subst_help"
 
@@ -10,4 +10,4 @@
     = f.input :subject, input_html: { size: 100 }
     = f.input :content, as: :text, input_html: { rows: 20 }
   .actions
-    = f.button :submit, class: 'primary'
+    = f.button :submit, class: 'btn btn-primary'

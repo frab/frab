@@ -1,5 +1,7 @@
 .nested-fields
-  %fieldset.inputs
-    = f.input :title
-    = f.input :url
-    = remove_association_link :link, f
+  %fieldset.border.p-3.mb-4
+    .d-flex.flex-wrap.gap-3
+      = f.input :title
+      = f.input :url
+      .d-flex.align-items-end.pb-3
+        = remove_association_link :link, f

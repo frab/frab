@@ -244,6 +244,7 @@ en:
   blank_indication: "(blank)"
   by: by
   call_for_participation: Call for Participation
+  call_for_participation_short: Call
   cancel: Cancel
   cfp:
     abstract_hint: One short paragraph that succinctly describes you. (HTML)
@@ -737,7 +738,7 @@ en:
       administration rights for the parent conference %{parent}
       and can only be changed through the administration
       interface of that conference.
-  default_text: default text
+  default_text: Defaults
   destroy: destroy
   detailed_changes: Detailed Changes
   details: Details
@@ -1042,7 +1043,7 @@ en:
       set_track_confirm:
         one: Are you sure you want to change the track of this event?
         other: Are you sure you want to change the track of all %{count} events?
-      show: Edit these events
+      show: Bulk Edit
       title:
         one: 'Edit %{count} event:'
         other: 'Edit %{count} events:'
@@ -1149,7 +1150,7 @@ en:
       proposal: proposal
       slides: slides
       video: video
-    print_accepted_cards: Print cards (accepted only)
+    print_accepted_cards: Print accepted
     print_accepted_cards_hint: |
       Download a PDF with only the accepted events as cards (four cards per page).
       Especially useful to plan your program schedule offline.
@@ -1164,7 +1165,7 @@ en:
     reject_event_no_email: Reject event (no email)
     reject_event_no_email_hint: Reject this event without sending an automated email.
     toggle_description: Toggle Description >>
-    toggle_send_bulk_mail: Send mail to all these people >>
+    toggle_send_bulk_mail: Send mail
     track_select: filter by track
   expenses: Expenses
   expenses_module:
@@ -1198,7 +1199,7 @@ en:
       submit: Save %{model}
       update: Update %{model}
   hint: Hint
-  home: Home
+  stats: Statistics
   import: Import
   inputs:
     hints:
@@ -1741,7 +1742,7 @@ en:
   manage_conference: Manage this conference
   manage_conference_flash: You are logged in as crew member for this conference. Do you want to manage this conference?
   manual: Manual
-  more: More...
+  more: More
   multiple_indication: multiple
   name: Name
   navigation:
@@ -1995,6 +1996,7 @@ en:
         schedule: Schedule – %{label}
         schedule_for_day: Schedule for day %{index} – %{label}
       event:
+        additional_information: Additional Information
         concurrent_events: Concurrent Events
         day: Day
         duration: Duration
@@ -2006,11 +2008,17 @@ en:
         links: Links
         no_recording: This event is not going to be recorded
         room: Room
+        sessions: Sessions
         speakers: Speakers
         start_time: Start time
         track: Track
       events:
+        all_events: All Events
         events: Events
+      index:
+        quick_access: Quick Access
+      nav:
+        conference_days: Conference Days
         speakers: Speakers
         title: Title
         track: Track

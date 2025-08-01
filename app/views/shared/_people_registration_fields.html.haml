@@ -1,5 +1,7 @@
-%fieldset.inputs
-  %legend= t('basic_information')
+%fieldset.border.p-3.mb-4
+  %legend.mb-3
+    %i.bi.bi-info-circle
+    = t('basic_information')
   = f.input :first_name
   = f.input :last_name
   = f.input :public_name, hint: t("cfp.public_name_hint")

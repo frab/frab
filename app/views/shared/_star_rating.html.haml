@@ -1,0 +1,16 @@
+- id = local_assigns[:id] || "rating-#{SecureRandom.hex(4)}"
+- name = local_assigns[:name] || "rating"
+- value = local_assigns[:value] || 0
+- readonly = local_assigns[:readonly] || false
+- size = local_assigns[:size] || "md"
+
+- if readonly
+  .star-rating.readonly{ class: "star-rating-#{size}" }
+    - 1.upto(5) do |star_position|
+      - filled = star_position <= value.to_f
+      %span{ class: "bi #{filled ? 'bi-star-fill filled' : 'bi-star'}" }
+- else
+  .star-rating{ class: "star-rating-#{size}" }
+    - 5.downto(1) do |star_value|
+      %input{ type: "radio", id: "#{id}-star#{star_value}", name: name, value: star_value, checked: (value == star_value) }
+      %label{ for: "#{id}-star#{star_value}", class: "bi bi-star-fill" }

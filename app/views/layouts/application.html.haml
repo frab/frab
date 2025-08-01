@@ -1,36 +1,66 @@
 !!!
 %html
   %head
-    %title= home_page_title
+    - if @conference&.id
+      %title= t('titles.cfp_welcome', conference: @conference.title)
+    - else
+      %title= home_page_title
 
-    = stylesheet_link_tag "application", "admin"
-    = javascript_include_tag "application", "admin"
+    %link{rel: "icon", type: "image/svg+xml", href: "/favicon.svg"}
     = csrf_meta_tags
+    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'admin'
+    = javascript_importmap_tags 'application'
 
   %body
-    .topbar
-      .fill
-        .container
-          - if content_for? :title
-            = yield :title
-          - else
-            = link_to t('page_titles.welcome'), root_path, class: "brand"
+    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+      .container-fluid
+        - if content_for? :title
+          = yield :title
+        - elsif @conference&.id
+          = link_to t('titles.cfp_welcome', conference: @conference.title), root_url, class: 'navbar-brand'
+        - else
+          = link_to t('page_titles.welcome'), root_path, class: "navbar-brand"
 
+        %button.navbar-toggler{type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#navbarNav", "aria-controls": "navbarNav", "aria-expanded": "false", "aria-label": "Toggle navigation"}
+          %span.navbar-toggler-icon
+
+        .collapse.navbar-collapse#navbarNav
           - if current_user
-            = render 'shared/navi_user_menu'
+            %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+              %li.nav-item
+                = link_to root_path, class: 'nav-link' do
+                  %i.bi.bi-building
+                  = t('conferences')
+              - if policy(Person).manage?
+                %li.nav-item
+                  = link_to conference_users_path, class: 'nav-link' do
+                    %i.bi.bi-people
+                    = t('users')
 
-            %ul.nav.secondary-nav.pull-right
+            %ul.navbar-nav.ms-auto
+              -# drop down for admin
               - if policy(Conference).index?
                 = render 'shared/navi_conferences_menu'
                 = render 'shared/navi_account_menu'
-              - elsif current_user.person
-                - if @conference
-                  = render 'shared/navi_cfp_account'
-                - else
-                  = render 'shared/navi_cfp_account_no_conference'
 
-          - else
-            %ul.nav.secondary-nav.pull-right
+              - elsif current_user.person
+                -if @conference && policy(@conference).manage?
+                  %li.nav-item
+                    = link_to conference_path(conference_acronym: @conference.acronym), class: 'nav-link' do
+                      %i.bi.bi-gear
+                      = t('manage_conference', default: "Manage this conference")
+
+                = render 'shared/navi_cfp_conferences_menu'
+
+                -# drop down for cfp account
+                - if @conference
+                  = render 'shared/navi_cfp_account_menu'
+                - else
+                  = render 'shared/navi_cfp_account_no_conference_menu'
+
+          - unless current_user
+            %ul.navbar-nav.ms-auto
               = render 'shared/navi_cfp_login'
 
     .container

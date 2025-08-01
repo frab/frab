@@ -10,19 +10,19 @@
       %dl
         %dt
           Subtitle:
-        %dd{class: "push-1 span8"}= @event.subtitle
+        %dd{class: "push-1 col-md-8"}= @event.subtitle
         %dt
           Abstract:
-        %dd{class: "span8"}= @event.abstract
+        %dd{class: "col-md-8"}= @event.abstract
         %dt
           Description:
-        %dd{class: "span8"}= @event.description
+        %dd{class: "col-md-8"}= @event.description
       %hr
       = t('cfp.join_confirm')
       %p
       = t('cfp.join_as')
       = select_tag "join_as", options_for_select(EventPerson::JOINABLES)
-      %p{class: 'help-block'}
+      %p{class: 'form-text'}
         = t('cfp.join_as_hint')
       %p
       = submit_tag t('cfp.join_event'), class: 'btn btn-large btn-primary'
@@ -36,5 +36,5 @@
   = form_tag cfp_events_join_path, method: :get do
     = text_field_tag :token
     = submit_tag t('cfp.join_token_lookup'), name: nil, class: 'btn btn-large btn-primary'
-  %p{class: 'help-block'}
+  %p{class: 'form-text'}
     = t('cfp.join_token_lookup_hint')

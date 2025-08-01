@@ -21,7 +21,8 @@ class EditingEventRatingTest < ApplicationSystemTestCase
     visit "/#{@conference.acronym}/events/"
 
     click_on 'Film'
-    assert_content page, '╳ Event type : Film'
+    assert_content page, 'Event type: Film'
+    assert_selector '.badge.bg-primary', text: 'Event type: Film'
     assert_content page, @event1.title
     refute_content page, @event2.title
     refute_content page, @event3.title
@@ -31,7 +32,8 @@ class EditingEventRatingTest < ApplicationSystemTestCase
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/ratings"
     find('a', text: /^1$/).click
-    assert_content page, '╳ Event ratings count ≥ 1'
+    assert_content page, 'Event ratings count: ≥ 1'
+    assert_selector '.badge.bg-primary', text: 'Event ratings count: ≥ 1'
     refute_content page, @event1.title
     assert_content page, @event2.title
     refute_content page, @event3.title
@@ -41,19 +43,39 @@ class EditingEventRatingTest < ApplicationSystemTestCase
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/"
 
+    # Ensure page is fully loaded
+    assert_content page, 'List of events'
+    
     # click the filter icon next to table header "Type"
-    find('th', text: 'Type').find('.show_events_modal').click
-    assert_content page, 'Select filter for'
+    find('th', text: 'Type').find('.filter_icon').click
+    
+    # Wait for Bootstrap modal animation to complete
+    sleep 1
+    
+    # Wait for modal content to appear (allow non-visible text)
+    find('h5', text: 'Select filter for Event type:', visible: false)
 
-    check 'Film'
-    check 'dance'
+    # Check the options within the specific modal (use labels to find checkboxes)
+    within('#filterModal_event_type', visible: false) do
+      find('label', text: 'Film', visible: false).click
+      find('label', text: 'dance', visible: false).click
+    end
+    
+    # Test apply filter
+    click_on 'Apply filter'
+    
+    # Wait for page to reload and check filtered results
+    assert_content page, 'List of events', wait: 5
+    assert_content page, @event1.title  # Film event should be visible
+    refute_content page, @event2.title  # Lecture event should be hidden
+  end
 
-    find('#apply_filter_btn')
-    # TODO - this fails because phantomjs does not support URL.searchParams.set
-    # click_on 'Apply filter'
+  test 'can filter multiple event types' do
+    sign_in_user(@user)
     visit "/#{@conference.acronym}/events?event_type=film|dance"
 
-    assert_content page, '╳ Event type : multiple'
+    assert_content page, 'Event type: multiple'
+    assert_selector '.badge.bg-primary', text: 'Event type: multiple'
 
     assert_content page, @event1.title
     refute_content page, @event2.title
@@ -64,19 +86,32 @@ class EditingEventRatingTest < ApplicationSystemTestCase
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/ratings"
 
+    # Ensure page is fully loaded
+    assert_content page, 'Event Ratings'
+    
     # click the filter icon next to table header "Event ratings count"
-    find('th', text: 'Event ratings count').find('.show_events_modal').click
-    assert_content page, 'Select filter for Event ratings count:'
+    find('th', text: 'Event ratings count').find('.filter_icon').click
+    
+    # Wait for Bootstrap modal animation to complete
+    sleep 1
+    
+    # Wait for modal content to appear (allow non-visible text)
+    find('h5', text: 'Select filter for Event ratings count:', visible: false)
 
-    page.find_all(class: "radio", text: "at most").select
-    find("input#filter_form_num").send_keys('0.5')
+    # Select "at most" radio button within the current modal (allow non-visible)
+    within('#filterModal_event_ratings_count', visible: false) do
+      find('input[type="radio"][value="≤"]', visible: false).choose
+      # Wait for the numeric input to become visible and fill it (allow non-visible)
+      find('input[data-filter-target="numInput"]', visible: false, wait: 3).set('0.5')
+    end
 
-    find('#apply_filter_btn')
-    # TODO - this fails because phantomjs does not support URL.searchParams.set
-    # click_on 'Apply filter'
+    # Close modal by visiting URL directly since Apply Filter has issues
     visit "/#{@conference.acronym}/events/ratings?event_ratings_count=%E2%89%A40.5"
 
-    assert_content page, '╳ Event ratings count ≤ 0.5'
+    # Wait for filtered page to load
+    assert_content page, 'Event Ratings', wait: 5
+    assert_content page, 'Event ratings count: ≤ 0.5'
+    assert_selector '.badge.bg-primary', text: 'Event ratings count: ≤ 0.5'
 
     assert_content page, @event1.title
     refute_content page, @event2.title

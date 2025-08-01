@@ -1,12 +1,13 @@
 %section
   .page-header
-    .pull-right
-      - if policy(Conference).new?
-        = action_button "primary", t('conferences_module.add_conference'), new_conference_path, hint: t('conferences_module.add_conference_hint')
-    %h1= t('titles.conferences_index')
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      %h1.mb-0= t('titles.conferences_index')
+      .d-flex.flex-wrap.gap-2
+        - if policy(Conference).new?
+          = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('conferences_module.add_conference'), new_conference_path, hint: t('conferences_module.add_conference_hint'), class: "btn btn-primary"
   - if params[:term].blank? and Conference.all.empty?
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= t('conferences_module.no_conferences')
 

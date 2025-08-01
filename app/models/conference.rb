@@ -46,6 +46,7 @@ class Conference < ApplicationRecord
   validate :days_do_not_overlap
   validate :default_timeslot_must_not_exceed_max_timeslot
 
+  before_validation :normalize_color
   after_update :update_timeslots
 
   has_paper_trail
@@ -53,6 +54,8 @@ class Conference < ApplicationRecord
   has_attached_file :logo,
     styles: { tiny: '16x16>', small: '32x32>', large: '256x256>' },
     default_url: 'conference_:style.png'
+
+  validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
   scope :has_submission, ->(person) {
     joins(events: [{ event_people: :person }])
@@ -168,7 +171,7 @@ class Conference < ApplicationRecord
   end
 
   def language_codes
-    codes = languages.map { |l| l.code.downcase }
+    codes = languages.map { |l| l.code }
     return [I18n.default_locale.to_s] if codes.empty?
 
     codes
@@ -280,6 +283,10 @@ class Conference < ApplicationRecord
   end
 
   private
+
+  def normalize_color
+    self.color = color.to_s.gsub(/\A#/, '') if color.present?
+  end
 
   def update_timeslots
     return unless saved_change_to_timeslot_duration? and events.count.positive?

@@ -1,6 +1,7 @@
 .nested-fields
-  %fieldset.inputs
+  %fieldset.border.p-3.mb-4
     = f.input :role, as: :select, collection: translated_options(ConferenceUser::ROLES)
     = f.input :conference_id, as: :select, collection: manageable_conferences
-    = remove_association_link :conference_user, f
+    .d-flex.justify-content-end.gap-3
+      = remove_association_link :conference_user, f
     %hr/
