@@ -1,17 +1,7 @@
 .nested-fields
-  %fieldset.inputs
-    = f.input :start_date, html5: true, hint: "yyyy-mm-dd hh:mm", as: :datetime, input_html: { value: f.object.start_date.try(:strftime, '%Y-%m-%dT%H:%M') }
-    = f.input :end_date, html5: true, hint: "yyyy-mm-dd hh:mm", as: :datetime, input_html: { value: f.object.end_date.try(:strftime, '%Y-%m-%dT%H:%M') }
-
-    = remove_association_link :day, f
-
-:javascript
-  $(function() {
-    $('div.datetime input').datetimepicker({
-      dateFormat: "yy-mm-dd",
-      timeFormat: "HH:mm",
-      separator: "T",
-      stepHour: 1,
-      stepMinute: #{@conference.timeslot_duration}
-    });
-  });
+  %fieldset.border.p-3.mb-4
+    .d-flex.flex-wrap.gap-3
+      = f.input :start_date, as: :string, input_html: { type: 'datetime-local', value: f.object.start_date.try(:strftime, '%Y-%m-%dT%H:%M'), step: (@conference.timeslot_duration * 60) }
+      = f.input :end_date, as: :string, input_html: { type: 'datetime-local', value: f.object.end_date.try(:strftime, '%Y-%m-%dT%H:%M'), step: (@conference.timeslot_duration * 60) }
+      .d-flex.align-items-end.pb-3
+        = remove_association_link :day, f

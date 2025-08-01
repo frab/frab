@@ -1,29 +1,32 @@
 - content_for :title do
-  = link_to 'frab - home', root_url, class: 'brand'
+  = link_to 'frab - home', root_url, class: 'navbar-brand'
 
 %section
   .page-header
-    .pull-right
-      - if policy(Conference).new?
-        = action_button "primary", t('conferences_module.add_conference'), new_conference_path, hint: t('conferences_module.add_conference_hint')
-      - if policy(Conference).orga?
-        = action_button "primary", t('conferences_module.manage_conferences') , conferences_path, hint: t('conferences_module.manage_conferences_hint')
-        = action_button "secondary", t('conferences_module.search'), conferences_path, hint: t('conferences_module.search_hint')
-    %h1= t('titles.conferences_list')
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      %h1.mb-0= t('titles.conferences_list')
+      .d-flex.flex-wrap.gap-2
+        - if policy(Conference).new?
+          = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('conferences_module.add_conference'), new_conference_path, hint: t('conferences_module.add_conference_hint'), class: "btn btn-primary"
+        - if policy(Conference).orga?
+          = action_button '<i class="bi bi-gear"></i> '.html_safe + t('conferences_module.manage_conferences') , conferences_path, hint: t('conferences_module.manage_conferences_hint'), class: "btn btn-primary"
+          = action_button '<i class="bi bi-search"></i> '.html_safe + t('conferences_module.search'), conferences_path, hint: t('conferences_module.search_hint'), class: "btn btn-secondary"
 
-  %ul.tabs
-    %li{class: active_class?(root_path)}= link_to t('conferences_module.current_conferences'), root_path
-    %li{class: active_class?(past_conferences_path)}= link_to t('conferences_module.past_conferences'), past_conferences_path
+  %ul.nav.nav-tabs
+    %li.nav-item
+      = link_to t('conferences_module.current_conferences'), root_path, class: "nav-link #{'active' if active_class?(root_path)}"
+    %li.nav-item
+      = link_to t('conferences_module.past_conferences'), past_conferences_path, class: "nav-link #{'active' if active_class?(past_conferences_path)}"
 
   - if Conference.all.empty?
     .row
-      .span16
+      .col-md-12
         .blank-slate{style: 'padding-bottom: 33%'}
           %p= t('conferences_module.no_conference')
 
   - elsif @conferences.empty?
     .row
-      .span16
+      .col-md-12
         .blank-slate{style: 'padding-bottom: 33%'}
           %p= t('conferences_module.no_conference_with_cfp')
 
@@ -35,4 +38,8 @@
   %hr
 
   - content_for :footer do
-    .span16= raw(markdown_render(t('frab_footer')))
+    .row.justify-content-center
+      .col-lg-8.col-md-10
+        .card.border-0.bg-light
+          .card-body.text-center.py-4
+            = raw(markdown_render(t('frab_footer')).gsub('<p>', '<p class="mb-3 text-muted">').gsub('<a ', '<a class="text-primary fw-medium text-decoration-none" '))

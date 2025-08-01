@@ -14,6 +14,7 @@ class EditingConferenceTest < ApplicationSystemTestCase
     within find('tr', text: @conference.title) do
       click_on 'Show'
     end
+    click_on 'More'
     click_on 'Settings'
 
     choose('Request Tracker')

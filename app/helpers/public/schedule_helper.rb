@@ -66,6 +66,10 @@ module Public::ScheduleHelper
   end
 
   def day_selected(index)
-    'selected' if request.path.ends_with?(index.to_s)
+    return 'active' if @day && @conference.days.index(@day) == (index - 1)
+    return 'active' if params[:day] && params[:day].to_i == index
+
+    # Fallback to path checking
+    'active' if request.path.match?(/\/schedule\/#{index}(?:\.|$)/)
   end
 end

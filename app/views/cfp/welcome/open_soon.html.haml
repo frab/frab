@@ -2,9 +2,9 @@
   .page-header
     %h1= t('cfp.welcome')
   .row
-    .span16
+    .col-md-12
       .flash
-        %div{class: "alert-message error fade in", "data-alert" => "alert"}
+        %div{class: "alert alert-danger alert-dismissible fade show", "data-alert" => "alert"}
           %p= t('cfp.pages.thank_for_interest', conference: @conference.title)
           %p= t('cfp.pages.not_started_cfp')
 

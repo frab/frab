@@ -1201,7 +1201,6 @@ nl:
       submit: Opslaan %{model}
       update: Update zxzxxx0
   hint: 'Tip:'
-  home: Thuis
   import: Importeren
   inputs:
     hints:
@@ -1744,7 +1743,7 @@ nl:
   manage_conference: Deze conferentie beheren
   manage_conference_flash: U bent ingelogd als crewlid voor deze conferentie. Wilt u deze conferentie beheren?
   manual: Handleiding
-  more: Meer...
+  more: Meer
   multiple_indication: meerdere
   name: Naam
   navigation:

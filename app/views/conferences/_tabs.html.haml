@@ -1,21 +1,21 @@
-%ul.tabs
-  %li{class: active_tab(:settings, active)}
-    = link_to t(:settings), edit_conference_path
-  %li{class: active_tab(:days, active)}
-    = link_to t(:days), edit_days_conference_path
-  %li{class: active_tab(:tracks, active)}
-    = link_to t(:tracks), edit_tracks_conference_path
-  %li{class: active_tab(:rooms, active)}
-    = link_to t(:rooms), edit_rooms_conference_path
-  %li{class: active_tab(:schedule, active)}
-    = link_to t(:schedule), edit_schedule_conference_path
+%ul.nav.nav-tabs.mb-3
+  %li.nav-item
+    = link_to t(:settings), edit_conference_path, class: "nav-link #{active == :settings ? 'active' : ''}"
+  %li.nav-item
+    = link_to t(:days), edit_days_conference_path, class: "nav-link #{active == :days ? 'active' : ''}"
+  %li.nav-item
+    = link_to t(:tracks), edit_tracks_conference_path, class: "nav-link #{active == :tracks ? 'active' : ''}"
+  %li.nav-item
+    = link_to t(:rooms), edit_rooms_conference_path, class: "nav-link #{active == :rooms ? 'active' : ''}"
+  %li.nav-item
+    = link_to t(:schedule), edit_schedule_conference_path, class: "nav-link #{active == :schedule ? 'active' : ''}"
   - if @conference.ticket_server_enabled?
-    %li{class: active_tab(:ticket_server, active)}
-      = link_to t(:ticket_server), edit_ticket_server_conference_path
-  %li{class: active_tab(:classifiers, active)}
-    = link_to t(:classifiers), edit_classifiers_conference_path
-  %li{class: active_tab(:reviewing, active)}
-    = link_to t(:reviewing), edit_review_metrics_conference_path
+    %li.nav-item
+      = link_to t(:ticket_server), edit_ticket_server_conference_path, class: "nav-link #{active == :ticket_server ? 'active' : ''}"
+  %li.nav-item
+    = link_to t(:classifiers), edit_classifiers_conference_path, class: "nav-link #{active == :classifiers ? 'active' : ''}"
+  %li.nav-item
+    = link_to t(:reviewing), edit_review_metrics_conference_path, class: "nav-link #{active == :reviewing ? 'active' : ''}"
   - if @conference.ticket_type == 'integrated' or @conference.bulk_notification_enabled
-    %li{class: active_tab(:notifications, active)}
-      = link_to t('notifications'), edit_notifications_conference_path
+    %li.nav-item
+      = link_to t('notifications'), edit_notifications_conference_path, class: "nav-link #{active == :notifications ? 'active' : ''}"

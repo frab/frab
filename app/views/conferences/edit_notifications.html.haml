@@ -6,25 +6,58 @@
   - locales_needed = Person.joins(events: :conference).where("conferences.id": @conference.id).where("event_people.event_role": EventPerson::SUBSCRIBERS).where("events.state": %w(accepting rejecting confirmed)).map { |p| p.locale_for_mailing(@conference).to_s }.uniq
   - locales_present = @conference.notifications.map(&:locale).uniq
 
-  - if !(locales_needed - locales_present).empty?
-    .alert-message.error.span12= t('notifications_module.missing_locale', locales: locales_needed - locales_present )
-  - else
-    %h1= t('send')
+  .container-fluid
+    - if !(locales_needed - locales_present).empty?
+      .row.mb-4
+        .col-12
+          .alert.alert-danger.mb-0
+            %i.bi.bi-exclamation-triangle-fill.me-2
+            = t('notifications_module.missing_locale', locales: locales_needed - locales_present )
+    - else
+      .row.mb-4
+        .col-12
+          .alert.alert-success.mb-0
+            %i.bi.bi-check-circle-fill.me-2
+            %strong= t('send')
 
-  - if @conference.ticket_server_enabled?
-    - partial = 'notification_section_ticket'
-  - else
-    - partial = 'notification_section'
-  - if @accepting.count > 0
-    = render partial: partial, locals: { e: @accepting, state: 'accepting', name: 'acceptance' }
-  - if @rejecting.count > 0
-    = render partial: partial, locals: { e: @rejecting, state: 'rejecting', name: 'rejection' }
-  - if @confirmed.count > 0
-    = render partial: partial, locals: { e: @confirmed, state: 'confirmed', name: 'scheduling' }
+    - if @conference.ticket_server_enabled?
+      - partial = 'notification_section_ticket'
+    - else
+      - partial = 'notification_section'
 
-  %h1= t('edit')
+    -# Notification Actions Section
+    .row.g-4.mb-5
+      - if @accepting.count > 0
+        .col-lg-4.col-md-6
+          .card.h-100.border-success
+            .card-body
+              = render partial: partial, locals: { e: @accepting, state: 'accepting', name: 'acceptance' }
+      - if @rejecting.count > 0
+        .col-lg-4.col-md-6
+          .card.h-100.border-danger
+            .card-body
+              = render partial: partial, locals: { e: @rejecting, state: 'rejecting', name: 'rejection' }
+      - if @confirmed.count > 0
+        .col-lg-4.col-md-6
+          .card.h-100.border-info
+            .card-body
+              = render partial: partial, locals: { e: @confirmed, state: 'confirmed', name: 'scheduling' }
 
-  .row
-    = render "shared/variable_subst_help"
-    .span16
-      = render "form_notifications"
+    -# Configuration Section
+    .row.g-4
+      .col-xl-10.col-lg-8
+        .card
+          .card-header
+            %h5.card-title.mb-0
+              %i.bi.bi-gear-fill.me-2
+              = t(:notifications)
+          .card-body
+            = render "form_notifications"
+      .col-xl-2.col-lg-4
+        .card
+          .card-header
+            %h5.card-title.mb-0
+              %i.bi.bi-question-circle-fill.me-2
+              = t('help')
+          .card-body
+            = render "shared/variable_subst_help"

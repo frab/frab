@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :language do
-    code { 'EN' }
+    code { 'en' }
 
     factory :english_language do
     end
     factory :german_language do
-      code { 'DE' }
+      code { 'de' }
     end
   end
 end

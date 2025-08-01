@@ -1,26 +1,27 @@
-%table.zebra-stripe
-  %thead
-    %tr
-    - if @search
-      %th= sort_link @search, :name, 'Name', term: params[:term]
-      %th= sort_link @search, :subject, 'Subject', term: params[:term]
-      %th= sort_link @search, :content, 'Content', term: params[:term]
-      %th= sort_link @search, :created_at, term: params[:term]
-    - else
-      %th= t('name')
-      %th= t('mail_subject')
-      %th= t('content')
-      %th= t('creation_date')
-    %th.last
-  %tbody
-    - collection.each do |t|
+.table-responsive
+  %table.table.table-striped.table-hover
+    %thead
       %tr
-        %td= link_to t.name, t
-        %td= t.subject
-        %td= t.content.truncate(100)
-        %td= t.created_at
-        %td.buttons
-          = action_button "small", t('show'), t
-          - if policy(@conference).orga?
-            = action_button "small", t('edit'), edit_mail_template_path(t)
-            = action_button "small danger", t('destroy'), t, data: { confirm: t('are_you_sure') }, method: :delete
+        - if @search
+          %th= sort_link @search, :name, 'Name', term: params[:term]
+          %th= sort_link @search, :subject, 'Subject', term: params[:term]
+          %th= sort_link @search, :content, 'Content', term: params[:term]
+          %th= sort_link @search, :created_at, term: params[:term]
+        - else
+          %th= t('name')
+          %th= t('mail_subject')
+          %th= t('content')
+          %th= t('creation_date')
+        %th.last
+    %tbody
+      - collection.each do |t|
+        %tr
+          %td= link_to t.name, t
+          %td= t.subject
+          %td= t.content.truncate(100)
+          %td= t.created_at
+          %td.buttons
+            = action_button '<i class="bi bi-eye"></i> '.html_safe + t('show'), t, class: "btn btn-primary btn-sm"
+            - if policy(@conference).orga?
+              = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('edit'), edit_mail_template_path(t), class: "btn btn-primary btn-sm"
+              = delete_button t, hint: t('destroy')

@@ -1,9 +1,15 @@
-%ul.tabs
-  %li{class: active_class?(event_path(@event))}= link_to t('navigation.event'), @event
+%ul.nav.nav-tabs
+  %li.nav-item
+    = link_to t('navigation.event'), @event, class: "nav-link #{'active' if active_class?(edit_event_path(@event)) or active_class?(event_path(@event))}"
   - if @event.translations.count > 0
-    %li{class: active_class?(translations_event_path(@event))}= link_to t('navigation.translations'), translations_event_path(@event)
-  %li{class: active_class?(people_event_path(@event))}= link_to t('navigation.people'), people_event_path(@event)
-  %li{class: active_class?(event_history_path(@event))}= link_to t('navigation.history'), event_history_path(@event)
-  %li{class: active_class?(event_event_rating_path(@event))}= link_to t('navigation.ratings'), event_event_rating_path(@event)
+    %li.nav-item
+      = link_to t('navigation.translations'), translations_event_path(@event), class: "nav-link #{'active' if active_class?(translations_event_path(@event))}"
+  %li.nav-item
+    = link_to t('navigation.people'), people_event_path(@event), class: "nav-link #{'active' if active_class?(people_event_path(@event))}"
+  %li.nav-item
+    = link_to t('navigation.history'), event_history_path(@event), class: "nav-link #{'active' if active_class?(event_history_path(@event))}"
+  %li.nav-item
+    = link_to t('navigation.ratings'), event_event_rating_path(@event), class: "nav-link #{'active' if active_class?(event_event_rating_path(@event))}"
   - if @conference.feedback_enabled
-    %li{class: active_class?(event_event_feedbacks_path(@event))}= link_to t('navigation.feedbacks'), event_event_feedbacks_path(@event)
+    %li.nav-item
+      = link_to t('navigation.feedbacks'), event_event_feedbacks_path(@event), class: "nav-link #{'active' if active_class?(event_event_feedbacks_path(@event))}"
