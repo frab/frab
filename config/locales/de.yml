@@ -244,6 +244,7 @@ de:
   blank_indication: "(leer)"
   by: von
   call_for_participation: Call for Participation
+  call_for_participation_short: Aufruf
   cancel: Abbrechen
   cfp:
     abstract_hint: Ein kurzer, prägnanter Absatz zu Ihrer Person. (HTML)
@@ -615,7 +616,7 @@ de:
     - Fr
     - Sa
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mär
@@ -642,7 +643,7 @@ de:
       only_day: "%e"
       short: "%e. %b"
     month_names:
-    - 
+    -
     - Januar
     - Februar
     - März
@@ -1176,7 +1177,7 @@ de:
       submit: "%{model} speichern"
       update: "%{model} aktualisieren"
   hint: Hinweis
-  home: Home
+  stats: Statistik
   import: Importieren
   inputs:
     hints:
@@ -1719,7 +1720,7 @@ de:
   manage_conference: Verwalten Sie diese Konferenz
   manage_conference_flash: Sie sind als Crew-Mitglied für diese Konferenz eingeloggt. Wollen Sie diese Konferenz verwalten?
   manual: Handbuch
-  more: Mehr...
+  more: Mehr
   multiple_indication: mehrere
   name: Name
   navigation:
@@ -2000,7 +2001,13 @@ de:
         schedule_index: Programmübersicht
         speakers: ReferentInnen
         timeline: Zeitleiste
+      events:
+        all_events: Alle Events
+        events: Events
+      index:
+        quick_access: Direktzugriff
       nav:
+        conference_days: Konferenztage
         day: Tag %{index}
         events: Events
         index: Übersicht

@@ -1,4 +1,4 @@
-%table.zebra-striped
+%table.table.table-striped
   %thead
     %th.first
     %th= User.human_attribute_name('email')
@@ -15,4 +15,4 @@
         %td= conference_users.map(&:role).max_by { |r|  ConferenceUser::ROLES.index(r) }
         %td
           - if policy(conference_user).edit?
-            = action_button 'small danger', t('edit'), edit_person_user_path(conference_user.user.person, conference_acronym: conference_user.conference.acronym)
+            = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('edit'), edit_person_user_path(conference_user.user.person, conference_acronym: conference_user.conference.acronym), class: "btn btn-sm btn-danger"

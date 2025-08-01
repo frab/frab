@@ -1,0 +1,48 @@
+// Bootstrap Star Rating
+.star-rating {
+  direction: rtl;
+  display: inline-block;
+  cursor: pointer;
+  
+  input {
+    display: none;
+  }
+  
+  label, span {
+    color: #dee2e6;
+    font-size: 1.25rem;
+    padding: 0 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  label:hover,
+  label:hover~label,
+  input:checked~label {
+    color: var(--bs-warning, #ffc107);
+  }
+
+  &.readonly {
+    cursor: default;
+    direction: ltr;
+    
+    span {
+      cursor: default;
+      pointer-events: none;
+      
+      &.filled {
+        color: var(--bs-warning, #ffc107);
+      }
+    }
+  }
+  
+  // Size variants
+  &.star-rating-sm {
+    label, span { font-size: 1rem; }
+  }
+  
+  &.star-rating-lg {
+    label, span { font-size: 1.5rem; }
+  }
+}
+

@@ -1,11 +1,11 @@
 %section
   .page-header
-    .pull-right
+    .float-end
     %h1= t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
 
   - if @transport_needs.any?
-    %table.zebra-striped
+    %table.table.table-striped
       %thead
         %tr
           %th= t('transport_needs_module.when')
@@ -23,7 +23,7 @@
             %td= t_boolean(tn.booked)
             %td= tn.note
             %td
-              =action_button "small", t('edit'), edit_person_transport_need_path(@person, tn)
-              =action_button "small danger", t('destroy'), person_transport_need_path(@person, tn), data: { confirm: t('are_you_sure') }, method: :delete
+              =action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('edit'), edit_person_transport_need_path(@person, tn), class: "btn btn-primary btn-sm"
+              = delete_button person_transport_need_path(@person, tn), hint: t('destroy')
 
-  =action_button "small", t('transport_needs_module.new_transport_need'), new_person_transport_need_path
+  =action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('transport_needs_module.new_transport_need'), new_person_transport_need_path, class: "btn btn-primary btn-sm"

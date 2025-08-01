@@ -1,5 +1,6 @@
 .flash
   - flash.each do |type, message|
-    %div{class: "alert-message #{ { "notice" => "success", "alert" => "error" }.fetch(type.to_s, type.to_s) } fade in", "data-alert" => "alert"}
-      %a.close{href: "#"} ×
-      %p= message
+    - unless type == :timedout
+      %div{class: "alert alert-#{ flash_alert(type.to_s) } alert-dismissible fade show", role: :alert}
+        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}
+        %p.mb-0= message

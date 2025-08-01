@@ -56,21 +56,6 @@ class EventsController < BaseConferenceController
     redirect_to events_path(events: 'my')
   end
 
-  def filter_modal
-    authorize @conference, :read?
-
-    @filter = helpers.filters_data.detect{|f| f.qname == params[:which_filter]}
-
-    case @filter.type
-    when :text
-      @options = helpers.localized_filter_options(@conference.events.includes(:track).distinct.pluck(@filter.attribute_name), @filter.i18n_scope)
-      @selected_values = helpers.split_filter_string(params[@filter.qname]) if params[@filter.qname]
-    when :range
-      @op, @current_numeric_value = helpers.get_op_and_val(params[@filter.qname])
-    end
-
-    render partial: 'filter_modal'
-  end
 
   def bulk_edit_modal
     authorize @conference, :read?
@@ -337,7 +322,7 @@ class EventsController < BaseConferenceController
       else
         flash_model_errors(@event)
         @start_time_options = PossibleStartTimes.new(@event).all
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit', status: :unprocessable_entity }
         format.js { render json: @event.errors, status: :unprocessable_entity }
       end
     end

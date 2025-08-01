@@ -3,9 +3,9 @@
     %h1= @first ? t(:create_your_first_conference) : t(:new_conference)
   - if @first
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= t('conferences_module.new_welcome')
   .row
-    .span16
+    .col-md-12
       = render "form"

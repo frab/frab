@@ -2,77 +2,112 @@
   = "#{event_title} | #{schedule_title}"
 
 - event = @view_model.event
-%h2= event_title_with_type(event)
-%h3.title= event.subtitle
+%article.container-fluid
+  .mb-4
+    %h2.h3.fw-bold.text-primary.mb-3= event_title_with_type(event)
+    .text-muted.mb-3
+      .badge.bg-light.text-dark.p-2.me-2
+        = l(event.start_time.to_date, format: :long)
+        %time.fw-medium{datetime: event.start_time.strftime("%Y-%m-%d %H:%M"), title: event.start_time.strftime("%Y-%m-%d %H:%M")}
+          = l event.start_time, format: :time
+        –
+        %time.fw-medium{datetime: event.end_time.strftime("%Y-%m-%d %H:%M"), title: event.end_time.strftime("%Y-%m-%d %H:%M")}
+          = l event.end_time, format: :time
+      .badge.bg-secondary.p-2= event.room.try(:name)
 
-.column.left#basic
-  = image_box(event.logo, :large)
-  - if event.do_not_record
-    %p
-      %b #{t '.no_recording'}
-  = simple_format event.abstract, class: 'abstract'
-  = simple_format event.description, class: 'description'
+      .mt-3.d-flex.flex-wrap.gap-3
+        - if @conference.languages_including_subs.count > 1
+          .badge.bg-info.text-dark
+            %strong Language:
+            = event.language
+        - unless event.track.blank?
+          .badge.bg-success.text-dark
+            = event.track.try(:name)
 
-.column.left#details
-  %h3= t '.info'
-  %p
-    %b #{t '.day'}:
-    = link_to l(event.start_time.to_date), public_schedule_path(day: @conference.day_at(event.start_time))
-    %br/
-    %b #{t '.start_time'}:
-    = l event.start_time, format: :time
-    %br/
-    %b #{t '.duration'}:
-    = format_time_slots(event.time_slots)
-    %br/
-    %b #{t '.room'}:
-    = event.room.try(:name)
-    %br/
-    - unless event.track.blank?
-      %b #{t '.track'}:
-      - if different_track_colors?
-        %font.event{class: "track-#{event.track.try(:name).parameterize}"}
-          = link_to event.track.try(:name), public_events_path(anchor: "#{event.track.try(:name).downcase}")
-      - else
-        = link_to event.track.try(:name), public_events_path(anchor: "#{event.track.try(:name).downcase}")
-    %br/
-    - if @conference.languages_including_subs.count > 1
-      %b #{t '.language'}:
-      = event.language
-  %h3 #{t '.links'}:
-  %ul
-    %li= link_to "iCalendar", public_event_path(id: event.id, format: :ics)
-    - event.links.each do |link|
-      %li= link_to link.title, link.url
-    - if event.video_url
-      %li= link_to 'Video', event.video_url
+  .row.g-4
+    .col-12.col-lg-8
+      - if event.logo.present?
+        .mb-4
+          = link_to event.logo, "data-lightbox" => event.logo do
+            = image_box(event.logo, :large, class: "img-fluid rounded", loading: "lazy", alt: "Das Titelbild des Beitrags")
 
-  - if event.event_attachments.is_public.any?
-    %h3= t '.files'
-    %ul
-      - event.event_attachments.is_public.each do |attachment|
-        %li= link_to attachment.link_title, attachment.attachment.url
-  - if @conference.feedback_enabled?
-    %h3= t '.feedback'
-    %p
-      = link_to t('.feedback_link'), new_public_event_feedback_url(event_id: event)
-  - unless @view_model.concurrent_events.blank?
-    #concurrent_events.column.left
-      %h3 #{t '.concurrent_events'}
-      %dl.dl-horizontal
-        - @view_model.concurrent_events.each do |event|
-          - next if event.id == event.id
-          %dt= Room.find(event.room_id).name
-          %dd= link_to event.title, public_event_path( id: event.id )
+      - if event.do_not_record
+        .alert.alert-warning.mb-4
+          %i.bi.bi-exclamation-triangle.me-2
+          %strong= t '.no_recording'
 
-.column.right#sidebar
-  %h3= t '.speakers'
-  %table.list
-    %tbody
-      - event.speakers.each do |speaker|
-        %tr
-          %td= image_box speaker.avatar, :small
-          %td= link_to speaker.public_name, public_speaker_path(id: speaker.id)
+      - if event.abstract.present?
+        .card.mb-4
+          .card-body
+            %h4.card-title.h5= t 'activerecord.attributes.event.abstract'
+            = simple_format event.abstract
+
+      - if event.description.present?
+        .card.mb-4
+          .card-body
+            %h4.card-title.h5= t 'activerecord.attributes.event.description'
+            = simple_format event.description
+
+    .col-12.col-lg-4
+      .speakers-section
+        - event.speakers.each do |speaker|
+          .session-card.mb-3
+            .session-time-box.avatar
+              = link_to public_speaker_path(id: speaker.id) do
+                .avatar-wrapper
+                  - if speaker.avatar.present?
+                    = image_box speaker.avatar, :small, class: "rounded-circle", loading: "lazy", alt: "The speaker's profile picture"
+                  - else
+                    .bg-light.rounded-circle.d-flex.align-items-center.justify-content-center{style: "width: 60px; height: 60px;"}
+                      %i.bi.bi-person.text-muted{style: "font-size: 1.5rem;"}
+            .session-info
+              .title
+                = link_to speaker.public_name, public_speaker_path(id: speaker.id), class: "text-decoration-none fw-semibold"
+              - if speaker.abstract.present?
+                .abstract.text-muted.small.mt-1
+                  = truncate(speaker.abstract, length: 100, separator: ' ')
+
+      - if event.links.any? || event.video_url.present? || event.event_attachments.is_public.any? || @conference.feedback_enabled?
+        .additional-info.mt-4
+          %h5.mb-3= t '.additional_information'
+
+          - if event.links.any? || event.video_url.present? || event.event_attachments.is_public.any?
+            .links-section.mb-3
+              %h6.text-muted.small.text-uppercase.mb-2= t '.links'
+              .list-group.list-group-flush
+                = link_to public_event_path(id: event.id, format: :ics), class: "list-group-item list-group-item-action border-0 px-0 py-2" do
+                  %i.bi.bi-calendar.me-2
+                  iCalendar
+                - event.links.each do |link|
+                  = link_to link.url, class: "list-group-item list-group-item-action border-0 px-0 py-2", target: "_blank" do
+                    %i.bi.bi-box-arrow-up-right.me-2
+                    = link.title
+                - if event.video_url
+                  = link_to event.video_url, class: "list-group-item list-group-item-action border-0 px-0 py-2", target: "_blank" do
+                    %i.bi.bi-play-circle.me-2
+                    Video
+                - event.event_attachments.is_public.each do |attachment|
+                  = link_to attachment.attachment.url, class: "list-group-item list-group-item-action border-0 px-0 py-2", target: "_blank" do
+                    %i.bi.bi-file-earmark.me-2
+                    = attachment.link_title
+
+          - if @conference.feedback_enabled?
+            .feedback-section
+              %h6.text-muted.small.text-uppercase.mb-2= t '.feedback'
+              = link_to new_public_event_feedback_url(event_id: event), class: "btn btn-outline-primary btn-sm" do
+                %i.bi.bi-chat.me-2
+                = t('.feedback_link')
+
+      - unless @view_model.concurrent_events.blank?
+        .concurrent-events.mt-4
+          %h5.mb-3 #{t '.concurrent_events'}
+          - @view_model.concurrent_events.each do |concurrent_event|
+            - next if concurrent_event.id == event.id
+            .concurrent-event.mb-2.p-2.bg-light.rounded
+              .d-flex.justify-content-between.align-items-center
+                %small.fw-medium= Room.find(concurrent_event.room_id).name
+                = link_to concurrent_event.title, public_event_path(id: concurrent_event.id), class: "text-decoration-none small"
+
 
 %script{:type => 'application/ld+json'}
   - performers = event.speakers.map { |speaker| { name: speaker.public_name, '@type': 'Person', sameAs: public_speaker_path(:id => speaker.id), image: image_path(speaker.avatar.url(:small)) } }

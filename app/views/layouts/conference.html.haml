@@ -3,25 +3,78 @@
   %head
     %title= management_page_title
 
-    = stylesheet_link_tag "application", "admin"
-    = javascript_include_tag "application", "admin"
+    %link{rel: "icon", type: "image/svg+xml", href: "/favicon.svg"}
     = csrf_meta_tags
+    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'admin'
+    = javascript_importmap_tags "application"
+    = yield :head
 
   %body
-    .topbar
-      .fill
-        .container
-          - fail t('cfp.fail_layout_use') unless @conference
-          = link_to @conference.acronym, conference_path(conference_acronym: @conference.acronym), class: "brand"
-          %ul.nav.pull-left
-            %li= link_to t('home'), root_path
-          %ul.nav
-            = render 'shared/navi_conference'
-          %ul.nav.secondary-nav.pull-right
+    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+      .container-fluid
+        - fail t('cfp.fail_layout_use') unless @conference
+        = link_to @conference.acronym, root_path, class: 'navbar-brand'
+
+        %button.navbar-toggler{type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#navbarNav", "aria-controls": "navbarNav", "aria-expanded": "false", "aria-label": "Toggle navigation"}
+          %span.navbar-toggler-icon
+
+        .collapse.navbar-collapse#navbarNav
+          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+            - if @conference.call_for_participation&.persisted?
+              %li.nav-item
+                = link_to call_for_participation_path, class: 'nav-link',
+                  "data-bs-toggle": "tooltip", "data-bs-placement": "bottom",
+                  title: t(:call_for_participation, default: "Call for Participation") do
+                  %i.bi.bi-megaphone
+                  = t(:call_for_participation_short, default: "Call")
+            %li.nav-item
+              = link_to events_path, class: 'nav-link' do
+                %i.bi.bi-calendar-event
+                = t("events", default: "Events")
+            - if policy(@conference).manage?
+              %li.nav-item
+                = link_to url_for(action: 'index', controller: 'people'), class: 'nav-link' do
+                  %i.bi.bi-people
+                  = t("people", default: "People")
+            - if policy(@conference).manage?
+              %li.nav-item
+                = link_to schedule_path, class: 'nav-link' do
+                  %i.bi.bi-calendar3
+                  = t("schedule", default: "Schedule")
+
+          %ul.navbar-nav.ms-auto
+            %li.nav-item.dropdown
+              = link_to '#', class: 'nav-link dropdown-toggle', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false' do
+                %i.bi.bi-window
+                = t('more', default: 'More')
+              %ul.dropdown-menu
+                %li.nav-item
+                  = link_to  conference_path(conference_acronym: @conference.acronym), class: "dropdown-item" do
+                    %i.bi.bi-graph-up
+                    = t('stats')
+                - if policy(@conference).orga?
+                  %li.nav-item
+                    = link_to reports_path, class: 'dropdown-item' do
+                      %i.bi.bi-bar-chart
+                      = t("reports", default: "Reports")
+                - unless @conference.call_for_participation&.persisted?
+                  - if policy(@conference).orga?
+                    %li.nav-item
+                      = link_to new_call_for_participation_path, class: 'dropdown-item' do
+                        %i.bi.bi-megaphone
+                        = t(:launch_call_for_participation, default: "Launch Call for Participation")
+                - if policy(@conference).orga?
+                  %li.nav-item
+                    = link_to mail_templates_path, class: 'dropdown-item' do
+                      %i.bi.bi-envelope-paper
+                      = t("mail_templates", default: "Mail templates")
+                  %li.nav-item
+                    = link_to edit_conference_path(@conference), class: 'dropdown-item' do
+                      %i.bi.bi-gear
+                      = t("settings", default: "Settings")
+
             = render 'shared/navi_conferences_menu'
-            %li
-              %a{href: '#'}
-                %i= humanized_access_level
             = render 'shared/navi_account_menu'
     .container
       .main-content

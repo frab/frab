@@ -1,15 +1,30 @@
 - conferences = accessible_conferences
 - if conferences.present? and conferences.count > 1
-  %li.dropdown
-    = link_to t("switch_conference", default: "Switch conference"), "#", class: "dropdown-toggle"
+  %li.nav-item.dropdown
+    = link_to "#", class: "nav-link dropdown-toggle", 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false' do
+      %i.bi.bi-window-stack
+      = t("switch_conference", default: "Switch conference")
     %ul.dropdown-menu
       - conferences[0..19].each do |conference|
         - unless @conference == conference
-          %li= link_to conference.acronym, conference_path(conference_acronym: conference.acronym)
-      %li.divider/
+          %li
+            = link_to conference_path(conference_acronym: conference.acronym), class: 'dropdown-item' do
+              = conference.acronym
+      %li
+        %hr.dropdown-divider
       - if conferences.count > 1
-        %li= link_to t(:more, default: "more"), conference_index_path
+        %li
+          = link_to conference_index_path, class: 'dropdown-item' do
+            %i.bi.bi-calendar-x
+            = t(:manage, default: "Manage")
       - if policy(Conference).orga?
-        %li= link_to t(:create_new_conference, default: "Create new conference"), new_conference_path(conference_acronym: nil)
+        %li
+          = link_to new_conference_path(conference_acronym: nil), class: 'dropdown-item' do
+            %i.bi.bi-plus-circle
+            = t(:create_new_conference, default: "Create new conference")
 - elsif policy(Conference).orga?
-  %li= link_to t(:create_new_conference, default: "Create new conference"), new_conference_path(conference_acronym: nil)
+  %li.nav-item
+    = link_to new_conference_path(conference_acronym: nil), class: 'nav-link' do
+      %i.bi.bi-plus-circle
+      = t(:create_new_conference, default: "Create new conference")
+

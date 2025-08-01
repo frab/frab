@@ -1,6 +1,7 @@
 .nested-fields
-  %fieldset.inputs
+  %fieldset.border.p-3.mb-4
     - languages.each do |l|
       = translated_input f, 'track', 'name', l
-    = f.input :color, input_html: {size: 6, class: "color"}
-    = remove_association_link :track, f
+    = f.input :color, as: :color, input_html: { class: "form-control form-control-color" }
+    .d-flex.justify-content-end
+      = remove_association_link :track, f

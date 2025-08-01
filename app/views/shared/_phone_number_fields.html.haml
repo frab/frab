@@ -1,5 +1,7 @@
 .nested-fields
-  %fieldset.inputs
-    = f.input :phone_type, as: :select, collection: translated_options(PhoneNumber::TYPES)
-    = f.input :phone_number
-    = remove_association_link :phone_number, f
+  %fieldset.border.p-3.mb-4
+    .d-flex.flex-wrap.gap-3
+      = f.input :phone_type, as: :select, collection: translated_options(PhoneNumber::TYPES)
+      = f.input :phone_number
+      .d-flex.align-items-end.pb-3
+        = remove_association_link :phone_number, f
