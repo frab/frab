@@ -1,4 +1,4 @@
-%footer.footer
-  .container
-    - if content_for? :footer
+- if content_for? :footer
+  %footer.footer.bg-light.py-3.mt-auto
+    .container
       = yield :footer

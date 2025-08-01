@@ -94,9 +94,15 @@ module EventsHelper
   end
 
   def filter_link(qname, text='')
+    classes = []
+    if text.blank?
+      classes << 'filter_icon'
+      classes << (params[qname].present? ? 'true' : 'false')
+    end
+    
     link_to text, '#',
-            class: [ 'show_events_modal', ('filter_icon' unless text.present?), params[qname].present? ] ,
-            data: { url: filter_modal_events_url(request.query_parameters.merge(which_filter: qname)) }
+            class: classes,
+            data: { bs_toggle: "modal", bs_target: "#filterModal_#{qname}" }
   end
 
   def get_op_and_val(str)

@@ -1,8 +1,8 @@
 = simple_form_for [person, expense] do |f|
-  %fieldset.inputs
+  %fieldset.border.p-3.mb-4
     = f.input :name
     = f.input :value
-    = f.input :reimbursed, as: :inline_boolean, hint: t('expenses_module.is_this_reimbursed_hint')
+    = f.input :reimbursed, as: :boolean, hint: t('expenses_module.is_this_reimbursed_hint')
   .actions
     - if policy(@conference).manage?
-      = f.button :submit, class: 'primary'
+      = f.button :submit, class: 'btn btn-primary'

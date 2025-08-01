@@ -1,5 +1,11 @@
-<%= form_tag path, method: :get do %>
-  <p><%= t('conferences_module.search') %>
-    <%= text_field_tag :term, params[:term] %> <%= link_to t('clear'),  path %>
-  </p>
+<%= form_tag path, method: :get, class: "d-flex align-items-center gap-2 mb-3 mt-3" do %>
+  <label class="form-label mb-0 fw-semibold"><%= t('conferences_module.search') %></label>
+  <%= text_field_tag :term, params[:term], class: "form-control", placeholder: t('search_placeholder', default: 'Search...'), style: "width: 300px;" %>
+  <button type="submit" class="btn btn-primary">
+    <i class="bi bi-search"></i>
+    <span class="d-none d-sm-inline ms-1"><%= t('search', default: 'Search') %></span>
+  </button>
+  <% if params[:term].present? %>
+    <%= link_to t('clear'), path, class: "btn btn-outline-secondary" %>
+  <% end %>
 <% end %>

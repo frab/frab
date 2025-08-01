@@ -1,15 +1,17 @@
 -# TODO See if this view has to be. It comes from Devise, and there is a route to the action but I don't think it should be.
 - content_for :title do
-  = link_to t('page_titles.edit_account'), root_url, class: 'brand'
+  = link_to t('page_titles.edit_account'), root_url, class: 'navbar-brand'
 
 %section
   .page-header
     %h1= t('titles.edit_an_account', name: resource_name.to_s.humanize)
 
   .row
-    .span16
+    .col-md-12
       = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, defaults:{error: false}) do |f|
-        = render partial: 'devise/shared/error_messages', resource: resource
+
+        %div{class: "alert alert-danger alert-dismissible fade show", role: :alert}
+          = render partial: 'devise/shared/error_messages', resource: resource
 
         %fieldset.inputs
           = f.input :email
@@ -26,8 +28,8 @@
           = f.input :current_password, autocomplete: 'off', hint: t('devise.current_password_hint')
 
         .actions
-          = f.button :submit, class: 'primary', value: t('devise.update_account')
+          = f.button :submit, class: 'btn btn-primary', value: t('devise.update_account')
 
 %h2= t('devise.cancel_account')
-= raw( t('devise.cancel_account_text', {link: button_to(t('devise.cancel_account'), registration_path(resource_name), data:  confirm: t('are_you_sure')}, method: :delete, class: "btn danger")))
+= raw( t('devise.cancel_account_text', {link: button_to(t('devise.cancel_account'), registration_path(resource_name), data: { controller: "confirm", action: "click->confirm#confirm", "confirm-message-value": t('are_you_sure') }, method: :delete, class: "btn btn-danger")))
 = link_to t('navigation.back'), :back

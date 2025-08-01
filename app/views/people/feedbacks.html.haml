@@ -1,17 +1,17 @@
 %section
   .page-header
-    .pull-right
+    .float-end
       - if policy(@conference).manage?
-        = action_button "primary", t('people_module.edit_person'), edit_person_path(@person), hint: t('people_module.edit_person_hint')
+        = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('people_module.edit_person'), edit_person_path(@person), hint: t('people_module.edit_person_hint'), class: "btn btn-primary"
       - if policy(@conference).manage?
-        = action_button "add", t('people_module.add_person'), new_person_path, hint: t('people_module.add_person_hint')
+        = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('people_module.add_person'), new_person_path, hint: t('people_module.add_person_hint'), class: "btn btn-primary"
     %h1= t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
   .row
-    .span16
+    .col-md-12
       %h2= t('basic_information')
   .row
-    .span8
+    .col-md-8
       %p
         %b= t('col_full_name')
         = @person.first_name
@@ -19,16 +19,16 @@
       %p
         %b= t('col_public_name')
         = @person.public_name
-    .span4
+    .col-md-4
       %p
         %b= t('col_email')
         = mail_to @person.email
         (#{@person.email_public? ? "public" : "non-public"})
-    .span4
+    .col-md-4
       = image_box @person.avatar, :large
 %section
   .row
-    .span16
+    .col-md-12
       - unless @current_events.empty?
         %h2= t('events_module.events_in_current_conference')
         = render "feedback_table", collection: @current_events

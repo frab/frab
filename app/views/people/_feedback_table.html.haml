@@ -1,4 +1,4 @@
-%table.zebra-stripe
+%table.table.table-striped.table-hover
   %thead
     %tr
       %th.first
@@ -21,12 +21,11 @@
         %td
           = number_with_precision event.average_feedback, precision: 2
           - if event.event_feedbacks_count
-            %br
             s<sub>N-1</sub> = #{event.feedback_standard_deviation} n = #{event.event_feedbacks_count}
       - event.event_feedbacks.each do |feedback|
         - next if feedback.comment.blank?
         %tr
           %td
-            = raty_for("event_rating_#{feedback.id}", feedback.rating)
+            = render 'shared/star_rating', id: "event_rating_#{feedback.id}", value: feedback.rating, readonly: true, size: 'sm'
           %td{colspan: 5}= feedback.comment
 

@@ -1,0 +1,231 @@
+@import "bootstrap.min";
+@import "bootstrap-icons.min";
+@import "star-rating";
+
+// Consistent color scheme and styling for all public schedule views
+// Using Bootstrap 5 utilities with minimal custom CSS
+
+// Color palette - modern, accessible, professional matching FrOSCon theme
+:root {
+  --bs-primary: #1f1fa3;        // Actual FrOSCon primary color (deep blue)
+  --bs-primary-rgb: 31, 31, 163;
+  --bs-secondary: #64748b;      // Neutral gray
+  --bs-success: #059669;        // Professional green
+  --bs-info: #0891b2;          // Professional teal  
+  --bs-warning: #d97706;       // Professional orange (replaces neon yellow)
+  --bs-danger: #dc2626;        // Professional red (replaces neon red)
+  
+  // Surface colors
+  --schedule-bg: #f8fafc;      // Light background
+  --schedule-card-bg: #ffffff;  // Card background
+  --schedule-border: #e2e8f0;  // Subtle borders
+  --schedule-title: white;  
+  --schedule-text: #1e293b;    // Dark text
+  --schedule-text-muted: #64748b; // Muted text
+  
+  // Event state colors (replacing neon colors)
+  --event-default: var(--bs-primary);
+  --event-hover: #f0f0ff;      // Light blue hover matching FrOSCon theme
+  --event-warning: var(--bs-warning);
+  --event-danger: var(--bs-danger);
+}
+
+// Consistent card styling across all views
+.session-card, .event-card, .speaker-card {
+  background: var(--schedule-card-bg) !important;
+  border: 1px solid var(--schedule-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.session-card:hover, .event-card:hover, .speaker-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+// Header styling consistency  
+.schedule-header {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
+  border-radius: 12px 12px 0 0 !important;
+  min-height: 120px !important;
+}
+
+// Navigation consistency
+.schedule-nav {
+  background: var(--schedule-bg) !important;
+  border: 1px solid var(--schedule-border) !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+}
+
+.schedule-nav .nav-link {
+  color: var(--schedule-text) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  transition: all 0.15s ease !important;
+}
+
+.schedule-nav .nav-link:hover {
+  background: var(--bs-primary) !important;
+  color: white !important;
+}
+
+.schedule-nav .nav-link.active {
+  background: var(--bs-primary) !important;
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+// Avatar placeholder size
+.avatar-placeholder {
+  width: 60px;
+  height: 60px;
+}
+
+// Enhanced contrast for schedule elements
+.session-card .card-title,
+.session-card .fw-semibold,
+.session-card .fw-bold {
+  color: #1a1a1a !important;
+}
+
+.session-card .text-muted {
+  color: #6c757d !important;
+}
+
+.session-card .text-primary {
+  color: var(--bs-primary) !important;
+  font-weight: 500;
+}
+
+// Layout and body styling
+body {
+  background-color: var(--schedule-bg) !important;
+}
+
+.schedule-main-card {
+  border-radius: 12px !important;
+  border: 1px solid var(--schedule-border) !important;
+  background: var(--schedule-card-bg) !important;
+}
+
+// Title styling handled by Bootstrap classes
+
+// Typography consistency
+.schedule-text {
+  color: var(--schedule-text) !important;
+}
+
+.schedule-text-muted {
+  color: var(--schedule-text-muted) !important;
+}
+
+.schedule-heading {
+  color: var(--schedule-text) !important;
+}
+
+.schedule-icon-primary {
+  color: var(--bs-primary) !important;
+}
+
+// Event blocks and schedule grid
+.event-block {
+  background: var(--schedule-card-bg) !important;
+  border: 1px solid var(--schedule-border) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.event-block:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+// Timeline and list views
+.time-block {
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.time-header {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
+  color: white !important;
+  padding: 1rem !important;
+  margin-bottom: 0 !important;
+}
+
+// Ensure consistent card borders and shadows
+.card {
+  border: 1px solid var(--schedule-border) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+// Ensure schedule table and events are visible
+.schedule-table {
+  table-layout: auto !important;
+  width: 100% !important;
+}
+
+.schedule-table td.event-cell {
+  vertical-align: top !important;
+  padding: 4px !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.schedule-table td.empty-cell {
+  background-color: #f8f9fa !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.schedule-table th.room-column,
+.schedule-table th.time-column {
+  background-color: #f8f9fa !important;
+  border: 1px solid #dee2e6 !important;
+  font-weight: 600 !important;
+  padding: 8px !important;
+}
+
+.event-title a {
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+}
+
+.event-title a:hover {
+  color: var(--bs-primary) !important;
+  text-decoration: underline !important;
+}
+
+// Timeline specific fixes for readability
+.card-header.bg-primary .text-white,
+.card-header.bg-primary h4,
+.card-header.bg-primary h5,
+.card-header.bg-primary h6 {
+  color: white !important;
+}
+
+// Fix blue text in blue boxes - ensure links in cards have proper contrast
+.card .fw-bold a,
+.card .fw-semibold a,
+.event .fw-bold a {
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+}
+
+.card .fw-bold a:hover,
+.card .fw-semibold a:hover,
+.event .fw-bold a:hover {
+  color: var(--bs-primary) !important;
+  text-decoration: underline !important;
+}
+
+// Ensure proper contrast for text in primary background areas
+.bg-primary .text-primary,
+.bg-primary h5,
+.bg-primary .mb-0 {
+  color: white !important;
+}

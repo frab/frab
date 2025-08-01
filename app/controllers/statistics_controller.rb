@@ -1,5 +1,5 @@
 class StatisticsController < BaseConferenceController
-  before_action :crew_only!, except: %i[update_track update_event]
+  before_action :crew_only!
 
   def events_by_state
     case params[:type]

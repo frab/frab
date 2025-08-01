@@ -24,7 +24,8 @@ class EditingEventReviewTest < ApplicationSystemTestCase
     # Test that when @user updates the review score, the average is updated correctly
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/#{@event.id}/event_rating"
-    find('form').find('div', text: @review_metric.name).find('span', text: '4').find('input').click
+    # Click 4-star rating for all review metrics
+    all("label[for*='review_score'][for$='star4']").each(&:click)
     click_on 'Create rating'
     assert_content page, 'saved successfully'
 
@@ -40,7 +41,7 @@ class EditingEventReviewTest < ApplicationSystemTestCase
     # Test that when @user deletes the review, the average is updated correctly
     visit "/#{@conference.acronym}/events/#{@event.id}/event_rating"
     accept_alert do
-      click_on 'Delete rating'
+      find('button i.bi-trash').ancestor('button').click
     end
     assert_content page, 'deleted successfully'
 

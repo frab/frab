@@ -1,14 +1,16 @@
-%table.zebra-striped
-  %thead
-    %th.first
-    %th= User.human_attribute_name('email')
-    %th= t(:actions)
-  %tbody
-    - collection.each do |user|
-      %tr
-        %td
-        %td= user.email
-        %td
-          = action_button 'small danger', t('user'), edit_crew_user_path(user.person)
-          = action_button 'small danger', t('person'), edit_crew_profile_path(user.person)
-          = action_button 'small danger', t('destroy'), conference_users_path(person_id: user.person), data: { confirm: 'Are you sure' }, method: :delete
+.table-responsive
+  %table.table.table-striped
+    %thead
+      %th.first
+      %th= User.human_attribute_name('email')
+      %th= t(:actions)
+    %tbody
+      - collection.each do |user|
+        %tr
+          %td
+          %td= user.email
+          %td.buttons
+            .d-flex.flex-wrap.gap-2
+              = action_button '<i class="bi bi-person"></i> '.html_safe + t('user'), edit_crew_user_path(user.person), class: "btn btn-sm btn-danger"
+              = action_button '<i class="bi bi-person"></i> '.html_safe + t('person'), edit_crew_profile_path(user.person), class: "btn btn-sm btn-danger"
+              = delete_button conference_users_path(person_id: user.person), hint: t('destroy')

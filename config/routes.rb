@@ -128,7 +128,6 @@ Rails.application.routes.draw do
           get :export_all
           get :export_accepted
           get :export_confirmed
-          get :filter_modal
           get :bulk_edit_modal
           post :batch_actions
         end

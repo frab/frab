@@ -1,28 +1,29 @@
-%table.zebra-striped
-  %thead
-    %tr
-      %th.first
-      - if @search
-        %th= sort_link @search, :acronym, term: params[:term]
-        %th= sort_link @search, :title, term: params[:term]
-        %th= sort_link @search, :created_at, term: params[:term]
-        %th= sort_link @search, :email, term: params[:term]
-      - else
-        %th= Conference.human_attribute_name('acronym')
-        %th= t('title')
-        %th= t('created_at')
-        %th= t('email')
-      %th.last
-  %tbody
-    - collection.each do |conference|
+.table-responsive
+  %table.table.table-striped
+    %thead
       %tr
-        %td
-        %td= conference.acronym
-        %td= conference.title
-        %td.nowrap= l(conference.created_at.to_date)
-        %td= conference.email
-        %td.buttons
-          - if policy(conference).read?
-            = action_button "small", t('show'), conference_path(conference_acronym: conference.acronym)
-          - if policy(conference).destroy?
-            = action_button "small danger", t('destroy'), conference_path(conference_acronym: conference.acronym), data: { confirm: t('are_you_sure') }, method: :delete
+        %th.first
+        - if @search
+          %th= sort_link @search, :acronym, term: params[:term]
+          %th= sort_link @search, :title, term: params[:term]
+          %th= sort_link @search, :created_at, term: params[:term]
+          %th= sort_link @search, :email, term: params[:term]
+        - else
+          %th= Conference.human_attribute_name('acronym')
+          %th= t('title')
+          %th= t('created_at')
+          %th= t('email')
+        %th.last
+    %tbody
+      - collection.each do |conference|
+        %tr
+          %td
+          %td= conference.acronym
+          %td= conference.title
+          %td.nowrap= l(conference.created_at.to_date)
+          %td= conference.email
+          %td.buttons
+            - if policy(conference).read?
+              = action_button '<i class="bi bi-eye"></i> '.html_safe + t('show'), conference_path(conference_acronym: conference.acronym), class: "btn btn-primary btn-sm"
+            - if policy(conference).destroy?
+              = delete_button conference_path(conference_acronym: conference.acronym), hint: t('destroy')

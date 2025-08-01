@@ -1,0 +1,24 @@
+%li.nav-item.dropdown
+  = link_to '#', class: 'nav-link dropdown-toggle', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false' do
+    %i.bi.bi-person-circle
+    = t('show_account', default: 'Account')
+  %ul.dropdown-menu
+    %li
+      = link_to edit_cfp_user_path(current_user.person), class: 'dropdown-item' do
+        %i.bi.bi-gear
+        = t('user_settings', default: 'Settings')
+    %li
+      %span.dropdown-item-text.text-muted.small
+        %i.bi.bi-info-circle.me-1
+        Select a conference for more options
+    %li
+      = link_to 'https://github.com/frab/frab/wiki/Manual', class: 'dropdown-item' do
+        %i.bi.bi-book
+        = t('manual', default: 'Manual')
+    %li
+      %hr.dropdown-divider
+    %li
+      = button_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do
+        %i.bi.bi-box-arrow-right
+        = t('logout', default: 'Logout')
+

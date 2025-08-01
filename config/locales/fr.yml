@@ -1222,7 +1222,6 @@ fr:
       submit: Sauvegarder %{model}
       update: Mettre à jour %{model}
   hint: Info
-  home: Accueil
   import: Importer
   inputs:
     hints:
@@ -1765,7 +1764,7 @@ fr:
   manage_conference: Gérer cette conférence
   manage_conference_flash: Vous êtes connecté en tant que membre d'équipage pour cette conférence. Voulez-vous gérer cette conférence?
   manual: Manuel
-  more: Plus…
+  more: Plus
   multiple_indication: plusieurs
   name: Nom
   navigation:

@@ -1,45 +1,54 @@
 %section
   .page-header
     - if (ENV.fetch("FRAB_SHOW_ACTION_BAR_IN_CFP","1")=="1")
-      .pull-right
-        - unless @conference.in_the_past?
-          - unless @conference.call_for_participation.hard_deadline_over?
-            = action_button "primary", t("cfp.join_event"), cfp_events_join_path
-            = action_button "primary", t("cfp.submit_new_event"), new_cfp_event_path
-            - if @conference.schedule_open?
-              = action_button "primary", t("cfp.schedule"), cfp_schedule_path
-          - if @person.availabilities_in(@conference).count == 0
-            = action_button "", t("cfp.edit_availability"), new_cfp_person_availability_path
-          - else
-            = action_button "", t("cfp.edit_availability"), edit_cfp_person_availability_path
-        = action_button "", t("cfp.edit_profile"), edit_cfp_person_path
-        = action_button "", t("cfp.edit_account"), edit_cfp_user_path
-    %h1=t("cfp.welcome")
+      .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+        %h1.mb-0=t("cfp.welcome")
+        .d-flex.flex-wrap.gap-2
+          - unless @conference.in_the_past?
+            - unless @conference.call_for_participation.hard_deadline_over?
+              = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t("cfp.join_event"), cfp_events_join_path, class: "btn btn-primary"
+              = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t("cfp.submit_new_event"), new_cfp_event_path, class: "btn btn-primary"
+              - if @conference.schedule_open?
+                = action_button '<i class="bi bi-calendar-event"></i> '.html_safe + t("cfp.schedule"), cfp_schedule_path, class: "btn btn-primary"
+            - if @person.availabilities_in(@conference).count == 0
+              = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t("cfp.edit_availability"), new_cfp_person_availability_path, class: "btn btn-secondary"
+            - else
+              = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t("cfp.edit_availability"), edit_cfp_person_availability_path, class: "btn btn-secondary"
+          = action_button '<i class="bi bi-person"></i> '.html_safe + t("cfp.edit_profile"), edit_cfp_person_path, class: "btn btn-secondary"
+          = action_button '<i class="bi bi-person"></i> '.html_safe + t("cfp.edit_account"), edit_cfp_user_path, class: "btn btn-secondary"
+    - else
+      %h1=t("cfp.welcome")
+
+  .row.g-4
+    .col-12.col-lg-6
+      .card.h-100
+        .card-body
+          %p=t("cfp.thanks_for_interest", title: @conference.title)
+          - if @conference.call_for_participation.hard_deadline_over?
+            .alert.alert-warning=t("cfp.hard_deadline_over")
+          - elsif !@conference.in_the_past?
+            = render 'running_conference'
+
+    .col-12.col-lg-6
+      .card.h-100
+        .card-body
+          %h5.card-title=t("cfp.information_headline")
+          - if @conference.call_for_participation.info_url.present?
+            %p=t("cfp.info_url_description_html", link: link_to(@conference.call_for_participation.info_url, @conference.call_for_participation.info_url))
+          .alert.alert-info
+            - if @conference.in_the_past?
+              =t("cfp.conference_in_the_past")
+            - else
+              = raw markdown_render(t('cfp.deadline_description', date: l(@conference.call_for_participation.end_date)))
+          - if @conference.call_for_participation.contact_email.present?
+            %h6=t("cfp.contact_headline")
+            %p=t("cfp.contact_description_html", mail_to: mail_to(@conference.call_for_participation.contact_email))
 
   .row
-    .span8
-      %p=t("cfp.thanks_for_interest", title: @conference.title)
-      - if @conference.call_for_participation.hard_deadline_over?
-        %p=t("cfp.hard_deadline_over")
-
-      - elsif !@conference.in_the_past?
-        = render 'running_conference'
-
-    .span8
-      %h2=t("cfp.information_headline")
-      - if @conference.call_for_participation.info_url.present?
-        %p=t("cfp.info_url_description_html", link: link_to(@conference.call_for_participation.info_url, @conference.call_for_participation.info_url))
-      %p
-        - if @conference.in_the_past?
-          =t("cfp.conference_in_the_past")
-        - else
-          = raw markdown_render(t('cfp.deadline_description', date: l(@conference.call_for_participation.end_date)))
-      - if @conference.call_for_participation.contact_email.present?
-        %h2=t("cfp.contact_headline")
-        %p=t("cfp.contact_description_html", mail_to: mail_to(@conference.call_for_participation.contact_email))
-
-  .row
-    .span16
+    .col-12
       - if @person.events_in(@conference).size > 0
-        %h3=t("cfp.events_submitted")
-        = render "table", collection: @person.events_as_presenter_in(@conference)
+        .card.mt-4
+          .card-header
+            %h5.card-title.mb-0=t("cfp.events_submitted")
+          .card-body
+            = render "table", collection: @person.events_as_presenter_in(@conference)
