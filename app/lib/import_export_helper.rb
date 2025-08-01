@@ -1,6 +1,7 @@
 class ImportExportHelper
   EXPORT_DIR = 'tmp/frab_export'.freeze
   PERMITTED_CLASSES = [
+    Date,
     Time,
     ActiveSupport::TimeZone,
     ActiveSupport::TimeWithZone
@@ -146,6 +147,7 @@ class ImportExportHelper
         obj.logo = file
       end
       obj.regenerate_invite_token if Event.where(invite_token: obj.invite_token).any?
+      obj.language = "en"
       obj.save!
       @mappings[:events][id] = obj.id
     end

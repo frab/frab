@@ -1,5 +1,7 @@
-%fieldset.inputs
-  %legend= t('basic_information')
+%fieldset.border.p-3.mb-4
+  %legend.mb-3
+    %i.bi.bi-info-circle
+    = t('basic_information')
   = f.input :first_name
   = f.input :last_name
   = f.input :public_name, hint: t("cfp.public_name_hint")
@@ -9,16 +11,20 @@
   = f.input :avatar, hint: t("cfp.avatar_hint")
   = dynamic_association :languages, t("cfp.languages_spoken"), f
 
-%fieldset.inputs
-  %legend= t("cfp.contact_data")
+%fieldset.border.p-3.mb-4
+  %legend.mb-3
+    %i.bi.bi-person-rolodex
+    = t('cfp.contact_data')
   = f.input :email, hint: t("cfp.email_hint")
-  = f.input :email_public, as: :inline_boolean, hint: t("cfp.email_public_hint")
-  = f.input :include_in_mailings, as: :inline_boolean, hint: t('cfp.email_accept_upcoming_infos')
+  = f.input :email_public, as: :boolean, hint: t("cfp.email_public_hint")
+  = f.input :include_in_mailings, as: :boolean, hint: t('cfp.email_accept_upcoming_infos')
   = dynamic_association :phone_numbers, t("cfp.phone_numbers"), f
   = dynamic_association :im_accounts, t("cfp.im_accounts"), f
 
-%fieldset.inputs
-  %legend= t("cfp.bio")
+%fieldset.border.p-3.mb-4
+  %legend.mb-3
+    %i.bi.bi-person-badge
+    = t('cfp.bio')
   - person_languages.each do |l|
     = translated_textbox f, 'abstract', l, language_label('person.abstract', l), t('cfp.abstract_hint')
     = translated_textbox f, 'description', l, language_label('person.description', l), t('cfp.description_hint')

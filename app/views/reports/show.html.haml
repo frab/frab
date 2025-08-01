@@ -9,7 +9,7 @@
     = t('reports_module.found_x_results', nb: @search_count)
   - if not @people.nil? and not @people.empty?
     .row
-      .span16
+      .col-md-12
         - if @people.all.empty?
           %p= t('reports_module.no_search_results')
         - else
@@ -18,7 +18,7 @@
             = will_paginate @people
   - if not @events.nil? and not @events.empty?
     .row
-      .span16
+      .col-md-12
         - if @events.all.empty?
           %p= t('reports_module.no_search_results')
         - else
@@ -27,9 +27,9 @@
             = will_paginate @events
   - if not @data.nil? and not @data.empty?
     .row
-      .span16
+      .col-md-12
         = render 'statistics_table', data: @data
   - if not @transport_needs.nil? and not @transport_needs.empty?
     .row
-      .span16
+      .col-md-12
         = render 'transport_needs_table', transport_needs: @transport_needs

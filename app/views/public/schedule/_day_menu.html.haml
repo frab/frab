@@ -1,6 +1,12 @@
-.event-navigation
-  - if @conference.days.count > 1
-    %ul
-      - @conference.days.each do |day|
-        %li
-          %a{href: "\#day#{day.id}"}= l day.start_date, format: :day
+- if @conference.days.count > 1
+  .card.border-0.shadow-sm.mb-4
+    .card-header.bg-info.text-white
+      %h6.mb-0
+        %i.bi.bi-calendar.me-2
+        = t '.conference_days'
+    .card-body
+      .d-flex.flex-wrap.gap-2
+        - @conference.days.each do |day|
+          %a.btn.btn-outline-info.btn-sm{href: "#day#{day.id}"}
+            %i.bi.bi-calendar.me-1
+            = l day.start_date, format: :day

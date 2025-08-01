@@ -2,7 +2,7 @@
   .page-header
     %h1= t('schedule_module.create_pdf_export')
   .row
-    .span16
+    .col-md-12
       = form_tag schedule_custom_pdf_path do
         .clearfix
           = label_tag "page_size", t('schedule_module.col_select_paper_format')
@@ -39,5 +39,5 @@
             = check_box_tag "select_all_rooms", false
 
         .actions
-          = submit_tag t('schedule_module.create_pdf'), class: "btn primary"
+          = submit_tag t('schedule_module.create_pdf'), class: "btn btn-primary"
       .clear

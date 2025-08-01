@@ -1,63 +1,108 @@
 - content_for :title do
   = "#{day_title} | #{schedule_title}"
 
-= render partial: 'track_menu'
+.container-fluid
+  .text-center.mb-4
+    %h2.h3.fw-bold.text-primary.mb-3= day_title
+    - if @view_model.room_slice_names.count > 1
+      .d-flex.justify-content-center.mb-4
+        .btn-group{role: "group"}
+          - count_rooms = 0
+          - @view_model.room_slice_names.each do |rooms|
+            %a.btn.btn-outline-secondary.btn-sm{href: "##{count_rooms}"}
+              %i.bi.bi-building.me-1
+              = rooms.join(', ')
+            - count_rooms += 1
 
-%h2
-  = day_title
+  / Desktop schedule grid
+  .d-none.d-lg-block
+    #main-table
+      - count = 0
+      - @view_model.room_slices do |rooms|
+        .schedule-section{id: count}
+          - if @view_model.room_slice_names.count > 1
+            %h4.text-center.text-muted.mb-4.border-bottom.pb-2= @view_model.room_slice_names[count].join(', ')
+            %a{name: "#{count}"}
+            - count += 1
 
-- if @view_model.room_slice_names.count > 1
-  .event-navigation
-    %p= t('col_rooms')
-    %ul
-      - count_rooms = 0
-      - @view_model.room_slice_names.each do |rooms|
-        %li
-          %a{ href: "\##{count_rooms}"}= rooms.join(', ')
-          - count_rooms =+ 1
+          .schedule-grid.table-responsive
+            %table.table.table-sm.schedule-table
+              %thead
+                %tr.border-0
+                  %th.time-column.border-0.bg-light.text-center Time
+                  - rooms.each do |room|
+                    %th.room-column.border-0.bg-light.text-center= room.name
+              %tbody
+                - skip_rows = rooms.inject({}) { |h,r| h.merge(r => 0) }
+                - @view_model.schedule_grid_data.each do |timeslot|
+                  %tr.time-row
+                    %td.time-cell.text-center.border-end.bg-light
+                      - if timeslot[:show_time]
+                        %strong.text-primary= timeslot[:time].strftime("%H:%M")
 
-%br.clear/
-#main-table
+                    - rooms.each do |room|
+                      - skip_rows[room] -= 1
+                      - next if skip_rows[room] > 0
+                      - room_data = timeslot[:rooms][room]
+                      - if room_data[:type] == :event
+                        - event = room_data[:event]
+                        - skip_rows[room] = room_data[:rowspan]
+                        %td.event-cell.p-1{rowspan: room_data[:rowspan], style: "height: #{room_data[:height]}px; vertical-align: top;"}
+                          .event-block.h-100.rounded.p-2.position-relative{class: "#{track_class(event)}", style: "background: linear-gradient(135deg, rgba(31,31,163,0.05) 0%, rgba(31,31,163,0.1) 100%); border-left: 3px solid var(--bs-primary);"}
+                            .session-card.card.mb-1.lh-sm
+                              .card-body.p-1
+                                .d-flex.justify-content-between.align-items-start.mb-2
+                                  %small.text-muted
+                                    %i.bi.bi-geo-alt.me-1
+                                    = event.room.name
+                                  - if event.time_slots
+                                    %span.badge.bg-light.text-dark.small
+                                      = "#{event.time_slots * 15}min"
 
-  - count = 0
-  - @view_model.room_slices do |rooms|
-    #conference-rooms{ id: count }
-      - if @view_model.room_slice_names.count > 1
-        %hr
-        %h2= @view_model.room_slice_names[count].join(', ')
-        %a{ name: "#{count}"}
-        - count =+ 1
-      %table.rooms-table
-        %thead
-          %tr
-            %th.cell-time
-            - rooms.each do |room|
-              %th= room.name
-        %tbody
-          - slot = 0
-          - each_timeslot do |time|
-            %tr.cell-height1
-              %td.cell-time
-                - if slot % @conference.default_timeslots == 0
-                  %p= time.strftime("%H:%M")
+                                %h6.card-title.mb-2.lh-sm
+                                  = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none text-dark fw-semibold stretched-link", style: "font-size: 0.85rem;"
 
-              - rooms.each do |room|
-                - @view_model.skip_rows[room] -= 1
-                - next if @view_model.skip_rows[room] > 0
-                - if not @view_model.events_by_room(room).empty? and @view_model.event_now?(room, time)
-                  - event = @view_model.events_by_room(room).shift
-                  - @view_model.skip_rows[room] = event.time_slots
-                  %td{rowspan: event.time_slots, class: "cell-height#{event.time_slots}"}
-                    .event{class: track_class(event)}
-                      .event-wrapper
-                        .event-header
-                          %h2= link_to event.title, public_event_path(id: event.id)
-                        .event-details
-                          .subtitle
-                            = event.subtitle
-                            - if @conference.languages_including_subs.count > 1
-                              = "(#{event.language})"
-                          .speakers= event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(id: p.id))}.join(", ").html_safe
-                - else
-                  %td &nbsp;
-            - slot += 1
+                                .mt-auto
+                                  - if event.speakers.any?
+                                    %small.text-primary.fw-medium
+                                      %i.bi.bi-person.me-1
+                                      = event.speakers.map(&:public_name).join(", ").truncate(40)
+
+                                  - if event.track.present?
+                                    %span.badge.bg-secondary.small.float-end= event.track.name
+
+                      - else
+                        %td.empty-cell &nbsp;
+
+.d-lg-none
+  #mobile-schedule
+    - @view_model.mobile_schedule_data.each do |room_data|
+      .card.mb-4.border-0.shadow-sm
+        .card-header.bg-secondary.text-white
+          %h5.mb-0
+            %i.bi.bi-geo-alt.me-2
+            = room_data[:room].name
+        .card-body.p-0
+          - if room_data[:events].any?
+            - room_data[:events].each_with_index do |event, index|
+              .d-flex.p-3{class: (index < room_data[:events].count - 1) ? 'border-bottom' : ''}
+                .me-3.text-center.text-muted.small{style: "min-width: 60px;"}
+                  = l event.start_time, format: :time
+                  %br
+                  %small= "#{event.time_slots * 15}m"
+                .flex-grow-1
+                  .event{class: track_class(event)}
+                    %h6.mb-1
+                      = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none fw-bold"
+                    - if event.subtitle.present?
+                      .text-muted.small.mb-1= event.subtitle
+                    - if event.speakers.any?
+                      .small.text-primary
+                        = event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(id: p.id), class: "text-decoration-none")}.join(", ").html_safe
+                    - if @conference.languages_including_subs.count > 1
+                      .small.text-muted= "Language: #{event.language}"
+          - else
+            .p-3.text-center.text-muted
+              %i.bi.bi-calendar-x.mb-2{style: "font-size: 2rem;"}
+              %br
+              No events scheduled

@@ -5,7 +5,7 @@
 
   - if @conference.sub_conference? && !policy(@conference).manage?
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= raw(GitHub.render(t('classifiers_module.modify_classifier_with_parent', parent: @conference.parent.title)))
           %p= t('classifiers_module.current_classifiers')
@@ -18,9 +18,9 @@
   -else
     - if @conference.classifiers.empty?
       .row
-        .span16
+        .col-md-12
           .blank-slate
             %p= t('classifiers_module.empty_classifiers')
     .row
-      .span16
+      .col-md-12
         = render 'form_classifiers'

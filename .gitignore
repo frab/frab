@@ -32,3 +32,6 @@ db/development.sqlite3.*
 .solargraph.yml
 Session.vim
 .tool-versions
+vendor/bundle
+
+/config/master.key

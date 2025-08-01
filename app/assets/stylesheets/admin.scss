@@ -1,0 +1,49 @@
+@import "star-rating";
+@import "range-slider-element";
+
+// Simplified availability dual-thumb range slider styling
+range-slider {
+  --track-size: 0.4rem;
+  --thumb-size: 1.4rem;
+}
+
+range-slider:not([orientation="vertical"]) {
+  inline-size: 100%;
+}
+
+range-slider [data-track-fill] {
+  background-color: var(--bs-primary, #007bff);
+}
+
+range-slider [data-thumb] {
+  background-color: var(--bs-primary, #007bff);
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  transition: scale 200ms ease-in-out;
+}
+
+range-slider [data-thumb]:active {
+  scale: 1.4;
+}
+
+range-slider [data-thumb]:focus-visible {
+  outline: 2px solid var(--bs-primary-border-subtle, #86b7fe);
+}
+
+range-slider:disabled {
+  opacity: 0.5;
+  
+  [data-thumb] {
+    cursor: not-allowed;
+    scale: 1;
+  }
+}
+
+.availability-slider-wrapper {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  background-color: #f8f9fa;
+}

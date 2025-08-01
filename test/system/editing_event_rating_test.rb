@@ -15,14 +15,15 @@ class EditingEventRatingTest < ApplicationSystemTestCase
     visit "/#{@conference.acronym}/events/#{@event.id}/event_rating"
     assert_content page, 'My rating'
 
-    find('div#my_rating').find(:xpath, '//img[@title="good"]').click()
+    # Click on the 4th star (good rating) in the new CSS-only star rating
+    find('form').find('label[for$="star4"]').click()
     find('textarea').set('Quite good event')
     click_on 'Create rating'
 
     assert_content page, 'My rating'
     assert_content page, 'Quite good event'
     accept_alert do
-      click_on 'Delete rating'
+      find('i.bi-trash').click
     end
 
     assert_content page, 'My rating'

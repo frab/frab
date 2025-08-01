@@ -1,19 +1,19 @@
 %section
   .page-header
-    .pull-right
-      = action_button "primary", t('edit'), edit_people_event_path(@event), hint: t('titles.edit_people_for_event', event: @event.title)
+    .float-end
+      = action_button '<i class="bi bi-people"></i> '.html_safe + t('edit'), edit_people_event_path(@event), hint: t('titles.edit_people_for_event', event: @event.title), class: "btn btn-primary"
     %h1= t('titles.event', event: @event.title)
   = render 'shared/events_tabs'
   - if @event.event_people.count == 0
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p=raw(markdown_render(t('people_module.no_people_in_event')))
 
   - else
     .row
-      .span16
-        %table.zebra-striped
+      .col-md-12
+        %table.table.table-striped
           %thead
             %tr
               %th.first

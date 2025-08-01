@@ -1,19 +1,20 @@
-%fieldset.inputs
-  %legend= t('events_module.event_classifiers')
-  %div.input.help-block= t("cfp.classifiers_hint")
+%fieldset.border.p-3.mb-4{data: {controller: "classifier"}}
+  %legend.mb-3
+    %i.bi.bi-tags
+    = t('events_module.event_classifiers')
+  %div.input.form-text= t("cfp.classifiers_hint")
   .input
     %ul{class: 'event_classifiers_checkboxes'}
       - @conference.classifiers.each do |classifier|
         %li.clearfix.input
           - event_has_this_classifier = @event.present? ? @event.event_classifiers.pluck(:classifier_id).include?(classifier.id) : false
           = classifier.name
+          %br
           = link_to_add_association f, :event_classifiers, partial: '/events/event_classifier_fields', style: 'display:none;',
-          render_options: { locals: { the_cat: classifier } },
-          'data-association-insertion-node': '#classifier_sliders:last-child',
-          'data-association-insertion-method': 'append'
-          = check_box_tag("classifier-checkbox-"+classifier.id.to_s, 0, event_has_this_classifier, class: 'classifier-checkbox pull-left', autocomplete: 'off')
-%fieldset.inputs
+            render_options: { locals: { the_cat: classifier } },
+            'data-association-insertion-node': '#classifier_sliders:last-child',
+            'data-association-insertion-method': 'append'
+          = check_box_tag("classifier-checkbox-"+classifier.id.to_s, 0, event_has_this_classifier, class: 'classifier-checkbox float-start', autocomplete: 'off')
   %div{class: 'classifier', id: 'classifier_sliders'}
     = f.simple_fields_for :event_classifiers do |association_form|
       = render '/events/event_classifier_fields', f: association_form, the_cat: association_form.object.classifier
-

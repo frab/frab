@@ -21,8 +21,11 @@ class EditingEventsPeopleTest < ApplicationSystemTestCase
     select 'Speaker'
 
     assert_content page, @user.person.public_name
+    select(@user.person.public_name)
+
     page.has_field?("span#person_id input", with: "1")
-    click_on 'Update event'
+    find('input', id: 'filter').click
+    click_on 'Save'
 
     assert_content page, 'Event was successfully updated.'
     assert_content page, @user.person.public_name

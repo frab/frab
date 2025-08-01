@@ -6,7 +6,7 @@ services:
         build: .
         container_name: frab_app
         volumes:
-            - data:/home/frab/app/public
+            - public:/rails/public
         ports:
             - 3000:3000
         networks:
@@ -39,6 +39,5 @@ networks:
     backend:
 
 volumes:
-    data: {}
+    public: {}
     db_data: {}
-

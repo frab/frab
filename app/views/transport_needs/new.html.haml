@@ -1,10 +1,10 @@
 %section
   .page-header
-    .pull-right
+    .float-end
     %h1= t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
   .row
-    .span16
+    .col-md-12
       = content do
         = inner do
           = render(:partial => 'shared/transport_needs_form', :locals => { :person => @person, :conference => @conference, :transport_need => @transport_need, :url => person_transport_needs_path })

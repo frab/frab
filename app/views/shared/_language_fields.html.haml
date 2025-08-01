@@ -1,4 +1,5 @@
 .nested-fields
-  %fieldset.inputs
+  %fieldset.border.p-3.mb-4
     = f.input :code, as: :language_select, priority: Language::SUPPORTED_SYMS
-    = remove_association_link :language, f
+    .d-flex.justify-content-end
+      = remove_association_link :language, f

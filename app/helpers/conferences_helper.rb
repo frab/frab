@@ -17,4 +17,8 @@ module ConferencesHelper
     end
     result
   end
+
+  def flash_alert(t)
+    { "notice" => "success", "alert" => "danger", "errors" => "danger" }.fetch(t, t)
+  end
 end

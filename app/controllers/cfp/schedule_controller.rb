@@ -1,6 +1,4 @@
 class Cfp::ScheduleController < ApplicationController
-  layout 'cfp'
-
   before_action :authenticate_user!
   before_action :check_schedule_open!
 
