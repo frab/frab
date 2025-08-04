@@ -88,8 +88,13 @@ module ApplicationHelper
   end
 
   def priority_sort_languages(langs)
-    t = langs - [I18n.default_locale.to_s]
-    [I18n.default_locale.to_s] + t.sort
+    default_lang = I18n.default_locale.to_s
+    if langs.include?(default_lang)
+      t = langs - [default_lang]
+      [default_lang] + t.sort
+    else
+      langs.sort
+    end
   end
 
   def language_hint(locale)
