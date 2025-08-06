@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Health check endpoint for Kubernetes probes
+  get '/health' => 'health#show'
+
   devise_for :users, controllers: {
     registrations: 'auth/registrations',
     sessions: 'auth/sessions',
