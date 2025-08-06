@@ -8,35 +8,16 @@ section {
   // Keep this for any legacy sections that need it
 }
 
-.image {
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid #DDDDDD;
-  border-radius: 4px 4px 4px 4px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-  padding: 4px;
-}
-
-.image.small {
-  width: 32px;
-  height: 32px;
-}
-
-p.small{ font-size: 8px; }
-
-.image.large {
-  width: 128px;
-  height: 128px;
-}
-
-.image img {
-  vertical-align: middle;
-}
+// Replaced image styles with Bootstrap utilities:
+// .image -> .text-center.border.border-light.rounded.shadow-sm.p-1
+// .image.small -> .d-inline-block + style="width:32px;height:32px"  
+// .image.large -> .d-inline-block + style="width:128px;height:128px"
+// p.small -> .small or .fs-6
+// .image img -> .align-middle
 
 
-div.rating {
-  white-space: nowrap;
-}
+// Replaced with Bootstrap utility:
+// div.rating -> .text-nowrap
 
 table.room {
   width: 150px;
@@ -101,26 +82,11 @@ div.color-preview {
 }
 
 
-td.buttons { 
-  white-space: nowrap; 
-  
-  /* Make button_to forms display inline */
-  form {
-    display: inline-block;
-    margin: 0;
-  }
-  
-  /* On very small screens, allow buttons to wrap */
-  @media (max-width: 576px) {
-    white-space: normal;
-    
-    .btn, form {
-      margin-bottom: 0.25rem;
-    }
-  }
-}
-td.nowrap { white-space: nowrap; }
-th.nowrap { white-space: nowrap; }
+// Replaced with Bootstrap utilities:
+// td.buttons -> .text-nowrap (with .text-wrap on sm+ breakpoints if needed)
+// td.buttons form -> .d-inline-block.m-0  
+// td.nowrap -> .text-nowrap
+// th.nowrap -> .text-nowrap
 
 ul#unscheduled-events {
   height: 400px;
@@ -136,75 +102,9 @@ p.availability span {
     display: block;
 }
 
-.dl-horizontal {
-    clear: both;
-}
-.dl-horizontal, .dl-horizontal {
-    content: "";
-    display: table;
-    line-height: 0;
-}
-
-.dl-horizontal dt {
-    clear: left;
-    float: left;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    text-align: right;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 160px;
-}
-
-
-.dl-horizontal dd {
-    margin-left: 180px;
-}
-
-.info-block {
-    background-color: #ddd;
-    border-radius: 5px;
-    padding: 0.2em;
-}
-
-.nested-fields .event_event_classifiers_value {
-    float: left;
-}
-
-.nested-fields .event_event_classifiers_value .input {
-    margin-left: 20px;
-    margin-right: 10px;
-    margin-top: 10px;
-}
-
-.nested-fields .event_event_classifiers_value .help-block {
-    margin-top: 1em;
-}
-
-#classifier_sliders fieldset.inputs {
-    margin-bottom: 0 !important;
-}
-
 .classifier-meter {
     width: 12em;
     margin-right: 1.5em;
-}
-
-ul.event_classifiers_checkboxes {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    columns: 2;
-    width: 430px;
-}
-
-ul.event_classifiers_checkboxes li {
-    margin: 0;
-    padding: 0.5em 0;
-}
-
-ul.event_classifiers_checkboxes input[type=checkbox] {
-    margin-right: 0.5em;
 }
 
 span.event-tag {
@@ -220,27 +120,6 @@ span.event-tag {
 span.event-tag.small {
     font-size: 8px; 
 }
-span.after-deadline.soft {
-    background-color: #d97706; /* Professional orange matching our theme */
-    color: white;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
-span.after-deadline.hard {
-    background-color: #dc2626; /* Professional red matching our theme */
-    color: white;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
-
-.error {
-    padding: 3px;
-    background-color: #dc2626; /* Professional red matching our theme */
-    color: white;
-    border-style: solid;
-    border-color: #b91c1c; /* Darker red for border */
-}
-
 
 .filter_icon {
     display: inline-block;
@@ -272,41 +151,4 @@ span.after-deadline.hard {
 .conf-accepted-durations {
     columns: 6;
     width: fit-content;
-}
-
-span#display_box {
-    border-style: solid;
-    border-width: thin;
-    background-color: lightgray;
-    padding: 5px;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    vertical-align: middle;
-}
-
-span#display_box.accepted {
-    font-weight: bold;
-}
-
-// Event show page improvements
-.content-text {
-  line-height: 1.6;
-  p {
-    margin-bottom: 0.75rem;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
-// Improve card spacing and appearance
-.card {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  
-  .card-header {
-    background-color: rgba(0, 0, 0, 0.03);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  }
 }

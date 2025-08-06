@@ -40,14 +40,25 @@ module ApplicationHelper
   end
 
   def image_box(image, size, options = {} )
-    content_tag(:div, class: "image #{size}") do
-      image_tag image.url(size), options
+    size_classes = case size.to_s
+                   when 'small' then 'd-inline-block'
+                   when 'large' then 'd-inline-block' 
+                   else 'd-inline-block'
+                   end
+    size_style = case size.to_s
+                 when 'small' then 'width:32px;height:32px'
+                 when 'large' then 'width:128px;height:128px'
+                 else ''
+                 end
+    
+    content_tag(:div, class: "text-center border border-light rounded shadow-sm p-1 #{size_classes}", style: size_style) do
+      image_tag image.url(size), options.merge(class: 'align-middle')
     end
   end
 
   def image_input_box(image)
-    content_tag(:div, class: 'd-flex input image small') do
-      image_tag image.url(:small)
+    content_tag(:div, class: 'd-flex input text-center border border-light rounded shadow-sm p-1', style: 'width:32px;height:32px') do
+      image_tag image.url(:small), class: 'align-middle'
     end
   end
 
