@@ -4,20 +4,34 @@
       .d-flex.flex-column
         %h1.mb-0
           = showing_my_events? ? t('events_module.my_events') : t('titles.event_list')
-      .d-flex.flex-wrap.gap-2
+      .d-flex.flex-column.flex-md-row.gap-2
         - if policy(@conference).manage?
-          = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('events_module.add_event'), new_event_path, hint: t('events_module.add_event_hint'), class: "btn btn-primary"
-          - if @num_of_matching_events > 0
-            = link_to '#', class: 'btn btn-secondary', data: { bs_toggle: "modal", bs_target: "#bulkEditModal" }, title: t('events_module.bulk_edit.show') do
-              %i.bi.bi-stack
-              %span.d-none.d-sm-inline.ms-1= t('events_module.bulk_edit.show')
-            - if @conference.mail_templates.any?
-              = link_to "#send_bulk_mail_form", class: 'btn btn-secondary', data: { controller: "toggle", "toggle-target-value": "#send_bulk_mail_form", action: "click->toggle#toggle" }, title: t('events_module.toggle_send_bulk_mail') do
-                %i.bi.bi-envelope
-                %span.d-none.d-sm-inline.ms-1= t('events_module.toggle_send_bulk_mail')
-        - if policy(@conference).manage? and !showing_my_events?
-          = action_button '<i class="bi bi-printer"></i> '.html_safe + t('events_module.print_cards'), cards_events_path(format: :pdf), hint: t('events_module.print_cards_hint'), class: "btn btn-secondary"
-          = action_button '<i class="bi bi-printer"></i> '.html_safe + t('events_module.print_accepted_cards') , cards_events_path(accepted: true, format: :pdf), hint: t('events_module.print_accepted_cards_hint'), class: "btn btn-secondary"
+          .d-flex.flex-wrap.gap-2
+            .btn-group{role: "group", "aria-label": "Primary actions"}
+              = action_button '<i class="bi bi-plus-circle me-1"></i>'.html_safe + '<span class="d-none d-lg-inline">'.html_safe + t('events_module.add_event') + '</span>'.html_safe, new_event_path, hint: t('events_module.add_event_hint'), class: "btn btn-primary"
+            - if @num_of_matching_events > 0
+              .btn-group{role: "group", "aria-label": "Bulk actions"}
+                = link_to '#', class: 'btn btn-outline-secondary', data: { bs_toggle: "modal", bs_target: "#bulkEditModal" }, title: t('events_module.bulk_edit.show') do
+                  %i.bi.bi-stack.me-1
+                  %span.d-none.d-lg-inline= t('events_module.bulk_edit.show')
+                - if @conference.mail_templates.any?
+                  = link_to "#send_bulk_mail_form", class: 'btn btn-outline-secondary', data: { controller: "toggle", "toggle-target-value": "#send_bulk_mail_form", action: "click->toggle#toggle" }, title: t('events_module.toggle_send_bulk_mail') do
+                    %i.bi.bi-envelope.me-1
+                    %span.d-none.d-lg-inline= t('events_module.toggle_send_bulk_mail')
+            - if !showing_my_events?
+              .dropdown
+                %button.btn.btn-outline-primary.dropdown-toggle{type: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false"}
+                  %i.bi.bi-printer.me-1
+                  %span.d-none.d-lg-inline= t('print', default: 'Print')
+                %ul.dropdown-menu
+                  %li
+                    = link_to cards_events_path(format: :pdf), class: 'dropdown-item' do
+                      %i.bi.bi-printer.me-2
+                      = t('events_module.print_cards')
+                  %li
+                    = link_to cards_events_path(accepted: true, format: :pdf), class: 'dropdown-item' do
+                      %i.bi.bi-printer.me-2
+                      = t('events_module.print_accepted_cards')
 
   = render partial: "event_list_tabs"
   - unless @conference.events.any?
