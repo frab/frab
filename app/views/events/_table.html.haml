@@ -1,61 +1,60 @@
-.table-responsive
-  %table.table.table-striped.table-hover
-    %thead
+%table.table.table-hover.mb-0
+  %thead
+    %tr
+      %th.first
+      - if @search
+        %th= sort_link @search, :title, t('title'), term: params[:term]
+        - if @conference.ticket_server_enabled?
+          %th= sort_link @search, :ticket_id, t('ticket'), term: params[:term]
+        %th.nowrap
+          = sort_link @search, :track_name, t('track'), term: params[:term]
+          = filter_link('track_name')
+        %th.nowrap
+          = sort_link @search, :event_type, t('type'), term: params[:term]
+          = filter_link 'event_type'
+        - if policy(@conference).manage?
+          %th.nowrap
+            = sort_link @search, :state, t('state'), term: params[:term]
+            = filter_link 'event_state'
+        %th= sort_link @search, :created_at, t('created_at'), term: params[:term]
+      - else
+        %th= t('title')
+        - if @conference.ticket_server_enabled?
+          %th= t('ticket')
+        %th= t('track')
+        %th= t('type')
+        - if policy(@conference).manage?
+          %th= t('state')
+        %th= t('created_at')
+      %th.last
+  %tbody
+    - collection.each do |event|
       %tr
-        %th.first
-        - if @search
-          %th= sort_link @search, :title, t('title'), term: params[:term]
-          - if @conference.ticket_server_enabled?
-            %th= sort_link @search, :ticket_id, t('ticket'), term: params[:term]
-          %th.nowrap
-            = sort_link @search, :track_name, t('track'), term: params[:term]
-            = filter_link('track_name')
-          %th.nowrap
-            = sort_link @search, :event_type, t('type'), term: params[:term]
-            = filter_link 'event_type'
-          - if policy(@conference).manage?
-            %th.nowrap
-              = sort_link @search, :state, t('state'), term: params[:term]
-              = filter_link 'event_state'
-          %th= sort_link @search, :created_at, t('created_at'), term: params[:term]
-        - else
-          %th= t('title')
-          - if @conference.ticket_server_enabled?
-            %th= t('ticket')
-          %th= t('track')
-          %th= t('type')
-          - if policy(@conference).manage?
-            %th= t('state')
-          %th= t('created_at')
-        %th.last
-    %tbody
-      - collection.each do |event|
-        %tr
-          %td= link_to (image_box event.logo, :small), event
+        %td= link_to (image_box event.logo, :small), event
+        %td
+          = link_to event.title, event
+          %p.small
+            = event.subtitle
+          %p.small
+            = by_speakers(event)
+        - if @conference.ticket_server_enabled?
           %td
-            = link_to event.title, event
-            %p.small
-              = event.subtitle
-            %p.small
-              = by_speakers(event)
-          - if @conference.ticket_server_enabled?
-            %td
-              - if event.remote_ticket?
-                -if @conference.ticket_server.nil?
-                  = event.ticket.remote_ticket_id
-                -else
-                  = link_to event.ticket.remote_ticket_id, get_ticket_view_url( event.ticket.remote_ticket_id ), target: "_blank"
-          %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
-          %td= link_to_unless params[:event_type].present?, (t(event.event_type, scope: 'options') unless event.event_type.blank?).to_s, request.query_parameters.merge(:event_type => event.event_type)
+            - if event.remote_ticket?
+              -if @conference.ticket_server.nil?
+                = event.ticket.remote_ticket_id
+              -else
+                = link_to event.ticket.remote_ticket_id, get_ticket_view_url( event.ticket.remote_ticket_id ), target: "_blank"
+        %td= link_to_unless (params[:track_name].present? or event.track.nil?), event.track.try(:name), request.query_parameters.merge(:track_name => event.track.try(:name))
+        %td= link_to_unless params[:event_type].present?, (t(event.event_type, scope: 'options') unless event.event_type.blank?).to_s, request.query_parameters.merge(:event_type => event.event_type)
+        - if policy(@conference).manage?
+          %td= link_to_unless params[:event_state].present?, (t(event.state, scope: 'conferences_module') unless event.state.blank?).to_s, request.query_parameters.merge(:event_state => event.state)
+        %td
+          %span.nowrap= l(event.date_of_submission_in_conference_tz)
+          = render partial: 'events/event_tags', locals: { event: event, short: true }
+        %td.buttons
+          = action_button '<i class="bi bi-eye"></i> '.html_safe, event, class: "btn btn-primary btn-sm", hint: t('show')
           - if policy(@conference).manage?
-            %td= link_to_unless params[:event_state].present?, (t(event.state, scope: 'conferences_module') unless event.state.blank?).to_s, request.query_parameters.merge(:event_state => event.state)
-          %td
-            %span.nowrap= l(event.date_of_submission_in_conference_tz)
-            = render partial: 'events/event_tags', locals: { event: event, short: true }
-          %td.buttons
-            = action_button '<i class="bi bi-eye"></i> '.html_safe, event, class: "btn btn-primary btn-sm", hint: t('show')
-            - if policy(@conference).manage?
-              = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')
-              = delete_button event, hint: t('destroy')
-            - elsif current_user.is_speaker_in?(event)
-              = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_cfp_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')
+            = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')
+            = delete_button event, hint: t('destroy')
+          - elsif current_user.is_speaker_in?(event)
+            = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_cfp_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')

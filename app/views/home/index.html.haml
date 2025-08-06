@@ -21,16 +21,22 @@
       = link_to t('conferences_module.past_conferences'), past_conferences_path, class: "nav-link #{'active' if active_class?(past_conferences_path)}"
 
   - if Conference.all.empty?
-    .row
-      .col-md-12
-        .blank-slate{style: 'padding-bottom: 33%'}
-          %p= t('conferences_module.no_conference')
+    .card.border-0.bg-light.text-center.py-5
+      .card-body
+        %i.bi.bi-building.fs-1.text-muted.mb-3
+        %h5.text-muted.mb-2= t('conferences_module.no_conference')
+        - if policy(Conference).new?
+          %p.text-muted.small.mb-3= t('conferences_module.welcome_hint', default: 'Welcome to frab! Start by creating your first conference.')
+          = link_to new_conference_path, class: 'btn btn-primary btn-lg' do
+            %i.bi.bi-plus-circle.me-2
+            = t('conferences_module.add_conference')
 
   - elsif @conferences.empty?
-    .row
-      .col-md-12
-        .blank-slate{style: 'padding-bottom: 33%'}
-          %p= t('conferences_module.no_conference_with_cfp')
+    .card.border-0.bg-light.text-center.py-5
+      .card-body
+        %i.bi.bi-calendar-x.fs-1.text-muted.mb-3
+        %h5.text-muted.mb-2= t('conferences_module.no_conference_with_cfp')
+        %p.text-muted.small= t('conferences_module.no_cfp_hint', default: 'No conferences are currently accepting submissions.')
 
   - else
     = render 'table', collection: @conferences

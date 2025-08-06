@@ -1,65 +1,86 @@
 = simple_form_for(@event, html: {multipart: true}) do |f|
-  %fieldset.border.p-3.mb-4
-    %legend.mb-3
-      %i.bi.bi-info-circle
-      = t('basic_information')
-    - languages.each do |l|
-      = translated_input f, 'event', 'title', l
-      = translated_input f, 'event', 'subtitle', l
-    - @event.build_ticket unless @event.ticket
-    = f.simple_fields_for :ticket do |ticket|
-      = ticket.input :remote_ticket_id
-    .d-flex.flex-wrap.gap-3
-      = f.input :event_type, collection: translated_options(@conference.allowed_event_types_as_list)
-      = f.association :track, collection: @conference.tracks
-      = f.input :time_slots, as: :select, collection: timeslots
-    = f.input :language, as: :language_select, only: @conference.language_codes
-    = f.input :public, as: :boolean, hint: t('events_module.inputs.hints.public')
-    - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
-      = image_input_box(f.object.logo)
-      = f.input :logo
-  .d-flex.flex-wrap.gap-3
-    %fieldset.border.p-3.mb-4.flex-fill
-      %legend.mb-3
-        %i.bi.bi-diagram-3
-        = t('state')
-      = f.input :state, collection: Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
-    %fieldset.border.p-3.mb-4.flex-fill
-      %legend.mb-3
-        %i.bi.bi-clock
-        = t('time_and_place')
-      .d-flex.flex-wrap.gap-3
-        = f.input :start_time do
-          = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
-        = f.association :room, collection: @conference.rooms
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-info-circle.me-2
+      %h5.mb-0= t('basic_information')
+    .card-body
+      - languages.each do |l|
+        = translated_input f, 'event', 'title', l
+        = translated_input f, 'event', 'subtitle', l
+      - @event.build_ticket unless @event.ticket
+      = f.simple_fields_for :ticket do |ticket|
+        = ticket.input :remote_ticket_id
+      .row.g-3
+        .col-md-4
+          = f.input :event_type, collection: translated_options(@conference.allowed_event_types_as_list)
+        .col-md-4
+          = f.association :track, collection: @conference.tracks
+        .col-md-4
+          = f.input :time_slots, as: :select, collection: timeslots
+      = f.input :language, as: :language_select, only: @conference.language_codes
+      = f.input :public, as: :boolean, hint: t('events_module.inputs.hints.public')
+      - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
+        = image_input_box(f.object.logo)
+        = f.input :logo
+  .row.g-3.mb-4
+    .col-md-6
+      .card.border-primary.border-opacity-25
+        .card-header.d-flex.align-items-center.bg-primary.bg-opacity-10
+          %i.bi.bi-diagram-3.me-2
+          %h6.mb-0= t('state')
+        .card-body
+          = f.input :state, collection: Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
+    .col-md-6
+      .card.border-info.border-opacity-25
+        .card-header.d-flex.align-items-center.bg-info.bg-opacity-10
+          %i.bi.bi-clock.me-2
+          %h6.mb-0= t('time_and_place')
+        .card-body
+          .row.g-3
+            .col-12
+              = f.input :start_time do
+                = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
+            .col-12
+              = f.association :room, collection: @conference.rooms
   - if @conference.classifiers.any?
     = render partial: 'event_classifiers', locals: { f: f }
-  %fieldset.border.p-3.mb-4
-    %legend.mb-3
-      %i.bi.bi-card-text
-      = t('cfp.detailed_description')
-    - languages.each do |l|
-      = translated_textbox f, 'abstract', l, language_label('event.abstract', l), t('cfp.event_abstract_hint')
-      - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
-        = translated_textbox f, 'description', l, language_label('event.description', l), t('cfp.event_description_hint')
-  %fieldset.border.p-3.mb-4
-    %legend.mb-3
-      %i.bi.bi-sticky
-      = t('notes')
-    .d-flex.flex-wrap.gap-3
-      = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')
-      = f.input :submission_note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.submission_note')
-  %fieldset.border.p-3.mb-4
-    %legend.mb-3
-      %i.bi.bi-paperclip
-      = t('additional_resources')
-    = f.input :do_not_record, as: :boolean, hint: t('events_module.inputs.hints.do_not_record')
-    = f.input :recording_license, hint: t('events_module.inputs.hints.recording_license')
-    = f.input :tech_rider, input_html: {rows: 2}, hint: t('events_module.inputs.hints.tech_rider')
-    = dynamic_association :links, t('links'), f
-    = dynamic_association :event_attachments, t('events_module.event_attachments'), f
-  .actions
-    = f.button :submit, class: 'btn btn-primary'
+  
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-card-text.me-2
+      %h5.mb-0= t('cfp.detailed_description')
+    .card-body
+      - languages.each do |l|
+        = translated_textbox f, 'abstract', l, language_label('event.abstract', l), t('cfp.event_abstract_hint')
+        - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
+          = translated_textbox f, 'description', l, language_label('event.description', l), t('cfp.event_description_hint')
+  
+  .card.border-warning.border-opacity-25.mb-4
+    .card-header.d-flex.align-items-center.bg-warning.bg-opacity-10
+      %i.bi.bi-sticky.me-2
+      %h6.mb-0= t('notes')
+    .card-body
+      .row.g-3
+        .col-md-6
+          = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')
+        .col-md-6
+          = f.input :submission_note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.submission_note')
+  
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-paperclip.me-2
+      %h5.mb-0= t('additional_resources')
+    .card-body
+      = f.input :do_not_record, as: :boolean, hint: t('events_module.inputs.hints.do_not_record')
+      = f.input :recording_license, hint: t('events_module.inputs.hints.recording_license')
+      = f.input :tech_rider, input_html: {rows: 2}, hint: t('events_module.inputs.hints.tech_rider')
+      = dynamic_association :links, t('links'), f
+      = dynamic_association :event_attachments, t('events_module.event_attachments'), f
+      
+  .card.border-0.mt-4
+    .card-footer.bg-light.d-flex.gap-2
+      = f.button :submit, class: 'btn btn-primary btn-lg'
+      = link_to t('cancel'), :back, class: "btn btn-outline-secondary"
 - if EventAttachment::PRESERVE_FILE_ATTACHMENTS
   %p{class: 'form-text'}
     = t('attachements_may_be_saved', scope: 'cfp')
