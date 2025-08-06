@@ -1,27 +1,35 @@
-%ul.nav.nav-tabs
-  %li.nav-item
-    = link_to t('profile'), @person, class: "nav-link #{'active' if active_class?(person_path(@person), edit_person_path(@person))}"
+.nav.nav-pills.nav-fill.mb-4.bg-light.rounded.p-2
+  = link_to @person, class: "nav-link rounded #{'active' if active_class?(person_path(@person), edit_person_path(@person))}" do
+    %i.bi.bi-person.me-2
+    %span.d-none.d-sm-inline= t('profile')
   - if policy(Person).manage?
     - if @person.user.nil?
-      %li.nav-item
-        = link_to t('user_account'), new_person_user_path(@person), class: "nav-link #{'active' if active_class?(new_person_user_path(@person))}"
+      = link_to new_person_user_path(@person), class: "nav-link rounded #{'active' if active_class?(new_person_user_path(@person))}" do
+        %i.bi.bi-person-plus.me-2
+        %span.d-none.d-sm-inline= t('user_account')
     - else
-      %li.nav-item
-        = link_to t('user_account'), person_user_path(@person), class: "nav-link #{'active' if active_class?(person_user_path(@person), edit_person_user_path(@person))}"
+      = link_to person_user_path(@person), class: "nav-link rounded #{'active' if active_class?(person_user_path(@person), edit_person_user_path(@person))}" do
+        %i.bi.bi-person-gear.me-2
+        %span.d-none.d-sm-inline= t('user_account')
 
   - if policy(@conference).manage?
     - if @person.availabilities_in(@conference).count == 0
-      %li.nav-item
-        = link_to t('availability'), new_person_availability_path(@person), class: "nav-link #{'active' if active_class?(new_person_availability_path(@person))}"
+      = link_to new_person_availability_path(@person), class: "nav-link rounded #{'active' if active_class?(new_person_availability_path(@person))}" do
+        %i.bi.bi-calendar-plus.me-2
+        %span.d-none.d-sm-inline= t('availability')
     - else
-      %li.nav-item
-        = link_to t('availability'), edit_person_availability_path(@person), class: "nav-link #{'active' if active_class?(edit_person_availability_path(@person))}"
+      = link_to edit_person_availability_path(@person), class: "nav-link rounded #{'active' if active_class?(edit_person_availability_path(@person))}" do
+        %i.bi.bi-calendar-check.me-2
+        %span.d-none.d-sm-inline= t('availability')
     -if @conference.expenses_enabled? and policy(@conference).orga?
-      %li.nav-item
-        = link_to t('expenses'), person_expenses_path(@person), class: "nav-link #{'active' if active_class?(person_expenses_path(@person))}"
+      = link_to person_expenses_path(@person), class: "nav-link rounded #{'active' if active_class?(person_expenses_path(@person))}" do
+        %i.bi.bi-currency-dollar.me-2
+        %span.d-none.d-sm-inline= t('expenses')
     -if @conference.transport_needs_enabled? and policy(@conference).orga?
-      %li.nav-item
-        = link_to t('transport_needs'), person_transport_needs_path(@person), class: "nav-link #{'active' if active_class?(person_transport_needs_path(@person))}"
+      = link_to person_transport_needs_path(@person), class: "nav-link rounded #{'active' if active_class?(person_transport_needs_path(@person))}" do
+        %i.bi.bi-bus-front.me-2
+        %span.d-none.d-sm-inline= t('transport_needs')
   - if policy(@conference).manage?
-    %li.nav-item
-      = link_to t('feedback'), feedbacks_people_path(id: @person.id), class: "nav-link #{'active' if active_class?(feedbacks_people_path)}"
+    = link_to feedbacks_people_path(id: @person.id), class: "nav-link rounded #{'active' if active_class?(feedbacks_people_path)}" do
+      %i.bi.bi-chat-dots.me-2
+      %span.d-none.d-sm-inline= t('feedback')

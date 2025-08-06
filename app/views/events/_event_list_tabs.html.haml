@@ -1,13 +1,18 @@
-%ul.nav.nav-tabs.mb-3
-  %li.nav-item
-    = link_to t('events_module.all_events'), events_path, class: "nav-link #{(!showing_my_events? && active_class?(events_path)) ? 'active' : ''}"
-  %li.nav-item
-    = link_to t('events_module.my_events'), my_events_path, class: "nav-link #{(showing_my_events? && active_class?(events_path)) ? 'active' : ''}"
-  %li.nav-item
-    = link_to t('events_module.attachments_overview'), attachments_events_path, class: "nav-link #{active_class?(attachments_events_path) ? 'active' : ''}"
-  %li.nav-item
-    = link_to t('events_module.event_ratings'), ratings_events_path, class: "nav-link #{active_class?(ratings_events_path) ? 'active' : ''}"
+.nav.nav-pills.nav-fill.mb-4.bg-light.rounded.p-2
+  = link_to events_path, class: "nav-link rounded #{(!showing_my_events? && active_class?(events_path)) ? 'active' : ''}" do
+    %i.bi.bi-calendar-event.me-2
+    %span.d-none.d-sm-inline= t('events_module.all_events')
+  = link_to my_events_path, class: "nav-link rounded #{(showing_my_events? && active_class?(events_path)) ? 'active' : ''}" do
+    %i.bi.bi-person-circle.me-2
+    %span.d-none.d-sm-inline= t('events_module.my_events')
+  = link_to attachments_events_path, class: "nav-link rounded #{active_class?(attachments_events_path) ? 'active' : ''}" do
+    %i.bi.bi-paperclip.me-2
+    %span.d-none.d-sm-inline= t('events_module.attachments_overview')
+  = link_to ratings_events_path, class: "nav-link rounded #{active_class?(ratings_events_path) ? 'active' : ''}" do
+    %i.bi.bi-star.me-2
+    %span.d-none.d-sm-inline= t('events_module.event_ratings')
   - if @conference.feedback_enabled
-    %li.nav-item
-      = link_to t('events_module.event_feedbacks'), feedbacks_events_path, class: "nav-link #{active_class?(feedbacks_events_path) ? 'active' : ''}"
+    = link_to feedbacks_events_path, class: "nav-link rounded #{active_class?(feedbacks_events_path) ? 'active' : ''}" do
+      %i.bi.bi-chat-dots.me-2
+      %span.d-none.d-sm-inline= t('events_module.event_feedbacks')
   
