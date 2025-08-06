@@ -39,14 +39,14 @@
       - if event.abstract.present?
         .card.mb-4
           .card-body
-            %h4.card-title.h5= t 'activerecord.attributes.event.abstract'
-            = simple_format event.abstract
+            %h4.card-title.h4.fw-semibold.text-dark.mb-3= t 'activerecord.attributes.event.abstract'
+            .text-muted.fs-5.lh-base= simple_format event.abstract
 
       - if event.description.present?
         .card.mb-4
           .card-body
-            %h4.card-title.h5= t 'activerecord.attributes.event.description'
-            = simple_format event.description
+            %h4.card-title.h4.fw-semibold.text-dark.mb-3= t 'activerecord.attributes.event.description'
+            .text-muted.fs-5.lh-base= simple_format event.description
 
     .col-12.col-lg-4
       .speakers-section
