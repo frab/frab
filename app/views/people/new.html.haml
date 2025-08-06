@@ -1,6 +1,10 @@
 %section
-  .page-header
+  .page-header.mb-4
     %h1= t('people_module.new_person')
-  .row
-    .col-md-12
+  
+  .card.shadow-sm
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-person-plus.me-2
+      %h5.mb-0= t('people_module.add_person_form', default: 'Person Information')
+    .card-body
       = render 'form'
