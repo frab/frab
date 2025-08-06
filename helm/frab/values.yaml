@@ -1,0 +1,267 @@
+# Default values for frab
+replicaCount: 1
+
+image:
+  repository: ghcr.io/frab/frab
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+  targetPort: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: frab.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 250m
+    memory: 768Mi
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 10
+  failureThreshold: 3
+
+startupProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 10
+  failureThreshold: 60
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Persistent Volume Configuration
+persistence:
+  # Database storage (only needed for SQLite)
+  data:
+    enabled: true
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    annotations: {}
+  # Public system folder for uploaded files (PDF slides, etc.)
+  public:
+    enabled: true
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    annotations: {}
+  # Custom views folder for template overrides
+  customViews:
+    enabled: false
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    annotations: {}
+
+# Database Configuration (SQLite by default)
+database:
+  type: sqlite3
+  # For SQLite, data is stored in persistent volume
+  sqlite:
+    path: /rails/data/database.db
+  # External database configurations
+  postgresql:
+    host: ""
+    port: 5432
+    database: frab
+    username: frab
+    password: ""
+  mysql:
+    host: ""
+    port: 3306
+    database: frab
+    username: frab
+    password: ""
+
+# Frab Application Configuration
+frab:
+  # Basic Configuration
+  host: frab.local
+  protocol: http
+  port: ""
+
+  # Email Configuration
+  fromEmail: frab@localhost
+
+  # SMTP Configuration
+  smtp:
+    address: localhost
+    port: 25
+    noTls: true
+    username: ""
+    password: ""
+
+  # Currency Configuration
+  currency:
+    unit: "€"
+    format: "%n%u"
+
+  # File Upload Configuration
+  maxAttachmentSizeMb: 42
+  preserveFileAttachments: false
+
+  # UI Configuration
+  showActionBarInCfp: true
+  forceSSL: false
+
+  # Feature Toggles
+  disableDirectLogin: false
+  disableLogoField: false
+  disableGenderField: false
+  disableDescriptionField: false
+  disablePublicSchedule: false
+
+  # Admin Configuration
+  emailsOfAdmins: ""
+
+  # External Authentication (optional)
+  google:
+    enabled: false
+    clientId: ""
+    clientSecret: ""
+    overrideProfilePhoto: false
+
+  ldap:
+    enabled: false
+    name: ""
+    promptTitle: ""
+    host: ""
+    port: 389
+    method: plain  # plain, ssl, tls
+    baseDn: ""
+    uid: ""
+    filter: ""
+    bindDn: ""
+    bindPassword: ""
+    disableVerifyCert: false
+
+  oidc:
+    enabled: false
+    issuer: ""
+    clientId: ""
+    clientSecret: ""
+    name: ""
+
+  # Performance Configuration
+  useMemcache: false
+  useArStore: false
+  sessionStoreKey: ""
+
+  # Exception Handling
+  exceptionEmail: ""
+
+# Rails Configuration
+rails:
+  env: production
+  serveStaticFiles: true
+  logToStdout: true
+  masterKey: ""
+
+  # Database Migrations
+  runMigrations: true
+  seedData: true  # Creates default admin user
+  migrationJobTtl: 300  # Cleanup migration job after 5 minutes
+  migrationResources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+  # Graceful Shutdown
+  terminationGracePeriodSeconds: 30
+
+  # Asset Pipeline
+  precompileAssets: true
+  assetHost: ""
+
+  # Cache Configuration
+  cache:
+    enabled: false
+    type: memory  # memory, redis, memcached
+    redis:
+      host: ""
+      port: 6379
+      database: 0
+      password: ""
+    memcached:
+      servers: "localhost:11211"
+
+  # Session Store
+  sessionStore:
+    type: cookie  # cookie, redis, active_record
+    redis:
+      host: ""
+      port: 6379
+      database: 1
+      password: ""
+
+# Secret Key Base - should be set via secret
+secretKeyBase: ""
+
+# Timezone
+timezone: UTC
