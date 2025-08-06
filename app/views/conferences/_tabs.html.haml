@@ -1,21 +1,30 @@
-%ul.nav.nav-tabs.mb-3
-  %li.nav-item
-    = link_to t(:settings), edit_conference_path, class: "nav-link #{active == :settings ? 'active' : ''}"
-  %li.nav-item
-    = link_to t(:days), edit_days_conference_path, class: "nav-link #{active == :days ? 'active' : ''}"
-  %li.nav-item
-    = link_to t(:tracks), edit_tracks_conference_path, class: "nav-link #{active == :tracks ? 'active' : ''}"
-  %li.nav-item
-    = link_to t(:rooms), edit_rooms_conference_path, class: "nav-link #{active == :rooms ? 'active' : ''}"
-  %li.nav-item
-    = link_to t(:schedule), edit_schedule_conference_path, class: "nav-link #{active == :schedule ? 'active' : ''}"
+.nav.nav-pills.nav-fill.mb-4.bg-light.rounded.p-2
+  = link_to edit_conference_path, class: "nav-link rounded #{active == :settings ? 'active' : ''}" do
+    %i.bi.bi-gear.me-2
+    %span.d-none.d-sm-inline= t(:settings)
+  = link_to edit_days_conference_path, class: "nav-link rounded #{active == :days ? 'active' : ''}" do
+    %i.bi.bi-calendar-week.me-2
+    %span.d-none.d-sm-inline= t(:days)
+  = link_to edit_tracks_conference_path, class: "nav-link rounded #{active == :tracks ? 'active' : ''}" do
+    %i.bi.bi-signpost-split.me-2
+    %span.d-none.d-sm-inline= t(:tracks)
+  = link_to edit_rooms_conference_path, class: "nav-link rounded #{active == :rooms ? 'active' : ''}" do
+    %i.bi.bi-door-open.me-2
+    %span.d-none.d-sm-inline= t(:rooms)
+  = link_to edit_schedule_conference_path, class: "nav-link rounded #{active == :schedule ? 'active' : ''}" do
+    %i.bi.bi-calendar3.me-2
+    %span.d-none.d-sm-inline= t(:schedule)
   - if @conference.ticket_server_enabled?
-    %li.nav-item
-      = link_to t(:ticket_server), edit_ticket_server_conference_path, class: "nav-link #{active == :ticket_server ? 'active' : ''}"
-  %li.nav-item
-    = link_to t(:classifiers), edit_classifiers_conference_path, class: "nav-link #{active == :classifiers ? 'active' : ''}"
-  %li.nav-item
-    = link_to t(:reviewing), edit_review_metrics_conference_path, class: "nav-link #{active == :reviewing ? 'active' : ''}"
+    = link_to edit_ticket_server_conference_path, class: "nav-link rounded #{active == :ticket_server ? 'active' : ''}" do
+      %i.bi.bi-ticket-perforated.me-2
+      %span.d-none.d-sm-inline= t(:ticket_server)
+  = link_to edit_classifiers_conference_path, class: "nav-link rounded #{active == :classifiers ? 'active' : ''}" do
+    %i.bi.bi-tags.me-2
+    %span.d-none.d-sm-inline= t(:classifiers)
+  = link_to edit_review_metrics_conference_path, class: "nav-link rounded #{active == :reviewing ? 'active' : ''}" do
+    %i.bi.bi-star.me-2
+    %span.d-none.d-sm-inline= t(:reviewing)
   - if @conference.ticket_type == 'integrated' or @conference.bulk_notification_enabled
-    %li.nav-item
-      = link_to t('notifications'), edit_notifications_conference_path, class: "nav-link #{active == :notifications ? 'active' : ''}"
+    = link_to edit_notifications_conference_path, class: "nav-link rounded #{active == :notifications ? 'active' : ''}" do
+      %i.bi.bi-bell.me-2
+      %span.d-none.d-sm-inline= t('notifications')
