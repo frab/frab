@@ -1,0 +1,74 @@
+{{- if .Values.persistence.data.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "frab.fullname" . }}-data
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-5"  
+    "helm.sh/resource-policy": keep
+    {{- with .Values.persistence.data.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.data.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.data.size }}
+  {{- if .Values.persistence.data.storageClass }}
+  storageClassName: {{ .Values.persistence.data.storageClass }}
+  {{- end }}
+{{- end }}
+{{- if and .Values.persistence.data.enabled .Values.persistence.public.enabled }}
+---
+{{- end }}
+{{- if .Values.persistence.public.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "frab.fullname" . }}-public
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/resource-policy": keep
+    {{- with .Values.persistence.public.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.public.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.public.size }}
+  {{- if .Values.persistence.public.storageClass }}
+  storageClassName: {{ .Values.persistence.public.storageClass }}
+  {{- end }}
+{{- end }}
+{{- if .Values.persistence.customViews.enabled -}}
+{{- if or .Values.persistence.data.enabled .Values.persistence.public.enabled }}
+---
+{{- end }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "frab.fullname" . }}-custom-views
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/resource-policy": keep
+    {{- with .Values.persistence.customViews.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.customViews.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.customViews.size }}
+  {{- if .Values.persistence.customViews.storageClass }}
+  storageClassName: {{ .Values.persistence.customViews.storageClass }}
+  {{- end }}
+{{- end }}

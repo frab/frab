@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "frab.fullname" . }}-test-health"
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  containers:
+  - name: test
+    image: busybox:1.35
+    command:
+    - /bin/sh
+    - -c
+    - |
+      set -e
+      echo "Testing Frab application health..."
+      
+      # Test that the main Frab service is accessible via DNS
+      if ! nslookup {{ include "frab.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local; then
+        echo "ERROR: Frab service not found"
+        exit 1
+      fi
+      echo "✓ Frab service DNS resolution successful"
+      
+      # Test health endpoint - wait for app to be ready
+      SERVICE_URL="http://{{ include "frab.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}"
+      echo "Testing health endpoint at $SERVICE_URL/health"
+      
+      # Wait up to 2 minutes for the health endpoint to respond
+      for i in $(seq 1 24); do
+        if wget -q --spider --timeout=5 "$SERVICE_URL/health"; then
+          echo "✓ Health endpoint is responding"
+          
+          # Get the actual health response
+          if HEALTH_RESPONSE=$(wget -q -O - --timeout=10 "$SERVICE_URL/health"); then
+            echo "✓ Health check response received"
+            echo "Health status: $HEALTH_RESPONSE"
+            
+            # Check if response contains success indicators
+            if echo "$HEALTH_RESPONSE" | grep -q "ok\|success\|healthy"; then
+              echo "✓ Application reports healthy status"
+            else
+              echo "⚠ Application health status unclear: $HEALTH_RESPONSE"
+            fi
+            
+            echo "✓ Frab application health test passed!"
+            exit 0
+          else
+            echo "ERROR: Could not retrieve health response"
+            exit 1
+          fi
+        fi
+        
+        echo "Waiting for health endpoint (attempt $i/24)..."
+        sleep 5
+      done
+      
+      echo "ERROR: Health endpoint not responding after 2 minutes"
+      exit 1
