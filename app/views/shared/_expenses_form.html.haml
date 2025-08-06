@@ -1,8 +1,14 @@
 = simple_form_for [person, expense] do |f|
-  %fieldset.border.p-3.mb-4
-    = f.input :name
-    = f.input :value
-    = f.input :reimbursed, as: :boolean, hint: t('expenses_module.is_this_reimbursed_hint')
-  .actions
-    - if policy(@conference).manage?
-      = f.button :submit, class: 'btn btn-primary'
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-cash-stack.me-2
+      %h5.mb-0= t('expense', default: 'Expense')
+    .card-body
+      = f.input :name
+      = f.input :value
+      = f.input :reimbursed, as: :boolean, hint: t('expenses_module.is_this_reimbursed_hint')
+  
+  - if policy(@conference).manage?
+    .card.border-0.mt-4
+      .card-footer.bg-light.d-flex.gap-2
+        = f.button :submit, class: 'btn btn-primary btn-lg'
