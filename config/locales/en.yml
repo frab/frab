@@ -240,7 +240,7 @@ en:
     success_update: Availibility was successfully updated.
   availability: Availability
   available: Available
-  basic_information: Basic informations
+  basic_information: Basic Information
   blank_indication: "(blank)"
   by: by
   call_for_participation: Call for Participation
@@ -276,7 +276,7 @@ en:
     current_password_hint: we need your current password to confirm your changes
     deadline_description: Please make sure to submit your proposal until **%{date}**
     description_hint: A longer description of yourself. Use this to give additional details that did not fit in the abstract. (HTML)
-    detailed_description: Detailed description
+    detailed_description: Detailed Description
     edit_account: Edit your account
     edit_availability: Edit availability
     edit_availability_description: Please let us know when you will be available to hold the events you submit. We will try our best to incorporate these wishes when planning the schedule.
@@ -2156,7 +2156,7 @@ en:
       The rooms for this conference can only be modified with
       administration rights for the parent conference %{parent}
   schedule: Schedule
-  schedule_configuration: Schedule configuration
+  schedule_configuration: Schedule Configuration
   schedule_module:
     col_orientation: 'Orientation:'
     col_rooms_per_page: 'Rooms to show per page:'
@@ -2224,7 +2224,7 @@ en:
     'yes': 'Yes'
   speakers: Speakers
   state: State
-  static_program_export: Static program export
+  static_program_export: Static Program Export
   submission_configuration: Submission Configuration
   support:
     array:

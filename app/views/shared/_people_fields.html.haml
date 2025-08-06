@@ -1,31 +1,34 @@
-%fieldset.border.p-3.mb-4
-  %legend.mb-3
-    %i.bi.bi-info-circle
-    = t('basic_information')
-  = f.input :first_name
-  = f.input :last_name
-  = f.input :public_name, hint: t("cfp.public_name_hint")
-  - unless ENV['DISABLE_FRAB_GENDER_FIELD'].present?
-    = f.input :gender, collection: translated_options(Person::GENDERS)
-  = image_input_box(f.object.avatar)
-  = f.input :avatar, hint: t("cfp.avatar_hint")
-  = dynamic_association :languages, t("cfp.languages_spoken"), f
+.card.shadow-sm.mb-4
+  .card-header.d-flex.align-items-center
+    %i.bi.bi-info-circle.me-2
+    %h5.mb-0= t('basic_information')
+  .card-body
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :public_name, hint: t("cfp.public_name_hint")
+    - unless ENV['DISABLE_FRAB_GENDER_FIELD'].present?
+      = f.input :gender, collection: translated_options(Person::GENDERS)
+    = image_input_box(f.object.avatar)
+    = f.input :avatar, hint: t("cfp.avatar_hint")
+    = dynamic_association :languages, t("cfp.languages_spoken"), f
 
-%fieldset.border.p-3.mb-4
-  %legend.mb-3
-    %i.bi.bi-person-rolodex
-    = t('cfp.contact_data')
-  = f.input :email, hint: t("cfp.email_hint")
-  = f.input :email_public, as: :boolean, hint: t("cfp.email_public_hint")
-  = f.input :include_in_mailings, as: :boolean, hint: t('cfp.email_accept_upcoming_infos')
-  = dynamic_association :phone_numbers, t("cfp.phone_numbers"), f
-  = dynamic_association :im_accounts, t("cfp.im_accounts"), f
+.card.shadow-sm.mb-4
+  .card-header.d-flex.align-items-center
+    %i.bi.bi-person-rolodex.me-2
+    %h5.mb-0= t('cfp.contact_data')
+  .card-body
+    = f.input :email, hint: t("cfp.email_hint")
+    = f.input :email_public, as: :boolean, hint: t("cfp.email_public_hint")
+    = f.input :include_in_mailings, as: :boolean, hint: t('cfp.email_accept_upcoming_infos')
+    = dynamic_association :phone_numbers, t("cfp.phone_numbers"), f
+    = dynamic_association :im_accounts, t("cfp.im_accounts"), f
 
-%fieldset.border.p-3.mb-4
-  %legend.mb-3
-    %i.bi.bi-person-badge
-    = t('cfp.bio')
-  - person_languages.each do |l|
-    = translated_textbox f, 'abstract', l, language_label('person.abstract', l), t('cfp.abstract_hint')
-    = translated_textbox f, 'description', l, language_label('person.description', l), t('cfp.description_hint')
-  = dynamic_association :links, t("cfp.links"), f
+.card.shadow-sm.mb-4
+  .card-header.d-flex.align-items-center
+    %i.bi.bi-person-badge.me-2
+    %h5.mb-0= t('cfp.bio')
+  .card-body
+    - person_languages.each do |l|
+      = translated_textbox f, 'abstract', l, language_label('person.abstract', l), t('cfp.abstract_hint')
+      = translated_textbox f, 'description', l, language_label('person.description', l), t('cfp.description_hint')
+    = dynamic_association :links, t("cfp.links"), f
