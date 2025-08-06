@@ -1,0 +1,256 @@
+suite: test authentication configurations
+templates:
+  - configmap.yaml
+  - secret.yaml
+tests:
+  - it: should not configure auth by default
+    asserts:
+      - notExists:
+          path: data.GOOGLE_CLIENT_ID
+        template: configmap.yaml
+      - notExists:
+          path: data.LDAP_HOST
+        template: configmap.yaml
+      - notExists:
+          path: data.OPENID_CONNECT_ISSUER
+        template: configmap.yaml
+      - notExists:
+          path: data.GOOGLE_CLIENT_SECRET
+        template: secret.yaml
+      - notExists:
+          path: data.LDAP_BIND_PASSWORD
+        template: secret.yaml
+      - notExists:
+          path: data.OPENID_CONNECT_CLIENT_SECRET
+        template: secret.yaml
+
+  - it: should configure Google OAuth when enabled
+    set:
+      frab.google.enabled: true
+      frab.google.clientId: "123456789-abcdefgh.apps.googleusercontent.com"
+      frab.google.clientSecret: "GOCSPX-test-secret-key"
+      frab.google.overrideProfilePhoto: true
+    asserts:
+      - equal:
+          path: data.GOOGLE_CLIENT_ID
+          value: "123456789-abcdefgh.apps.googleusercontent.com"
+        template: configmap.yaml
+      - equal:
+          path: data.OVERRIDE_PROFILE_PHOTO
+          value: "1"
+        template: configmap.yaml
+      - equal:
+          path: data.GOOGLE_CLIENT_SECRET
+          value: R09DU1BYLXRlc3Qtc2VjcmV0LWtleQ==  # base64 encoded
+        template: secret.yaml
+
+  - it: should configure Google OAuth without profile photo override
+    set:
+      frab.google.enabled: true
+      frab.google.clientId: "test-client-id"
+      frab.google.clientSecret: "test-secret"
+      frab.google.overrideProfilePhoto: false
+    asserts:
+      - equal:
+          path: data.GOOGLE_CLIENT_ID
+          value: "test-client-id"
+        template: configmap.yaml
+      - notExists:
+          path: data.OVERRIDE_PROFILE_PHOTO
+        template: configmap.yaml
+      - equal:
+          path: data.GOOGLE_CLIENT_SECRET
+          value: dGVzdC1zZWNyZXQ=  # base64 encoded
+        template: secret.yaml
+
+  - it: should configure complete LDAP authentication
+    set:
+      frab.ldap.enabled: true
+      frab.ldap.name: "Corporate LDAP"
+      frab.ldap.promptTitle: "Corporate Login"
+      frab.ldap.host: "ldap.company.com"
+      frab.ldap.port: 636
+      frab.ldap.method: "ssl"
+      frab.ldap.baseDn: "dc=company,dc=com"
+      frab.ldap.uid: "uid"
+      frab.ldap.filter: "(objectClass=person)"
+      frab.ldap.bindDn: "cn=frab,ou=services,dc=company,dc=com"
+      frab.ldap.bindPassword: "ldap-bind-secret"
+      frab.ldap.disableVerifyCert: true
+    asserts:
+      - equal:
+          path: data.NAME_FOR_LDAP
+          value: "Corporate LDAP"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_PROMPT_TITLE
+          value: "Corporate Login"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_HOST
+          value: "ldap.company.com"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_PORT
+          value: "636"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_METHOD
+          value: "ssl"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_BASE_DN
+          value: "dc=company,dc=com"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_UID
+          value: "uid"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_FILTER
+          value: "(objectClass=person)"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_BIND_DN
+          value: "cn=frab,ou=services,dc=company,dc=com"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_DISABLE_VERIFY_CERT
+          value: "1"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_BIND_PASSWORD
+          value: bGRhcC1iaW5kLXNlY3JldA==  # base64 encoded
+        template: secret.yaml
+
+  - it: should configure minimal LDAP authentication
+    set:
+      frab.ldap.enabled: true
+      frab.ldap.host: "ldap.example.com"
+      frab.ldap.baseDn: "dc=example,dc=com"
+    asserts:
+      - equal:
+          path: data.LDAP_HOST
+          value: "ldap.example.com"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_BASE_DN
+          value: "dc=example,dc=com"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_PORT
+          value: "389"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_METHOD
+          value: "plain"
+        template: configmap.yaml
+      - notExists:
+          path: data.LDAP_BIND_PASSWORD
+        template: secret.yaml
+
+  - it: should configure complete OIDC authentication
+    set:
+      frab.oidc.enabled: true
+      frab.oidc.issuer: "https://oidc.example.com"
+      frab.oidc.clientId: "oidc-client-123"
+      frab.oidc.clientSecret: "oidc-secret-456"
+      frab.oidc.name: "Company SSO"
+    asserts:
+      - equal:
+          path: data.OPENID_CONNECT_ISSUER
+          value: "https://oidc.example.com"
+        template: configmap.yaml
+      - equal:
+          path: data.OPENID_CONNECT_CLIENT_ID
+          value: "oidc-client-123"
+        template: configmap.yaml
+      - equal:
+          path: data.NAME_FOR_OPENID_CONNECT
+          value: "Company SSO"
+        template: configmap.yaml
+      - equal:
+          path: data.OPENID_CONNECT_CLIENT_SECRET
+          value: b2lkYy1zZWNyZXQtNDU2  # base64 encoded
+        template: secret.yaml
+
+  - it: should configure minimal OIDC authentication
+    set:
+      frab.oidc.enabled: true
+      frab.oidc.issuer: "https://oidc.example.com"
+      frab.oidc.clientId: "oidc-client-123"
+      frab.oidc.clientSecret: "oidc-secret-456"
+    asserts:
+      - equal:
+          path: data.OPENID_CONNECT_ISSUER
+          value: "https://oidc.example.com"
+        template: configmap.yaml
+      - equal:
+          path: data.OPENID_CONNECT_CLIENT_ID
+          value: "oidc-client-123"
+        template: configmap.yaml
+      - notExists:
+          path: data.NAME_FOR_OPENID_CONNECT
+        template: configmap.yaml
+      - equal:
+          path: data.OPENID_CONNECT_CLIENT_SECRET
+          value: b2lkYy1zZWNyZXQtNDU2  # base64 encoded
+        template: secret.yaml
+
+  - it: should support multiple auth providers simultaneously
+    set:
+      frab.google.enabled: true
+      frab.google.clientId: "google-client-id"
+      frab.google.clientSecret: "google-secret"
+      frab.ldap.enabled: true
+      frab.ldap.host: "ldap.example.com"
+      frab.ldap.baseDn: "dc=example,dc=com"
+      frab.ldap.bindPassword: "ldap-secret"
+      frab.oidc.enabled: true
+      frab.oidc.issuer: "https://oidc.example.com"
+      frab.oidc.clientId: "oidc-client-id"
+      frab.oidc.clientSecret: "oidc-secret"
+    asserts:
+      # Google OAuth
+      - equal:
+          path: data.GOOGLE_CLIENT_ID
+          value: "google-client-id"
+        template: configmap.yaml
+      - equal:
+          path: data.GOOGLE_CLIENT_SECRET
+          value: Z29vZ2xlLXNlY3JldA==  # base64 encoded
+        template: secret.yaml
+      # LDAP
+      - equal:
+          path: data.LDAP_HOST
+          value: "ldap.example.com"
+        template: configmap.yaml
+      - equal:
+          path: data.LDAP_BIND_PASSWORD
+          value: bGRhcC1zZWNyZXQ=  # base64 encoded
+        template: secret.yaml
+      # OIDC
+      - equal:
+          path: data.OPENID_CONNECT_ISSUER
+          value: "https://oidc.example.com"
+        template: configmap.yaml
+      - equal:
+          path: data.OPENID_CONNECT_CLIENT_SECRET
+          value: b2lkYy1zZWNyZXQ=  # base64 encoded
+        template: secret.yaml
+
+  - it: should handle auth provider feature flags
+    set:
+      frab.disableDirectLogin: true
+      frab.google.enabled: true
+      frab.google.clientId: "test-client"
+      frab.google.clientSecret: "test-secret"
+    asserts:
+      - equal:
+          path: data.DISABLE_FRAB_DIRECT_LOGIN
+          value: "1"
+        template: configmap.yaml
+      - equal:
+          path: data.GOOGLE_CLIENT_ID
+          value: "test-client"
+        template: configmap.yaml

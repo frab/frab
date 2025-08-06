@@ -17,6 +17,7 @@ Dockerfile
 /config/credentials/*.key
 
 # Ignore all logfiles and tempfiles.
+tmp/
 /log/*
 /tmp/*
 !/log/.keep
