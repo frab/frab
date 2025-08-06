@@ -1,7 +1,7 @@
 %section
   .page-header
     .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
-      %h1.mb-0= t('people_module.list_of_people')
+      %h1.display-6.fw-bold.mb-0.text-dark= t('people_module.list_of_people')
       .btn-toolbar{role: "toolbar", "aria-label": "People management tools"}
         - if policy(@conference).manage?
           .btn-group{role: "group", "aria-label": "Person actions"}
@@ -18,15 +18,15 @@
       .card-body
         %i.bi.bi-people.fs-1.text-muted.mb-3
         - if Person.count <= 1
-          %h5.text-muted.mb-2= t('people_module.no_people_title', default: 'No People Yet')
-          %div.text-muted= raw(markdown_render(t('people_module.no_people_data')))
+          %h5.h4.text-dark.fw-semibold.mb-3= t('people_module.no_people_title', default: 'No People Yet')
+          %p.text-muted.fs-5.mb-0= raw(markdown_render(t('people_module.no_people_data')))
           - if policy(@conference).manage?
             .mt-3
               = link_to new_person_path, class: 'btn btn-primary' do
                 %i.bi.bi-plus-circle.me-2
                 = t('people_module.add_person')
         - else
-          %h5.text-muted.mb-2= t('people_module.no_people_involved_title', default: 'No People in Conference')
-          %div.text-muted= raw(markdown_render(t('people_module.no_people_involved')))
+          %h5.h4.text-dark.fw-semibold.mb-3= t('people_module.no_people_involved_title', default: 'No People in Conference')
+          %p.text-muted.fs-5.mb-0= raw(markdown_render(t('people_module.no_people_involved')))
   - else
     = render 'shared/search_and_table', collection: @people

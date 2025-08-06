@@ -5,7 +5,7 @@
   .col-12.col-md-8.col-lg-6
     .card.border-0.shadow-sm
       .card-header.bg-primary.text-white.text-center
-        %h4.mb-0
+        %h1.h2.mb-0.fw-bold
           %i.bi.bi-qr-code.me-2
           = t('public.schedule.nav.qrcode')
       
@@ -17,6 +17,6 @@
           = raw @qr.as_html
         
         .mt-4
-          .small.text-muted
-            %i.bi.bi-info-circle.me-1
-            Scan this QR code with your mobile device to access the schedule
+          %p.text-muted.small.mb-0
+            %i.bi.bi-info-circle.me-2
+            = t('qr_code_instructions', default: 'Scan this QR code with your mobile device to access the schedule')
