@@ -30,8 +30,9 @@
     %h3= t('cfp.join_alternative')
   - else
     - if not @token.blank?
-      = render "shared/flash", flash: { error: t('cfp.join_token_unknown', token: @token) }
+      = render "shared/flash", flash: { warn: t('cfp.join_token_unknown', token: @token) }
     %p= t('cfp.join_token_lookup_description')
+
   %p
   = form_tag cfp_events_join_path, method: :get do
     = text_field_tag :token

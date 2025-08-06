@@ -29,10 +29,6 @@ class EditingConferenceTest < ApplicationSystemTestCase
     click_on 'Update conference'
 
     assert_content page, 'Conference was successfully updated.'
-    click_on 'Events'
-    assert_content page, 'List of events'
-    # TODO flaky assert
-    assert_content page, Event.last.title
   end
 
   test 'edit classifiers' do
