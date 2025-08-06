@@ -1,19 +1,24 @@
 = simple_form_for(@conference, url: conference_path) do |f|
-  %fieldset.border.p-3.mb-4
-    %legend.mb-3
-      %i.bi.bi-calendar-range
-      = t(:schedule_configuration)
-    = f.input :schedule_version, hint: t('schedule_module.inputs.hints.schedule_version')
-    .d-flex.gap-3
-      - unless ENV['DISABLE_FRAB_PUBLIC_SCHEDULE'].present?
-        = f.input :schedule_public, as: :boolean, hint: t('schedule_module.inputs.hints.schedule_public')
-      = f.input :schedule_open, as: :boolean, hint: t('schedule_module.inputs.hints.schedule_open')
-    %fieldset.border.p-3.mb-4
-      %legend.mb-3
-        %i.bi.bi-file-earmark-arrow-down
-        = t(:static_program_export)
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-calendar-range.me-2
+      %h5.mb-0= t(:schedule_configuration)
+    .card-body
+      = f.input :schedule_version, hint: t('schedule_module.inputs.hints.schedule_version')
+      .d-flex.gap-3
+        - unless ENV['DISABLE_FRAB_PUBLIC_SCHEDULE'].present?
+          = f.input :schedule_public, as: :boolean, hint: t('schedule_module.inputs.hints.schedule_public')
+        = f.input :schedule_open, as: :boolean, hint: t('schedule_module.inputs.hints.schedule_open')
+  
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-file-earmark-arrow-down.me-2
+      %h5.mb-0= t(:static_program_export)
+    .card-body
       = f.input :program_export_base_url, hint: t('schedule_module.inputs.hints.program_export_base_url')
       = f.input :schedule_custom_css, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_custom_css')
       = f.input :schedule_html_intro, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_html_intro')
-  .actions
-    = f.button :submit, class: 'btn btn-primary'
+  
+  .card.border-0.mt-4
+    .card-footer.bg-light.d-flex.gap-2
+      = f.button :submit, class: 'btn btn-primary btn-lg'

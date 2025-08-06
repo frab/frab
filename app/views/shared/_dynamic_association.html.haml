@@ -1,11 +1,12 @@
-%fieldset.border.p-3.mb-4
-  %legend.mb-3
+.card.shadow-sm.mb-4
+  .card-header.d-flex.align-items-center
     = dynamic_association_icon(association_name)
-    = title
-  - if hint
-    %div.input.form-text= hint
-  %div{class: association_name.to_s}
-    = f.simple_fields_for association_name do |association_form|
-      = render association_name.to_s.singularize + "_fields", f: association_form
-  .d-flex.justify-content-end.mt-2
-    = add_association_link association_name, f, association_name
+    %h6.mb-0.ms-2= title
+  .card-body
+    - if hint
+      %div.input.form-text= hint
+    %div{class: association_name.to_s}
+      = f.simple_fields_for association_name do |association_form|
+        = render association_name.to_s.singularize + "_fields", f: association_form
+    .d-flex.justify-content-end.mt-2
+      = add_association_link association_name, f, association_name
