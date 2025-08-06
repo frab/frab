@@ -6,14 +6,14 @@
         %th= sort_link @search, :title, t('title'), term: params[:term]
         - if @conference.ticket_server_enabled?
           %th= sort_link @search, :ticket_id, t('ticket'), term: params[:term]
-        %th.nowrap
+        %th.text-nowrap
           = sort_link @search, :track_name, t('track'), term: params[:term]
           = filter_link('track_name')
-        %th.nowrap
+        %th.text-nowrap
           = sort_link @search, :event_type, t('type'), term: params[:term]
           = filter_link 'event_type'
         - if policy(@conference).manage?
-          %th.nowrap
+          %th.text-nowrap
             = sort_link @search, :state, t('state'), term: params[:term]
             = filter_link 'event_state'
         %th= sort_link @search, :created_at, t('created_at'), term: params[:term]
@@ -49,12 +49,13 @@
         - if policy(@conference).manage?
           %td= link_to_unless params[:event_state].present?, (t(event.state, scope: 'conferences_module') unless event.state.blank?).to_s, request.query_parameters.merge(:event_state => event.state)
         %td
-          %span.nowrap= l(event.date_of_submission_in_conference_tz)
+          %span.text-nowrap= l(event.date_of_submission_in_conference_tz)
           = render partial: 'events/event_tags', locals: { event: event, short: true }
-        %td.buttons
-          = action_button '<i class="bi bi-eye"></i> '.html_safe, event, class: "btn btn-primary btn-sm", hint: t('show')
-          - if policy(@conference).manage?
-            = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')
-            = delete_button event, hint: t('destroy')
-          - elsif current_user.is_speaker_in?(event)
-            = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_cfp_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')
+        %td.text-nowrap
+          .d-flex.flex-wrap.gap-2
+            = action_button '<i class="bi bi-eye"></i> '.html_safe, event, class: "btn btn-primary btn-sm", hint: t('show')
+            - if policy(@conference).manage?
+              = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')
+              = delete_button event, hint: t('destroy')
+            - elsif current_user.is_speaker_in?(event)
+              = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_cfp_event_path(event), class: "btn btn-primary btn-sm", hint: t('edit')
