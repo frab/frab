@@ -1,0 +1,59 @@
+suite: test database configurations
+templates:
+  - configmap.yaml
+  - secret.yaml
+  - deployment.yaml
+tests:
+  - it: should configure SQLite database (default)
+    asserts:
+      - equal:
+          path: data.DATABASE_URL
+          value: c3FsaXRlMzovLy9yYWlscy9kYXRhL2RhdGFiYXNlLmRi  # base64 encoded "sqlite3:///rails/data/database.db"
+        template: secret.yaml
+      - notExists:
+          path: spec.template.spec.containers[0].env
+        template: deployment.yaml
+
+  - it: should configure SQLite with custom path
+    set:
+      database.type: "sqlite3"
+      database.sqlite.path: "/custom/path/db.sqlite3"
+    asserts:
+      - equal:
+          path: data.DATABASE_URL
+          value: c3FsaXRlMzovLy9jdXN0b20vcGF0aC9kYi5zcWxpdGUz  # base64 encoded "sqlite3:///custom/path/db.sqlite3"
+        template: secret.yaml
+
+  - it: should configure PostgreSQL with password
+    set:
+      database.type: "postgresql"
+      database.postgresql.host: "postgres.example.com"
+      database.postgresql.port: 5432
+      database.postgresql.database: "frab_production"
+      database.postgresql.username: "frab_user"
+      database.postgresql.password: "secret-pg-password"
+    asserts:
+      - equal:
+          path: data.DATABASE_URL
+          value: cG9zdGdyZXNxbDovL2ZyYWJfdXNlcjpzZWNyZXQtcGctcGFzc3dvcmRAcG9zdGdyZXMuZXhhbXBsZS5jb206NTQzMi9mcmFiX3Byb2R1Y3Rpb24=  # base64 encoded "postgresql://frab_user:secret-pg-password@postgres.example.com:5432/frab_production"
+        template: secret.yaml
+      - notExists:
+          path: spec.template.spec.containers[0].env
+        template: deployment.yaml
+
+  - it: should configure MySQL with password
+    set:
+      database.type: "mysql"
+      database.mysql.host: "mysql.example.com"
+      database.mysql.port: 3306
+      database.mysql.database: "frab_production"
+      database.mysql.username: "frab_user"
+      database.mysql.password: "secret-mysql-password"
+    asserts:
+      - equal:
+          path: data.DATABASE_URL
+          value: bXlzcWwyOi8vZnJhYl91c2VyOnNlY3JldC1teXNxbC1wYXNzd29yZEBteXNxbC5leGFtcGxlLmNvbTozMzA2L2ZyYWJfcHJvZHVjdGlvbg==  # base64 encoded "mysql2://frab_user:secret-mysql-password@mysql.example.com:3306/frab_production"
+        template: secret.yaml
+      - notExists:
+          path: spec.template.spec.containers[0].env
+        template: deployment.yaml

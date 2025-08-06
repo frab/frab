@@ -1,0 +1,210 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: should render deployment with envFrom
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-frab
+      - equal:
+          path: spec.template.spec.containers[0].envFrom[0].configMapRef.name
+          value: RELEASE-NAME-frab-config
+      - equal:
+          path: spec.template.spec.containers[0].envFrom[1].secretRef.name
+          value: RELEASE-NAME-frab-secret
+
+  - it: should have correct container image
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: "docker.io/library/frab-next:latest"
+
+  - it: should use custom image tag when provided
+    set:
+      image.tag: "v1.2.3"
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: "docker.io/library/frab-next:v1.2.3"
+
+  - it: should not have env vars (DATABASE_URL comes from secret)
+    asserts:
+      - notExists:
+          path: spec.template.spec.containers[0].env
+
+  - it: should not have env vars for PostgreSQL (DATABASE_URL comes from secret)
+    set:
+      database.type: "postgresql"
+      database.postgresql.host: "pg.test.com"
+      database.postgresql.port: 5432
+      database.postgresql.database: "frab_test"
+      database.postgresql.username: "frab_user"
+      database.postgresql.password: "secret123"
+    asserts:
+      - notExists:
+          path: spec.template.spec.containers[0].env
+
+  - it: should not have env vars for MySQL (DATABASE_URL comes from secret)
+    set:
+      database.type: "mysql"
+      database.mysql.host: "mysql.test.com"
+      database.mysql.port: 3306
+      database.mysql.database: "frab_test"
+      database.mysql.username: "frab_user"
+      database.mysql.password: "secret123"
+    asserts:
+      - notExists:
+          path: spec.template.spec.containers[0].env
+
+  - it: should have default resource configuration
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources.limits.cpu
+          value: "1000m"
+      - equal:
+          path: spec.template.spec.containers[0].resources.limits.memory
+          value: "2Gi"
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.cpu
+          value: "250m"
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.memory
+          value: "768Mi"
+
+  - it: should have correct port configuration
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].ports[0].name
+          value: "http"
+      - equal:
+          path: spec.template.spec.containers[0].ports[0].containerPort
+          value: 3000
+      - equal:
+          path: spec.template.spec.containers[0].ports[0].protocol
+          value: "TCP"
+
+  - it: should have probes configured
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.path
+          value: "/health"
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.port
+          value: "http"
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.httpGet.path
+          value: "/health"
+      - equal:
+          path: spec.template.spec.containers[0].startupProbe.httpGet.path
+          value: "/health"
+
+  - it: should have correct security context
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsUser
+          value: 1000
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsNonRoot
+          value: true
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation
+          value: false
+
+  - it: should mount data volume when data persistence enabled
+    set:
+      persistence.data.enabled: true
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].name
+          value: "data"
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].mountPath
+          value: "/rails/data"
+      - equal:
+          path: spec.template.spec.volumes[0].name
+          value: "data"
+      - equal:
+          path: spec.template.spec.volumes[0].persistentVolumeClaim.claimName
+          value: "RELEASE-NAME-frab-data"
+
+  - it: should not mount data volume when data persistence disabled
+    set:
+      persistence.data.enabled: false
+    asserts:
+      - notContains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: "data"
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: "data"
+
+  - it: should mount public volume as PVC when public persistence enabled
+    set:
+      persistence.public.enabled: true
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: "public"
+            mountPath: "/rails/public/system"
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: "public"
+            persistentVolumeClaim:
+              claimName: "RELEASE-NAME-frab-public"
+
+  - it: should mount public volume as emptyDir when public persistence disabled
+    set:
+      persistence.public.enabled: false
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: "public"
+            mountPath: "/rails/public/system"
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: "public"
+            emptyDir: {}
+
+  - it: should have correct replica count
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 1
+
+  - it: should use custom replica count
+    set:
+      replicaCount: 3
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 3
+
+  - it: should not set replicas when autoscaling is enabled
+    set:
+      autoscaling.enabled: true
+    asserts:
+      - notExists:
+          path: spec.replicas
+
+  - it: should have correct termination grace period
+    asserts:
+      - equal:
+          path: spec.template.spec.terminationGracePeriodSeconds
+          value: 30
+
+  - it: should use custom termination grace period
+    set:
+      rails.terminationGracePeriodSeconds: 60
+    asserts:
+      - equal:
+          path: spec.template.spec.terminationGracePeriodSeconds
+          value: 60
