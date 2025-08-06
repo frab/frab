@@ -7,10 +7,14 @@
           .btn-group{role: "group", "aria-label": "Conference actions"}
             = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + '<span class="d-none d-sm-inline ms-1">'.html_safe + t('conferences_module.add_conference') + '</span>'.html_safe, new_conference_path, hint: t('conferences_module.add_conference_hint'), class: "btn btn-primary"
   - if params[:term].blank? and Conference.all.empty?
-    .row
-      .col-md-12
-        .blank-slate
-          %p= t('conferences_module.no_conferences')
-
+    .card.border-0.bg-light.text-center.py-5
+      .card-body
+        %i.bi.bi-building.fs-1.text-muted.mb-3
+        %h5.text-muted.mb-2= t('conferences_module.no_conferences')
+        - if policy(Conference).new?
+          %p.text-muted.small.mb-3= t('conferences_module.get_started_hint', default: 'Get started by creating your first conference')
+          = link_to new_conference_path, class: 'btn btn-primary' do
+            %i.bi.bi-plus-circle.me-2
+            = t('conferences_module.add_conference')
   - else
     = render 'shared/search_and_table', collection: @conferences

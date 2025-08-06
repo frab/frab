@@ -1,42 +1,45 @@
 = simple_form_for(@conference, url: @conference.new_record? ? create_conference_path : conference_path) do |f|
   - if @conference.new_record? && @possible_parents.any?
-    %fieldset.border.p-3.mb-4
-      %legend.mb-3
-        %i.bi.bi-diagram-2
-        = t(:parent_conference)
-      = f.input :parent_id, as: :select, collection: @possible_parents, hint: "Please select a parent for this new conference. A conferences nested under a parent will inherit the days and some settings (such as time slots and time zones etc.) from the parent, and the configuration of rooms and tracks may only be done with administation right for the parent conference. The parent's schedule export will also include events from the sub-conferences. If you don't know what this means, just leave this field blank, but note that this setting cannot be changed after the conference has been created."
+    .card.border-info.border-opacity-25.mb-4
+      .card-header.d-flex.align-items-center.bg-info.bg-opacity-10
+        %i.bi.bi-diagram-2.me-2
+        %h6.mb-0= t(:parent_conference)
+      .card-body
+        = f.input :parent_id, as: :select, collection: @possible_parents, hint: "Please select a parent for this new conference. A conferences nested under a parent will inherit the days and some settings (such as time slots and time zones etc.) from the parent, and the configuration of rooms and tracks may only be done with administation right for the parent conference. The parent's schedule export will also include events from the sub-conferences. If you don't know what this means, just leave this field blank, but note that this setting cannot be changed after the conference has been created."
 
   - elsif @conference.sub_conference?
-    %fieldset.border.p-3.mb-4
-      %legend.mb-3
-        %i.bi.bi-diagram-2
-        = t(:parent_conference)
-      .input
-        This conference is a sub-conference of
-        ="'#{@conference.parent.title}'."
+    .card.border-info.border-opacity-25.mb-4
+      .card-header.d-flex.align-items-center.bg-info.bg-opacity-10
+        %i.bi.bi-diagram-2.me-2
+        %h6.mb-0= t(:parent_conference)
+      .card-body
+        .alert.alert-info.mb-0
+          This conference is a sub-conference of
+          %strong="'#{@conference.parent.title}'."
 
-  %fieldset.border.p-3.mb-4
-    %legend.mb-3
-      %i.bi.bi-info-circle
-      = t(:basic_information)
-    .row.g-3
-      .col-12.col-md-6
-        = f.input :title, hint: t('conferences_module.inputs.hints.title')
-      .col-12.col-md-6
-        = f.input :acronym, hint: t('conferences_module.inputs.hints.acronym')
-      .col-12.col-md-6
-        = f.input :email, hint: t('conferences_module.inputs.hints.email')
-      .col-12.col-md-6
-        = f.input :bcc_address, hint: t('conferences_module.inputs.hints.bcc_address')
-      .col-12.col-md-4
-        = f.input :color, as: 'color', hint: t('conferences_module.inputs.hints.color'), input_html: { class: 'color' }
-      .col-12
-        = f.input :logo, as: :file, hint: "Upload a conference logo (recommended size: 256x256px or larger). This will appear in the public schedule header."
-        - if @conference.logo.present?
-          .mt-2
-            %small.text-muted Current logo:
-            %br
-            = image_tag @conference.logo.url(:small), alt: @conference.title, class: "border rounded", style: "max-height: 64px;"
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-info-circle.me-2
+      %h5.mb-0= t(:basic_information)
+    .card-body
+      .row.g-3
+        .col-12.col-md-6
+          = f.input :title, hint: t('conferences_module.inputs.hints.title')
+        .col-12.col-md-6
+          = f.input :acronym, hint: t('conferences_module.inputs.hints.acronym')
+        .col-12.col-md-6
+          = f.input :email, hint: t('conferences_module.inputs.hints.email')
+        .col-12.col-md-6
+          = f.input :bcc_address, hint: t('conferences_module.inputs.hints.bcc_address')
+        .col-12.col-md-4
+          = f.input :color, as: 'color', hint: t('conferences_module.inputs.hints.color'), input_html: { class: 'color' }
+        .col-12
+          = f.input :logo, as: :file, hint: "Upload a conference logo (recommended size: 256x256px or larger). This will appear in the public schedule header."
+          - if @conference.logo.present?
+            .mt-2
+              %small.text-muted Current logo:
+              %br
+              = image_tag @conference.logo.url(:small), alt: @conference.title, class: "border rounded", style: "max-height: 64px;"
   -if @conference.main_conference?
     %fieldset.border.p-3.mb-4(data-controller="duration")
       %legend.mb-3
@@ -84,6 +87,8 @@
       %i.bi.bi-server
       = t(:ticket_server)
     = f.input :ticket_type, as: :radio_buttons, collection: translated_options(Conference::TICKET_TYPES)
-  .actions
-    = f.button :submit, class: 'btn btn-primary'
+  .card.border-0.mt-4
+    .card-footer.bg-light.d-flex.gap-2
+      = f.button :submit, class: 'btn btn-primary btn-lg'
+      = link_to t('cancel'), :back, class: "btn btn-outline-secondary"
 
