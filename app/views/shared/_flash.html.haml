@@ -1,6 +1,6 @@
-.flash
+.flash{"aria-live": "polite", "aria-atomic": "true"}
   - flash.each do |type, message|
     - unless type == :timedout
-      %div{class: "alert alert-#{ flash_alert(type.to_s) } alert-dismissible fade show", role: :alert}
-        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}
+      %div{class: "alert alert-#{ flash_alert(type.to_s) } alert-dismissible fade show", role: :alert, "aria-live": "assertive"}
+        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": t('close_alert', default: 'Close alert')}
         %p.mb-0= message
