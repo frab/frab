@@ -1,8 +1,8 @@
 = simple_form_for(@person, html: {multipart: true}) do |f|
-  .card.border-0.bg-light.mb-4
+  .card.shadow-sm.mb-4
     .card-header.d-flex.align-items-center
       %i.bi.bi-shield-check.me-2
-      %h6.mb-0= t('admin')
+      %h5.mb-0= t('admin')
     .card-body
       = f.simple_fields_for :ticket do |ticket|
         = ticket.input :remote_ticket_id
@@ -12,5 +12,5 @@
 
   .card.border-0.mt-4
     .card-footer.bg-light.d-flex.gap-2
-      = f.button :submit, class: 'btn btn-primary'
+      = f.button :submit, class: 'btn btn-primary btn-lg'
       = link_to t('cancel'), :back, class: "btn btn-outline-secondary"

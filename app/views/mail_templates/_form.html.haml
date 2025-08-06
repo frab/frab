@@ -1,13 +1,25 @@
-%p
-  .row
-    .col.col-md-8
-      = raw(markdown_render(t('emails_module.placeholders_hint_header')))
-    .col.offset8= render "shared/variable_subst_help"
+.card.border-info.border-opacity-25.mb-4
+  .card-header.d-flex.align-items-center.bg-info.bg-opacity-10
+    %i.bi.bi-info-circle.me-2
+    %h6.mb-0= t('emails_module.template_help', default: 'Template Variables')
+  .card-body
+    .row
+      .col-md-8
+        = raw(markdown_render(t('emails_module.placeholders_hint_header')))
+      .col-md-4
+        = render "shared/variable_subst_help"
 
 = simple_form_for @mail_template do |f|
-  %fieldset.inputs
-    = f.input :name
-    = f.input :subject, input_html: { size: 100 }
-    = f.input :content, as: :text, input_html: { rows: 20 }
-  .actions
-    = f.button :submit, class: 'btn btn-primary'
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-envelope-paper.me-2
+      %h5.mb-0= t('mail_template', default: 'Mail Template')
+    .card-body
+      = f.input :name
+      = f.input :subject, input_html: { size: 100 }
+      = f.input :content, as: :text, input_html: { rows: 20 }
+      
+  .card.border-0.mt-4
+    .card-footer.bg-light.d-flex.gap-2
+      = f.button :submit, class: 'btn btn-primary btn-lg'
+      = link_to t('cancel'), :back, class: "btn btn-outline-secondary"

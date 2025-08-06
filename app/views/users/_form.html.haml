@@ -1,20 +1,31 @@
 = simple_form_for(@user, url: crew_user_path(@person)) do |f|
-  %fieldset.border.p-3.mb-4
-    = f.input :email,                 disabled: !@user.credentials_editable?
-    = f.input :password,              disabled: !@user.credentials_editable?
-    = f.input :password_confirmation, disabled: !@user.credentials_editable?
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-person-gear.me-2
+      %h5.mb-0= t('user_account', default: 'User Account')
+    .card-body
+      .row.g-3
+        .col-md-6
+          = f.input :email, disabled: !@user.credentials_editable?
+        .col-md-6
+          - if current_user.is_admin?
+            = f.input :role, as: :radio_buttons, collection: translated_options(User::ROLES)
+          - elsif policy(Conference).manage?
+            = f.input :role, as: :radio_buttons, collection: translated_options(User::USER_ROLES)
+        .col-md-6
+          = f.input :password, disabled: !@user.credentials_editable?
+        .col-md-6
+          = f.input :password_confirmation, disabled: !@user.credentials_editable?
 
-    - if current_user.is_admin?
-      = f.input :role, as: :radio_buttons, collection: translated_options(User::ROLES)
-    - elsif policy(Conference).manage?
-      = f.input :role, as: :radio_buttons, collection: translated_options(User::USER_ROLES)
+      - if policy(Conference).manage?
+        - if @user.is_crew?
+          %hr
+          = dynamic_association :conference_users, t('activerecord.models.conference_user'), f
+        - else
+          .alert.alert-info.mt-3
+            = t('users_module.save_needed_before_changes')
 
-    - if policy(Conference).manage?
-      - if @user.is_crew?
-        = dynamic_association :conference_users, t('activerecord.models.conference_user'), f
-      - else
-        %p.inline-hint= t('users_module.save_needed_before_changes')
-
-  .actions
-    = f.button :submit, class: 'btn btn-primary'
-    = link_to t('cancel'), :back, class: "btn"
+  .card.border-0.mt-4
+    .card-footer.bg-light.d-flex.gap-2
+      = f.button :submit, class: 'btn btn-primary btn-lg'
+      = link_to t('cancel'), :back, class: "btn btn-outline-secondary"

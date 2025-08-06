@@ -1,18 +1,31 @@
 = simple_form_for @call_for_participation, url: call_for_participation_path do |f|
-  %fieldset.inputs
-    = f.input :start_date, as: :date, label: t('inputs.start_date'), hint: t('cfp.inputs.hints.start_date')
-    = f.input :end_date, as: :date, label: t('inputs.end_date'), hint: t('cfp.inputs.hints.end_date')
-    = f.input :hard_deadline, as: :date, label: t('cfp.inputs.hard_deadline'), hint: t('cfp.inputs.hints.hard_deadline')
-    = f.input :welcome_text, label: t('cfp.inputs.welcome_text'), hint: t('cfp.inputs.hints.welcome_text')
-    = f.input :info_url, label: t('cfp.inputs.info_url'), hint: t('cfp.inputs.hints.info_url')
-    = f.input :contact_email, label: t('cfp.inputs.contact_email'), hint: t('cfp.inputs.hints.contact_email')
-  .actions
-    = link_to t('navigation.back'), call_for_participation_path, class: 'btn'
-    = f.button :submit, class: 'btn btn-primary', value: t('cfp.save_cfp')
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-megaphone.me-2
+      %h5.mb-0= t('call_for_participation', default: 'Call for Participation Settings')
+    .card-body
+      .row.g-3
+        .col-md-4
+          = f.input :start_date, as: :date, label: t('inputs.start_date'), hint: t('cfp.inputs.hints.start_date')
+        .col-md-4
+          = f.input :end_date, as: :date, label: t('inputs.end_date'), hint: t('cfp.inputs.hints.end_date')
+        .col-md-4
+          = f.input :hard_deadline, as: :date, label: t('cfp.inputs.hard_deadline'), hint: t('cfp.inputs.hints.hard_deadline')
+        .col-12
+          = f.input :welcome_text, label: t('cfp.inputs.welcome_text'), hint: t('cfp.inputs.hints.welcome_text')
+        .col-md-6
+          = f.input :info_url, label: t('cfp.inputs.info_url'), hint: t('cfp.inputs.hints.info_url')
+        .col-md-6
+          = f.input :contact_email, label: t('cfp.inputs.contact_email'), hint: t('cfp.inputs.hints.contact_email')
+  
+  .card.border-0.mt-4
+    .card-footer.bg-light.d-flex.gap-2
+      = f.button :submit, class: 'btn btn-primary btn-lg', value: t('cfp.save_cfp')
+      = link_to t('navigation.back'), call_for_participation_path, class: 'btn btn-outline-secondary'
 
-%hr
-.row
-  .col-md-12
-    %h1
-      = t('preview')
+.card.mt-4
+  .card-header.d-flex.align-items-center
+    %i.bi.bi-eye.me-2
+    %h5.mb-0= t('preview')
+  .card-body
     = render 'cfp/welcome/welcome_text'
