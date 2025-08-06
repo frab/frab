@@ -336,7 +336,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :input, class: 'form-control'
+    b.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
     b.use :label
     b.use :full_error, wrap_with: { class: 'invalid-feedback' }
     b.use :hint, wrap_with: { class: 'form-text' }
@@ -346,7 +346,20 @@ SimpleForm.setup do |config|
   config.wrappers :floating_labels_select, class: 'form-floating mb-3' do |b|
     b.use :html5
     b.optional :readonly
-    b.use :input, class: 'form-select'
+    b.use :input, class: 'form-select', error_class: 'is-invalid', valid_class: 'is-valid'
+    b.use :label
+    b.use :full_error, wrap_with: { class: 'invalid-feedback' }
+    b.use :hint, wrap_with: { class: 'form-text' }
+  end
+
+  # floating labels for textarea
+  config.wrappers :floating_labels_text, class: 'form-floating mb-3' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :readonly
+    b.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid', style: 'height: 100px'
     b.use :label
     b.use :full_error, wrap_with: { class: 'invalid-feedback' }
     b.use :hint, wrap_with: { class: 'form-text' }
@@ -367,6 +380,10 @@ SimpleForm.setup do |config|
     radio_buttons: :horizontal_collection,
     range:         :vertical_range,
     time:          :vertical_multi_select,
-    select:        :vertical_select
+    select:        :floating_labels_select,
+    string:        :floating_labels_form,
+    email:         :floating_labels_form,
+    password:      :floating_labels_form,
+    text:          :floating_labels_text
   }
 end
