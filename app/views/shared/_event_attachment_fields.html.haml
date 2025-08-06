@@ -1,17 +1,18 @@
 .nested-fields
-  %fieldset.border.p-3.mb-4
-    - if @conference.attachment_title_is_freeform
-      = f.input :title, as: :string
-    - else
-      = f.input :title,
-                as: :select,
-                collection: EventAttachment::ATTACHMENT_TITLES.map{|s| [t(s, scope: 'events_module.predefined_title_types'), s]}.to_h
+  .card.border-secondary.border-opacity-25.mb-3
+    .card-body.p-3
+      - if @conference.attachment_title_is_freeform
+        = f.input :title, as: :string
+      - else
+        = f.input :title,
+                  as: :select,
+                  collection: EventAttachment::ATTACHMENT_TITLES.map{|s| [t(s, scope: 'events_module.predefined_title_types'), s]}.to_h
 
-    = f.input :public, as: :boolean, hint: t('events_module.public_attachment_hint')
-    - if f.object.new_record?
-      = f.input :attachment
-    - else
-      .input
-        = link_to f.object.attachment_file_name, f.object.attachment.url, style: 'float:left'
-    .d-flex.justify-content-end
-      = remove_association_link :event_attachment, f
+      = f.input :public, as: :boolean, hint: t('events_module.public_attachment_hint')
+      - if f.object.new_record?
+        = f.input :attachment
+      - else
+        .input
+          = link_to f.object.attachment_file_name, f.object.attachment.url, style: 'float:left'
+      .d-flex.justify-content-end
+        = remove_association_link :event_attachment, f

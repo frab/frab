@@ -1,10 +1,16 @@
 = simple_form_for [person, transport_need] do |f|
-  %fieldset.border.p-3.mb-4
-    = f.input :at, as: :string, input_html: { type: 'datetime-local', value: f.object.at.try(:strftime, '%Y-%m-%dT%H:%M') }
-    = f.input :transport_type, as: :select, collection: translated_options(TransportNeed::TYPES), hint: t('transport_needs_module.what_type_id_needed')
-    = f.input :seats, hint: t('transport_needs_module.nb_seats_needed_hint')
-    = f.input :booked, as: :boolean, hint: t('transport_needs_module.is_booked_hint')
-    = f.input :note
-  .actions
-    - if policy(@conference).manage?
-      = f.button :submit, class: 'btn btn-primary'
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-bus-front.me-2
+      %h5.mb-0= t('transport_need', default: 'Transport Need')
+    .card-body
+      = f.input :at, as: :string, input_html: { type: 'datetime-local', value: f.object.at.try(:strftime, '%Y-%m-%dT%H:%M') }
+      = f.input :transport_type, as: :select, collection: translated_options(TransportNeed::TYPES), hint: t('transport_needs_module.what_type_id_needed')
+      = f.input :seats, hint: t('transport_needs_module.nb_seats_needed_hint')
+      = f.input :booked, as: :boolean, hint: t('transport_needs_module.is_booked_hint')
+      = f.input :note
+  
+  - if policy(@conference).manage?
+    .card.border-0.mt-4
+      .card-footer.bg-light.d-flex.gap-2
+        = f.button :submit, class: 'btn btn-primary btn-lg'
