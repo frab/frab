@@ -1,18 +1,11 @@
-body {
-  background-color: #eeeeee;
-}
-
-.main-content {
-  background-color: #fff;
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  margin: 0 -20px;
-  padding: 20px;
-  min-width: fit-content;
-}
+// Replaced with Bootstrap utilities in layouts
+// body { background-color: #eeeeee; } -> .bg-light on body
+// .main-content styles -> .bg-white.rounded.shadow-sm.p-4 in layouts
+// section padding -> handled by Bootstrap spacing utilities
 
 section {
-  padding-top: 20px;
+  // Most section padding now handled by Bootstrap py-* utilities
+  // Keep this for any legacy sections that need it
 }
 
 .image {
