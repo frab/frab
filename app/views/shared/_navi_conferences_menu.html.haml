@@ -1,10 +1,10 @@
 - conferences = accessible_conferences
 - if conferences.present? and conferences.count > 1
   %li.nav-item.dropdown
-    = link_to "#", class: "nav-link dropdown-toggle", 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false' do
+    = link_to "#", id: "conferencesDropdown", class: "nav-link dropdown-toggle", 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', 'aria-haspopup': 'true' do
       %i.bi.bi-window-stack
       = t("switch_conference", default: "Switch conference")
-    %ul.dropdown-menu
+    %ul.dropdown-menu{'aria-labelledby': 'conferencesDropdown'}
       - conferences[0..19].each do |conference|
         - unless @conference == conference
           %li

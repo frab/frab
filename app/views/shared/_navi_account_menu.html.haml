@@ -1,8 +1,8 @@
 %li.nav-item.dropdown
-  = link_to '#', class: 'nav-link dropdown-toggle', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false' do
+  = link_to '#', id: 'accountDropdown', class: 'nav-link dropdown-toggle', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', 'aria-haspopup': 'true' do
     %i.bi.bi-person-circle
     = t('show_account', default: 'Account')
-  %ul.dropdown-menu
+  %ul.dropdown-menu{'aria-labelledby': 'accountDropdown'}
     %li
       %span.dropdown-item-text.text-muted.small
         %i= humanized_access_level

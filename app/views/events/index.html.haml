@@ -11,19 +11,19 @@
               = action_button '<i class="bi bi-plus-circle me-1"></i>'.html_safe + '<span class="d-none d-lg-inline">'.html_safe + t('events_module.add_event') + '</span>'.html_safe, new_event_path, hint: t('events_module.add_event_hint'), class: "btn btn-primary"
             - if @num_of_matching_events > 0
               .btn-group{role: "group", "aria-label": "Bulk actions"}
-                = link_to '#', class: 'btn btn-outline-secondary', data: { bs_toggle: "modal", bs_target: "#bulkEditModal" }, title: t('events_module.bulk_edit.show') do
-                  %i.bi.bi-stack.me-1
+                = link_to '#', class: 'btn btn-outline-secondary', data: { bs_toggle: "modal", bs_target: "#bulkEditModal" }, title: t('events_module.bulk_edit.show'), "aria-label": t('events_module.bulk_edit.show') do
+                  %i.bi.bi-stack.me-1{"aria-hidden": "true"}
                   %span.d-none.d-lg-inline= t('events_module.bulk_edit.show')
                 - if @conference.mail_templates.any?
-                  = link_to "#send_bulk_mail_form", class: 'btn btn-outline-secondary', data: { controller: "toggle", "toggle-target-value": "#send_bulk_mail_form", action: "click->toggle#toggle" }, title: t('events_module.toggle_send_bulk_mail') do
-                    %i.bi.bi-envelope.me-1
+                  = link_to "#send_bulk_mail_form", class: 'btn btn-outline-secondary', data: { controller: "toggle", "toggle-target-value": "#send_bulk_mail_form", action: "click->toggle#toggle" }, title: t('events_module.toggle_send_bulk_mail'), "aria-label": t('events_module.toggle_send_bulk_mail') do
+                    %i.bi.bi-envelope.me-1{"aria-hidden": "true"}
                     %span.d-none.d-lg-inline= t('events_module.toggle_send_bulk_mail')
             - if !showing_my_events?
               .dropdown
-                %button.btn.btn-outline-primary.dropdown-toggle{type: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false"}
+                %button.btn.btn-outline-primary.dropdown-toggle{type: "button", id: "printDropdown", "data-bs-toggle": "dropdown", "aria-expanded": "false", "aria-haspopup": "true"}
                   %i.bi.bi-printer.me-1
                   %span.d-none.d-lg-inline= t('print', default: 'Print')
-                %ul.dropdown-menu
+                %ul.dropdown-menu{"aria-labelledby": "printDropdown"}
                   %li
                     = link_to cards_events_path(format: :pdf), class: 'dropdown-item' do
                       %i.bi.bi-printer.me-2
