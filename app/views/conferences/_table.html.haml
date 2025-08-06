@@ -20,10 +20,11 @@
           %td
           %td= conference.acronym
           %td= conference.title
-          %td.nowrap= l(conference.created_at.to_date)
+          %td.text-nowrap= l(conference.created_at.to_date)
           %td= conference.email
-          %td.buttons
-            - if policy(conference).read?
-              = action_button '<i class="bi bi-eye"></i> '.html_safe + t('show'), conference_path(conference_acronym: conference.acronym), class: "btn btn-primary btn-sm"
-            - if policy(conference).destroy?
-              = delete_button conference_path(conference_acronym: conference.acronym), hint: t('destroy')
+          %td.text-nowrap
+            .d-flex.flex-wrap.gap-2
+              - if policy(conference).read?
+                = action_button '<i class="bi bi-eye"></i> '.html_safe + t('show'), conference_path(conference_acronym: conference.acronym), class: "btn btn-primary btn-sm"
+              - if policy(conference).destroy?
+                = delete_button conference_path(conference_acronym: conference.acronym), hint: t('destroy')
