@@ -12,9 +12,9 @@
     = stylesheet_link_tag 'admin'
     = javascript_importmap_tags 'application'
 
-  %body
-    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark
-      .container-fluid
+  %body.d-flex.flex-column.min-vh-100.bg-light
+    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.shadow-sm
+      .container-xxl
         - if content_for? :title
           = yield :title
         - elsif @conference
@@ -63,9 +63,10 @@
             %ul.navbar-nav.ms-auto
               = render 'shared/navi_cfp_login'
 
-    .container
-      .main-content
-        = render 'shared/flash', flash: flash
-        = yield
+    %main.flex-grow-1
+      .container-xxl.py-4
+        .bg-white.rounded.shadow-sm.p-4
+          = render 'shared/flash', flash: flash
+          = yield
 
     = render 'shared/footer'
