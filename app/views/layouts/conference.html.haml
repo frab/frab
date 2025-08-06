@@ -10,9 +10,9 @@
     = javascript_importmap_tags "application"
     = yield :head
 
-  %body
-    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark
-      .container-fluid
+  %body.d-flex.flex-column.min-vh-100.bg-light
+    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.shadow-sm
+      .container-xxl
         - fail t('cfp.fail_layout_use') unless @conference
         = link_to @conference.acronym, root_path, class: 'navbar-brand'
 
@@ -76,9 +76,11 @@
 
             = render 'shared/navi_conferences_menu'
             = render 'shared/navi_account_menu'
-    .container
-      .main-content
-        = render 'shared/flash', flash: flash
-        = yield
+            
+    %main.flex-grow-1
+      .container-xxl.py-4
+        .bg-white.rounded.shadow-sm.p-4
+          = render 'shared/flash', flash: flash
+          = yield
 
     = render 'shared/footer'
