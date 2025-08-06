@@ -35,11 +35,15 @@
 
   = render partial: "event_list_tabs"
   - unless @conference.events.any?
-    .row
-      .col-md-12
-        .blank-slate
-          %p= t('events_module.no_events') unless showing_my_events?
-          %p= t('events_module.not_involved') if showing_my_events?
+    .card.border-0.bg-light.text-center.py-5
+      .card-body
+        %i.bi.bi-calendar-event.fs-1.text-muted.mb-3
+        %h5.text-muted.mb-2= showing_my_events? ? t('events_module.not_involved') : t('events_module.no_events')
+        - if policy(@conference).manage? && !showing_my_events?
+          %p.text-muted.small.mb-3= t('events_module.get_started_hint', default: 'Get started by adding your first event')
+          = link_to new_event_path, class: 'btn btn-primary' do
+            %i.bi.bi-plus-circle.me-2
+            = t('events_module.add_event')
   - else
     = render partial: 'filters', locals: { params: params }
 

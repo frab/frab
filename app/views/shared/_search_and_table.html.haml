@@ -1,9 +1,16 @@
 = render 'shared/simple_search', path: request.path
 
 - if collection.empty?
-  %p= t('reports_module.no_search_results')
+  .card.border-0.bg-light.text-center.py-5
+    .card-body
+      %i.bi.bi-search.fs-1.text-muted.mb-3
+      %p.text-muted.mb-0= t('reports_module.no_search_results')
 - else
-  .table-responsive
-    = render 'table', collection: collection.to_a.uniq
-  = actions_bar do
-    = will_paginate collection
+  .card.shadow-sm
+    .card-body.p-0
+      .table-responsive
+        = render 'table', collection: collection.to_a.uniq
+    - if respond_to?(:will_paginate) && collection.respond_to?(:current_page)
+      .card-footer.bg-light.border-0
+        = actions_bar do
+          = will_paginate collection
