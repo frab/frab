@@ -1,15 +1,21 @@
-%ul.nav.nav-tabs
-  %li.nav-item
-    = link_to t('navigation.event'), @event, class: "nav-link #{'active' if active_class?(edit_event_path(@event)) or active_class?(event_path(@event))}"
+.nav.nav-pills.nav-fill.mb-4.bg-light.rounded.p-2
+  = link_to @event, class: "nav-link rounded #{'active' if active_class?(edit_event_path(@event)) or active_class?(event_path(@event))}" do
+    %i.bi.bi-eye.me-2
+    %span.d-none.d-sm-inline= t('navigation.event')
   - if @event.translations.count > 0
-    %li.nav-item
-      = link_to t('navigation.translations'), translations_event_path(@event), class: "nav-link #{'active' if active_class?(translations_event_path(@event))}"
-  %li.nav-item
-    = link_to t('navigation.people'), people_event_path(@event), class: "nav-link #{'active' if active_class?(people_event_path(@event))}"
-  %li.nav-item
-    = link_to t('navigation.history'), event_history_path(@event), class: "nav-link #{'active' if active_class?(event_history_path(@event))}"
-  %li.nav-item
-    = link_to t('navigation.ratings'), event_event_rating_path(@event), class: "nav-link #{'active' if active_class?(event_event_rating_path(@event))}"
+    = link_to translations_event_path(@event), class: "nav-link rounded #{'active' if active_class?(translations_event_path(@event))}" do
+      %i.bi.bi-translate.me-2
+      %span.d-none.d-sm-inline= t('navigation.translations')
+  = link_to people_event_path(@event), class: "nav-link rounded #{'active' if active_class?(people_event_path(@event))}" do
+    %i.bi.bi-people.me-2
+    %span.d-none.d-sm-inline= t('navigation.people')
+  = link_to event_history_path(@event), class: "nav-link rounded #{'active' if active_class?(event_history_path(@event))}" do
+    %i.bi.bi-clock-history.me-2
+    %span.d-none.d-sm-inline= t('navigation.history')
+  = link_to event_event_rating_path(@event), class: "nav-link rounded #{'active' if active_class?(event_event_rating_path(@event))}" do
+    %i.bi.bi-star.me-2
+    %span.d-none.d-sm-inline= t('navigation.ratings')
   - if @conference.feedback_enabled
-    %li.nav-item
-      = link_to t('navigation.feedbacks'), event_event_feedbacks_path(@event), class: "nav-link #{'active' if active_class?(event_event_feedbacks_path(@event))}"
+    = link_to event_event_feedbacks_path(@event), class: "nav-link rounded #{'active' if active_class?(event_event_feedbacks_path(@event))}" do
+      %i.bi.bi-chat-dots.me-2
+      %span.d-none.d-sm-inline= t('navigation.feedbacks')
