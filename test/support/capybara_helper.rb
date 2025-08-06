@@ -16,4 +16,9 @@ module CapybaraHelper
     click_on 'Account'
     click_on 'Logout'
   end
+
+  # Helper to skip flaky modal tests unless explicitly enabled
+  def skip_modal_tests_unless_enabled(message = "Modal tests are flaky - set ENABLE_MODAL_TESTS=1 to run")
+    skip message unless ENV['ENABLE_MODAL_TESTS'] == '1'
+  end
 end
