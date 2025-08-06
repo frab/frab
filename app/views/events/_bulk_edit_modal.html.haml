@@ -1,12 +1,12 @@
 .modal-header
-  %h4.modal-title
+  %h4.modal-title#bulkEditModalLabel
     %i.bi.bi-pencil-square.me-2
     = t('events_module.bulk_edit.title', count: @num_of_matching_events)
-  %button.btn-close{type: "button", "data-bs-dismiss": "modal", "aria-label": "Close"}
-.modal-body#filter_form{ data: { controller: "bulk-edit" } }
+  %button.btn-close{type: "button", "data-bs-dismiss": "modal", "aria-label": t('close', default: 'Close')}
+.modal-body#filter_form{ data: { controller: "bulk-edit" }, "aria-labelledby": "bulkEditModalLabel" }
   - if policy(@conference).manage?
     .mb-4
-      %label.form-label.fw-semibold= t('events_module.bulk_edit.select_action', default: 'Select an action:')
+      %label.form-label.fw-semibold{for: 'edit_selector'}= t('events_module.bulk_edit.select_action', default: 'Select an action:')
       = select_tag 'edit_selector',
         options_for_select( [ [t('events_module.bulk_edit.set_new_track'),      :set_new_track],
                               [t('events_module.bulk_edit.set_new_event_type'), :set_new_event_type],
@@ -15,6 +15,7 @@
                               [t('events_module.bulk_edit.set_duration'),       :set_duration]]),
         include_blank: t('select_one'),
         class: "form-select",
+        "aria-describedby": "action-help",
         data: { "bulk-edit-target": "selector", action: "change->bulk-edit#selectorChanged" }
     %div.editable.set_new_track.card.mt-3{style: "display:none;", data: { "bulk-edit-target": "editable" }}
       .card-body
