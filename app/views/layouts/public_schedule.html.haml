@@ -24,7 +24,7 @@
     .schedule-header.d-flex.align-items-end.px-4.pb-3
       - if @conference.logo.present?
         = image_tag @conference.logo.url(:original), alt: @conference.title, class: "me-3", style: "height: 40px; width: auto;"
-      %h1.h2.mb-0.fw-bold.text-white
+      %h1.display-6.mb-0.fw-bold.text-white
         = link_to schedule_title, public_schedule_index_path, class: "text-decoration-none text-white"
 
     / Main container with negative margin for overlapping card effect
