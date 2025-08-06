@@ -1,11 +1,15 @@
 %section
   .page-header
-    .d-flex.flex-wrap.gap-2
-      = action_button '<i class="bi bi-eye"></i> '.html_safe + schedule_button_text, public_schedule_index_path(lang: @conference.language_default), hint: t('schedule_module.view_live_version_hint'), class: "btn btn-secondary"
-      - @conference.language_codes[1..-1].each do |lang|
-        = action_button '<i class="bi bi-eye"></i> '.html_safe + "#{lang}", public_schedule_index_path(lang: lang), hint: t('schedule_module.view_live_version_hint'), class: "btn btn-secondary"
-      = action_button '<i class="bi bi-file-pdf"></i> '.html_safe + t('schedule_module.create_pdf_export'), new_schedule_pdf_path, hint: t('schedule_module.create_pdf_export_hint'), class: "btn btn-secondary"
-      = action_button '<i class="bi bi-upload"></i> '.html_safe + t('schedule_module.publish_html_export'), schedule_html_exports_path, hint: t('schedule_module.publish_html_export_hint'), class: "btn btn-success"
-    %h1= t('schedule')
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      %h1.mb-0= t('schedule')
+      .d-flex.flex-column.flex-md-row.gap-2
+        .d-flex.flex-wrap.gap-2
+          .btn-group{role: "group", "aria-label": "View schedule"}
+            = action_button '<i class="bi bi-eye me-1"></i>'.html_safe + '<span class="d-none d-lg-inline">'.html_safe + schedule_button_text + '</span>'.html_safe, public_schedule_index_path(lang: @conference.language_default), hint: t('schedule_module.view_live_version_hint'), class: "btn btn-secondary"
+            - @conference.language_codes[1..-1].each do |lang|
+              = action_button '<i class="bi bi-eye me-1"></i>'.html_safe + '<span class="d-none d-lg-inline">'.html_safe + "#{lang}" + '</span>'.html_safe, public_schedule_index_path(lang: lang), hint: t('schedule_module.view_live_version_hint'), class: "btn btn-outline-secondary"
+          .btn-group{role: "group", "aria-label": "Export options"}
+            = action_button '<i class="bi bi-file-pdf me-1"></i>'.html_safe + '<span class="d-none d-lg-inline">'.html_safe + t('schedule_module.create_pdf_export') + '</span>'.html_safe, new_schedule_pdf_path, hint: t('schedule_module.create_pdf_export_hint'), class: "btn btn-outline-primary"
+            = action_button '<i class="bi bi-upload me-1"></i>'.html_safe + '<span class="d-none d-lg-inline">'.html_safe + t('schedule_module.publish_html_export') + '</span>'.html_safe, schedule_html_exports_path, hint: t('schedule_module.publish_html_export_hint'), class: "btn btn-success"
 
   = render 'shared/event_scheduler'
