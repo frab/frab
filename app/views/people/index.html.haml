@@ -14,12 +14,19 @@
     %li.nav-item
       = link_to t('people_module.all_people'), all_people_path, class: 'nav-link'
   - if params[:term].blank? and @people.all.empty?
-    .row
-      .col-md-12
-        .blank-slate
-          - if Person.count <= 1
-            %p= raw(markdown_render(t('people_module.no_people_data')))
-          - else
-            %p= raw(markdown_render(t('people_module.no_people_involved')))
+    .card.border-0.bg-light.text-center.py-5
+      .card-body
+        %i.bi.bi-people.fs-1.text-muted.mb-3
+        - if Person.count <= 1
+          %h5.text-muted.mb-2= t('people_module.no_people_title', default: 'No People Yet')
+          %div.text-muted= raw(markdown_render(t('people_module.no_people_data')))
+          - if policy(@conference).manage?
+            .mt-3
+              = link_to new_person_path, class: 'btn btn-primary' do
+                %i.bi.bi-plus-circle.me-2
+                = t('people_module.add_person')
+        - else
+          %h5.text-muted.mb-2= t('people_module.no_people_involved_title', default: 'No People in Conference')
+          %div.text-muted= raw(markdown_render(t('people_module.no_people_involved')))
   - else
     = render 'shared/search_and_table', collection: @people
