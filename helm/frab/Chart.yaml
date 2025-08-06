@@ -1,0 +1,17 @@
+apiVersion: v2
+name: frab
+description: A Helm chart for Frab - Conference Management System
+type: application
+version: 0.1.0
+appVersion: "latest"
+home: https://github.com/frab/frab
+icon: https://raw.githubusercontent.com/frab/frab/main/public/favicon.svg
+maintainers:
+  - name: frab-team
+sources:
+  - https://github.com/frab/frab
+keywords:
+  - conference
+  - management
+  - rails
+  - events
