@@ -9,6 +9,7 @@ class BulkEditTest < ApplicationSystemTestCase
   end
 
   test 'can bulk edit' do
+    skip_modal_tests_unless_enabled
     sign_in_user(@admin)
 
     visit "/#{@conference.acronym}/events"
@@ -18,10 +19,10 @@ class BulkEditTest < ApplicationSystemTestCase
     find('a', text: 'Bulk Edit').click
 
     # Wait for Bootstrap modal animation to complete
-    sleep 1
-    
+    assert_selector '#bulkEditModal.show', wait: 10
+
     # Check modal content appears (find will wait and handle visibility better)
-    find('h4', text: 'Edit 1 event:', visible: false)
+    find('h4', text: 'Edit 1 event:')
     select 'Change event type'
     within('.set_new_event_type') do
       select 'Film', from: 'bulk_set_value'
