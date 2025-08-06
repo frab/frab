@@ -37,45 +37,48 @@
   .row.g-4
     .col-12.col-lg-8
       .row.g-4
-        .col-12.col-md-6
-          .card.h-100
+        .col-12
+          .card
             .card-header
               %h5.card-title.mb-0= t(:basic_information)
             .card-body
-              - if @event.subtitle.present?
-                .mb-3
-                  %strong.text-muted= Event.human_attribute_name(:subtitle) + ':'
-                  %div= @event.subtitle
-              .mb-3
-                %strong.text-muted= Event.human_attribute_name(:track) + ':'
-                %div= @event.track_name
-              .mb-3
-                %strong.text-muted= Event.human_attribute_name(:event_type) + ':'
-                %div= @event.localized_event_type
-              - if policy(@conference).manage?
-                .mb-3
-                  %strong.text-muted= Event.human_attribute_name(:state) + ':'
-                  %div
-                    %span.badge.bg-secondary= t(@event.state, scope: :options) unless @event.state.blank?
-              - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
-                .mb-3
-                  %strong.text-muted= t('col_ticket') + ':'
-                  %div
-                    - if @conference.ticket_server.nil?
-                      = @event.ticket.remote_ticket_id
-                    - else
-                      = link_to @event.ticket.remote_ticket_id, get_ticket_view_url(@event.ticket.remote_ticket_id), target: "_blank", class: "link-primary"
-              .mb-3
-                %strong.text-muted= t('col_language') + ':'
-                %div= @event.language
-              .mb-3
-                %strong.text-muted= t('col_public') + ':'
-                %div
-                  = check_box_tag :public, @event.public, @event.public, disabled: true, class: "form-check-input me-2"
-                  = @event.public? ? t('yes') : t('no')
-              .mb-0
-                %strong.text-muted= t('avg_audience_feedback') + ':'
-                %div= number_with_precision @event.average_feedback, precision: 1
+              .row.g-3
+                .col-12.col-md-6
+                  - if @event.subtitle.present?
+                    .mb-3
+                      %strong.text-muted= Event.human_attribute_name(:subtitle) + ':'
+                      %div= @event.subtitle
+                  .mb-3
+                    %strong.text-muted= Event.human_attribute_name(:track) + ':'
+                    %div= @event.track_name
+                  .mb-3
+                    %strong.text-muted= Event.human_attribute_name(:event_type) + ':'
+                    %div= @event.localized_event_type
+                  - if policy(@conference).manage?
+                    .mb-3
+                      %strong.text-muted= Event.human_attribute_name(:state) + ':'
+                      %div
+                        %span.badge.bg-secondary= t(@event.state, scope: :options) unless @event.state.blank?
+                .col-12.col-md-6
+                  - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
+                    .mb-3
+                      %strong.text-muted= t('col_ticket') + ':'
+                      %div
+                        - if @conference.ticket_server.nil?
+                          = @event.ticket.remote_ticket_id
+                        - else
+                          = link_to @event.ticket.remote_ticket_id, get_ticket_view_url(@event.ticket.remote_ticket_id), target: "_blank", class: "link-primary"
+                  .mb-3
+                    %strong.text-muted= t('col_language') + ':'
+                    %div= @event.language
+                  .mb-3
+                    %strong.text-muted= t('col_public') + ':'
+                    %div
+                      = check_box_tag :public, @event.public, @event.public, disabled: true, class: "form-check-input me-2"
+                      = @event.public? ? t('yes') : t('no')
+                  .mb-0
+                    %strong.text-muted= t('avg_audience_feedback') + ':'
+                    %div= number_with_precision @event.average_feedback, precision: 1
 
         .col-12.col-md-6
           .card.h-100
@@ -97,8 +100,8 @@
                   %strong.text-muted= t('col_conference') + ':'
                   %div= @event.conference.acronym
 
-        .col-12
-          .card
+        .col-12.col-md-6
+          .card.h-100
             .card-header
               %h5.card-title.mb-0= t('people')
             .card-body
