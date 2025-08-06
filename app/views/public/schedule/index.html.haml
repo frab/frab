@@ -8,7 +8,7 @@
 / Main schedule container
 .container-fluid
   .text-center.mb-4
-    %h2.h3.fw-bold.schedule-heading= t '.schedule_index'
+    %h2.h1.fw-bold.text-primary.mb-0= t '.schedule_index'
 
   / Day selector
   - if @conference.days.length > 1
@@ -22,8 +22,8 @@
   - @conference.days.each_with_index do |day, day_index|
     .mb-5{id: "day-#{day_index + 1}"}
       .text-center.mb-4
-        %h3.h4.fw-bold.schedule-heading
-          %i.bi.bi-calendar.me-2.schedule-icon-primary
+        %h3.h2.fw-bold.text-dark.mb-0
+          %i.bi.bi-calendar.me-2.text-primary
           = l day.start_date, format: :long
 
       / Create a responsive schedule grid
@@ -32,8 +32,8 @@
         - day_events.group_by(&:start_time).each do |start_time, events|
           .mb-5
             .text-center.mb-3
-              %h4.h5.fw-semibold.schedule-text-muted
-                %i.bi.bi-clock.me-2.schedule-icon-primary
+              %h4.h3.fw-semibold.text-muted.mb-0
+                %i.bi.bi-clock.me-2.text-primary
                 = l start_time, format: :time
 
             .row.g-3
