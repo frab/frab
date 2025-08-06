@@ -4,7 +4,8 @@
   .card.border-0.bg-light.text-center.py-5
     .card-body
       %i.bi.bi-search.fs-1.text-muted.mb-3
-      %p.text-muted.mb-0= t('reports_module.no_search_results')
+      %h5.h4.text-dark.fw-semibold.mb-3= t('no_results_title', default: 'No Results Found')
+      %p.text-muted.fs-5.mb-0= t('reports_module.no_search_results')
 - else
   .card.shadow-sm
     .card-body.p-0
