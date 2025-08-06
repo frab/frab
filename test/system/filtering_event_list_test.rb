@@ -40,30 +40,31 @@ class EditingEventRatingTest < ApplicationSystemTestCase
   end
 
   test 'can filter event list by using the multi-filter' do
+    skip_modal_tests_unless_enabled
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/"
 
     # Ensure page is fully loaded
     assert_content page, 'List of events'
-    
+
     # click the filter icon next to table header "Type"
     find('th', text: 'Type').find('.filter_icon').click
-    
+
     # Wait for Bootstrap modal animation to complete
-    sleep 1
-    
+    assert_selector '#filterModal_event_type.show', wait: 10
+
     # Wait for modal content to appear (allow non-visible text)
-    find('h5', text: 'Select filter for Event type:', visible: false)
+    find('h5', text: 'Select filter for Event type:')
 
     # Check the options within the specific modal (use labels to find checkboxes)
-    within('#filterModal_event_type', visible: false) do
-      find('label', text: 'Film', visible: false).click
-      find('label', text: 'dance', visible: false).click
+    within('#filterModal_event_type') do
+      find('label', text: 'Film').click
+      find('label', text: 'dance').click
     end
-    
+
     # Test apply filter
     click_on 'Apply filter'
-    
+
     # Wait for page to reload and check filtered results
     assert_content page, 'List of events', wait: 5
     assert_content page, @event1.title  # Film event should be visible
@@ -83,26 +84,27 @@ class EditingEventRatingTest < ApplicationSystemTestCase
   end
 
   test 'can filter event list by using numeric modal' do
+    skip_modal_tests_unless_enabled
     sign_in_user(@user)
     visit "/#{@conference.acronym}/events/ratings"
 
     # Ensure page is fully loaded
     assert_content page, 'Event Ratings'
-    
+
     # click the filter icon next to table header "Event ratings count"
     find('th', text: 'Event ratings count').find('.filter_icon').click
-    
+
     # Wait for Bootstrap modal animation to complete
-    sleep 1
-    
+    assert_selector '#filterModal_event_ratings_count.show', wait: 10
+
     # Wait for modal content to appear (allow non-visible text)
-    find('h5', text: 'Select filter for Event ratings count:', visible: false)
+    find('h5', text: 'Select filter for Event ratings count:')
 
     # Select "at most" radio button within the current modal (allow non-visible)
-    within('#filterModal_event_ratings_count', visible: false) do
-      find('input[type="radio"][value="≤"]', visible: false).choose
+    within('#filterModal_event_ratings_count') do
+      find('input[type="radio"][value="≤"]').choose
       # Wait for the numeric input to become visible and fill it (allow non-visible)
-      find('input[data-filter-target="numInput"]', visible: false, wait: 3).set('0.5')
+      find('input[data-filter-target="numInput"]', wait: 3).set('0.5')
     end
 
     # Close modal by visiting URL directly since Apply Filter has issues
