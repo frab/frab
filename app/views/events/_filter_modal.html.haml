@@ -1,9 +1,9 @@
 .modal-header
-  %h5.modal-title
+  %h5.modal-title#filterModalLabel
     = t('events_module.filter_modal.select_filter_for', filtername: filter.filter_name || t(filter.filter_name_i18n))
-  %button.btn-close{type: "button", "data-bs-dismiss": "modal", "aria-label": "Close"}
+  %button.btn-close{type: "button", "data-bs-dismiss": "modal", "aria-label": t('close', default: 'Close')}
 
-.modal-body#filter_form{ data: { controller: "filter", "filter-qname-value": filter.qname } }
+.modal-body#filter_form{ data: { controller: "filter", "filter-qname-value": filter.qname }, "aria-describedby": "filterModalLabel" }
   = simple_form_for(:filter_form, data: { "filter-target": "form" }, url: '#', method: :get ) do |f|
     - case filter.type
     - when :text
@@ -12,10 +12,12 @@
       %div#filter-values-select{ data: { "filter-target": "valuesSelect" } }
         = f.input :possible_values,
                   as: :check_boxes,
-                  label: '',
+                  label: t('events_module.filter_modal.filter_options', default: 'Filter Options'),
+                  label_html: { class: 'visually-hidden' },
                   required: false,
                   collection: options,
-                  checked: selected_values
+                  checked: selected_values,
+                  input_html: { "aria-describedby": "filter-help-text" }
     - when :range
       - op, current_numeric_value = get_op_and_val(params[filter.qname])
       %div#filter-range{ data: { "filter-target": "range" } }
@@ -24,15 +26,18 @@
             = f.input :op,
                     as: :radio_buttons,
                     required: false,
-                    label: '',
+                    label: t('events_module.filter_modal.comparison_type', default: 'Comparison Type'),
+                    label_html: { class: 'visually-hidden' },
                     collection: [[t('events_module.filter_modal.at_least'), '≥'],
                                  [t('events_module.filter_modal.at_most'), '≤'],
                                  [t('events_module.filter_modal.exactly'), '=']],
-                    checked: [op]
+                    checked: [op],
+                    wrapper_html: { role: 'group', 'aria-labelledby': 'comparison-label' }
           .col-md-8
             = f.input_field :num,
                           value: current_numeric_value,
                           class: "form-control",
+                          "aria-label": t('events_module.filter_modal.filter_value', default: 'Filter Value'),
                           data: { "filter-target": "numInput" }
 
   .modal-footer.d-flex.justify-content-between

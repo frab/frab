@@ -11,7 +11,9 @@
     = yield :head
 
   %body.d-flex.flex-column.min-vh-100.bg-light
-    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.shadow-sm
+    %a.visually-hidden-focusable.btn.btn-primary.position-fixed{href: "#main-content", style: "top: 10px; left: 10px; z-index: 1050;"}
+      = t('skip_to_main_content', default: 'Skip to main content')
+    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.shadow-sm{role: "navigation", "aria-label": t('main_navigation', default: 'Main navigation')}
       .container-xxl
         - fail t('cfp.fail_layout_use') unless @conference
         = link_to @conference.acronym, root_path, class: 'navbar-brand'
@@ -76,8 +78,8 @@
 
             = render 'shared/navi_conferences_menu'
             = render 'shared/navi_account_menu'
-            
-    %main.flex-grow-1
+
+    %main.flex-grow-1#main-content{role: "main", "aria-label": t('main_content', default: 'Main content')}
       .container-xxl.py-4
         .bg-white.rounded.shadow-sm.p-4
           = render 'shared/flash', flash: flash
