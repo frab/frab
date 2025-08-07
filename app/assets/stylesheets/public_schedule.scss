@@ -35,13 +35,13 @@
   background: var(--schedule-card-bg) !important;
   border: 1px solid var(--schedule-border) !important;
   border-radius: 8px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
   transition: all 0.2s ease !important;
 }
 
 .session-card:hover, .event-card:hover, .speaker-card:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 12px var(--frab-shadow) !important;
   border-color: var(--bs-primary) !important;
 }
 
@@ -88,11 +88,11 @@
 .session-card .card-title,
 .session-card .fw-semibold,
 .session-card .fw-bold {
-  color: #1a1a1a !important;
+  color: var(--frab-text) !important;
 }
 
 .session-card .text-muted {
-  color: #6c757d !important;
+  color: var(--frab-text-muted) !important;
 }
 
 .session-card .text-primary {
@@ -135,11 +135,11 @@ body {
   background: var(--schedule-card-bg) !important;
   border: 1px solid var(--schedule-border) !important;
   border-radius: 6px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
 }
 
 .event-block:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 8px var(--frab-shadow) !important;
 }
 
 // Timeline and list views
@@ -158,11 +158,11 @@ body {
 // Ensure consistent card borders and shadows
 .card {
   border: 1px solid var(--schedule-border) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
 }
 
 .card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 8px var(--frab-shadow) !important;
 }
 
 // Ensure schedule table and events are visible
@@ -174,24 +174,24 @@ body {
 .schedule-table td.event-cell {
   vertical-align: top !important;
   padding: 4px !important;
-  border: 1px solid #dee2e6 !important;
+  border: 1px solid var(--frab-border) !important;
 }
 
 .schedule-table td.empty-cell {
-  background-color: #f8f9fa !important;
-  border: 1px solid #dee2e6 !important;
+  background-color: var(--frab-bg) !important;
+  border: 1px solid var(--frab-border) !important;
 }
 
 .schedule-table th.room-column,
 .schedule-table th.time-column {
-  background-color: #f8f9fa !important;
-  border: 1px solid #dee2e6 !important;
+  background-color: var(--frab-bg) !important;
+  border: 1px solid var(--frab-border) !important;
   font-weight: 600 !important;
   padding: 8px !important;
 }
 
 .event-title a {
-  color: #1a1a1a !important;
+  color: var(--frab-text) !important;
   text-decoration: none !important;
 }
 
@@ -212,7 +212,7 @@ body {
 .card .fw-bold a,
 .card .fw-semibold a,
 .event .fw-bold a {
-  color: #1a1a1a !important;
+  color: var(--frab-text) !important;
   text-decoration: none !important;
 }
 
