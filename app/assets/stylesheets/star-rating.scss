@@ -9,7 +9,7 @@
   }
   
   label, span {
-    color: #dee2e6;
+    color: var(--frab-star-empty);
     font-size: 1.25rem;
     padding: 0 2px;
     cursor: pointer;
@@ -19,7 +19,7 @@
   label:hover,
   label:hover~label,
   input:checked~label {
-    color: var(--bs-warning, #ffc107);
+    color: var(--frab-star-filled);
   }
 
   &.readonly {
@@ -31,7 +31,7 @@
       pointer-events: none;
       
       &.filled {
-        color: var(--bs-warning, #ffc107);
+        color: var(--frab-star-filled);
       }
     }
   }
