@@ -1,3 +1,56 @@
 @import "bootstrap.min";
 @import "bootstrap-icons.min";
+
+:root {
+  // Base colors - Light theme
+  --frab-bg: #f8f9fa;
+  --frab-bg-secondary: #e9ecef;
+  --frab-surface: #ffffff;
+  --frab-surface-hover: #f8f9fa;
+  --frab-text: #1a1a1a;
+  --frab-text-muted: #6c757d;
+  --frab-text-inverse: #ffffff;
+  
+  // Border and dividers
+  --frab-border: #dee2e6;
+  --frab-border-strong: #adb5bd;
+  --frab-border-subtle: #e9ecef;
+  
+  // Interactive colors
+  --frab-primary: #1f1fa3;
+  --frab-primary-hover: #1a1a8a;
+  --frab-secondary: #64748b;
+  --frab-success: #059669;
+  --frab-info: #0891b2;
+  --frab-warning: #d97706;
+  --frab-danger: #dc2626;
+  
+  // Event-specific colors
+  --frab-event-bg: var(--bs-info-bg-subtle, #cff4fc);
+  --frab-event-danger: var(--bs-danger-bg-subtle, #f8d7da);
+  --frab-event-warning: var(--bs-warning-bg-subtle, #fff3cd);
+  --frab-event-hover: #ffff00;
+  --frab-event-border: #eeeeee;
+  
+  // Admin interface colors
+  --frab-admin-bg: #f8f9fa;
+  --frab-admin-border: #dee2e6;
+  --frab-admin-surface: #ffffff;
+  
+  // Shadow colors
+  --frab-shadow-subtle: rgba(0, 0, 0, 0.05);
+  --frab-shadow: rgba(0, 0, 0, 0.1);
+  --frab-shadow-strong: rgba(0, 0, 0, 0.15);
+  
+  // Star rating colors
+  --frab-star-empty: #dee2e6;
+  --frab-star-filled: var(--bs-warning, #ffc107);
+  
+  // Filter form colors
+  --frab-filter-error: #dc2626;
+  
+  // Color preview border
+  --frab-color-preview-border: #808080;
+}
+
 @import "frab";

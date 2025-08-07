@@ -35,13 +35,13 @@ table.room tbody tr {
 }
 
 table.room tbody tr td {
-  border: 1px solid white;
+  border: 1px solid var(--frab-text-inverse);
   height: 20px;
   padding: 0px;
 }
 
 table.room tbody tr td.event-hover {
-  background: #FFFF00;
+  background: var(--frab-event-hover);
 }
 
 div.event {
@@ -65,7 +65,7 @@ div.event.warning {
 
 div.unscheduled-event {
   background: var(--bs-light-bg-subtle);
-  border: 1px solid #EEEEEE;
+  border: 1px solid var(--frab-event-border);
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -76,7 +76,7 @@ div.unscheduled-event {
 div.color-preview {
   width: 1em;
   height: 1em;
-  border: 1px solid #808080;
+  border: 1px solid var(--frab-color-preview-border);
   float: left;
   margin: .5ex 1ex .5ex .5ex;
 }
@@ -110,10 +110,10 @@ p.availability span {
 span.event-tag {
     display: inline;
     min-width: 200px;
-    color: black;
+    color: var(--frab-text);
     padding: 2px 4px 2px 4px;
     border: thin;
-    border-color: black;
+    border-color: var(--frab-text);
     border-style: solid;
     vertical-align: middle;
 }
@@ -143,7 +143,7 @@ span.event-tag.small {
 }
 
 .filter_form_op div.input {
-    color: red;
+    color: var(--frab-filter-error);
     margin-left: auto;
 }
 
