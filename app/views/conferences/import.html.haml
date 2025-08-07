@@ -1,0 +1,106 @@
+%section
+  .page-header
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      %h1.mb-0= t('Import Conference')
+      .d-flex.flex-wrap.gap-2
+        = link_to conference_index_path, class: "btn btn-outline-secondary" do
+          %i.bi.bi-arrow-left.me-2
+          Back to Conferences
+
+  .row{ data: {
+    controller: "conference-import",
+    conference_import_create_import_url_value: create_import_conference_path,
+    conference_import_import_progress_url_value: import_progress_conferences_path,
+    conference_import_conference_index_url_value: conference_index_path
+  } }
+    .col-md-12
+      .card.shadow-sm.mb-4
+        .card-header.d-flex.align-items-center
+          %i.bi.bi-upload.me-2
+          %h5.mb-0 Upload Conference Export
+        .card-body
+          %p.text-muted.mb-4
+            Upload a conference export tarball (.tar.gz) to import conference data including events, speakers, rooms, and all related information.
+
+          = form_with url: create_import_conference_path, method: :post, local: false, multipart: true, html: { data: { conference_import_target: "form", action: "submit->conference-import#submitImport" } } do |f|
+            .mb-3
+              = f.label :import_file, "Conference Export File", class: "form-label"
+              = f.file_field :import_file, class: "form-control", accept: ".tar.gz,.tgz,application/gzip,application/x-gzip,application/x-tar,application/x-compressed-tar", required: true
+              .form-text
+                Select a .tar.gz file exported from frab using the conference export rake task.
+
+            .d-grid
+              = f.submit "Start Import", class: "btn btn-primary btn-lg", data: { conference_import_target: "importBtn" }
+
+      / Progress section (initially hidden)
+      .card.shadow-sm.mb-4{ style: "display: none;", data: { conference_import_target: "progressSection" } }
+        .card-header.d-flex.align-items-center
+          %i.bi.bi-clock-history.me-2
+          %h5.mb-0 Import Progress
+        .card-body
+          .progress.mb-3
+            .progress-bar.progress-bar-striped.progress-bar-animated{
+              role: "progressbar",
+              data: { conference_import_target: "progressBar" },
+              style: "width: 0%",
+              "aria-valuenow": "0",
+              "aria-valuemin": "0",
+              "aria-valuemax": "100"
+            }
+              %span{ data: { conference_import_target: "progressText" } } 0%
+          %p{ data: { conference_import_target: "statusMessage" }, class: "mb-0" } Preparing import...
+          / Error details section (initially hidden)
+          .alert.alert-danger.mt-3{ style: "display: none;", data: { conference_import_target: "errorAlert" } }
+            %h6.mb-2
+              %i.bi.bi-exclamation-triangle-fill.me-2
+              Import Error
+            %p{ data: { conference_import_target: "errorMessage" }, class: "mb-2" }
+            .d-flex.gap-2
+              %button.btn.btn-outline-danger.btn-sm{ data: { conference_import_target: "retryBtn", action: "click->conference-import#retry" } } Try Again
+              %a.btn.btn-outline-secondary.btn-sm{ href: "https://github.com/frab/frab/wiki/Manual#managing-frab-in-production", target: "_blank" }
+                %i.bi.bi-book.me-1
+                Import Guide
+
+      .card.shadow-sm.mb-4
+        .card-header.d-flex.align-items-center
+          %i.bi.bi-info-circle.me-2
+          %h5.mb-0 Import Information
+        .card-body
+          .row.g-3
+            .col-md-6
+              %h6 What gets imported:
+              %ul.list-unstyled
+                %li
+                  %i.bi.bi-check-circle-fill.text-success.me-2
+                  Conference settings and metadata
+                %li
+                  %i.bi.bi-check-circle-fill.text-success.me-2
+                  Tracks, rooms, and conference days
+                %li
+                  %i.bi.bi-check-circle-fill.text-success.me-2
+                  Events and speaker information
+                %li
+                  %i.bi.bi-check-circle-fill.text-success.me-2
+                  Event ratings and feedback
+                %li
+                  %i.bi.bi-check-circle-fill.text-success.me-2
+                  File attachments (logos, avatars, etc.)
+
+            .col-md-6
+              %h6 How to create export tarballs:
+              %ul.list-unstyled
+                %li
+                  %i.bi.bi-terminal.text-info.me-2
+                  %code CONFERENCE=myconf TARBALL=true bundle exec rake frab:conference_export
+
+              %h6.mt-3 Important notes:
+              %ul.list-unstyled
+                %li
+                  %i.bi.bi-exclamation-triangle-fill.text-warning.me-2
+                  Import will fail if the conference already exists
+                %li
+                  %i.bi.bi-exclamation-triangle-fill.text-warning.me-2
+                  Large imports may take several minutes
+                %li
+                  %i.bi.bi-info-circle-fill.text-info.me-2
+                  Existing users with matching emails won't be duplicated

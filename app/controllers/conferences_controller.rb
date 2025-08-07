@@ -1,7 +1,7 @@
 class ConferencesController < BaseConferenceController
   include Searchable
   # these methods don't need a conference
-  skip_before_action :load_conference, only: %i[new index create]
+  skip_before_action :load_conference, only: %i[new index create import create_import import_progress]
   layout :layout_if_conference
 
   # GET /conferences
@@ -103,6 +103,63 @@ class ConferencesController < BaseConferenceController
     respond_to do |format|
       format.html
     end
+  end
+
+  def import
+    authorize Conference, :new?
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def create_import
+    authorize Conference, :new?
+
+    unless params[:import_file].present?
+      redirect_to import_conferences_path, alert: 'Please select a file to import'
+      return
+    end
+
+    begin
+      # Store uploaded file temporarily
+      temp_dir = Rails.root.join('tmp', 'conference_import', SecureRandom.uuid)
+      FileUtils.mkdir_p(temp_dir)
+
+      uploaded_file = params[:import_file]
+      tarball_path = temp_dir.join(uploaded_file.original_filename)
+
+      File.open(tarball_path, 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+
+      # Extract tarball
+      extract_dir = temp_dir.join('extracted')
+      FileUtils.mkdir_p(extract_dir)
+
+      system('tar', '-xzf', tarball_path.to_s, '-C', extract_dir.to_s)
+
+      # Start import job
+      ConferenceImportJob.perform_async(extract_dir.to_s, current_user.id)
+
+      redirect_to import_conferences_path, notice: 'Conference import has been queued. Check the progress below.'
+    rescue => e
+      Rails.logger.error "Conference import error: #{e.message}"
+      FileUtils.rm_rf(temp_dir) if temp_dir
+      redirect_to import_conferences_path, alert: "Import failed: #{e.message}"
+    end
+  end
+
+  def import_progress
+    authorize Conference, :new?
+
+    # Get latest import job status from cache/database
+    job_status = Rails.cache.read("conference_import_#{current_user.id}")
+
+    render json: {
+      status: job_status&.dig(:status) || 'pending',
+      progress: job_status&.dig(:progress) || 0,
+      message: job_status&.dig(:message) || 'Preparing import...'
+    }
   end
 
   def send_notification

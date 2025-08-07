@@ -17,7 +17,7 @@ class ImportExportHelper
   def run_export
     if @conference.nil?
       puts "[!] the conference wasn't found."
-      exit
+      raise "Conference not found for export"
     end
 
     FileUtils.mkdir_p(@export_dir)
@@ -57,7 +57,7 @@ class ImportExportHelper
     @export_dir = export_dir
     unless File.directory? @export_dir
       puts "Directory #{@export_dir} does not exist!"
-      exit
+      raise "Import directory #{@export_dir} does not exist!"
     end
     disable_callbacks
 
@@ -78,6 +78,27 @@ class ImportExportHelper
     enable_callbacks
   end
 
+  def create_import_tarball
+    conference_acronym = @conference&.acronym || 'conference_export'
+    tarball_name = "#{conference_acronym}_#{Time.current.strftime('%Y%m%d_%H%M%S')}.tar.gz"
+    tarball_path = Rails.root.join('tmp', tarball_name)
+
+    puts "Creating tarball: #{tarball_path}" if verbose?
+
+    # Create tarball with the export directory
+    success = system('tar', '-czf', tarball_path.to_s, '-C', 'tmp', 'frab_export')
+
+    if success
+      puts "✓ Export tarball created: #{tarball_path}" if verbose?
+      puts "  Ready for import via web interface" if verbose?
+    else
+      puts "✗ Failed to create tarball" if verbose?
+      raise "Failed to create export tarball"
+    end
+
+    tarball_path
+  end
+
   private
 
   def restore_all_data
@@ -85,7 +106,7 @@ class ImportExportHelper
       test = Conference.find_by(acronym: c.acronym)
       if test
         puts "conference #{c} already exists!"
-        exit
+        raise "Conference '#{c.acronym}' already exists!"
       end
       puts "    #{c}" if verbose?
       c.save!
@@ -112,6 +133,13 @@ class ImportExportHelper
         if (file = import_file('people/avatars', id, obj.avatar_file_name))
           obj.avatar = file
         end
+        
+        # Handle missing person names gracefully
+        if obj.public_name.blank? && obj.first_name.blank? && obj.last_name.blank?
+          obj.public_name = "Anonymous ##{id}"
+          puts "Warning: Person #{id} had no name, setting to '#{obj.public_name}'" if verbose?
+        end
+        
         obj.save!
         @mappings[:people][id] = obj.id
         @mappings[:people_user][obj.user_id] = obj
@@ -148,7 +176,9 @@ class ImportExportHelper
       end
       obj.regenerate_invite_token if Event.where(invite_token: obj.invite_token).any?
       obj.language = "en"
-      obj.save!
+      
+      # For Mobility-enabled events, titles are in translations table - skip validation temporarily
+      obj.save!(validate: false)
       @mappings[:events][id] = obj.id
     end
 
@@ -368,8 +398,13 @@ class ImportExportHelper
     paths << attachments.reject { |e| e.attachment.path.nil? }.collect { |e| e.attachment.path.gsub(/^#{Rails.root}\//, '') }
     paths.flatten!
 
-    # TODO don't use system
-    system('tar', *['-cpz', '-f', out_path, paths].flatten)
+    # Only create tar if there are files to archive
+    if paths.any?
+      # TODO don't use system
+      system('tar', *['-cpz', '-f', out_path, paths].flatten)
+    else
+      puts "No attachments to export, skipping attachments.tar.gz" if verbose?
+    end
   end
 
   def import_file(dir, id, file_name)
@@ -385,7 +420,11 @@ class ImportExportHelper
 
   def unpack_paperclip_files
     path = File.join(@export_dir, 'attachments.tar.gz')
-    system('tar', *['-xz', '-f', path, '-C', @export_dir].flatten)
+    if File.exist?(path)
+      system('tar', *['-xz', '-f', path, '-C', @export_dir].flatten)
+    else
+      puts "No attachments.tar.gz found, skipping attachment extraction" if verbose?
+    end
   end
 
   def save_schema_version
@@ -406,7 +445,7 @@ class ImportExportHelper
 
   def disable_callbacks
     EventPerson.skip_callback(:save, :after, :update_speaker_count)
-    Event.skip_callback(:save, :after, :update_conflicts)
+    EventPerson.skip_callback(:save, :after, :update_event_conflicts)
     Availability.skip_callback(:save, :after, :update_event_conflicts)
     EventRating.skip_callback(:save, :after, :update_average)
     EventFeedback.skip_callback(:save, :after, :update_average)
@@ -414,7 +453,7 @@ class ImportExportHelper
 
   def enable_callbacks
     EventPerson.set_callback(:save, :after, :update_speaker_count)
-    Event.set_callback(:save, :after, :update_conflicts)
+    EventPerson.set_callback(:save, :after, :update_event_conflicts)
     Availability.set_callback(:save, :after, :update_event_conflicts)
     EventRating.set_callback(:save, :after, :update_average)
     EventFeedback.set_callback(:save, :after, :update_average)
