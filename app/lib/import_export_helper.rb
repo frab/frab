@@ -41,6 +41,31 @@ class ImportExportHelper
       attachments = dump_has_many 'event_attachments', @conference.events, 'event_attachments'
       dump_has_many 'event_ratings', @conference.events, 'event_ratings'
       dump_has_many 'event_review_scores', @conference.events, 'review_scores'
+
+      # Export translation tables for Mobility
+      event_ids = events.collect(&:id)
+      if ActiveRecord::Base.connection.table_exists?('event_translations')
+        event_translations = ActiveRecord::Base.connection.select_all(
+          "SELECT * FROM event_translations WHERE event_id IN (#{event_ids.join(',')})"
+        ).to_a
+        File.open(File.join(@export_dir, 'event_translations.yaml'), 'w') { |f| f.puts event_translations.to_yaml }
+      end
+
+      person_ids = people.collect(&:id).compact
+      if person_ids.any? && ActiveRecord::Base.connection.table_exists?('person_translations')
+        person_translations = ActiveRecord::Base.connection.select_all(
+          "SELECT * FROM person_translations WHERE person_id IN (#{person_ids.join(',')})"
+        ).to_a
+        File.open(File.join(@export_dir, 'person_translations.yaml'), 'w') { |f| f.puts person_translations.to_yaml }
+      end
+
+      track_ids = @conference.tracks.collect(&:id)
+      if track_ids.any? && ActiveRecord::Base.connection.table_exists?('track_translations')
+        track_translations = ActiveRecord::Base.connection.select_all(
+          "SELECT * FROM track_translations WHERE track_id IN (#{track_ids.join(',')})"
+        ).to_a
+        File.open(File.join(@export_dir, 'track_translations.yaml'), 'w') { |f| f.puts track_translations.to_yaml }
+      end
       dump_has_many 'people_phone_numbers', people, 'phone_numbers'
       dump_has_many 'people_im_accounts', people, 'im_accounts'
       dump_has_many 'people_links', people, 'links'
@@ -133,13 +158,13 @@ class ImportExportHelper
         if (file = import_file('people/avatars', id, obj.avatar_file_name))
           obj.avatar = file
         end
-        
+
         # Handle missing person names gracefully
         if obj.public_name.blank? && obj.first_name.blank? && obj.last_name.blank?
           obj.public_name = "Anonymous ##{id}"
           puts "Warning: Person #{id} had no name, setting to '#{obj.public_name}'" if verbose?
         end
-        
+
         obj.save!
         @mappings[:people][id] = obj.id
         @mappings[:people_user][obj.user_id] = obj
@@ -176,7 +201,7 @@ class ImportExportHelper
       end
       obj.regenerate_invite_token if Event.where(invite_token: obj.invite_token).any?
       obj.language = "en"
-      
+
       # For Mobility-enabled events, titles are in translations table - skip validation temporarily
       obj.save!(validate: false)
       @mappings[:events][id] = obj.id
@@ -185,6 +210,9 @@ class ImportExportHelper
     # updates the mappings: event_ratings
     # uses mappings: events, people
     restore_events_data
+
+    # Import translation tables
+    restore_translation_data
 
     # uses mappings: people, days
     restore_people_data
@@ -278,6 +306,65 @@ class ImportExportHelper
         obj.attachment = file
       end
       obj.save!
+    end
+  end
+
+  def restore_translation_data
+    # Restore event translations
+    if File.exist?(File.join(@export_dir, 'event_translations.yaml'))
+      translations = read_yaml_from_file('event_translations')
+      translations&.each do |translation|
+        old_event_id = translation['event_id']
+        new_event_id = @mappings[:events][old_event_id]
+
+        if new_event_id
+          translation['event_id'] = new_event_id
+          translation.delete('id') # Remove old ID
+
+          ActiveRecord::Base.connection.execute(
+            "INSERT INTO event_translations (#{translation.keys.join(', ')})
+             VALUES (#{translation.values.map { |v| ActiveRecord::Base.connection.quote(v) }.join(', ')})"
+          )
+        end
+      end
+    end
+
+    # Restore person translations
+    if File.exist?(File.join(@export_dir, 'person_translations.yaml'))
+      translations = read_yaml_from_file('person_translations')
+      translations&.each do |translation|
+        old_person_id = translation['person_id']
+        new_person_id = @mappings[:people][old_person_id]
+
+        if new_person_id
+          translation['person_id'] = new_person_id
+          translation.delete('id') # Remove old ID
+
+          ActiveRecord::Base.connection.execute(
+            "INSERT INTO person_translations (#{translation.keys.join(', ')})
+             VALUES (#{translation.values.map { |v| ActiveRecord::Base.connection.quote(v) }.join(', ')})"
+          )
+        end
+      end
+    end
+
+    # Restore track translations
+    if File.exist?(File.join(@export_dir, 'track_translations.yaml'))
+      translations = read_yaml_from_file('track_translations')
+      translations&.each do |translation|
+        old_track_id = translation['track_id']
+        new_track_id = @mappings[:tracks][old_track_id]
+
+        if new_track_id
+          translation['track_id'] = new_track_id
+          translation.delete('id') # Remove old ID
+
+          ActiveRecord::Base.connection.execute(
+            "INSERT INTO track_translations (#{translation.keys.join(', ')})
+             VALUES (#{translation.values.map { |v| ActiveRecord::Base.connection.quote(v) }.join(', ')})"
+          )
+        end
+      end
     end
   end
 
