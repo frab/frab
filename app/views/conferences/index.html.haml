@@ -6,6 +6,9 @@
         - if policy(Conference).new?
           .btn-group{role: "group", "aria-label": "Conference actions"}
             = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + '<span class="d-none d-sm-inline ms-1">'.html_safe + t('conferences_module.add_conference') + '</span>'.html_safe, new_conference_path, hint: t('conferences_module.add_conference_hint'), class: "btn btn-primary"
+            = link_to import_conferences_path, class: "btn btn-outline-primary", title: "Import Conference" do
+              %i.bi.bi-upload
+              %span.d-none.d-sm-inline.ms-1 Import
   - if params[:term].blank? and Conference.all.empty?
     .card.border-0.bg-light.text-center.py-5
       .card-body
