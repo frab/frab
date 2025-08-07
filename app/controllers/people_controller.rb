@@ -23,7 +23,6 @@ class PeopleController < BaseConferenceController
       end
       format.text do
         @people = Person.speaking_at(@conference)
-        render text: @people.map(&:email).join("\n")
       end
     end
   end

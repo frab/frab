@@ -11,6 +11,10 @@ FactoryBot.define do
     role { 'reviewer' }
   end
 
+  trait :conference_crew_role do
+    role { 'crew' }
+  end
+
   factory :conference_user do
     conference
     after :build do |cu|
@@ -22,5 +26,6 @@ FactoryBot.define do
     factory :conference_orga, traits: [:conference_orga_role]
     factory :conference_coordinator, traits: [:conference_coordinator_role]
     factory :conference_reviewer, traits: [:conference_reviewer_role]
+    factory :conference_crew, traits: [:conference_crew_role]
   end
 end
