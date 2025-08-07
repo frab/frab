@@ -1,6 +1,23 @@
 .flash{"aria-live": "polite", "aria-atomic": "true"}
-  - flash.each do |type, message|
-    - unless type == :timedout
-      %div{class: "alert alert-#{ flash_alert(type.to_s) } alert-dismissible fade show", role: :alert, "aria-live": "assertive"}
-        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": t('close_alert', default: 'Close alert')}
-        %p.mb-0= message
+
+  - if flash[:notice]
+    .alert.alert-success.alert-dismissible.fade.show{role: :alert, "aria-live": "assertive"}
+      %p.mb-0= flash[:notice]
+      %button.btn-close{ type: "button", "data-bs-dismiss": "alert", "aria-label": t('close_alert', default: 'Close alert')}
+
+  - if flash[:alert]
+    .alert.alert-danger.alert-dismissible.fade.show{role: :alert, "aria-live": "assertive"}
+      %p.mb-0= flash[:alert]
+      %button.btn-close{ type: "button", "data-bs-dismiss": "alert", "aria-label": t('close_alert', default: 'Close alert')}
+
+  - if flash[:warn]
+    .alert.alert-danger.alert-dismissible.fade.show{role: :alert, "aria-live": "assertive"}
+      %p.mb-0= flash[:warn]
+      %button.btn-close{ type: "button", "data-bs-dismiss": "alert", "aria-label": t('close_alert', default: 'Close alert')}
+
+  - if flash[:errors]
+    .alert.alert-danger.alert-dismissible.fade.show{role: :alert, "aria-live": "assertive"}
+      - flash[:errors].split("; ").each do |error|
+        %p.mb-0= error
+      %button.btn-close{ type: "button", "data-bs-dismiss": "alert", "aria-label": t('close_alert', default: 'Close alert')}
+
