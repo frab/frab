@@ -17,8 +17,8 @@ range-slider [data-track-fill] {
 
 range-slider [data-thumb] {
   background-color: var(--bs-primary, #007bff);
-  border: 2px solid white;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--frab-text-inverse);
+  box-shadow: 0 0 0 1px var(--frab-shadow);
   box-sizing: border-box;
   transition: scale 200ms ease-in-out;
 }
@@ -43,7 +43,7 @@ range-slider:disabled {
 .availability-slider-wrapper {
   margin: 1rem 0;
   padding: 1rem;
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--frab-admin-border);
   border-radius: 0.375rem;
-  background-color: #f8f9fa;
+  background-color: var(--frab-admin-bg);
 }
