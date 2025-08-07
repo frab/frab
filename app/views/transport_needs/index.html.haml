@@ -22,8 +22,9 @@
             %td= tn.seats
             %td= t_boolean(tn.booked)
             %td= tn.note
-            %td
-              =action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('edit'), edit_person_transport_need_path(@person, tn), class: "btn btn-primary btn-sm"
-              = delete_button person_transport_need_path(@person, tn), hint: t('destroy')
+            %td.buttons
+              .d-flex.flex-wrap.gap-2
+                = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('edit'), edit_person_transport_need_path(@person, tn), class: "btn btn-primary btn-sm"
+                = delete_button person_transport_need_path(@person, tn), hint: t('destroy')
 
-  =action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('transport_needs_module.new_transport_need'), new_person_transport_need_path, class: "btn btn-primary btn-sm"
+  = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('transport_needs_module.new_transport_need'), new_person_transport_need_path, class: "btn btn-primary btn-sm"
