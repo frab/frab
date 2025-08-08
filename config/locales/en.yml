@@ -1725,8 +1725,8 @@ en:
   launch_call_for_participation: Launch Call for Participation
   layouts:
     public_schedule:
-      booklet: book
-      timeline: timeline
+      booklet: Book
+      timeline: Timeline
   lectures: Lectures
   lectures_commited: Lectures commited
   lectures_confirmed: Lectures confirmed
