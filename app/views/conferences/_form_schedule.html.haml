@@ -19,6 +19,5 @@
       = f.input :schedule_custom_css, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_custom_css')
       = f.input :schedule_html_intro, input_html: {rows: 4}, hint: t('schedule_module.inputs.hints.schedule_html_intro')
   
-  .card.border-0.mt-4
-    .card-footer.bg-light.d-flex.gap-2
-      = f.button :submit, class: 'btn btn-primary btn-lg'
+  .mt-4.p-3.bg-light.rounded.d-flex.gap-2
+    = f.button :submit, class: 'btn btn-primary btn-lg'

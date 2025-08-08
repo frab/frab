@@ -25,7 +25,6 @@
           .alert.alert-info.mt-3
             = t('users_module.save_needed_before_changes')
 
-  .card.border-0.mt-4
-    .card-footer.bg-light.d-flex.gap-2
-      = f.button :submit, class: 'btn btn-primary btn-lg'
-      = link_to t('cancel'), :back, class: "btn btn-outline-secondary"
+  .mt-4.p-3.bg-light.rounded.d-flex.gap-2
+    = f.button :submit, class: 'btn btn-primary btn-lg'
+    = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"
