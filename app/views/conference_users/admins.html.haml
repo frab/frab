@@ -14,5 +14,6 @@
   .row
     - if @users.present?
       = render 'table_admins', collection: @users
-      = actions_bar do
-        = will_paginate @users
+      - if @users.respond_to?(:total_pages) && @users.total_pages > 1
+        .d-flex.justify-content-center.mt-3
+          = will_paginate @users

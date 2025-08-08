@@ -1,24 +1,36 @@
-.card.border-info.border-opacity-25.mb-4
-  .card-header.d-flex.align-items-center.bg-info.bg-opacity-10
-    %i.bi.bi-info-circle.me-2
-    %h6.mb-0= t('emails_module.template_help', default: 'Template Variables')
-  .card-body
-    .row
-      .col-md-8
-        = raw(markdown_render(t('emails_module.placeholders_hint_header')))
-      .col-md-4
-        = render "shared/variable_subst_help"
-
 = simple_form_for @mail_template do |f|
-  .card.shadow-sm.mb-4
-    .card-header.d-flex.align-items-center
-      %i.bi.bi-envelope-paper.me-2
-      %h5.mb-0= t('mail_template', default: 'Mail Template')
-    .card-body
-      = f.input :name
-      = f.input :subject, input_html: { size: 100 }
-      = f.input :content, as: :text, input_html: { rows: 20 }
+  .row
+    .col-lg-8.order-2.order-lg-1
+      .card.shadow-sm.mb-4
+        .card-header.d-flex.align-items-center
+          %i.bi.bi-envelope-paper.me-2
+          %h5.mb-0= t('mail_template', default: 'Mail Template')
+        .card-body
+          = f.input :name
+          = f.input :subject, input_html: { size: 100, class: 'form-control-lg' }
+          = f.input :content, as: :text, input_html: { rows: 20, class: 'form-control font-monospace', style: 'min-height: 400px;' }
 
-  .mt-4.p-3.bg-light.rounded.d-flex.gap-2
-    = f.button :submit, class: 'btn btn-primary btn-lg'
-    = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"
+      .mt-4.p-3.bg-light.rounded.d-flex.gap-2
+        = f.button :submit, class: 'btn btn-primary btn-lg'
+        = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"
+
+    .col-lg-4.order-1.order-lg-2
+      .card.border-info.border-opacity-25.mb-4.sticky-lg-top{ style: "top: 20px;" }
+        .card-header.d-flex.align-items-center.bg-info.bg-opacity-10
+          %i.bi.bi-info-circle.me-2
+          %h6.mb-0= t('emails_module.template_help', default: 'Template Variables')
+        .card-body
+          .mb-3
+            = raw(markdown_render(t('emails_module.placeholders_hint_header')))
+          
+          = render "shared/variable_subst_help"
+          
+          .mt-4.p-3.bg-light.rounded
+            %h6.text-muted.mb-2
+              %i.bi.bi-lightbulb.me-1
+              Tips
+            %ul.small.mb-0.ps-3
+              %li Use variables like %{conference} in subject and content
+              %li Variables are case-sensitive
+              %li Preview your template before sending
+              %li Keep subjects concise and descriptive
