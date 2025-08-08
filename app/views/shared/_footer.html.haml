@@ -1,4 +1,4 @@
 - if content_for? :footer
-  %footer.bg-light.border-top.py-4.mt-auto
+  %footer.border-top.py-4.mt-auto{style: "background-color: var(--frab-bg-secondary); color: var(--frab-text); border-color: var(--frab-border) !important;"}
     .container-xxl
       = yield :footer
