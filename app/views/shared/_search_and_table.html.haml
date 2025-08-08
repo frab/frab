@@ -1,10 +1,10 @@
 = render 'shared/simple_search', path: request.path
 
 - if collection.empty?
-  .card.border-0.bg-light.text-center.py-5
+  .card.border-0.text-center.py-5{style: "background-color: var(--frab-bg-secondary); color: var(--frab-text);"}
     .card-body
       %i.bi.bi-search.fs-1.text-muted.mb-3
-      %h5.h4.text-dark.fw-semibold.mb-3= t('no_results_title', default: 'No Results Found')
+      %h5.h4.fw-semibold.mb-3{style: "color: var(--frab-text);"}= t('no_results_title', default: 'No Results Found')
       %p.text-muted.fs-5.mb-0= t('reports_module.no_search_results')
 - else
   .card.shadow-sm
@@ -12,6 +12,6 @@
       .table-responsive
         = render 'table', collection: collection.to_a.uniq
     - if respond_to?(:will_paginate) && collection.respond_to?(:current_page)
-      .card-footer.bg-light.border-0
+      .card-footer.border-0{style: "background-color: var(--frab-bg-secondary);"}
         = actions_bar do
           = will_paginate collection

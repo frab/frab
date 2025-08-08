@@ -3,6 +3,7 @@ import "jquery"
 import "controllers"
 import "bootstrap"
 import "@nathanvda/cocoon"
+import "./theme_init"
 
 // Initialize Bootstrap tooltips and popovers if needed
 document.addEventListener('DOMContentLoaded', function() {

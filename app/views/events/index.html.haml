@@ -2,7 +2,7 @@
   .page-header
     .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
       .d-flex.flex-column
-        %h1.display-6.fw-bold.mb-0.text-dark
+        %h1.display-6.fw-bold.mb-0{style: "color: var(--frab-text);"}
           = showing_my_events? ? t('events_module.my_events') : t('titles.event_list')
       .d-flex.flex-column.flex-md-row.gap-2
         - if policy(@conference).manage?
@@ -35,7 +35,7 @@
 
   = render partial: "event_list_tabs"
   - unless @conference.events.any?
-    .card.border-0.bg-light.text-center.py-5
+    .card.border-0.text-center.py-5{style: "background-color: var(--frab-bg-secondary); color: var(--frab-text);"}
       .card-body
         %i.bi.bi-calendar-event.fs-1.text-muted.mb-3
         %h5.text-muted.mb-2= showing_my_events? ? t('events_module.not_involved') : t('events_module.no_events')
