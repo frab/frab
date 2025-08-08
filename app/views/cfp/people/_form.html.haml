@@ -1,7 +1,6 @@
 = simple_form_for(@person, url: cfp_person_path, html: {multipart: true}) do |f|
   = render partial: 'shared/people_fields', locals: { person: @person, f: f }
   
-  .card.border-0.mt-4
-    .card-footer.bg-light.d-flex.gap-2
-      = f.button :submit, class: 'btn btn-primary btn-lg'
-      = link_to t('cancel'), :back, class: "btn btn-outline-secondary"
+  .mt-4.p-3.bg-light.rounded.d-flex.gap-2
+    = f.button :submit, class: 'btn btn-primary btn-lg'
+    = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"

@@ -11,7 +11,7 @@
   - else
     .row
       .col-md-12
-        = render 'shared/simple_search', path: request.path          
+        = render 'shared/simple_search', path: request.path
     .row
       .col-md-12
         %table.table.table-striped
@@ -34,5 +34,6 @@
                   - if event.average_feedback
                     = render 'shared/star_rating', id: "event_rating_#{event.id}", value: event.average_feedback, readonly: true, size: 'sm'
                 %td= event.event_feedbacks_count
-        = actions_bar do
-          = will_paginate @events
+        - if @events.respond_to?(:total_pages) && @events.total_pages > 1
+          .d-flex.justify-content-center.mt-3
+            = will_paginate @events

@@ -14,8 +14,9 @@
           %p= t('reports_module.no_search_results')
         - else
           = render 'people_table', people: @people
-          = actions_bar do
-            = will_paginate @people
+          - if @people.respond_to?(:total_pages) && @people.total_pages > 1
+            .d-flex.justify-content-center.mt-3
+              = will_paginate @people
   - if not @events.nil? and not @events.empty?
     .row
       .col-md-12
@@ -23,8 +24,9 @@
           %p= t('reports_module.no_search_results')
         - else
           = render 'events_table', events: @events
-          = actions_bar do
-            = will_paginate @events
+          - if @events.respond_to?(:total_pages) && @events.total_pages > 1
+            .d-flex.justify-content-center.mt-3
+              = will_paginate @events
   - if not @data.nil? and not @data.empty?
     .row
       .col-md-12

@@ -1,24 +1,3 @@
-// Replaced with Bootstrap utilities in layouts
-// body { background-color: #eeeeee; } -> .bg-light on body
-// .main-content styles -> .bg-white.rounded.shadow-sm.p-4 in layouts
-// section padding -> handled by Bootstrap spacing utilities
-
-section {
-  // Most section padding now handled by Bootstrap py-* utilities
-  // Keep this for any legacy sections that need it
-}
-
-// Replaced image styles with Bootstrap utilities:
-// .image -> .text-center.border.border-light.rounded.shadow-sm.p-1
-// .image.small -> .d-inline-block + style="width:32px;height:32px"  
-// .image.large -> .d-inline-block + style="width:128px;height:128px"
-// p.small -> .small or .fs-6
-// .image img -> .align-middle
-
-
-// Replaced with Bootstrap utility:
-// div.rating -> .text-nowrap
-
 table.room {
   width: 150px;
   margin: 10px;
@@ -81,13 +60,6 @@ div.color-preview {
   margin: .5ex 1ex .5ex .5ex;
 }
 
-
-// Replaced with Bootstrap utilities:
-// td.buttons -> .text-nowrap (with .text-wrap on sm+ breakpoints if needed)
-// td.buttons form -> .d-inline-block.m-0  
-// td.nowrap -> .text-nowrap
-// th.nowrap -> .text-nowrap
-
 ul#unscheduled-events {
   height: 400px;
 }
@@ -107,18 +79,9 @@ p.availability span {
     margin-right: 1.5em;
 }
 
-span.event-tag {
-    display: inline;
-    min-width: 200px;
-    color: var(--frab-text);
-    padding: 2px 4px 2px 4px;
-    border: thin;
-    border-color: var(--frab-text);
-    border-style: solid;
-    vertical-align: middle;
-}
-span.event-tag.small {
-    font-size: 8px; 
+.badge-sm {
+    font-size: 0.7em;
+    padding: 0.25em 0.4em;
 }
 
 .filter_icon {
