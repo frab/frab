@@ -12,7 +12,7 @@
     = stylesheet_link_tag 'admin'
     = javascript_importmap_tags 'application'
 
-  %body.d-flex.flex-column.min-vh-100.bg-light
+  %body.d-flex.flex-column.min-vh-100{style: "background-color: var(--frab-bg);"}
     %a.visually-hidden-focusable.btn.btn-primary.position-fixed{href: "#main-content", style: "top: 10px; left: 10px; z-index: 1050;"}
       = t('skip_to_main_content', default: 'Skip to main content')
     %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.shadow-sm{role: "navigation", "aria-label": t('main_navigation', default: 'Main navigation')}
@@ -61,13 +61,18 @@
                 - else
                   = render 'shared/navi_cfp_account_no_conference_menu'
 
+              %li.nav-item
+                = render 'shared/theme_toggle'
+
           - unless current_user
             %ul.navbar-nav.ms-auto
               = render 'shared/navi_cfp_login'
+              %li.nav-item
+                = render 'shared/theme_toggle'
 
     %main.flex-grow-1#main-content{role: "main", "aria-label": t('main_content', default: 'Main content')}
       .container-xxl.py-4
-        .bg-white.rounded.shadow-sm.p-4
+        .rounded.shadow-sm.p-4{style: "background-color: var(--frab-surface); color: var(--frab-text);"}
           = render 'shared/flash', flash: flash
           = yield
 
