@@ -15,7 +15,7 @@
   --bs-warning: #d97706;       // Professional orange (replaces neon yellow)
   --bs-danger: #dc2626;        // Professional red (replaces neon red)
   
-  // Surface colors
+  // Light theme surface colors
   --schedule-bg: #f8fafc;      // Light background
   --schedule-card-bg: #ffffff;  // Card background
   --schedule-border: #e2e8f0;  // Subtle borders
@@ -30,25 +30,199 @@
   --event-danger: var(--bs-danger);
 }
 
-// Public schedule uses light theme only - override any global dark mode styles
-body[data-bs-theme="dark"] {
-  // Force light theme for public schedule even when dark mode is active
+// Dark theme colors for public schedule - compatible with main application
+[data-bs-theme="dark"] {
+  --bs-primary: #3b82f6;        // Match main app frab-primary
+  --bs-secondary: #94a3b8;      // Match main app frab-secondary
+  --bs-success: #10b981;        // Match main app frab-success
+  --bs-info: #06b6d4;          // Match main app frab-info
+  --bs-warning: #f59e0b;       // Match main app frab-warning
+  --bs-danger: #ef4444;        // Match main app frab-danger
+  
+  // Dark theme surface colors - match main application
+  --schedule-bg: #0f172a;      // Match frab-bg
+  --schedule-card-bg: #1e293b;  // Match frab-surface
+  --schedule-border: #334155;  // Match frab-border
+  --schedule-title: #f1f5f9;   // Match frab-text
+  --schedule-text: #f1f5f9;    // Match frab-text
+  --schedule-text-muted: #94a3b8; // Match frab-text-muted
+  
+  // Dark theme event colors - match main application
+  --event-default: var(--bs-primary);
+  --event-hover: #1e40af;      // Match frab-event-bg
+  --event-warning: var(--bs-warning);
+  --event-danger: var(--bs-danger);
+}
+
+// Layout and body styling that respects theme
+body {
   background-color: var(--schedule-bg) !important;
   color: var(--schedule-text) !important;
+}
+
+// Card styling that respects theme  
+.card {
+  background-color: var(--schedule-card-bg) !important;
+  color: var(--schedule-text) !important;
+  border-color: var(--schedule-border) !important;
+}
+
+.text-muted {
+  color: var(--schedule-text-muted) !important;
+}
+
+// Comprehensive dark theme specific overrides
+[data-bs-theme="dark"] {
+  // Body and page background
+  background-color: #0f172a !important;
   
-  // Force light theme for all cards and components
-  .card {
+  // Container elements
+  .container-xxl {
+    background-color: transparent !important;
+  }
+  
+  // Navigation elements
+  .schedule-nav {
     background-color: var(--schedule-card-bg) !important;
-    color: var(--schedule-text) !important;
     border-color: var(--schedule-border) !important;
+  }
+  
+  .schedule-nav .nav-link {
+    color: var(--schedule-text) !important;
+  }
+  
+  .schedule-nav .nav-link:hover,
+  .schedule-nav .nav-link.active {
+    background-color: var(--bs-primary) !important;
+    color: white !important;
+  }
+  
+  // Text elements
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--schedule-text) !important;
+  }
+  
+  p, div, span {
+    color: var(--schedule-text) !important;
   }
   
   .text-muted {
     color: var(--schedule-text-muted) !important;
   }
   
+  .text-dark {
+    color: var(--schedule-text) !important;
+  }
+  
+  .text-primary {
+    color: #60a5fa !important;
+  }
+  
+  // Schedule header - adjusted gradient for dark theme
+  .schedule-header {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
+  }
+  
+  // Links
+  a {
+    color: #60a5fa !important;
+  }
+  
+  a:hover {
+    color: var(--bs-primary) !important;
+  }
+  
+  // Event elements and schedule content
+  .event-block {
+    background-color: var(--schedule-card-bg) !important;
+    border-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .event-title {
+    color: var(--schedule-text) !important;
+  }
+  
+  .event-title a {
+    color: var(--schedule-text) !important;
+    text-decoration: none !important;
+  }
+  
+  .event-title a:hover {
+    color: var(--bs-primary) !important;
+    text-decoration: underline !important;
+  }
+  
+  // Schedule table elements  
+  .schedule-table th {
+    background-color: var(--schedule-card-bg) !important;
+    color: var(--schedule-text) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .schedule-table th.room-column,
+  .schedule-table th.time-column {
+    background-color: var(--schedule-card-bg) !important;
+    border-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .schedule-table td {
+    background-color: #0f172a !important;
+    color: var(--schedule-text) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .schedule-table td.empty-cell {
+    background-color: var(--schedule-bg) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .event-cell {
+    background-color: transparent !important;
+  }
+  
+  // Mobile schedule cards
+  .card-header {
+    background-color: #334155 !important;
+    color: var(--schedule-text) !important;
+    border-color: #475569 !important;
+  }
+  
+  // Buttons and dropdowns
+  .btn-outline-secondary {
+    color: var(--schedule-text) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .dropdown-menu {
+    background-color: var(--schedule-card-bg) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .dropdown-item {
+    color: var(--schedule-text) !important;
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  // Bootstrap utility class overrides
   .bg-light {
-    background-color: #f8f9fa !important;
+    background-color: var(--schedule-card-bg) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .bg-secondary {
+    background-color: #334155 !important;
+    color: var(--schedule-text) !important;
   }
 }
 
@@ -122,11 +296,6 @@ body[data-bs-theme="dark"] {
   font-weight: 500;
 }
 
-// Layout and body styling
-body {
-  background-color: var(--schedule-bg) !important;
-  color: var(--schedule-text) !important;
-}
 
 .schedule-main-card {
   border-radius: 12px !important;
