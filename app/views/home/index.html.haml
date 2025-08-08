@@ -40,8 +40,9 @@
 
   - else
     = render 'table', collection: @conferences
-    = actions_bar do
-      = will_paginate @conferences
+    - if @conferences.respond_to?(:total_pages) && @conferences.total_pages > 1
+      .d-flex.justify-content-center.mt-3
+        = will_paginate @conferences
 
   %hr
 

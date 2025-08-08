@@ -38,10 +38,9 @@
       = dynamic_association :links, t("cfp.links"), f
       = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
       
-  .card.border-0.mt-4
-    .card-footer.bg-light.d-flex.gap-2
-      = f.button :submit, class: 'btn btn-primary btn-lg'
-      = link_to t('cancel'), :back, class: "btn btn-outline-secondary"
+  .mt-4.p-3.bg-light.rounded.d-flex.gap-2
+    = f.button :submit, class: 'btn btn-primary btn-lg'
+    = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"
 
 - if EventAttachment::PRESERVE_FILE_ATTACHMENTS
   %p{class: 'form-text'}

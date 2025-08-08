@@ -59,8 +59,9 @@
                       %td= safe_join( event.event_attachments.where(title: attachment_title).map{|ea| link_to ea.short_anonymous_title, ea.attachment.url}, '<br>'.html_safe )
                     - if @other_attachment_titles_exist
                       %td= safe_join( event.event_attachments.where.not(title: @attachment_titles).map{|ea| link_to ea.link_title, ea.attachment.url}, '<br>'.html_safe )
-            = actions_bar do
-              = will_paginate @events
+            - if @events.respond_to?(:total_pages) && @events.total_pages > 1
+              .d-flex.justify-content-center.mt-3
+                = will_paginate @events
           = render 'below_table'
 
   - filters_data.each do |filter|

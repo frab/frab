@@ -85,8 +85,9 @@
                           = link_to_unless params[review_metric.safe_name].present?, avg.round(2), request.query_parameters.merge(review_metric.safe_name => "≥#{avg}")
                     %td
                       = link_to t('ratings_module.show_ratings'), event_event_rating_path(event), class: "btn btn-primary btn-sm"
-            = actions_bar do
-              = will_paginate @events
+            - if @events.respond_to?(:total_pages) && @events.total_pages > 1
+              .d-flex.justify-content-center.mt-3
+                = will_paginate @events
             = render 'below_table'
 
   - filters_data.each do |filter|

@@ -11,7 +11,7 @@
     .card-body.p-0
       .table-responsive
         = render 'table', collection: collection.to_a.uniq
-    - if respond_to?(:will_paginate) && collection.respond_to?(:current_page)
+    - if respond_to?(:will_paginate) && collection.respond_to?(:current_page) && collection.respond_to?(:total_pages) && collection.total_pages > 1
       .card-footer.border-0{style: "background-color: var(--frab-bg-secondary);"}
-        = actions_bar do
+        .d-flex.justify-content-center
           = will_paginate collection
