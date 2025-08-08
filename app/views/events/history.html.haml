@@ -6,5 +6,6 @@
     .col-md-12
       .blank-slate
         = render 'recent_changes/table'
-        = actions_bar do
-          = will_paginate @versions
+        - if @versions.respond_to?(:total_pages) && @versions.total_pages > 1
+          .d-flex.justify-content-center.mt-3
+            = will_paginate @versions

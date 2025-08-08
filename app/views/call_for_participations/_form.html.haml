@@ -18,10 +18,9 @@
         .col-md-6
           = f.input :contact_email, label: t('cfp.inputs.contact_email'), hint: t('cfp.inputs.hints.contact_email')
   
-  .card.border-0.mt-4
-    .card-footer.bg-light.d-flex.gap-2
-      = f.button :submit, class: 'btn btn-primary btn-lg', value: t('cfp.save_cfp')
-      = link_to t('navigation.back'), call_for_participation_path, class: 'btn btn-outline-secondary'
+  .mt-4.p-3.bg-light.rounded.d-flex.gap-2
+    = f.button :submit, class: 'btn btn-primary btn-lg', value: t('cfp.save_cfp')
+    = link_to t('navigation.back'), call_for_participation_path, class: 'btn btn-outline-secondary btn-lg'
 
 .card.mt-4
   .card-header.d-flex.align-items-center
