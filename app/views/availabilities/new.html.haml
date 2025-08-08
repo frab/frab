@@ -5,8 +5,8 @@
   = render 'shared/people_tabs'
   .row
     .col-md-12
-      = content do
-        = inner do
-          %p.alert= t('availabilities.alerts.no_availabilities', person: @person.full_name)
+      .card.shadow-sm
+        .card-body
+          %p.alert.alert-info= t('availabilities.alerts.no_availabilities', person: @person.full_name)
 
           = render 'form'
