@@ -30,6 +30,28 @@
   --event-danger: var(--bs-danger);
 }
 
+// Public schedule uses light theme only - override any global dark mode styles
+body[data-bs-theme="dark"] {
+  // Force light theme for public schedule even when dark mode is active
+  background-color: var(--schedule-bg) !important;
+  color: var(--schedule-text) !important;
+  
+  // Force light theme for all cards and components
+  .card {
+    background-color: var(--schedule-card-bg) !important;
+    color: var(--schedule-text) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .text-muted {
+    color: var(--schedule-text-muted) !important;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+}
+
 // Consistent card styling across all views
 .session-card, .event-card, .speaker-card {
   background: var(--schedule-card-bg) !important;
@@ -103,6 +125,7 @@
 // Layout and body styling
 body {
   background-color: var(--schedule-bg) !important;
+  color: var(--schedule-text) !important;
 }
 
 .schedule-main-card {
