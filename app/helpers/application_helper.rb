@@ -42,7 +42,7 @@ module ApplicationHelper
   def image_box(image, size, options = {} )
     size_classes = case size.to_s
                    when 'small' then 'd-inline-block'
-                   when 'large' then 'd-inline-block' 
+                   when 'large' then 'd-inline-block'
                    else 'd-inline-block'
                    end
     size_style = case size.to_s
@@ -50,7 +50,7 @@ module ApplicationHelper
                  when 'large' then 'width:128px;height:128px'
                  else ''
                  end
-    
+
     content_tag(:div, class: "text-center border border-light rounded shadow-sm p-1 #{size_classes}", style: size_style) do
       image_tag image.url(size), options.merge(class: 'align-middle')
     end

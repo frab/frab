@@ -12,7 +12,6 @@ class Auth::SessionsController < Devise::SessionsController
       super
     end
   end
- 
 
   # POST /resource/sign_in
   # def create
