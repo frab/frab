@@ -3,7 +3,7 @@ class Public::ScheduleController < ApplicationController
   before_action :maybe_authenticate_user!
   before_action :set_mobility, except: %i[style qrcode]
   after_action :cors_set_access_control_headers
-  
+
   helper Public::FeedbackHelper
 
   def index
