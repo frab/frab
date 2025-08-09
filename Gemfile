@@ -55,7 +55,8 @@ gem 'omniauth_openid_connect'
 gem 'omniauth-rails_csrf_protection'
 gem 'kt-paperclip'
 gem 'paper_trail'
-gem 'prawn', '< 1.0'
+gem 'prawn'
+gem 'prawn-table'
 gem 'prawn_rails'
 gem 'pundit'
 gem 'ransack'
@@ -80,15 +81,22 @@ group :productionplus, optional: true do
   gem 'dalli'
 end
 
+group :development do
+  gem 'easy_translate'
+  gem 'faker'
+  gem 'i18n-tasks'
+  gem 'letter_opener'
+  gem 'solargraph-rails', require: false
+  gem 'solargraph', require: false
+  gem "web-console"
+end
+
 group :development, :test do
   gem 'listen'
   gem 'bullet'
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'letter_opener'
-  gem 'faker'
-  gem 'i18n-tasks'
-  gem 'easy_translate'
+  gem 'rubocop', require: false
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
