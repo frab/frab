@@ -1,4 +1,6 @@
 
+require 'prawn/table'
+
 def info_table_rows(event)
   room = event.room.try(:name) or ""
   time_str = event.humanized_time_str
