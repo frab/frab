@@ -51,7 +51,25 @@ prawn_document(
   number_of_pages.times do |current_page|
     offset = current_page * number_of_columns
 
-    pdf.draw_text header_content_left, size: 9, at: @layout.header_left_anchor
+    # Enhanced date visibility
+    pdf.fill_color '2563eb'  # Blue background for date
+    date_text = header_content_left
+    date_width = pdf.width_of(date_text, size: 12) + 16
+    box_x = @layout.header_left_anchor[0] - 4
+    box_y = @layout.header_left_anchor[1] + 8
+    pdf.rounded_rectangle [box_x, box_y], date_width, 20, 4
+    pdf.fill
+
+    # Date text centered in the blue box
+    pdf.fill_color 'ffffff'
+    pdf.font 'BitStream Vera', style: :bold
+    text_x = box_x + (date_width - pdf.width_of(date_text, size: 12)) / 2
+    text_y = box_y - 14  # Vertically centered in 20px box
+    pdf.draw_text date_text, size: 12, at: [text_x, text_y]
+
+    # Reset and draw other header elements
+    pdf.fill_color '000000'
+    pdf.font 'BitStream Vera', style: :normal
     pdf.draw_text header_content_center, size: 16, at: @layout.header_center_anchor
     pdf.draw_text header_content_right, size: 9, at: @layout.header_right_anchor
 
@@ -104,13 +122,63 @@ prawn_document(
           pdf.fill_color = 'ffffff'
           pdf.fill_and_stroke
           pdf.fill_color = '000000'
-          pdf.text_box event.title, size: 8, at: [pdf.bounds.left + 2, pdf.bounds.top - 2]
-          pdf.text_box event.speakers.map(&:public_name).join(', '),
-            size: 6,
-            width: pdf.bounds.width - 4,
-            style: :italic,
-            align: :right,
-            at: [pdf.bounds.left + 2, pdf.bounds.bottom + 8]
+
+          # Event title - allow for wrapping
+          pdf.font 'BitStream Vera', style: :bold
+          pdf.fill_color = '000000'
+          title_height = pdf.bounds.height > 50 ? 20 : 12
+          pdf.text_box event.title,
+            size: 8,
+            at: [pdf.bounds.left + 3, pdf.bounds.top - 3],
+            width: pdf.bounds.width - 6,
+            height: title_height,
+            overflow: :shrink_to_fit
+
+          # Track name (if available) - positioned below title
+          track_y = pdf.bounds.top - title_height - 5
+          if event.track && pdf.bounds.height > 35
+            pdf.font 'BitStream Vera', style: :italic
+            pdf.fill_color = '2563eb'  # Blue color for track
+            pdf.text_box "[#{event.track.name}]",
+              size: 6,
+              at: [pdf.bounds.left + 3, track_y],
+              width: pdf.bounds.width - 6
+            track_y -= 10  # Adjust for next element
+          end
+
+          # Abstract preview - longer text, better positioned
+          if event.abstract.present? && pdf.bounds.height > 45
+            # Use more characters for longer abstracts
+            max_chars = pdf.bounds.height > 80 ? 120 : 80
+            abstract_preview = event.abstract.gsub(/\s+/, ' ').strip[0..max_chars-1]
+            abstract_preview += '...' if event.abstract.length >= max_chars
+
+            pdf.fill_color = '666666'  # Gray color for abstract
+            pdf.font 'BitStream Vera', style: :normal
+
+            # Calculate available height for abstract
+            speaker_space = event.speakers.any? ? 15 : 5
+            abstract_height = pdf.bounds.bottom + speaker_space - track_y + 10
+
+            pdf.text_box abstract_preview,
+              size: 6,
+              at: [pdf.bounds.left + 3, track_y],
+              width: pdf.bounds.width - 6,
+              height: abstract_height,
+              overflow: :shrink_to_fit,
+              leading: 1
+          end
+
+          # Speaker names at bottom - better positioned
+          if event.speakers.any?
+            pdf.fill_color = '000000'
+            pdf.font 'BitStream Vera', style: :italic
+            pdf.text_box event.speakers.map(&:public_name).join(', '),
+              size: 6,
+              width: pdf.bounds.width - 6,
+              align: :right,
+              at: [pdf.bounds.left + 3, pdf.bounds.bottom + 3]
+          end
         end
       end
     end
