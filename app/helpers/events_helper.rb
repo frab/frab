@@ -99,7 +99,7 @@ module EventsHelper
       classes << 'filter_icon'
       classes << (params[qname].present? ? 'true' : 'false')
     end
-    
+
     link_to text, '#',
             class: classes,
             data: { bs_toggle: "modal", bs_target: "#filterModal_#{qname}" }
