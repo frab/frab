@@ -69,12 +69,12 @@ FROM base
 # Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
-RUN mkdir /rails/data
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log tmp data
+    mkdir /rails/db /rails/log /rails/tmp /rails/data && \
+    chown -R rails:rails /rails/db /rails/log /rails/tmp /rails/data
 USER 1000:1000
 
 ENV FRAB_HOST=localhost \
