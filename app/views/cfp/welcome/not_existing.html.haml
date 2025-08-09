@@ -2,32 +2,32 @@
   .page-header
     %h1= t('cfp.welcome')
   .row
-    .span16
+    .col-md-12
   .row
-    .span16
+    .col-md-12
       .flash
-        %div{class: "alert-message error fade in", "data-alert" => "alert"}
+        %div{class: "alert alert-danger alert-dismissible fade show", "data-alert" => "alert"}
           %p= t('cfp.pages.thank_for_interest', conference: @conference.title)
           %p= t('cfp.pages.unexisting_cfp')
   - if encourage_register
     .row
-      .span8
-      .span8
+      .col-md-8
+      .col-md-8
         %h2= t("cfp.sign_up_headline")
         %p= t("cfp.sign_up_description", title: @conference.title)
         - if Devise.mappings[:user].registerable?
-          %p= action_button "", t("cfp.sign_up"), new_user_registration_path
+          %p= action_button '<i class="bi bi-person-plus"></i> '.html_safe + t("cfp.sign_up"), new_user_registration_path, class: "btn btn-secondary"
     .row
-      .span8
+      .col-md-8
         %h2= t("cfp.forgot_password_headline")
         %p= t("cfp.forgot_password_description")
-        = action_button "", t("cfp.forgot_password_button"), new_user_password_path
-      .span8
+        = action_button '<i class="bi bi-key"></i> '.html_safe + t("cfp.forgot_password_button"), new_user_password_path, class: "btn btn-secondary"
+      .col-md-8
         %h2= t("cfp.confirmation_headline")
         %p= t("cfp.confirmation_description")
-        = action_button "", t("cfp.confirmation_button"), new_user_confirmation_path
+        = action_button '<i class="bi bi-check-circle"></i> '.html_safe + t("cfp.confirmation_button"), new_user_confirmation_path, class: "btn btn-secondary"
   - else
     .row
-      .span16
+      .col-md-12
         %p= t('cfp.come_back')
 

@@ -1,5 +1,6 @@
 .nested-fields
-  %fieldset.inputs
+  %fieldset.border.p-3.mb-4
     = f.input :name
     = f.input :description
-    = remove_association_link :review_metric, f
+    .d-flex.justify-content-end
+      = remove_association_link :review_metric, f

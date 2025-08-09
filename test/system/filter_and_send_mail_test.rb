@@ -36,7 +36,7 @@ class FilterAndSendMailTest < ApplicationSystemTestCase
     end
 
     # and Send
-    click_on 'Send mail to all these people'
+    click_on 'Send mail'
     select 'template1', from: "template_name"
     accept_alert do
       find('input', id: 'bulk_email').click

@@ -5,7 +5,7 @@
   = render 'shared/events_tabs'
   - @translations.each do |event|
     .row
-      .span16
+      .col-md-12
         %h2= t('languages.'+event.locale)
         %p
           %b= Event.human_attribute_name(:title) + ':'
@@ -14,11 +14,11 @@
           %b= Event.human_attribute_name(:subtitle) + ':'
           = event.subtitle
     .row
-      .span6
+      .col-md-6
         %p
           %b= t('col_abstract')
           = simple_format event.abstract
-      .span10
+      .col-md-10
         %p
           %b= t('col_description')
           = simple_format event.description

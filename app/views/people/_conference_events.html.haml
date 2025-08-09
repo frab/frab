@@ -1,6 +1,6 @@
 %section
   .row
-    .span16
+    .col-md-12
       - if @view_model.current_events.present?
         %h2= t('events_module.events_in_current_conference')
         = render "events/table", collection: @view_model.current_events

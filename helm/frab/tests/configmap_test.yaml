@@ -1,0 +1,166 @@
+suite: test configmap
+templates:
+  - configmap.yaml
+tests:
+  - it: should render configmap with default values
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-frab-config
+      - equal:
+          path: data.TZ
+          value: "UTC"
+      - equal:
+          path: data.RAILS_ENV
+          value: "production"
+      - equal:
+          path: data.RAILS_SERVE_STATIC_FILES
+          value: "true"
+      - equal:
+          path: data.FRAB_HOST
+          value: "frab.local"
+      - equal:
+          path: data.FRAB_PROTOCOL
+          value: "http"
+      - equal:
+          path: data.FROM_EMAIL
+          value: "frab@localhost"
+      - equal:
+          path: data.SMTP_ADDRESS
+          value: "localhost"
+      - equal:
+          path: data.SMTP_PORT
+          value: "25"
+      - equal:
+          path: data.FRAB_CURRENCY_UNIT
+          value: "€"
+      - equal:
+          path: data.FRAB_MAX_ATTACHMENT_SIZE_MB
+          value: "42"
+      - equal:
+          path: data.DATABASE_URL
+          value: "sqlite3://localhost/rails/data/database.db"
+
+  - it: should not include optional values when not set
+    asserts:
+      - notExists:
+          path: data.FRAB_PORT
+      - notExists:
+          path: data.SMTP_USER_NAME
+      - notExists:
+          path: data.FRAB_PRESERVE_FILE_ATTACHMENTS
+      - notExists:
+          path: data.DISABLE_FRAB_DIRECT_LOGIN
+
+  - it: should include optional values when set
+    set:
+      frab.port: "8080"
+      frab.smtp.username: "testuser"
+      frab.preserveFileAttachments: true
+      frab.disableDirectLogin: true
+    asserts:
+      - equal:
+          path: data.FRAB_PORT
+          value: "8080"
+      - equal:
+          path: data.SMTP_USER_NAME
+          value: "testuser"
+      - equal:
+          path: data.FRAB_PRESERVE_FILE_ATTACHMENTS
+          value: "1"
+      - equal:
+          path: data.DISABLE_FRAB_DIRECT_LOGIN
+          value: "1"
+
+  - it: should render Google OAuth config when enabled
+    set:
+      frab.google.enabled: true
+      frab.google.clientId: "test-client-id"
+      frab.google.overrideProfilePhoto: true
+    asserts:
+      - equal:
+          path: data.GOOGLE_CLIENT_ID
+          value: "test-client-id"
+      - equal:
+          path: data.OVERRIDE_PROFILE_PHOTO
+          value: "1"
+
+  - it: should render LDAP config when enabled
+    set:
+      frab.ldap.enabled: true
+      frab.ldap.name: "Test LDAP"
+      frab.ldap.host: "ldap.test.com"
+      frab.ldap.port: 389
+      frab.ldap.baseDn: "dc=test,dc=com"
+    asserts:
+      - equal:
+          path: data.NAME_FOR_LDAP
+          value: "Test LDAP"
+      - equal:
+          path: data.LDAP_HOST
+          value: "ldap.test.com"
+      - equal:
+          path: data.LDAP_PORT
+          value: "389"
+      - equal:
+          path: data.LDAP_BASE_DN
+          value: "dc=test,dc=com"
+
+  - it: should render OIDC config when enabled
+    set:
+      frab.oidc.enabled: true
+      frab.oidc.issuer: "https://oidc.test.com"
+      frab.oidc.clientId: "test-oidc-client"
+      frab.oidc.name: "Test OIDC"
+    asserts:
+      - equal:
+          path: data.OPENID_CONNECT_ISSUER
+          value: "https://oidc.test.com"
+      - equal:
+          path: data.OPENID_CONNECT_CLIENT_ID
+          value: "test-oidc-client"
+      - equal:
+          path: data.NAME_FOR_OPENID_CONNECT
+          value: "Test OIDC"
+
+  - it: should render Redis cache config when enabled
+    set:
+      rails.cache.enabled: true
+      rails.cache.type: "redis"
+      rails.cache.redis.host: "redis.test.com"
+      rails.cache.redis.port: 6379
+      rails.cache.redis.database: 0
+    asserts:
+      - equal:
+          path: data.REDIS_CACHE_URL
+          value: "redis://redis.test.com:6379/0"
+
+  - it: should render memcached config when enabled
+    set:
+      rails.cache.enabled: true
+      rails.cache.type: "memcached"
+      rails.cache.memcached.servers: "memcached:11211"
+    asserts:
+      - equal:
+          path: data.MEMCACHED_SERVERS
+          value: "memcached:11211"
+
+  - it: should render Redis session store config
+    set:
+      rails.sessionStore.type: "redis"
+      rails.sessionStore.redis.host: "redis-session.test.com"
+      rails.sessionStore.redis.port: 6379
+      rails.sessionStore.redis.database: 1
+    asserts:
+      - equal:
+          path: data.REDIS_SESSION_URL
+          value: "redis://redis-session.test.com:6379/1"
+
+  - it: should not render database URL for external databases
+    set:
+      database.type: "postgresql"
+    asserts:
+      - notExists:
+          path: data.DATABASE_URL

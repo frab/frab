@@ -1,23 +1,47 @@
-%h2.title= t '.events'
+.row.mb-4
+  .col-12
+    %h2.title.mb-0
+      %i.bi.bi-chat.me-2
+      = t '.events'
 
 - @view_model.events_by_track.each do |_, events|
-  - if events.count >  0
-
-    %table.list
-      %thead
-        %tr
-          %th &nbsp;
-          %th= Event.human_attribute_name('title')
-          %th= Event.human_attribute_name('speakers')
-      %tbody
-        - events.each do |event|
-          %tr
-            %td= link_to image_box(event.logo, :small), public_event_path(id: event.id)
-            %td
-              %b= link_to event.title, public_event_path(id: event.id)
-              %br/
-              = truncate(event.abstract, length: 80, separator: ' ')
-            %td
-              %ul
-                - event.speakers.each do |speaker|
-                  %li= link_to speaker.public_name, public_speaker_path(id: speaker.id)
+  - if events.count > 0
+    .card.mb-4.border-0.shadow-sm
+      .card-header.bg-primary.text-white
+        %h5.mb-0
+          %i.bi.bi-list-ul.me-2
+          = t '.all_events'
+      .card-body.p-0
+        - events.each_with_index do |event, index|
+          .row.g-3.p-3{class: (index < events.count - 1) ? 'border-bottom' : ''}
+            .col-12.col-sm-3.col-md-2.text-center
+              - if event.logo.present?
+                = link_to image_box(event.logo, :small, class: "img-fluid rounded"), public_event_path(id: event.id)
+              - else
+                .bg-light.rounded.d-flex.align-items-center.justify-content-center{style: "height: 80px; width: 80px; margin: 0 auto;"}
+                  %i.bi.bi-chat.text-muted{style: "font-size: 2rem;"}
+            
+            .col-12.col-sm-9.col-md-7
+              %h6.mb-2
+                = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none fw-bold"
+              - if event.abstract.present?
+                .text-muted.small.mb-2
+                  = truncate(event.abstract, length: 120, separator: ' ')
+              - if event.start_time.present?
+                .small.text-primary
+                  %i.bi.bi-clock.me-1
+                  = l event.start_time, format: :short
+                  - if event.room.present?
+                    %span.ms-2
+                      %i.bi.bi-geo-alt.me-1
+                      = event.room.name
+            
+            .col-12.col-md-3
+              - if event.speakers.any?
+                .small
+                  %strong.text-muted.d-block.mb-1
+                    %i.bi.bi-person.me-1
+                    = "#{t('speakers')}:"
+                  - event.speakers.each do |speaker|
+                    .mb-1
+                      = link_to speaker.public_name, public_speaker_path(id: speaker.id), class: "text-decoration-none badge bg-light text-dark"

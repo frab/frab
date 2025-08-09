@@ -1,21 +1,17 @@
 
 %section
   .page-header
-    %h1= t('titles.edit_people_for_event', event: @event.title)
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      %h1.mb-0= t('titles.edit_people_for_event', event: @event.title)
+      .d-flex.gap-2
+        = link_to t('cancel'), :back, class: "btn btn-outline-secondary"
+        %button.btn.btn-primary{type: "submit", form: "edit_event_#{@event.id}"}
+          %i.bi.bi-check-lg.me-1
+          = t('save')
+
   .row
-    .span16
-      = simple_form_for(@event, data: { persons: @persons }) do |f|
-        = dynamic_association :event_people, nil, f
-        .actions
-          = f.button :submit, class: 'primary'
-          = link_to t('cancel'), :back, class: "btn"
+    .col-12
+      = simple_form_for(@event, html: { id: "edit_event_#{@event.id}" }, data: { persons: @persons }) do |f|
+        = dynamic_association :event_people, t('people'), f
 
 
-= javascript_include_tag "person_filter"
-
-:coffeescript
-  for x in $("div.nested-fields")
-    window.update_and_attach_person_filter("#{lookup_people_url}", $(x))
-
-  $("form.edit_event").on 'cocoon:after-insert', (e, item) ->
-    update_and_attach_person_filter("#{lookup_people_url}", item)

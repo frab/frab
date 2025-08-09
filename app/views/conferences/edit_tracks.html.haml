@@ -5,7 +5,7 @@
 
   - if @conference.sub_conference? && !policy(@conference).manage?
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= t('tracks_module.modify_track_with_parent', parent: @conference.parent.title)
 
@@ -19,16 +19,10 @@
   - else
     - if @conference.tracks.empty?
       .row
-        .span16
+        .col-md-12
           .blank-slate
             %p= t('tracks_module.empty_tracks')
             %p= t('tracks_module.empty_tracks_more_infos')
     .row
-      .span16
+      .col-md-12
         = render 'form_tracks'
-
-:coffeescript
-  $ ->
-    $("a.add_fields").data("insertion-callback", (node) ->
-      addColorPickers()
-    )

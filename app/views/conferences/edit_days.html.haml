@@ -5,7 +5,7 @@
 
   - if @conference.parent
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= t('days_module.inherited_conference_change', parent: @conference.parent.title)
 
@@ -19,9 +19,9 @@
   - else
     - if @conference.days.empty?
       .row
-        .span16
+        .col-md-12
           .blank-slate
             %p= t('days_module.empty_days')
     .row
-      .span16
+      .col-md-12
         = render 'form_days'

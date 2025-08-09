@@ -6,10 +6,10 @@ class EventRating < ApplicationRecord
 
   after_save :update_average
   after_destroy :update_average
-  
+
   validates :event, presence: true
   validates :person, presence: true
-  
+
   accepts_nested_attributes_for :review_scores, allow_destroy: true
 
   protected

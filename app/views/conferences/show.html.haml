@@ -1,166 +1,104 @@
 %section
-  .page-header
-    %h1= t('cfp.welcome')
-  .row
-    .span16
-      - if @conference.rooms.count == 0
-        .blank-slate
+  - if @conference.rooms.count == 0
+    .row.mb-4
+      .col-12
+        .alert.alert-info
           = raw(markdown_render(t('conferences_module.show_welcome')))
 
-      - if @conference.events.count == 0 and @conference.call_for_participation.nil?
-        .blank-slate
+  - if @conference.events.count == 0 and @conference.call_for_participation.nil?
+    .row.mb-4
+      .col-12
+        .alert.alert-warning
           = raw(markdown_render(t('conferences_module.show_no_event')))
   - if policy(@conference).orga?
-    .row
-      .span16
-        - if @conference.in_the_past?
-          %p= t('conferences_module.conference_in_past')
+    - if @conference.in_the_past?
+      .row.mb-4
+        .col-12
+          .alert.alert-secondary
+            = t('conferences_module.conference_in_past')
 
-    .row
-      .span16
-        %h2
-          = t('conferences_module.recent_changes')
-          %small= link_to t('navigation.more'), recent_changes_path
-        - if @versions.empty?
-          .blank-slate
-            %p= raw(markdown_render(t('conferences_module.recent_changes_text')))
-        - else
-          = render "recent_changes/table"
-          %p
+    .row.mb-4
+      .col-12
+        .card
+          .card-header.d-flex.justify-content-between.align-items-center
+            %h5.card-title.mb-0= t('conferences_module.recent_changes')
+            - if @versions.count > 5
+              = link_to t('navigation.more'), recent_changes_path, class: "btn btn-outline-primary btn-sm"
+          .card-body
+            - if @versions.empty?
+              .text-muted.text-center.py-3
+                = raw(markdown_render(t('conferences_module.recent_changes_text')))
+            - else
+              = render "recent_changes/table"
   .row
-    .span16
-      %h2= t('conferences_module.statistics')
-      - if @conference.events.count == 0
-        .blank-slate
-          %p= t('conferences_module.statistics_empty')
-      - else
-        %h4= t('events_module.events_by_state')
-        %p
-          = link_to t('all'), "#", id: "events_all_types"
-          |
-          = link_to t('lectures_only'), "#", id: "events_lectures_only"
-          |
-          = link_to t('workshops_only'), "#", id: "events_workshops_only"
-          |
-          = link_to t('others_only'), "#", id: "events_others_only"
-        #event_state_graph(style="width:600px;height:300px;")
-        %table.zebra-stripe
-          %thead
-            %tr
-              %th= t('conferences_module.new')
-              %th= t('conferences_module.review')
-              %th= t('conferences_module.withdrawn')
-              %th= t('conferences_module.accepting')
-              %th= t('conferences_module.unconfirmed')
-              %th= t('conferences_module.confirmed')
-              %th= t('conferences_module.scheduled')
-              %th= t('conferences_module.canceled')
-              %th= t('conferences_module.rejecting')
-              %th= t('conferences_module.rejected')
-              %th= t('conferences_module.total')
-          %tbody
-            %tr
-              %td= @conference.events.where(state: :new).count
-              %td= @conference.events.where(state: :review).count
-              %td= @conference.events.where(state: :withdrawn).count
-              %td= @conference.events.where(state: :accepting).count
-              %td= @conference.events.where(state: :unconfirmed).count
-              %td= @conference.events.where(state: :confirmed).count
-              %td= @conference.events.where(state: :scheduled).count
-              %td= @conference.events.where(state: :canceled).count
-              %td= @conference.events.where(state: :rejecting).count
-              %td= @conference.events.where(state: :rejected).count
-              %td= @conference.events.count
-      - if @conference.languages.count > 1
-        %h4= t('events_module.events_by_language')
-        %p
-          = link_to t('all'), "#", id: "languages_all_events"
-          |
-          = link_to t('accepted_only'), "#", id: "languages_accepted_events_only"
-        #event_language_graph(style="width:400px;height:300px;")
+    .col-12
+      .card
+        .card-header
+          %h5.card-title.mb-0= t('conferences_module.statistics')
+        .card-body
+          - if @conference.events.count == 0
+            .text-muted.text-center.py-3
+              = t('conferences_module.statistics_empty')
+          - else
+            .statistics-dashboard{data: { controller: "statistics", "statistics-events-url-value": events_by_state_statistics_path, "statistics-language-url-value": language_breakdown_statistics_path, "statistics-gender-url-value": gender_breakdown_statistics_path }}
 
-      - if @conference.gender_breakdown.count > 1
-        %h4= t('events_module.events_by_gender')
-        %p
-          = link_to t('all'), "#", id: "gender_all_events"
-          |
-          = link_to t('accepted_only'), "#", id: "gender_accepted_events_only"
-        #event_gender_graph(style="width:400px;height:300px;")
+              .row.g-4
+                .col-12
+                  %h6= t('events_module.events_by_state')
+                  .btn-group.btn-group-sm.mb-3{role: "group"}
+                    = link_to t('all'), "#", class: "btn btn-outline-primary", data: { action: "click->statistics#filterAllEvents" }
+                    = link_to t('lectures_only'), "#", class: "btn btn-outline-primary", data: { action: "click->statistics#filterLecturesOnly" }
+                    = link_to t('workshops_only'), "#", class: "btn btn-outline-primary", data: { action: "click->statistics#filterWorkshopsOnly" }
+                    = link_to t('others_only'), "#", class: "btn btn-outline-primary", data: { action: "click->statistics#filterOthersOnly" }
 
-:coffeescript
-  update_languages_breakdown = (accepted_only = false) ->
-    if accepted_only
-      params = {"accepted_only": 1}
-    else
-      params = {}
-    $.ajax(
-      url: "#{language_breakdown_statistics_path}",
-      type: "GET",
-      dataType: "json",
-      data: params,
-      success: (data) ->
-        $.plot($("#event_language_graph"), data, {series: {pie: {show: true}}})
-    )
+                  .row.g-4
+                    .col-12.col-lg-8
+                      #event_state_graph.border.rounded.p-2{style: "height: 300px; min-height: 300px;", data: { "statistics-target": "eventsGraph" }}
 
-  update_gender_breakdown = (accepted_only = false) ->
-    if accepted_only
-      params = {"accepted_only": 1}
-    else
-      params = {}
-    $.ajax(
-      url: "#{gender_breakdown_statistics_path}",
-      type: "GET",
-      dataType: "json",
-      data: params,
-      success: (data) ->
-        $.plot($("#event_gender_graph"), data, {series: {pie: {show: true}}})
-    )
+                    .col-12.col-lg-4
+                      .table-responsive
+                        %table.table.table-sm.table-striped
+                          %thead
+                            %tr
+                              %th= t('conferences_module.new')
+                              %th= t('conferences_module.review')
+                              %th= t('conferences_module.withdrawn')
+                              %th= t('conferences_module.accepting')
+                              %th= t('conferences_module.unconfirmed')
+                              %th= t('conferences_module.confirmed')
+                              %th= t('conferences_module.scheduled')
+                              %th= t('conferences_module.canceled')
+                              %th= t('conferences_module.rejecting')
+                              %th= t('conferences_module.rejected')
+                              %th= t('conferences_module.total')
+                          %tbody
+                            %tr
+                              %td= @conference.events.where(state: :new).count
+                              %td= @conference.events.where(state: :review).count
+                              %td= @conference.events.where(state: :withdrawn).count
+                              %td= @conference.events.where(state: :accepting).count
+                              %td= @conference.events.where(state: :unconfirmed).count
+                              %td= @conference.events.where(state: :confirmed).count
+                              %td= @conference.events.where(state: :scheduled).count
+                              %td= @conference.events.where(state: :canceled).count
+                              %td= @conference.events.where(state: :rejecting).count
+                              %td= @conference.events.where(state: :rejected).count
+                              %td.fw-bold= @conference.events.count
 
-  update_events_breakdown = (type = "") ->
-    if type
-      params = {"type": type}
-    else
-      params = {}
-    $.ajax(
-      url: "#{events_by_state_statistics_path}",
-      type: "GET",
-      data: params,
-      dataType: "json",
-      success: (data) ->
-        $.plot($("#event_state_graph"), data, {
-          series: {
-            bars: { show: true, barWidth: 1 }
-          },
-          xaxis: {
-            ticks: [[0.5, "undecided"], [1.5,"accepted"], [2.5, "rejected"], [3.5, "withdrawn/canceled"]]
-          }
-        })
-    )
+                - if @conference.languages.count > 1
+                  .col-12.col-md-6
+                    %h6= t('events_module.events_by_language')
+                    .btn-group.btn-group-sm.mb-3{role: "group"}
+                      = link_to t('all'), "#", class: "btn btn-outline-secondary", data: { action: "click->statistics#filterAllLanguages" }
+                      = link_to t('accepted_only'), "#", class: "btn btn-outline-secondary", data: { action: "click->statistics#filterAcceptedLanguages" }
+                    #event_language_graph.border.rounded.p-2{style: "height: 300px; min-height: 300px;", data: { "statistics-target": "languageGraph" }}
 
-  $ ->
-    $("#events_all_types").click (event) ->
-      update_events_breakdown()
-    $("#events_lectures_only").click (event) ->
-      update_events_breakdown("lectures")
-    $("#events_workshops_only").click (event) ->
-      update_events_breakdown("workshops")
-    $("#events_others_only").click (event) ->
-      update_events_breakdown("others")
-    update_events_breakdown()
+                - if @conference.gender_breakdown.count > 1
+                  .col-12.col-md-6
+                    %h6= t('events_module.events_by_gender')
+                    .btn-group.btn-group-sm.mb-3{role: "group"}
+                      = link_to t('all'), "#", class: "btn btn-outline-secondary", data: { action: "click->statistics#filterAllGenders" }
+                      = link_to t('accepted_only'), "#", class: "btn btn-outline-secondary", data: { action: "click->statistics#filterAcceptedGenders" }
+                    #event_gender_graph.border.rounded.p-2{style: "height: 300px; min-height: 300px;", data: { "statistics-target": "genderGraph" }}
 
-    $("#languages_all_events").click (event) ->
-      update_languages_breakdown()
-      event.preventDefault()
-    $("#languages_accepted_events_only").click (event) ->
-      update_languages_breakdown(true)
-      event.preventDefault()
-    update_languages_breakdown()
-
-    $("#gender_all_events").click (event) ->
-      update_gender_breakdown()
-      event.preventDefault()
-    $("#gender_accepted_events_only").click (event) ->
-      update_gender_breakdown(true)
-      event.preventDefault()
-    update_gender_breakdown()
 

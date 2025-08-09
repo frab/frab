@@ -1,16 +1,16 @@
 - content_for :title do
-  = link_to t('page_titles.my_profile'), root_url, class: 'brand'
+  = link_to t('page_titles.my_profile'), root_url, class: 'navbar-brand'
 
 %section
   .page-header
     %h1= t('titles.edit_person', person: @person.full_name)
   .row
-    .span16
+    .col-md-12
 
       = simple_form_for(@person, url: update_crew_profile_path, html: {multipart: true}) do |f|
 
         = render partial: 'shared/people_fields', locals: { person: @person, f: f }
 
         .actions
-          = f.button :submit, class: 'primary'
+          = f.button :submit, class: 'btn btn-primary'
           = link_to t('cancel'), :back, class: "btn"

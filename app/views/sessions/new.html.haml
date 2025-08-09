@@ -2,25 +2,25 @@
   .page-header
     %h1= t('cfp.sign_in')
   .row
-    .span8
+    .col-md-8
       = render "shared/flash", flash: flash
       = simple_form_for @user, url: session_path do |f|
-        %fieldset.inputs
+        %fieldset.border.p-3.mb-4
           = f.input :email
           = f.input :password
-          = f.input :remember_me, as: :inline_boolean
+          = f.input :remember_me, as: :boolean
           - if params.key?(:return_to)
             = f.hidden_field 'return_to', value: params[:return_to], name: "return_to"
         .actions
-          = f.button :button, "Sign in", class: 'primary'
+          = f.button :submit, "Sign in", class: 'btn btn-primary'
     - if @conference
-      .span8
+      .col-md-8
         %h2=t("cfp.forgot_password_headline")
         %p=t("cfp.forgot_password_description")
-        = action_button "", t("cfp.forgot_password_button"), new_cfp_user_password_path
+        = action_button '<i class="bi bi-key"></i> '.html_safe + t("cfp.forgot_password_button"), new_cfp_user_password_path, class: "btn btn-secondary"
   - if @conference
     .row
-      .span10.offset6
+      .col-md-10.offset-md-1
         %p
           =t("cfp.looking_for_login_form")
           =link_to t('call_for_participation'), new_cfp_session_path

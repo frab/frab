@@ -237,7 +237,7 @@ class EventTest < ActiveSupport::TestCase
     # setting another language
     Mobility.with_locale(:de) do
       event.title = 'deu'
-      event.save
+      event.save!
     end
     event.reload
 

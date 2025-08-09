@@ -1,6 +1,4 @@
 class Cfp::PeopleController < ApplicationController
-  layout 'cfp'
-
   before_action :authenticate_user!
   before_action :check_cfp_open
 

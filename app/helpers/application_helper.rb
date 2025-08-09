@@ -39,15 +39,26 @@ module ApplicationHelper
     'active' if paths.any? { |path| current_page?(path.gsub(/\?.*/, '')) }
   end
 
-  def image_box(image, size)
-    content_tag(:div, class: "image #{size}") do
-      image_tag image.url(size)
+  def image_box(image, size, options = {} )
+    size_classes = case size.to_s
+                   when 'small' then 'd-inline-block'
+                   when 'large' then 'd-inline-block'
+                   else 'd-inline-block'
+                   end
+    size_style = case size.to_s
+                 when 'small' then 'width:32px;height:32px'
+                 when 'large' then 'width:128px;height:128px'
+                 else ''
+                 end
+
+    content_tag(:div, class: "text-center border border-light rounded shadow-sm p-1 #{size_classes}", style: size_style) do
+      image_tag image.url(size), options.merge(class: 'align-middle')
     end
   end
 
   def image_input_box(image)
-    content_tag(:div, class: 'clearfix input image small') do
-      image_tag image.url(:small)
+    content_tag(:div, class: 'd-flex input text-center border border-light rounded shadow-sm p-1', style: 'width:32px;height:32px') do
+      image_tag image.url(:small), class: 'align-middle'
     end
   end
 
@@ -59,37 +70,77 @@ module ApplicationHelper
     image_tag "icons/#{name}.png"
   end
 
-  def action_button(button_type, link_name, path, options = {})
-    options[:class] = "btn #{button_type}"
+  def action_button(link_name, path, options = {})
     if options[:hint]
-      options[:rel] = 'popover'
-      options['data-original-title'] = t('hint')
-      options['data-content'] = options[:hint]
-      options['data-placement'] = 'below'
+      options['data-bs-toggle'] = 'popover'
+      options['data-bs-title'] = t('hint')
+      options['data-bs-content'] = options[:hint]
+      options['data-bs-placement'] = 'bottom'
       options[:hint] = nil
     end
+
     link_to link_name, path, options
   end
 
+  def delete_button(path, options = {})
+    # Set default options for delete buttons
+    default_options = {
+      method: :delete,
+      class: 'btn btn-sm btn-danger',
+      data: {
+        controller: "confirm",
+        action: "click->confirm#confirm",
+        confirm_message_value: t('are_you_sure')
+      }
+    }
+
+    # Merge user options with defaults, allowing overrides
+    merged_options = default_options.deep_merge(options)
+
+    # Handle hint popover like action_button
+    if merged_options[:hint]
+      merged_options['data-bs-toggle'] = 'popover'
+      merged_options['data-bs-title'] = t('hint')
+      merged_options['data-bs-content'] = merged_options[:hint]
+      merged_options['data-bs-placement'] = 'bottom'
+      merged_options[:hint] = nil
+    end
+
+    # Use icon-only for delete button
+    text = '<i class="bi bi-trash"></i> '.html_safe
+
+    button_to text, path, merged_options
+  end
+
   def add_association_link(association_name, form_builder, div_class, html_options = {})
-    link_to_add_association t(:add_association, name: t('activerecord.models.' + association_name.to_s.singularize)), form_builder, div_class, html_options.merge(class: 'assoc btn')
+    text_with_icon = '<i class="bi bi-plus-circle"></i> '.html_safe +
+                     t(:add_association, name: t('activerecord.models.' + association_name.to_s.singularize))
+    link_to_add_association text_with_icon, form_builder, div_class, html_options.merge(class: 'assoc btn btn-secondary')
   end
 
   def remove_association_link(association_name, form_builder)
-    link_to_remove_association(t(:remove_association, name: t('activerecord.models.' + association_name.to_s.singularize)), form_builder, class: 'assoc btn danger') + tag(:hr)
+    text_with_icon = '<i class="bi bi-trash"></i> '.html_safe +
+                     t(:remove_association, name: t('activerecord.models.' + association_name.to_s.singularize))
+    link_to_remove_association(text_with_icon, form_builder, class: 'assoc btn btn-danger')
   end
 
   def dynamic_association(association_name, title, form_builder, options = {})
     render 'shared/dynamic_association', association_name: association_name, title: title, f: form_builder, hint: options[:hint]
   end
 
+
   def languages
     priority_sort_languages(@conference&.language_codes)
   end
 
   def priority_sort_languages(langs)
-    t = langs - [I18n.default_locale.to_s]
-    [I18n.default_locale.to_s] + t.sort
+    default_lang = I18n.default_locale.to_s
+    if langs.include?(default_lang)
+      t = langs - [default_lang]
+      [default_lang] + t.sort
+    else
+      langs.sort
+    end
   end
 
   def language_hint(locale)
@@ -165,4 +216,38 @@ module ApplicationHelper
     @md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
     @md.render(arg)
   end
+
+  def dynamic_association_icon(name)
+    case name.to_s.downcase
+    when 'classifiers'
+      '<i class="bi bi-tags"></i> '.html_safe
+    when 'conference_users'
+      '<i class="bi bi-people"></i> '.html_safe
+    when 'days'
+      '<i class="bi bi-calendar"></i> '.html_safe
+    when 'event_attachments'
+      '<i class="bi bi-paperclip"></i> '.html_safe
+    when 'event_people'
+      '<i class="bi bi-person"></i> '.html_safe
+    when 'im_accounts'
+      '<i class="bi bi-chat-left-text"></i> '.html_safe
+    when 'languages'
+     '<i class="bi bi-translate"></i> '.html_safe
+    when 'links'
+      '<i class="bi bi-link-45deg"></i> '.html_safe
+    when 'notifications'
+      '<i class="bi bi-bell"></i> '.html_safe
+    when 'phone_numbers'
+      '<i class="bi bi-telephone"></i> '.html_safe
+    when 'review_metrics'
+      '<i class="bi bi-graph-up"></i> '.html_safe
+    when 'rooms'
+      '<i class="bi bi-door-open"></i> '.html_safe
+    when 'tracks'
+     '<i class="bi bi-list-task"></i> '.html_safe
+    else
+      ''
+    end
+  end
+
 end

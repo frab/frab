@@ -12,6 +12,8 @@ class Track < ApplicationRecord
 
   has_paper_trail meta: { associated_id: :conference_id, associated_type: 'Conference' }
 
+  before_validation :normalize_color
+
   validates :color, format: { with: /\A[a-zA-Z0-9]*\z/ }
   validates :name, presence: true
   validates :name, format: { without: /\|/ }
@@ -25,6 +27,10 @@ class Track < ApplicationRecord
   end
 
   private
+
+  def normalize_color
+    self.color = color.to_s.gsub(/\A#/, '') if color.present?
+  end
 
   def update_events
     events.update(track_id: nil)

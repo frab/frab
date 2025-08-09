@@ -1,6 +1,8 @@
 .nested-fields
-  %fieldset.inputs
-    = f.input :name
-    = f.input :size, input_html: { size: 5 }
-    = f.input :rank, input_html: { size: 3 }
-    = remove_association_link :room, f
+  %fieldset.border.p-3.mb-4
+    .d-flex.flex-wrap.gap-3
+      = f.input :name
+      = f.input :size, input_html: { size: 5 }
+      = f.input :rank, input_html: { size: 3 }
+      .d-flex.align-items-end.pb-3
+        = remove_association_link :room, f

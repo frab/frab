@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Health check endpoint for Kubernetes probes
+  get '/health' => 'health#show'
+
   devise_for :users, controllers: {
     registrations: 'auth/registrations',
     sessions: 'auth/sessions',
@@ -8,6 +11,9 @@ Rails.application.routes.draw do
   scope '(:locale)' do
 
     get '/conferences/new' => 'conferences#new', as: 'new_conference'
+    get '/conferences/import' => 'conferences#import', as: 'import_conferences'
+    post '/conferences/import' => 'conferences#create_import', as: 'create_import_conference'
+    get '/conferences/import_progress' => 'conferences#import_progress', as: 'import_progress_conferences'
     post '/conferences' => 'conferences#create', as: 'create_conference'
     get '/conferences' => 'conferences#index', as: 'conference_index'
     delete '/conferences' => 'conferences#destroy'
@@ -128,7 +134,6 @@ Rails.application.routes.draw do
           get :export_all
           get :export_accepted
           get :export_confirmed
-          get :filter_modal
           get :bulk_edit_modal
           post :batch_actions
         end

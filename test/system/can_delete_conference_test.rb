@@ -12,7 +12,7 @@ class CanDeleteConferenceTest < ApplicationSystemTestCase
     assert_content page, @conference.acronym
 
     accept_alert do
-      find('tr', text: @conference.title).find('a', text: 'destroy').click
+      find('tr', text: @conference.title).find('button i.bi-trash').ancestor('button').click
     end
 
     assert_no_content page, @conference.acronym

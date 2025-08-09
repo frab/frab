@@ -9,7 +9,7 @@ class SubmitEventTest < ApplicationSystemTestCase
   def sign_up_steps
     click_on 'Sign Up', match: :first
     fill_in 'Email', match: :first, with: @user.email
-    fill_in 'Password', with: @user.password
+    fill_in 'Password', match: :first, with: @user.password
     fill_in 'Password confirmation', with: @user.password
     fill_in 'Public name', with: 'fake-name'
     click_on 'Sign up'

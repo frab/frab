@@ -2,12 +2,12 @@
   .page-header
     %h1=t("cfp.edit_account")
   .row
-    .span16
+    .col-md-12
       = simple_form_for(@user, url: cfp_user_path,  html: { method: :put })  do |f|
         %fieldset.inputs
           = f.input :email,                                      disabled: !@user.credentials_editable?
           = f.input :password, hint: t("cfp.password_hint"),     disabled: !@user.credentials_editable?
           = f.input :password_confirmation,                      disabled: !@user.credentials_editable?
         .actions
-          = f.button :submit, t("cfp.update"), class: 'primary', disabled: !@user.credentials_editable?
+          = f.button :submit, t("cfp.update"), class: 'btn btn-primary', disabled: !@user.credentials_editable?
           = link_to t("cfp.back"), :back, class: "btn"

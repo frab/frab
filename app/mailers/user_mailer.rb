@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
     person=Person.find(persons.first)
 
     bcc = template.conference.bcc_address
-    
+
     msgs=event_people.map{|event_person| template.message_text_for_event_person(event_person)}
     msgs.uniq.each do |msg|
       mail to: person.email, subject: msg[:subject], body: msg[:body], bcc: bcc

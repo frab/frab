@@ -1,15 +1,16 @@
 - content_for :title do
-  = link_to t('page_titles.change_password'), root_url, class: 'brand'
+  = link_to t('page_titles.change_password'), root_url, class: 'navbar-brand'
 
 %section
   .page-header
     %h1= t('titles.change_your_password')
 
   .row
-    .span16
+    .col-md-12
       = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, defaults:{error: false}) do |f|
 
-        = render partial: 'devise/shared/error_messages', resource: resource
+        %div{class: "alert alert-danger alert-dismissible fade show", role: :alert}
+          = render partial: 'devise/shared/error_messages', resource: resource
 
         %fieldset.inputs
           = f.hidden_field :reset_password_token
@@ -20,6 +21,6 @@
 
 
         .actions
-          = f.button :submit, class: 'primary', value: t('session.update_password')
+          = f.button :submit, class: 'btn btn-primary', value: t('session.update_password')
 
 = render "devise/shared/links"

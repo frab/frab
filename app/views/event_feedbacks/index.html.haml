@@ -5,22 +5,21 @@
   = render 'shared/events_tabs'
   - if @event_feedbacks.all.empty?
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= t('events_module.no_attendee')
           %p= t('events_module.no_attende_more_infos')
 
   - else
     .row
-      .span16
+      .col-md-12
         %p
           %b= t('events_module.average_feedback')
           %b= number_with_precision @event.average_feedback, precision: 2
           - if @event.event_feedbacks_count
-            %br
             s<sub>N-1</sub> = #{@event.feedback_standard_deviation} n = #{@event.event_feedbacks_count}
         %h2= t('comments')
-        %table.zebra-striped
+        %table.table.table-striped
           %thead
             %tr
               %th= t('rating')
@@ -30,5 +29,5 @@
               - next if feedback.comment.blank?
               %tr
                 %td
-                  = raty_for("event_rating_#{feedback.id}", feedback.rating)
+                  = render 'shared/star_rating', id: "event_rating_#{feedback.id}", value: feedback.rating, readonly: true
                 %td= feedback.comment

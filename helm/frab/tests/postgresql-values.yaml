@@ -1,0 +1,45 @@
+# Test values for PostgreSQL deployment
+database:
+  type: postgresql
+  postgresql:
+    host: postgres.example.com
+    port: 5432
+    database: frab_production
+    username: frab_user
+    password: "super-secret-password"
+
+frab:
+  host: frab.example.com
+  protocol: https
+  fromEmail: noreply@example.com
+  
+  # Enable Google OAuth for testing
+  google:
+    enabled: true
+    clientId: "123456789-abcdefgh.apps.googleusercontent.com"
+    clientSecret: "GOCSPX-test-secret-key"
+    overrideProfilePhoto: true
+
+# Enable Redis cache
+rails:
+  cache:
+    enabled: true
+    type: redis
+    redis:
+      host: redis.example.com
+      port: 6379
+      database: 0
+      password: "redis-cache-password"
+  
+  # Redis session store
+  sessionStore:
+    type: redis
+    redis:
+      host: redis.example.com
+      port: 6379
+      database: 1
+      password: "redis-session-password"
+
+secretKeyBase: "a-very-long-secret-key-base-that-should-be-at-least-32-characters-long"
+rails:
+  masterKey: "another-secret-master-key"

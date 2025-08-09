@@ -1,0 +1,145 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "frab.fullname" . }}-test-env-validation"
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "10"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  containers:
+  - name: test
+    image: busybox:1.35
+    envFrom:
+    - configMapRef:
+        name: {{ include "frab.fullname" . }}-config
+    - secretRef:
+        name: {{ include "frab.fullname" . }}-secret
+    command:
+    - /bin/sh
+    - -c
+    - |
+      set -e
+      echo "=== Comprehensive Environment Validation Test ==="
+      
+      # Required environment variables
+      REQUIRED_VARS="RAILS_ENV SECRET_KEY_BASE FRAB_HOST"
+      
+      echo "Checking required environment variables..."
+      for var in $REQUIRED_VARS; do
+        if [ -n "$(eval echo \$$var)" ]; then
+          echo "✓ $var is set"
+        else
+          echo "✗ $var is missing!"
+          exit 1
+        fi
+      done
+      
+      # Validate Rails environment
+      echo ""
+      echo "Validating Rails configuration..."
+      if [ "$RAILS_ENV" = "production" ] || [ "$RAILS_ENV" = "development" ] || [ "$RAILS_ENV" = "test" ]; then
+        echo "✓ RAILS_ENV is valid: $RAILS_ENV"
+      else
+        echo "⚠ RAILS_ENV has unexpected value: $RAILS_ENV"
+      fi
+      
+      # Check SECRET_KEY_BASE length
+      if [ ${#SECRET_KEY_BASE} -ge 32 ]; then
+        echo "✓ SECRET_KEY_BASE has adequate length"
+      else
+        echo "⚠ SECRET_KEY_BASE may be too short"
+      fi
+      
+      # Validate FRAB_HOST format
+      echo ""
+      echo "Validating Frab configuration..."
+      if echo "$FRAB_HOST" | grep -q "\."; then
+        echo "✓ FRAB_HOST appears to be a valid hostname: $FRAB_HOST"
+      else
+        echo "ℹ FRAB_HOST may be a simple hostname: $FRAB_HOST"
+      fi
+      
+      # Check protocol
+      if [ "$FRAB_PROTOCOL" = "http" ] || [ "$FRAB_PROTOCOL" = "https" ]; then
+        echo "✓ FRAB_PROTOCOL is valid: $FRAB_PROTOCOL"
+      else
+        echo "⚠ FRAB_PROTOCOL has unexpected value: $FRAB_PROTOCOL"
+      fi
+      
+      # Database configuration validation
+      echo ""
+      echo "Validating database configuration..."
+      if [ -n "$DATABASE_URL" ]; then
+        echo "✓ DATABASE_URL is configured"
+        
+        if echo "$DATABASE_URL" | grep -q "^sqlite3://"; then
+          echo "  → Using SQLite database"
+        elif echo "$DATABASE_URL" | grep -q "^postgresql://"; then
+          echo "  → Using PostgreSQL database"
+        elif echo "$DATABASE_URL" | grep -q "^mysql2://"; then
+          echo "  → Using MySQL database"
+        else
+          echo "  ⚠ Unknown database type in DATABASE_URL"
+        fi
+      else
+        echo "✗ DATABASE_URL is not configured!"
+        exit 1
+      fi
+      
+      # Email configuration validation
+      echo ""
+      echo "Validating email configuration..."
+      if [ -n "$FROM_EMAIL" ]; then
+        if echo "$FROM_EMAIL" | grep -q "@"; then
+          echo "✓ FROM_EMAIL appears valid: $FROM_EMAIL"
+        else
+          echo "⚠ FROM_EMAIL may be invalid: $FROM_EMAIL"
+        fi
+      else
+        echo "⚠ FROM_EMAIL not configured"
+      fi
+      
+      # SMTP configuration
+      if [ -n "$SMTP_ADDRESS" ]; then
+        echo "✓ SMTP_ADDRESS configured: $SMTP_ADDRESS"
+      else
+        echo "ℹ SMTP_ADDRESS not configured (may use local delivery)"
+      fi
+      
+      # Feature flags validation
+      echo ""
+      echo "Checking feature flags..."
+      FEATURE_FLAGS="FRAB_FORCE_SSL FRAB_USE_MEMCACHE FRAB_USE_AR_STORE"
+      for flag in $FEATURE_FLAGS; do
+        value=$(eval echo \$$flag)
+        if [ -n "$value" ]; then
+          if [ "$value" = "true" ] || [ "$value" = "false" ] || [ "$value" = "1" ] || [ "$value" = "0" ]; then
+            echo "✓ $flag = $value"
+          else
+            echo "⚠ $flag has unexpected value: $value"
+          fi
+        fi
+      done
+      
+      # Currency validation
+      echo ""
+      echo "Validating currency configuration..."
+      if [ -n "$FRAB_CURRENCY_UNIT" ]; then
+        echo "✓ FRAB_CURRENCY_UNIT configured: $FRAB_CURRENCY_UNIT"
+      else
+        echo "ℹ FRAB_CURRENCY_UNIT not configured (default will be used)"
+      fi
+      
+      # Timezone validation
+      if [ -n "$TZ" ]; then
+        echo "✓ TZ configured: $TZ"
+      else
+        echo "ℹ TZ not configured (UTC default)"
+      fi
+      
+      echo ""
+      echo "=== Environment validation completed successfully! ==="

@@ -1,21 +1,22 @@
 - content_for :title do
-  = link_to t('page_titles.resend_confirmation'), root_url, class: 'brand'
+  = link_to t('page_titles.resend_confirmation'), root_url, class: 'navbar-brand'
 
 %section
   .page-header
     %h1
       = t('titles.resend_confirmation_instructions')
   .row
-    .span16
+    .col-md-12
 
       = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, defaults:{error: false}) do |f|
 
-        = render partial: 'devise/shared/error_messages', resource: resource
+        %div{class: "alert alert-danger alert-dismissible fade show", role: :alert}
+          = render partial: 'devise/shared/error_messages', resource: resource
 
         %fieldset.inputs
           = f.input :email, autofocus: true
 
         .actions
-          = f.button :submit, class: 'primary', value: t('resend')
+          = f.button :submit, class: 'btn btn-primary', value: t('resend')
 
 = render "devise/shared/links"

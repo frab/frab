@@ -1,7 +1,7 @@
 unless Rails.env.development?
   ActionMailer::Base.default_url_options = {
-    host: ENV.fetch('FRAB_HOST'),
-    protocol: ENV.fetch('FRAB_PROTOCOL')
+    host: ENV.fetch('FRAB_HOST', 'localhost'),
+    protocol: ENV.fetch('FRAB_PROTOCOL', 'http')
   }
   if ENV['SMTP_ADDRESS']
     %w(ADDRESS PORT DOMAIN USER_NAME PASSWORD AUTHENTICATION).each do |setting|

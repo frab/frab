@@ -14,8 +14,10 @@ class EventJoinTest < ApplicationSystemTestCase
     sign_in_user(@user)
     visit edit_cfp_event_path(id: @event.id, conference_acronym: @conference.acronym)
     assert_content page, @event.invite_token
+
     visit cfp_events_join_path(token: @event.invite_token, conference_acronym: @conference.acronym)
     assert_content page, @event.subtitle
+
     visit cfp_events_join_path(token: 'X', conference_acronym: @conference.acronym)
     assert_content page, 'unknown'
   end

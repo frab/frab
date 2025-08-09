@@ -1221,7 +1221,6 @@ ru:
       submit: Сохранить %{model}
       update: Обновление %{model}
   hint: намек
-  home: Главная
   import: Импортировать
   inputs:
     hints:
@@ -1764,7 +1763,7 @@ ru:
   manage_conference: Управление этой конференцией
   manage_conference_flash: Вы вошли как член экипажа для этой конференции. Вы хотите управлять этой конференцией?
   manual: Руководство
-  more: Больше...
+  more: Больше
   multiple_indication: множественный
   name: имя
   navigation:

@@ -1,0 +1,150 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "frab.fullname" . }}-config
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-3"
+    "helm.sh/resource-policy": keep
+data:
+  # Timezone
+  TZ: {{ .Values.timezone | quote }}
+  
+  # Rails Configuration
+  RAILS_ENV: {{ .Values.rails.env | quote }}
+  RAILS_SERVE_STATIC_FILES: {{ .Values.rails.serveStaticFiles | quote }}
+  RAILS_LOG_TO_STDOUT: {{ .Values.rails.logToStdout | quote }}
+  
+  # Frab Application Configuration
+  FRAB_HOST: {{ .Values.frab.host | quote }}
+  FRAB_PROTOCOL: {{ .Values.frab.protocol | quote }}
+  {{- if .Values.frab.port }}
+  FRAB_PORT: {{ .Values.frab.port | quote }}
+  {{- end }}
+  FROM_EMAIL: {{ .Values.frab.fromEmail | quote }}
+  
+  # SMTP Configuration (non-sensitive)
+  SMTP_ADDRESS: {{ .Values.frab.smtp.address | quote }}
+  SMTP_PORT: {{ .Values.frab.smtp.port | quote }}
+  SMTP_NOTLS: {{ .Values.frab.smtp.noTls | quote }}
+  {{- if .Values.frab.smtp.username }}
+  SMTP_USER_NAME: {{ .Values.frab.smtp.username | quote }}
+  {{- end }}
+  
+  # Currency Configuration
+  FRAB_CURRENCY_UNIT: {{ .Values.frab.currency.unit | quote }}
+  FRAB_CURRENCY_FORMAT: {{ .Values.frab.currency.format | quote }}
+  
+  # File Upload Configuration
+  FRAB_MAX_ATTACHMENT_SIZE_MB: {{ .Values.frab.maxAttachmentSizeMb | quote }}
+  {{- if .Values.frab.preserveFileAttachments }}
+  FRAB_PRESERVE_FILE_ATTACHMENTS: "1"
+  {{- end }}
+  
+  # UI Configuration
+  {{- if .Values.frab.showActionBarInCfp }}
+  FRAB_SHOW_ACTION_BAR_IN_CFP: "1"
+  {{- end }}
+  FRAB_FORCE_SSL: {{ .Values.frab.forceSSL | quote }}
+  
+  # Feature Toggles
+  {{- if .Values.frab.disableDirectLogin }}
+  DISABLE_FRAB_DIRECT_LOGIN: "1"
+  {{- end }}
+  {{- if .Values.frab.disableLogoField }}
+  DISABLE_FRAB_LOGO_FIELD: "1"
+  {{- end }}
+  {{- if .Values.frab.disableGenderField }}
+  DISABLE_FRAB_GENDER_FIELD: "1"
+  {{- end }}
+  {{- if .Values.frab.disableDescriptionField }}
+  DISABLE_FRAB_DESCRIPTION_FIELD: "1"
+  {{- end }}
+  {{- if .Values.frab.disablePublicSchedule }}
+  DISABLE_FRAB_PUBLIC_SCHEDULE: "1"
+  {{- end }}
+  
+  # Admin Configuration
+  {{- if .Values.frab.emailsOfAdmins }}
+  FRAB_EMAILS_OF_ADMINS: {{ .Values.frab.emailsOfAdmins | quote }}
+  {{- end }}
+  
+  {{- if .Values.frab.exceptionEmail }}
+  EXCEPTION_EMAIL: {{ .Values.frab.exceptionEmail | quote }}
+  {{- end }}
+  
+  # Performance Configuration
+  FRAB_USE_MEMCACHE: {{ .Values.frab.useMemcache | quote }}
+  FRAB_USE_AR_STORE: {{ .Values.frab.useArStore | quote }}
+  {{- if .Values.frab.sessionStoreKey }}
+  FRAB_SESSION_STORE_KEY: {{ .Values.frab.sessionStoreKey | quote }}
+  {{- end }}
+  
+  # Database Configuration (SQLite only - others handled in deployment with secrets)
+  {{- if eq .Values.database.type "sqlite3" }}
+  DATABASE_URL: "sqlite3://localhost{{ .Values.database.sqlite.path }}"
+  {{- end }}
+  
+  # Google OAuth Configuration (non-sensitive)
+  {{- if .Values.frab.google.enabled }}
+  GOOGLE_CLIENT_ID: {{ .Values.frab.google.clientId | quote }}
+  {{- if .Values.frab.google.overrideProfilePhoto }}
+  OVERRIDE_PROFILE_PHOTO: "1"
+  {{- end }}
+  {{- end }}
+  
+  # LDAP Configuration (non-sensitive)
+  {{- if .Values.frab.ldap.enabled }}
+  {{- if .Values.frab.ldap.name }}
+  NAME_FOR_LDAP: {{ .Values.frab.ldap.name | quote }}
+  {{- end }}
+  {{- if .Values.frab.ldap.promptTitle }}
+  LDAP_PROMPT_TITLE: {{ .Values.frab.ldap.promptTitle | quote }}
+  {{- end }}
+  LDAP_HOST: {{ .Values.frab.ldap.host | quote }}
+  LDAP_PORT: {{ .Values.frab.ldap.port | quote }}
+  LDAP_METHOD: {{ .Values.frab.ldap.method | quote }}
+  LDAP_BASE_DN: {{ .Values.frab.ldap.baseDn | quote }}
+  {{- if .Values.frab.ldap.uid }}
+  LDAP_UID: {{ .Values.frab.ldap.uid | quote }}
+  {{- end }}
+  {{- if .Values.frab.ldap.filter }}
+  LDAP_FILTER: {{ .Values.frab.ldap.filter | quote }}
+  {{- end }}
+  {{- if .Values.frab.ldap.bindDn }}
+  LDAP_BIND_DN: {{ .Values.frab.ldap.bindDn | quote }}
+  {{- end }}
+  {{- if .Values.frab.ldap.disableVerifyCert }}
+  LDAP_DISABLE_VERIFY_CERT: "1"
+  {{- end }}
+  {{- end }}
+  
+  # OIDC Configuration (non-sensitive)
+  {{- if .Values.frab.oidc.enabled }}
+  OPENID_CONNECT_ISSUER: {{ .Values.frab.oidc.issuer | quote }}
+  OPENID_CONNECT_CLIENT_ID: {{ .Values.frab.oidc.clientId | quote }}
+  {{- if .Values.frab.oidc.name }}
+  NAME_FOR_OPENID_CONNECT: {{ .Values.frab.oidc.name | quote }}
+  {{- end }}
+  {{- end }}
+  
+  # Cache Configuration (non-sensitive)
+  {{- if .Values.rails.cache.enabled }}
+  {{- if eq .Values.rails.cache.type "redis" }}
+  REDIS_CACHE_URL: "redis://{{ .Values.rails.cache.redis.host }}:{{ .Values.rails.cache.redis.port }}/{{ .Values.rails.cache.redis.database }}"
+  {{- else if eq .Values.rails.cache.type "memcached" }}
+  MEMCACHED_SERVERS: {{ .Values.rails.cache.memcached.servers | quote }}
+  {{- end }}
+  {{- end }}
+  
+  # Session Store Configuration (non-sensitive)
+  {{- if eq .Values.rails.sessionStore.type "redis" }}
+  REDIS_SESSION_URL: "redis://{{ .Values.rails.sessionStore.redis.host }}:{{ .Values.rails.sessionStore.redis.port }}/{{ .Values.rails.sessionStore.redis.database }}"
+  {{- end }}
+  
+  # Asset Configuration
+  {{- if .Values.rails.assetHost }}
+  ASSET_HOST: {{ .Values.rails.assetHost | quote }}
+  {{- end }}

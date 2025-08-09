@@ -1,0 +1,149 @@
+suite: test upgrade job
+templates:
+  - upgrade-job.yaml
+tests:
+  - it: should render upgrade job when migrations enabled
+    set:
+      rails.runMigrations: true
+    asserts:
+      - isKind:
+          of: Job
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-frab-upgrade-0
+      - equal:
+          path: metadata.annotations["helm.sh/hook"]
+          value: "pre-upgrade"
+      - equal:
+          path: metadata.annotations["helm.sh/hook-weight"]
+          value: "1"
+      - equal:
+          path: metadata.annotations["helm.sh/hook-delete-policy"]
+          value: "before-hook-creation,hook-succeeded"
+      - equal:
+          path: spec.ttlSecondsAfterFinished
+          value: 300
+
+  - it: should not render upgrade job when migrations disabled
+    set:
+      rails.runMigrations: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should use envFrom for config and secret
+    set:
+      rails.runMigrations: true
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].envFrom[0].configMapRef.name
+          value: RELEASE-NAME-frab-config
+      - equal:
+          path: spec.template.spec.containers[0].envFrom[1].secretRef.name
+          value: RELEASE-NAME-frab-secret
+
+  - it: should have RAILS_ENV environment variable
+    set:
+      rails.runMigrations: true
+      rails.env: "production"
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].env[0].name
+          value: "RAILS_ENV"
+      - equal:
+          path: spec.template.spec.containers[0].env[0].value
+          value: "production"
+
+  - it: should mount data volume when data persistence enabled
+    set:
+      rails.runMigrations: true
+      persistence.data.enabled: true
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].name
+          value: "data"
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].mountPath
+          value: "/rails/data"
+      - equal:
+          path: spec.template.spec.volumes[0].name
+          value: "data"
+      - equal:
+          path: spec.template.spec.volumes[0].persistentVolumeClaim.claimName
+          value: "RELEASE-NAME-frab-data"
+
+  - it: should not mount volumes when data persistence disabled
+    set:
+      rails.runMigrations: true
+      persistence.data.enabled: false
+    asserts:
+      - notExists:
+          path: spec.template.spec.containers[0].volumeMounts
+      - notExists:
+          path: spec.template.spec.volumes
+
+  - it: should only run db:migrate for upgrades
+    set:
+      rails.runMigrations: true
+    asserts:
+      - matchRegex:
+          path: spec.template.spec.containers[0].command[2]
+          pattern: "bundle exec rails db:migrate"
+      - notMatchRegex:
+          path: spec.template.spec.containers[0].command[2]
+          pattern: "db:setup|db:seed|db:schema:load"
+
+  - it: should use custom migration resources
+    set:
+      rails.runMigrations: true
+      rails.migrationResources:
+        limits:
+          cpu: "1000m"
+          memory: "1Gi"
+        requests:
+          cpu: "500m"
+          memory: "512Mi"
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources.limits.cpu
+          value: "1000m"
+      - equal:
+          path: spec.template.spec.containers[0].resources.limits.memory
+          value: "1Gi"
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.cpu
+          value: "500m"
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.memory
+          value: "512Mi"
+
+  - it: should have correct security context
+    set:
+      rails.runMigrations: true
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsUser
+          value: 1000
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsNonRoot
+          value: true
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation
+          value: false
+
+  - it: should have restartPolicy Never
+    set:
+      rails.runMigrations: true
+    asserts:
+      - equal:
+          path: spec.template.spec.restartPolicy
+          value: "Never"
+
+  - it: should use custom TTL
+    set:
+      rails.runMigrations: true
+      rails.migrationJobTtl: 600
+    asserts:
+      - equal:
+          path: spec.ttlSecondsAfterFinished
+          value: 600

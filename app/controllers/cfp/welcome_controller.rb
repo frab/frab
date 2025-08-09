@@ -1,5 +1,4 @@
 class Cfp::WelcomeController < ApplicationController
-  layout 'cfp'
   def show
     if current_user and session[:conference_acronym]
       flash.keep

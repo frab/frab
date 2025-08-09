@@ -1,26 +1,27 @@
 %section
   .page-header
-    .pull-right
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      %h1.mb-0= t('titles.cfp_welcome', conference: @conference.title)
       - if available_conference_locales.size > 1
-        %ul.pills
+        .btn-group{role: "group", "aria-label": "Language selection"}
           - available_conference_locales.each do |locale|
-            %li{class: (I18n.locale.to_s == locale.to_s) ? "active" : ""}
-              = link_to locale.to_s, url_for( locale: locale )
-    %h1= t('titles.cfp_welcome', conference: @conference.title)
+            = link_to locale.to_s.upcase, url_for(locale: locale), class: "btn btn-sm #{(I18n.locale.to_s == locale.to_s) ? 'btn-primary' : 'btn-outline-primary'}"
 
   - unless current_user
     .row
-      .span16
-        .alert-message.block-message
-          %h1=t("cfp.login_required_title")
-          %p
-            =t("cfp.login_required")
-            = action_button "small primary", t("cfp.login"), new_user_session_path
-            - if Devise.mappings[:user].registerable?
-              = action_button "small", t("cfp.sign_up"), new_user_registration_path
+      .col-12
+        .alert.alert-info
+          .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3
+            .flex-grow-1
+              %h4.alert-heading=t("cfp.login_required_title")
+              %p.mb-0=t("cfp.login_required")
+            .d-flex.flex-wrap.gap-2
+              = action_button '<i class="bi bi-box-arrow-in-right"></i> '.html_safe + t("cfp.login"), new_user_session_path, class: "btn btn-primary btn-sm"
+              - if Devise.mappings[:user].registerable?
+                = action_button '<i class="bi bi-person-plus"></i> '.html_safe + t("cfp.sign_up"), new_user_registration_path, class: "btn btn-primary btn-sm"
 
   .row
-    .span16
+    .col-12
       - if @conference.call_for_participation.welcome_text.present?
         =render 'welcome_text'
 
@@ -31,8 +32,8 @@
 
 
   .row
-    .span16
-      .label.notice
+    .col-12
+      .alert.alert-warning
         - if @conference.in_the_past?
           =t("cfp.conference_in_the_past")
         - else

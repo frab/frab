@@ -1,0 +1,423 @@
+@import "bootstrap.min";
+@import "bootstrap-icons.min";
+@import "star-rating";
+
+// Consistent color scheme and styling for all public schedule views
+// Using Bootstrap 5 utilities with minimal custom CSS
+
+// Color palette - modern, accessible, professional matching FrOSCon theme
+:root {
+  --bs-primary: #1f1fa3;        // Actual FrOSCon primary color (deep blue)
+  --bs-primary-rgb: 31, 31, 163;
+  --bs-secondary: #64748b;      // Neutral gray
+  --bs-success: #059669;        // Professional green
+  --bs-info: #0891b2;          // Professional teal  
+  --bs-warning: #d97706;       // Professional orange (replaces neon yellow)
+  --bs-danger: #dc2626;        // Professional red (replaces neon red)
+  
+  // Light theme surface colors
+  --schedule-bg: #f8fafc;      // Light background
+  --schedule-card-bg: #ffffff;  // Card background
+  --schedule-border: #e2e8f0;  // Subtle borders
+  --schedule-title: white;  
+  --schedule-text: #1e293b;    // Dark text
+  --schedule-text-muted: #64748b; // Muted text
+  
+  // Event state colors (replacing neon colors)
+  --event-default: var(--bs-primary);
+  --event-hover: #f0f0ff;      // Light blue hover matching FrOSCon theme
+  --event-warning: var(--bs-warning);
+  --event-danger: var(--bs-danger);
+}
+
+// Dark theme colors for public schedule - compatible with main application
+[data-bs-theme="dark"] {
+  --bs-primary: #3b82f6;        // Match main app frab-primary
+  --bs-secondary: #94a3b8;      // Match main app frab-secondary
+  --bs-success: #10b981;        // Match main app frab-success
+  --bs-info: #06b6d4;          // Match main app frab-info
+  --bs-warning: #f59e0b;       // Match main app frab-warning
+  --bs-danger: #ef4444;        // Match main app frab-danger
+  
+  // Dark theme surface colors - match main application
+  --schedule-bg: #0f172a;      // Match frab-bg
+  --schedule-card-bg: #1e293b;  // Match frab-surface
+  --schedule-border: #334155;  // Match frab-border
+  --schedule-title: #f1f5f9;   // Match frab-text
+  --schedule-text: #f1f5f9;    // Match frab-text
+  --schedule-text-muted: #94a3b8; // Match frab-text-muted
+  
+  // Dark theme event colors - match main application
+  --event-default: var(--bs-primary);
+  --event-hover: #1e40af;      // Match frab-event-bg
+  --event-warning: var(--bs-warning);
+  --event-danger: var(--bs-danger);
+}
+
+// Layout and body styling that respects theme
+body {
+  background-color: var(--schedule-bg) !important;
+  color: var(--schedule-text) !important;
+}
+
+// Card styling that respects theme  
+.card {
+  background-color: var(--schedule-card-bg) !important;
+  color: var(--schedule-text) !important;
+  border-color: var(--schedule-border) !important;
+}
+
+.text-muted {
+  color: var(--schedule-text-muted) !important;
+}
+
+// Comprehensive dark theme specific overrides
+[data-bs-theme="dark"] {
+  // Body and page background
+  background-color: #0f172a !important;
+  
+  // Container elements
+  .container-xxl {
+    background-color: transparent !important;
+  }
+  
+  // Navigation elements
+  .schedule-nav {
+    background-color: var(--schedule-card-bg) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .schedule-nav .nav-link {
+    color: var(--schedule-text) !important;
+  }
+  
+  .schedule-nav .nav-link:hover,
+  .schedule-nav .nav-link.active {
+    background-color: var(--bs-primary) !important;
+    color: white !important;
+  }
+  
+  // Text elements
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--schedule-text) !important;
+  }
+  
+  p, div, span {
+    color: var(--schedule-text) !important;
+  }
+  
+  .text-muted {
+    color: var(--schedule-text-muted) !important;
+  }
+  
+  .text-dark {
+    color: var(--schedule-text) !important;
+  }
+  
+  .text-primary {
+    color: #60a5fa !important;
+  }
+  
+  // Schedule header - adjusted gradient for dark theme
+  .schedule-header {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
+  }
+  
+  // Links
+  a {
+    color: #60a5fa !important;
+  }
+  
+  a:hover {
+    color: var(--bs-primary) !important;
+  }
+  
+  // Event elements and schedule content
+  .event-block {
+    background-color: var(--schedule-card-bg) !important;
+    border-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .event-title {
+    color: var(--schedule-text) !important;
+  }
+  
+  .event-title a {
+    color: var(--schedule-text) !important;
+    text-decoration: none !important;
+  }
+  
+  .event-title a:hover {
+    color: var(--bs-primary) !important;
+    text-decoration: underline !important;
+  }
+  
+  // Schedule table elements  
+  .schedule-table th {
+    background-color: var(--schedule-card-bg) !important;
+    color: var(--schedule-text) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .schedule-table th.room-column,
+  .schedule-table th.time-column {
+    background-color: var(--schedule-card-bg) !important;
+    border-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .schedule-table td {
+    background-color: #0f172a !important;
+    color: var(--schedule-text) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .schedule-table td.empty-cell {
+    background-color: var(--schedule-bg) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .event-cell {
+    background-color: transparent !important;
+  }
+  
+  // Mobile schedule cards
+  .card-header {
+    background-color: #334155 !important;
+    color: var(--schedule-text) !important;
+    border-color: #475569 !important;
+  }
+  
+  // Buttons and dropdowns
+  .btn-outline-secondary {
+    color: var(--schedule-text) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .dropdown-menu {
+    background-color: var(--schedule-card-bg) !important;
+    border-color: var(--schedule-border) !important;
+  }
+  
+  .dropdown-item {
+    color: var(--schedule-text) !important;
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--schedule-border) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  // Bootstrap utility class overrides
+  .bg-light {
+    background-color: var(--schedule-card-bg) !important;
+    color: var(--schedule-text) !important;
+  }
+  
+  .bg-secondary {
+    background-color: #334155 !important;
+    color: var(--schedule-text) !important;
+  }
+}
+
+// Consistent card styling across all views
+.session-card, .event-card, .speaker-card {
+  background: var(--schedule-card-bg) !important;
+  border: 1px solid var(--schedule-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
+  transition: all 0.2s ease !important;
+}
+
+.session-card:hover, .event-card:hover, .speaker-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px var(--frab-shadow) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+// Header styling consistency  
+.schedule-header {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
+  border-radius: 12px 12px 0 0 !important;
+  min-height: 120px !important;
+}
+
+// Navigation consistency
+.schedule-nav {
+  background: var(--schedule-bg) !important;
+  border: 1px solid var(--schedule-border) !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+}
+
+.schedule-nav .nav-link {
+  color: var(--schedule-text) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  transition: all 0.15s ease !important;
+}
+
+.schedule-nav .nav-link:hover {
+  background: var(--bs-primary) !important;
+  color: white !important;
+}
+
+.schedule-nav .nav-link.active {
+  background: var(--bs-primary) !important;
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+// Avatar placeholder size
+.avatar-placeholder {
+  width: 60px;
+  height: 60px;
+}
+
+// Enhanced contrast for schedule elements
+.session-card .card-title,
+.session-card .fw-semibold,
+.session-card .fw-bold {
+  color: var(--frab-text) !important;
+}
+
+.session-card .text-muted {
+  color: var(--frab-text-muted) !important;
+}
+
+.session-card .text-primary {
+  color: var(--bs-primary) !important;
+  font-weight: 500;
+}
+
+
+.schedule-main-card {
+  border-radius: 12px !important;
+  border: 1px solid var(--schedule-border) !important;
+  background: var(--schedule-card-bg) !important;
+}
+
+// Title styling handled by Bootstrap classes
+
+// Typography consistency
+.schedule-text {
+  color: var(--schedule-text) !important;
+}
+
+.schedule-text-muted {
+  color: var(--schedule-text-muted) !important;
+}
+
+.schedule-heading {
+  color: var(--schedule-text) !important;
+}
+
+.schedule-icon-primary {
+  color: var(--bs-primary) !important;
+}
+
+// Event blocks and schedule grid
+.event-block {
+  background: var(--schedule-card-bg) !important;
+  border: 1px solid var(--schedule-border) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
+}
+
+.event-block:hover {
+  box-shadow: 0 2px 8px var(--frab-shadow) !important;
+}
+
+// Timeline and list views
+.time-block {
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.time-header {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
+  color: white !important;
+  padding: 1rem !important;
+  margin-bottom: 0 !important;
+}
+
+// Ensure consistent card borders and shadows
+.card {
+  border: 1px solid var(--schedule-border) !important;
+  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px var(--frab-shadow) !important;
+}
+
+// Ensure schedule table and events are visible
+.schedule-table {
+  table-layout: auto !important;
+  width: 100% !important;
+}
+
+.schedule-table td.event-cell {
+  vertical-align: top !important;
+  padding: 4px !important;
+  border: 1px solid var(--frab-border) !important;
+}
+
+.schedule-table td.empty-cell {
+  background-color: var(--frab-bg) !important;
+  border: 1px solid var(--frab-border) !important;
+}
+
+.schedule-table th.room-column,
+.schedule-table th.time-column {
+  background-color: var(--frab-bg) !important;
+  border: 1px solid var(--frab-border) !important;
+  font-weight: 600 !important;
+  padding: 8px !important;
+}
+
+.event-title a {
+  color: var(--frab-text) !important;
+  text-decoration: none !important;
+}
+
+.event-title a:hover {
+  color: var(--bs-primary) !important;
+  text-decoration: underline !important;
+}
+
+// Timeline specific fixes for readability
+.card-header.bg-primary .text-white,
+.card-header.bg-primary h4,
+.card-header.bg-primary h5,
+.card-header.bg-primary h6 {
+  color: white !important;
+}
+
+// Fix blue text in blue boxes - ensure links in cards have proper contrast
+.card .fw-bold a,
+.card .fw-semibold a,
+.event .fw-bold a {
+  color: var(--frab-text) !important;
+  text-decoration: none !important;
+}
+
+.card .fw-bold a:hover,
+.card .fw-semibold a:hover,
+.event .fw-bold a:hover {
+  color: var(--bs-primary) !important;
+  text-decoration: underline !important;
+}
+
+// Ensure proper contrast for text in primary background areas
+.bg-primary .text-primary,
+.bg-primary h5,
+.bg-primary .mb-0 {
+  color: white !important;
+}

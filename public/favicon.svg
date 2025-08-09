@@ -1,0 +1,32 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="favGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#1a5490"></stop>
+<stop offset="100%" style="stop-color:#4a9eff"></stop>
+</linearGradient>
+</defs>
+
+<rect width="64" height="64" rx="12" fill="url(#favGrad1)"></rect>
+
+<g transform="translate(16, 16)">
+<rect x="0" y="6" width="32" height="26" rx="3" fill="#f8f9fa" stroke="#2d7d32" stroke-width="1.5"></rect>
+
+<rect x="2" y="8" width="28" height="6" rx="2" fill="#4a9eff"></rect>
+
+<circle cx="8" cy="4" r="2.5" fill="white" stroke="#2d7d32" stroke-width="2"></circle>
+<circle cx="24" cy="4" r="2.5" fill="white" stroke="#2d7d32" stroke-width="2"></circle>
+<circle cx="8" cy="4" r="1.2" fill="#1a5490"></circle>
+<circle cx="24" cy="4" r="1.2" fill="#1a5490"></circle>
+<circle cx="8.3" cy="3.7" r="0.4" fill="white"></circle>
+<circle cx="24.3" cy="3.7" r="0.4" fill="white"></circle>
+
+<path d="M 10 11 Q 16 13 22 11" stroke="#2d7d32" stroke-width="1" fill="none" opacity="0.6"></path>
+
+<rect x="5" y="18" width="6" height="2" rx="1" fill="#1a5490"></rect>
+<rect x="14" y="18" width="8" height="2" rx="1" fill="#1a5490"></rect>
+<rect x="5" y="22" width="10" height="2" rx="1" fill="#4a9eff"></rect>
+<rect x="18" y="22" width="6" height="2" rx="1" fill="#4a9eff"></rect>
+<rect x="5" y="26" width="8" height="2" rx="1" fill="#1a5490"></rect>
+<rect x="15" y="26" width="6" height="2" rx="1" fill="#2d7d32"></rect>
+</g>
+</svg>

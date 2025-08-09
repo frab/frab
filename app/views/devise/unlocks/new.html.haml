@@ -1,19 +1,21 @@
 - content_for :title do
-  = link_to t('page_titles.unlock_instructions'), root_url, class: 'brand'
+  = link_to t('page_titles.unlock_instructions'), root_url, class: 'navbar-brand'
 
 %section
   .page-header
     %h1= t('titles.unlock_instructions')
 
   .row
-    .span16
+    .col-md-12
       = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }, defaults:{error: false}) do |f|
-        = render partial: 'devise/shared/error_messages', resource: resource
+
+        %div{class: "alert alert-danger alert-dismissible fade show", role: :alert}
+          = render partial: 'devise/shared/error_messages', resource: resource
 
         %fieldset.inputs
           = f.input :email
 
         .actions
-          = f.button :submit, class: 'primary', value: t('devise.resend_unlock_instructions')
+          = f.button :submit, class: 'btn btn-primary', value: t('devise.resend_unlock_instructions')
 
 = render "devise/shared/links"

@@ -3,8 +3,8 @@
     %h1= t('schedule_module.html_exports')
   - if policy(@conference).read?
     .row
-      .span8
-        %table.zebra-striped
+      .col-md-8
+        %table.table.table-striped
           %thead
             %tr
               %th= t('schedule_module.create_static_export')
@@ -14,7 +14,7 @@
               - conference_export = @conference.conference_export(locale)
               %tr
                 %td
-                  = action_button '', t('schedule_module.create_locale', export_locale: locale), schedule_create_static_export_path(export_locale: locale), method: :post, hint: t('schedule_module.create_locale_hint')
+                  = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('schedule_module.create_locale', export_locale: locale), schedule_create_static_export_path(export_locale: locale), method: :post, hint: t('schedule_module.create_locale_hint'), class: "btn"
                 %td
                   - if conference_export&.tarball&.path && File.readable?(conference_export.tarball.path)
                     - date = l(Time.at(conference_export.tarball.updated_at), format: :pretty_datetime)

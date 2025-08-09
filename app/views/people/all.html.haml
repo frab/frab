@@ -1,11 +1,14 @@
 %section
   .page-header
-    .pull-right
+    .float-end
       - if policy(@conference).manage?
-        = action_button "primary", t('people_module.add_person'), new_person_path, title: t('people_module.add_person_hint')
+        = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('people_module.add_person'), new_person_path, title: t('people_module.add_person_hint'), class: "btn btn-primary"
     %h1= t('people_module.list_of_people')
-  %ul.tabs
-    %li= link_to t('this_conference'), people_path
-    %li= link_to t('speakers'), speakers_people_path
-    %li.active= link_to t('people_module.all_people'), all_people_path
+  %ul.nav.nav-tabs
+    %li.nav-item
+      = link_to t('this_conference'), people_path, class: 'nav-link'
+    %li.nav-item
+      = link_to t('speakers'), speakers_people_path, class: 'nav-link'
+    %li.nav-item
+      = link_to t('people_module.all_people'), all_people_path, class: 'nav-link active'
   = render 'shared/search_and_table', collection: @people

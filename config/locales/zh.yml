@@ -1201,7 +1201,6 @@ zh:
       submit: 保存%{model}
       update: 更新%{model}
   hint: 暗示
-  home: 家
   import: 进口
   inputs:
     hints:
@@ -1744,7 +1743,7 @@ zh:
   manage_conference: 管理这个会议
   manage_conference_flash: 您已作为该会议的工作人员登录。您要管理这次会议吗？
   manual: 手册
-  more: 更多...
+  more: 更多
   multiple_indication: 多
   name: 名称
   navigation:

@@ -1,0 +1,63 @@
+{{- if .Values.frab.google.enabled }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "frab.fullname" . }}-test-google-oauth"
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  containers:
+  - name: test
+    image: busybox:1.35
+    envFrom:
+    - configMapRef:
+        name: {{ include "frab.fullname" . }}-config
+    - secretRef:
+        name: {{ include "frab.fullname" . }}-secret
+    command:
+    - /bin/sh
+    - -c
+    - |
+      set -e
+      echo "Testing Google OAuth configuration..."
+      
+      # Check if Google OAuth environment variables are set
+      if [ -n "$GOOGLE_CLIENT_ID" ]; then
+        echo "✓ GOOGLE_CLIENT_ID is configured"
+        
+        # Validate format (should look like a Google client ID)
+        if echo "$GOOGLE_CLIENT_ID" | grep -q "\.googleusercontent\.com$"; then
+          echo "✓ GOOGLE_CLIENT_ID format appears valid"
+        else
+          echo "⚠ GOOGLE_CLIENT_ID format may be invalid (should end with .googleusercontent.com)"
+        fi
+      else
+        echo "ℹ GOOGLE_CLIENT_ID not configured (expected for non-OAuth deployments)"
+      fi
+      
+      if [ -n "$GOOGLE_CLIENT_SECRET" ]; then
+        echo "✓ GOOGLE_CLIENT_SECRET is available from secret"
+        
+        # Check secret is not empty
+        if [ ${#GOOGLE_CLIENT_SECRET} -gt 10 ]; then
+          echo "✓ GOOGLE_CLIENT_SECRET appears to have valid length"
+        else
+          echo "⚠ GOOGLE_CLIENT_SECRET appears too short"
+        fi
+      else
+        echo "ℹ GOOGLE_CLIENT_SECRET not configured"
+      fi
+      
+      if [ -n "$OVERRIDE_PROFILE_PHOTO" ]; then
+        echo "✓ OVERRIDE_PROFILE_PHOTO is configured: $OVERRIDE_PROFILE_PHOTO"
+      else
+        echo "ℹ OVERRIDE_PROFILE_PHOTO not configured (default: false)"
+      fi
+      
+      echo "Google OAuth configuration test completed!"
+{{- end }}

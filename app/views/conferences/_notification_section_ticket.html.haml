@@ -24,7 +24,7 @@
                       event: t('notifications_module.n_events', :count => e.count - noticket.count)}),
                 { action: 'send_notification', notification: state },
                 { class: "btn danger",
-                  data: { confirm: t('notifications_module.send_notification_confirm',
+                  data: { controller: "confirm", action: "click->confirm#confirm", "confirm-message-value": t('notifications_module.send_notification_confirm',
                                      **{ name: t(name, scope: 'notifications_module.notif'),
                                          count: e.count - noticket.count}),
                           disable_with: t('work_in_progress') }})

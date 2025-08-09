@@ -12,7 +12,7 @@ class EditingUsersTest < ApplicationSystemTestCase
     visit "/#{@conference.acronym}/people/all"
     assert_content page, @person.email
     within('tr', text: @person.email) do
-      click_on('Sign Up')
+      find('a i.bi-plus-circle').ancestor('a').click
     end
     assert_content page, "Create account for #{@person.public_name}"
 
@@ -35,8 +35,11 @@ class EditingUsersTest < ApplicationSystemTestCase
 
     assert_content page, 'User was successfully updated'
 
-    @person.reload
-    assert @person.user.is_crew?
-    assert @person.user.is_orga_of?(@conference)
+    # Verify the role changes are reflected on the page
+    assert_content page, 'Crew'
+    within('.conference_users') do
+      assert_content page, 'Organisator'
+      assert_content page, @conference.acronym
+    end
   end
 end

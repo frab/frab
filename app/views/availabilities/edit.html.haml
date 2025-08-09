@@ -1,9 +1,9 @@
 %section
   .page-header
-    .pull-right
+    .float-end
     %h1
       = t('titles.person', person: @person.full_name)
   = render 'shared/people_tabs'
   .row
-    .span16
+    .col-md-12
       = render 'form'

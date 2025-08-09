@@ -1,5 +1,7 @@
 .nested-fields
-  %fieldset.inputs
-    = f.input :im_type, collection: translated_options(ImAccount::TYPES)
-    = f.input :im_address
-    = remove_association_link :im_account, f
+  %fieldset.border.p-3.mb-4
+    .d-flex.flex-wrap.gap-3
+      = f.input :im_type, collection: translated_options(ImAccount::TYPES)
+      = f.input :im_address
+      .d-flex.align-items-end.pb-3
+        = remove_association_link :im_account, f

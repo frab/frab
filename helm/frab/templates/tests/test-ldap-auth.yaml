@@ -1,0 +1,55 @@
+{{- if .Values.frab.ldap.enabled }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "frab.fullname" . }}-test-ldap"
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "4"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  containers:
+  - name: test
+    image: busybox:1.35
+    envFrom:
+    - configMapRef:
+        name: {{ include "frab.fullname" . }}-config
+    - secretRef:
+        name: {{ include "frab.fullname" . }}-secret
+    command:
+    - /bin/sh
+    - -c
+    - |
+      set -e
+      echo "Testing LDAP authentication configuration..."
+      
+      # Check if LDAP environment variables are set correctly
+      if [ -n "$LDAP_HOST" ]; then
+        echo "✓ LDAP_HOST is configured: $LDAP_HOST"
+      else
+        echo "ℹ LDAP_HOST not configured (expected for non-LDAP deployments)"
+      fi
+      
+      if [ -n "$LDAP_PORT" ]; then
+        echo "✓ LDAP_PORT is configured: $LDAP_PORT"
+      else
+        echo "ℹ LDAP_PORT not configured"
+      fi
+      
+      if [ -n "$LDAP_BASE_DN" ]; then
+        echo "✓ LDAP_BASE_DN is configured"
+      else
+        echo "ℹ LDAP_BASE_DN not configured"
+      fi
+      
+      if [ -n "$LDAP_BIND_PASSWORD" ]; then
+        echo "✓ LDAP_BIND_PASSWORD is available from secret"
+      else
+        echo "ℹ LDAP_BIND_PASSWORD not configured (may use anonymous bind)"
+      fi
+      
+      echo "LDAP configuration test completed!"
+{{- end }}

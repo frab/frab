@@ -35,6 +35,8 @@ class Event < ApplicationRecord
     styles: { tiny: '16x16>', small: '32x32>', large: '128x128>' },
     default_url: 'event_:style.png'
 
+  validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
+
   accepts_nested_attributes_for :event_people, allow_destroy: true, reject_if: proc { |attr| attr[:person_id].blank? }
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :event_attachments, allow_destroy: true, reject_if: :all_blank
@@ -42,8 +44,6 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_classifiers, allow_destroy: true
   accepts_nested_attributes_for :event_ratings, allow_destroy: true
   accepts_nested_attributes_for :average_review_scores, allow_destroy: true
-
-  validates_attachment_content_type :logo, content_type: [/jpg/, /jpeg/, /png/, /gif/]
 
   validates :title, :time_slots, presence: true
   validates :title, length: { maximum: 255 }

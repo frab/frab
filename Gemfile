@@ -4,11 +4,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-install_if -> { RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/ } do
-  gem 'rb-kqueue', ">= 0.2", platforms: :ruby
-end
-
-
 if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION'] # i.e.: '2.3'
 end
@@ -17,10 +12,10 @@ gem 'rails', '~> 7.1.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails'
+
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
+gem 'stimulus-rails'
 
 gem 'mysql2', group: :mysql
 gem 'pg', group: :postgresql
@@ -37,12 +32,6 @@ group :capistrano, optional: true do
   gem 'capistrano-rvm',     require: false
   gem 'capistrano3-puma',   require: false
 end
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-migrate-rails'
-gem 'jquery-ui-rails'
-gem 'rangesliderjs-rails', '~> 2.3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
@@ -100,6 +89,9 @@ group :development, :test do
   gem 'faker'
   gem 'i18n-tasks'
   gem 'easy_translate'
+
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ]
 end
 
 group :test do
@@ -107,7 +99,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
 
-  gem 'capybara', '>= 3.26'
+  gem 'capybara'
   gem 'selenium-webdriver'
 end
 

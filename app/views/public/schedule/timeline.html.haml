@@ -3,31 +3,54 @@
 
 = render 'track_menu'
 
-%h2.title= t '.events'
+.row.mb-4
+  .col-12
+    %h2.title.mb-0.schedule-heading
+      %i.bi.bi-list-ul.me-2.schedule-icon-primary
+      = t '.events'
 
 = render 'day_menu'
 
 - @view_model.events_by_day.each do |day, start_times|
   %a{name: "day#{day.id}"}
-  %h2= l(day.start_date, format: :day)
-  %hr
-  - start_times.sort.each do |start_time, events|
-    .event-time
-      %h3= start_time.strftime("%H:%M")
-
-    .event-list
-      - if events.count >  0
-        - events.sort_by { |a| [a.track&.name ? 1 : 0, a.track&.name] }.each do |event|
-          .event{class: track_class(event)}
-            .event-wrapper
-              .event-header
-                %h2= link_to event.title, public_event_path(id: event.id)
-              .event-details
-                .subtitle
-                  = event.subtitle
-                %i
-                  = event.room&.name
-                  - if @conference.languages_including_subs.count > 1
-                    = "(#{event.language})"
-
-    %br.clear
+  .card.mb-4.border-0.shadow-sm
+    .card-header.bg-primary.text-white
+      %h4.mb-0
+        %i.bi.bi-calendar.me-2
+        = l(day.start_date, format: :day)
+    .card-body.p-0
+      - start_times.sort.each_with_index do |(start_time, events), time_index|
+        - if events.count > 0
+          .border-bottom.bg-light.p-3
+            %h5.mb-0.text-primary
+              %i.bi.bi-clock.me-2
+              = start_time.strftime("%H:%M")
+          
+          - events.sort_by { |a| [a.track&.name ? 1 : 0, a.track&.name] }.each_with_index do |event, event_index|
+            .p-3{class: (event_index < events.count - 1 || time_index < start_times.sort.count - 1) ? 'border-bottom' : ''}
+              .row.g-3
+                .col-12.col-md-8
+                  .event{class: track_class(event)}
+                    %h6.mb-2
+                      = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none fw-bold"
+                    - if event.subtitle.present?
+                      .text-muted.mb-2= event.subtitle
+                    - if event.abstract.present?
+                      .small.text-muted
+                        = truncate(event.abstract, length: 150, separator: ' ')
+                
+                .col-12.col-md-4
+                  .d-flex.flex-column.gap-2
+                    - if event.room&.name
+                      .d-flex.align-items-center
+                        %i.bi.bi-geo-alt.me-2.text-muted
+                        %small= event.room.name
+                    - if @conference.languages_including_subs.count > 1
+                      .d-flex.align-items-center
+                        %i.bi.bi-translate.me-2.text-muted
+                        %small= event.language
+                    - if event.speakers.any?
+                      .d-flex.align-items-center
+                        %i.bi.bi-person.me-2.text-muted
+                        %small
+                          = event.speakers.map{|p| link_to(h(p.public_name), public_speaker_path(id: p.id), class: "text-decoration-none")}.join(", ").html_safe

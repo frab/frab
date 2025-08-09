@@ -1,44 +1,46 @@
-%table.zebra-striped
-  %thead
-    %tr
-      %th.first
-      - if @search
-        %th= sort_link @search, :first_name, term: params[:term]
-        %th= sort_link @search, :last_name, term: params[:term]
-        %th= sort_link @search, :public_name, term: params[:term]
-        %th= sort_link @search, :email, term: params[:term]
-        - if @conference.ticket_server_enabled?
-          %th= t('ticket')
-        %th
-      - else
-        %th= Person.human_attribute_name('first_name')
-        %th= Person.human_attribute_name('last_name')
-        %th= Person.human_attribute_name('public_name')
-        %th= Person.human_attribute_name('email')
-        - if @conference.ticket_server_enabled?
-          %th= t('ticket')
-      %th.last
-  %tbody
-    - collection.each do |person|
+.table-responsive
+  %table.table.table-striped
+    %thead
       %tr
-        %td= image_box person.avatar, :small
-        %td= link_to person.first_name, person
-        %td= link_to person.last_name, person
-        %td= link_to person.public_name, person
-        %td= link_to person.email, person
-        - if @conference.ticket_server_enabled?
-          %td
-            - if person.remote_ticket?
-              -if @conference.ticket_server.nil?
-                = person.ticket.remote_ticket_id
-              -else
-                = link_to person.ticket.remote_ticket_id, get_ticket_view_url(person.ticket.remote_ticket_id ), target: "_blank"
-        %td.buttons
-          = action_button "small", t('show'), person
-          - if policy(person).manage?
-            = action_button "small", t('edit_person'), edit_person_path(person)
-            - if person.user.nil?
-              = action_button "small", t('cfp.sign_up'), new_person_user_path(person)
-            - else
-              = action_button "small", t('edit_account'), edit_person_user_path(person)
-            = action_button "small danger", t('destroy'), person, data: { confirm: t('are_you_sure') }, method: :delete
+        %th.first
+        - if @search
+          %th= sort_link @search, :first_name, term: params[:term]
+          %th= sort_link @search, :last_name, term: params[:term]
+          %th= sort_link @search, :public_name, term: params[:term]
+          %th= sort_link @search, :email, term: params[:term]
+          - if @conference.ticket_server_enabled?
+            %th= t('ticket')
+          %th
+        - else
+          %th= Person.human_attribute_name('first_name')
+          %th= Person.human_attribute_name('last_name')
+          %th= Person.human_attribute_name('public_name')
+          %th= Person.human_attribute_name('email')
+          - if @conference.ticket_server_enabled?
+            %th= t('ticket')
+        %th.last
+    %tbody
+      - collection.each do |person|
+        %tr
+          %td= image_box person.avatar, :small
+          %td= link_to person.first_name, person
+          %td= link_to person.last_name, person
+          %td= link_to person.public_name, person
+          %td= link_to person.email, person
+          - if @conference.ticket_server_enabled?
+            %td
+              - if person.remote_ticket?
+                -if @conference.ticket_server.nil?
+                  = person.ticket.remote_ticket_id
+                -else
+                  = link_to person.ticket.remote_ticket_id, get_ticket_view_url(person.ticket.remote_ticket_id ), target: "_blank"
+          %td.buttons
+            .d-flex.flex-wrap.gap-2
+              = action_button '<i class="bi bi-eye"></i> '.html_safe, person, class: "btn btn-primary btn-sm", hint: t('show')
+              - if policy(person).manage?
+                = action_button '<i class="bi bi-pencil-square"></i> '.html_safe, edit_person_path(person), class: "btn btn-primary btn-sm", hint: t('edit_person')
+                - if person.user.nil?
+                  = action_button '<i class="bi bi-plus-circle"></i> '.html_safe, new_person_user_path(person), class: "btn btn-primary btn-sm", hint: t('cfp.sign_up')
+                - else
+                  = action_button '<i class="bi bi-person"></i> '.html_safe, edit_person_user_path(person), class: "btn btn-primary btn-sm", hint: t('edit_account')
+                = delete_button person, hint: t('destroy')

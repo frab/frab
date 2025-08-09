@@ -1,79 +1,98 @@
 %section
   .page-header
-    .pull-right
-      - if policy(Conference).manage?
-        = action_button "primary", t('people_module.edit_person'), edit_person_path(@person), hint: t('people_module.edit_person_hint')
-        = action_button "add", t('people_module.add_person'), new_person_path, hint: t('people_module.add_person_hint')
-      - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
-        = action_button "attend", t('people_module.attending'), attend_person_path, hint: t('people_module.attending_hint'), method: 'PUT'
-      - if @view_model.can_add_ticket?
-        = action_button "primary", t('people_module.add_ticket'), create_person_ticket_path(person_id: @person), method: :post, hint: t('people_module.add_ticket_hint')
-    %h1= t('titles.person', person: @person.full_name)
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      %h1.mb-0= t('titles.person', person: @person.full_name)
+      .d-flex.flex-wrap.gap-2
+        - if policy(Conference).manage?
+          = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('people_module.edit_person'), edit_person_path(@person), hint: t('people_module.edit_person_hint'), class: "btn btn-primary"
+          = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('people_module.add_person'), new_person_path, hint: t('people_module.add_person_hint'), class: "btn btn-secondary"
+        - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
+          = action_button '<i class="bi bi-check-circle"></i> '.html_safe + t('people_module.attending'), attend_person_path, hint: t('people_module.attending_hint'), method: 'PUT', class: "btn btn-secondary"
+        - if @view_model.can_add_ticket?
+          = action_button '<i class="bi bi-ticket"></i> '.html_safe + t('people_module.add_ticket'), create_person_ticket_path(person_id: @person), method: :post, hint: t('people_module.add_ticket_hint'), class: "btn btn-primary"
   = render 'shared/people_tabs'
   - if policy(Conference).manage? && @person.user.nil?
-    .row
-      .span16
-        %p.message= raw(markdown_render(t('people_module.no_user_account')))
+    .row.mb-4
+      .col-12
+        .alert.alert-info= raw(markdown_render(t('people_module.no_user_account')))
 
-  .row
-    .span6
-      %h2= t('basic_information')
-      %p
-        %b= t('col_first_name')
-        = @person.first_name
-      %p
-        %b= t('col_last_name')
-        = @person.last_name
-      %p
-        %b= t('col_public_name')
-        = @person.public_name
-      %p
-        %b= t('col_gender')
-        = t("options.#{@person.gender}") if @person.gender
+  .row.g-4
+    .col-12.col-lg-8
+      .row.g-4
+        .col-12.col-md-6
+          .card.h-100
+            .card-header
+              %h5.card-title.mb-0= t('basic_information')
+            .card-body
+              .mb-3
+                %strong.text-muted= t('col_first_name') + ':'
+                %div= @person.first_name
+              .mb-3
+                %strong.text-muted= t('col_last_name') + ':'
+                %div= @person.last_name
+              .mb-3
+                %strong.text-muted= t('col_public_name') + ':'
+                %div= @person.public_name
+              - if @person.gender
+                .mb-3
+                  %strong.text-muted= t('col_gender') + ':'
+                  %div= t("options.#{@person.gender}")
+              
+              - if @conference
+                = render 'conference_status'
 
-      - if @conference
-        = render 'conference_status'
+        - if policy(Conference).manage?
+          .col-12.col-md-6
+            .card.h-100
+              .card-header
+                %h5.card-title.mb-0= t('contact_information')
+              .card-body
+                .mb-3
+                  %strong.text-muted= t('col_email') + ':'
+                  %div
+                    = mail_to @person.email, class: "link-primary"
+                    %small.text-muted.d-block
+                      = @person.email_public? ? t('is_public') : t('is_not_public')
+                - @person.phone_numbers.each do |phone_number|
+                  .mb-3
+                    %strong.text-muted= t('col_phone_number_with_type', type: phone_number.phone_type) + ':'
+                    %div= phone_number.phone_number
+                - @person.im_accounts.each do |im_account|
+                  .mb-0
+                    %strong.text-muted= t('col_col_template', data: im_account.im_type) + ':'
+                    %div= im_account.im_address
 
-    - if policy(Conference).manage?
-      .span6
-        %h2= t('contact_information')
-        %p
-          %b= t('col_email')
-          = mail_to @person.email
-          (#{@person.email_public? ? t('is_public') : t('is_not_public')})
-        - @person.phone_numbers.each do |phone_number|
-          %p
-            %b= t('col_phone_number_with_type', type: phone_number.phone_type)
-            = phone_number.phone_number
-        - @person.im_accounts.each do |im_account|
-          %p
-            %b= t('col_col_template', data: im_account.im_type)
-            = im_account.im_address
-    .span4
-      = image_box @person.avatar, :large
-%section
+    .col-12.col-lg-4
+      - if @person.avatar.present?
+        .card
+          .card-body.text-center
+            = image_box @person.avatar, :large, class: "img-fluid rounded"
+%section.mt-4
   .row
-    .span16
-      %h2=t('cfp.bio')
-  .row
-    .span6
-      %p
-        %b= t('col_abstract')
-        = simple_format @person.abstract
-      %p
-        %b= t('col_links')
-        %br/
-        - @person.links.each do |link|
-          = link_to link.title, link.url
-          %br/
-    .span10
-      %p
-        %b= t('col_description')
-        = simple_format @person.description
-    .span10
-      %p
-        %b= t('col_notes_admin')
-        = @person.note
+    .col-12
+      .card
+        .card-header
+          %h5.card-title.mb-0= t('cfp.bio')
+        .card-body
+          .row.g-4
+            - if @person.abstract.present?
+              .col-12.col-lg-6
+                %h6.text-muted.mb-2= t('col_abstract')
+                .content-text= simple_format @person.abstract
+            - if @person.description.present?
+              .col-12{class: @person.abstract.present? ? "col-lg-6" : ""}
+                %h6.text-muted.mb-2= t('col_description')
+                .content-text= simple_format @person.description
+            - if @person.links.any?
+              .col-12.col-md-6
+                %h6.text-muted.mb-2= t('col_links')
+                .list-group.list-group-flush
+                  - @person.links.each do |link|
+                    = link_to link.title, link.url, target: "_blank", class: "list-group-item list-group-item-action border-0 px-0"
+            - if policy(Conference).manage? && @person.note.present?
+              .col-12
+                %h6.text-muted.mb-2= t('col_notes_admin')
+                .alert.alert-info.mb-0= simple_format @person.note
 
 = render 'conference_events'
 

@@ -1,0 +1,129 @@
+suite: test pvc
+templates:
+  - pvc.yaml
+tests:
+  - it: should render both PVCs when both enabled
+    set:
+      persistence.data.enabled: true
+      persistence.public.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 2
+      - isKind:
+          of: PersistentVolumeClaim
+          documentIndex: 0
+      - isKind:
+          of: PersistentVolumeClaim
+          documentIndex: 1
+      # Both PVCs should exist - don't care about order
+      - isNotEmpty:
+          path: metadata.name
+      # Data PVC should have install hook and keep policy
+      - equal:
+          path: metadata.annotations["helm.sh/resource-policy"]
+          value: "keep"
+          documentIndex: 0
+      # Public PVC should only have keep policy (no hook)
+      - equal:
+          path: metadata.annotations["helm.sh/resource-policy"]
+          value: "keep"
+          documentIndex: 1
+
+  - it: should not render PVCs when persistence disabled
+    set:
+      persistence.data.enabled: false
+      persistence.public.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render only data PVC when only data enabled
+    set:
+      persistence.data.enabled: true
+      persistence.public.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-frab-data
+          documentIndex: 0
+
+  - it: should render only public PVC when only public enabled
+    set:
+      persistence.data.enabled: false
+      persistence.public.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-frab-public
+          documentIndex: 0
+
+  - it: should use custom storage class for data PVC
+    set:
+      persistence.data.enabled: true
+      persistence.data.storageClass: "fast-ssd"
+      persistence.public.enabled: false
+    asserts:
+      - equal:
+          path: spec.storageClassName
+          value: "fast-ssd"
+          documentIndex: 0
+
+  - it: should use custom storage class for public PVC
+    set:
+      persistence.data.enabled: false
+      persistence.public.enabled: true
+      persistence.public.storageClass: "slow-hdd"
+    asserts:
+      - equal:
+          path: spec.storageClassName
+          value: "slow-hdd"
+          documentIndex: 0
+
+  - it: should use custom data PVC size
+    set:
+      persistence.data.enabled: true
+      persistence.data.size: "20Gi"
+      persistence.public.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: spec.resources.requests.storage
+          value: "20Gi"
+          documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: "RELEASE-NAME-frab-data"
+          documentIndex: 0
+
+  - it: should use custom public PVC size
+    set:
+      persistence.data.enabled: false
+      persistence.public.enabled: true
+      persistence.public.size: "15Gi"
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: spec.resources.requests.storage
+          value: "15Gi"
+          documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: "RELEASE-NAME-frab-public"
+          documentIndex: 0
+
+  - it: should use custom access modes
+    set:
+      persistence.data.enabled: true
+      persistence.data.accessMode: "ReadWriteMany"
+      persistence.public.enabled: false
+    asserts:
+      - equal:
+          path: spec.accessModes[0]
+          value: "ReadWriteMany"
+          documentIndex: 0

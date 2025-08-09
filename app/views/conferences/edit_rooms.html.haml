@@ -5,7 +5,7 @@
 
   - if @conference.sub_conference? && !policy(@conference).manage?
     .row
-      .span16
+      .col-md-12
         .blank-slate
           %p= t('rooms_modules.modify_room_with_parent', parent: @conference.parent.title)
 
@@ -19,9 +19,9 @@
   -else
     - if @conference.rooms.empty?
       .row
-        .span16
+        .col-md-12
           .blank-slate
             %p= t('rooms_module.empty_rooms')
     .row
-      .span16
+      .col-md-12
         = render 'form_rooms'

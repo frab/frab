@@ -1,6 +1,7 @@
 class ImportExportHelper
   EXPORT_DIR = 'tmp/frab_export'.freeze
   PERMITTED_CLASSES = [
+    Date,
     Time,
     ActiveSupport::TimeZone,
     ActiveSupport::TimeWithZone
@@ -16,7 +17,7 @@ class ImportExportHelper
   def run_export
     if @conference.nil?
       puts "[!] the conference wasn't found."
-      exit
+      raise "Conference not found for export"
     end
 
     FileUtils.mkdir_p(@export_dir)
@@ -40,6 +41,31 @@ class ImportExportHelper
       attachments = dump_has_many 'event_attachments', @conference.events, 'event_attachments'
       dump_has_many 'event_ratings', @conference.events, 'event_ratings'
       dump_has_many 'event_review_scores', @conference.events, 'review_scores'
+
+      # Export translation tables for Mobility
+      event_ids = events.collect(&:id)
+      if ActiveRecord::Base.connection.table_exists?('event_translations')
+        event_translations = ActiveRecord::Base.connection.select_all(
+          "SELECT * FROM event_translations WHERE event_id IN (#{event_ids.join(',')})"
+        ).to_a
+        File.open(File.join(@export_dir, 'event_translations.yaml'), 'w') { |f| f.puts event_translations.to_yaml }
+      end
+
+      person_ids = people.collect(&:id).compact
+      if person_ids.any? && ActiveRecord::Base.connection.table_exists?('person_translations')
+        person_translations = ActiveRecord::Base.connection.select_all(
+          "SELECT * FROM person_translations WHERE person_id IN (#{person_ids.join(',')})"
+        ).to_a
+        File.open(File.join(@export_dir, 'person_translations.yaml'), 'w') { |f| f.puts person_translations.to_yaml }
+      end
+
+      track_ids = @conference.tracks.collect(&:id)
+      if track_ids.any? && ActiveRecord::Base.connection.table_exists?('track_translations')
+        track_translations = ActiveRecord::Base.connection.select_all(
+          "SELECT * FROM track_translations WHERE track_id IN (#{track_ids.join(',')})"
+        ).to_a
+        File.open(File.join(@export_dir, 'track_translations.yaml'), 'w') { |f| f.puts track_translations.to_yaml }
+      end
       dump_has_many 'people_phone_numbers', people, 'phone_numbers'
       dump_has_many 'people_im_accounts', people, 'im_accounts'
       dump_has_many 'people_links', people, 'links'
@@ -56,7 +82,7 @@ class ImportExportHelper
     @export_dir = export_dir
     unless File.directory? @export_dir
       puts "Directory #{@export_dir} does not exist!"
-      exit
+      raise "Import directory #{@export_dir} does not exist!"
     end
     disable_callbacks
 
@@ -77,6 +103,27 @@ class ImportExportHelper
     enable_callbacks
   end
 
+  def create_import_tarball
+    conference_acronym = @conference&.acronym || 'conference_export'
+    tarball_name = "#{conference_acronym}_#{Time.current.strftime('%Y%m%d_%H%M%S')}.tar.gz"
+    tarball_path = Rails.root.join('tmp', tarball_name)
+
+    puts "Creating tarball: #{tarball_path}" if verbose?
+
+    # Create tarball with the export directory
+    success = system('tar', '-czf', tarball_path.to_s, '-C', 'tmp', 'frab_export')
+
+    if success
+      puts "✓ Export tarball created: #{tarball_path}" if verbose?
+      puts "  Ready for import via web interface" if verbose?
+    else
+      puts "✗ Failed to create tarball" if verbose?
+      raise "Failed to create export tarball"
+    end
+
+    tarball_path
+  end
+
   private
 
   def restore_all_data
@@ -84,7 +131,7 @@ class ImportExportHelper
       test = Conference.find_by(acronym: c.acronym)
       if test
         puts "conference #{c} already exists!"
-        exit
+        raise "Conference '#{c.acronym}' already exists!"
       end
       puts "    #{c}" if verbose?
       c.save!
@@ -111,6 +158,13 @@ class ImportExportHelper
         if (file = import_file('people/avatars', id, obj.avatar_file_name))
           obj.avatar = file
         end
+
+        # Handle missing person names gracefully
+        if obj.public_name.blank? && obj.first_name.blank? && obj.last_name.blank?
+          obj.public_name = "Anonymous ##{id}"
+          puts "Warning: Person #{id} had no name, setting to '#{obj.public_name}'" if verbose?
+        end
+
         obj.save!
         @mappings[:people][id] = obj.id
         @mappings[:people_user][obj.user_id] = obj
@@ -146,13 +200,19 @@ class ImportExportHelper
         obj.logo = file
       end
       obj.regenerate_invite_token if Event.where(invite_token: obj.invite_token).any?
-      obj.save!
+      obj.language = "en"
+
+      # For Mobility-enabled events, titles are in translations table - skip validation temporarily
+      obj.save!(validate: false)
       @mappings[:events][id] = obj.id
     end
 
     # updates the mappings: event_ratings
     # uses mappings: events, people
     restore_events_data
+
+    # Import translation tables
+    restore_translation_data
 
     # uses mappings: people, days
     restore_people_data
@@ -246,6 +306,65 @@ class ImportExportHelper
         obj.attachment = file
       end
       obj.save!
+    end
+  end
+
+  def restore_translation_data
+    # Restore event translations
+    if File.exist?(File.join(@export_dir, 'event_translations.yaml'))
+      translations = read_yaml_from_file('event_translations')
+      translations&.each do |translation|
+        old_event_id = translation['event_id']
+        new_event_id = @mappings[:events][old_event_id]
+
+        if new_event_id
+          translation['event_id'] = new_event_id
+          translation.delete('id') # Remove old ID
+
+          ActiveRecord::Base.connection.execute(
+            "INSERT INTO event_translations (#{translation.keys.join(', ')})
+             VALUES (#{translation.values.map { |v| ActiveRecord::Base.connection.quote(v) }.join(', ')})"
+          )
+        end
+      end
+    end
+
+    # Restore person translations
+    if File.exist?(File.join(@export_dir, 'person_translations.yaml'))
+      translations = read_yaml_from_file('person_translations')
+      translations&.each do |translation|
+        old_person_id = translation['person_id']
+        new_person_id = @mappings[:people][old_person_id]
+
+        if new_person_id
+          translation['person_id'] = new_person_id
+          translation.delete('id') # Remove old ID
+
+          ActiveRecord::Base.connection.execute(
+            "INSERT INTO person_translations (#{translation.keys.join(', ')})
+             VALUES (#{translation.values.map { |v| ActiveRecord::Base.connection.quote(v) }.join(', ')})"
+          )
+        end
+      end
+    end
+
+    # Restore track translations
+    if File.exist?(File.join(@export_dir, 'track_translations.yaml'))
+      translations = read_yaml_from_file('track_translations')
+      translations&.each do |translation|
+        old_track_id = translation['track_id']
+        new_track_id = @mappings[:tracks][old_track_id]
+
+        if new_track_id
+          translation['track_id'] = new_track_id
+          translation.delete('id') # Remove old ID
+
+          ActiveRecord::Base.connection.execute(
+            "INSERT INTO track_translations (#{translation.keys.join(', ')})
+             VALUES (#{translation.values.map { |v| ActiveRecord::Base.connection.quote(v) }.join(', ')})"
+          )
+        end
+      end
     end
   end
 
@@ -366,8 +485,13 @@ class ImportExportHelper
     paths << attachments.reject { |e| e.attachment.path.nil? }.collect { |e| e.attachment.path.gsub(/^#{Rails.root}\//, '') }
     paths.flatten!
 
-    # TODO don't use system
-    system('tar', *['-cpz', '-f', out_path, paths].flatten)
+    # Only create tar if there are files to archive
+    if paths.any?
+      # TODO don't use system
+      system('tar', *['-cpz', '-f', out_path, paths].flatten)
+    else
+      puts "No attachments to export, skipping attachments.tar.gz" if verbose?
+    end
   end
 
   def import_file(dir, id, file_name)
@@ -383,7 +507,11 @@ class ImportExportHelper
 
   def unpack_paperclip_files
     path = File.join(@export_dir, 'attachments.tar.gz')
-    system('tar', *['-xz', '-f', path, '-C', @export_dir].flatten)
+    if File.exist?(path)
+      system('tar', *['-xz', '-f', path, '-C', @export_dir].flatten)
+    else
+      puts "No attachments.tar.gz found, skipping attachment extraction" if verbose?
+    end
   end
 
   def save_schema_version
@@ -404,7 +532,7 @@ class ImportExportHelper
 
   def disable_callbacks
     EventPerson.skip_callback(:save, :after, :update_speaker_count)
-    Event.skip_callback(:save, :after, :update_conflicts)
+    EventPerson.skip_callback(:save, :after, :update_event_conflicts)
     Availability.skip_callback(:save, :after, :update_event_conflicts)
     EventRating.skip_callback(:save, :after, :update_average)
     EventFeedback.skip_callback(:save, :after, :update_average)
@@ -412,7 +540,7 @@ class ImportExportHelper
 
   def enable_callbacks
     EventPerson.set_callback(:save, :after, :update_speaker_count)
-    Event.set_callback(:save, :after, :update_conflicts)
+    EventPerson.set_callback(:save, :after, :update_event_conflicts)
     Availability.set_callback(:save, :after, :update_event_conflicts)
     EventRating.set_callback(:save, :after, :update_average)
     EventFeedback.set_callback(:save, :after, :update_average)

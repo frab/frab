@@ -1,5 +1,4 @@
-= block do
-  = content do
-    %h2=t('emails_module.new_mail_template')
-    = inner do
-      = render 'form'
+.card.shadow-sm
+  .card-body
+    %h2.card-title=t('emails_module.new_mail_template')
+    = render 'form'

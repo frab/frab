@@ -1,24 +1,76 @@
 %section
   .page-header
-    .pull-right
-      - if policy(@conference).manage? 
-        = action_button "primary", t('events_module.add_event'), new_event_path, hint: t('events_module.add_event_hint')
-      - if policy(@conference).manage? and !showing_my_events?
-        = action_button "", t('events_module.print_cards'), cards_events_path(format: :pdf), hint: t('events_module.print_cards_hint')
-        = action_button "", t('events_module.print_accepted_cards') , cards_events_path(accepted: true, format: :pdf), hint: t('events_module.print_accepted_cards_hint')
-
-    %h1=t('titles.event_list') unless showing_my_events?
-    %h1=t('events_module.my_events') if showing_my_events?
+    .d-flex.flex-column.flex-md-row.justify-content-between.align-items-start.align-items-md-center.gap-3.mb-4
+      .d-flex.flex-column
+        %h1.display-6.fw-bold.mb-0{style: "color: var(--frab-text);"}
+          = showing_my_events? ? t('events_module.my_events') : t('titles.event_list')
+      .d-flex.flex-column.flex-md-row.gap-2
+        - if policy(@conference).manage?
+          .d-flex.flex-wrap.gap-2
+            .btn-group{role: "group", "aria-label": "Primary actions"}
+              = action_button '<i class="bi bi-plus-circle me-1"></i>'.html_safe + '<span class="d-none d-lg-inline">'.html_safe + t('events_module.add_event') + '</span>'.html_safe, new_event_path, hint: t('events_module.add_event_hint'), class: "btn btn-primary"
+            - if @num_of_matching_events > 0
+              .btn-group{role: "group", "aria-label": "Bulk actions"}
+                = link_to '#', class: 'btn btn-outline-secondary', data: { bs_toggle: "modal", bs_target: "#bulkEditModal" }, title: t('events_module.bulk_edit.show'), "aria-label": t('events_module.bulk_edit.show') do
+                  %i.bi.bi-stack.me-1{"aria-hidden": "true"}
+                  %span.d-none.d-lg-inline= t('events_module.bulk_edit.show')
+                - if @conference.mail_templates.any?
+                  = link_to "#send_bulk_mail_form", class: 'btn btn-outline-secondary', data: { controller: "toggle", "toggle-target-value": "#send_bulk_mail_form", action: "click->toggle#toggle" }, title: t('events_module.toggle_send_bulk_mail'), "aria-label": t('events_module.toggle_send_bulk_mail') do
+                    %i.bi.bi-envelope.me-1{"aria-hidden": "true"}
+                    %span.d-none.d-lg-inline= t('events_module.toggle_send_bulk_mail')
+            - if !showing_my_events?
+              .dropdown
+                %button.btn.btn-outline-primary.dropdown-toggle{type: "button", id: "printDropdown", "data-bs-toggle": "dropdown", "aria-expanded": "false", "aria-haspopup": "true"}
+                  %i.bi.bi-printer.me-1
+                  %span.d-none.d-lg-inline= t('print', default: 'Print')
+                %ul.dropdown-menu{"aria-labelledby": "printDropdown"}
+                  %li
+                    = link_to cards_events_path(format: :pdf), class: 'dropdown-item' do
+                      %i.bi.bi-printer.me-2
+                      = t('events_module.print_cards')
+                  %li
+                    = link_to cards_events_path(accepted: true, format: :pdf), class: 'dropdown-item' do
+                      %i.bi.bi-printer.me-2
+                      = t('events_module.print_accepted_cards')
 
   = render partial: "event_list_tabs"
   - unless @conference.events.any?
-    .row
-      .span16
-        .blank-slate
-          %p= t('events_module.no_events') unless showing_my_events?
-          %p= t('events_module.not_involved') if showing_my_events?
+    .card.border-0.text-center.py-5{style: "background-color: var(--frab-bg-secondary); color: var(--frab-text);"}
+      .card-body
+        %i.bi.bi-calendar-event.fs-1.text-muted.mb-3
+        %h5.text-muted.mb-2= showing_my_events? ? t('events_module.not_involved') : t('events_module.no_events')
+        - if policy(@conference).manage? && !showing_my_events?
+          %p.text-muted.small.mb-3= t('events_module.get_started_hint', default: 'Get started by adding your first event')
+          = link_to new_event_path, class: 'btn btn-primary' do
+            %i.bi.bi-plus-circle.me-2
+            = t('events_module.add_event')
   - else
     = render partial: 'filters', locals: { params: params }
+
+    - if policy(@conference).manage? and @conference.mail_templates.any? and @num_of_matching_events > 0
+      #send_bulk_mail_form.card.mb-3{style: "display:none;"}
+        .card-header
+          %h6.mb-0
+            %i.bi.bi-envelope.me-2
+            = t('events_module.toggle_send_bulk_mail')
+        .card-body
+          = simple_form_for(:batch_actions, url: batch_actions_events_path(request.query_parameters), method: :post) do |f|
+            .d-flex.align-items-center.gap-2
+              = select_tag :template_name, options_for_select(@conference.mail_templates.pluck(:name)), include_blank: t('select_one'), class: "form-select", style: "width: 300px;"
+              = f.button :submit, t('send'), name: 'bulk_email', id: 'bulk_email', data: { controller: "confirm", action: "click->confirm#confirm", "confirm-message-value": t('notifications_module.send_unspecified_notification_confirm', count: @num_of_matching_events) }, class: 'btn btn-primary'
+
     = render 'shared/search_and_table', collection: @events
     = render 'below_table'
-= render partial: 'modal_holder'
+
+  - if policy(@conference).manage? and @num_of_matching_events > 0
+    #bulkEditModal.modal.fade{tabindex: "-1", "aria-hidden": "true"}
+      .modal-dialog.modal-lg.modal-dialog-scrollable
+        .modal-content
+          = render partial: 'bulk_edit_modal'
+
+  - filters_data.each do |filter|
+    %div{id: "filterModal_#{filter.qname}", class: "modal fade", tabindex: "-1", "aria-hidden": "true"}
+      .modal-dialog.modal-lg.modal-dialog-scrollable
+        .modal-content
+          = render partial: 'filter_modal', locals: { filter: filter }
+

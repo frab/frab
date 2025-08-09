@@ -1,0 +1,38 @@
+# Test values for LDAP authentication deployment
+frab:
+  host: frab-ldap.example.com
+  protocol: https
+  fromEmail: noreply@example.com
+  
+  # Enable LDAP authentication
+  ldap:
+    enabled: true
+    name: "Corporate LDAP"
+    promptTitle: "Corporate Login"
+    host: ldap.company.com
+    port: 636
+    method: ssl
+    baseDn: "dc=company,dc=com"
+    uid: "uid"
+    filter: "(objectClass=person)"
+    bindDn: "cn=frab,ou=services,dc=company,dc=com"
+    bindPassword: "ldap-bind-secret-password"
+    disableVerifyCert: false
+
+# Use MySQL for variety
+database:
+  type: mysql
+  mysql:
+    host: mysql.example.com
+    port: 3306
+    database: frab_ldap
+    username: frab_mysql
+    password: "mysql-secret-password"
+
+# Disable some features
+frab:
+  disableDirectLogin: true
+  disableGenderField: true
+  forceSSL: true
+
+secretKeyBase: "ldap-deployment-secret-key-base-minimum-32-chars"

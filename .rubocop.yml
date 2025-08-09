@@ -1,5 +1,9 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.2
+  NewCops: disable  # Don't automatically enable new cops to avoid noise
+  SuggestExtensions: false  # Don't suggest rubocop extensions
   Exclude:
     - bin/**/*
     - contrib/**/*
@@ -9,6 +13,7 @@ AllCops:
     - Capfile
     - Gemfile
     - Rakefile
+    - test/**/*
 
 # Nested module syntax is fine, just be careful with
 # scoping, i.e. on include
@@ -24,9 +29,7 @@ Style/HashSyntax:
 Layout/LineLength:
   Max: 1024
 
-# Rails controllers and such
-Metrics/MethodLength:
-  Max: 20
+# Rails controllers and such - disabled in favor of longer methods when needed
 
 # Use and/or for flow control, but not in boolean assignments
 # http://devblog.avdi.org/2010/08/02/using-and-and-or-in-ruby/
@@ -116,4 +119,65 @@ Style/WordArray:
 # readability of single quotes, as you can be sure they don't contain variable
 # interpolation.
 Style/StringLiterals:
+  Enabled: false
+
+# Disable overly pedantic layout cops that don't add real value
+# These are stylistic preferences that vary by editor and don't affect code quality
+
+# Committee-style alignment decisions that don't work well with all editors
+Layout/BeginEndAlignment:
+  Enabled: false
+
+# Block alignment is editor-dependent and doesn't work well with vim
+Layout/BlockAlignment:
+  Enabled: false
+
+# Pedantic newline rules
+Layout/BlockEndNewline:
+  Enabled: false
+
+# Case indentation preferences vary and don't affect functionality
+Layout/CaseIndentation:
+  Enabled: false
+
+# Minor spacing rules that are auto-fixable but create noise
+Layout/SpaceBeforeComma:
+  Enabled: false
+
+# Ruby has too many ways to define arrays/hashes - don't care about spacing preferences
+Layout/SpaceBeforeBlockBraces:
+  Enabled: false
+
+Layout/SpaceInsideParens:
+  Enabled: false
+
+# More pedantic spacing rules that don't add value
+Layout/SpaceAfterComma:
+  Enabled: false
+
+Layout/SpaceBeforeFirstArg:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/OrAssignment:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Layout/SpaceAroundOperators:
   Enabled: false

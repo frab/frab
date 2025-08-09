@@ -1,12 +1,12 @@
 %section
   .page-header
-    .pull-right
+    .float-end
       - if policy(@conference).orga?
-        = action_button "primary", t('emails_module.edit_template'), edit_mail_template_path(@mail_template), hint: t('emails_module.edit_template_hint')
+        = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('emails_module.edit_template'), edit_mail_template_path(@mail_template), hint: t('emails_module.edit_template_hint'), class: "btn btn-primary"
     %h1= t('emails_module.edit_template_title', template: @mail_template.name)
     %b= t('emails_module.template_subject', subject: @mail_template.subject)
     %pre= @mail_template.content
     %section
       .row
-        .span16
+        .col-md-12
           =render 'send_form'

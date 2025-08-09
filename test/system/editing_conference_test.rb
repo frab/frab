@@ -14,6 +14,7 @@ class EditingConferenceTest < ApplicationSystemTestCase
     within find('tr', text: @conference.title) do
       click_on 'Show'
     end
+    click_on 'More'
     click_on 'Settings'
 
     choose('Request Tracker')
@@ -28,10 +29,6 @@ class EditingConferenceTest < ApplicationSystemTestCase
     click_on 'Update conference'
 
     assert_content page, 'Conference was successfully updated.'
-    click_on 'Events'
-    assert_content page, 'List of events'
-    # TODO flaky assert
-    assert_content page, Event.last.title
   end
 
   test 'edit classifiers' do

@@ -2,7 +2,7 @@
   .page-header
     %h1=t("cfp.export_profile")
   .row
-    .span16
+    .col-md-12
       = form_tag(import_cfp_person_path, method: "post") do
         = label_tag(:q, t('cfp.pages.profile_data'))
         = text_area_tag(:foaf, @foaf)

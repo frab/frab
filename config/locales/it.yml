@@ -1226,7 +1226,6 @@ it:
       submit: Salva %{model}
       update: Aggiorna %{model}
   hint: Info
-  home: accoglienza
   import: importazione
   inputs:
     hints:
@@ -1769,7 +1768,7 @@ it:
   manage_conference: Gestisci questa conferenza
   manage_conference_flash: Hai effettuato l'accesso come membro dell'equipaggio per questa conferenza. Vuoi gestire questa conferenza?
   manual: manuale
-  more: Più ...
+  more: Più
   multiple_indication: multiplo
   name: Nome
   navigation:

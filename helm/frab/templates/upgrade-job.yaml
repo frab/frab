@@ -1,0 +1,61 @@
+{{- if .Values.rails.runMigrations }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "frab.fullname" . }}-upgrade-{{ .Release.Revision }}
+  labels:
+    {{- include "frab.labels" . | nindent 4 }}
+    app.kubernetes.io/component: upgrade
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  ttlSecondsAfterFinished: {{ .Values.rails.migrationJobTtl }}
+  template:
+    metadata:
+      labels:
+        {{- include "frab.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: upgrade
+    spec:
+      restartPolicy: Never
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: upgrade
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "Running database migrations for upgrade..."
+              bundle exec rails db:migrate
+          envFrom:
+            - configMapRef:
+                name: {{ include "frab.fullname" . }}-config
+            - secretRef:
+                name: {{ include "frab.fullname" . }}-secret
+          env:
+            - name: RAILS_ENV
+              value: {{ .Values.rails.env | quote }}
+          {{- if .Values.persistence.data.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: /rails/data
+          {{- end }}
+          resources:
+            {{- toYaml .Values.rails.migrationResources | nindent 12 }}
+      {{- if .Values.persistence.data.enabled }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "frab.fullname" . }}-data
+      {{- end }}
+{{- end }}

@@ -1220,7 +1220,6 @@ es:
       submit: Enviar %{model}
       update: Actualizar %{model}
   hint: Insinuación
-  home: Casa
   import: Importar
   inputs:
     hints:
@@ -1764,7 +1763,7 @@ es:
   manage_conference: Administrar esta conferencia
   manage_conference_flash: Has iniciado sesión como miembro de la tripulación para esta conferencia. ¿Quieres gestionar esta conferencia?
   manual: Manual
-  more: Más...
+  more: Más
   multiple_indication: múltiple
   name: Nombre
   navigation:

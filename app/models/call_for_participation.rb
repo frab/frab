@@ -16,7 +16,7 @@ class CallForParticipation < ApplicationRecord
   def still_running?
     current_date <= deadline
   end
- 
+
   def hard_deadline_over?
     return false unless hard_deadline
     current_date > hard_deadline

@@ -2,7 +2,7 @@
   .page-header
     %h1=t("cfp.change_password_headline")
   .row
-    .span16
+    .col-md-12
       = render "shared/flash", flash: flash
       = simple_form_for(@user, url: cfp_user_password_path, html: { method: :put }) do |f|
         = f.hidden_field :reset_password_token
@@ -10,5 +10,5 @@
           = f.input :password
           = f.input :password_confirmation
         .actions
-          = f.button :submit, t("cfp.change_password_button"), class: 'primary'
+          = f.button :submit, t("cfp.change_password_button"), class: 'btn btn-primary'
           = link_to t("cfp.back"), :back, class: "btn"

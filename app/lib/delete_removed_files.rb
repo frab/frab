@@ -13,11 +13,11 @@ class DeleteRemovedFiles
     versions =PaperTrail::Version.where(event: "destroy").
       where(item_type: "EventAttachment").
       where(['created_at < ?', @days_ago.days.ago])
-      
+
       if @conference
         versions = versions.where(conference_id: @conference.id)
       end
-      
+
       versions.each { |version|
         attachment = version.reify
         path = attachment.attachment.path

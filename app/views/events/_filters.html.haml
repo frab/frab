@@ -1,19 +1,16 @@
 - if show_filters_pane?
-  %div.filters-row
-    %b= t('col_filters')
+  .d-flex.flex-wrap.align-items-center.gap-2.mb-3
+    %strong.me-2= t('col_filters')
     - filters_data.each do |f|
       - if params[f.qname]
-        %span{:class => 'filterbox'}
-          = link_to "╳", request.query_parameters.except(f.qname), class: 'filterbox-close-btn'
-          = f.filter_name || t(f.filter_name_i18n)
-          - op,val=get_op_and_val(params[f.qname])
-          - if f.type == :range and op.present?
-            = filter_link(f.qname, "#{op} #{val}")
-          - else  
-            = ":"
-            - options_selected = localized_filter_options(params[f.qname], f.i18n_scope)
-            - if options_selected.count == 1
-              - w = options_selected[0].first
-            - else 
-              - w = t('multiple_indication')
-            = filter_link(f.qname, w)
+        - op, val = get_op_and_val(params[f.qname])
+        - filter_value = if f.type == :range && op.present?
+          - "#{op} #{val}"
+        - else
+          - options_selected = localized_filter_options(params[f.qname], f.i18n_scope)
+          - options_selected.count == 1 ? options_selected[0].first : t('multiple_indication')
+        
+        %span.badge.bg-primary.d-flex.align-items-center.gap-1
+          %span= "#{f.filter_name || t(f.filter_name_i18n)}: #{filter_value}"
+          = link_to request.query_parameters.except(f.qname), class: 'text-white text-decoration-none', title: t('remove_filter', default: 'Remove filter') do
+            %i.bi.bi-x
