@@ -1,14 +1,66 @@
 
 require 'prawn/table'
 
+# Enhanced color palette for event cards
+def card_colors
+  @card_colors ||= {
+    primary: '2563eb',      # Modern blue
+    secondary: '64748b',    # Slate gray
+    accent: '06b6d4',       # Cyan
+    background: 'f8fafc',   # Light gray
+    text: '1e293b',         # Dark slate
+    border: 'e2e8f0',       # Light border
+    white: 'ffffff',
+    success: '10b981',      # Green
+    warning: 'f59e0b',      # Amber
+    error: 'ef4444',        # Red
+    purple: '8b5cf6',       # Purple for variety
+    pink: 'ec4899'          # Pink for variety
+  }
+end
+
 def info_table_rows(event)
   room = event.room.try(:name) or ""
   time_str = event.humanized_time_str
   rows = []
-  rows << [event.track.try(:name), event.event_type,
-           event.language, format_time_slots(event.time_slots)]
-  rows << [room, time_str] if room.present? or time_str.present?
+
+  # Clean info rows with better formatting
+  rows << [
+    { content: "Track: #{event.track.try(:name) || 'General'}", text_color: card_colors[:text] },
+    { content: "Type: #{event.event_type}", text_color: card_colors[:primary] }
+  ]
+
+  rows << [
+    { content: "Language: #{event.language}", text_color: card_colors[:secondary] },
+    { content: "Duration: #{format_time_slots(event.time_slots)}", text_color: card_colors[:accent] }
+  ]
+
+  if room.present? or time_str.present?
+    rows << [
+      { content: "Room: #{room}", text_color: card_colors[:success] },
+      { content: "Time: #{time_str}", text_color: card_colors[:warning] }
+    ]
+  end
+
   rows
+end
+
+# Get event color based on type
+def event_type_color(event_type)
+  case event_type&.downcase
+  when 'keynote', 'plenary'
+    card_colors[:primary]
+  when 'workshop', 'tutorial'
+    card_colors[:success]
+  when 'lightning'
+    card_colors[:warning]
+  when 'panel'
+    card_colors[:purple]
+  when 'demo'
+    card_colors[:pink]
+  else
+    card_colors[:secondary]
+  end
 end
 
 def add_speakers(columns, event)
@@ -56,45 +108,122 @@ prawn_document(page_layout: :landscape) do |pdf|
     [[0,0],[0,1],[1,0],[1,1]].each do |coords|
 
       if event = @events.pop
+        event_color = event_type_color(event.event_type)
+
         pdf.grid(coords[0], coords[1]).bounding_box do
+          # Card background with white fill and subtle border
+          pdf.fill_color card_colors[:white]
+          pdf.stroke_color card_colors[:border]
+          pdf.line_width 1
+          pdf.rounded_rectangle [0, pdf.bounds.top], pdf.bounds.width, pdf.bounds.height, 8
+          pdf.fill_and_stroke
 
-          # Title
-          title = "[#{event.id}] #{event.title.truncate(90)}"
-          pdf.text(title, size: 16, style: :bold, skip_encoding: true)
-          subtitle = (event.subtitle || "").truncate(40)
-          pdf.text(subtitle, size: 14, style: :italic)
+          # Left accent bar instead of top bar - cleaner look
+          pdf.fill_color event_color
+          pdf.rectangle [0, pdf.bounds.top], 4, pdf.bounds.height
+          pdf.fill
 
-          # Info Table
-          info_table = pdf.table(
-            info_table_rows(event),
-            width: 300,
-            cell_style: {align: :center}
-          )
+          # Card content area - leave space for left accent bar
+          pdf.bounding_box([12, pdf.bounds.top - 8], width: pdf.bounds.width - 20, height: pdf.bounds.height - 16) do
 
-          # Speakers Column
-          top = 200 - info_table.height
-          columns = [{text: t('col_speakers') + "\n", styles: [:bold], size: 12}]
+            # Title with enhanced styling - leave space for badge
+            pdf.fill_color card_colors[:text]
+            pdf.font 'BitStream Vera', style: :bold
+            title = event.title.truncate(65)  # Shorter to leave space for badge
+            pdf.text(title, size: 15, leading: 2, skip_encoding: true)
 
-          add_speakers(columns, event)
-          add_event_rating(columns, event)
+            # Event ID badge - positioned after title to avoid overlap
+            id_text = "##{event.id}"
+            # Calculate badge width based on text length
+            badge_width = [pdf.width_of(id_text, size: 8) + 8, 35].max  # min 35px width
+            badge_x = pdf.bounds.width - badge_width - 2  # 2px margin from right edge
+            badge_y = pdf.bounds.top - 2  # 2px from top
 
-          pdf.formatted_text_box(
-            columns,
-            at: [0,top],
-            width: 100,
-            overflow: :shrink_to_fit
-          )
+            pdf.fill_color card_colors[:background]
+            pdf.stroke_color event_color
+            pdf.line_width 1
+            pdf.rounded_rectangle [badge_x, badge_y], badge_width, 16, 4
+            pdf.fill_and_stroke
+            pdf.fill_color event_color
+            pdf.font 'BitStream Vera', style: :bold
+            pdf.text_box id_text, size: 8, at: [badge_x + 4, badge_y - 3],
+                        width: badge_width - 8, align: :center
 
-          # Abstract Column
-          pdf.formatted_text_box(
-            [{text: t('col_abstract') + "\n", styles: [:bold], size: 12},
-             {text: abstract(event), size: 12}],
-            at: [100,top],
-            width: 200,
-            align: :justify,
-            overflow: :shrink_to_fit,
-            skip_encoding: true
-          )
+            # Subtitle with better spacing
+            if event.subtitle.present?
+              pdf.move_down 4
+              pdf.fill_color card_colors[:secondary]
+              pdf.font 'BitStream Vera', style: :italic
+              subtitle = event.subtitle.truncate(60)
+              pdf.text(subtitle, size: 12, leading: 1)
+            end
+
+            pdf.move_down 8
+
+            # Enhanced Info Table
+            info_table = pdf.table(
+              info_table_rows(event),
+              width: pdf.bounds.width,
+              cell_style: {
+                align: :left,
+                padding: [4, 6],
+                border_width: 0.5,
+                border_color: card_colors[:border],
+                size: 9
+              }
+            ) do |t|
+              t.row(0).style(background_color: card_colors[:background])
+              if t.row(1)
+                t.row(1).style(background_color: card_colors[:white])
+              end
+            end
+
+            # Content positioning
+            content_top = pdf.cursor - 12
+
+            # Speakers Column with clean styling
+            pdf.bounding_box([0, content_top], width: 90, height: content_top - 20) do
+              # Speakers header
+              pdf.fill_color event_color
+              pdf.font 'BitStream Vera', style: :bold
+              pdf.text t('col_speakers'), size: 10
+              pdf.move_down 3
+
+              # Speaker list
+              pdf.fill_color card_colors[:text]
+              pdf.font 'BitStream Vera', style: :normal
+              event.speakers.each do |speaker|
+                pdf.text speaker.full_name, size: 9, leading: 1.5
+              end
+
+              # Rating if available
+              if event.average_rating.present?
+                pdf.move_down 4
+                pdf.fill_color card_colors[:warning]
+                pdf.font 'BitStream Vera', style: :bold
+                pdf.text "Rating: #{event.average_rating.round(1)}/5", size: 8
+              end
+            end
+
+            # Abstract Column with better typography
+            pdf.bounding_box([95, content_top], width: pdf.bounds.width - 95, height: content_top - 20) do
+              # Abstract header
+              pdf.fill_color event_color
+              pdf.font 'BitStream Vera', style: :bold
+              pdf.text t('col_abstract'), size: 10
+              pdf.move_down 3
+
+              # Abstract content
+              pdf.fill_color card_colors[:text]
+              pdf.font 'BitStream Vera', style: :normal
+              abstract_text = abstract(event)
+              pdf.text abstract_text,
+                size: 9,
+                align: :left,
+                leading: 1.5,
+                skip_encoding: true
+            end
+          end
 
         end
       end
