@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'prawn/measurement_extensions'
+require 'prawn/table'
 
 def room_table_data(rooms)
   table_data = []

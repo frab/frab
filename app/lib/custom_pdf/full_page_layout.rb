@@ -44,7 +44,7 @@ module CustomPdf
     private
 
     def bigger_than_a4
-      Prawn::Document::PageGeometry::SIZES['A4'].inject(:*) < Prawn::Document::PageGeometry::SIZES[@page_size].inject(:*)
+      PDF::Core::PageGeometry::SIZES['A4'].inject(:*) < PDF::Core::PageGeometry::SIZES[@page_size].inject(:*)
     end
   end
 end

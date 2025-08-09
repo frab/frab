@@ -35,7 +35,10 @@ class ScheduleController < BaseConferenceController
   end
 
   def custom_pdf
-    return redirect_to :new_schedule_pdf unless params.key?(:room_ids)
+    unless params.key?(:room_ids)
+      flash[:warn] = "no rooms selected"
+      return redirect_to :new_schedule_pdf
+    end
 
     @page_size = params[:page_size]
 
@@ -62,7 +65,7 @@ class ScheduleController < BaseConferenceController
       format.pdf
     end
   rescue ActiveRecord::RecordNotFound => e
-    flash[:notice] = e.message
+    flash[:warn] = e.message
     redirect_to action: :new_pdf
   end
 

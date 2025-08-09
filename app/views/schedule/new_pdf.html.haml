@@ -1,43 +1,61 @@
 %section
   .page-header
     %h1= t('schedule_module.create_pdf_export')
+  
   .row
     .col-md-12
-      = form_tag schedule_custom_pdf_path do
-        .clearfix
-          = label_tag "page_size", t('schedule_module.col_select_paper_format')
-          .input
-            = select_tag "page_size", options_for_select(Prawn::Document::PageGeometry::SIZES.keys.sort)
-        .clearfix
-          = label_tag "orientation", t('schedule_module.col_orientation')
-          .input
-            = select_tag "orientation", options_for_select(@orientations)
-        .clearfix
-          = label_tag "date_id", t('schedule_module.col_select_day')
-          .input
-            = select_tag "date_id", options_from_collection_for_select(@conference.days, "id", "label")
-        .clearfix
-          = label_tag "half_page", t('schedule_module.col_use_half_page')
-          .input
-            = check_box_tag "half_page", false
-        .clearfix
-          = label_tag "rooms_per_page", t('schedule_module.col_rooms_per_page')
-          .input
-            = text_field "", "rooms_per_page", value: "5"
-        .clearfix
-          = label_tag "room_ids[]", t('schedule_module.col_select_rooms')
-          .input
-            %ul.inputs-list
+      = form_tag schedule_custom_pdf_path, html: {class: "needs-validation", novalidate: true} do
+        .card.shadow-sm.mb-4
+          .card-header.d-flex.align-items-center
+            %i.bi.bi-file-earmark-pdf.me-2
+            %h5.mb-0= t('schedule_module.create_pdf_export')
+          .card-body
+            .row.g-3.mb-3
+              .col-md-6
+                = label_tag "page_size", t('schedule_module.col_select_paper_format'), class: "form-label"
+                = select_tag "page_size", options_for_select(PDF::Core::PageGeometry::SIZES.keys.sort), class: "form-select"
+              .col-md-6
+                = label_tag "orientation", t('schedule_module.col_orientation'), class: "form-label"
+                = select_tag "orientation", options_for_select(@orientations), class: "form-select"
+            
+            .row.g-3.mb-3
+              .col-md-6
+                = label_tag "date_id", t('schedule_module.col_select_day'), class: "form-label"
+                = select_tag "date_id", options_from_collection_for_select(@conference.days, "id", "label"), class: "form-select"
+              .col-md-6
+                = label_tag "rooms_per_page", t('schedule_module.col_rooms_per_page'), class: "form-label"
+                = text_field_tag "rooms_per_page", "5", class: "form-control"
+            
+            .row.g-3.mb-3
+              .col-md-6
+                .form-check
+                  = check_box_tag "half_page", "1", false, class: "form-check-input", id: "half_page"
+                  = label_tag "half_page", t('schedule_module.col_use_half_page'), class: "form-check-label"
+        
+        .card.shadow-sm.mb-4
+          .card-header.d-flex.align-items-center.justify-content-between
+            .d-flex.align-items-center
+              %i.bi.bi-building.me-2
+              %h5.mb-0= t('schedule_module.col_select_rooms')
+            .form-check
+              = check_box_tag "select_all_rooms", "1", false, class: "form-check-input", id: "select_all_rooms"
+              = label_tag "select_all_rooms", "Select All", class: "form-check-label"
+          .card-body
+            .row
               - @conference.rooms.each do |room|
-                %li
-                  %label
-                    = check_box_tag "room_ids[]", room.id
-                    .span= room.name
-        .clearfix
-          = label_tag "select_all_rooms", t('schedule_module.select_all_none')
-          .input
-            = check_box_tag "select_all_rooms", false
+                .col-md-4.col-lg-3.mb-2
+                  .form-check
+                    = check_box_tag "room_ids[]", room.id, false, class: "form-check-input room-checkbox", id: "room_#{room.id}"
+                    = label_tag "room_#{room.id}", room.name, class: "form-check-label"
+        
+        .d-flex.justify-content-end
+          = submit_tag t('schedule_module.create_pdf'), class: "btn btn-primary btn-lg"
 
-        .actions
-          = submit_tag t('schedule_module.create_pdf'), class: "btn btn-primary"
-      .clear
+:javascript
+  // Select all/none functionality for rooms
+  document.getElementById('select_all_rooms').addEventListener('change', function() {
+    const roomCheckboxes = document.querySelectorAll('.room-checkbox');
+    roomCheckboxes.forEach(checkbox => {
+      checkbox.checked = this.checked;
+    });
+  });
