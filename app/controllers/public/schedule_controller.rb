@@ -35,6 +35,9 @@ class Public::ScheduleController < ApplicationController
 
     @view_model = ScheduleViewModel.new(@conference).for_day(@day)
 
+    # Preload tracks with events for the track menu to avoid N+1 queries
+    @tracks_with_events = @conference.tracks_including_subs.includes(:events)
+
     respond_to do |format|
       format.html
       format.pdf do
@@ -48,6 +51,9 @@ class Public::ScheduleController < ApplicationController
   def events
     @view_model = ScheduleViewModel.new(@conference)
 
+    # Preload tracks with events for the track menu to avoid N+1 queries
+    @tracks_with_events = @conference.tracks_including_subs.includes(:events)
+
     respond_to do |format|
       format.html
       format.json
@@ -58,6 +64,9 @@ class Public::ScheduleController < ApplicationController
   def timeline
     @view_model = ScheduleViewModel.new(@conference)
 
+    # Preload tracks with events for the track menu to avoid N+1 queries
+    @tracks_with_events = @conference.tracks_including_subs.includes(:events)
+
     respond_to do |format|
       format.html
     end
@@ -65,6 +74,9 @@ class Public::ScheduleController < ApplicationController
 
   def booklet
     @view_model = ScheduleViewModel.new(@conference)
+
+    # Preload tracks with events for the track menu to avoid N+1 queries
+    @tracks_with_events = @conference.tracks_including_subs.includes(:events)
 
     respond_to do |format|
       format.html

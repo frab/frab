@@ -69,9 +69,9 @@ class EventsController < BaseConferenceController
   def cards
     authorize @conference, :manage?
     @events = if params[:accepted]
-                @conference.events.accepted
+                @conference.events.accepted.includes(:room, :track, :people)
               else
-                @conference.events
+                @conference.events.includes(:room, :track, :people)
               end
 
     respond_to do |format|

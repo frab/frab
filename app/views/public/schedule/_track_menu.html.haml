@@ -1,5 +1,6 @@
 - content_for :track_menu do
-  - if @conference.tracks_including_subs.any?
+  - tracks_to_show = defined?(@tracks_with_events) ? @tracks_with_events : @conference.tracks_including_subs.includes(:events)
+  - if tracks_to_show.any?
     .card.border-0.shadow-sm.mb-4.schedule-main-card
       .card-header.bg-secondary.text-white
         %h6.mb-0
@@ -7,7 +8,7 @@
           = t('tracks')
       .card-body
         .d-flex.flex-wrap.gap-2
-          - @conference.tracks_including_subs.sort_by { |e| e.name }.each do |track|
+          - tracks_to_show.sort_by { |e| e.name }.each do |track|
             .col-auto
               %a.btn.btn-outline-primary.btn-sm{href: "##{track.name.downcase}", class: "track-#{track.name.parameterize}"}
                 %i.bi.bi-tag.me-1

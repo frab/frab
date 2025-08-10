@@ -6,7 +6,8 @@
         = t('tracks')
     .card-body
       .d-flex.flex-wrap.gap-2
-        - @conference.tracks_including_subs.sort_by { |e| e.name }.each do |track|
+        - tracks_to_show = defined?(@tracks_with_events) ? @tracks_with_events : @conference.tracks_including_subs.includes(:events)
+        - tracks_to_show.sort_by { |e| e.name }.each do |track|
           - if track.events.count > 0
             .col-auto
               %a.btn.btn-outline-primary.btn-sm{href: "##{track.name.downcase}", class: "track-#{track.name.parameterize}"}
