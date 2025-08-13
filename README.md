@@ -18,7 +18,7 @@ happen in main.  We want the main branch to be usable at all times.
 frab has been used to organize [FrOSCon](https://froscon.de) since 2011, a
 conference with more than 100 talks (and as many speakers) in more
 than 5 parallel tracks (plus devrooms) over 2 days.
-frab is also used by the [Chaos Communication Congress](https://events.ccc.de).
+frab has also been used by the [Chaos Communication Congress](https://events.ccc.de) until 2023.
 
 The frab wiki hosts a [list of conferences using frab](https://github.com/frab/frab/wiki).
 *Feel free to add your conference to the wiki*.
