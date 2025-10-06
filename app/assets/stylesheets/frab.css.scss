@@ -17,6 +17,7 @@ table.room tbody tr td {
   border: 1px solid var(--frab-text-inverse);
   height: 20px;
   padding: 0px;
+  position: relative;
 }
 
 table.room tbody tr td.event-hover {
@@ -33,7 +34,9 @@ div.event {
   border-radius: 3px;
   padding: 3px;
   box-sizing: border-box;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 
   /* Create gradient effect when content overflows the time slot height */
   background-clip: padding-box;

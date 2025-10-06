@@ -358,10 +358,10 @@ export default class extends Controller {
     })
     .then(response => response.json())
     .then(event => {
-      // Calculate height based on duration (event.duration is in minutes)
+      // Calculate timeslot height based on duration (event.duration is in minutes)
       // Formula matches _event.html.haml: time_slots * 20 - 7
       const timeSlots = Math.ceil(event.duration / 5) // 5 minutes per slot
-      const height = timeSlots * 20 - 7
+      const timeslotHeight = timeSlots * 20 - 7
 
       // Rebuild the event card HTML to match _event.html.haml
       const colorPreview = `<div class="color-preview" style="background-color: #cccccc"></div>`
@@ -371,8 +371,8 @@ export default class extends Controller {
 
       eventElement.innerHTML = colorPreview + title + details
 
-      // Set the height based on event duration
-      eventElement.style.height = `${height}px`
+      // Set CSS variable for timeslot height (used by ::after gradient for overflow indication)
+      eventElement.style.setProperty('--event-timeslot-height', `${timeslotHeight}px`)
 
       // Reset to base event class (conflict classes are managed by update_event.js.erb)
       eventElement.className = 'event'
@@ -389,16 +389,10 @@ export default class extends Controller {
   }
 
   updateEventPosition(eventElement) {
-    const event = eventElement
-    const td = event.closest('td')
-    if (!td) return
-
-    // Position relatively within the parent td instead of absolutely
-    td.style.position = 'relative'
-    event.style.position = 'relative'
-    event.style.left = '0'
-    event.style.top = '0'
-    event.style.width = '100%'
+    // Events are positioned absolutely via CSS (position: absolute, top: 0, left: 0)
+    // The parent <td> has position: relative, creating a positioning context
+    // This prevents event content overflow from expanding table rows and misaligning time headers
+    // No JavaScript positioning needed - CSS handles it
   }
 
   initializeDragAndDrop() {
