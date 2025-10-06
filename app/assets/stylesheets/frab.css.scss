@@ -1,32 +1,50 @@
-table.room {
-  width: 150px;
-  margin: 10px;
-  float: left;
+table.schedule-grid {
   border-collapse: collapse;
+  margin: 10px;
+  width: auto;
 }
 
-table.room thead tr th {
+table.schedule-grid thead tr th.time-header {
+  padding: 5px 10px;
+  min-width: 60px;
+  font-weight: bold;
+  text-align: right;
+}
+
+table.schedule-grid thead tr th.room-header {
   padding: 5px;
+  font-weight: bold;
+  min-width: 165px;
+  text-align: center;
 }
 
-table.room tbody tr {
-  margin: 0px;
+table.schedule-grid tbody tr td.time-label {
+  height: 20px;
+  padding: 0 10px;
+  text-align: right;
+  vertical-align: middle;
+  font-weight: bold;
+  color: var(--frab-text);
+  border: 1px solid transparent;
 }
 
-table.room tbody tr td {
-  border: 1px solid var(--frab-text-inverse);
+table.schedule-grid tbody tr td.room-cell {
+  border: 1px solid rgba(128, 128, 128, 0.2); /* Light grid lines */
   height: 20px;
   padding: 0px;
   position: relative;
+  width: 165px; /* Wider than event cards (150px) to leave space for drag targets */
+  background: var(--frab-bg);
+  box-sizing: border-box;
 }
 
-table.room tbody tr td.event-hover {
+table.schedule-grid tbody tr td.room-cell.event-hover {
   background: var(--frab-event-hover);
 }
 
 div.event {
   background: var(--bs-info-bg-subtle);
-  width: 143px;
+  width: 150px;
   z-index: 10;
   font-size: 10px;
   -moz-border-radius: 3px;
@@ -42,6 +60,8 @@ div.event {
   background-clip: padding-box;
 }
 
+/* Gradient overlay for content that overflows the timeslot
+   pointer-events: none allows clicks to pass through to cells below */
 div.event::after {
   content: '';
   position: absolute;

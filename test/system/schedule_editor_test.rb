@@ -19,9 +19,21 @@ class ScheduleEditorTest < ApplicationSystemTestCase
     assert_selector "#add-event-modal", visible: false
 
     # Find an empty time slot (not one with an event) and click it
-    # Look for a td that doesn't contain a div.event
-    empty_slot = find("table.room td[data-time]:not(:has(div.event))", match: :first)
-    empty_slot.click
+    # Use JavaScript click to avoid issues with overlapping events from overflow content
+    # Strategy: Find the last cell in a column, which won't have overflow blocking it
+    page.execute_script("
+      const table = document.querySelector('table.schedule-grid tbody');
+      const rows = Array.from(table.querySelectorAll('tr'));
+      // Start from the last row and work backwards to find an empty cell
+      for (let i = rows.length - 1; i >= 0; i--) {
+        const cells = Array.from(rows[i].querySelectorAll('td.room-cell[data-time]'));
+        const emptyCell = cells.find(cell => !cell.querySelector('div.event'));
+        if (emptyCell) {
+          emptyCell.click();
+          break;
+        }
+      }
+    ")
 
     # Add a small delay to allow JavaScript to process
     sleep 0.5
@@ -41,7 +53,7 @@ class ScheduleEditorTest < ApplicationSystemTestCase
 
     # Find an existing event and a target slot
     event = find("div.event", match: :first)
-    target_slot = find("table.room td[data-time]:not(:has(div.event))", match: :first)
+    target_slot = find("table.schedule-grid td.room-cell[data-time]:not(:has(div.event))", match: :first)
 
     # Simulate drag and drop by directly calling the controller method
     # This tests the CSRF token functionality in the AJAX request

@@ -60,8 +60,8 @@ export default class extends Controller {
       if (e.target.id === 'select_all_rooms') {
         this.handleSelectAllRooms(e)
       }
-      // Time slot clicks - check if clicked element is a td in table.room
-      if (e.target.tagName === 'TD' && e.target.closest('table.room')) {
+      // Time slot clicks - check if clicked element is a room cell
+      if (e.target.tagName === 'TD' && e.target.classList.contains('room-cell')) {
         this.handleTimeslotClick(e)
       }
     })
@@ -175,23 +175,29 @@ export default class extends Controller {
 
   handleRoomToggle(event) {
     event.preventDefault()
-    const button = event.currentTarget
+    const button = event.target
     const roomName = button.dataset.room
-    const roomTable = document.querySelector(`table[data-room='${roomName}']`)
 
-    if (roomTable) {
-      roomTable.style.display = roomTable.style.display === 'none' ? '' : 'none'
+    // Toggle room column visibility
+    const header = document.querySelector(`table.schedule-grid th.room-header[data-room='${roomName}']`) ||
+                   Array.from(document.querySelectorAll('table.schedule-grid th.room-header'))
+                     .find(h => h.textContent.trim().toLowerCase() === roomName)
+    const cells = document.querySelectorAll(`table.schedule-grid td[data-room='${roomName}']`)
 
-      if (button.classList.contains('success')) {
-        button.classList.remove('success')
-      } else {
-        button.classList.add('success')
-      }
-
-      // Update event positions
-      document.querySelectorAll('table.room div.event').forEach(event => {
-        this.updateEventPosition(event)
+    if (header && cells.length > 0) {
+      const isHidden = header.style.display === 'none'
+      header.style.display = isHidden ? '' : 'none'
+      cells.forEach(cell => {
+        cell.style.display = isHidden ? '' : 'none'
       })
+
+      if (button.classList.contains('btn-success')) {
+        button.classList.remove('btn-success')
+        button.classList.add('btn-secondary')
+      } else {
+        button.classList.remove('btn-secondary')
+        button.classList.add('btn-success')
+      }
     }
 
     return false
@@ -200,10 +206,15 @@ export default class extends Controller {
   hideAllRooms(event) {
     event.preventDefault()
     document.querySelectorAll('a.toggle-room').forEach(button => {
-      button.classList.remove('success')
+      button.classList.remove('btn-success')
+      button.classList.add('btn-secondary')
     })
-    document.querySelectorAll('table.room').forEach(table => {
-      table.style.display = 'none'
+    // Hide all room columns
+    document.querySelectorAll('table.schedule-grid th.room-header').forEach(header => {
+      header.style.display = 'none'
+    })
+    document.querySelectorAll('table.schedule-grid td.room-cell').forEach(cell => {
+      cell.style.display = 'none'
     })
     return false
   }
@@ -318,7 +329,7 @@ export default class extends Controller {
 
       const formData = new FormData()
       formData.append('event[start_time]', td.dataset.time)
-      formData.append('event[room_id]', td.closest('table.room').dataset.roomId)
+      formData.append('event[room_id]', td.dataset.roomId)
 
       fetch(event.dataset.updateUrl, {
         method: 'PUT',
@@ -407,7 +418,7 @@ export default class extends Controller {
     })
 
     // Make time slots droppable
-    this.element.querySelectorAll('table.room td').forEach(td => {
+    this.element.querySelectorAll('table.schedule-grid td.room-cell').forEach(td => {
       this.makeDroppable(td)
     })
   }
@@ -496,8 +507,7 @@ export default class extends Controller {
   positionExistingEvents() {
     this.element.querySelectorAll('div.event').forEach(event => {
       if (event.dataset.room && event.dataset.time) {
-        const roomTable = this.element.querySelector(`table[data-room='${event.dataset.room}']`)
-        const startingCell = roomTable?.querySelector(`td[data-time='${event.dataset.time}']`)
+        const startingCell = this.element.querySelector(`table.schedule-grid td.room-cell[data-room='${event.dataset.room}'][data-time='${event.dataset.time}']`)
 
         if (startingCell) {
           this.addEventToTimeSlot(event, startingCell, false)
