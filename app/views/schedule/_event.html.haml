@@ -1,12 +1,12 @@
 .event{ id: "event_#{event.id}",
-        style: "height: #{event.time_slots * 20 - 7}px;",
+        style: "--event-timeslot-height: #{event.time_slots * 20 - 7}px;",
         class: event.conflict_level,
         :"data-show-event-url" => event_path(id: event.id),
         :"data-update-url" => schedule_update_event_path(id: event.id),
         :"data-room" => event.room&.name&.downcase,
         :"data-time" => event.start_time&.to_fs(:rfc822) }
   .color-preview{ style: "background-color: ##{event.track&.color}" }
-  = link_to event.title, event
+  = link_to event.title, event, target: '_blank'
   %p.small
     = by_speakers(event)
     (
