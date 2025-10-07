@@ -79,7 +79,13 @@ module ApplicationHelper
       options[:hint] = nil
     end
 
-    link_to link_name, path, options
+    # Use button_to for non-GET methods to ensure proper HTTP method handling
+    # without requiring Turbo or rails-ujs
+    if options[:method] && options[:method].to_sym != :get
+      button_to link_name, path, options
+    else
+      link_to link_name, path, options
+    end
   end
 
   def delete_button(path, options = {})
