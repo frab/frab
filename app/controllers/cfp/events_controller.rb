@@ -2,6 +2,7 @@ class Cfp::EventsController < ApplicationController
   before_action :authenticate_user!, except: :confirm
   before_action :set_person
   before_action :load_event, except: %i[index show new create confirm join]
+  before_action :check_event_locked, only: [:update]
 
   # GET /cfp/events
   def index
@@ -154,5 +155,12 @@ class Cfp::EventsController < ApplicationController
       event_classifiers_attributes: %i(id classifier_id value _destroy),
       links_attributes: %i(id title url _destroy)
     )
+  end
+
+  def check_event_locked
+    return unless @event.locked?
+    
+    flash[:error] = t('cfp.event_locked_cannot_update')
+    redirect_to edit_cfp_event_path(@event)
   end
 end

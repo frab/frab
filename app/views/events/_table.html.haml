@@ -16,6 +16,8 @@
           %th.text-nowrap
             = sort_link @search, :state, t('state'), term: params[:term]
             = filter_link 'event_state'
+          %th.text-nowrap
+            = sort_link @search, :locked, t('locked'), term: params[:term]
         %th= sort_link @search, :created_at, t('created_at'), term: params[:term]
       - else
         %th= t('title')
@@ -25,6 +27,7 @@
         %th= t('type')
         - if policy(@conference).manage?
           %th= t('state')
+          %th= t('locked')
         %th= t('created_at')
       %th.last
   %tbody
@@ -48,6 +51,10 @@
         %td= link_to_unless params[:event_type].present?, (t(event.event_type, scope: 'options') unless event.event_type.blank?).to_s, request.query_parameters.merge(:event_type => event.event_type)
         - if policy(@conference).manage?
           %td= link_to_unless params[:event_state].present?, (t(event.state, scope: 'conferences_module') unless event.state.blank?).to_s, request.query_parameters.merge(:event_state => event.state)
+          %td
+            .form-check.form-switch{data: {controller: "event-lock", "event-lock-event-id-value": event.id, "event-lock-conference-acronym-value": @conference.acronym}}
+              %input.form-check-input{type: "checkbox", id: "lockSwitch#{event.id}", checked: event.locked?, data: {action: "change->event-lock#toggle"}}
+              %label.form-check-label{for: "lockSwitch#{event.id}"}
         %td
           %span.text-nowrap= l(event.date_of_submission_in_conference_tz)
           = render partial: 'events/event_tags', locals: { event: event, short: true }

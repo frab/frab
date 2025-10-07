@@ -1,6 +1,9 @@
 %section
   .page-header.mb-4
-    %h1=t("cfp.edit_event_headline")
+    %h1
+      =t("cfp.edit_event_headline")
+      - if @event.locked?
+        %i.bi.bi-lock.ms-2.text-warning{title: t("cfp.event_locked_hint")}
   .row
     .col-12
       = render 'form'

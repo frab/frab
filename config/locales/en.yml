@@ -76,6 +76,7 @@ en:
         guid: GUID
         invite_token: Invite token
         language: Language
+        locked: Locked
         logo: Logo
         note: Note
         public: Public
@@ -292,6 +293,8 @@ en:
     event_confirmed: Event confirmed
     event_created_notice: Event was successfully created.
     event_description_hint: A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website. (HTML)
+    event_locked_cannot_update: This event is locked and cannot be modified
+    event_locked_hint: This event is locked and cannot be modified
     event_time_slots_hint: Length of your event in hours and minutes. For regular talks etc. just use the default.
     event_updated_notice: Event was successfully updated.
     event_withdrawn_notice: Your submission has been withdrawn.
@@ -1112,6 +1115,7 @@ en:
     inputs:
       hints:
         do_not_record: Will this event be recorded?
+        locked: Lock this event to prevent speakers from editing it
         note: 'visibility: admin only.'
         public: Is this event visible in the public schedule?
         recording_license: Recording license for this talk

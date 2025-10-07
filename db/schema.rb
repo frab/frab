@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_28_212159) do
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
     t.integer "conference_id"
@@ -243,6 +243,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
     t.text "tech_rider"
     t.string "invite_token"
     t.string "video_url", limit: 255
+    t.boolean "locked", default: false
     t.index ["conference_id"], name: "index_events_on_conference_id"
     t.index ["event_type"], name: "index_events_on_type"
     t.index ["guid"], name: "index_events_on_guid", unique: true

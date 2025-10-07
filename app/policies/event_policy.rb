@@ -13,6 +13,7 @@ class EventPolicy < ApplicationPolicy
   alias custom_notification? edit?
   alias destroy? edit?
   alias edit_people? edit?
+  alias toggle_locked? edit?
   alias update? edit?
   alias update_state? edit?
   alias translations? edit?

@@ -273,4 +273,33 @@ class EventTest < ActiveSupport::TestCase
     event.valid?
     assert_includes event.errors.full_messages, 'Language locale must match a conference locale'
   end
+
+  # Event locking tests
+  test 'event is not locked by default' do
+    event = create(:event)
+    assert_not event.locked?
+  end
+
+  test 'event can be locked' do
+    event = create(:event)
+    event.update!(locked: true)
+    assert event.locked?
+  end
+
+  test 'event can be unlocked' do
+    event = create(:event, locked: true)
+    event.update!(locked: false)
+    assert_not event.locked?
+  end
+
+  test 'locked? method returns correct boolean value' do
+    event = create(:event)
+    assert_not event.locked?
+    
+    event.locked = true
+    assert event.locked?
+    
+    event.locked = false
+    assert_not event.locked?
+  end
 end

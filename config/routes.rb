@@ -144,6 +144,7 @@ Rails.application.routes.draw do
           get :translations
           put :update_state
           post :custom_notification
+          patch :toggle_locked
         end
         resource :event_rating
         resources :event_feedbacks

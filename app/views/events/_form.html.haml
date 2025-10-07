@@ -30,6 +30,7 @@
           %h6.mb-0= t('state')
         .card-body
           = f.input :state, collection: Event.state_machine.states.map { |st| [st.display_name, st.name.to_s] }
+          = f.input :locked, as: :boolean, hint: t('events_module.inputs.hints.locked')
     .col-md-6
       .card.border-info.border-opacity-25
         .card-header.d-flex.align-items-center.bg-info.bg-opacity-10
@@ -44,7 +45,7 @@
               = f.association :room, collection: @conference.rooms
   - if @conference.classifiers.any?
     = render partial: 'event_classifiers', locals: { f: f }
-  
+
   .card.shadow-sm.mb-4
     .card-header.d-flex.align-items-center
       %i.bi.bi-card-text.me-2
@@ -54,7 +55,7 @@
         = translated_textbox f, 'abstract', l, language_label('event.abstract', l), t('cfp.event_abstract_hint')
         - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
           = translated_textbox f, 'description', l, language_label('event.description', l), t('cfp.event_description_hint')
-  
+
   .card.border-warning.border-opacity-25.mb-4
     .card-header.d-flex.align-items-center.bg-warning.bg-opacity-10
       %i.bi.bi-sticky.me-2
@@ -65,7 +66,7 @@
           = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')
         .col-md-6
           = f.input :submission_note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.submission_note')
-  
+
   .card.shadow-sm.mb-4
     .card-header.d-flex.align-items-center
       %i.bi.bi-paperclip.me-2
@@ -76,7 +77,7 @@
       = f.input :tech_rider, input_html: {rows: 2}, hint: t('events_module.inputs.hints.tech_rider')
       = dynamic_association :links, t('links'), f
       = dynamic_association :event_attachments, t('events_module.event_attachments'), f
-      
+
   .mt-4.p-3.bg-light.rounded.d-flex.gap-2
     = f.button :submit, class: 'btn btn-primary btn-lg'
     = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"
