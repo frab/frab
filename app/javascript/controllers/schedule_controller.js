@@ -122,7 +122,7 @@ export default class extends Controller {
 
     // Add unschedule button with Bootstrap icon
     const unschedule = document.createElement('a')
-    unschedule.href = 'javascript:void(0)'
+    unschedule.href = '#'
     unschedule.innerHTML = '<i class="bi bi-x-circle-fill"></i>'
     unschedule.className = 'close small'
     unschedule.addEventListener('click', (e) => {
