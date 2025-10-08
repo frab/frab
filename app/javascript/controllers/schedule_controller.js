@@ -1,6 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="schedule"
+/**
+ * Schedule Controller - Manages conference event scheduling interface
+ *
+ * This controller handles:
+ * - Drag-and-drop scheduling of events into time slots
+ * - Filtering unscheduled events by track and type
+ * - Adding/removing events from schedule via modal or drag-and-drop
+ * - Dynamic event card reloading after schedule changes
+ * - Room visibility toggling
+ *
+ * Key concepts:
+ * - Scheduled events are <div class="event"> in time slot <td> cells
+ * - Unscheduled events are <li class="unscheduled-event"> in a sidebar/modal list
+ * - Events can be scheduled by: clicking time slot (opens modal), dragging from modal, or dragging between slots
+ * - All schedule updates use fetch() with PUT to update_event endpoint
+ * - Filter updates use fetch() with GET to update_filters endpoint (not POST!)
+ */
 export default class extends Controller {
 
   getCSRFToken() {
@@ -9,11 +25,6 @@ export default class extends Controller {
   static targets = ["trackSelect", "eventTypeSelect", "unscheduledEvents", "eventPane", "addEventModal", "currentTime"]
 
   connect() {
-    console.log("Schedule controller connected")
-    console.log("Found", document.querySelectorAll('div.event').length, "scheduled events")
-    console.log("Found", document.querySelectorAll('li.unscheduled-event').length, "unscheduled events")
-    console.log("Found", document.querySelectorAll('table.room td').length, "time slots")
-
     this.setupEventListeners()
     this.initializeDragAndDrop()
     this.positionExistingEvents()
@@ -36,6 +47,10 @@ export default class extends Controller {
 
     // Room toggle buttons - use event delegation
     this.element.addEventListener('click', (e) => {
+      // Check for close button clicks first (highest priority)
+      if (e.target.closest('a.close')) {
+        return // Let the close button handler deal with it
+      }
       if (e.target.classList.contains('toggle-room')) {
         this.handleRoomToggle(e)
       }
@@ -45,13 +60,18 @@ export default class extends Controller {
       if (e.target.id === 'select_all_rooms') {
         this.handleSelectAllRooms(e)
       }
-      // Time slot clicks - check if clicked element is a td in table.room
-      if (e.target.tagName === 'TD' && e.target.closest('table.room')) {
+      // Time slot clicks - check if clicked element is a room cell
+      if (e.target.tagName === 'TD' && e.target.classList.contains('room-cell')) {
         this.handleTimeslotClick(e)
       }
     })
   }
 
+  /**
+   * Fetches and updates the unscheduled events list based on current filter selections
+   * Important: Uses GET not POST - the route only accepts GET requests
+   * After updating, re-initializes drag-and-drop and click handlers for new elements
+   */
   updateUnscheduledEvents() {
     const form = document.querySelector('form#update-filters')
     if (!form) return
@@ -59,16 +79,16 @@ export default class extends Controller {
     const trackId = this.hasTrackSelectTarget ? this.trackSelectTarget.value : ''
     const eventType = this.hasEventTypeSelectTarget ? this.eventTypeSelectTarget.value : ''
 
-    const formData = new FormData()
-    formData.append('track_id', trackId)
-    formData.append('event_type', eventType)
+    const params = new URLSearchParams()
+    if (trackId) params.append('track_id', trackId)
+    if (eventType) params.append('event_type', eventType)
 
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
+    const url = `${form.action}?${params.toString()}`
+
+    fetch(url, {
+      method: 'GET',
       headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': this.getCSRFToken()
+        'X-Requested-With': 'XMLHttpRequest'
       }
     })
     .then(response => response.text())
@@ -79,36 +99,37 @@ export default class extends Controller {
         this.unscheduledEventsTarget.querySelectorAll('li.unscheduled-event').forEach(event => {
           this.makeDraggable(event)
         })
+        // Re-setup event listeners if we have a current target td
+        // This is needed because filtering replaces the HTML, losing click handlers
+        if (this.currentTargetTd) {
+          this.setupAddEventListeners(this.currentTargetTd)
+        }
       }
     })
     .catch(error => console.error('Error updating unscheduled events:', error))
   }
 
+  /**
+   * Adds an unschedule button (X icon) when hovering over a scheduled event
+   * Button is removed on mouse leave (see handleEventMouseLeave)
+   * Uses Bootstrap Icon (bi-x-circle-fill) instead of plain text
+   */
   handleEventMouseEnter(event) {
     if (!event.target.classList.contains('event')) return
 
     const eventDiv = event.target
     if (eventDiv.querySelector('a.close')) return
 
-    // Add show button
-    const showButton = document.createElement('a')
-    showButton.href = eventDiv.dataset.showEventUrl
-    showButton.target = '_blank'
-    showButton.innerHTML = '<img src="/assets/external_link.svg" style="height:0.8rem;">'
-    showButton.className = 'close small'
-    showButton.addEventListener('click', (e) => {
-      e.stopPropagation()
-      window.open(eventDiv.dataset.showEventUrl)
-    })
-    eventDiv.prepend(showButton)
-
-    // Add unschedule button
+    // Add unschedule button with Bootstrap icon
     const unschedule = document.createElement('a')
     unschedule.href = '#'
-    unschedule.textContent = '×'
+    unschedule.innerHTML = '<i class="bi bi-x-circle-fill"></i>'
     unschedule.className = 'close small'
     unschedule.addEventListener('click', (e) => {
-      this.unscheduleEvent(eventDiv, e)
+      e.preventDefault()
+      e.stopPropagation()
+      this.unscheduleEvent(eventDiv)
+      return false
     })
     eventDiv.prepend(unschedule)
   }
@@ -127,7 +148,7 @@ export default class extends Controller {
     return false
   }
 
-  unscheduleEvent(eventDiv, clickEvent) {
+  unscheduleEvent(eventDiv) {
     const updateUrl = eventDiv.dataset.updateUrl
     if (!updateUrl) return
 
@@ -150,31 +171,33 @@ export default class extends Controller {
       }
     })
     .catch(error => console.error('Error unscheduling event:', error))
-
-    clickEvent.stopPropagation()
-    clickEvent.preventDefault()
-    return false
   }
 
   handleRoomToggle(event) {
     event.preventDefault()
-    const button = event.currentTarget
+    const button = event.target
     const roomName = button.dataset.room
-    const roomTable = document.querySelector(`table[data-room='${roomName}']`)
 
-    if (roomTable) {
-      roomTable.style.display = roomTable.style.display === 'none' ? '' : 'none'
+    // Toggle room column visibility
+    const header = document.querySelector(`table.schedule-grid th.room-header[data-room='${roomName}']`) ||
+                   Array.from(document.querySelectorAll('table.schedule-grid th.room-header'))
+                     .find(h => h.textContent.trim().toLowerCase() === roomName)
+    const cells = document.querySelectorAll(`table.schedule-grid td[data-room='${roomName}']`)
 
-      if (button.classList.contains('success')) {
-        button.classList.remove('success')
-      } else {
-        button.classList.add('success')
-      }
-
-      // Update event positions
-      document.querySelectorAll('table.room div.event').forEach(event => {
-        this.updateEventPosition(event)
+    if (header && cells.length > 0) {
+      const isHidden = header.style.display === 'none'
+      header.style.display = isHidden ? '' : 'none'
+      cells.forEach(cell => {
+        cell.style.display = isHidden ? '' : 'none'
       })
+
+      if (button.classList.contains('btn-success')) {
+        button.classList.remove('btn-success')
+        button.classList.add('btn-secondary')
+      } else {
+        button.classList.remove('btn-secondary')
+        button.classList.add('btn-success')
+      }
     }
 
     return false
@@ -183,23 +206,45 @@ export default class extends Controller {
   hideAllRooms(event) {
     event.preventDefault()
     document.querySelectorAll('a.toggle-room').forEach(button => {
-      button.classList.remove('success')
+      button.classList.remove('btn-success')
+      button.classList.add('btn-secondary')
     })
-    document.querySelectorAll('table.room').forEach(table => {
-      table.style.display = 'none'
+    // Hide all room columns
+    document.querySelectorAll('table.schedule-grid th.room-header').forEach(header => {
+      header.style.display = 'none'
+    })
+    document.querySelectorAll('table.schedule-grid td.room-cell').forEach(cell => {
+      cell.style.display = 'none'
     })
     return false
   }
 
+  /**
+   * Handles clicking on a time slot to add an event
+   * Opens modal with unscheduled events, resetting filters to show all events
+   * Stores the clicked td so filters can re-attach click handlers after filtering
+   */
   handleTimeslotClick(event) {
-    console.log("Time slot clicked:", event.target, "Data-time:", event.target.dataset.time)
     event.preventDefault()
     event.stopPropagation()
 
     const td = event.target
+    this.currentTargetTd = td // Store for use after filtering
+
     if (this.hasCurrentTimeTarget) {
       this.currentTimeTarget.innerHTML = td.dataset.time || "Unknown time"
     }
+
+    // Reset filters to show all unscheduled events when opening modal
+    if (this.hasTrackSelectTarget) {
+      this.trackSelectTarget.selectedIndex = 0
+    }
+    if (this.hasEventTypeSelectTarget) {
+      this.eventTypeSelectTarget.selectedIndex = 0
+    }
+
+    // Refresh unscheduled events list (without filters)
+    this.updateUnscheduledEvents()
 
     // Setup add event listeners
     this.setupAddEventListeners(td)
@@ -213,11 +258,8 @@ export default class extends Controller {
 
     // Show modal
     if (this.hasAddEventModalTarget) {
-      console.log("Opening modal...")
       const modal = new bootstrap.Modal(this.addEventModalTarget)
       modal.show()
-    } else {
-      console.log("No modal target found!")
     }
 
     return false
@@ -287,7 +329,7 @@ export default class extends Controller {
 
       const formData = new FormData()
       formData.append('event[start_time]', td.dataset.time)
-      formData.append('event[room_id]', td.closest('table.room').dataset.roomId)
+      formData.append('event[room_id]', td.dataset.roomId)
 
       fetch(event.dataset.updateUrl, {
         method: 'PUT',
@@ -299,28 +341,69 @@ export default class extends Controller {
       })
       .then(response => {
         if (response.ok) {
-          // Highlight effect
-          event.style.backgroundColor = '#ffff99'
-          setTimeout(() => {
-            event.style.backgroundColor = ''
-          }, 1000)
+          // Reload the full event card HTML
+          this.reloadEventCard(event)
         }
       })
       .catch(error => console.error('Error updating event:', error))
     }
   }
 
-  updateEventPosition(eventElement) {
-    const event = eventElement
-    const td = event.closest('td')
-    if (!td) return
+  /**
+   * Reloads event card content after scheduling to show full details (speakers, track, type)
+   * Fetches event JSON and rebuilds HTML to match _event.html.haml partial
+   * Called after addEventToTimeSlot successfully updates the schedule
+   *
+   * Note: JSON structure uses 'type' not 'event_type', and 'track' is a string not object
+   * Title link opens in new window (target="_blank") so scheduling interface stays open
+   */
+  reloadEventCard(eventElement) {
+    const eventId = eventElement.id.replace('event_', '')
+    const url = eventElement.dataset.showEventUrl.replace(/\/events\/\d+/, `/events/${eventId}.json`)
 
-    // Position relatively within the parent td instead of absolutely
-    td.style.position = 'relative'
-    event.style.position = 'relative'
-    event.style.left = '0'
-    event.style.top = '0'
-    event.style.width = '100%'
+    fetch(url, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(event => {
+      // Calculate timeslot height based on duration (event.duration is in minutes)
+      // Formula matches _event.html.haml: time_slots * 20 - 7
+      const timeSlots = Math.ceil(event.duration / 5) // 5 minutes per slot
+      const timeslotHeight = timeSlots * 20 - 7
+
+      // Rebuild the event card HTML to match _event.html.haml
+      const colorPreview = `<div class="color-preview" style="background-color: #cccccc"></div>`
+      const title = `<a href="${eventElement.dataset.showEventUrl}" target="_blank">${event.title}</a>`
+      const speakers = event.speakers?.map(s => s.public_name || s.name).join(', ') || ''
+      const details = `<p class="small">${speakers}${speakers ? ' ' : ''}(${event.track || ''} / ${event.type || ''})</p>`
+
+      eventElement.innerHTML = colorPreview + title + details
+
+      // Set CSS variable for timeslot height (used by ::after gradient for overflow indication)
+      eventElement.style.setProperty('--event-timeslot-height', `${timeslotHeight}px`)
+
+      // Reset to base event class (conflict classes are managed by update_event.js.erb)
+      eventElement.className = 'event'
+
+      this.makeDraggable(eventElement)
+
+      // Highlight effect to indicate the card was updated
+      eventElement.style.backgroundColor = '#ffff99'
+      setTimeout(() => {
+        eventElement.style.backgroundColor = ''
+      }, 1000)
+    })
+    .catch(error => console.error('Error reloading event card:', error))
+  }
+
+  updateEventPosition(eventElement) {
+    // Events are positioned absolutely via CSS (position: absolute, top: 0, left: 0)
+    // The parent <td> has position: relative, creating a positioning context
+    // This prevents event content overflow from expanding table rows and misaligning time headers
+    // No JavaScript positioning needed - CSS handles it
   }
 
   initializeDragAndDrop() {
@@ -335,7 +418,7 @@ export default class extends Controller {
     })
 
     // Make time slots droppable
-    this.element.querySelectorAll('table.room td').forEach(td => {
+    this.element.querySelectorAll('table.schedule-grid td.room-cell').forEach(td => {
       this.makeDroppable(td)
     })
   }
@@ -424,8 +507,7 @@ export default class extends Controller {
   positionExistingEvents() {
     this.element.querySelectorAll('div.event').forEach(event => {
       if (event.dataset.room && event.dataset.time) {
-        const roomTable = this.element.querySelector(`table[data-room='${event.dataset.room}']`)
-        const startingCell = roomTable?.querySelector(`td[data-time='${event.dataset.time}']`)
+        const startingCell = this.element.querySelector(`table.schedule-grid td.room-cell[data-room='${event.dataset.room}'][data-time='${event.dataset.time}']`)
 
         if (startingCell) {
           this.addEventToTimeSlot(event, startingCell, false)

@@ -62,22 +62,22 @@
                 .col-12.col-md-6
                   - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
                     .mb-3
-                      %strong.text-muted= t('col_ticket') + ':'
+                      %strong.text-muted= t('col_ticket')
                       %div
                         - if @conference.ticket_server.nil?
                           = @event.ticket.remote_ticket_id
                         - else
                           = link_to @event.ticket.remote_ticket_id, get_ticket_view_url(@event.ticket.remote_ticket_id), target: "_blank", class: "link-primary"
                   .mb-3
-                    %strong.text-muted= t('col_language') + ':'
+                    %strong.text-muted= t('col_language')
                     %div= @event.language
                   .mb-3
-                    %strong.text-muted= t('col_public') + ':'
+                    %strong.text-muted= t('col_public')
                     %div
                       = check_box_tag :public, @event.public, @event.public, disabled: true, class: "form-check-input me-2"
                       = @event.public? ? t('yes') : t('no')
                   .mb-0
-                    %strong.text-muted= t('avg_audience_feedback') + ':'
+                    %strong.text-muted= t('avg_audience_feedback')
                     %div= number_with_precision @event.average_feedback, precision: 1
 
         .col-12.col-md-6
@@ -86,18 +86,18 @@
               %h5.card-title.mb-0= t('scheduling')
             .card-body
               .mb-3
-                %strong.text-muted= t('col_time_slots') + ':'
+                %strong.text-muted= t('col_time_slots')
                 %div= format_time_slots @event.time_slots
               - if policy(@conference).manage?
                 .mb-3
-                  %strong.text-muted= t('col_start_time') + ':'
+                  %strong.text-muted= t('col_start_time')
                   %div= event_start_time
               .mb-3
-                %strong.text-muted= t('col_room') + ':'
+                %strong.text-muted= t('col_room')
                 %div= @event.room.try(:name)
               - if @event.conference != @conference
                 .mb-0
-                  %strong.text-muted= t('col_conference') + ':'
+                  %strong.text-muted= t('col_conference')
                   %div= @event.conference.acronym
 
         .col-12.col-md-6

@@ -25,17 +25,17 @@
               %h5.card-title.mb-0= t('basic_information')
             .card-body
               .mb-3
-                %strong.text-muted= t('col_first_name') + ':'
+                %strong.text-muted= t('col_first_name')
                 %div= @person.first_name
               .mb-3
-                %strong.text-muted= t('col_last_name') + ':'
+                %strong.text-muted= t('col_last_name')
                 %div= @person.last_name
               .mb-3
-                %strong.text-muted= t('col_public_name') + ':'
+                %strong.text-muted= t('col_public_name')
                 %div= @person.public_name
               - if @person.gender
                 .mb-3
-                  %strong.text-muted= t('col_gender') + ':'
+                  %strong.text-muted= t('col_gender')
                   %div= t("options.#{@person.gender}")
               
               - if @conference
@@ -48,18 +48,18 @@
                 %h5.card-title.mb-0= t('contact_information')
               .card-body
                 .mb-3
-                  %strong.text-muted= t('col_email') + ':'
+                  %strong.text-muted= t('col_email')
                   %div
                     = mail_to @person.email, class: "link-primary"
                     %small.text-muted.d-block
                       = @person.email_public? ? t('is_public') : t('is_not_public')
                 - @person.phone_numbers.each do |phone_number|
                   .mb-3
-                    %strong.text-muted= t('col_phone_number_with_type', type: phone_number.phone_type) + ':'
+                    %strong.text-muted= t('col_phone_number_with_type', type: phone_number.phone_type)
                     %div= phone_number.phone_number
                 - @person.im_accounts.each do |im_account|
                   .mb-0
-                    %strong.text-muted= t('col_col_template', data: im_account.im_type) + ':'
+                    %strong.text-muted= t('col_col_template', data: im_account.im_type)
                     %div= im_account.im_address
 
     .col-12.col-lg-4
