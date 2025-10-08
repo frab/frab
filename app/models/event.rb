@@ -183,7 +183,7 @@ class Event < ApplicationRecord
   end
 
   def to_sortable
-    title.gsub(/[^\w]/, '').upcase
+    title.to_s.gsub(/[^\w]/, '').upcase
   end
 
   def overlap?(other_event)
