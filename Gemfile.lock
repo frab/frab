@@ -131,7 +131,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (12.0.0)
-    capistrano (3.16.0)
+    capistrano (3.19.2)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -653,7 +653,7 @@ DEPENDENCIES
   bcrypt
   bootsnap
   bullet
-  capistrano (= 3.16.0)
+  capistrano (~> 3.19.0)
   capistrano-bundler
   capistrano-rails
   capistrano-rvm

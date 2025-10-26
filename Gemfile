@@ -26,7 +26,7 @@ gem 'puma'
 
 # Capistrano for deployment
 group :capistrano, optional: true do
-  gem 'capistrano', '3.16.0', require: false
+  gem 'capistrano', '~> 3.19.0', require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm',     require: false
