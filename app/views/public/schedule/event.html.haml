@@ -28,7 +28,7 @@
     .col-12.col-lg-8
       - if event.logo.present?
         .mb-4
-          = link_to event.logo, "data-lightbox" => event.logo do
+          = link_to event.logo.url, "data-lightbox" => event.logo.url do
             = image_box(event.logo, :large, class: "img-fluid rounded", loading: "lazy", alt: "Das Titelbild des Beitrags")
 
       - if event.do_not_record

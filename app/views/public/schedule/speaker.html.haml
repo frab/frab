@@ -7,7 +7,7 @@
     .d-flex.flex-column.flex-md-row.align-items-center.text-center.text-md-start
       .speaker-avatar.me-md-4.mb-3.mb-md-0
         - if speaker.avatar.present?
-          = link_to speaker.avatar, "data-lightbox" => speaker.avatar do
+          = link_to speaker.avatar.url, "data-lightbox" => speaker.avatar do
             = image_box(speaker.avatar, :large, class: "rounded-circle", loading: "lazy", alt: "The speaker's profile picture", style: "width: 120px; height: 120px; object-fit: cover;")
         - else
           .bg-light.rounded-circle.d-flex.align-items-center.justify-content-center{style: "width: 120px; height: 120px;"}
