@@ -65,6 +65,8 @@ jobs:
       run: |
         cp db/schema.rb-mysql db/schema.rb
         bundle exec rails db:create
+        bundle exec rails frab:migrate:mysql_schema
+        git diff
         echo "DATABASE_URL=$DATABASE_URL" >> $GITHUB_ENV
       env:
         DATABASE_URL: mysql2://root:root@127.0.0.1:${{ job.services.mysql.ports[3306] }}/frab_test

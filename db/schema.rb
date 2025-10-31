@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_31_000000) do
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
     t.integer "conference_id"
@@ -111,6 +111,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
     t.string "allowed_event_types", default: "lecture;workshop;podium;lightning_talk;meeting;film;concert;djset;performance;other"
     t.string "allowed_event_timeslots_csv", limit: 400
     t.string "bcc_address", limit: 255
+    t.boolean "auto_lock_on_confirm", default: false
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
@@ -207,7 +208,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
 
   create_table "events", force: :cascade do |t|
     t.integer "conference_id", null: false
-    t.string "title", limit: 255
+    t.string "title"
     t.string "subtitle", limit: 255
     t.string "event_type", limit: 255, default: "talk"
     t.integer "time_slots", default: 3
@@ -243,6 +244,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
     t.text "tech_rider"
     t.string "invite_token"
     t.string "video_url", limit: 255
+    t.boolean "locked", default: false
     t.index ["conference_id"], name: "index_events_on_conference_id"
     t.index ["event_type"], name: "index_events_on_type"
     t.index ["guid"], name: "index_events_on_guid", unique: true

@@ -273,4 +273,63 @@ class EventTest < ActiveSupport::TestCase
     event.valid?
     assert_includes event.errors.full_messages, 'Language locale must match a conference locale'
   end
+
+  # Event locking tests
+  test 'event is not locked by default' do
+    event = create(:event)
+    assert_not event.locked?
+  end
+
+  test 'event can be locked' do
+    event = create(:event)
+    event.update!(locked: true)
+    assert event.locked?
+  end
+
+  test 'event can be unlocked' do
+    event = create(:event, locked: true)
+    event.update!(locked: false)
+    assert_not event.locked?
+  end
+
+  test 'locked? method returns correct boolean value' do
+    event = create(:event)
+    assert_not event.locked?
+
+    event.locked = true
+    assert event.locked?
+
+    event.locked = false
+    assert_not event.locked?
+  end
+
+  test 'event is automatically locked when confirmed from unconfirmed state' do
+    conference = create(:conference, auto_lock_on_confirm: true)
+    event = create(:event, conference: conference, state: 'unconfirmed')
+    assert_not event.locked?, 'Event should not be locked initially'
+
+    event.confirm!
+    assert_equal 'confirmed', event.state
+    assert event.locked?, 'Event should be automatically locked after confirmation'
+  end
+
+  test 'event is automatically locked when confirmed from accepting state' do
+    conference = create(:conference, auto_lock_on_confirm: true)
+    event = create(:event, conference: conference, state: 'accepting')
+    assert_not event.locked?, 'Event should not be locked initially'
+
+    event.confirm!
+    assert_equal 'confirmed', event.state
+    assert event.locked?, 'Event should be automatically locked after confirmation'
+  end
+
+  test 'event remains unlocked when in accepted but not yet confirmed state' do
+    conference = create(:three_day_conference_with_events)
+    event = conference.events.first
+    event.state = 'new'
+
+    event.accept({})
+    assert_includes ['unconfirmed', 'accepting'], event.state
+    assert_not event.locked?, 'Event should remain unlocked after acceptance but before confirmation'
+  end
 end

@@ -33,7 +33,7 @@ module EventState
         transitions to: :scheduled, from: :confirmed, on_transition: :process_schedule_notification, guard: :notifiable
       end
       event :confirm do
-        transitions to: :confirmed, from: [:accepting, :unconfirmed]
+        transitions to: :confirmed, from: [:accepting, :unconfirmed], on_transition: :lock_event
       end
       event :cancel do
         transitions to: :canceled, from: [:accepting, :unconfirmed, :confirmed]
@@ -79,6 +79,10 @@ module EventState
     return unless options[:coordinator]
     return if event_people.find_by(event_role: 'coordinator')
     event_people.create(person: options[:coordinator], event_role: 'coordinator')
+  end
+
+  def lock_event(_options = {})
+    update(locked: true) if conference.auto_lock_on_confirm
   end
 
   private

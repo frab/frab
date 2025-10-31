@@ -3,5 +3,9 @@
     %h1= t('titles.cpf_event_confirm')
     = form_tag request.url do
       %p= raw markdown_render(t('cfp.pages.event_confirmation_request', event: @event.title))
+      - if @event.conference.auto_lock_on_confirm
+        .alert.alert-warning.d-flex.align-items-center.mb-3
+          %i.bi.bi-exclamation-triangle.me-2
+          = t('cfp.event_will_be_locked_on_confirm')
       = submit_tag t('cfp.pages.event_confirm_attendence'), class: 'btn btn-large btn-primary'
 

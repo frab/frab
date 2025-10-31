@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_31_000000) do
   connection.execute("SET FOREIGN_KEY_CHECKS = 0") if connection.adapter_name == 'Mysql2'
 
   create_table "availabilities", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -113,6 +113,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
     t.string "allowed_event_types", default: "lecture;workshop;podium;lightning_talk;meeting;film;concert;djset;performance;other"
     t.string "allowed_event_timeslots_csv", limit: 400
     t.string "bcc_address"
+    t.boolean "auto_lock_on_confirm", default: false
     t.index ["acronym"], name: "index_conferences_on_acronym"
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
@@ -245,6 +246,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
     t.text "tech_rider"
     t.string "invite_token"
     t.string "video_url"
+    t.boolean "locked", default: false
     t.index ["conference_id"], name: "index_events_on_conference_id"
     t.index ["event_type"], name: "index_events_on_type"
     t.index ["guid"], name: "index_events_on_guid", unique: true
