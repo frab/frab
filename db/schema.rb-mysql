@@ -11,6 +11,8 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
+  connection.execute("SET FOREIGN_KEY_CHECKS = 0") if connection.adapter_name == 'Mysql2'
+
   create_table "availabilities", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "person_id"
     t.bigint "conference_id"
@@ -502,4 +504,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_215061) do
   add_foreign_key "review_scores", "event_ratings"
   add_foreign_key "review_scores", "review_metrics"
   add_foreign_key "track_translations", "tracks"
+
+  connection.execute("SET FOREIGN_KEY_CHECKS = 1") if connection.adapter_name == 'Mysql2'
 end

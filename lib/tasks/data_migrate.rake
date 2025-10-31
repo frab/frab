@@ -1,6 +1,74 @@
 namespace :frab do
   namespace :migrate do
 
+    desc 'regenerate db/schema.rb-mysql from a MySQL database'
+    task mysql_schema: :environment do |_t, _args|
+      # naive mysql detection to match bin/setup approach
+      unless ENV.fetch('DATABASE_URL', '').match('mysql') || File.read('config/database.yml').match(/mysql/)
+        abort <<~ERROR
+
+          ERROR: This task requires a MySQL database configuration.
+
+          To use this task:
+          1. Set DATABASE_URL environment variable:
+             export DATABASE_URL=mysql2://user:password@localhost/frab_development
+
+          OR
+
+          2. Configure config/database.yml for MySQL:
+             cp config/database.yml.template-mysql config/database.yml
+             # Edit config/database.yml with your MySQL credentials
+
+          Then run:
+             rails db:migrate
+             rake frab:migrate:mysql_schema
+
+        ERROR
+      end
+
+      puts 'Dumping MySQL schema to db/schema.rb-mysql...'
+      original_schema_file = Rails.application.config.paths['db'].first + '/schema.rb'
+      mysql_schema_file = Rails.application.config.paths['db'].first + '/schema.rb-mysql'
+      backup_schema_file = Rails.application.config.paths['db'].first + '/schema.rb.backup'
+
+      # Backup existing schema.rb if it exists
+      if File.exist?(original_schema_file)
+        FileUtils.cp(original_schema_file, backup_schema_file)
+        puts "Backed up existing schema.rb to schema.rb.backup"
+      end
+
+      # Dump the current schema
+      ActiveRecord::Tasks::DatabaseTasks.dump_schema(ActiveRecord::Base.connection_db_config)
+
+      # Read the generated schema
+      schema_content = File.read(original_schema_file)
+
+      # Add FOREIGN_KEY_CHECKS statements
+      # Insert after the ActiveRecord::Schema[...].define line
+      schema_content.sub!(
+        /(ActiveRecord::Schema\[[\d.]+\]\.define\(version: [^\)]+\) do)/,
+        "\\1\n  connection.execute(\"SET FOREIGN_KEY_CHECKS = 0\") if connection.adapter_name == 'Mysql2'\n"
+      )
+
+      # Insert before the final 'end'
+      schema_content.sub!(
+        /\nend\s*\z/,
+        "\n\n  connection.execute(\"SET FOREIGN_KEY_CHECKS = 1\") if connection.adapter_name == 'Mysql2'\nend"
+      )
+
+      # Write the modified schema to the MySQL schema file
+      File.write(mysql_schema_file, schema_content)
+
+      # Restore the original schema.rb from backup
+      if File.exist?(backup_schema_file)
+        FileUtils.mv(backup_schema_file, original_schema_file)
+        puts "Restored original schema.rb"
+      end
+
+      puts "MySQL schema written to #{mysql_schema_file}"
+      puts 'You can now commit this file to version control'
+    end
+
     desc 'migration 20180213195422 added dates on conferences model'
     task conference_dates: :environment do |_t, _args|
       ActiveRecord::Base.connection.execute %(
