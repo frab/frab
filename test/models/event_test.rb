@@ -304,7 +304,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'event is automatically locked when confirmed from unconfirmed state' do
-    event = create(:event, state: 'unconfirmed')
+    conference = create(:conference, auto_lock_on_confirm: true)
+    event = create(:event, conference: conference, state: 'unconfirmed')
     assert_not event.locked?, 'Event should not be locked initially'
 
     event.confirm!
@@ -313,7 +314,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'event is automatically locked when confirmed from accepting state' do
-    event = create(:event, state: 'accepting')
+    conference = create(:conference, auto_lock_on_confirm: true)
+    event = create(:event, conference: conference, state: 'accepting')
     assert_not event.locked?, 'Event should not be locked initially'
 
     event.confirm!
