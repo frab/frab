@@ -1,16 +1,14 @@
 # Docker Setup
 
-Frab can also be run inside a Docker container. Basic familiarity with docker is assumed in this guide.
+Frab can be run inside a Docker container. Basic familiarity with Docker is assumed in this guide.
 
-In addition to a `Dockerfile` a basic `docker-compose.yml` file is also provided.
-
+A `Dockerfile` and `docker-compose.yml` file are provided for easy deployment.
 
 ## Downloading the Docker Image
 
-To download a pre-built docker image for frab from the [Docker Hub](https://hub.docker.com/r/frab/frab/):
+Pre-built Docker images are available from GitHub Container Registry:
 
-
-```
+```bash
 docker pull ghcr.io/frab/frab:latest
 ```
 
@@ -18,45 +16,89 @@ docker pull ghcr.io/frab/frab:latest
 
 You can also build the image yourself:
 
-
-```
+```bash
 docker-compose build
 ```
 
 or
 
+```bash
+docker build -t ghcr.io/frab/frab:latest .
 ```
-docker build -t frab/frab .
-```
-
 
 ## Configuration
 
-The `Dockerfile` sets some basic default environment variables for frab to use including a sqlite3 database. However you should tune them to your own needs. This can be done by editing the `docker-compose.yml` file or passing the environment variables to the `docker run` command with the `-e` flag.
+The Dockerfile sets default environment variables including SQLite database support. You should customize these for production by editing `docker-compose.yml` or passing environment variables with `-e` flags.
 
-At a minimum you should change the default `SECRET_KEY_BASE` variable.
+**Important:** Generate a secure `SECRET_KEY_BASE`:
+```bash
+docker run --rm ghcr.io/frab/frab:latest bundle exec rails secret
+```
 
 ### Database Configuration
 
-The default setup uses a sqlite3 database located in `/home/frab/data`. If you want it to persist across container restarts you should add a docker volume to that directory. Alternatively you can pass a `DATABASE_URL` environment variable to use another database like postgresql or mysql.
+**SQLite (default):**
+- Database location: `/rails/data/database.db`
+- Mount a volume to `/rails/data` for persistence
 
-The example docker-compose file used another postgres container as a database.
+**PostgreSQL/MySQL:**
+- Set `DATABASE_URL` environment variable
+- Example: `DATABASE_URL=postgresql://user:password@host/database`
+- The included `docker-compose.yml` shows PostgreSQL setup
 
-Similiary, you'd want to mount `/home/frab/app/public` to persistent storage, since this is where event attachments are saved.
+### Persistent Storage
 
-# Running
+Mount volumes for persistent data:
+- `/rails/data` - SQLite database files
+- `/rails/public` - Event attachments and uploaded files
 
-To run frab with docker-compose just run:
+## Running with Docker Compose
 
-```
+Start frab with the included docker-compose setup:
+
+```bash
 docker-compose up
 ```
 
-The initial admin username and password will be printed to stdout on first run.
+The initial admin credentials will be printed to stdout on first run:
+- Email: `admin@example.org`
+- Password: (randomly generated and displayed)
 
+To run as a background service:
 
-To start the containers as a service run:
-
-```
+```bash
 docker-compose up -d
 ```
+
+View logs:
+```bash
+docker-compose logs -f frab
+```
+
+## Running Standalone
+
+To run without docker-compose:
+
+```bash
+# With SQLite (data volume for persistence)
+docker run -d \
+  -p 3000:3000 \
+  -v frab-data:/rails/data \
+  -v frab-public:/rails/public \
+  -e SECRET_KEY_BASE=your_secret_key \
+  -e FRAB_HOST=your-domain.com \
+  -e FRAB_PROTOCOL=https \
+  ghcr.io/frab/frab:latest
+
+# With PostgreSQL
+docker run -d \
+  -p 3000:3000 \
+  -v frab-public:/rails/public \
+  -e SECRET_KEY_BASE=your_secret_key \
+  -e DATABASE_URL=postgresql://user:password@db-host/frab \
+  -e FRAB_HOST=your-domain.com \
+  -e FRAB_PROTOCOL=https \
+  ghcr.io/frab/frab:latest
+```
+
+Access frab at http://localhost:3000
