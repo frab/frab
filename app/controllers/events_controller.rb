@@ -356,6 +356,16 @@ class EventsController < BaseConferenceController
     redirect_to @event, notice: t('emails_module.notice_event_updated')
   end
 
+  def toggle_locked
+    authorize @conference, :manage?
+    @event = Event.find(params[:id])
+    @event.update!(locked: !@event.locked?)
+
+    respond_to do |format|
+      format.json { render json: { locked: @event.locked? } }
+    end
+  end
+
   # add custom notifications to all the event's subscribers
   # POST /events/2/custom_notification
   def custom_notification
@@ -439,7 +449,7 @@ class EventsController < BaseConferenceController
     }.flatten
 
     params.require(:event).permit(
-      :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license, :tech_rider,
+      :id, :title, :subtitle, :event_type, :time_slots, :state, :start_time, :public, :language, :abstract, :description, :logo, :track_id, :room_id, :note, :submission_note, :do_not_record, :recording_license, :tech_rider, :locked,
       *translated_params,
       event_attachments_attributes: %i(id title attachment public _destroy),
       ticket_attributes: %i(id remote_ticket_id),

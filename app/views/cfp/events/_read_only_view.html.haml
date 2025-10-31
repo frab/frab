@@ -1,0 +1,82 @@
+.card.shadow-sm.mb-4
+  .card-header.d-flex.align-items-center
+    %i.bi.bi-info-circle.me-2
+    %h5.mb-0= t("cfp.basic_information")
+  .card-body
+    .mb-3
+      %label.form-label= t("activerecord.attributes.event.title")
+      %p.form-control-plaintext= @event.title
+    - if @event.subtitle.present?
+      .mb-3
+        %label.form-label= t("activerecord.attributes.event.subtitle")
+        %p.form-control-plaintext= @event.subtitle
+    - if @event.speakers.any?
+      .mb-3
+        %label.form-label= "Speakers"
+        %p.form-control-plaintext= @event.speakers.map(&:public_name).join(", ")
+    .row.g-3
+      .col-md-4
+        %label.form-label= t("activerecord.attributes.event.event_type")
+        %p.form-control-plaintext= @event.localized_event_type
+      - if @event.track.present?
+        .col-md-4
+          %label.form-label= t("activerecord.attributes.event.track")
+          %p.form-control-plaintext= @event.track.name
+      .col-md-4
+        %label.form-label= t("activerecord.attributes.event.time_slots")
+        %p.form-control-plaintext= @event.localized_duration
+    - if @event.language.present?
+      .mb-3
+        %label.form-label= t("activerecord.attributes.event.language")
+        %p.form-control-plaintext= @event.language
+
+- if @conference.classifiers.any? && @event.event_classifiers.any?
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-tags.me-2
+      %h5.mb-0= t("classifiers")
+    .card-body
+      - @event.event_classifiers.each do |event_classifier|
+        - if event_classifier.value.present?
+          .mb-2
+            %strong= event_classifier.classifier.name + ":"
+            = event_classifier.value
+
+.card.shadow-sm.mb-4
+  .card-header.d-flex.align-items-center
+    %i.bi.bi-card-text.me-2
+    %h5.mb-0= t("cfp.detailed_description")
+  .card-body
+    - if @event.abstract.present?
+      .mb-3
+        %label.form-label= t("activerecord.attributes.event.abstract")
+        .form-control-plaintext= simple_format(@event.abstract)
+    - if @event.description.present?
+      .mb-3
+        %label.form-label= t("activerecord.attributes.event.description")
+        .form-control-plaintext= simple_format(@event.description)
+    - if @event.submission_note.present?
+      .mb-3
+        %label.form-label= t("activerecord.attributes.event.submission_note")
+        .form-control-plaintext= simple_format(@event.submission_note)
+    - if @event.links.any?
+      .mb-3
+        %label.form-label= t("cfp.links")
+        - @event.links.each do |link|
+          %p.form-control-plaintext
+            = link_to link.title, link.url, target: "_blank", class: "text-decoration-none"
+    - if @event.event_attachments.any?
+      .mb-3
+        %label.form-label= t("cfp.uploaded_files")
+        - @event.event_attachments.each do |attachment|
+          %p.form-control-plaintext
+            = link_to attachment.title, attachment.attachment.url, target: "_blank", class: "text-decoration-none"
+
+- if @event.invite_token.present?
+  .card.border-info.mb-4
+    .card-header.bg-info.bg-opacity-10
+      %h6.mb-0 Token: #{@event.invite_token}
+    .card-body
+      %p.card-text.small
+        = t('cfp.join_submitters_hint')
+        = link_to t('cfp.join_token_link'), cfp_events_join_path(@event.invite_token)

@@ -105,4 +105,46 @@ class Cfp::EventsControllerTest < ActionController::TestCase
     refute_equal 'confirmed', @event.reload.state
     assert_nil session[:user_id]
   end
+
+  # Event locking CFP controller tests
+  test 'should not update locked event' do
+    @event.update!(locked: true)
+    create(:event_person, event: @event, person: @user.person)
+    original_title = @event.title
+    
+    modified_params = event_params.merge('title' => 'New Title')
+    put :update, params: { id: @event.to_param, event: modified_params, conference_acronym: @conference.acronym }
+    
+    assert_redirected_to edit_cfp_event_path(@event)
+    assert_equal flash[:error], I18n.t('cfp.event_locked_cannot_update')
+    
+    @event.reload
+    assert_equal original_title, @event.title
+  end
+
+  test 'should update unlocked event normally' do
+    @event.update!(locked: false)
+    create(:event_person, event: @event, person: @user.person)
+    original_title = @event.title
+    
+    modified_params = event_params.merge('title' => 'New Title')
+    put :update, params: { id: @event.to_param, event: modified_params, conference_acronym: @conference.acronym }
+    
+    assert_response :redirect
+    refute_equal flash[:error], I18n.t('cfp.event_locked_cannot_update')
+    
+    @event.reload
+    assert_equal 'New Title', @event.title
+  end
+
+  test 'should still allow withdraw for locked event' do
+    @event.update!(locked: true, state: 'unconfirmed')
+    create(:event_person, event: @event, person: @user.person)
+    
+    put :withdraw, params: { id: @event.to_param, conference_acronym: @conference.acronym }
+    
+    assert_response :redirect
+    @event.reload
+    assert_equal 'withdrawn', @event.state
+  end
 end

@@ -132,4 +132,49 @@ class EventsControllerTest < ActionController::TestCase
     events = JSON.parse(response.body)
     assert_includes events[0].keys, 'speakers'
   end
+
+  # Event locking controller tests
+  test 'should toggle locked status from false to true' do
+    assert_not @event.locked?
+    
+    patch :toggle_locked, params: { id: @event.to_param, conference_acronym: @conference.acronym }, format: :json
+    assert_response :success
+    
+    response_data = JSON.parse(response.body)
+    assert response_data['locked']
+    
+    @event.reload
+    assert @event.locked?
+  end
+
+  test 'should toggle locked status from true to false' do
+    @event.update!(locked: true)
+    assert @event.locked?
+    
+    patch :toggle_locked, params: { id: @event.to_param, conference_acronym: @conference.acronym }, format: :json
+    assert_response :success
+    
+    response_data = JSON.parse(response.body)
+    assert_not response_data['locked']
+    
+    @event.reload
+    assert_not @event.locked?
+  end
+
+  test 'should require manage permission to toggle locked status' do
+    login_as(:reviewer)
+    
+    patch :toggle_locked, params: { id: @event.to_param, conference_acronym: @conference.acronym }, format: :json
+    assert_response :redirect
+  end
+
+  test 'should update event with locked parameter' do
+    event_params_with_locked = event_params.merge('locked' => true)
+    
+    put :update, params: { id: @event.to_param, event: event_params_with_locked, conference_acronym: @conference.acronym }
+    assert_response :redirect
+    
+    @event.reload
+    assert @event.locked?
+  end
 end

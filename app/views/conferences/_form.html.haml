@@ -62,7 +62,7 @@
             = "..."
         %div.input.form-text= t('conferences_module.inputs.hints.accepted_event_durations')
   = dynamic_association :languages, t(:event_languages), f, hint: t('conferences_module.inputs.hints.event_languages')
-  
+
   .card.shadow-sm.mb-4
     .card-header.d-flex.align-items-center
       %i.bi.bi-file-earmark-plus.me-2
@@ -72,6 +72,7 @@
       = f.input :allowed_event_types_extras, as: :string, label: t('allowed_event_types_extras'), hint: t('conferences_module.inputs.hints.allowed_event_types_extras')
       = f.input :event_state_visible, as: :boolean, hint: t('conferences_module.inputs.hints.event_state_visible')
       = f.input :attachment_title_is_freeform, as: :boolean, hint: t('conferences_module.inputs.hints.attachment_title_is_freeform')
+      = f.input :auto_lock_on_confirm, as: :boolean, hint: t('conferences_module.inputs.hints.auto_lock_on_confirm')
       = f.input :default_recording_license, hint: t('conferences_module.inputs.hints.default_recording_license')
   .card.shadow-sm.mb-4
     .card-header.d-flex.align-items-center
