@@ -89,7 +89,7 @@ jobs:
       env:
         DB: ${{ matrix.db }}
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       if: failure()
       with:
         name: screenshots-${{matrix.ruby_version}}-${{matrix.db}}
