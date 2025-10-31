@@ -1,64 +1,113 @@
+# Installation Guide
+
+This guide covers different ways to install and deploy frab.
+
+## Quick Links
+
+- **Development Setup** - Local development with SQLite (see below)
+- **[Docker Deployment](README.docker.md)** - Run frab with Docker and Docker Compose
+- **[Kubernetes/Helm](helm/frab/README.md)** - Deploy on Kubernetes with Helm charts
+- **[PaaS Deployment](README.PaaS.md)** - Deploy on Dokku or Heroku-compatible platforms
+- **Production Deployment** - Traditional deployment (see below)
+
+---
+
 ## Development Setup
 
-Basically, to get started you need git, ruby (>= 2.4) and bundler
-and follow these steps:
+To get started you need:
+- Git
+- Ruby (>= 3.2, recommended 3.3)
+- Node.js (for JavaScript runtime)
+- ImageMagick and `file` command (for image processing)
 
-1) Install nodejs:
+### Installation Steps
 
-frab needs a javascript runtime. You should use
-nodejs, as it is easier to install than v8.
+1) **Install system dependencies**
 
-    apt-get install nodejs
+   On Debian/Ubuntu:
+   ```bash
+   apt-get install nodejs imagemagick file
+   ```
 
-2) Install Imagemagick and `file`:
+   On macOS:
+   ```bash
+   brew install node imagemagick
+   ```
 
-These are dependencies of the paperclip gem. Imagemagick
-tools need to be installed to identify and resize images.
+2) **Clone the repository**
 
-Imagemagick and file should be easy to install using your OS's
-preferred package manager (apt-get, yum, brew etc.).
+   ```bash
+   git clone git://github.com/frab/frab.git
+   cd frab
+   ```
 
-3) Clone the repository
+3) **Run setup**
 
-    git clone git://github.com/frab/frab.git
+   The `bin/setup` script will:
+   - Install bundler and Ruby gems (excluding MySQL/PostgreSQL drivers)
+   - Create `config/database.yml` from the SQLite template
+   - Set up the database with seed data
+   - Clear logs and temp files
 
-4) cd into the directory:
+   ```bash
+   bin/setup
+   ```
 
-    cd frab
+4) **(Optional) Customize settings**
 
-5) Modify settings:
+   Settings are defined via environment variables using dotenv files:
+   - `.env.development` - Default development settings
+   - `.env.local` - Local overrides (create this for custom settings)
 
-Settings are defined via environment variables. frab uses dotenv files to
-set these variables. The variables for development mode are set in `.env.development`.
-You can also use `.env.local` for local overrides.
+5) **Start the server**
 
-6) Run setup
+   ```bash
+   rails server
+   ```
 
-    bin/setup
+   Navigate to http://localhost:3000/ and login as:
+   - Email: `admin@example.org`
+   - Password: `test123`
 
-10) Start the server
+### Working with Migrations
 
-To start frab in the development environment simply run
+frab maintains separate schema files for different databases:
+- `db/schema.rb` - SQLite/PostgreSQL schema (default for development)
+- `db/schema.rb-mysql` - MySQL-specific schema with `bigint` and charset declarations
 
-    rails server
+When creating migrations that change the database schema, both files need to be updated:
 
-Navigate to http://localhost:3000/ and login as
-"admin@example.org" with password "test123".
+1. Run migrations normally:
+   ```bash
+   rails db:migrate
+   ```
 
-## Vagrant Server
+2. Update the MySQL schema file:
 
-frab can more easily be tested by using vagrant with chef recipes taking care of the installation process.
-More information can be found in these github projects:
+   **If you have MySQL configured**, use the automatic rake task:
+   ```bash
+   rake frab:migrate:mysql_schema
+   ```
+   This generates `db/schema.rb-mysql` from your MySQL database while preserving your `db/schema.rb`.
 
-* [frab/vagrant-frab](https://github.com/frab/vagrant-frab)
-* [frab/chef-frab](https://github.com/frab/chef-frab)
+   **If you don't have MySQL**, manually update `db/schema.rb-mysql`:
+   - Update the version number to match the new migration timestamp
+   - Add the schema changes matching MySQL format (`bigint` instead of `integer`, etc.)
 
+Both schema files should be committed together with your migration.
 
-## Docker
-
-See [Docker Readme](README.docker.md)
+---
 
 ## Production Deployment
+
+For production deployments, consider one of the automated approaches:
+- **[Docker](README.docker.md)** - Containerized deployment
+- **[Kubernetes/Helm](helm/frab/README.md)** - Cloud-native deployment
+- **[PaaS platforms](README.PaaS.md)** - Dokku, Heroku, etc.
+
+### Traditional Production Deployment
+
+If you prefer a traditional deployment:
 
 1) Installing database drivers
 
