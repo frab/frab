@@ -3,18 +3,24 @@
     %i.bi.bi-person-circle
     = t('show_account', default: 'Account')
   %ul.dropdown-menu
-    %li
-      = link_to edit_cfp_person_path(current_user), class: 'dropdown-item' do
-        %i.bi.bi-person
-        = t('cfp.edit_profile', default: 'Profile')
-    %li
-      = link_to export_cfp_person_path(current_user.person), class: 'dropdown-item' do
-        %i.bi.bi-download
-        = t("export_profile", default: "Export profile")
+    - if @conference
+      %li
+        = link_to edit_cfp_person_path(current_user), class: 'dropdown-item' do
+          %i.bi.bi-person
+          = t('cfp.edit_profile', default: 'Profile')
+      %li
+        = link_to export_cfp_person_path(current_user.person), class: 'dropdown-item' do
+          %i.bi.bi-download
+          = t("export_profile", default: "Export profile")
     %li
       = link_to edit_cfp_user_path(current_user.person), class: 'dropdown-item' do
         %i.bi.bi-gear
         = t('user_settings', default: 'Settings')
+    - unless @conference
+      %li
+        %span.dropdown-item-text.text-muted.small
+          %i.bi.bi-info-circle.me-1
+          Select a conference for more options
     %li
       = link_to 'https://github.com/frab/frab/wiki/Manual', class: 'dropdown-item' do
         %i.bi.bi-book
