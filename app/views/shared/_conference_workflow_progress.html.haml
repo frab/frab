@@ -1,0 +1,35 @@
+- current_phase = conference_phase(@conference)
+- phases = []
+- phases << { key: :planning, label: t('workflow.planning', default: 'Planning'), icon: 'bi-pencil-square' }
+- phases << { key: :cfp_open, label: t('workflow.cfp', default: 'CfP'), icon: 'bi-megaphone' }
+- phases << { key: :reviewing, label: t('workflow.review', default: 'Review'), icon: 'bi-eye' }
+- phases << { key: :scheduling, label: t('workflow.schedule', default: 'Schedule'), icon: 'bi-calendar3' }
+- phases << { key: :published, label: t('workflow.publish', default: 'Publish'), icon: 'bi-broadcast' }
+- phases << { key: :feedback, label: t('workflow.feedback', default: 'Feedback'), icon: 'bi-chat-square-text' }
+
+.card.mb-4
+  .card-header
+    %h5.card-title.mb-0
+      %i.bi.bi-diagram-3
+      = t('workflow.conference_workflow', default: 'Conference Workflow')
+  .card-body
+    .d-flex.align-items-center.justify-content-between.position-relative{style: "min-height: 60px;"}
+      / Progress bar background
+      .position-absolute.w-100{style: "height: 2px; background: #dee2e6; top: 20px; left: 0; z-index: 0;"}
+      / Active progress bar
+      - phase_index = phases.index { |p| p[:key] == current_phase } || 0
+      - progress_percent = (phase_index.to_f / (phases.length - 1) * 100).round
+      .position-absolute{style: "height: 2px; background: #0d6efd; top: 20px; left: 0; z-index: 1; width: #{progress_percent}%;"}
+
+      / Phase steps
+      - phases.each_with_index do |phase, index|
+        - is_current = phase[:key] == current_phase
+        - is_past = index < phase_index
+        .d-flex.flex-column.align-items-center{style: "flex: 1; z-index: 2; position: relative;"}
+          .rounded-circle.d-flex.align-items-center.justify-content-center.mb-2{
+            class: is_current ? 'bg-primary text-white' : (is_past ? 'bg-success text-white' : 'bg-light border'),
+            style: "width: 40px; height: 40px;"
+          }
+            %i{class: phase[:icon]}
+          .small.text-center{class: is_current ? 'fw-bold text-primary' : (is_past ? 'text-success' : 'text-muted')}
+            = phase[:label]

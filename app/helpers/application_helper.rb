@@ -218,6 +218,60 @@ module ApplicationHelper
     fail 'should not happen: user without acl'
   end
 
+  # Determines the current phase of a conference
+  def conference_phase(conference)
+    return :feedback if conference.in_the_past?
+
+    if conference.call_for_participation.blank?
+      return :planning
+    end
+
+    cfp = conference.call_for_participation
+
+    # Check if CfP is still running (handle nil end_date gracefully)
+    cfp_running = begin
+      cfp.still_running?
+    rescue
+      false
+    end
+
+    if cfp_running
+      return :cfp_open
+    elsif conference.events.where(state: [:new, :review]).any?
+      return :reviewing
+    elsif conference.events.scheduled.count < conference.events.confirmed.count
+      return :scheduling
+    elsif conference.schedule_public
+      return :published
+    else
+      return :scheduled
+    end
+  end
+
+  # Returns phase info with label, icon, and color
+  def conference_phase_info(conference)
+    phase = conference_phase(conference)
+
+    case phase
+    when :planning
+      { label: t('conference_phase.planning', default: 'Planning'), icon: 'bi-pencil-square', color: 'secondary' }
+    when :cfp_open
+      { label: t('conference_phase.cfp_open', default: 'CfP Open'), icon: 'bi-megaphone', color: 'success' }
+    when :reviewing
+      { label: t('conference_phase.reviewing', default: 'Reviewing'), icon: 'bi-eye', color: 'info' }
+    when :scheduling
+      { label: t('conference_phase.scheduling', default: 'Scheduling'), icon: 'bi-calendar3', color: 'warning' }
+    when :scheduled
+      { label: t('conference_phase.scheduled', default: 'Scheduled'), icon: 'bi-check-circle', color: 'primary' }
+    when :published
+      { label: t('conference_phase.published', default: 'Published'), icon: 'bi-broadcast', color: 'success' }
+    when :feedback
+      { label: t('conference_phase.feedback', default: 'Feedback'), icon: 'bi-chat-square-text', color: 'info' }
+    else
+      { label: t('conference_phase.unknown', default: 'Unknown'), icon: 'bi-question-circle', color: 'secondary' }
+    end
+  end
+
   def markdown_render(arg)
     @md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
     @md.render(arg)

@@ -1,4 +1,6 @@
 %section
+  = render 'shared/conference_workflow_progress'
+
   - if @conference.rooms.count == 0
     .row.mb-4
       .col-12
