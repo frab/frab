@@ -44,8 +44,10 @@
                 = link_to schedule_path, class: 'nav-link' do
                   %i.bi.bi-calendar3
                   = t("schedule", default: "Schedule")
-
-          %ul.navbar-nav.ms-auto
+              %li.nav-item
+                = link_to edit_conference_path(@conference), class: 'nav-link' do
+                  %i.bi.bi-gear
+                  = t("settings", default: "Settings")
             %li.nav-item.dropdown
               = link_to '#', class: 'nav-link dropdown-toggle', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false' do
                 %i.bi.bi-window
@@ -71,11 +73,8 @@
                     = link_to mail_templates_path, class: 'dropdown-item' do
                       %i.bi.bi-envelope-paper
                       = t("mail_templates", default: "Mail templates")
-                  %li.nav-item
-                    = link_to edit_conference_path(@conference), class: 'dropdown-item' do
-                      %i.bi.bi-gear
-                      = t("settings", default: "Settings")
 
+          %ul.navbar-nav.ms-auto
             = render 'shared/navi_conferences_menu'
             = render 'shared/navi_account_menu'
             %li.nav-item
@@ -83,6 +82,7 @@
 
     %main.flex-grow-1#main-content{role: "main", "aria-label": t('main_content', default: 'Main content')}
       .container-xxl.py-4
+        = render 'shared/conference_context_card'
         .rounded.shadow-sm.p-4{style: "background-color: var(--frab-surface); color: var(--frab-text);"}
           = render 'shared/flash', flash: flash
           = yield

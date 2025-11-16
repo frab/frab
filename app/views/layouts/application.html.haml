@@ -54,12 +54,7 @@
                       = t('manage_conference', default: "Manage this conference")
 
                 = render 'shared/navi_cfp_conferences_menu'
-
-                -# drop down for cfp account
-                - if @conference
-                  = render 'shared/navi_cfp_account_menu'
-                - else
-                  = render 'shared/navi_cfp_account_no_conference_menu'
+                = render 'shared/navi_cfp_account_menu'
 
               %li.nav-item
                 = render 'shared/theme_toggle'

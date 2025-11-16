@@ -1,0 +1,40 @@
+- phase_info = conference_phase_info(@conference)
+.alert.alert-dismissible.fade.show.mb-3{class: "alert-#{phase_info[:color]}", role: "alert", style: "border-left: 4px solid currentColor;"}
+  .d-flex.justify-content-between.align-items-start.gap-3
+    .flex-grow-1
+      .d-flex.align-items-center.gap-2.mb-2
+        %h5.mb-0.fw-bold
+          = @conference.title
+        %span.badge{class: "bg-#{phase_info[:color]}"}
+          %i{class: phase_info[:icon]}
+          = phase_info[:label]
+
+      .small.text-muted.mb-2
+        %i.bi.bi-calendar-event
+        - if @conference.days.any?
+          = "#{l(@conference.days.first.start_date, format: :long)} - #{l(@conference.days.last.end_date, format: :long)}"
+        - else
+          = t('conference_context.dates_not_set', default: 'Dates not yet configured')
+
+      .d-flex.gap-3.flex-wrap
+        .small
+          %strong= @conference.events.count
+          = t('conference_context.events', count: @conference.events.count, default: 'events')
+        .small
+          %strong= @conference.events.confirmed.count
+          = t('conference_context.confirmed', count: @conference.events.confirmed.count, default: 'confirmed')
+        .small
+          %strong= @conference.events.scheduled.count
+          = t('conference_context.scheduled', count: @conference.events.scheduled.count, default: 'scheduled')
+        - people_count = Person.joins(events: :conference).where(conferences: { id: @conference.id }).distinct.count
+        - if people_count > 0
+          .small
+            %strong= people_count
+            = t('conference_context.people', count: people_count, default: 'people')
+
+    .d-flex.flex-column.gap-2
+      = link_to root_path, class: 'btn btn-sm btn-outline-secondary', title: t('conference_context.exit', default: 'Exit conference mode') do
+        %i.bi.bi-box-arrow-left
+        %span.d-none.d-lg-inline.ms-1= t('conference_context.exit', default: 'Exit')
+
+  %button.btn-close{"aria-label" => t('close', default: 'Close'), "data-bs-dismiss" => "alert", type: "button"}

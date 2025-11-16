@@ -48,9 +48,13 @@ class TranslatedFieldsTest < ApplicationSystemTestCase
 
   test 'edit person description' do
     visit "/#{@conference.acronym}/people"
-    find('i.bi-pencil-square', match: :first).click
+    # Find the first edit button (containing the pencil icon) and click it
+    first('a[href*="/people/"][href*="/edit"]').click
 
-    within find('.card', text: 'Bio') do
+    # Wait for the edit page to load
+    assert_selector 'h1', text: /Edit/
+
+    within find('.card.shadow-sm', text: /Bio/) do
       fill_in 'Abstract (en)', with: 'english abstract'
       fill_in 'Description (en)', with: 'english description'
       fill_in 'Abstract (de)', with: 'german abstract'
@@ -66,16 +70,20 @@ class TranslatedFieldsTest < ApplicationSystemTestCase
 
   test 'edit event description' do
     visit "/#{@conference.acronym}/events"
-    find('i.bi-pencil-square', match: :first).click
+    # Find the first edit button (containing the pencil icon) and click it
+    first('a[href*="/events/"][href*="/edit"]').click
 
-    within find('.card', text: 'Basic Information') do
+    # Wait for the edit page to load
+    assert_selector 'h1', text: /Edit/
+
+    within find('.card.shadow-sm', text: /Basic Information/) do
       fill_in 'Title (de)', with: 'german title'
       fill_in 'Title (en)', with: 'english title'
       fill_in 'Subtitle (en)', with: 'english subtitle'
       fill_in 'Subtitle (de)', with: 'german subtitle'
     end
 
-    within find('.card', text: 'Detailed Description') do
+    within find('.card.shadow-sm', text: /Detailed Description/) do
       fill_in 'Summary (en)', with: 'english summary'
       fill_in 'Description (en)', with: 'english description'
       fill_in 'Summary (de)', with: 'german summary'
