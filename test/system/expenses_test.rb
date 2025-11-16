@@ -63,8 +63,10 @@ class ExpensesTest < ApplicationSystemTestCase
     sign_in_user(@orga.user)
     visit "/#{@conference.acronym}/people/#{@speaker.id}/expenses"
 
-    # Click the edit button (pencil icon)
-    find('a[href*="edit"]').click
+    # Click the edit button (pencil icon) in the table
+    within('tbody') do
+      find('a[href*="edit"]').click
+    end
 
     fill_in 'Name', with: 'Updated travel costs'
     fill_in 'Value', with: '175.75'
