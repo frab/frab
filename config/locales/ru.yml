@@ -74,10 +74,14 @@ ru:
         event_ratings_count: Количество оценок событий
         event_type: Тип события
         guid: GUID
+        interpreter: интерпретация
         invite_token: Пригласить токен
         language: язык
         logo: логотип
+        methods: Тип события
         note: Заметка
+        number_of_repeats: Номер для многодневных мероприятий
+        other_locations: Другие места
         public: общественного
         recording_license: Лицензия на запись
         speaker_count: Количество спикеров
@@ -86,6 +90,8 @@ ru:
         state: государство
         submission_note: Примечания к представлению
         subtitle: подзаголовок
+        target_audience_experience: доступный опыт
+        target_audience_experience_text: предварительное извещение
         tech_rider: Технический райдер
         time_slots: продолжительность
         title: заглавие
@@ -335,6 +341,7 @@ ru:
     login_required_title: Войдите, чтобы принять участие
     logo_hint: Логотип для мероприятия / логотип организации
     looking_for_login_form: Вы ищете логин отправителей?
+    methods_hint: Какие методы используются?
     no_confirmation_token: Ваш ключ подтверждения недействителен. Пожалуйста, проверьте статус вашего мероприятия в интерфейсе участия.
     not_forget_personal_details: И не забудьте заполнить свои личные данные, если вы этого еще не сделали. Помните, что вы всегда можете вернуться и отредактировать свой профиль, используя кнопку на правой боковой панели.
     notifications:
@@ -390,6 +397,8 @@ ru:
     submit_new_event: Отправить новое событие
     successfully_confirmed: Ваша учетная запись успешно подтверждена. Спасибо за регистрацию!
     take_time_to_submit: 'Пожалуйста, найдите время, чтобы отправить свое предложение или присоединиться к существующему событию:'
+    target_audience_experience_hint: Если это мероприятие начального уровня, для которого не требуются предварительные знания, укажите это здесь.
+    target_audience_experience_text_hint: Есть ли другие спикеры? Если да, укажите имя и фамилию!
     thanks_for_confirmation: Спасибо, что подтвердили свое участие.
     thanks_for_interest: Благодарим вас за интерес к участию в %{title}.
     to: в
@@ -1901,12 +1910,17 @@ ru:
     declined: Отклонено
     dect: DECT
     djset: DJ-набор
+    exkursion: экскурсия
+    expert_discussion: Экспертная дискуссия
     fax: факс
     female: женский
     film: фильм
+    forum: Форум
+    group_work: работать в группах
     icq: ICQ
     idea: идея
     integrated: интегрированный
+    intervention: художественное вмешательство
     jabber: Jabber / XMPP
     lecture: лекция
     lightning_talk: Молниеносная
@@ -1914,27 +1928,39 @@ ru:
     meeting: Встреча
     mobile: мобильный
     moderator: Модератор
+    monolingual: одноязычный
     msn: Msn
+    no_prior_knowledge: нет предварительных знаний
     offer: Предлагает
+    open_space: Открытый космос
     orga: Organisator
+    organized_by_host: организовано хостом (ограниченная вместимость)
     other: Другие
+    other_format: разное
     otrs: OTRS
     performance: Театр / Performance
     phone: Телефон
     podium: подиум
+    prior_knowledge: предварительное знание
     private: Частный
     redmine: Redmine
+    referat: презентация
+    referat_discussion: презентация/обсуждение
     reviewer: рецензент
     rt: Запрос Tracker
     secretary: Секретарь
+    self_organized: самоорганизованный
+    seminar: Семинар
     shuttle: челнок
     skype: Skype
     speaker: Оратор
     submitter: податель
     talk: Говорить
+    theatre: Театр
     unclear: Не понятно
     work: Работа
     workshop: мастерская
+    worldcafe: Всемирное кафе
     yahoo: Yahoo
   others_only: Только другие
   page_titles:

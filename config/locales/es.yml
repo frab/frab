@@ -74,10 +74,14 @@ es:
         event_ratings_count: Recuento de calificaciones del evento
         event_type: Tipo de evento
         guid: GUID
+        interpreter: interpretando
         invite_token: Token de invitación
         language: Idioma
         logo: Logo
+        methods: Tipo de evento
         note: Nota
+        number_of_repeats: Número para eventos de varios días
+        other_locations: Otros lugares
         public: Público
         recording_license: Licencia de grabación
         speaker_count: Cuenta de altavoz
@@ -86,6 +90,8 @@ es:
         state: Estado
         submission_note: Notas de envío
         subtitle: Subtítulo
+        target_audience_experience: experiencia disponible
+        target_audience_experience_text: noticia anterior
         tech_rider: Jinete de tecnología
         time_slots: Duración
         title: Título
@@ -354,6 +360,7 @@ es:
     login_required_title: Iniciar sesión para participar
     logo_hint: Un logo para el evento / logo de la organización
     looking_for_login_form: "¿Estás buscando el inicio de sesión de los remitentes?"
+    methods_hint: "¿Qué método/s se utilizan?"
     no_confirmation_token: Su clave de confirmación no es válida. Por favor verifique el estado de su evento en la interfaz de la convocatoria.
     not_forget_personal_details: No olvide llenar sus datos personales. Por favor recuerde que siempre es posible regresar y editar su perfil usando el botón en la barra lateral.
     notifications:
@@ -409,6 +416,8 @@ es:
     submit_new_event: Enviar un nuevo evento
     successfully_confirmed: Tu cuenta ha sido exitosamente confirmada.
     take_time_to_submit: 'Por favor tómese el tiempo para enviar su propuesta:'
+    target_audience_experience_hint: Si se trata de un evento de nivel de entrada en el que no se necesitan conocimientos previos, especifique aquí.
+    target_audience_experience_text_hint: "¿Hay otros oradores? Si es así, especifique el nombre y el apellido."
     thanks_for_confirmation: Gracias por confirmar su participación
     thanks_for_interest: Gracias por su interés en participar en %{title}.
     to: a
@@ -1887,12 +1896,17 @@ es:
     declined: Rechazado
     dect: DECT
     djset: DJ set
+    exkursion: excursión
+    expert_discussion: Discusión de expertos
     fax: fax
     female: femenino
     film: Película
+    forum: Foro
+    group_work: trabajo en grupos
     icq: ICQ
     idea: Idea
     integrated: Integrado
+    intervention: intervención artística
     jabber: Jabber / XMPP
     lecture: presentación
     lightning_talk: charla relámpago
@@ -1900,27 +1914,39 @@ es:
     meeting: reunión
     mobile: móvil
     moderator: Moderador
+    monolingual: monolingüe
     msn: Msn
+    no_prior_knowledge: sin conocimientos previos
     offer: Oferta
+    open_space: Espacio abierto
     orga: Organizador
+    organized_by_host: organizado por anfitrión (capacidad limitada)
     other: otra
+    other_format: otro
     otrs: OTRS
     performance: Teatro / Performance
     phone: teléfono
     podium: discurso
+    prior_knowledge: conocimiento previo
     private: privado
     redmine: Redmine
+    referat: presentación
+    referat_discussion: presentación/discusión
     reviewer: Crítico
     rt: Solicitar rastreador
     secretary: asistente
+    self_organized: auto organizado
+    seminar: Seminario
     shuttle: Lanzadera
     skype: skype
     speaker: Altavoz
     submitter: Peticionario
     talk: Hablar
+    theatre: Teatro
     unclear: Poco claro
     work: Trabajo
     workshop: taller (hands-on)
+    worldcafe: Cafetería del Mundo
     yahoo: Yahoo
   others_only: Solo otros
   page_titles:

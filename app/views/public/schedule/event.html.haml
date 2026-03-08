@@ -30,7 +30,6 @@
         .mb-4
           = link_to event.logo.url, "data-lightbox" => event.logo do
             = image_box(event.logo, :large, class: "img-fluid rounded", loading: "lazy", alt: "Das Titelbild des Beitrags")
-
       - if event.do_not_record
         .alert.alert-warning.mb-4
           %i.bi.bi-exclamation-triangle.me-2

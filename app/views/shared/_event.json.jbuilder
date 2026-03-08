@@ -1,7 +1,10 @@
 json.id event.id
 json.guid event.guid
 json.title event.title
+json.language event.language
+json.audio_languages audio_languages_string(event)
 json.subtitle event.subtitle
+json.organization event.organization
 json.description event.description
 json.duration event.duration_in_minutes
 json.logo event.logo_path(:original)

@@ -27,7 +27,7 @@
         - elsif current_user.is_speaker_in?(@event)
           = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('edit'), edit_cfp_event_path(@event), class: "btn btn-primary btn-sm"
   = render 'shared/events_tabs'
-  
+
   - if @event.conflicts.any?
     .row.mb-4
       .col-12
@@ -54,11 +54,19 @@
                   .mb-3
                     %strong.text-muted= Event.human_attribute_name(:event_type) + ':'
                     %div= @event.localized_event_type
+                  - if @event.organization.present?
+                    .mb-3
+                      %strong.text-muted= Event.human_attribute_name(:organization) + ':'
+                      %div= @event.organization
                   - if policy(@conference).manage?
                     .mb-3
                       %strong.text-muted= Event.human_attribute_name(:state) + ':'
                       %div
                         %span.badge.bg-secondary= t(@event.state, scope: :options) unless @event.state.blank?
+                  - if @event.target_audience_experience.present?
+                    .mb-3
+                      %strong.text-muted= Event.human_attribute_name(:target_audience_experience) + ':'
+                      %div= @event.target_audience_experience
                 .col-12.col-md-6
                   - unless @event.ticket.nil? or @event.ticket.remote_ticket_id.nil?
                     .mb-3
@@ -92,6 +100,10 @@
                 .mb-3
                   %strong.text-muted= t('col_start_time')
                   %div= event_start_time
+                - if @event.number_of_repeats.present?
+                  .mb-3
+                    %strong.text-muted Mehrtägig, Anzahl der Tage:
+                    %div= @event.number_of_repeats
               .mb-3
                 %strong.text-muted= t('col_room')
                 %div= @event.room.try(:name)
@@ -157,7 +169,7 @@
                     %progress.progress{value: ec.value, max: 100, style: "height: 20px;"}= "#{ec.value}%"
                     %small.text-muted= "#{ec.value}%"
 
-  - if (@event.note.present? && policy(@conference).manage?) || @event.submission_note.present? || @event.tech_rider.present?
+  - if (@event.note.present? && policy(@conference).manage?) || @event.submission_note.present? || @event.tech_rider.present? || @event.other_locations.present? || @event.methods.present?
     .row.mt-4
       .col-12
         .card
@@ -177,6 +189,14 @@
                 .col-12
                   %h6.text-muted.mb-2= Event.human_attribute_name(:tech_rider) + ':'
                   .content-text= simple_format @event.tech_rider
+              - if @event.other_locations.present?
+                .col-12
+                  %h6.text-muted.mb-2= Event.human_attribute_name(:other_locations) + ':'
+                  .content-text= @event.other_locations
+              - if @event.methods.present?
+                .col-12
+                  %h6.text-muted.mb-2= Event.human_attribute_name(:methods) + ':'
+                  .content-text= methods_string(@event)
 
   .row.mt-4
     .col-12

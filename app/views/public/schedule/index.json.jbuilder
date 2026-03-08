@@ -33,6 +33,7 @@ json.schedule do
             json.url public_program_event_url(event)
             json.id event.id
             json.guid event.guid
+            json.organization event.organization
             json.logo event.logo_path
             json.date event.start_time.iso8601
             json.start event.start_time.strftime('%H:%M')
@@ -44,6 +45,7 @@ json.schedule do
             json.track event.track.try(:name)
             json.type event.event_type
             json.language event.language
+            json.audio_languages audio_languages_string(event)
             json.abstract event.abstract
             json.description event.description
             json.recording_license event.recording_license

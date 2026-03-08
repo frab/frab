@@ -67,6 +67,7 @@ en:
         start_date: start
       event:
         abstract: Summary
+        audio_languages: Audio languages
         average_feedback: Average feedback
         average_rating: Average rating
         description: Description
@@ -75,11 +76,15 @@ en:
         event_ratings_count: Event ratings count
         event_type: Event type
         guid: GUID
+        interpreter: interpreting
         invite_token: Invite token
         language: Language
         locked: Locked
         logo: Logo
+        methods: Type of event
         note: Note
+        number_of_repeats: Number for multi-day events
+        other_locations: Other Venues
         public: Public
         recording_license: Recording license
         speaker_count: Speaker count
@@ -88,6 +93,8 @@ en:
         state: State
         submission_note: Submission notes
         subtitle: Subtitle
+        target_audience_experience: experience available
+        target_audience_experience_text: prior notice
         tech_rider: Tech rider
         time_slots: Duration
         title: Title
@@ -341,6 +348,7 @@ en:
     login_required_title: Sign In To Participate
     logo_hint: A logo for the event / logo of the organization
     looking_for_login_form: Are you looking for the login of submitters?
+    methods_hint: Which method/s are used?
     no_confirmation_token: Your confirmation key is not valid. Please check your event status in the call for participation interface. Maybe another speaker already confirmed the event?
     not_forget_personal_details: And do not forget to fill out your personal details if you have not done so already. Please remember that you can always go back and edit your profile using the button in the right sidebar.
     notifications:
@@ -396,6 +404,8 @@ en:
     submit_new_event: Submit a new event
     successfully_confirmed: Your account has been successfully confirmed. Thank you for signing up!
     take_time_to_submit: 'Please take the time to submit your proposal or join an existing event:'
+    target_audience_experience_hint: If it is an entry-level event on which no previous knowledge is necessary, please specify here.
+    target_audience_experience_text_hint: Are there any other speakers? If so please specify first and last name!
     thanks_for_confirmation: Thank you for confirming your participation.
     thanks_for_interest: Thank you for your interest in participating in %{title}.
     to: to
@@ -1877,12 +1887,17 @@ en:
     declined: Declined
     dect: DECT
     djset: DJ set
+    exkursion: excursion
+    expert_discussion: Expert discussion
     fax: Fax
     female: Female
     film: Film
+    forum: Forum
+    group_work: work in groups
     icq: ICQ
     idea: Idea
     integrated: Integrated
+    intervention: artistic intervention
     jabber: Jabber/XMPP
     lecture: Lecture
     lightning_talk: Lightning talk
@@ -1890,27 +1905,39 @@ en:
     meeting: Meeting
     mobile: Mobile
     moderator: Moderator
+    monolingual: monolingual
     msn: Msn
+    no_prior_knowledge: no prior knowledge
     offer: Offer
+    open_space: Open Space
     orga: Organisator
+    organized_by_host: organized by host (limited capacity)
     other: Other
+    other_format: other
     otrs: OTRS
     performance: Theater/Performance
     phone: Phone
     podium: Podium
+    prior_knowledge: prior knowledge
     private: Private
     redmine: Redmine
+    referat: presentation
+    referat_discussion: presentation/discussion
     reviewer: Reviewer
     rt: Request Tracker
     secretary: Secrétary
+    self_organized: self organized
+    seminar: Seminar
     shuttle: Shuttle
     skype: Skype
     speaker: Speaker
     submitter: Submitter
     talk: Talk
+    theatre: Theatre
     unclear: Unclear
     work: Work
     workshop: Workshop
+    worldcafe: World café
     yahoo: Yahoo
   others_only: Others only
   page_titles:

@@ -24,11 +24,13 @@
           - if timeslots_for_cfp.length() > 1
             .col-md-4
               = f.input :time_slots, as: :select, collection: timeslots_for_cfp, hint: t("cfp.event_time_slots_hint")
+          .col-md-4
+            = f.input :number_of_repeats, as: :select, collection: 1..3, hint: '1-3'
         = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
+        = f.input :interpreter, collection: translated_options(Event::INTERPRETER)
         - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
           = image_input_box(f.object.logo)
           = f.input :logo
-
     - if @conference.classifiers.any?
       = render partial: '/events/event_classifiers', locals: {f: f}
 
@@ -40,14 +42,16 @@
         = f.input :abstract, input_html: {rows: 4}, hint: t("cfp.event_abstract_hint")
         - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
           = f.input :description, hint: t("cfp.event_description_hint")
-        = f.input :submission_note, hint: t("cfp.submission_note_hint")
+        = f.input :submission_note, hint: t('cfp.submission_note_hint')
+        = f.input :target_audience_experience, collection: translated_options(Event::EXPERIENCE), hint: t('target_audience_experience_hint')
+        = f.input :target_audience_experience_text, input_html: { rows: 2 }, hint: t('cfp.target_audience_experience_text_hint')
+        = f.input :methods, as: :check_boxes, collection: translated_options(Event::METHODS), hint: t('cfp.methods_hint')
         = dynamic_association :links, t("cfp.links"), f
         = dynamic_association :event_attachments, t("cfp.uploaded_files"), f
 
     .mt-4.p-3.bg-light.rounded.d-flex.gap-2
       = f.button :submit, class: 'btn btn-primary btn-lg'
       = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"
-
 - if EventAttachment::PRESERVE_FILE_ATTACHMENTS
   %p{class: 'form-text'}
     = t('cfp.attachements_may_be_saved')

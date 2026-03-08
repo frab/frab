@@ -74,10 +74,14 @@ fr:
         event_ratings_count: Nb. d’évaluations
         event_type: Type d'évènement
         guid: GUID
+        interpreter: interprétant
         invite_token: Jeton d’invitation
         language: Langue
         logo: Logo
+        methods: type d'activité
         note: Note
+        number_of_repeats: Nombre d'événements de plusieurs jours
+        other_locations: Autres sites
         public: Public
         recording_license: Licence d’enregistrement
         speaker_count: Nb. Orateurs
@@ -86,6 +90,8 @@ fr:
         state: État
         submission_note: Notes de soumission
         subtitle: Sous-titre
+        target_audience_experience: expérience disponible
+        target_audience_experience_text: préavis
         tech_rider: Besoins techniques
         time_slots: Durée
         title: Titre
@@ -179,7 +185,7 @@ fr:
         format: "%{attribute}%{message}"
       messages:
         confirmation: ne correspond pas à la confirmation
-        record_invalid: 'Échec du contrôle de validation : %{errors}'
+        record_invalid: 'Échec du contrôle de validation : %{errors}'
         taken: est déjà pris
       template:
         body: 'Veuillez vérifier les champs suivants :'
@@ -337,6 +343,7 @@ fr:
     login_required_title: Connectez-vous pour participer
     logo_hint: Un logo pour l'événement / logo de l'organisation
     looking_for_login_form: Vous cherchez la page de connexion pour conférenciers ?
+    methods_hint: Quelle méthode / n devrait-elle être effectuée?
     no_confirmation_token: Votre clé de confirmation n’est pas valide. Veuillez vérifier le statut de l’évènement sur l’interface de l’Appel à participation.
     not_forget_personal_details: Et n’oubliez pas de remplir vos détails personnels si ce n’est pas déjà fait. Gardez à l’esprit que vous pouvez toujours revenir en arrière et éditer votre profil en utilisant le bouton dans la barre latérale de droite.
     notifications:
@@ -392,6 +399,8 @@ fr:
     submit_new_event: Proposer un nouvel évènement
     successfully_confirmed: Votre compte a été confirmé. Merci de nous avoir rejoint !
     take_time_to_submit: 'Veuillez prendre le temps de soumettre votre proposition ou de vous joindre à un événement existant :'
+    target_audience_experience_hint: S'il s'agit d'un événement d'entrée d'entrée sur lequel aucune connaissance antérieure n'est nécessaire, veuillez préciser ici.
+    target_audience_experience_text_hint: Y a-t-il d'autres orateurs? Si oui, veuillez préciser le prénom et le nom de famille!
     thanks_for_confirmation: Merci d’avoir confirmé votre participation.
     thanks_for_interest: Merci de vôtre intérêt à participer à %{title}.
     to: en
@@ -1888,12 +1897,17 @@ fr:
     declined: Décliné
     dect: DECT
     djset: Set DJ
+    exkursion: Excursion
+    expert_discussion: Discussion d'experts
     fax: Fax
     female: Féminin
     film: Film
+    forum: Forum
+    group_work: travailler en groupe
     icq: ICQ
     idea: Peut-être
     integrated: Integré
+    intervention: Intervention culturel
     jabber: Jabber/XMPP
     lecture: Conférence
     lightning_talk: Conférence éclair
@@ -1901,27 +1915,39 @@ fr:
     meeting: Meeting
     mobile: Mobile
     moderator: Modérateur
+    monolingual: monolingue
     msn: Msn
+    no_prior_knowledge: no prior knowledge
     offer: Demande
+    open_space: Open Space
     orga: Organisateur
+    organized_by_host: Organisé par l'hôte (capacité limitée)
     other: Autre
+    other_format: autre
     otrs: OTRS
     performance: Représentation/Performance
     phone: Téléphone
     podium: Podium
+    prior_knowledge: priork knowledge
     private: Privé
     redmine: Redmine
+    referat: présentation
+    referat_discussion: présentation/débat
     reviewer: Critique
     rt: Request Tracker
     secretary: Secrétariat
+    self_organized: auto-organisé
+    seminar: Séminaire
     shuttle: Navette
     skype: Skype
     speaker: Orateur
     submitter: Déposant
     talk: Conférence
+    theatre: Théâtre
     unclear: Incertain
     work: Travail
     workshop: Atelier
+    worldcafe: Café du monde
     yahoo: Yahoo
   others_only: Autres seulement
   page_titles:

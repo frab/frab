@@ -8,8 +8,11 @@ class Event < ApplicationRecord
   before_create :generate_guid
   before_validation :default_language
 
-  TYPES = %w(lecture workshop podium lightning_talk meeting film concert djset performance other).freeze
+  TYPES = %w(lecture workshop podium forum lightning_talk meeting film concert djset performance other seminar).freeze
   ACCEPTED = %w(accepting unconfirmed confirmed scheduled).freeze
+  METHODS = %w(workshop worldcafe open_space exkursion intervention other_format).freeze
+  EXPERIENCE = %w(no_prior_knowledge prior_knowledge).freeze
+  INTERPRETER = %w(monolingual self_organized organized_by_host).freeze
 
   has_one :ticket, as: :object, dependent: :destroy
   has_many :event_attachments, dependent: :destroy
@@ -21,6 +24,9 @@ class Event < ApplicationRecord
   has_many :event_classifiers, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :people, through: :event_people
+
+  serialize :methods, Array
+  serialize :audio_languages, Array
 
   belongs_to :conference
   belongs_to :track, optional: true
@@ -52,6 +58,10 @@ class Event < ApplicationRecord
       record.errors.add(attr, 'locale must match a conference locale')
     end
   end
+  validates_numericality_of :number_of_repeats, only_integer: true, allow_nil: true,
+                                                greater_than_or_equal_to: 1,
+                                                less_than_or_equal_to: 4,
+                                                message: 'can only be whole number between 1 and 4.'
 
   scope :accepted, -> { where(arel_table[:state].in(ACCEPTED)) }
   scope :associated_with, ->(person) { joins(:event_people).where("event_people.person_id": person.id) }

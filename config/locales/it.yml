@@ -74,10 +74,14 @@ it:
         event_ratings_count: Nb. valutazioni
         event_type: Tipo di evento
         guid: GUID
+        interpreter: interpretando
         invite_token: Gettone invito
         language: Lingua
         logo: logo
+        methods: Tipo di evento
         note: nota
+        number_of_repeats: Numero per eventi di più giorni
+        other_locations: Altre sedi
         public: pubblico
         recording_license: Licenza di registrazione
         speaker_count: Nb. altoparlanti
@@ -86,6 +90,8 @@ it:
         state: stato
         submission_note: Note di presentazione
         subtitle: sottotitolo
+        target_audience_experience: esperienza disponibile
+        target_audience_experience_text: preavviso
         tech_rider: Requisiti tecnici
         time_slots: Durata
         title: titolo
@@ -337,6 +343,7 @@ it:
     login_required_title: Accedi per partecipare
     logo_hint: Un logo per l'evento/logo dell'organizzazione
     looking_for_login_form: Cerchi la pagina di accesso per gli oratori?
+    methods_hint: Quale/i metodo/i vengono utilizzati?
     no_confirmation_token: La tua chiave di conferma non è valida. Si prega di verificare lo stato dell'evento sull'interfaccia Call for Participation.
     not_forget_personal_details: E non dimenticare di inserire i tuoi dati personali se non lo hai già fatto. Tieni presente che puoi sempre tornare indietro e modificare il tuo profilo utilizzando il pulsante nella barra laterale destra.
     notifications:
@@ -392,6 +399,8 @@ it:
     submit_new_event: Invia un nuovo evento
     successfully_confirmed: Il tuo account è stato confermato Grazie per esserti unito a noi!
     take_time_to_submit: 'Si prega di prendere il tempo per inviare la proposta o partecipare a un evento esistente:'
+    target_audience_experience_hint: Se si tratta di un evento entry-level su cui non sono necessarie conoscenze pregresse, si prega di specificare qui.
+    target_audience_experience_text_hint: Ci sono altri altoparlanti? In tal caso, specificare nome e cognome!
     thanks_for_confirmation: Grazie per aver confermato la tua partecipazione.
     thanks_for_interest: Grazie per il tuo interesse a partecipare a %{title}.
     to: in
@@ -1892,12 +1901,17 @@ it:
     declined: diminuito
     dect: DECT
     djset: DJ set
+    exkursion: escursione
+    expert_discussion: Discussione di esperti
     fax: fax
     female: femminile
     film: film
+    forum: Forum
+    group_work: lavorare in gruppi
     icq: ICQ
     idea: forse
     integrated: integrato
+    intervention: intervento artistico
     jabber: Jabber / XMPP
     lecture: conferenza
     lightning_talk: Conferenza Flash
@@ -1905,27 +1919,39 @@ it:
     meeting: incontro
     mobile: mobile
     moderator: Moderatore
+    monolingual: monolingue
     msn: msn
+    no_prior_knowledge: nessuna conoscenza precedente
     offer: applicazione
+    open_space: Spazio aperto
     orga: organizzatore
+    organized_by_host: organizzato per host (capacità limitata)
     other: altro
+    other_format: Altro
     otrs: OTRS
     performance: Rappresentanza / prestazioni
     phone: telefono
     podium: podio
+    prior_knowledge: conoscenza precedente
     private: privato
     redmine: Redmine
+    referat: presentazione
+    referat_discussion: presentazione/discussione
     reviewer: critico
     rt: Richiedi tracciatore
     secretary: segreteria
+    self_organized: auto organizzato
+    seminar: Seminario
     shuttle: navetta
     skype: Skype
     speaker: altoparlante
     submitter: depositante
     talk: conferenza
+    theatre: Teatro
     unclear: incerto
     work: lavoro
     workshop: Officina
+    worldcafe: Caffè del mondo
     yahoo: Yahoo
   others_only: Solo altro
   page_titles:

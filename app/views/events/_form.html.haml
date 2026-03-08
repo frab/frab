@@ -18,6 +18,8 @@
         .col-md-4
           = f.input :time_slots, as: :select, collection: timeslots
       = f.input :language, as: :language_select, only: @conference.language_codes
+      = f.input :organization
+      = f.input :interpreter, collection: translated_options(Event::INTERPRETER)
       = f.input :public, as: :boolean, hint: t('events_module.inputs.hints.public')
       - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
         = image_input_box(f.object.logo)
@@ -43,6 +45,8 @@
                 = f.select :start_time, grouped_options_for_select(@start_time_options, @event.start_time), { include_blank: true }
             .col-12
               = f.association :room, collection: @conference.rooms
+            .col-12
+              = f.input :number_of_repeats, as: :select, collection: 1..4, hint: '1-4', include_blank: true
   - if @conference.classifiers.any?
     = render partial: 'event_classifiers', locals: { f: f }
 
@@ -56,6 +60,14 @@
         - unless ENV['DISABLE_FRAB_DESCRIPTION_FIELD'].present?
           = translated_textbox f, 'description', l, language_label('event.description', l), t('cfp.event_description_hint')
 
+  .card.shadow-sm.mb-4
+    .card-header.d-flex.align-items-center
+      %i.bi.bi-people.me-2
+      %h5.mb-0 Zielgruppe
+    .card-body
+      = f.input :target_audience_experience, collection: translated_options(Event::EXPERIENCE)
+      = f.input :target_audience_experience_text, input_html: { rows: 2 }, hint: "ggf."
+
   .card.border-warning.border-opacity-25.mb-4
     .card-header.d-flex.align-items-center.bg-warning.bg-opacity-10
       %i.bi.bi-sticky.me-2
@@ -66,6 +78,8 @@
           = f.input :note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.note')
         .col-md-6
           = f.input :submission_note, input_html: {rows: 2}, hint: t('events_module.inputs.hints.submission_note')
+        .col-12
+          = f.input :other_locations, input_html: { rows: 2 }
 
   .card.shadow-sm.mb-4
     .card-header.d-flex.align-items-center
@@ -75,6 +89,7 @@
       = f.input :do_not_record, as: :boolean, hint: t('events_module.inputs.hints.do_not_record')
       = f.input :recording_license, hint: t('events_module.inputs.hints.recording_license')
       = f.input :tech_rider, input_html: {rows: 2}, hint: t('events_module.inputs.hints.tech_rider')
+      = f.input :methods, as: :check_boxes, collection: translated_options(Event::METHODS), hint: t('cfp.methods_hint')
       = dynamic_association :links, t('links'), f
       = dynamic_association :event_attachments, t('events_module.event_attachments'), f
 

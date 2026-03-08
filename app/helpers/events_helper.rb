@@ -11,6 +11,14 @@ module EventsHelper
     params[:events] == 'my'
   end
 
+  def methods_string(event)
+    event.methods.select { |m| m.present? }.join(', ')
+  end
+
+  def audio_languages_string(event)
+    event.audio_languages.select(&:present?).join(', ')
+  end
+
   def event_start_time
     return t(:date_not_set) unless @event.start_time
     I18n.l(@event.start_time, format: :pretty_datetime)
@@ -26,6 +34,14 @@ module EventsHelper
 
   def timeslots_for_cfp
     @conference.allowed_event_timeslots.map{|slots| [format_time_slots(slots), slots]}
+  end
+
+  def custom_timeslots
+    slots = Array.new
+    [3, 4, 6, 7, 12].each do |i|
+      slots << [format_time_slots(i), i]
+    end
+    slots
   end
 
   def format_time_slots(number_of_time_slots)
