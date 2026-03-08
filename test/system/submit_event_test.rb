@@ -57,7 +57,7 @@ class SubmitEventTest < ApplicationSystemTestCase
     click_on 'Submit a new event', match: :first
 
     fill_in 'Title', with: 'fake-title', match: :first
-    select '00:45', from: 'Duration'
+    #select '00:45', from: 'Duration'
     click_on 'Create event'
 
     assert_content page, 'Events you already submitted'

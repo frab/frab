@@ -16,21 +16,18 @@
           = f.input :speakers, label: "Speakers" do
             %p{style: "padding-top: 0.5em;"}
               %b=@event.speakers.map(&:public_name).join(", ").html_safe
+        = f.hidden_field :event_type, value: "Workshop"
         .row.g-3
-          .col-md-4
-            = f.input :event_type, collection: translated_options(@conference.allowed_event_types_as_list)
-          .col-md-4
-            = f.association :track, collection: @conference.tracks
-          - if timeslots_for_cfp.length() > 1
-            .col-md-4
-              = f.input :time_slots, as: :select, collection: timeslots_for_cfp, hint: t("cfp.event_time_slots_hint")
-          .col-md-4
+          .col-md-6
+            = f.association :track, collection: @conference.tracks, hint: t('cfp.track_hint')
+          .col-md-6
             = f.input :number_of_repeats, as: :select, collection: 1..3, hint: '1-3'
+        = f.hidden_field :time_slots, value: "7"
         = f.input :language, as: :language_select, only: @conference.language_codes, include_blank: true
         = f.input :interpreter, collection: translated_options(Event::INTERPRETER)
         - unless ENV['DISABLE_FRAB_LOGO_FIELD'].present?
           = image_input_box(f.object.logo)
-          = f.input :logo
+          = f.input :logo, hint: t('cfp.logo_hint')
     - if @conference.classifiers.any?
       = render partial: '/events/event_classifiers', locals: {f: f}
 
