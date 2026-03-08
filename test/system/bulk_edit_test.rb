@@ -13,7 +13,7 @@ class BulkEditTest < ApplicationSystemTestCase
     sign_in_user(@admin)
 
     visit "/#{@conference.acronym}/events"
-    click_on "odium" # podium or Podium
+    click_on "Panel Discussion"
 
     assert_content page, 'Listing 1 of 3'
     find('a', text: 'Bulk Edit').click
