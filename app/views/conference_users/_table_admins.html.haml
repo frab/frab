@@ -13,4 +13,3 @@
             .d-flex.flex-wrap.gap-2
               = action_button '<i class="bi bi-person"></i> '.html_safe + t('user'), edit_crew_user_path(user.person), class: "btn btn-sm btn-danger"
               = action_button '<i class="bi bi-person"></i> '.html_safe + t('person'), edit_crew_profile_path(user.person), class: "btn btn-sm btn-danger"
-              = delete_button conference_users_path(person_id: user.person), hint: t('destroy')
