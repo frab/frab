@@ -119,7 +119,7 @@ Rails.application.routes.draw do
           get :speakers
         end
         member do
-          put :attend
+          post :attend
         end
       end
 

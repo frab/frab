@@ -7,7 +7,7 @@
           = action_button '<i class="bi bi-pencil-square"></i> '.html_safe + t('people_module.edit_person'), edit_person_path(@person), hint: t('people_module.edit_person_hint'), class: "btn btn-primary"
           = action_button '<i class="bi bi-plus-circle"></i> '.html_safe + t('people_module.add_person'), new_person_path, hint: t('people_module.add_person_hint'), class: "btn btn-secondary"
         - if @person.public_and_accepted_events_as_speaker_in(@conference).present?
-          = action_button '<i class="bi bi-check-circle"></i> '.html_safe + t('people_module.attending'), attend_person_path, hint: t('people_module.attending_hint'), method: 'PUT', class: "btn btn-secondary"
+          = action_button '<i class="bi bi-check-circle"></i> '.html_safe + t('people_module.attending'), attend_person_path, hint: t('people_module.attending_hint'), method: 'POST', class: "btn btn-secondary"
         - if @view_model.can_add_ticket?
           = action_button '<i class="bi bi-ticket"></i> '.html_safe + t('people_module.add_ticket'), create_person_ticket_path(person_id: @person), method: :post, hint: t('people_module.add_ticket_hint'), class: "btn btn-primary"
   = render 'shared/people_tabs'
