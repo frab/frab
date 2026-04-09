@@ -1,6 +1,7 @@
 json.id event.id
 json.guid event.guid
 json.title event.title
+json.language event.language
 json.subtitle event.subtitle
 json.description event.description
 json.duration event.duration_in_minutes

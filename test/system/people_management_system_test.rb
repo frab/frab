@@ -144,6 +144,20 @@ class PeopleManagementSystemTest < ApplicationSystemTestCase
     assert_selector '.pagination'
   end
 
+  test 'orga can mark speaker as attending' do
+    event = create(:event, conference: @conference, state: 'confirmed', public: true)
+    create(:confirmed_speaker, event: event, person: @person, conference: @conference)
+
+    sign_in_user(@orga.user)
+    visit "/#{@conference.acronym}/people/#{@person.id}"
+
+    assert_content page, 'Attending'
+    click_on 'Attending'
+
+    assert_current_path %r{/#{@conference.acronym}/people/#{@person.id}$}
+    assert_content page, 'attending'
+  end
+
   # Note: Coordinators CAN create people in this application
   # The original AI-generated test incorrectly assumed they couldn't
 
