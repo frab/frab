@@ -118,7 +118,7 @@ export default class extends Controller {
       const date = new Date(unix * 1000)
       const offsetMs = this.utcOffsetValue * 1000
       const localDate = new Date(date.getTime() + offsetMs)
-      return localDate.toTimeString().slice(0, 5)
+      return localDate.toISOString().slice(11, 16)
     }
   }
 
