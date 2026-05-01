@@ -11,6 +11,7 @@ module HasEventConflicts
   end
 
   def update_conflicts
+    return unless (saved_changes.keys & %w[room_id start_time duration state]).any?
     conflicts.delete_all
     conflicts_as_conflicting.delete_all
     if accepted? and room and start_time and time_slots

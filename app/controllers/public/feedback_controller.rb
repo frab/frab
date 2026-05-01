@@ -1,6 +1,7 @@
 class Public::FeedbackController < ApplicationController
   layout 'public_schedule'
   before_action :find_event
+  invisible_captcha only: [:create], scope: 'event_feedback', honeypot: 'subtitle'
 
   def new
     @feedback = EventFeedback.new
