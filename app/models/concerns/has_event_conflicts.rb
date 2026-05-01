@@ -6,12 +6,11 @@ module HasEventConflicts
   included do
     has_many :conflicts_as_conflicting, class_name: 'Conflict', foreign_key: 'conflicting_event_id', dependent: :destroy
     has_many :conflicts, dependent: :destroy
-    after_save :update_conflicts
+    after_save :update_conflicts_after_save
     scope :no_conflicts, -> { includes(:conflicts).where("conflicts.event_id": nil) }
   end
 
   def update_conflicts
-    return unless (saved_changes.keys & %w[room_id start_time duration state]).any?
     conflicts.delete_all
     conflicts_as_conflicting.delete_all
     if accepted? and room and start_time and time_slots
@@ -83,5 +82,10 @@ module HasEventConflicts
   def conflict_person_not_available(event_person)
     return if event_person.available_between?(start_time, end_time)
     Conflict.create(event: self, person: event_person.person, conflict_type: 'person_unavailable', severity: 'warning')
+  end
+
+  def update_conflicts_after_save
+    return unless (saved_changes.keys & %w[room_id start_time duration state speaker_count]).any?
+    update_conflicts
   end
 end
