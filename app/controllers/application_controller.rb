@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   prepend_before_action :load_conference
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActionController::BadRequest, ActionController::ParameterMissing, with: :bad_request
 
   prepend_view_path 'app/views/custom'
 
@@ -92,6 +93,13 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  # Log bad requests with IP for fail2ban; re-raise in dev to preserve error pages
+  def bad_request(ex)
+    raise ex unless Rails.env.production?
+    logger.warn "BadRequest #{request.remote_ip}: #{ex.message}"
+    head :bad_request
+  end
 
   def user_not_authorized(ex)
     Rails.logger.info "[ !!! ] Access Denied for #{current_user.email}/#{current_user.id}/#{current_user.role}: #{ex.message}"
