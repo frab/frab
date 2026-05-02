@@ -94,7 +94,9 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Log bad requests with IP for fail2ban; re-raise in dev to preserve error pages
   def bad_request(ex)
+    raise ex unless Rails.env.production?
     logger.warn "BadRequest #{request.remote_ip}: #{ex.message}"
     head :bad_request
   end
