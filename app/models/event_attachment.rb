@@ -10,6 +10,7 @@ class EventAttachment < ApplicationRecord
     preserve_files: PRESERVE_FILE_ATTACHMENTS,
   }
 
+  validates :title, length: { maximum: 255 } # matches db/schema.rb event_attachments.title limit
   validates_attachment_size :attachment, less_than: Integer(ENV['FRAB_MAX_ATTACHMENT_SIZE_MB'] || '42').megabytes
   do_not_validate_attachment_file_type :attachment
 
