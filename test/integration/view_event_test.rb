@@ -3,7 +3,7 @@ require 'test_helper'
 class ViewEventTest < ActionDispatch::IntegrationTest
   setup do
     @conference = create :three_day_conference_with_events_and_speakers
-    @event = create :event, conference: @conference
+    @event = create :event, conference: @conference, title: 'Keynote: The Future of Frab'
     @conference_user = create :conference_orga, conference: @conference
     sign_in(@conference_user.user)
   end
@@ -11,7 +11,7 @@ class ViewEventTest < ActionDispatch::IntegrationTest
   test 'can view event details' do
     get "/#{@conference.acronym}/events/#{@event.id}"
     assert_response :success
-    assert_includes @response.body, 'Introducing frap'
+    assert_includes @response.body, @event.title
   end
 
   test 'can view events table' do
@@ -53,9 +53,9 @@ class ViewEventTest < ActionDispatch::IntegrationTest
   end
 
   test 'finds events for search term' do
-    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=#{@conference.events.last.title.split.last}&utf8=%E2%9C%93"
+    get "/#{@conference.acronym}/events?q%5Bs%5D=track_name+asc&term=Keynote&utf8=%E2%9C%93"
     assert_response :success
-    assert_includes @response.body, 'frap'
+    assert_includes @response.body, @event.title
     assert_includes @response.body, 'Listing 1 of 4 events'
   end
 end
