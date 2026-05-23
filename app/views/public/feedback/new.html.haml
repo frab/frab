@@ -7,6 +7,7 @@
 
 = simple_form_for(@feedback, url: public_event_feedback_path(event_id: @event.id)) do |f|
   %fieldset.inputs
+    = f.invisible_captcha :subtitle
     = f.input :rating, as: :rating, label: t('.how_would_you_rate'), size: "lg"
     = f.input :comment, input_html: {rows: 4}, hint: t('.what_did_you_like')
   .actions

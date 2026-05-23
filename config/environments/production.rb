@@ -99,17 +99,17 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   if ENV['EXCEPTION_EMAIL'].present? and ENV['FROM_EMAIL'].present?
+    _last_notification = 1.minute.ago
     Rails.application.config.middleware.use ExceptionNotification::Rack,
       ignore_if: ->(env, exception) {
         return true if exception.message =~ /^IP spoofing attack/
         # from https://gist.github.com/jlxw/3357795
-        _limit = 1.minutes.ago
-        @@last_notification ||= _limit
-        if @@last_notification > _limit
+        _limit = 1.minute.ago
+        if _last_notification > _limit
           Rails.logger.info "ExceptionNotifier rate limit triggered, #{ExceptionNotifier::Notifier.deliveries.size} notifications limited."
           true
         else
-          @@last_notification = Time.now
+          _last_notification = Time.now
           false
         end
       },
