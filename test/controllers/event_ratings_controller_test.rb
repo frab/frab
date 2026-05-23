@@ -17,6 +17,20 @@ class EventRatingsControllerTest < ActionController::TestCase
     assert_redirected_to event_event_rating_path
   end
 
+  test 'show does not raise when rating is zero and average_rating is nil' do
+    create :event_rating, event: @event, person: @user.person, rating: 0
+    assert_nil @event.reload.average_rating
+    get :show, params: { conference_acronym: @conference.acronym, event_id: @event.id }
+    assert_response :success
+  end
+
+  test 'show does not raise when rating is nil and average_rating is nil' do
+    create :event_rating, event: @event, person: @user.person, rating: nil
+    assert_nil @event.reload.average_rating
+    get :show, params: { conference_acronym: @conference.acronym, event_id: @event.id }
+    assert_response :success
+  end
+
   test 'should update rating' do
     event_rating = create :event_rating, event: @event, person: @user.person
 

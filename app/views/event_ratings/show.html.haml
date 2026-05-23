@@ -128,7 +128,8 @@
                 .d-flex.align-items-center.gap-3
                   %span.fw-bold= t('col_total')
                   = render 'shared/star_rating', id: "total_rating", value: @event.average_rating, readonly: true
-                  %span.text-muted= sprintf("(%.1f/5)", @event.average_rating)
+                  - if @event.average_rating
+                    %span.text-muted= sprintf("(%.1f/5)", @event.average_rating)
 
               - if @event_ratings.count >= 1
                 .table-responsive
