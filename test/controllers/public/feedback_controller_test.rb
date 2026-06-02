@@ -25,4 +25,14 @@ class Public::FeedbackControllerTest < ActionController::TestCase
     end
     assert_response :success
   end
+
+  test 'feedback with out-of-range rating is rejected' do
+    assert_no_difference 'EventFeedback.count' do
+      post :create, params: { conference_acronym: @conference.acronym, event_id: @event.id, event_feedback: { rating: 6 } }
+    end
+
+    assert_no_difference 'EventFeedback.count' do
+      post :create, params: { conference_acronym: @conference.acronym, event_id: @event.id, event_feedback: { rating: 0 } }
+    end
+  end
 end

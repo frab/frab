@@ -9,6 +9,7 @@ class EventRating < ApplicationRecord
 
   validates :event, presence: true
   validates :person, presence: true
+  validates :rating, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }, allow_nil: true
 
   accepts_nested_attributes_for :review_scores, allow_destroy: true
 
