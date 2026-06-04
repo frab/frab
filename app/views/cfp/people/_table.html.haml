@@ -49,7 +49,7 @@
             - if @conference.event_state_visible
               %td{colspan: 2}
             - else
-              %td
+              %td.text-nowrap
                 = render 'shared/star_rating', id: "event_rating_#{event.id}", value: feedback.rating, readonly: true, size: 'sm'
             %td= feedback.comment
             %td

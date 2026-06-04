@@ -74,7 +74,7 @@
                     %td= link_to_unless params[:event_type].present?, event.event_type, request.query_parameters.merge(:event_type => event.event_type)
                     - if policy(@conference).manage?
                       %td= link_to_unless params[:event_state].present?, event.state, request.query_parameters.merge(:event_state => event.state)
-                    %td
+                    %td.text-nowrap
                       - if event.average_rating
                         = link_to_unless params[:average_rating].present?, (render 'shared/star_rating', id: "event_rating_#{event.id}", value: event.average_rating, readonly: true, size: 'sm'), request.query_parameters.merge(:average_rating => "≥#{event.average_rating}")
                     %td= link_to_unless params[:event_ratings_count].present?, event.event_ratings_count, request.query_parameters.merge(:event_ratings_count => "≥#{event.event_ratings_count}")

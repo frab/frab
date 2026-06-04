@@ -25,7 +25,7 @@
       - event.event_feedbacks.each do |feedback|
         - next if feedback.comment.blank?
         %tr
-          %td
+          %td.text-nowrap
             = render 'shared/star_rating', id: "event_rating_#{feedback.id}", value: feedback.rating, readonly: true, size: 'sm'
           %td{colspan: 5}= feedback.comment
 
