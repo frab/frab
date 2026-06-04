@@ -21,6 +21,15 @@ class ActiveSupport::TestCase
   # Configure parallel testing with SQLite fork safety
   parallelize(workers: :number_of_processors)
 
+  parallelize_setup do |worker|
+    Paperclip::Attachment.default_options[:path] =
+      ":rails_root/tmp/test_attachments/worker_#{worker}/:class/:attachment/:id_partition/:style/:filename"
+  end
+
+  parallelize_teardown do |worker|
+    FileUtils.rm_rf(Rails.root.join("tmp/test_attachments/worker_#{worker}"))
+  end
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
 
