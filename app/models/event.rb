@@ -260,19 +260,6 @@ class Event < ApplicationRecord
     self.language ||= I18n.default_locale.to_s
   end
 
-  def average(rating_type)
-    result = 0
-    rating_count = 0
-    send(rating_type).each do |rating|
-      if rating.rating
-        result += rating.rating
-        rating_count += 1
-      end
-    end
-    return nil if rating_count.zero?
-    result.to_f / rating_count
-  end
-
   def average_of_nonzeros(list)
     return nil unless list
     list=list.select{ |x| x && x>0 }
