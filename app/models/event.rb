@@ -142,7 +142,7 @@ class Event < ApplicationRecord
   end
 
   def feedback_standard_deviation
-    arr = event_feedbacks.map(&:rating).reject(&:nil?)
+    arr = event_feedbacks.with_valid_rating.pluck(:rating)
     return if arr.count < 1
 
     n = arr.count
@@ -151,7 +151,9 @@ class Event < ApplicationRecord
   end
 
   def recalculate_average_feedback!
-    update(average_feedback: average(:event_feedbacks))
+    ratings = event_feedbacks.with_valid_rating.pluck(:rating)
+    avg = ratings.empty? ? nil : ratings.sum.to_f / ratings.size
+    update(average_feedback: avg)
   end
 
   def recalculate_average_rating!
