@@ -3,7 +3,7 @@ namespace :frab do
   task delete_invalid_ratings: :environment do
     dry_run = ENV['dry_run'].present?
 
-    invalid_feedbacks = EventFeedback.where('rating IS NULL OR rating < 1 OR rating > 5')
+    invalid_feedbacks = EventFeedback.where('rating IS NOT NULL AND (rating < 1 OR rating > 5)')
     invalid_event_ratings = EventRating.where('rating < 0 OR rating > 5')
     invalid_review_scores = ReviewScore.where('score < 0 OR score > 5')
 
