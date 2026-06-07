@@ -21,4 +21,8 @@ class MailTemplate < ApplicationRecord
     job = SendBulkMailJob.new
     job.async.perform(self, filter)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[conference_id content created_at id name subject updated_at]
+  end
 end

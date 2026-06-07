@@ -33,4 +33,15 @@ class MailTemplateTest < ActiveSupport::TestCase
     assert m.body.include? "|last_name #{@speaker.last_name}|"
     assert m.body.include? "|public_name #{@speaker.public_name}|"
   end
+
+  test 'ransack search by name returns matching templates' do
+    results = MailTemplate.ransack(name_cont: @mail_template.name).result
+    assert_includes results, @mail_template
+  end
+
+  test 'ransack search by name excludes non-matching templates' do
+    other = create(:mail_template, conference: @event.conference, name: 'other_template')
+    results = MailTemplate.ransack(name_cont: @mail_template.name).result
+    assert_not_includes results, other
+  end
 end
