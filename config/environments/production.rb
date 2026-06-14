@@ -103,6 +103,7 @@ Rails.application.configure do
     Rails.application.config.middleware.use ExceptionNotification::Rack,
       ignore_if: ->(env, exception) {
         return true if exception.message =~ /^IP spoofing attack/
+        return true if exception.is_a?(ActionController::BadRequest)
         # from https://gist.github.com/jlxw/3357795
         _limit = 1.minute.ago
         if _last_notification > _limit
