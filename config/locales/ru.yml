@@ -301,6 +301,7 @@ ru:
     forgot_password_headline: Забыли пароль?
     hard_deadline_over: К сожалению, срок подачи заявок закончился.
     im_accounts: Мгновенные сообщения
+    im_type_other_placeholder: Пожалуйста, уточните
     info_url_description_html: 'Не знаете, что подарить? Читайте все о конкурсе на участие: %{link}'
     information_headline: Информация
     input_appreciation: 'Мы очень ценим ваш вклад до сих пор. Не стесняйтесь подавать или присоединяться к другому событию:'
@@ -1888,7 +1889,6 @@ ru:
         delimiter: ''
   options:
     admin: администратор
-    aim: AIM
     assistant: Ассистент
     attending: Присутствовавший
     bus: автобус
@@ -1904,17 +1904,14 @@ ru:
     fax: факс
     female: женский
     film: фильм
-    icq: ICQ
     idea: идея
     integrated: интегрированный
-    jabber: Jabber / XMPP
     lecture: лекция
     lightning_talk: Молниеносная
     male: мужчина
     meeting: Встреча
     mobile: мобильный
     moderator: Модератор
-    msn: Msn
     offer: Предлагает
     orga: Organisator
     other: Другие
@@ -1928,14 +1925,12 @@ ru:
     rt: Запрос Tracker
     secretary: Секретарь
     shuttle: челнок
-    skype: Skype
     speaker: Оратор
     submitter: податель
     talk: Говорить
     unclear: Не понятно
     work: Работа
     workshop: мастерская
-    yahoo: Yahoo
   others_only: Только другие
   page_titles:
     admin_users: Пользователи frab - admin

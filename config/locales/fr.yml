@@ -301,6 +301,7 @@ fr:
     forgot_password_headline: Mot de passe oublié ?
     hard_deadline_over: Désolé mais la date limite de soumission est dépassée.
     im_accounts: Comptes de messagerie instantanée
+    im_type_other_placeholder: Veuillez préciser
     info_url_description_html: 'Pas sûr(e) de ce que vous devez envoyer ? Lisez l’appel à participation ici : %{link}'
     information_headline: Information
     input_appreciation: 'Nous apprécions réellement votre participation. N’hésitez pas à proposer ou à rejoindre un autre évènement :'
@@ -1875,7 +1876,6 @@ fr:
         delimiter: ''
   options:
     admin: Administrateur
-    aim: AIM
     assistant: Assistant
     attending: Assiste
     bus: Bus
@@ -1891,17 +1891,14 @@ fr:
     fax: Fax
     female: Féminin
     film: Film
-    icq: ICQ
     idea: Peut-être
     integrated: Integré
-    jabber: Jabber/XMPP
     lecture: Conférence
     lightning_talk: Conférence éclair
     male: Masculin
     meeting: Meeting
     mobile: Mobile
     moderator: Modérateur
-    msn: Msn
     offer: Demande
     orga: Organisateur
     other: Autre
@@ -1915,14 +1912,12 @@ fr:
     rt: Request Tracker
     secretary: Secrétariat
     shuttle: Navette
-    skype: Skype
     speaker: Orateur
     submitter: Déposant
     talk: Conférence
     unclear: Incertain
     work: Travail
     workshop: Atelier
-    yahoo: Yahoo
   others_only: Autres seulement
   page_titles:
     admin_users: frab - Administrateurs

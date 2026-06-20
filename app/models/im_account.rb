@@ -1,5 +1,19 @@
 class ImAccount < ApplicationRecord
-  TYPES = %w(aim icq jabber msn yahoo skype).freeze
+  TYPES = %w(discord irc jabber mastodon matrix signal skype slack telegram whatsapp other).freeze
+
+  # Product names are not translated.
+  LABELS = {
+    'discord' => 'Discord',
+    'irc' => 'IRC',
+    'jabber' => 'Jabber/XMPP',
+    'mastodon' => 'Mastodon',
+    'matrix' => 'Matrix',
+    'signal' => 'Signal',
+    'skype' => 'Skype',
+    'slack' => 'Slack',
+    'telegram' => 'Telegram',
+    'whatsapp' => 'WhatsApp'
+  }.freeze
 
   belongs_to :person
 

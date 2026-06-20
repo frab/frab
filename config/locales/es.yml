@@ -320,6 +320,7 @@ es:
     forgot_password_headline: Olvidaste tu clave?
     hard_deadline_over: Disculpe, la convocatoria ya ha sido cerrada.
     im_accounts: Cuentas de mensajería instantánea
+    im_type_other_placeholder: Por favor, especifique
     info_url_description_html: "¿No está seguro de qué enviar? Lea las bases de convocatoria en: %{link}"
     information_headline: Información
     input_appreciation: 'Apreciamos su envío. Siéntase en libertad de enviar otro evento:'
@@ -1874,7 +1875,6 @@ es:
         delimiter: ''
   options:
     admin: Administrador
-    aim: OBJETIVO
     assistant: Asistente
     attending: Asistiendo
     bus: Autobús
@@ -1890,17 +1890,14 @@ es:
     fax: fax
     female: femenino
     film: Película
-    icq: ICQ
     idea: Idea
     integrated: Integrado
-    jabber: Jabber / XMPP
     lecture: presentación
     lightning_talk: charla relámpago
     male: masculino
     meeting: reunión
     mobile: móvil
     moderator: Moderador
-    msn: Msn
     offer: Oferta
     orga: Organizador
     other: otra
@@ -1914,14 +1911,12 @@ es:
     rt: Solicitar rastreador
     secretary: asistente
     shuttle: Lanzadera
-    skype: skype
     speaker: Altavoz
     submitter: Peticionario
     talk: Hablar
     unclear: Poco claro
     work: Trabajo
     workshop: taller (hands-on)
-    yahoo: Yahoo
   others_only: Solo otros
   page_titles:
     admin_users: frab - usuarios de administración

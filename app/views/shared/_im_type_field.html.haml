@@ -1,0 +1,8 @@
+- is_custom = f.object.im_type.present? && !ImAccount::TYPES.include?(f.object.im_type)
+- select_id = "#{f.field_id(:im_type)}_select"
+- type_options = ImAccount::TYPES.map { |type| [ImAccount::LABELS.fetch(type) { t("options.#{type}") }, type] }
+.mb-3{ data: { controller: "im-type" } }
+  %label.form-label{ for: select_id }= ImAccount.human_attribute_name(:im_type)
+  = select_tag nil, options_for_select(type_options, is_custom ? "other" : f.object.im_type), class: "form-select", id: select_id, data: { im_type_target: "select", action: "change->im-type#sync" }
+  = f.hidden_field :im_type, data: { im_type_target: "hidden" }
+  = text_field_tag nil, is_custom ? f.object.im_type : nil, class: "form-control mt-2", placeholder: t('cfp.im_type_other_placeholder'), style: is_custom ? "" : "display:none", data: { im_type_target: "other", action: "input->im-type#sync" }

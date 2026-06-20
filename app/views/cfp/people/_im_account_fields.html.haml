@@ -1,7 +1,7 @@
 .nested-fields
   %fieldset.border.p-3.mb-4
     .d-flex.flex-wrap.gap-3
-      = f.input :im_type, collection: translated_options(ImAccount::TYPES)
+      = render "shared/im_type_field", f: f
       = f.input :im_address
       .d-flex.align-items-end.pb-3
         = remove_association_link :im_account, f

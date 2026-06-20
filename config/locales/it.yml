@@ -301,6 +301,7 @@ it:
     forgot_password_headline: Hai dimenticato la password?
     hard_deadline_over: Ci dispiace, ma la scadenza per l'invio è scaduta.
     im_accounts: Account di messaggistica istantanea
+    im_type_other_placeholder: Si prega di specificare
     info_url_description_html: 'Non sei sicuro di cosa inviare? Leggi la chiamata per partecipare qui: %{link}'
     information_headline: informazioni
     input_appreciation: 'Apprezziamo molto la tua partecipazione. Non esitate a proporre o partecipare a un altro evento:'
@@ -1879,7 +1880,6 @@ it:
         delimiter: ''
   options:
     admin: amministratore
-    aim: AIM
     assistant: Assistente
     attending: assist
     bus: Pulman
@@ -1895,17 +1895,14 @@ it:
     fax: fax
     female: femminile
     film: film
-    icq: ICQ
     idea: forse
     integrated: integrato
-    jabber: Jabber / XMPP
     lecture: conferenza
     lightning_talk: Conferenza Flash
     male: maschio
     meeting: incontro
     mobile: mobile
     moderator: Moderatore
-    msn: msn
     offer: applicazione
     orga: organizzatore
     other: altro
@@ -1919,14 +1916,12 @@ it:
     rt: Richiedi tracciatore
     secretary: segreteria
     shuttle: navetta
-    skype: Skype
     speaker: altoparlante
     submitter: depositante
     talk: conferenza
     unclear: incerto
     work: lavoro
     workshop: Officina
-    yahoo: Yahoo
   others_only: Solo altro
   page_titles:
     admin_users: frab - Amministratori

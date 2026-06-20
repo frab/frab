@@ -2,7 +2,7 @@
   .card.border-secondary.border-opacity-25.mb-3
     .card-body.p-3
       .d-flex.flex-wrap.gap-3
-        = f.input :im_type, collection: translated_options(ImAccount::TYPES)
+        = render "shared/im_type_field", f: f
         = f.input :im_address
         .d-flex.align-items-end.pb-3
           = remove_association_link :im_account, f
