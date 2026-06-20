@@ -63,6 +63,12 @@ FactoryBot.define do
     conference
   end
 
+  factory :im_account do
+    person
+    im_type { 'telegram' }
+    im_address { '@frab' }
+  end
+
   factory :mail_template do
     conference
     name { 'template one' }

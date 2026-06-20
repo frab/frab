@@ -307,6 +307,7 @@ en:
     forgot_password_headline: Forgot your password?
     hard_deadline_over: Sorry, the deadline for submitting events is over.
     im_accounts: Instant messaging accounts
+    im_type_other_placeholder: Please specify
     info_url_description_html: 'Unsure what to submit? Read all about the Call for Participation at: %{link}'
     information_headline: Information
     input_appreciation: 'We really appreciate your input so far. Feel free to submit or join another event:'
@@ -1864,7 +1865,6 @@ en:
         delimiter: ''
   options:
     admin: Administrator
-    aim: AIM
     assistant: Assistant
     attending: Attending
     bus: Bus
@@ -1880,17 +1880,14 @@ en:
     fax: Fax
     female: Female
     film: Film
-    icq: ICQ
     idea: Idea
     integrated: Integrated
-    jabber: Jabber/XMPP
     lecture: Lecture
     lightning_talk: Lightning talk
     male: Male
     meeting: Meeting
     mobile: Mobile
     moderator: Moderator
-    msn: Msn
     offer: Offer
     orga: Organisator
     other: Other
@@ -1904,14 +1901,12 @@ en:
     rt: Request Tracker
     secretary: Secrétary
     shuttle: Shuttle
-    skype: Skype
     speaker: Speaker
     submitter: Submitter
     talk: Talk
     unclear: Unclear
     work: Work
     workshop: Workshop
-    yahoo: Yahoo
   others_only: Others only
   page_titles:
     admin_users: frab - admin users

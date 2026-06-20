@@ -302,6 +302,7 @@ de:
     forgot_password_headline: Passwort vergessen?
     hard_deadline_over: Es tut uns sehr leid, aber die Einreichungsfrist ist verstrichen.
     im_accounts: Instant-Messaging-Konto
+    im_type_other_placeholder: Bitte angeben
     info_url_description_html: 'Sind Sie unsicher, was Sie einreichen sollen? Alle Infos zum Call for Participation gibt es hier: %{link}'
     information_headline: Informationen
     input_appreciation: 'Vielen Dank für Ihre Einreichung. Gerne können Sie ein weiteres Event einreichen:'
@@ -1831,7 +1832,6 @@ de:
         delimiter: ''
   options:
     admin: Administrator
-    aim: AIM
     assistant: Assistent
     attending: attending
     bus: Bus
@@ -1847,17 +1847,14 @@ de:
     fax: Fax
     female: weiblich
     film: Film
-    icq: ICQ
     idea: Idee
     integrated: Integriert
-    jabber: Jabber / XMPP
     lecture: Vortrag
     lightning_talk: Lightning Talk
     male: männlich
     meeting: Meeting
     mobile: Mobil
     moderator: Moderator
-    msn: Msn
     offer: Angebot
     orga: Organisator
     other: Andere
@@ -1871,14 +1868,12 @@ de:
     rt: Request Tracker
     secretary: Sekretär/Vorzimmer
     shuttle: Shuttle
-    skype: Skype
     speaker: Sprecher
     submitter: Einreicher
     talk: Vortrag
     unclear: Unklar
     work: Arbeit
     workshop: Workshop
-    yahoo: Yahoo
   others_only: Nur Einreichungen vom Typ 'others'
   page_titles:
     admin_users: frab - Benutzer mit Admininstrator-Rechten
