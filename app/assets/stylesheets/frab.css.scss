@@ -56,6 +56,10 @@ div.event {
   top: 0;
   left: 0;
 
+  /* Box is at least as tall as the event duration (time_slots * 20 - 7);
+     longer content overflows and is faded out by the ::after gradient below */
+  min-height: var(--event-timeslot-height);
+
   /* Create gradient effect when content overflows the time slot height */
   background-clip: padding-box;
 }
