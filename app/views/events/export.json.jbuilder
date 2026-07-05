@@ -5,7 +5,9 @@ json.array! @events do |e|
   json.extract! e, :guid, :id, :track_id, :room_id, :start_time, :title, :subtitle, :description, :abstract, :language
   json.track_name e.track.try(:name)
   json.room_name e.room.try(:name)
-  json.duration e.duration_in_minutes
+  # duration_in_minutes returns an ActiveSupport::Duration; .to_i emits it as
+  # seconds. Kept in seconds for backwards compatibility with API consumers.
+  json.duration e.duration_in_minutes.to_i
   json.speaker_names e.speakers.map(&:public_name).join(', ')
   json.type e.event_type
   json.speakers e.speakers do |speaker|

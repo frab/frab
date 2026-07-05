@@ -369,10 +369,9 @@ export default class extends Controller {
     })
     .then(response => response.json())
     .then(event => {
-      // Calculate timeslot height based on duration (event.duration is in minutes)
+      // Calculate timeslot height from the event's time slots
       // Formula matches _event.html.haml: time_slots * 20 - 7
-      const timeSlots = Math.ceil(event.duration / 5) // 5 minutes per slot
-      const timeslotHeight = timeSlots * 20 - 7
+      const timeslotHeight = event.time_slots * 20 - 7
 
       // Rebuild the event card HTML to match _event.html.haml
       const colorPreview = `<div class="color-preview" style="background-color: #cccccc"></div>`
