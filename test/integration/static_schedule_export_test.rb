@@ -47,6 +47,38 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
     assert_includes File.read(@dir.join("events/#{event.id}.html")), 'Introducing frap'
   end
 
+  test 'rewrites absolute asset urls in css' do
+    export = StaticSchedule::Export.new(@conference, 'en', @target_dir)
+    css = '@font-face{src:url(/assets/icons-abc123.woff2) format("woff2"),' \
+          'url("/assets/icons-abc123.woff") format("woff")}'
+
+    rewritten, referenced = export.send(:rewrite_css_urls, css)
+
+    assert_equal '@font-face{src:url(icons-abc123.woff2) format("woff2"),' \
+                 'url("icons-abc123.woff") format("woff")}', rewritten
+    assert_equal %w[assets/icons-abc123.woff2 assets/icons-abc123.woff], referenced
+  end
+
+  test 'copies assets referenced by css and makes their urls relative' do
+    assets_dir = Rails.root.join('public', 'assets')
+    FileUtils.mkdir_p(assets_dir)
+    css_file = assets_dir.join('frab-test-export.css')
+    font_file = assets_dir.join('frab-test-export.woff2')
+    File.write(css_file, 'src:url(/assets/frab-test-export.woff2)')
+    File.write(font_file, 'fake font')
+
+    export = StaticSchedule::Export.new(@conference, 'en', @target_dir)
+    export.instance_variable_set(:@base_directory, @dir.to_s)
+    export.instance_variable_set(:@asset_paths, ['assets/frab-test-export.css'])
+    export.send(:copy_stripped_assets)
+
+    assert_equal 'src:url(frab-test-export.woff2)',
+                 File.read(@dir.join('assets/frab-test-export.css'))
+    assert File.exist?(@dir.join('assets/frab-test-export.woff2'))
+  ensure
+    FileUtils.rm_f([css_file, font_file].compact)
+  end
+
   teardown do
     FileUtils.remove_entry_secure @target_dir if @target_dir
   end

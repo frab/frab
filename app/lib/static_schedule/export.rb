@@ -83,16 +83,41 @@ module StaticSchedule
     end
 
     def copy_stripped_assets
-      @asset_paths.uniq.each do |asset_path|
-        original_path = Rails.root.join('public', CGI.unescape(asset_path))
+      asset_paths = @asset_paths.uniq.map { |path| CGI.unescape(path) }
+      # Array#each sees paths appended during iteration, so assets
+      # referenced from within CSS files get copied as well.
+      asset_paths.each do |asset_path|
+        original_path = Rails.root.join('public', asset_path)
         if File.exist?(original_path)
-          new_path = File.join(@base_directory, CGI.unescape(asset_path))
+          new_path = File.join(@base_directory, asset_path)
           FileUtils.mkdir_p(File.dirname(new_path))
-          FileUtils.cp(original_path, new_path)
+          if asset_path.end_with?('.css')
+            css, referenced = rewrite_css_urls(File.read(original_path))
+            asset_paths.concat(referenced - asset_paths)
+            File.write(new_path, css)
+          else
+            FileUtils.cp(original_path, new_path)
+          end
         elsif Rails.env.production?
           warning('?? We might be missing "%s"' % original_path)
         end
       end
+    end
+
+    # Compiled CSS references other assets (e.g. fonts) by absolute
+    # /assets/ URLs, which break when the export is served from a
+    # subdirectory. Make them relative to the CSS file, which also
+    # lives under assets/, and return the referenced files so they
+    # get copied into the export as well.
+    def rewrite_css_urls(css)
+      referenced = []
+      css = css.gsub(%r{url\((["']?)/assets/([^"')]+)\1\)}) do
+        quote = Regexp.last_match(1)
+        path = Regexp.last_match(2)
+        referenced << "assets/#{path.split(/[?#]/).first}"
+        "url(#{quote}#{path}#{quote})"
+      end
+      [css, referenced]
     end
 
     def copy_static_assets
