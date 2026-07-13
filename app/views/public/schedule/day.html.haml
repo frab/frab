@@ -57,7 +57,7 @@
                                     = event.room.name
                                   - if event.time_slots
                                     %span.badge.bg-light.text-dark.small
-                                      = "#{event.time_slots * 15}min"
+                                      = "#{event.time_slots * @conference.timeslot_duration}min"
 
                                 %h6.card-title.mb-2.lh-sm
                                   = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none text-dark fw-semibold stretched-link", style: "font-size: 0.85rem;"
@@ -89,7 +89,7 @@
                 .me-3.text-center.text-muted.small{style: "min-width: 60px;"}
                   = l event.start_time, format: :time
                   %br
-                  %small= "#{event.time_slots * 15}m"
+                  %small= "#{event.time_slots * @conference.timeslot_duration}m"
                 .flex-grow-1
                   .event{class: track_class(event)}
                     %h6.mb-1

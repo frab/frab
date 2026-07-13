@@ -55,7 +55,7 @@
                         = l(event.start_time, format: :time)
                     - if event.time_slots
                       .duration.text-center.small.text-muted
-                        = "#{event.time_slots * 15} min"
+                        = "#{event.time_slots * @conference.timeslot_duration} min"
 
                   .session-info
                     .title.fw-semibold.mb-2= event.title
