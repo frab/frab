@@ -27,7 +27,7 @@
           = l day.start_date, format: :long
 
       / Create a responsive schedule grid
-      - day_events = @conference.events.scheduled.joins(:room).where(start_time: day.start_date.beginning_of_day..day.start_date.end_of_day).includes(:people, :room, :translations, track: :translations).order(:start_time)
+      - day_events = @conference.events.scheduled.joins(:room).where(start_time: day.start_date.beginning_of_day..day.start_date.end_of_day).includes(:people, :room, :translations, track: :translations).order(:start_time, 'rooms.name')
       - if day_events.any?
         - day_events.group_by(&:start_time).each do |start_time, events|
           .mb-5
@@ -47,7 +47,7 @@
                           = event.room.name
                         - if event.time_slots
                           %span.badge.bg-light.text-dark.small
-                            = "#{event.time_slots * 15}min"
+                            = "#{event.time_slots * @conference.timeslot_duration}min"
 
                       %h5.card-title.mb-2.lh-sm
                         = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none stretched-link text-dark"
