@@ -69,7 +69,7 @@
                                       = event.speakers.map(&:public_name).join(", ").truncate(40)
 
                                   - if event.track.present?
-                                    %span.badge.bg-secondary.small.float-end= event.track.name
+                                    %span.badge.bg-secondary.small.float-end.track-name-truncate{title: event.track.name}= event.track.name
 
                       - else
                         %td.empty-cell &nbsp;

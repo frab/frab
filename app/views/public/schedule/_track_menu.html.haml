@@ -10,9 +10,9 @@
         .d-flex.flex-wrap.gap-2
           - tracks_to_show.sort_by { |e| e.name }.each do |track|
             .col-auto
-              %a.btn.btn-outline-primary.btn-sm{href: "##{track.name.downcase}", class: "track-#{track.name.parameterize}"}
+              %a.btn.btn-outline-primary.btn-sm{href: "##{track.name.downcase}", class: "track-#{track.name.parameterize}", title: track.name}
                 %i.bi.bi-tag.me-1
-                = track.name
+                %span.track-name-truncate= track.name
                 %span.badge.bg-primary.ms-1= track.events.count
 
 

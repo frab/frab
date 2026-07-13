@@ -10,9 +10,9 @@
         - tracks_to_show.sort_by { |e| e.name }.each do |track|
           - if track.events.count > 0
             .col-auto
-              %a.btn.btn-outline-primary.btn-sm{href: "##{track.name.downcase}", class: "track-#{track.name.parameterize}"}
+              %a.btn.btn-outline-primary.btn-sm{href: "##{track.name.downcase}", class: "track-#{track.name.parameterize}", title: track.name}
                 %i.bi.bi-tag.me-1
-                = track.name
+                %span.track-name-truncate= track.name
                 %span.badge.bg-primary.ms-1= track.events.count
 
 .row.mb-4
@@ -50,7 +50,7 @@
                 .text-muted.small.mb-2
                   = truncate(event.abstract, length: 120, separator: ' ')
               .d-flex.flex-wrap.gap-2.align-items-center
-                %span.badge{class: "bg-secondary track-#{track.name.parameterize}"}
+                %span.badge.track-name-truncate{class: "bg-secondary track-#{track.name.parameterize}", title: event.track.try(:name)}
                   = event.track.try(:name)
                 - if event.start_time.present?
                   %span.badge.bg-info

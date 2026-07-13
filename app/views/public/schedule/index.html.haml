@@ -63,7 +63,7 @@
 
                       .mt-2
                         - if event.track.present?
-                          %span.badge.bg-secondary.small= event.track.name
+                          %span.badge.bg-secondary.small.track-name-truncate{title: event.track.name}= event.track.name
 
                         - if event.language.present? && @conference.languages_including_subs.count > 1
                           %span.badge.bg-secondary

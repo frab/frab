@@ -334,6 +334,17 @@ body {
   box-shadow: 0 2px 8px var(--frab-shadow) !important;
 }
 
+// Truncate long track names in pills/badges (full name stays in title attribute)
+.track-name-truncate {
+  display: inline-block;
+  // CSS min(); uppercase so libsass (compile + compress passes) doesn't evaluate it
+  max-width: MIN(14rem, 100%);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
 // Timeline and list views
 .time-block {
   border-radius: 8px !important;
