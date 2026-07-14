@@ -2,6 +2,7 @@ class Conference < ApplicationRecord
   include ConferenceStatistics
   include SubConference
   include HasTicketServer
+  include UniqueToken
 
   has_many :availabilities, dependent: :destroy
   has_many :classifiers, dependent: :destroy
@@ -48,6 +49,7 @@ class Conference < ApplicationRecord
 
   before_validation :normalize_color
   after_update :update_timeslots
+  after_create :generate_feedback_token
 
   has_paper_trail
 
@@ -282,7 +284,17 @@ class Conference < ApplicationRecord
     update(allowed_event_timeslots: timeslots)
   end
 
+  def regenerate_feedback_token!
+    generate_token_for(:feedback_token)
+    save!
+  end
+
   private
+
+  def generate_feedback_token
+    generate_token_for(:feedback_token)
+    save!
+  end
 
   def normalize_color
     self.color = color.to_s.gsub(/\A#/, '') if color.present?

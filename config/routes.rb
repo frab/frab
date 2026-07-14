@@ -2,6 +2,15 @@ Rails.application.routes.draw do
   # Health check endpoint for Kubernetes probes
   get '/health' => 'health#show'
 
+  namespace :api do
+    namespace :v1 do
+      scope path: '/:conference_acronym' do
+        post '/events/:event_id/feedback' => 'feedback#create', as: 'api_v1_event_feedback'
+        post '/feedback/batch' => 'feedback#batch', as: 'api_v1_feedback_batch'
+      end
+    end
+  end
+
   devise_for :users, controllers: {
     registrations: 'auth/registrations',
     sessions: 'auth/sessions',
@@ -101,6 +110,7 @@ Rails.application.routes.draw do
         get :edit_ticket_server
         get :edit_notifications
         post :send_notification
+        post :regenerate_feedback_token
       end
       get '/conferences/default_notifications' => 'conferences#default_notifications', as: 'conferences_default_notifications'
 

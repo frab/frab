@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_31_000000) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_14_000000) do
   create_table "availabilities", force: :cascade do |t|
     t.integer "person_id"
     t.integer "conference_id"
@@ -49,8 +49,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_31_000000) do
     t.string "name"
     t.string "description"
     t.integer "conference_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["conference_id"], name: "index_classifiers_on_conference_id"
   end
 
@@ -112,7 +112,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_31_000000) do
     t.string "allowed_event_timeslots_csv", limit: 400
     t.string "bcc_address", limit: 255
     t.boolean "auto_lock_on_confirm", default: false
+    t.string "feedback_token"
     t.index ["acronym"], name: "index_conferences_on_acronym"
+    t.index ["feedback_token"], name: "index_conferences_on_feedback_token", unique: true
     t.index ["parent_id"], name: "index_conferences_on_parent_id"
   end
 
@@ -152,8 +154,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_31_000000) do
     t.integer "value", default: 0
     t.integer "classifier_id"
     t.integer "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["classifier_id"], name: "index_event_classifiers_on_classifier_id"
     t.index ["event_id"], name: "index_event_classifiers_on_event_id"
   end
