@@ -14,8 +14,12 @@ module Public::ScheduleHelper
   end
 
   def day_title
-    t('.schedule_for_day', index: @day_index, label: l(@view_model.day.date)) if @conference.days.length > 1
-    t('.schedule', label: l(@view_model.day.date))
+    t('.schedule', label: l(@view_model.day.date, format: :long))
+  end
+
+  # Plain-text teaser for list views; abstracts/descriptions may contain HTML.
+  def text_preview(text, length:)
+    truncate(strip_tags(text.to_s).squish, length: length, separator: ' ')
   end
 
   def event_title

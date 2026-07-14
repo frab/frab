@@ -2,119 +2,67 @@
   = "#{@conference.title} :: Fahrplan"
 
 - if @conference.schedule_html_intro.present?
-  .alert.alert-info.mb-4
+  .ps-intro
     != @conference.schedule_html_intro
 
-/ Main schedule container
-.container-fluid
-  .text-center.mb-4
-    %h2.h1.fw-bold.text-primary.mb-0= t '.schedule_index'
+%h2.ps-page-title= t '.schedule_index'
+%p.ps-page-subtitle
+  - if @conference.first_day && @conference.last_day && @conference.first_day != @conference.last_day
+    = "#{l @conference.first_day.start_date.to_date, format: :long} – #{l @conference.last_day.end_date.to_date, format: :long}"
+  - elsif @conference.first_day
+    = l @conference.first_day.start_date.to_date, format: :long
 
-  / Day selector
-  - if @conference.days.length > 1
-    .d-flex.justify-content-center.mb-4
-      .btn-group{role: "group"}
-        - @conference.days.each_with_index do |day, index|
-          = link_to public_schedule_path(day: index + 1), class: "btn btn-outline-primary" do
-            = l day.start_date, format: :day
-
-  / Schedule grid for all days
-  - @conference.days.each_with_index do |day, day_index|
-    .mb-5{id: "day-#{day_index + 1}"}
-      .text-center.mb-4
-        %h3.h2.fw-bold.text-dark.mb-0
-          %i.bi.bi-calendar.me-2.text-primary
-          = l day.start_date, format: :long
-
-      / Create a responsive schedule grid
-      - day_events = @conference.events.scheduled.joins(:room).where(start_time: day.start_date.beginning_of_day..day.start_date.end_of_day).includes(:people, :room, :translations, track: :translations).order(:start_time, 'rooms.name')
-      - if day_events.any?
-        - day_events.group_by(&:start_time).each do |start_time, events|
-          .mb-5
-            .text-center.mb-3
-              %h4.h3.fw-semibold.text-muted.mb-0
-                %i.bi.bi-clock.me-2.text-primary
-                = l start_time, format: :time
-
-            .row.g-3
-              - events.each do |event|
-                .col-12.col-md-6.col-lg-4
-                  .session-card.card.h-100.border-0.shadow-sm.border-start.border-primary.border-4
-                    .card-body.p-3
-                      .d-flex.justify-content-between.align-items-start.mb-2
-                        %small.text-muted
-                          %i.bi.bi-geo-alt.me-1
-                          = event.room.name
-                        - if event.time_slots
-                          %span.badge.bg-light.text-dark.small
-                            = "#{event.time_slots * @conference.timeslot_duration}min"
-
-                      %h5.card-title.mb-2.lh-sm
-                        = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none stretched-link text-dark"
-
-                      - if event.subtitle.present?
-                        %p.small.text-muted.mb-2= event.subtitle
-
-                      - if event.speakers.any?
-                        .mt-auto
-                          %small.text-primary.fw-medium
-                            %i.bi.bi-person.me-1
-                            = event.speakers.map(&:public_name).join(", ")
-
-                      .mt-2
-                        - if event.track.present?
-                          %span.badge.bg-secondary.small.track-name-truncate{title: event.track.name}= event.track.name
-
-                        - if event.language.present? && @conference.languages_including_subs.count > 1
-                          %span.badge.bg-secondary
-                            %i.bi.bi-translate.me-1
-                            = event.language
+- @conference.days.each_with_index do |day, day_index|
+  - day_events = @conference.events.scheduled.joins(:room).where(start_time: day.start_date.beginning_of_day..day.start_date.end_of_day).includes(:people, :room, :translations, track: :translations).order(:start_time, 'rooms.name')
+  %section{id: "day-#{day_index + 1}"}
+    %h3.day-heading
+      - if day.rooms_with_events.any?
+        = link_to l(day.start_date.to_date, format: :long), public_schedule_path(day: day_index + 1), class: "text-decoration-none"
       - else
-        .text-center.text-muted.py-5
-          %i.bi.bi-calendar-x.mb-3.opacity-50{style: "font-size: 3rem;"}
-          %h4.h5 No events scheduled for this day
+        = l day.start_date.to_date, format: :long
 
-  %noscript.d-block
-    .alert.alert-info.m-4
-      .d-flex.align-items-center
-        %i.bi.bi-info-circle.me-2
-        %div
-          To see our interactive schedule, please enable JavaScript or use the links below for alternative views.
+    - if day_events.any?
+      - day_events.group_by(&:start_time).each do |start_time, events|
+        .time-group
+          %span.time-group__time= l start_time, format: :time
 
-/ Additional formats
-.row.mt-4
-  .col-12
-    .card.border-0.shadow-sm
-      .card-header.bg-secondary.text-white
-        %h5.mb-0
-          %i.bi.bi-download.me-2
-          = t('.export_formats', default: 'Export Formats')
-      .card-body
-        .row.g-2
-          .col-6.col-md-2
-            = link_to public_schedule_index_path(format: 'xml'), class: "btn btn-outline-secondary w-100 btn-sm" do
-              %i.bi.bi-filetype-xml.me-1
-              XML
-          .col-6.col-md-2
-            = link_to public_schedule_index_path(format: 'json'), class: "btn btn-outline-secondary w-100 btn-sm" do
-              %i.bi.bi-filetype-json.me-1
-              JSON
-          .col-6.col-md-2
-            = link_to public_schedule_index_path(format: 'ics'), class: "btn btn-outline-secondary w-100 btn-sm" do
-              %i.bi.bi-calendar.me-1
-              iCal
-          .col-6.col-md-2
-            = link_to public_schedule_index_path(format: 'xcal'), class: "btn btn-outline-secondary w-100 btn-sm" do
-              %i.bi.bi-calendar2.me-1
-              xCal
-          .col-6.col-md-2
-            = link_to public_events_path(format: 'xls'), class: "btn btn-outline-secondary w-100 btn-sm" do
-              %i.bi.bi-file-earmark-spreadsheet.me-1
-              Excel
-          .col-6.col-md-2
-            = link_to public_speakers_path(format: 'xls'), class: "btn btn-outline-secondary w-100 btn-sm" do
-              %i.bi.bi-people.me-1
-              Speakers XLS
+        .row.g-2.mb-2
+          - events.each do |event|
+            .col-12.col-md-6.col-lg-4
+              = link_to public_event_path(id: event.id), class: "event-card #{track_class(event)}" do
+                .event-card__title= event.title
+                - if event.speakers.any?
+                  .event-card__speakers= event.speakers.map(&:public_name).join(", ")
+                .event-card__footer
+                  - if event.track.present?
+                    %span.track-pill
+                      %span.track-pill__name= event.track.name
+                  %span.event-card__time
+                    %i.bi.bi-geo-alt.me-1
+                    = event.room.name
+    - else
+      %p.text-muted= t('.no_events', default: 'No events scheduled for this day.')
+
+.format-links
+  %span= t('.export_formats', default: 'Export formats')
+  = link_to public_schedule_index_path(format: 'xml') do
+    %i.bi.bi-filetype-xml
+    XML
+  = link_to public_schedule_index_path(format: 'json') do
+    %i.bi.bi-filetype-json
+    JSON
+  = link_to public_schedule_index_path(format: 'ics') do
+    %i.bi.bi-calendar
+    iCal
+  = link_to public_schedule_index_path(format: 'xcal') do
+    %i.bi.bi-calendar2
+    xCal
+  = link_to public_events_path(format: 'xls') do
+    %i.bi.bi-file-earmark-spreadsheet
+    Excel
+  = link_to public_speakers_path(format: 'xls') do
+    %i.bi.bi-people
+    Speakers XLS
 
 %script{:type => "application/ld+json"}
   :plain

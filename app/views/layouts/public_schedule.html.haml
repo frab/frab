@@ -13,77 +13,53 @@
     %meta{name: "application-name", content: "frab"}
     %meta{name: "generator", content: "frab"}
     %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
-    %meta{name: "theme-color", content: "#1f1fa3"}
+    %meta{name: "theme-color", content: "##{@conference.color.presence || '1f1fa3'}"}
     %meta{name: "HandheldFriendly", content: "True"}
     %meta{name: "robots", content: "index, follow"}
     = stylesheet_link_tag 'public_schedule'
+    %link{rel: "stylesheet", href: public_schedule_style_path(format: :css)}
     = javascript_include_tag 'bootstrap.bundle'
     = javascript_include_tag 'public_schedule'
 
   %body{"data-datetimeformat" => "YYYY-MM-DD HH:mm:ss", "data-dateformat" => "YYYY-MM-DD", "data-datetimelocale" => "en"}
-    / Header section with gradient
-    .schedule-header.d-flex.align-items-end.justify-content-between.px-4.pb-3
-      .d-flex.align-items-end
-        - if @conference.logo.present?
-          = image_tag @conference.logo.url(:original), alt: @conference.title, class: "me-3", style: "height: 40px; width: auto;"
-        %h1.display-6.mb-0.fw-bold.text-white
-          = link_to schedule_title, public_schedule_index_path, class: "text-decoration-none text-white"
-      / Dark mode toggle button
-      %button#dark-mode-toggle.btn.btn-outline-light.btn-sm{onclick: "window.toggleDarkMode && window.toggleDarkMode()"}
-        %i.bi.bi-moon-fill
-        %span.visually-hidden Toggle dark mode
+    %header.ps-topbar
+      .ps-topbar__inner
+        %h1.ps-topbar__title
+          - if @conference.logo.present?
+            = link_to public_schedule_index_path, title: schedule_title do
+              = image_tag @conference.logo.url(:original), alt: schedule_title, class: "ps-topbar__logo"
+          - else
+            = link_to schedule_title, public_schedule_index_path
+        %button#dark-mode-toggle.ps-theme-toggle{onclick: "window.toggleDarkMode && window.toggleDarkMode()"}
+          %i.bi.bi-moon-fill
+          %span.visually-hidden Toggle dark mode
 
-    / Main container with negative margin for overlapping card effect
-    .container-xxl.position-relative.mt-n4
-      / Header card
-      .card.shadow-sm.mb-4.schedule-main-card
-        .card-body.p-4
+    - unless feedback_page?
+      %nav.ps-nav
+        .ps-nav__inner
+          .ps-nav__tabs
+            = link_to t('public.schedule.nav.index'), public_schedule_index_path, class: "ps-tab #{'active' if selected(/schedule$/)}"
+            - @conference.days.each_with_index do |day, index|
+              - day_number = index + 1
+              - day_label = @conference.days.length > 1 ? l(day.start_date, format: :day) : t('public.schedule.nav.schedule')
+              - if day.rooms_with_events.any?
+                = link_to day_label, public_schedule_path(day: day_number), class: "ps-tab #{'active' if day_selected(day_number)}"
+              - else
+                %span.ps-tab.disabled= day_label
+            = link_to t('public.schedule.nav.speakers'), public_speakers_path, class: "ps-tab #{'active' if selected(/speakers.*$/)}"
+            = link_to t('public.schedule.nav.events'), public_events_path, class: "ps-tab #{'active' if selected(/events.*$/)}"
+            = link_to t('.timeline'), public_timeline_path, class: "ps-tab #{'active' if selected(/timeline.*$/)}"
+            = link_to t('.booklet'), public_booklet_path, class: "ps-tab #{'active' if selected(/booklet.*$/)}"
 
-          / Navigation tabs
-          - unless feedback_page?
-            .schedule-nav.d-flex.justify-content-center.flex-wrap.gap-2.mb-3
-              = link_to public_schedule_index_path, class: "nav-link #{selected(/schedule$/) ? 'active' : ''}" do
-                %i.bi.bi-calendar.me-2
-                = t('public.schedule.nav.index')
-              - @conference.days.each_with_index do |day, index|
-                - day_number = index + 1
-                - if day.rooms_with_events.any?
-                  = link_to public_schedule_path(day: day_number), class: "nav-link #{day_selected(day_number) ? 'active' : ''}" do
-                    %i.bi.bi-clock.me-2
-                    - if @conference.days.length > 1
-                      = l day.start_date, format: :day
-                    - else
-                      = t 'public.schedule.nav.schedule'
-                - else
-                  %span.nav-link.disabled.text-muted
-                    %i.bi.bi-clock.me-2
-                    - if @conference.days.length > 1
-                      = l day.start_date, format: :day
-                    - else
-                      = t 'public.schedule.nav.schedule'
-              = link_to public_speakers_path, class: "nav-link #{selected(/speakers.*$/) ? 'active' : ''}" do
-                %i.bi.bi-people.me-2
-                = t('public.schedule.nav.speakers')
-              = link_to public_events_path, class: "nav-link #{selected(/events.*$/) ? 'active' : ''}" do
-                %i.bi.bi-chat.me-2
-                = t('public.schedule.nav.events')
-              = link_to public_timeline_path, class: "nav-link #{selected(/timeline.*$/) ? 'active' : ''}" do
-                %i.bi.bi-list-ul.me-2
-                = t('.timeline')
-              = link_to public_booklet_path, class: "nav-link #{selected(/booklet.*$/) ? 'active' : ''}" do
-                %i.bi.bi-book.me-2
-                = t('.booklet')
-
-          / Version/Export dropdown
-          .d-flex.justify-content-center
-            - unless @conference.schedule_version.nil? or @conference.schedule_version.empty?
+          - if @conference.schedule_version.present?
+            .ps-nav__extra
               .dropdown
                 %button.btn.btn-outline-secondary.btn-sm.dropdown-toggle{"data-bs-toggle" => "dropdown", "aria-expanded" => "false"}
                   = @conference.schedule_version
-                %ul.dropdown-menu
+                %ul.dropdown-menu.dropdown-menu-end
                   %li
                     = link_to "#{public_schedule_index_path}.json", class: "dropdown-item" do
-                      %span.me-2 { }
+                      %i.bi.bi-filetype-json.me-2
                       JSON (frab compatible)
                   %li
                     = link_to "#{public_schedule_index_path}.xcal", class: "dropdown-item" do
@@ -94,15 +70,9 @@
                       %i.bi.bi-code-slash.me-2
                       XML (frab compatible)
 
-      / Track menu section
+    %main.ps-main{class: content_for?(:narrow_page) ? 'ps-main--narrow' : nil}
       = yield :track_menu
+      = yield
 
-      / Main content card
-      .card.shadow-sm.schedule-main-card
-        .card-body.p-4
-          = yield
-
-      / Footer
-      %footer.mt-5.py-4.text-center.text-muted
-        .container
-          = raw(markdown_render(t('conferences_module.footer')))
+    %footer.ps-footer
+      = raw(markdown_render(t('conferences_module.footer')))

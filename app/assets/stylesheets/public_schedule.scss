@@ -2,336 +2,966 @@
 @import "bootstrap-icons.min";
 @import "star-rating";
 
-// Consistent color scheme and styling for all public schedule views
-// Using Bootstrap 5 utilities with minimal custom CSS
+// Public schedule ("Fahrplan") design, inspired by pretalx.
+//
+// The conference and track colors are provided at runtime by the
+// per-conference stylesheet (public/schedule/style.css), which sets
+// --conference-color / --track-color custom properties. Everything
+// here works from those variables, so a single stylesheet serves
+// every conference and both color schemes.
 
-// Color palette - modern, accessible, professional matching FrOSCon theme
 :root {
-  --bs-primary: #1f1fa3;        // Actual FrOSCon primary color (deep blue)
-  --bs-primary-rgb: 31, 31, 163;
-  --bs-secondary: #64748b;      // Neutral gray
-  --bs-success: #059669;        // Professional green
-  --bs-info: #0891b2;          // Professional teal  
-  --bs-warning: #d97706;       // Professional orange (replaces neon yellow)
-  --bs-danger: #dc2626;        // Professional red (replaces neon red)
-  
-  // Light theme surface colors
-  --schedule-bg: #f8fafc;      // Light background
-  --schedule-card-bg: #ffffff;  // Card background
-  --schedule-border: #e2e8f0;  // Subtle borders
-  --schedule-title: white;  
-  --schedule-text: #1e293b;    // Dark text
-  --schedule-text-muted: #64748b; // Muted text
-  
-  // Event state colors (replacing neon colors)
-  --event-default: var(--bs-primary);
-  --event-hover: #f0f0ff;      // Light blue hover matching FrOSCon theme
-  --event-warning: var(--bs-warning);
-  --event-danger: var(--bs-danger);
+  --conference-color: #1f1fa3; // overridden per conference by style.css
+  --conference-color-fg: #ffffff;
+
+  --ps-bg: #f4f5f7;
+  --ps-surface: #ffffff;
+  --ps-border: #e4e7ec;
+  --ps-border-strong: #cfd5de;
+  --ps-grid-line: #e9ecf1;
+  --ps-text: #24292f;
+  --ps-text-muted: #66707b;
+  --ps-text-faint: #8b95a1;
+  --ps-hover-bg: #f0f2f5;
+  --ps-shadow: 0 1px 2px rgba(16, 24, 40, .06);
+  --ps-shadow-raised: 0 6px 16px rgba(16, 24, 40, .12);
 }
 
-// Dark theme colors for public schedule - compatible with main application
 [data-bs-theme="dark"] {
-  --bs-primary: #3b82f6;        // Match main app frab-primary
-  --bs-secondary: #94a3b8;      // Match main app frab-secondary
-  --bs-success: #10b981;        // Match main app frab-success
-  --bs-info: #06b6d4;          // Match main app frab-info
-  --bs-warning: #f59e0b;       // Match main app frab-warning
-  --bs-danger: #ef4444;        // Match main app frab-danger
-  
-  // Dark theme surface colors - match main application
-  --schedule-bg: #0f172a;      // Match frab-bg
-  --schedule-card-bg: #1e293b;  // Match frab-surface
-  --schedule-border: #334155;  // Match frab-border
-  --schedule-title: #f1f5f9;   // Match frab-text
-  --schedule-text: #f1f5f9;    // Match frab-text
-  --schedule-text-muted: #94a3b8; // Match frab-text-muted
-  
-  // Dark theme event colors - match main application
-  --event-default: var(--bs-primary);
-  --event-hover: #1e40af;      // Match frab-event-bg
-  --event-warning: var(--bs-warning);
-  --event-danger: var(--bs-danger);
+  --ps-bg: #14161a;
+  --ps-surface: #1d2026;
+  --ps-border: #2e333b;
+  --ps-border-strong: #3d434d;
+  --ps-grid-line: #262a31;
+  --ps-text: #e7eaee;
+  --ps-text-muted: #9aa4b1;
+  --ps-text-faint: #717c8a;
+  --ps-hover-bg: #23272e;
+  --ps-shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  --ps-shadow-raised: 0 6px 16px rgba(0, 0, 0, .5);
 }
 
-// Layout and body styling that respects theme
+// ---------------------------------------------------------------------------
+// Base
+// ---------------------------------------------------------------------------
+
 body {
-  background-color: var(--schedule-bg) !important;
-  color: var(--schedule-text) !important;
+  background: var(--ps-bg);
+  color: var(--ps-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: .9375rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-// Card styling that respects theme  
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ps-text);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+a {
+  color: var(--conference-color);
+}
+
+[data-bs-theme="dark"] a {
+  color: #8ab4f8;
+}
+
+.ps-main {
+  max-width: 87.5rem;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 3rem;
+}
+
+.ps-main--narrow {
+  max-width: 62rem;
+}
+
+// ---------------------------------------------------------------------------
+// Header bar + navigation tabs
+// ---------------------------------------------------------------------------
+
+.ps-topbar {
+  background: var(--conference-color);
+  color: var(--conference-color-fg);
+  padding: 1.1rem 1.25rem;
+}
+
+.ps-topbar__inner {
+  max-width: 87.5rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+}
+
+.ps-topbar__logo {
+  height: 2.4rem;
+  width: auto;
+}
+
+.ps-topbar__title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--conference-color-fg);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--conference-color-fg);
+      opacity: .85;
+    }
+  }
+}
+
+.ps-theme-toggle {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--conference-color-fg);
+  color: var(--conference-color-fg);
+  border-radius: 999px;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .7;
+  transition: opacity .15s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.ps-nav {
+  background: var(--ps-surface);
+  border-bottom: 1px solid var(--ps-border);
+  padding: 0 1.25rem;
+}
+
+.ps-nav__inner {
+  max-width: 87.5rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  flex-wrap: wrap;
+}
+
+.ps-nav__tabs {
+  display: flex;
+  align-items: stretch;
+  gap: .25rem;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+}
+
+.ps-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: .8rem .9rem;
+  color: var(--ps-text-muted);
+  font-weight: 500;
+  font-size: .9rem;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  transition: color .15s ease, border-color .15s ease;
+}
+
+[data-bs-theme="dark"] .ps-tab {
+  color: var(--ps-text-muted);
+}
+
+.ps-tab:hover {
+  color: var(--ps-text);
+  border-bottom-color: var(--ps-border-strong);
+}
+
+.ps-tab.active {
+  color: var(--ps-text);
+  border-bottom-color: var(--conference-color);
+}
+
+[data-bs-theme="dark"] .ps-tab.active {
+  border-bottom-color: #8ab4f8;
+}
+
+.ps-tab.disabled {
+  color: var(--ps-text-faint);
+  pointer-events: none;
+}
+
+.ps-nav__extra {
+  margin-left: auto;
+  padding: .35rem 0;
+}
+
+// ---------------------------------------------------------------------------
+// Page headings & intro
+// ---------------------------------------------------------------------------
+
+.ps-page-title {
+  font-size: 1.5rem;
+  margin-bottom: .25rem;
+}
+
+.ps-page-subtitle {
+  color: var(--ps-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.ps-section-title {
+  font-size: 1.15rem;
+  margin: 2.25rem 0 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+
+  small {
+    color: var(--ps-text-faint);
+    font-size: .85rem;
+    font-weight: 500;
+  }
+}
+
+.ps-intro {
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  border-left: 4px solid var(--conference-color);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Track pills & legend
+// ---------------------------------------------------------------------------
+
+.track-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--ps-text-muted);
+  text-decoration: none;
+  max-width: 100%;
+
+  &::before {
+    content: "";
+    flex-shrink: 0;
+    width: .6rem;
+    height: .6rem;
+    border-radius: 50%;
+    background: var(--track-color, var(--conference-color));
+  }
+
+  .track-pill__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+a.track-pill:hover {
+  color: var(--ps-text);
+}
+
+.ps-section-title .track-pill {
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--ps-text);
+  min-width: 0;
+
+  &::before {
+    width: .75rem;
+    height: .75rem;
+  }
+}
+
+.track-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem 1.1rem;
+  padding: .9rem 1.1rem;
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+
+  .track-pill {
+    max-width: 18rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Meta chips (event pages, cards)
+// ---------------------------------------------------------------------------
+
+.meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+}
+
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .3rem .75rem;
+  border-radius: 999px;
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  font-size: .82rem;
+  color: var(--ps-text-muted);
+  white-space: nowrap;
+
+  i {
+    color: var(--ps-text-faint);
+  }
+}
+
+.meta-chip--track {
+  border-color: var(--track-color, var(--conference-color));
+  color: var(--ps-text);
+
+  &::before {
+    content: "";
+    width: .6rem;
+    height: .6rem;
+    border-radius: 50%;
+    background: var(--track-color, var(--conference-color));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Schedule grid (day view, desktop)
+// ---------------------------------------------------------------------------
+
+.schedule-grid {
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  border-radius: 10px;
+  padding: .5rem;
+  overflow-x: auto;
+}
+
+.schedule-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+
+  th, td {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  th.time-column {
+    width: 3.6rem;
+  }
+
+  th.room-column {
+    padding: .6rem .5rem .7rem;
+    text-align: center;
+    font-size: .82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--ps-text-muted);
+    border-bottom: 2px solid var(--ps-border);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  td.time-cell {
+    vertical-align: top;
+    text-align: right;
+    padding: .15rem .6rem 0 0;
+    font-size: .78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--ps-text-faint);
+    font-weight: 500;
+  }
+
+  tr.hour-row td {
+    border-top: 1px solid var(--ps-grid-line);
+  }
+
+  tr.hour-row td.time-cell {
+    border-top: 1px solid var(--ps-border-strong);
+    color: var(--ps-text-muted);
+  }
+
+  td.event-cell {
+    vertical-align: top;
+    padding: 2px 3px;
+    border-top: 0 !important;
+  }
+
+  td.empty-cell {
+    padding: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Event cards (grid cells + overview lists)
+// ---------------------------------------------------------------------------
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: .5rem .6rem .45rem;
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  border-left: 4px solid var(--track-color, var(--conference-color));
+  border-radius: 7px;
+  box-shadow: var(--ps-shadow);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .15s ease, transform .15s ease;
+
+  &:hover {
+    color: inherit;
+    box-shadow: var(--ps-shadow-raised);
+    transform: translateY(-1px);
+    z-index: 2;
+  }
+}
+
+.event-card__title {
+  font-size: .85rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ps-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.event-card__speakers {
+  margin-top: .2rem;
+  font-size: .78rem;
+  line-height: 1.35;
+  color: var(--ps-text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.event-card__title {
+  min-height: 0;
+}
+
+.event-card__footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding-top: .3rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .72rem;
+  color: var(--ps-text-faint);
+  min-width: 0;
+
+  .track-pill {
+    font-size: .72rem;
+    min-width: 0;
+
+    &::before {
+      width: .5rem;
+      height: .5rem;
+    }
+  }
+
+  .event-card__time {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Session rows (lists: index, timeline, mobile day view, speaker page)
+// ---------------------------------------------------------------------------
+
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.session-row {
+  display: flex;
+  gap: 1rem;
+  padding: .85rem 1rem;
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  border-left: 4px solid var(--track-color, var(--conference-color));
+  border-radius: 8px;
+  box-shadow: var(--ps-shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .15s ease, transform .15s ease;
+
+  &:hover {
+    color: inherit;
+    box-shadow: var(--ps-shadow-raised);
+    transform: translateY(-1px);
+  }
+}
+
+.session-row__time {
+  flex-shrink: 0;
+  width: 4.2rem;
+  text-align: center;
+  color: var(--ps-text-muted);
+
+  .session-row__start {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ps-text);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.3;
+  }
+
+  .session-row__duration {
+    font-size: .72rem;
+    color: var(--ps-text-faint);
+  }
+}
+
+.session-row__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.session-row__title {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ps-text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+a .session-row__title:hover {
+  color: var(--conference-color);
+}
+
+.session-row__subtitle {
+  font-size: .85rem;
+  color: var(--ps-text-muted);
+  margin-top: .1rem;
+}
+
+.session-row__abstract {
+  font-size: .85rem;
+  color: var(--ps-text-muted);
+  margin-top: .35rem;
+}
+
+.session-row__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .3rem 1rem;
+  margin-top: .45rem;
+  font-size: .8rem;
+  color: var(--ps-text-muted);
+
+  i {
+    color: var(--ps-text-faint);
+    margin-right: .3rem;
+  }
+
+  a {
+    color: var(--ps-text-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--conference-color);
+      text-decoration: underline;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Day view: mobile room lists
+// ---------------------------------------------------------------------------
+
+.room-block {
+  margin-bottom: 1.75rem;
+}
+
+.room-block__name {
+  font-size: .85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--ps-text-muted);
+  padding-bottom: .4rem;
+  margin-bottom: .75rem;
+  border-bottom: 2px solid var(--ps-border);
+}
+
+// ---------------------------------------------------------------------------
+// Time group headings (index / timeline)
+// ---------------------------------------------------------------------------
+
+.time-group {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  margin: 1.75rem 0 .75rem;
+
+  .time-group__time {
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--ps-text);
+  }
+
+  &::after {
+    content: "";
+    flex: 1 1 auto;
+    border-bottom: 1px solid var(--ps-border);
+    transform: translateY(-.2rem);
+  }
+}
+
+.day-heading {
+  font-size: 1.3rem;
+  margin: 2.5rem 0 .5rem;
+  padding-bottom: .5rem;
+  border-bottom: 2px solid var(--ps-border);
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Event detail page
+// ---------------------------------------------------------------------------
+
+.event-page__type {
+  font-size: .8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--track-color, var(--conference-color));
+  margin-bottom: .3rem;
+}
+
+[data-bs-theme="dark"] .event-page__type {
+  filter: brightness(1.4);
+}
+
+.event-page__title {
+  font-size: 1.65rem;
+  line-height: 1.25;
+  margin-bottom: .35rem;
+}
+
+.event-page__subtitle {
+  font-size: 1.05rem;
+  color: var(--ps-text-muted);
+  margin-bottom: 1rem;
+}
+
+.event-page__abstract {
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.65;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.event-page__description {
+  color: var(--ps-text);
+  line-height: 1.7;
+}
+
+.content-card {
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  border-radius: 10px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.sidebar-heading {
+  font-size: .78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ps-text-faint);
+  margin: 1.5rem 0 .75rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .45rem .6rem;
+    border-radius: 6px;
+    color: var(--ps-text);
+    text-decoration: none;
+    font-size: .9rem;
+    overflow-wrap: anywhere;
+
+    i {
+      color: var(--ps-text-faint);
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background: var(--ps-hover-bg);
+      color: var(--conference-color);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Speakers
+// ---------------------------------------------------------------------------
+
+.speaker-card {
+  display: block;
+  background: var(--ps-surface);
+  border: 1px solid var(--ps-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: var(--ps-shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .15s ease, transform .15s ease;
+
+  &:hover {
+    color: inherit;
+    box-shadow: var(--ps-shadow-raised);
+    transform: translateY(-2px);
+  }
+}
+
+.speaker-card__head {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  min-width: 0;
+}
+
+.speaker-card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.speaker-card__bio {
+  margin: .75rem 0 0;
+  font-size: .85rem;
+  color: var(--ps-text-muted);
+}
+
+.speaker-card__sessions {
+  margin-top: .75rem;
+  padding-top: .75rem;
+  border-top: 1px solid var(--ps-border);
+  font-size: .84rem;
+
+  .track-pill {
+    display: flex;
+    margin-bottom: .3rem;
+    color: var(--ps-text);
+    font-weight: 500;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.avatar--sm {
+  width: 3rem;
+  height: 3rem;
+}
+
+.avatar--md {
+  width: 3.75rem;
+  height: 3.75rem;
+}
+
+.avatar--lg {
+  width: 7rem;
+  height: 7rem;
+}
+
+.avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ps-hover-bg);
+  color: var(--ps-text-faint);
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.avatar--sm i { font-size: 1.3rem; }
+  &.avatar--md i { font-size: 1.6rem; }
+  &.avatar--lg i { font-size: 3rem; }
+}
+
+.speaker-page__header {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 575.98px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.speaker-page__name {
+  font-size: 1.6rem;
+  margin-bottom: .35rem;
+}
+
+// ---------------------------------------------------------------------------
+// Export format links
+// ---------------------------------------------------------------------------
+
+.format-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem .5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ps-border);
+  font-size: .85rem;
+  color: var(--ps-text-faint);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .25rem .7rem;
+    border: 1px solid var(--ps-border);
+    border-radius: 999px;
+    background: var(--ps-surface);
+    color: var(--ps-text-muted);
+    text-decoration: none;
+    transition: color .15s ease, border-color .15s ease;
+
+    &:hover {
+      color: var(--conference-color);
+      border-color: var(--conference-color);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Footer
+// ---------------------------------------------------------------------------
+
+.ps-footer {
+  border-top: 1px solid var(--ps-border);
+  margin-top: 2rem;
+  padding: 1.75rem 1.25rem 2.5rem;
+  text-align: center;
+  color: var(--ps-text-faint);
+  font-size: .85rem;
+
+  a {
+    color: var(--ps-text-muted);
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Bootstrap fit and finish (dropdowns, alerts, feedback forms)
+// ---------------------------------------------------------------------------
+
+.dropdown-menu {
+  background: var(--ps-surface);
+  border-color: var(--ps-border);
+  box-shadow: var(--ps-shadow-raised);
+  font-size: .88rem;
+
+  .dropdown-item {
+    color: var(--ps-text);
+
+    &:hover {
+      background: var(--ps-hover-bg);
+      color: var(--ps-text);
+    }
+  }
+}
+
+.btn-outline-secondary {
+  color: var(--ps-text-muted);
+  border-color: var(--ps-border-strong);
+
+  &:hover, &:focus, &.show {
+    background: var(--ps-hover-bg);
+    border-color: var(--ps-border-strong);
+    color: var(--ps-text);
+  }
+}
+
 .card {
-  background-color: var(--schedule-card-bg) !important;
-  color: var(--schedule-text) !important;
-  border-color: var(--schedule-border) !important;
+  background: var(--ps-surface);
+  border-color: var(--ps-border);
+  color: var(--ps-text);
 }
 
 .text-muted {
-  color: var(--schedule-text-muted) !important;
-}
-
-// Comprehensive dark theme specific overrides
-[data-bs-theme="dark"] {
-  // Body and page background
-  background-color: #0f172a !important;
-  
-  // Container elements
-  .container-xxl {
-    background-color: transparent !important;
-  }
-  
-  // Navigation elements
-  .schedule-nav {
-    background-color: var(--schedule-card-bg) !important;
-    border-color: var(--schedule-border) !important;
-  }
-  
-  .schedule-nav .nav-link {
-    color: var(--schedule-text) !important;
-  }
-  
-  .schedule-nav .nav-link:hover,
-  .schedule-nav .nav-link.active {
-    background-color: var(--bs-primary) !important;
-    color: white !important;
-  }
-  
-  // Text elements
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--schedule-text) !important;
-  }
-  
-  p, div, span {
-    color: var(--schedule-text) !important;
-  }
-  
-  .text-muted {
-    color: var(--schedule-text-muted) !important;
-  }
-  
-  .text-dark {
-    color: var(--schedule-text) !important;
-  }
-  
-  .text-primary {
-    color: #60a5fa !important;
-  }
-  
-  // Schedule header - adjusted gradient for dark theme
-  .schedule-header {
-    background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
-  }
-  
-  // Links
-  a {
-    color: #60a5fa !important;
-  }
-  
-  a:hover {
-    color: var(--bs-primary) !important;
-  }
-  
-  // Event elements and schedule content
-  .event-block {
-    background-color: var(--schedule-card-bg) !important;
-    border-color: var(--schedule-border) !important;
-    color: var(--schedule-text) !important;
-  }
-  
-  .event-title {
-    color: var(--schedule-text) !important;
-  }
-  
-  .event-title a {
-    color: var(--schedule-text) !important;
-    text-decoration: none !important;
-  }
-  
-  .event-title a:hover {
-    color: var(--bs-primary) !important;
-    text-decoration: underline !important;
-  }
-  
-  // Schedule table elements  
-  .schedule-table th {
-    background-color: var(--schedule-card-bg) !important;
-    color: var(--schedule-text) !important;
-    border-color: var(--schedule-border) !important;
-  }
-  
-  .schedule-table th.room-column,
-  .schedule-table th.time-column {
-    background-color: var(--schedule-card-bg) !important;
-    border-color: var(--schedule-border) !important;
-    color: var(--schedule-text) !important;
-  }
-  
-  .schedule-table td {
-    background-color: #0f172a !important;
-    color: var(--schedule-text) !important;
-    border-color: var(--schedule-border) !important;
-  }
-  
-  .schedule-table td.empty-cell {
-    background-color: var(--schedule-bg) !important;
-    border-color: var(--schedule-border) !important;
-  }
-  
-  .event-cell {
-    background-color: transparent !important;
-  }
-  
-  // Mobile schedule cards
-  .card-header {
-    background-color: #334155 !important;
-    color: var(--schedule-text) !important;
-    border-color: #475569 !important;
-  }
-  
-  // Buttons and dropdowns
-  .btn-outline-secondary {
-    color: var(--schedule-text) !important;
-    border-color: var(--schedule-border) !important;
-  }
-  
-  .btn-outline-secondary:hover {
-    background-color: var(--schedule-border) !important;
-    color: var(--schedule-text) !important;
-  }
-  
-  .dropdown-menu {
-    background-color: var(--schedule-card-bg) !important;
-    border-color: var(--schedule-border) !important;
-  }
-  
-  .dropdown-item {
-    color: var(--schedule-text) !important;
-  }
-  
-  .dropdown-item:hover {
-    background-color: var(--schedule-border) !important;
-    color: var(--schedule-text) !important;
-  }
-  
-  // Bootstrap utility class overrides
-  .bg-light {
-    background-color: var(--schedule-card-bg) !important;
-    color: var(--schedule-text) !important;
-  }
-  
-  .bg-secondary {
-    background-color: #334155 !important;
-    color: var(--schedule-text) !important;
-  }
-}
-
-// Consistent card styling across all views
-.session-card, .event-card, .speaker-card {
-  background: var(--schedule-card-bg) !important;
-  border: 1px solid var(--schedule-border) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
-  transition: all 0.2s ease !important;
-}
-
-.session-card:hover, .event-card:hover, .speaker-card:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px var(--frab-shadow) !important;
-  border-color: var(--bs-primary) !important;
-}
-
-// Header styling consistency  
-.schedule-header {
-  background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
-  border-radius: 12px 12px 0 0 !important;
-  min-height: 120px !important;
-}
-
-// Navigation consistency
-.schedule-nav {
-  background: var(--schedule-bg) !important;
-  border: 1px solid var(--schedule-border) !important;
-  border-radius: 8px !important;
-  padding: 1rem !important;
-}
-
-.schedule-nav .nav-link {
-  color: var(--schedule-text) !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 6px !important;
-  transition: all 0.15s ease !important;
-}
-
-.schedule-nav .nav-link:hover {
-  background: var(--bs-primary) !important;
-  color: white !important;
-}
-
-.schedule-nav .nav-link.active {
-  background: var(--bs-primary) !important;
-  color: white !important;
-  font-weight: 500 !important;
-}
-
-// Avatar placeholder size
-.avatar-placeholder {
-  width: 60px;
-  height: 60px;
-}
-
-// Enhanced contrast for schedule elements
-.session-card .card-title,
-.session-card .fw-semibold,
-.session-card .fw-bold {
-  color: var(--frab-text) !important;
-}
-
-.session-card .text-muted {
-  color: var(--frab-text-muted) !important;
-}
-
-.session-card .text-primary {
-  color: var(--bs-primary) !important;
-  font-weight: 500;
-}
-
-
-.schedule-main-card {
-  border-radius: 12px !important;
-  border: 1px solid var(--schedule-border) !important;
-  background: var(--schedule-card-bg) !important;
-}
-
-// Title styling handled by Bootstrap classes
-
-// Typography consistency
-.schedule-text {
-  color: var(--schedule-text) !important;
-}
-
-.schedule-text-muted {
-  color: var(--schedule-text-muted) !important;
-}
-
-.schedule-heading {
-  color: var(--schedule-text) !important;
-}
-
-.schedule-icon-primary {
-  color: var(--bs-primary) !important;
-}
-
-// Event blocks and schedule grid
-.event-block {
-  background: var(--schedule-card-bg) !important;
-  border: 1px solid var(--schedule-border) !important;
-  border-radius: 6px !important;
-  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
-}
-
-.event-block:hover {
-  box-shadow: 0 2px 8px var(--frab-shadow) !important;
+  color: var(--ps-text-muted) !important;
 }
 
 // Truncate long track names in pills/badges (full name stays in title attribute)
@@ -345,90 +975,74 @@ body {
   vertical-align: bottom;
 }
 
-// Timeline and list views
-.time-block {
-  border-radius: 8px !important;
-  overflow: hidden;
+// ---------------------------------------------------------------------------
+// Print
+// ---------------------------------------------------------------------------
+
+@page {
+  margin: 14mm 12mm;
 }
 
-.time-header {
-  background: linear-gradient(135deg, var(--bs-primary) 0%, #1d4ed8 100%) !important;
-  color: white !important;
-  padding: 1rem !important;
-  margin-bottom: 0 !important;
-}
+@media print {
+  // Force light colors regardless of the visitor's theme toggle.
+  :root, [data-bs-theme="dark"] {
+    --ps-bg: #fff;
+    --ps-surface: #fff;
+    --ps-border: #c4c4c4;
+    --ps-border-strong: #999;
+    --ps-grid-line: #ddd;
+    --ps-text: #000;
+    --ps-text-muted: #333;
+    --ps-text-faint: #555;
+    --ps-hover-bg: #fff;
+    --ps-shadow: none;
+    --ps-shadow-raised: none;
+  }
 
-// Ensure consistent card borders and shadows
-.card {
-  border: 1px solid var(--schedule-border) !important;
-  box-shadow: 0 1px 3px var(--frab-shadow-subtle) !important;
-}
+  // Scale the whole rem-based layout down to print density.
+  html {
+    font-size: 12px;
+  }
 
-.card:hover {
-  box-shadow: 0 2px 8px var(--frab-shadow) !important;
-}
+  body {
+    background: #fff;
+  }
 
-// Ensure schedule table and events are visible
-.schedule-table {
-  table-layout: auto !important;
-  width: 100% !important;
-}
+  .ps-topbar, .ps-nav, .ps-theme-toggle, .ps-day-menu, .format-links, .ps-footer {
+    display: none !important;
+  }
 
-.schedule-table td.event-cell {
-  vertical-align: top !important;
-  padding: 4px !important;
-  border: 1px solid var(--frab-border) !important;
-}
+  .ps-main {
+    max-width: none;
+    padding: 0;
+  }
 
-.schedule-table td.empty-cell {
-  background-color: var(--frab-bg) !important;
-  border: 1px solid var(--frab-border) !important;
-}
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
 
-.schedule-table th.room-column,
-.schedule-table th.time-column {
-  background-color: var(--frab-bg) !important;
-  border: 1px solid var(--frab-border) !important;
-  font-weight: 600 !important;
-  padding: 8px !important;
-}
+  // Keep each talk on one page.
+  .event-card, .session-row, .speaker-card, .content-card, .time-group {
+    box-shadow: none;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 
-.event-title a {
-  color: var(--frab-text) !important;
-  text-decoration: none !important;
-}
+  // Track dots and colored borders should survive printing.
+  .track-pill::before, .meta-chip--track::before {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
 
-.event-title a:hover {
-  color: var(--bs-primary) !important;
-  text-decoration: underline !important;
-}
+  // Each conference day starts on a fresh page (booklet, timeline).
+  .day-heading {
+    break-before: page;
+    page-break-before: always;
+  }
 
-// Timeline specific fixes for readability
-.card-header.bg-primary .text-white,
-.card-header.bg-primary h4,
-.card-header.bg-primary h5,
-.card-header.bg-primary h6 {
-  color: white !important;
-}
-
-// Fix blue text in blue boxes - ensure links in cards have proper contrast
-.card .fw-bold a,
-.card .fw-semibold a,
-.event .fw-bold a {
-  color: var(--frab-text) !important;
-  text-decoration: none !important;
-}
-
-.card .fw-bold a:hover,
-.card .fw-semibold a:hover,
-.event .fw-bold a:hover {
-  color: var(--bs-primary) !important;
-  text-decoration: underline !important;
-}
-
-// Ensure proper contrast for text in primary background areas
-.bg-primary .text-primary,
-.bg-primary h5,
-.bg-primary .mb-0 {
-  color: white !important;
+  section:first-of-type > .day-heading {
+    break-before: auto;
+    page-break-before: auto;
+  }
 }

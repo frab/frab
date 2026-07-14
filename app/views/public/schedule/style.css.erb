@@ -1,95 +1,25 @@
-<% case @conference.timeslot_duration
-   when 5
-     base_size = 20
-   when 10
-     base_size = 30
-   when 15
-     base_size = 40
-   else
-     base_size = 80
-   end
+<% conference_color = @conference.color.presence || '1f1fa3'
+   conference_color_fg = color_dark?(conference_color) ? 'fff' : '000'
 %>
-<% @conference.max_timeslots.times do |i| %>
-.cell-height<%= i + 1 -%> { height: <%= base_size * (i + 1) - (i > 0 ? 3 : 0)-%>px; }
-<% end %>
+:root {
+  --conference-color: #<%= conference_color -%>;
+  --conference-color-fg: #<%= conference_color_fg -%>;
+}
 
-<% if @conference.color.blank?
-    conference_bg_color = '555'
-  else
-    conference_bg_color = @conference.color
-  end
+.track-default {
+  --track-color: #<%= conference_color -%>;
+  --track-color-fg: #<%= conference_color_fg -%>;
+}
 
-  conference_fg_color = color_dark?(conference_bg_color) ? 'fff' : '000'
+<% @conference.tracks_including_subs.each do |track|
+     track_color = track.color.presence || conference_color
+     track_color_fg = color_dark?(track_color) ? 'fff' : '000'
 %>
-
-.event.track-default {
-  background-color: #<%= conference_bg_color -%>;
-  border-color: #<%= conference_bg_color -%>;
-}
-
-.event.track-default div.event-header {
-  background-color: #<%= conference_bg_color -%>;
-}
-
-.event.track-default div.event-header a {
-  color: #<%= conference_fg_color -%>;
-}
-
-.conference-background {
-  background-color: #<%= conference_bg_color -%>;
-}
-
-<% @conference.tracks_including_subs.each do |track| %>
-  <% if track.color.blank?
-      bg_color = conference_bg_color
-      fg_color = conference_fg_color
-    else
-      bg_color = track.color
-      fg_color = color_dark?(bg_color) ? 'fff' : '000'
-    end
-
-  %>
-
-.event.track-<%= track.name.parameterize -%> {
-  background-color: #<%= bg_color -%>;
-  border-color: #<%= bg_color -%>;
-}
-.event.track-<%= track.name.parameterize -%> div.event-header {
-  background-color: #<%= bg_color -%>;
-}
-
-.event.track-<%= track.name.parameterize -%> div.event-header a {
-  color: #<%= fg_color -%>;
-}
-
-#colorkeys .track-<%= track.name.parameterize -%> {
-  background-color: #<%= bg_color -%>;
-}
-
-.label .track-<%= track.name.parameterize -%> {
-  background-color: #<%= bg_color -%>;
+.track-<%= track.name.parameterize -%> {
+  --track-color: #<%= track_color -%>;
+  --track-color-fg: #<%= track_color_fg -%>;
 }
 <% end %>
-
-#colorkeys {
-  font-size: .8em;
-  opacity: .85;
-}
-
-#colorkeys ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-#colorkeys ul li {
-  margin: 0 .2em;
-  float: right;
-}
-
-#colorkeys ul li div {
-  padding: 0;
-}
 
 /* Custom Conference CSS */
 
