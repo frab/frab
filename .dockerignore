@@ -56,3 +56,6 @@ db/
 !db/seeds.rb
 !db/migrate/
 public/system
+
+# Ignore locally installed gems.
+/vendor/bundle

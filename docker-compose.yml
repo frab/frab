@@ -1,5 +1,3 @@
-version: '3'
-
 services:
     frab:
         image: ghcr.io/frab/frab:latest
@@ -17,6 +15,8 @@ services:
             - DATABASE_URL=postgresql://frab:HWsJ54XvCOXyeSZhAQi9@db/frab
             - FRAB_CURRENCY_UNIT='$$'
             - FROM_EMAIL=frab@localhost
+            - FRAB_DEFAULT_LOCALE=en
+            - FRAB_DEFAULT_LOCALE_FALLBACK=de
         restart: always
         depends_on:
             - db

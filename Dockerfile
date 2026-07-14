@@ -43,8 +43,9 @@ RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz
     npm install -g yarn@$YARN_VERSION && \
     rm -rf /tmp/node-build-master
 
-# Install application gems
-COPY Gemfile Gemfile.lock vendor ./
+# Install application gems. Only the Gemfile is copied at this point, so
+# this (slow) layer is reused from cache unless dependencies change.
+COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
@@ -70,11 +71,16 @@ FROM base
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
+# Keep a pristine copy of the compiled public dir. At container start the
+# entrypoint syncs it into /rails/public, which may be shadowed by a
+# persistent volume holding stale assets from a previous image.
+RUN cp -a /rails/public /rails/public.dist
+
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
     mkdir -p /rails/db /rails/log /rails/tmp /rails/data && \
-    chown -R rails:rails /rails/db /rails/log /rails/tmp /rails/data
+    chown -R rails:rails /rails/db /rails/log /rails/tmp /rails/data /rails/public
 USER 1000:1000
 
 ENV FRAB_HOST=localhost \
