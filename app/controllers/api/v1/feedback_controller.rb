@@ -1,4 +1,6 @@
 class Api::V1::FeedbackController < ActionController::API
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+
   before_action :authenticate_by_token!
   before_action :check_feedback_enabled!
 
@@ -6,7 +8,7 @@ class Api::V1::FeedbackController < ActionController::API
     event = find_event(params[:event_id])
     return head :not_found unless event
 
-    feedback = event.event_feedbacks.new(rating: params[:rating], comment: params[:comment])
+    feedback = event.event_feedbacks.new(create_params)
     if feedback.save
       head :created
     else
@@ -15,7 +17,7 @@ class Api::V1::FeedbackController < ActionController::API
   end
 
   def batch
-    ratings = params[:ratings]
+    ratings = batch_params[:ratings]
     unless ratings.is_a?(Array) && ratings.any?
       return render json: { error: 'ratings must be a non-empty array' }, status: :unprocessable_entity
     end
@@ -33,19 +35,21 @@ class Api::V1::FeedbackController < ActionController::API
   private
 
   def authenticate_by_token!
-    token = bearer_token || params[:token]
-    conference = Conference.find_by(acronym: params[:conference_acronym], feedback_token: token)
-    return head :unauthorized unless conference
-    @conference = conference
+    authenticate_with_http_token do |token, _options|
+      next false if token.blank?
+
+      conference = Conference.find_by(acronym: params[:conference_acronym])
+      if conference && ActiveSupport::SecurityUtils.secure_compare(conference.feedback_token.to_s, token)
+        @conference = conference
+        true
+      else
+        false
+      end
+    end || head(:unauthorized)
   end
 
   def check_feedback_enabled!
-    head :forbidden unless @conference.feedback_enabled?
-  end
-
-  def bearer_token
-    header = request.headers['Authorization']
-    header&.start_with?('Bearer ') ? header.sub('Bearer ', '') : nil
+    head :forbidden unless @conference&.feedback_enabled?
   end
 
   def find_event(event_id)
@@ -62,5 +66,13 @@ class Api::V1::FeedbackController < ActionController::API
     else
       { error: "event #{entry[:event_id]}: #{feedback.errors.full_messages.join(', ')}" }
     end
+  end
+
+  def create_params
+    params.permit(:rating, :comment)
+  end
+
+  def batch_params
+    params.permit(ratings: [:event_id, :rating, :comment])
   end
 end

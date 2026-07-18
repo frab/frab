@@ -9,19 +9,11 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
     @token = @conference.feedback_token
   end
 
-  test 'creates feedback with bearer token' do
+  test 'creates feedback with standard token header' do
     assert_difference 'EventFeedback.count' do
       post "/api/v1/#{@conference.acronym}/events/#{@event.id}/feedback",
            params: { rating: 4 },
-           headers: { 'Authorization' => "Bearer #{@token}" }
-    end
-    assert_response :created
-  end
-
-  test 'creates feedback with token query param' do
-    assert_difference 'EventFeedback.count' do
-      post "/api/v1/#{@conference.acronym}/events/#{@event.id}/feedback",
-           params: { rating: 3, token: @token }
+           headers: { 'Authorization' => "Token token=#{@token}" }
     end
     assert_response :created
   end
@@ -30,7 +22,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'EventFeedback.count' do
       post "/api/v1/#{@conference.acronym}/events/#{@event.id}/feedback",
            params: { rating: 4 },
-           headers: { 'Authorization' => 'Bearer wrong' }
+           headers: { 'Authorization' => 'Token token=wrong' }
     end
     assert_response :unauthorized
   end
@@ -48,7 +40,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'EventFeedback.count' do
       post "/api/v1/#{@conference.acronym}/events/#{@event.id}/feedback",
            params: { rating: 4 },
-           headers: { 'Authorization' => "Bearer #{@token}" }
+           headers: { 'Authorization' => "Token token=#{@token}" }
     end
     assert_response :forbidden
   end
@@ -57,7 +49,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'EventFeedback.count' do
       post "/api/v1/#{@conference.acronym}/events/#{@event.id}/feedback",
            params: { rating: 6 },
-           headers: { 'Authorization' => "Bearer #{@token}" }
+           headers: { 'Authorization' => "Token token=#{@token}" }
     end
     assert_response :unprocessable_entity
   end
@@ -65,7 +57,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
   test 'returns not found for unknown event' do
     post "/api/v1/#{@conference.acronym}/events/0/feedback",
          params: { rating: 3 },
-         headers: { 'Authorization' => "Bearer #{@token}" }
+         headers: { 'Authorization' => "Token token=#{@token}" }
     assert_response :not_found
   end
 
@@ -78,7 +70,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
              { event_id: @event.id, rating: 5 },
              { event_id: event2.id, rating: 2 }
            ] },
-           headers: { 'Authorization' => "Bearer #{@token}" },
+           headers: { 'Authorization' => "Token token=#{@token}" },
            as: :json
     end
     assert_response :created
@@ -93,7 +85,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
              { event_id: @event.id, rating: 4 },
              { event_id: 0, rating: 3 }
            ] },
-           headers: { 'Authorization' => "Bearer #{@token}" },
+           headers: { 'Authorization' => "Token token=#{@token}" },
            as: :json
     end
     assert_response :multi_status
@@ -102,7 +94,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
   test 'batch rejects empty ratings array' do
     post "/api/v1/#{@conference.acronym}/feedback/batch",
          params: { ratings: [] },
-         headers: { 'Authorization' => "Bearer #{@token}" },
+         headers: { 'Authorization' => "Token token=#{@token}" },
          as: :json
     assert_response :unprocessable_entity
   end

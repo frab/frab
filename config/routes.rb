@@ -156,7 +156,7 @@ Rails.application.routes.draw do
           patch :toggle_locked
         end
         resource :event_rating
-        resources :event_feedbacks
+        resources :event_feedbacks, only: %i(index create)
         get 'history' => 'events#history'
       end
 

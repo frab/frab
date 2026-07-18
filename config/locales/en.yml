@@ -529,7 +529,7 @@ en:
           via the feedback API. Keep it secret. POST to
           /api/v1/{acronym}/events/{event_id}/feedback with {"rating": 1-5} or
           /api/v1/{acronym}/feedback/batch with {"ratings": [{"event_id": N, "rating": 1-5}]}.
-          Pass the token as "Authorization: Bearer {token}" header or ?token= parameter.
+          Pass the token as "Authorization: Token token={token}" header.
         max_timeslots: What is the maximum length of a single event (e.g. a single talk)?
         timeslot_duration: |
           How long do you want the smallest timeslots to be? This essentially

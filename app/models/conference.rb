@@ -49,7 +49,7 @@ class Conference < ApplicationRecord
 
   before_validation :normalize_color
   after_update :update_timeslots
-  after_create :generate_feedback_token
+  before_create :generate_feedback_token
 
   has_paper_trail
 
@@ -293,7 +293,6 @@ class Conference < ApplicationRecord
 
   def generate_feedback_token
     generate_token_for(:feedback_token)
-    save!
   end
 
   def normalize_color

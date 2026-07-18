@@ -210,7 +210,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_14_000000) do
 
   create_table "events", force: :cascade do |t|
     t.integer "conference_id", null: false
-    t.string "title"
+    t.string "title", limit: 255
     t.string "subtitle", limit: 255
     t.string "event_type", limit: 255, default: "talk"
     t.integer "time_slots", default: 3
@@ -238,11 +238,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_14_000000) do
     t.string "guid", limit: 255
     t.boolean "do_not_record", default: false
     t.string "recording_license", limit: 255
-    t.integer "number_of_repeats", default: 1
-    t.text "other_locations"
-    t.text "methods"
-    t.text "target_audience_experience"
-    t.text "target_audience_experience_text"
     t.text "tech_rider"
     t.string "invite_token"
     t.string "video_url", limit: 255
@@ -497,13 +492,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_14_000000) do
 
   add_foreign_key "average_review_scores", "events"
   add_foreign_key "average_review_scores", "review_metrics"
-  add_foreign_key "classifiers", "conferences"
-  add_foreign_key "event_classifiers", "classifiers"
-  add_foreign_key "event_classifiers", "events"
   add_foreign_key "event_translations", "events"
   add_foreign_key "person_translations", "people"
-  add_foreign_key "review_metrics", "conferences"
-  add_foreign_key "review_scores", "event_ratings"
-  add_foreign_key "review_scores", "review_metrics"
   add_foreign_key "track_translations", "tracks"
 end
