@@ -10,3 +10,13 @@
   .row
     .col-md-12
       = render 'form'
+
+      .card.shadow-sm.mb-4
+        .card-header.d-flex.align-items-center
+          %i.bi.bi-star.me-2
+          %h5.mb-0= t('conferences_module.feedback_token')
+        .card-body
+          .d-flex.gap-2
+            %input.form-control.font-monospace{ type: 'text', value: @conference.feedback_token, readonly: true }
+            = button_to t('conferences_module.regenerate_feedback_token'), regenerate_feedback_token_conference_path, class: 'btn btn-outline-secondary text-nowrap', data: { controller: 'confirm', action: 'click->confirm#confirm', confirm_message_value: t('conferences_module.confirm_regenerate_feedback_token') }
+          %div.form-text= t('conferences_module.inputs.hints.feedback_token')

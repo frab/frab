@@ -17,7 +17,7 @@ class Public::FeedbackController < ApplicationController
         format.json { head :ok, status: :created }
       else
         format.html { render action: 'new' }
-        format.json { render json: @feedback.errors, status: :unprocessable_entity }
+        format.json { render json: @feedback.errors, status: :unprocessable_content }
       end
     end
   end

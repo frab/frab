@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       scope path: '/:conference_acronym' do
-        post '/events/:event_id/feedback' => 'feedback#create', as: 'api_v1_event_feedback'
-        post '/feedback/batch' => 'feedback#batch', as: 'api_v1_feedback_batch'
+        post '/events/:event_id/feedback' => 'feedback#create', as: 'event_feedback'
+        post '/feedback/batch' => 'feedback#batch', as: 'feedback_batch'
       end
     end
   end

@@ -51,7 +51,7 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
            params: { rating: 6 },
            headers: { 'Authorization' => "Token token=#{@token}" }
     end
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test 'returns not found for unknown event' do
@@ -96,6 +96,6 @@ class Api::V1::FeedbackControllerTest < ActionDispatch::IntegrationTest
          params: { ratings: [] },
          headers: { 'Authorization' => "Token token=#{@token}" },
          as: :json
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 end

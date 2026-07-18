@@ -510,6 +510,12 @@ de:
         feedback_enabled: |
           Wenn aktiviert, enthält Ihr Programm-Export Links zu einem Feedback-Formular, in dem Teilnehmer
           ein Ereignis bewerten können.
+        feedback_token: |
+          Mit diesem Token authentifizieren sich VoteBox-Geräte, wenn sie Bewertungen
+          über die Feedback-API übermitteln. Halten Sie ihn geheim. POST an
+          /api/v1/{acronym}/events/{event_id}/feedback mit {"rating": 1-5} oder an
+          /api/v1/{acronym}/feedback/batch mit {"ratings": [{"event_id": N, "rating": 1-5}]}.
+          Übergeben Sie den Token im Header "Authorization: Token token={token}".
         max_timeslots: Was ist die maximale Länge einer Einreichung (gerechnet in Zeit-Slots)?
         timeslot_duration: |
           Wie lange sollen die kleinsten Zeit-Slots dauern? Hierdurch wird das grundlegende Zeit-Raster
@@ -548,6 +554,10 @@ de:
     notice_conference_created: Die Konferenz wurde erfolgreich erstellt.
     notice_conference_not_updated: Konferenz wurde nicht aktualisiert.
     notice_conference_updated: Die Konferenz wurde erfolgreich aktualisiert.
+    notice_feedback_token_regenerated: Der Feedback-API-Token wurde neu generiert.
+    feedback_token: Feedback-API-Token
+    regenerate_feedback_token: Token neu generieren
+    confirm_regenerate_feedback_token: "Feedback-API-Token neu generieren? Alle VoteBoxen, die den alten Token verwenden, müssen aktualisiert werden."
     past_conferences: Frühere Konferenzen
     recent_changes: Letzte Änderungen
     recent_changes_text: |

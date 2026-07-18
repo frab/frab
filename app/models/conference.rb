@@ -51,7 +51,8 @@ class Conference < ApplicationRecord
   after_update :update_timeslots
   before_create :generate_feedback_token
 
-  has_paper_trail
+  # the feedback token is an API secret, keep it out of the version history
+  has_paper_trail skip: [:feedback_token]
 
   has_attached_file :logo,
     styles: { tiny: '16x16>', small: '32x32>', large: '256x256>' },

@@ -12,14 +12,14 @@ class Api::V1::FeedbackController < ActionController::API
     if feedback.save
       head :created
     else
-      render json: { errors: feedback.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: feedback.errors.full_messages }, status: :unprocessable_content
     end
   end
 
   def batch
     ratings = batch_params[:ratings]
     unless ratings.is_a?(Array) && ratings.any?
-      return render json: { error: 'ratings must be a non-empty array' }, status: :unprocessable_entity
+      return render json: { error: 'ratings must be a non-empty array' }, status: :unprocessable_content
     end
 
     results = ratings.map { |entry| process_single(entry) }
