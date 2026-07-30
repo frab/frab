@@ -80,7 +80,7 @@ class Cfp::PeopleController < ApplicationController
         format.xml  { render xml: @person, status: :created, location: @person }
       else
         format.html { render action: 'new' }
-        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
+        format.xml  { render xml: @person.errors, status: :unprocessable_content }
       end
     end
   end
@@ -95,7 +95,7 @@ class Cfp::PeopleController < ApplicationController
       else
         flash_model_errors(@person)
         format.html { render action: 'edit' }
-        format.xml  { render xml: @person.errors, status: :unprocessable_entity }
+        format.xml  { render xml: @person.errors, status: :unprocessable_content }
       end
     end
   end

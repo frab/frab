@@ -524,6 +524,12 @@ en:
         feedback_enabled: |
           If you enable this, your program export will include links to a feedback
           form where attendees can rate an event.
+        feedback_token: |
+          Use this token to authenticate VoteBox devices when submitting ratings
+          via the feedback API. Keep it secret. POST to
+          /api/v1/{acronym}/events/{event_id}/feedback with {"rating": 1-5} or
+          /api/v1/{acronym}/feedback/batch with {"ratings": [{"event_id": N, "rating": 1-5}]}.
+          Pass the token as "Authorization: Token token={token}" header.
         max_timeslots: What is the maximum length of a single event (e.g. a single talk)?
         timeslot_duration: |
           How long do you want the smallest timeslots to be? This essentially
@@ -567,6 +573,10 @@ en:
     notice_conference_created: Conference was successfully created.
     notice_conference_not_updated: Conference was not updated.
     notice_conference_updated: Conference was successfully updated.
+    notice_feedback_token_regenerated: Feedback API token has been regenerated.
+    feedback_token: Feedback API Token
+    regenerate_feedback_token: Regenerate Token
+    confirm_regenerate_feedback_token: "Regenerate the feedback API token? Any VoteBoxes using the old token will need to be updated."
     past_conferences: Past Conferences
     recent_changes: Recent changes
     recent_changes_text: |

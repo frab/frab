@@ -24,7 +24,9 @@ class ImportExportHelper
 
     ActiveRecord::Base.transaction do
       save_schema_version
-      dump 'conference', @conference
+      # the feedback token is an API secret, it must not leave the database;
+      # imported conferences generate a fresh one on create
+      dump 'conference', @conference, except: %w(feedback_token)
       dump 'conference_tracks', @conference.tracks
       dump 'conference_cfp', @conference.call_for_participation
       dump 'conference_ticket_server', @conference.ticket_server
@@ -422,13 +424,13 @@ class ImportExportHelper
     dump name, arr
   end
 
-  def dump(name, obj)
+  def dump(name, obj, except: [])
     return if obj.nil?
     File.open(File.join(@export_dir, name) + '.yaml', 'w') { |f|
       if obj.respond_to?('collect')
-        f.puts obj.collect(&:attributes).to_yaml
+        f.puts obj.collect { |o| o.attributes.except(*except) }.to_yaml
       elsif obj.respond_to?('attributes')
-        f.puts obj.attributes.to_yaml
+        f.puts obj.attributes.except(*except).to_yaml
       else
         f.puts obj.to_yaml
       end
