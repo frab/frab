@@ -92,7 +92,7 @@
       %h5.mb-0= t(:ticket_server)
     .card-body
       = f.input :ticket_type, as: :radio_buttons, collection: translated_options(Conference::TICKET_TYPES)
-  .mt-4.p-3.bg-light.rounded.d-flex.gap-2
+  .mt-4.mb-4.p-3.bg-light.rounded.d-flex.gap-2
     = f.button :submit, class: 'btn btn-primary btn-lg'
     = link_to t('cancel'), :back, class: "btn btn-outline-secondary btn-lg"
 
