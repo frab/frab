@@ -301,6 +301,7 @@ nl:
     forgot_password_headline: uw wachtwoord vergeten?
     hard_deadline_over: Sorry, de deadline voor het indienen van evenementen is voorbij.
     im_accounts: Instant messaging-accounts
+    im_type_other_placeholder: Specificeer a.u.b.
     info_url_description_html: 'Weet u niet zeker wat u moet indienen? Lees alles over de Oproep tot deelname op: %{link}'
     information_headline: Informatie
     input_appreciation: 'We stellen uw inbreng tot dusver zeer op prijs. Voel je vrij om je in te schrijven of deel te nemen aan een ander evenement:'
@@ -1854,7 +1855,6 @@ nl:
         delimiter: ''
   options:
     admin: Beheerder
-    aim: DOEL
     assistant: Assistent
     attending: Bijwonen
     bus: Bus
@@ -1870,17 +1870,14 @@ nl:
     fax: Fax
     female: Vrouwelijk
     film: Film
-    icq: ICQ
     idea: Idee
     integrated: Geïntegreerd
-    jabber: Jabber/XMPP
     lecture: Lezing
     lightning_talk: Bliksem praten
     male: Mannelijk
     meeting: Ontmoeting
     mobile: mobiel
     moderator: Moderator
-    msn: Msn
     offer: Aanbieding
     orga: organisator
     other: Ander
@@ -1894,14 +1891,12 @@ nl:
     rt: Tracker aanvragen
     secretary: Secretaris
     shuttle: Shuttle
-    skype: Skype
     speaker: Spreker
     submitter: indiener
     talk: Praten
     unclear: Onduidelijk
     work: Het werk
     workshop: werkplaats
-    yahoo: Yahoo
   others_only: Alleen anderen
   page_titles:
     admin_users: frab - admin gebruikers

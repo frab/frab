@@ -5,7 +5,7 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
     @cfp_person = create(:person)
     @call_for_participation = create(:call_for_participation)
     @conference = @call_for_participation.conference
-    login_as(:submitter)
+    @user = login_as(:submitter)
   end
 
   def cfp_person_params
@@ -24,6 +24,17 @@ class Cfp::PeopleControllerTest < ActionController::TestCase
   test 'should get edit' do
     get :edit, params: { conference_acronym: @conference.acronym }
     assert_response :success
+  end
+
+  test 'should get edit with im accounts' do
+    create(:im_account, person: @user.person, im_type: 'telegram', im_address: '@known')
+    create(:im_account, person: @user.person, im_type: 'carrierpigeon', im_address: 'loft 42')
+
+    get :edit, params: { conference_acronym: @conference.acronym }
+    assert_response :success
+
+    assert_select 'select[data-im-type-target="select"] option[value="telegram"]'
+    assert_select 'input[data-im-type-target="other"][value="carrierpigeon"]'
   end
 
   test 'should update cfp_person' do

@@ -301,6 +301,7 @@ zh:
     forgot_password_headline: 忘记密码了吗？
     hard_deadline_over: 对不起，提交活动的截止日期已经结束。
     im_accounts: 即时消息帐户
+    im_type_other_placeholder: 请注明
     info_url_description_html: 不确定要提交什么？请阅读%{link}的“参与呼吁”全文
     information_headline: 信息
     input_appreciation: 我们非常感谢您的输入。随意提交或加入其他活动：
@@ -1854,7 +1855,6 @@ zh:
         delimiter: ''
   options:
     admin: 管理员
-    aim: 目标
     assistant: 助理
     attending: 参加
     bus: 总线
@@ -1870,17 +1870,14 @@ zh:
     fax: 传真
     female: 女
     film: 电影
-    icq: ICQ
     idea: 理念
     integrated: 集成
-    jabber: 的Jabber / XMPP
     lecture: 演讲
     lightning_talk: 闪电谈话
     male: 男
     meeting: 会议
     mobile: 移动
     moderator: 主持人
-    msn: MSN
     offer: 提供
     orga: Organisator
     other: 其他
@@ -1894,14 +1891,12 @@ zh:
     rt: 请求跟踪器
     secretary: 秘书
     shuttle: 穿梭
-    skype: Skype的
     speaker: 扬声器
     submitter: 提交
     talk: 谈论
     unclear: 不清楚
     work: 工作
     workshop: 作坊
-    yahoo: 雅虎
   others_only: 仅限其他人
   page_titles:
     admin_users: frab  - 管理员用户

@@ -40,6 +40,17 @@ class PeopleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get edit with im accounts' do
+    create(:im_account, person: @person, im_type: 'telegram', im_address: '@known')
+    create(:im_account, person: @person, im_type: 'carrierpigeon', im_address: 'loft 42')
+
+    get :edit, params: { id: @person.to_param, conference_acronym: @conference.acronym }
+    assert_response :success
+
+    assert_select 'select[data-im-type-target="select"] option[value="telegram"]'
+    assert_select 'input[data-im-type-target="other"][value="carrierpigeon"]'
+  end
+
   test 'should update person' do
     put :update, params: { id: @person.to_param, person: person_params, conference_acronym: @conference.acronym }
     assert_redirected_to person_path(assigns(:person))

@@ -301,6 +301,7 @@ pt-BR:
     forgot_password_headline: Esqueceu sua senha?
     hard_deadline_over: Desculpe-nos, mas o prazo para envio de propostas já acabou.
     im_accounts: Contas de Mensagens Instantâneas
+    im_type_other_placeholder: Por favor, especifique
     info_url_description_html: 'Sem saber o que submeter? Leia tudo sobre a Chamada de Trabalhos em: %{link}'
     information_headline: Informações
     input_appreciation: 'Obrigado por sua submissão recente. Por favor, não hesite em apresentar uma outra proposta:'
@@ -1846,7 +1847,6 @@ pt-BR:
         delimiter: "."
   options:
     admin: Administrador
-    aim: ALVO
     assistant: Assistente
     attending: Atender
     bus: Ônibus
@@ -1862,17 +1862,14 @@ pt-BR:
     fax: fax
     female: mulher
     film: Filme
-    icq: ICQ
     idea: Idéia
     integrated: Integrado
-    jabber: Jabber / XMPP
     lecture: palestra
     lightning_talk: lightning talk
     male: homem
     meeting: reunião
     mobile: celular
     moderator: Moderador
-    msn: Msn
     offer: Oferta
     orga: Organizador
     other: outros
@@ -1886,14 +1883,12 @@ pt-BR:
     rt: Solicitar rastreador
     secretary: secretário
     shuttle: Transporte
-    skype: skype
     speaker: Alto falante
     submitter: Enviado
     talk: Conversa
     unclear: Não claro
     work: Trabalhos
     workshop: oficina
-    yahoo: Yahoo
   others_only: Apenas outros
   page_titles:
     admin_users: frab - usuários admin
