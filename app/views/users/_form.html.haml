@@ -20,7 +20,8 @@
       - if policy(Conference).manage?
         - if @user.is_crew?
           %hr
-          = dynamic_association :conference_users, t('activerecord.models.conference_user'), f
+          = dynamic_association :conference_users, t('activerecord.models.conference_user'), f,
+            records: @conference_users
         - else
           .alert.alert-info.mt-3
             = t('users_module.save_needed_before_changes')
