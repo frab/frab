@@ -19,8 +19,7 @@ class UsersController < BaseCrewController
 
   # GET /users/1/edit
   def edit
-    # Don't assign this to @user.conference_users: that deletes the other rows.
-    @conference_users = policy_scope(@user.conference_users)
+    @conference_users = editable_conference_users
   end
 
   # POST /users
@@ -64,6 +63,7 @@ class UsersController < BaseCrewController
         format.html { redirect_to(edit_crew_user_path(@person), notice: t('users_module.notice_user_updated')) }
       else
         flash_model_errors(@user)
+        @conference_users = editable_conference_users
         format.html { render action: 'edit' }
       end
     end
@@ -115,6 +115,8 @@ class UsersController < BaseCrewController
   # rows may not be moved to another conference at all.
   def filter_conference_users(conference_users)
     return if conference_users.blank?
+    # The form only sends a hash; answer anything else with 400, not a 500.
+    raise ActionController::BadRequest unless conference_users.is_a?(ActionController::Parameters)
 
     orga_conference_ids = current_user.organizes_conferences.map(&:conference_id)
     conference_users.delete_if do |_, attributes|
@@ -130,6 +132,17 @@ class UsersController < BaseCrewController
     else
       attributes[:conference_id].presence&.to_i
     end
+  end
+
+  # The rows the form may show: those on conferences the current user
+  # organizes. Filters in memory, because assigning a subset to
+  # @user.conference_users would delete the other rows, and because a failed
+  # update must keep the submitted rows and their errors.
+  def editable_conference_users
+    return @user.conference_users.to_a if current_user.is_admin?
+
+    orga_conference_ids = current_user.organizes_conferences.map(&:conference_id)
+    @user.conference_users.select { |row| orga_conference_ids.include?(row.conference_id) }
   end
 
   def moves_conference?(attributes, stored_conference_id)

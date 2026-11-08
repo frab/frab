@@ -297,4 +297,55 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert reviewer.reload.has_role?(@conference, 'reviewer')
   end
+
+  def conference_user_id_field(row)
+    "input[type=hidden][name$='[id]'][value='#{row.id}']"
+  end
+
+  test 'failed update re-renders only rows on conferences the orga organizes' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    member = crew_with('reviewer')
+    own_row = member.conference_users.reload.first
+    foreign_row = ConferenceUser.create!(user: member, conference: other, role: 'reviewer')
+    sign_in orga
+    put :update, params: {
+      user: { id: member.id, conference_users_attributes: {
+        '0' => { id: own_row.id, conference_id: @conference.id, role: 'bogus' }
+      } },
+      person_id: member.person.id, conference_acronym: @conference.acronym
+    }
+    assert_template :edit
+    assert_select conference_user_id_field(own_row)
+    assert_select conference_user_id_field(foreign_row), count: 0
+  end
+
+  test 'coordinator editing their own account does not get the conference role form' do
+    coordinator = crew_with('coordinator')
+    sign_in coordinator
+    get :edit, params: { person_id: coordinator.person.id, conference_acronym: @conference.acronym }
+    assert_response :success
+    assert_select '.conference_users', count: 0
+  end
+
+  test 'orga gets the conference role form' do
+    orga = crew_with('orga')
+    member = crew_with('reviewer')
+    sign_in orga
+    get :edit, params: { person_id: member.person.id, conference_acronym: @conference.acronym }
+    assert_select '.conference_users'
+    assert_select conference_user_id_field(member.conference_users.reload.first)
+  end
+
+  test 'array-shaped conference role params are refused' do
+    reviewer = crew_with('reviewer')
+    sign_in reviewer
+    assert_raises(ActionController::BadRequest) do
+      put :update, params: {
+        user: { id: reviewer.id, conference_users_attributes: [{ role: 'orga', conference_id: @conference.id }] },
+        person_id: reviewer.person.id
+      }
+    end
+    assert_not reviewer.reload.is_orga_of?(@conference)
+  end
 end
