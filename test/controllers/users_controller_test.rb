@@ -186,6 +186,24 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal 'coordinator', row.reload.role
   end
 
+  test 'orga cannot change credentials or role of a user from another conference' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    stranger = crew_with('reviewer', conference: other)
+    old_password = stranger.encrypted_password
+    sign_in orga
+    put :update, params: {
+      user: { id: stranger.id, email: 'taken@example.org',
+              password: 'hijacked123', password_confirmation: 'hijacked123',
+              role: 'submitter' },
+      person_id: stranger.person.id
+    }
+    stranger.reload
+    assert_equal old_password, stranger.encrypted_password # password not hijacked
+    assert_nil stranger.unconfirmed_email                  # email change not even pending
+    assert_equal 'crew', stranger.role                     # global role untouched
+  end
+
   test 'orga can onboard a user from another conference onto their own conference' do
     other = create(:conference)
     orga = crew_with('orga')
@@ -199,6 +217,17 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert stranger.reload.has_role?(@conference, 'reviewer')
     assert stranger.has_role?(other, 'reviewer')
+  end
+
+  test 'orga can change the password of a user affiliated only with their own conference' do
+    orga = crew_with('orga')
+    member = crew_with('reviewer')
+    sign_in orga
+    put :update, params: {
+      user: { id: member.id, password: 'newsecret123', password_confirmation: 'newsecret123' },
+      person_id: member.person.id
+    }
+    assert member.reload.valid_password?('newsecret123')
   end
 
   test 'orga cannot destroy a foreign grant by spoofing its conference_id' do

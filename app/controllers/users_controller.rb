@@ -46,10 +46,13 @@ class UsersController < BaseCrewController
       params[:user].delete(password_key) if params[:user][password_key].blank?
     end
 
+    unless current_user.is_admin?
+      filter_conference_users(params[:user][:conference_users_attributes])
+      protect_foreign_user(params[:user])
+    end
+
     set_allowed_user_roles(params[:user][:role])
     params[:user].delete(:role)
-
-    filter_conference_users(params[:user][:conference_users_attributes]) unless current_user.is_admin?
 
     respond_to do |format|
       if params[:user].present? and @user.update(user_params)
@@ -131,5 +134,25 @@ class UsersController < BaseCrewController
   def moves_conference?(attributes, stored_conference_id)
     submitted = attributes[:conference_id].presence&.to_i
     attributes[:id].present? && submitted.present? && submitted != stored_conference_id
+  end
+
+  # An orga may add roles on their own conferences to any user, but must not
+  # change the credentials or global role of a user who belongs to a conference
+  # the orga does not organize -- resetting that user's password would hand the
+  # orga access to those other conferences. Editing one's own account, or a user
+  # affiliated only with the orga's own conferences, stays unrestricted.
+  def protect_foreign_user(attributes)
+    return if current_user == @user
+    return unless foreign_user?(@user)
+
+    attributes.delete(:email)
+    attributes.delete(:password)
+    attributes.delete(:password_confirmation)
+    attributes.delete(:role)
+  end
+
+  def foreign_user?(user)
+    orga_conference_ids = current_user.organizes_conferences.map(&:conference_id)
+    user.conference_users.where.not(conference_id: orga_conference_ids).exists?
   end
 end
