@@ -51,6 +51,22 @@ class ConferenceRoleEscalationTest < PunditControllerTest
     assert_not orga.reload.is_orga_of?(@other_conference)
   end
 
+  def test_orga_cannot_hijack_credentials_of_user_from_another_conference
+    orga = create(:conference_orga, conference: @conference).user
+    stranger = create(:conference_reviewer, conference: @other_conference).user
+    old_password = stranger.encrypted_password
+    sign_in orga
+    patch "/user/#{stranger.person.id}", params: {
+      user: { email: 'taken@example.org',
+              password: 'hijacked123', password_confirmation: 'hijacked123',
+              role: 'submitter' }
+    }
+    stranger.reload
+    assert_equal old_password, stranger.encrypted_password
+    assert_nil stranger.unconfirmed_email
+    assert_equal 'crew', stranger.role
+  end
+
   def test_orga_can_onboard_user_from_another_conference
     orga = create(:conference_orga, conference: @conference).user
     membership = create(:conference_reviewer, conference: @other_conference)
