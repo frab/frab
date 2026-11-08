@@ -17,7 +17,7 @@
         .col-md-6
           = f.input :password_confirmation, disabled: !@user.credentials_editable?
 
-      - if policy(Conference).manage?
+      - if policy(Conference).orga?
         - if @user.is_crew?
           %hr
           = dynamic_association :conference_users, t('activerecord.models.conference_user'), f,
