@@ -130,7 +130,6 @@ GEM
     bullet (8.0.8)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
-    byebug (12.0.0)
     capistrano (3.19.2)
       airbrussh (>= 1.0.0)
       i18n
@@ -401,9 +400,6 @@ GEM
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.11.0)
-      byebug (~> 12.0)
-      pry (>= 0.13, < 0.16)
     pry-rails (0.3.11)
       pry (>= 0.13.0)
     psych (5.2.6)
@@ -690,7 +686,6 @@ DEPENDENCIES
   prawn
   prawn-table
   prawn_rails
-  pry-byebug
   pry-rails
   puma
   pundit

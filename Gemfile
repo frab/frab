@@ -95,7 +95,6 @@ group :development, :test do
   gem 'listen'
   gem 'bullet'
   gem 'pry-rails'
-  gem 'pry-byebug'
   gem 'rubocop', require: false
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
