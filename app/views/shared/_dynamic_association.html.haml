@@ -6,7 +6,7 @@
     - if hint
       %div.input.form-text= hint
     %div{class: association_name.to_s}
-      = f.simple_fields_for association_name do |association_form|
+      = f.simple_fields_for association_name, records do |association_form|
         = render association_name.to_s.singularize + "_fields", f: association_form
     .d-flex.justify-content-end.mt-2
       = add_association_link association_name, f, association_name

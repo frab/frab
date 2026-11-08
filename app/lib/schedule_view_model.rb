@@ -98,6 +98,17 @@ class ScheduleViewModel
 
   private
 
+  # Pixel height of one grid row, scaled so that a typical talk stays
+  # readable without the grid ballooning when timeslots are short.
+  def slot_height
+    case @conference.timeslot_duration
+    when 5 then 18
+    when 10 then 28
+    when 15 then 36
+    else 72
+    end
+  end
+
   def build_events_by_room
     @events_by_room = {}
     return @events_by_room unless @day&.rooms_with_events
@@ -140,7 +151,7 @@ class ScheduleViewModel
               type: :event,
               event: event,
               rowspan: event.time_slots,
-              height: event.time_slots * 40
+              height: event.time_slots * slot_height
             }
           else
             timeslot_data[:rooms][room] = { type: :empty }

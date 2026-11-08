@@ -168,6 +168,12 @@ class ConferencesController < BaseConferenceController
     redirect_to edit_notifications_conference_path, notice: t('conferences_module.notice_bulk_notification_queued', notification: params[:notification])
   end
 
+  def regenerate_feedback_token
+    authorize @conference, :orga?
+    @conference.regenerate_feedback_token!
+    redirect_to edit_conference_path, notice: t('conferences_module.notice_feedback_token_regenerated')
+  end
+
   # POST /conferences
   def create
     @conference = Conference.new(conference_params)

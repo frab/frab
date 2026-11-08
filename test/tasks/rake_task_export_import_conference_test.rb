@@ -67,11 +67,15 @@ class RakeTaskExportImportConferenceTest < ActiveSupport::TestCase
     attributes_to_compare -= [ "id" ] # Updated during re-import
     attributes_to_compare -= [ "acronym", "title" ] # Updated by this test
     attributes_to_compare -= [ "created_at", "updated_at" ] # Modified to import time
+    attributes_to_compare -= [ "feedback_token" ] # Secret, stripped from exports
 
     attributes_to_compare.each { |attr|
       original = conf_attrs[attr]
       imported = new_conf_attrs[attr]
       assert original == imported, "conference #{attr} should be identical. original is #{original} ; imported is #{imported}"
     }
+
+    assert new_conf_attrs["feedback_token"].present?, "imported conference has a feedback_token"
+    assert new_conf_attrs["feedback_token"] != conf_attrs["feedback_token"], "imported conference got a fresh feedback_token"
   end
 end

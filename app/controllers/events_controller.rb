@@ -322,8 +322,8 @@ class EventsController < BaseConferenceController
       else
         flash_model_errors(@event)
         @start_time_options = PossibleStartTimes.new(@event).all
-        format.html { render action: 'edit', status: :unprocessable_entity }
-        format.js { render json: @event.errors, status: :unprocessable_entity }
+        format.html { render action: 'edit', status: :unprocessable_content }
+        format.js { render json: @event.errors, status: :unprocessable_content }
       end
     end
   end

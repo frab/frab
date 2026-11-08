@@ -1,5 +1,18 @@
 #!/bin/bash -e
 
+# /rails/public may be a persistent volume (it holds uploads under
+# public/system). Sync the precompiled assets baked into this image over
+# it, so a rebuilt image doesn't serve stale CSS/JS from the volume.
+# Uploaded files are left untouched.
+if [ -d /rails/public.dist/assets ]; then
+  if (rm -rf /rails/public/assets && cp -a /rails/public.dist/. /rails/public/) 2>/dev/null; then
+    echo "Synced precompiled assets into /rails/public."
+  else
+    echo "WARNING: /rails/public is not writable by uid $(id -u); precompiled assets may be stale." >&2
+    echo "         One-time fix for an existing volume: docker compose exec -u root frab chown -R rails /rails/public" >&2
+  fi
+fi
+
 # If running the rails server then create or migrate existing database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
   ./bin/rails db:prepare

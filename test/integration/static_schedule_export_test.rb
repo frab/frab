@@ -17,7 +17,7 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
     index_content = File.read(@dir.join('index.html'))
     # Check that we have content for the third day by looking for day sections
     assert index_content.scan(/id="day-\d+"/).length >= 3, "Should have at least 3 day sections"
-    assert_includes File.read(@dir.join('style.css')), '.cell-height1'
+    assert_includes File.read(@dir.join('style.css')), '--conference-color'
     assert_includes File.read(@dir.join('events.html')), 'Introducing frap'
     assert_includes File.read(@dir.join('schedule/1.html')), 'Introducing frap'
     event = @conference.events.first
@@ -31,7 +31,7 @@ class StaticScheduleExportTest < ActionDispatch::IntegrationTest
     index_content = File.read(@dir.join('index.html'))
     # Check that we have content for the third day by looking for day sections
     assert index_content.scan(/id="day-\d+"/).length >= 3, "Should have at least 3 day sections in German"
-    assert_includes File.read(@dir.join('events.html')), 'Alle Events'
+    assert_includes File.read(@dir.join('events.html')), 'ReferentInnen'
   end
 
   test 'works for sub conference' do

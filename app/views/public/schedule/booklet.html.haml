@@ -1,67 +1,53 @@
 - content_for :title do
   = "#{t('.events')} | #{schedule_title}"
 
-.row.mb-4
-  .col-12
-    %h2.title.mb-0
-      %i.bi.bi-book.me-2
-      = t '.events'
+%h2.ps-page-title= t '.events'
 
 = render 'day_menu'
 
 - @view_model.events_by_day.each do |day, start_times|
-  %a{name: "day#{day.id}"}
-  .mb-5
+  %section{id: "day#{day.id}"}
+    %h3.day-heading= l(day.start_date, format: :day)
+
     - start_times.sort.each do |start_time, events|
-      - if events.count > 0
-        .card.mb-4.border-0.shadow-sm
-          .card-header.bg-info.text-white
-            %h4.mb-0
-              %i.bi.bi-calendar.me-2
-              = l(day.start_date, format: :day)
-              %span.ms-2
-                %i.bi.bi-clock.me-1
-                = start_time.strftime("%H:%M")
+      - events.sort_by { |a| [a.track&.name ? 1 : 0, a.track&.name] }.each do |event|
+        .session-row.mb-3{class: track_class(event)}
+          .session-row__time
+            .session-row__start= start_time.strftime("%H:%M")
+            - if event.time_slots
+              .session-row__duration= "#{event.time_slots * @conference.timeslot_duration} min"
 
-          .card-body.p-0
-            - events.sort_by { |a| [a.track&.name ? 1 : 0, a.track&.name] }.each_with_index do |event, index|
-              .event-book.p-4{class: (index < events.count - 1) ? 'border-bottom' : ''}
-                .row.g-4
-                  .col-12.col-md-8
-                    %h4.mb-3
-                      = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none"
+          .session-row__body
+            %h4.session-row__title.mb-1
+              = link_to event.title, public_event_path(id: event.id), class: "text-decoration-none"
+            - if event.subtitle.present?
+              .session-row__subtitle.mb-2= event.subtitle
 
-                    .label.mb-3
-                      .d-flex.flex-wrap.gap-3.align-items-center
-                        - if event.subtitle.present?
-                          %span.badge.bg-light.text-dark.fs-6= event.subtitle
-                        %span.badge{class: "bg-primary #{track_class(event)}"}
-                          %i.bi.bi-geo-alt.me-1
-                          = event.room&.name
-                        - if event.language.present? && @conference.languages_including_subs.count > 1
-                          %span.badge.bg-secondary
-                            %i.bi.bi-translate.me-1
-                            = event.language
+            .session-row__meta.mb-2
+              - if event.track.present?
+                %span.track-pill{title: event.track.name}
+                  %span.track-pill__name= event.track.name
+              - if event.room.present?
+                %span
+                  %i.bi.bi-geo-alt
+                  = event.room.name
+              - if event.language.present? && @conference.languages_including_subs.count > 1
+                %span
+                  %i.bi.bi-translate
+                  = event.language
 
-                    - if event.abstract.present?
-                      .alert.alert-light.border-start.border-primary.border-3.mb-3
-                        = simple_format event.abstract.truncate(250)
+            - if event.abstract.present?
+              .event-page__abstract.mb-2= text_preview(event.abstract, length: 250)
 
-                    - if event.description.present?
-                      .mb-3
-                        = simple_format event.description.truncate(1200)
+            - if event.description.present?
+              .session-row__abstract= text_preview(event.description, length: 1200)
 
-                  .col-12.col-md-4
-                    - if event.speakers.any?
-                      .card.border-0.bg-light
-                        .card-header.bg-success.text-white
-                          %h6.mb-0
-                            %i.bi.bi-people.me-2
-                            Speakers
-                        .card-body
-                          .speakers
-                            - event.speakers.each do |speaker|
-                              .d-flex.align-items-center.mb-2
-                                .me-2
-                                  = image_box speaker.avatar, :small, class: "rounded-circle"
-                                = link_to speaker.public_name, public_speaker_path(id: speaker.id), class: "text-decoration-none fw-medium"
+            - if event.speakers.any?
+              .session-row__meta.mt-2
+                - event.speakers.each do |speaker|
+                  %span
+                    - if speaker.avatar.present?
+                      = image_box speaker.avatar, :small, class: "avatar avatar--sm me-1"
+                    - else
+                      %i.bi.bi-person
+                    = link_to speaker.public_name, public_speaker_path(id: speaker.id)
