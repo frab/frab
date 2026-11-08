@@ -80,4 +80,137 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert_redirected_to edit_crew_user_path(@user.person)
   end
+
+  # --- Conference-role privilege escalation (issue #1053) ---
+
+  def crew_with(conference_role, conference: @conference)
+    user = create(:crew_user, person: create(:person))
+    # Build the join row directly: the :conference_user factory's after(:build)
+    # hook replaces any passed-in user with a fresh one.
+    ConferenceUser.create!(user: user, conference: conference, role: conference_role)
+    user
+  end
+
+  def grant_attributes(conference, role: 'orga')
+    { '0' => { role: role, conference_id: conference.id } }
+  end
+
+  test 'reviewer cannot self-grant orga on their own conference' do
+    reviewer = crew_with('reviewer')
+    sign_in reviewer
+    assert_no_difference('ConferenceUser.where(role: "orga").count') do
+      put :update, params: {
+        user: { id: reviewer.id, conference_users_attributes: grant_attributes(@conference) },
+        person_id: reviewer.person.id
+      }
+    end
+    assert_not reviewer.reload.is_orga_of?(@conference)
+  end
+
+  test 'reviewer cannot self-grant orga on an unrelated conference' do
+    other = create(:conference)
+    reviewer = crew_with('reviewer')
+    sign_in reviewer
+    assert_no_difference('ConferenceUser.count') do
+      put :update, params: {
+        user: { id: reviewer.id, conference_users_attributes: grant_attributes(other) },
+        person_id: reviewer.person.id
+      }
+    end
+    assert_not reviewer.reload.is_orga_of?(other)
+  end
+
+  test 'coordinator cannot self-grant orga' do
+    other = create(:conference)
+    coordinator = crew_with('coordinator')
+    sign_in coordinator
+    assert_no_difference('ConferenceUser.where(role: "orga").count') do
+      put :update, params: {
+        user: { id: coordinator.id, conference_users_attributes: grant_attributes(other) },
+        person_id: coordinator.person.id
+      }
+    end
+    assert_not coordinator.reload.is_orga_of?(other)
+  end
+
+  test 'crew user with no conference role cannot self-grant orga' do
+    user = create(:crew_user, person: create(:person))
+    sign_in user
+    assert_no_difference('ConferenceUser.count') do
+      put :update, params: {
+        user: { id: user.id, conference_users_attributes: grant_attributes(@conference) },
+        person_id: user.person.id
+      }
+    end
+    assert_not user.reload.is_orga_of?(@conference)
+  end
+
+  test 'orga cannot grant orga on a conference they do not organize' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    sign_in orga
+    assert_no_difference('ConferenceUser.count') do
+      put :update, params: {
+        user: { id: orga.id, conference_users_attributes: grant_attributes(other) },
+        person_id: orga.person.id
+      }
+    end
+    assert_not orga.reload.is_orga_of?(other)
+  end
+
+  test 'orga can create a crew account with a role on a conference they organize' do
+    orga = crew_with('orga')
+    sign_in orga
+    person = create(:person)
+    assert_difference('ConferenceUser.count', 1) do
+      post :create, params: {
+        user: user_params(:crew_user).merge(conference_users_attributes: grant_attributes(@conference, role: 'reviewer')),
+        person_id: person.id,
+        conference_acronym: @conference.acronym
+      }
+    end
+    assert person.reload.user.has_role?(@conference, 'reviewer')
+  end
+
+  test 'orga can change a crew role on a conference they organize' do
+    orga = crew_with('orga')
+    member = crew_with('reviewer')
+    row = member.conference_users.reload.first
+    sign_in orga
+    put :update, params: {
+      user: { id: member.id, conference_users_attributes: {
+        '0' => { id: row.id, role: 'coordinator', conference_id: @conference.id }
+      } },
+      person_id: member.person.id
+    }
+    assert_equal 'coordinator', row.reload.role
+  end
+
+  test 'orga can onboard a user from another conference onto their own conference' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    stranger = crew_with('reviewer', conference: other)
+    sign_in orga
+    assert_difference('ConferenceUser.count', 1) do
+      put :update, params: {
+        user: { id: stranger.id, conference_users_attributes: grant_attributes(@conference, role: 'reviewer') },
+        person_id: stranger.person.id
+      }
+    end
+    assert stranger.reload.has_role?(@conference, 'reviewer')
+    assert stranger.has_role?(other, 'reviewer')
+  end
+
+  test 'orga cannot create a new account with orga on an unrelated conference' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    sign_in orga
+    person = create(:person)
+    post :create, params: {
+      user: user_params(:crew_user).merge(conference_users_attributes: grant_attributes(other)),
+      person_id: person.id,
+      conference_acronym: @conference.acronym
+    }
+    assert_nil ConferenceUser.joins(:user).where(users: { id: person.user&.id }, conference: other).first
+  end
 end
