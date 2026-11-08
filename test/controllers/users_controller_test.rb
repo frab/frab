@@ -288,4 +288,13 @@ class UsersControllerTest < ActionController::TestCase
     }
     assert_nil ConferenceUser.joins(:user).where(users: { id: person.user&.id }, conference: other).first
   end
+
+  test 'visiting own edit page does not destroy a reviewer conference role' do
+    reviewer = crew_with('reviewer')
+    sign_in reviewer
+    assert_no_difference('ConferenceUser.count') do
+      get :edit, params: { person_id: reviewer.person.id, conference_acronym: @conference.acronym }
+    end
+    assert reviewer.reload.has_role?(@conference, 'reviewer')
+  end
 end

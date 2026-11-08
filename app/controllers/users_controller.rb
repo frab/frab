@@ -19,7 +19,8 @@ class UsersController < BaseCrewController
 
   # GET /users/1/edit
   def edit
-    @user.conference_users = policy_scope(@user.conference_users)
+    # Don't assign this to @user.conference_users: that deletes the other rows.
+    @conference_users = policy_scope(@user.conference_users)
   end
 
   # POST /users

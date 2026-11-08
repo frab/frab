@@ -121,6 +121,17 @@ class ConferenceRoleEscalationTest < PunditControllerTest
     assert person.reload.user.has_role?(@conference, 'reviewer')
   end
 
+  # --- GET edit must not delete the viewer's own conference role ---
+
+  def test_viewing_own_edit_page_keeps_conference_role
+    reviewer = create(:conference_reviewer, conference: @conference).user
+    sign_in reviewer
+    assert_no_difference 'ConferenceUser.count' do
+      get "/user/#{reviewer.person.id}/edit"
+    end
+    assert reviewer.reload.has_role?(@conference, 'reviewer')
+  end
+
   private
 
   def escalation_params(conference, role: 'orga')
