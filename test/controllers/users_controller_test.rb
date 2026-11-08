@@ -201,6 +201,52 @@ class UsersControllerTest < ActionController::TestCase
     assert stranger.has_role?(other, 'reviewer')
   end
 
+  test 'orga cannot destroy a foreign grant by spoofing its conference_id' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    member = crew_with('reviewer', conference: other)
+    row = member.conference_users.reload.first
+    sign_in orga
+    assert_no_difference('ConferenceUser.count') do
+      put :update, params: {
+        user: { id: member.id, conference_users_attributes: {
+          '0' => { id: row.id, conference_id: @conference.id, _destroy: '1' }
+        } },
+        person_id: member.person.id
+      }
+    end
+  end
+
+  test 'orga cannot move a foreign grant by spoofing its conference_id' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    member = crew_with('reviewer', conference: other)
+    row = member.conference_users.reload.first
+    sign_in orga
+    put :update, params: {
+      user: { id: member.id, conference_users_attributes: {
+        '0' => { id: row.id, conference_id: @conference.id, role: 'reviewer' }
+      } },
+      person_id: member.person.id
+    }
+    assert_equal other.id, row.reload.conference_id
+  end
+
+  test 'orga cannot move their own grant onto a conference they do not organize' do
+    other = create(:conference)
+    orga = crew_with('orga')
+    row = orga.conference_users.reload.first
+    sign_in orga
+    put :update, params: {
+      user: { id: orga.id, conference_users_attributes: {
+        '0' => { id: row.id, conference_id: other.id, role: 'orga' }
+      } },
+      person_id: orga.person.id
+    }
+    assert_equal @conference.id, row.reload.conference_id
+    assert_not orga.reload.is_orga_of?(other)
+  end
+
   test 'orga cannot create a new account with orga on an unrelated conference' do
     other = create(:conference)
     orga = crew_with('orga')

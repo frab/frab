@@ -105,14 +105,31 @@ class UsersController < BaseCrewController
 
   # Drop any conference role grant the current user is not entitled to make.
   # Managing a conference's crew is an orga-only power, so only rows for
-  # conferences the current user organizes survive.
+  # conferences the current user organizes survive. For existing rows the
+  # authoritative conference is the stored one, not the submitted parameter,
+  # so a spoofed conference_id cannot move or destroy a foreign grant. Existing
+  # rows may not be moved to another conference at all.
   def filter_conference_users(conference_users)
     return if conference_users.blank?
 
-    orga_conferences = current_user.organizes_conferences.map(&:conference_id)
-    conference_users.delete_if do |_, conference_user|
-      conference_id = conference_user[:conference_id]
-      conference_id.nil? || !orga_conferences.include?(conference_id.to_i)
+    orga_conference_ids = current_user.organizes_conferences.map(&:conference_id)
+    conference_users.delete_if do |_, attributes|
+      conference_id = target_conference_id(attributes)
+      conference_id.nil? || orga_conference_ids.exclude?(conference_id) ||
+        moves_conference?(attributes, conference_id)
     end
+  end
+
+  def target_conference_id(attributes)
+    if attributes[:id].present?
+      ConferenceUser.where(id: attributes[:id]).pick(:conference_id)
+    else
+      attributes[:conference_id].presence&.to_i
+    end
+  end
+
+  def moves_conference?(attributes, stored_conference_id)
+    submitted = attributes[:conference_id].presence&.to_i
+    attributes[:id].present? && submitted.present? && submitted != stored_conference_id
   end
 end
