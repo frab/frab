@@ -24,6 +24,7 @@ class UsersController < BaseCrewController
 
   # POST /users
   def create
+    filter_conference_users(params[:user][:conference_users_attributes]) unless current_user.is_admin?
     @user = authorize User.new(user_params)
 
     set_allowed_user_roles(user_params[:role], 'submitter')
@@ -48,7 +49,7 @@ class UsersController < BaseCrewController
     set_allowed_user_roles(params[:user][:role])
     params[:user].delete(:role)
 
-    filter_conference_users(params[:user][:conference_users_attributes]) if orga_modifies_conference_users?
+    filter_conference_users(params[:user][:conference_users_attributes]) unless current_user.is_admin?
 
     respond_to do |format|
       if params[:user].present? and @user.update(user_params)
@@ -79,11 +80,6 @@ class UsersController < BaseCrewController
     policy(Conference).orga? && User::USER_ROLES.include?(role)
   end
 
-  def orga_modifies_conference_users?
-    return if current_user.is_admin?
-    policy(Conference).orga? && params[:user][:conference_users_attributes].present?
-  end
-
   def set_allowed_user_roles(role, fallback=nil)
     if current_user.is_admin?
       @user.role = role
@@ -107,8 +103,13 @@ class UsersController < BaseCrewController
     @user = authorize @person.user
   end
 
+  # Drop any conference role grant the current user is not entitled to make.
+  # Managing a conference's crew is an orga-only power, so only rows for
+  # conferences the current user organizes survive.
   def filter_conference_users(conference_users)
-    orga_conferences = policy_scope(current_user.conference_users).map(&:conference_id)
+    return if conference_users.blank?
+
+    orga_conferences = current_user.organizes_conferences.map(&:conference_id)
     conference_users.delete_if do |_, conference_user|
       conference_id = conference_user[:conference_id]
       conference_id.nil? || !orga_conferences.include?(conference_id.to_i)
