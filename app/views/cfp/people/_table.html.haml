@@ -34,13 +34,13 @@
           = link_to t("edit"), edit_cfp_event_path(event), class: "btn btn-primary btn-sm"
           - if @conference.event_state_visible || @conference.schedule_open?
             - if event.state == "unconfirmed"
-              = token = @person.confirmation_token(event)
+              - token = @person.confirmation_token(event)
               - if token
-                = link_to t("cfp.confirm"),  cfp_event_confirm_by_token_path(event.id, token: token), method: :post, class: "btn btn-success btn-sm"
+                = action_button t("cfp.confirm"),  cfp_event_confirm_by_token_path(event.id, token: token), method: :post, class: "btn btn-success btn-sm"
             - if event.transition_possible? :withdrawn and event.start_time and event.start_time > Time.now
-              = link_to t("cfp.withdraw"), withdraw_cfp_event_path(event), data: { controller: "confirm", action: "click->confirm#confirm", "confirm-message-value": t("cfp.withdrawal_confirmation") }, method: :put, class: "btn btn-danger btn-sm"
+              = action_button t("cfp.withdraw"), withdraw_cfp_event_path(event), data: { controller: "confirm", action: "click->confirm#confirm", "confirm-message-value": t("cfp.withdrawal_confirmation") }, method: :put, class: "btn btn-danger btn-sm"
           - if @conference.schedule_open? && event.transition_possible?(:accept)
-            = link_to t("cfp.accept"), accept_cfp_event_path(event), method: :put, class: "btn btn-success btn-sm"
+            = action_button t("cfp.accept"), accept_cfp_event_path(event), method: :put, class: "btn btn-success btn-sm"
       - if @conference.feedback_enabled
         - event.event_feedbacks.each do |feedback|
           - next if feedback.comment.blank?
