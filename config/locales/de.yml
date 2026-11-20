@@ -247,6 +247,7 @@ de:
   call_for_participation_short: Aufruf
   cancel: Abbrechen
   cfp:
+    accept: Annehmen
     abstract_hint: Ein kurzer, prägnanter Absatz zu Ihrer Person. (HTML)
     attachements_may_be_saved: |
       Hinweis: Informationen, die Sie hier eingeben, einschließlich Dateianhänge und Links, können sein

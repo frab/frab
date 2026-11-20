@@ -250,6 +250,7 @@ en:
   cancel: Cancel
   cfp:
     abstract_hint: One short paragraph that succinctly describes you. (HTML)
+    accept: accept
     attachements_may_be_saved: |
       Note: Information you enter here, including file attachments and links, may be
       retained and be available to conference crew even after you remove it from the
